@@ -1,6 +1,6 @@
 # jiinwoojin | admin-view
 
-## 기본세팅
+## 적용라이브러리
 
 	1. Spring Boot
 	2. Gradle
@@ -10,6 +10,12 @@
  	6. jQuery
  	7. DataTables
  	8. Chart.js
+
+## 기본세팅
+
+	1. Main Class : com.jiin.admin.starter.AdminWebApplication
+	2. 환경설정 : resources/application.yml
+	3. 포트 : 8077
 
 ## 기본실행
 
