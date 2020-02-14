@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/publish-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">CesiumJS 지도 도시</h1>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/view/publish/s03-map-cesium-js">지도 도시</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">CesiumJS 지도 도시</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <link rel="stylesheet" th:href="@{/gis/cesium-1.65/Widgets/widgets.css}">
+    <script th:src="@{/bootstrap/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/gis/cesium-1.65/Cesium.js}"></script>
+
+    <div id="map" style="height: 70vh;"></div>
+    <script>
+        var viewer = new Cesium.Viewer('map', {
+            sceneMode: Cesium.SceneMode.SCENE3D,
+            timeline: false,
+            animation: false,
+            infoBox: false,
+            scene3DOnly : true,
+            baseLayerPicker : false,
+            requestRenderMode : true,
+            geocoder : false,
+            contextOptions : {
+                webgl : {
+                    preserveDrawingBuffer : true
+                }
+            },
+            navigationHelpButton : false,
+            selectionIndicator : false,
+            navigationInstructionsInitiallyVisible : false,
+            fullscreenButton : false,
+            homeButton : false
+        });
+
+        viewer.scene.globe = new Cesium.Globe(Cesium.Ellipsoid.WGS84);
+
+        viewer.scene.logarithmicDepthBuffer = false;
+
+        viewer.scene.globe.enableLighting = true;
+
+        $('.cesium-widget-credits').hide();
+
+        /*var osmImageryProvider = Cesium.createOpenStreetMapImageryProvider();
+        viewer.imageryLayers.addImageryProvider(osmImageryProvider);*/
+
+        var osm = new Cesium.OpenStreetMapImageryProvider({
+            url : 'http://c.tile.stamen.com/watercolor/'
+        });
+
+        viewer.imageryLayers.addImageryProvider(osm);
+
+        viewer.camera.flyTo({
+            destination : Cesium.Cartesian3.fromDegrees(127.0, 27.0, 1000000),
+            orientation : {
+                heading : Cesium.Math.toRadians(0.0),
+                pitch : Cesium.Math.toRadians(-40.0),
+                roll : 0.0
+            }
+        });
+    </script>
+</th:block>
+</html>

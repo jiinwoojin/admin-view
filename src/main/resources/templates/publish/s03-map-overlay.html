@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/publish-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">레이어 중첩 도시</h1>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/view/publish/s03-map-openlayers">지도 도시</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">레이어 중첩 도시</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <link rel="stylesheet" th:href="@{/gis/openlayers-6.1.1/ol.css}">
+    <script th:src="@{/gis/openlayers-6.1.1/ol.js}"></script>
+
+    <div id="preview_block">
+        <div class="row">
+            <!-- 보유 레이어 목록 -->
+            <div class="col-md-4">
+                <table id="list_table" class="table table-sm table-striped">
+                    <thead class="table-info">
+                    <tr>
+                        <th scope="col" class="text-center">레이어 이름</th>
+                        <th scope="col" class="text-center">레이어 투명 조절 / 보이기</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center align-middle">
+                                레이어 A
+                            </td>
+                            <td class="text-center align-middle">
+                                <fieldset id="layer0">
+                                    <input class="opacity form-control-range" type="range" min="0" max="1" step="0.01" />
+                                    <input type="checkbox" class="visible" id="visible0" />
+                                    <label for="visible0"> 보이기</label>
+                                </fieldset>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center align-middle">
+                                레이어 B
+                            </td>
+                            <td class="text-center align-middle">
+                                <fieldset id="layer1">
+                                    <input class="opacity form-control-range" type="range" min="0" max="1" step="0.01" />
+                                    <input type="checkbox" class="visible" id="visible1" />
+                                    <label for="visible1"> 보이기</label>
+                                </fieldset>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center align-middle">
+                                레이어 C
+                            </td>
+                            <td class="text-center align-middle">
+                                <fieldset id="layer2">
+                                    <input class="opacity form-control-range" type="range" min="0" max="1" step="0.01" />
+                                    <input type="checkbox" class="visible" id="visible2" />
+                                    <label for="visible2"> 보이기</label>
+                                </fieldset>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Openlayers Viewer -->
+            <div class="col-md-8">
+                <div id="map" class="map" style="height : calc(100vh - 340px);"></div>
+
+                <div class="d-flex justify-content-between my-1">
+                    <div id="military-position">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-sm btn-info">
+                                <i class="fas fa-fighter-jet"></i> 군대부호
+                            </button>
+                            <button type="button" class="btn btn-sm btn-info">
+                                <i class="fas fa-vector-square"></i> 투명도
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 축척 표시 -->
+                    <div id="download-position">
+                        <a class="btn btn-sm btn-info text-white" type="button" id="download-btn" th:download="${ #dates.format(#dates.createNow(), 'yyyyMMdd_HHmm') + '_capture.png' }">
+                            <i class="fas fa-download"></i> 다운로드
+                        </a>
+                        <button type="button" class="btn btn-sm btn-primary">
+                            <i class="fas fa-cube"></i> 3차원 변환
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                // 지도 타일 레이어
+                var osmLayer = new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                });
+
+                // [경도(북위이면 양수), 위도(동경이면 양수)] EPSG 는 WGS84 체계로 사용하는 경도와 위도의 상수.
+                var seoul = ol.proj.transform([127.0016985, 37.5642135], 'EPSG:4326', 'EPSG:3857');
+
+                // view 는 보여지게 될 도시와 확대 여부를 설정함.
+                var view = new ol.View({
+                    center: seoul,
+                    zoom: 5
+                });
+
+                // 화면에 보여지는 Map 개체 생성.
+                var map = new ol.Map({
+                    target: 'map'
+                });
+
+                // 지도 타일 레이어 추가.
+                map.addLayer(osmLayer);
+
+                // 보여지게 될 설정을 추가.
+                map.setView(view);
+            </script>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#list_table').DataTable({
+                "language" : {
+                    "lengthMenu" : "페이지 단위 : _MENU_ 건",
+                    "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                    "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                    "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                    "infoFiltered" : "(총 _TOTAL_ 건)",
+                    "search" : "검색 키워드 : ",
+                    "paginate": {
+                        "first" : "<<",
+                        "last" : ">>",
+                        "next" : ">",
+                        "previous" : "<"
+                    }
+                }
+            });
+        });
+    </script>
+</th:block>
+</html>

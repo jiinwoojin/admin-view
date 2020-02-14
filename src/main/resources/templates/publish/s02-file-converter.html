@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/publish-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h2 mb-0 text-gray-800">스타일 컨버터</h1>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/view/publish/s02-file-converter">스타일</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">스타일 컨버터</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <script th:src="@{/dropzone/dist/dropzone.js}"></script>
+    <link rel="stylesheet" th:href="@{/dropzone/dist/dropzone.css}">
+    <form action="#" class="dropzone"></form>
+
+    <div class="progress mt-1 mb-1">
+        <div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+            <i class="fas fa-check"> 변경 완료</i>
+        </div>
+    </div>
+</th:block>
+</html>

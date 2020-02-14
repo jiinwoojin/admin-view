@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/publish-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">파일 변경 이력</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-sync fa-sm text-white-50"></i> 새로고침
+    </a>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">서버</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">파일 변경 이력</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <div id="file_history_list_view">
+        <table id="list_table" class="table table-sm table-striped">
+            <thead class="table-info">
+            <tr>
+                <th scope="col" class="text-center">파일 이름</th>
+                <th scope="col" class="text-center">이동 타입</th>
+                <th scope="col" class="text-center">이동 경로</th>
+                <th scope="col" class="text-center">크기</th>
+                <th scope="col" class="text-center">관리자</th>
+                <th scope="col" class="text-center">이동 일자</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">AMoveShape.shp</td>
+                    <td class="text-center">서버 자체</td>
+                    <td class="text-center">SI &gt; N-SI</td>
+                    <td class="text-center">12.345 MB</td>
+                    <td class="text-center">Vector Admin</td>
+                    <td class="text-center">2020-02-11 14:00</td>
+                </tr>
+                <tr>
+                    <td class="text-center">BMoveShape.shp</td>
+                    <td class="text-center">센터 이동</td>
+                    <td class="text-center">B &gt; A</td>
+                    <td class="text-center">23.345 MB</td>
+                    <td class="text-center">Vector Admin</td>
+                    <td class="text-center">2020-02-11 14:00</td>
+                </tr>
+                <tr>
+                    <td class="text-center">CMoveRaster.tif</td>
+                    <td class="text-center">자체 업로드</td>
+                    <td class="text-center">B 센터</td>
+                    <td class="text-center">3.4567 GB</td>
+                    <td class="text-center">Raster Admin</td>
+                    <td class="text-center">2020-02-11 14:00</td>
+                </tr>
+            </tbody>
+        </table>
+        <script>
+            $(document).ready(function() {
+                $('#list_table').DataTable({
+                    "language" : {
+                        "lengthMenu" : "자료 길이 _MENU_",
+                        "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                        "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                        "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                        "infoFiltered" : "(총 _TOTAL_ 건)",
+                        "search" : "검색 키워드",
+                        "paginate": {
+                            "first" : "<<",
+                            "last" : ">>",
+                            "next" : ">",
+                            "previous" : "<"
+                        }
+                    }
+                });
+            });
+        </script>
+    </div>
+</th:block>
+</html>

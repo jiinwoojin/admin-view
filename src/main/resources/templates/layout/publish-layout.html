@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <th:block th:replace="fragments/html-head"></th:block>
+        <title>Solution Publish</title>
+    </head>
+    <body id="page-top">
+        <div id="wrapper">
+            <!-- Side Bar -->
+            <th:block th:replace="fragments/publish/html-pub-side"></th:block>
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <!-- Top Bar -->
+                    <th:block th:replace="fragments/publish/html-pub-header-bar"></th:block>
+                    <!-- End of Top Bar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- Page Title -->
+                        <th:block th:replace="fragments/html-content-title"></th:block>
+                        <!-- End of Page Title -->
+
+                        <!-- Breadcrumb Content -->
+                        <div id="breadcrumb" class="mt-1 mb-1">
+                            <th:block layout:fragment="content-breadcrumb-fragment"></th:block>
+                        </div>
+                        <!-- End of Breadcrumb -->
+
+                        <!-- Page Content -->
+                        <th:block layout:fragment="content-body-fragment"></th:block>
+                        <!-- End of Page Content -->
+
+                    </div>
+                    <!-- End of Begin Page -->
+
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <th:block th:replace="fragments/html-footer"></th:block>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+
+        <!-- Top Link -->
+        <th:block th:replace="fragments/html-top"></th:block>
+
+        <!-- Modal Box -->
+
+
+        <!-- JavaScript Importing -->
+        <th:block th:replace="fragments/html-js-import"></th:block>
+    </body>
+</html>

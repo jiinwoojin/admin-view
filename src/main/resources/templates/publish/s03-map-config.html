@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/publish-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">서비스 환경 설정</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-save fa-sm text-white-50"></i> 저장
+    </a>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/view/publish/s03-map-config">지도 도시</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">서비스 환경 설정</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <form>
+        <div class="form-group">
+            <label>버전</label>
+            <input class="form-control" id="version" placeholder="1.1.1" />
+        </div>
+
+        <div class="form-group">
+            <label>좌표계</label>
+            <input class="form-control" id="srs" placeholder="EPSG:4326" />
+        </div>
+
+        <div class="form-group">
+            <label>BBOX 좌표계</label>
+            <input class="form-control" id="bbox_srs" placeholder="EPSG:4326" />
+        </div>
+
+        <div class="form-group">
+            <label>이미지 포맷</label>
+            <input class="form-control" id="format" placeholder="image/jpeg, image/png..." />
+        </div>
+
+        <div class="form-group">
+            <label>제공 해상도</label>
+            <input class="form-control" id="output_pixel" placeholder="1920 x 1080" />
+        </div>
+
+        <div class="form-group">
+            <label>어트리뷰션</label>
+            <input class="form-control" id="attribution" placeholder="(C) Company" />
+        </div>
+    </form>
+</th:block>
+</html>

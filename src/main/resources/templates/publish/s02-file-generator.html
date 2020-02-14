@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/publish-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">Mapfile 데이터 생성</h1>
+    <a href="/view/publish/s02-file-list" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-save fa-sm text-white-50"></i> 저장하기</a>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/view/publish/s02-file-list">지도 데이터</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">지도 데이터 생성</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <form autocomplete="off">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="map-name">지도 이름</label>
+                    <input type="text" class="form-control" name="name" id="map-name" value="">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="map-status">작동 여부</label>
+                    <select class="form-control" name="status" id="map-status">
+                        <option value="ON">ON</option>
+                        <option value="OFF">OFF</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="map-size-x">지도 크기</label>
+                    <div class="row no-gutters">
+                        <div class="col-6">
+                            <input type="number" min="0" class="form-control text-right" name="size-x" id="map-size-x" value="">
+                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> 가로</small>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" min="0" class="form-control text-right" name="size-y" id="map-size-y" value="">
+                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> 세로</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="map-projection">투영 방식</label>
+                    <input type="text" class="form-control" name="projection" id="map-projection" value="">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="map-units">측정 단위</label>
+                    <select class="form-control" name="units" id="map-units">
+                        <option value="DD">DD</option>
+                        <option value="FEET">FEET</option>
+                        <option value="INCHES">INCHES</option>
+                        <option value="KILOMETERS">KILOMETERS</option>
+                        <option value="METERS">METERS</option>
+                        <option value="MILES">MILES</option>
+                        <option value="NAUTICALMILES">NAUTICALMILES</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="map-extent-minx">위도 / 경도 범위</label>
+                    <div class="row no-gutters">
+                        <div class="col-3">
+                            <input type="text" class="form-control text-right" name="extent-minx" id="map-extent-minx" value="">
+                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> Min. X</small>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control text-right" name="extent-miny" id="map-extent-miny" value="">
+                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> Min. Y</small>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control text-right" name="extent-maxx" id="map-extent-maxx" value="">
+                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> Max. X</small>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control text-right" name="extent-maxy" id="map-extent-maxy" value="">
+                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> Max. Y</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div id="class-list">
+        <h3>레이어 목록</h3>
+        <div class="text-right mb-1">
+            <button class="btn btn-success mr-1">
+                <i class="fas fa-plus"></i> 레이어 추가
+            </button>
+
+            <button class="btn btn-danger ml-1">
+                <i class="fas fa-trash"></i> 레이어 삭제
+            </button>
+        </div>
+        <table class="table table-striped text-center">
+            <thead>
+            <tr>
+                <th>체크</th>
+                <th>이름</th>
+                <th>그룹</th>
+                <th>타입</th>
+                <th>연결 타입</th>
+                <th>투영 방법</th>
+                <th>작동 여부</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="checkbox" class="form-check" /></td>
+                <td>ABCDE</td>
+                <td>OOOOO</td>
+                <td>ABCDE</td>
+                <td>OOOOO</td>
+                <td>ABCDE</td>
+                <td>ON</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" class="form-check" /></td>
+                <td>ABCDE</td>
+                <td>OOOOO</td>
+                <td>ABCDE</td>
+                <td>OOOOO</td>
+                <td>ABCDE</td>
+                <td>OFF</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</th:block>
+</html>

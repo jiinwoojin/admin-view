@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="html-pub-side">
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/view/publish/home">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-globe-asia"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">JIMap Server 3.4</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="/view/publish/s00-dash-board">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>대시보드</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            지도 관리
+        </div>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse0" aria-expanded="true" aria-controls="collapse1">
+                <i class="fas fa-fw fa-layer-group"></i>
+                <span>지도 데이터</span>
+            </a>
+            <div id="collapse0" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/view/publish/s01-data-list">지도 관리</a>
+                    <a class="collapse-item" href="/view/publish/s02-file-list">Mapfile 관리</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                <i class="fas fa-fw fa-paint-brush"></i>
+                <span>스타일</span>
+            </a>
+            <div id="collapse1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/view/publish/s02-file-converter">스타일 컨버터</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+                <i class="fas fa-fw fa-map"></i>
+                <span>지도 도시</span>
+            </a>
+            <div id="collapse3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/view/publish/s03-map-openlayers">Openlayers 지도 도시</a>
+                    <a class="collapse-item" href="/view/publish/s03-map-mapbox-gl">Mapbox 지도 도시</a>
+                    <a class="collapse-item" href="/view/publish/s03-map-cesium-js">CesiumJS 지도 도시</a>
+                    <a class="collapse-item" href="/view/publish/s03-map-overlay">레이어 중첩 도시</a>
+                    <a class="collapse-item" href="/view/publish/s03-map-config">서비스 환경 설정</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse3-vir" aria-expanded="true" aria-controls="collapse3-vir">
+                <i class="fas fa-fw fa-chart-line"></i>
+                <span>지도 가시화</span>
+            </a>
+            <div id="collapse3-vir" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/view/publish/s07-virtualize-ol-ext">Openlayers 가시화</a>
+                    <a class="collapse-item" href="/view/publish/s07-virtualize-mapbox-ext">Mapbox 가시화</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            시스템 관리
+        </div>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+                <i class="fas fa-fw fa-server"></i>
+                <span>서버</span>
+            </a>
+            <div id="collapse4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/view/publish/s04-system-status">서비스 상태 확인</a>
+                    <a class="collapse-item" href="/view/publish/s04-system-history-list">파일 변경 이력</a>
+                    <a class="collapse-item" href="/view/publish/s04-system-history-config">로그 설정</a>
+                    <a class="collapse-item" href="/view/publish/s04-system-version">버전 정보</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+                <i class="fas fa-fw fa-sync"></i>
+                <span>동기화</span>
+            </a>
+            <div id="collapse5" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/view/publish/s05-sync-database">데이터베이스</a>
+                    <a class="collapse-item" href="/view/publish/s05-sync-file">파일</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">
+            사용자 관리
+        </div>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+                <i class="fas fa-fw fa-users"></i>
+                <span>사용자</span>
+            </a>
+            <div id="collapse6" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/view/publish/s06-auth-list">사용자 관리</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+</body>
+</html>
