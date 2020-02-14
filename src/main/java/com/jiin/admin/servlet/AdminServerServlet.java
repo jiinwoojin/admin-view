@@ -11,10 +11,8 @@ import org.springframework.web.servlet.DispatcherServlet;
 @Configuration
 public class AdminServerServlet {
 	public static final String CONTEXT_PATH = "server";
-	public static final String EXTENSION = "jiin";
-	public static final String WELCOME_PATH = "welcome." + EXTENSION;
 	@Bean
-	public ServletRegistrationBean servletRegistration() {
+	public ServletRegistrationBean serverServletRegistration() {
 		AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
 		applicationContext.register(AdminServerConfig.class);
 		DispatcherServlet dispatcherServlet = new DispatcherServlet();

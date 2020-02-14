@@ -1,4 +1,4 @@
-package com.jiin.admin.starter;
+package com.jiin.admin.config;
 
 import com.jiin.admin.servlet.AdminViewServlet;
 import org.springframework.stereotype.Controller;
@@ -11,9 +11,8 @@ import java.io.IOException;
 
 
 @Controller
-@RequestMapping(value="/")
 public class RootController {
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value="/", method = RequestMethod.GET)
     public void welcome(HttpServletResponse response) throws IOException {
         response.sendRedirect(AdminViewServlet.CONTEXT_PATH + "/" + AdminViewServlet.WELCOME_PATH);
     }

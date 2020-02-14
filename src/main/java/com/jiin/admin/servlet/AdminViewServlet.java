@@ -14,7 +14,7 @@ public class AdminViewServlet {
 	public static final String EXTENSION = "jiin";
 	public static final String WELCOME_PATH = "welcome." + EXTENSION;
 	@Bean
-	public ServletRegistrationBean servletRegistration() {
+	public ServletRegistrationBean viewServletRegistration() {
 		AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
 		applicationContext.register(AdminViewConfig.class);
 		DispatcherServlet dispatcherServlet = new DispatcherServlet();

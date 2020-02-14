@@ -1,4 +1,4 @@
-package com.jiin.admin.website.view;
+package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.servlet.AdminViewServlet;
 import org.springframework.stereotype.Controller;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("publish")
-public class AdminPublishController {
+public class _PublishController {
     @RequestMapping(value = "home", method = { RequestMethod.GET })
     public String publishHomepage(Model model){
         return "publish/s00-dash-board";

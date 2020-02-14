@@ -1,4 +1,4 @@
-package com.jiin.admin.website.view;
+package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.servlet.AdminServerServlet;
 import com.jiin.admin.servlet.AdminViewServlet;

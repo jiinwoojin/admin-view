@@ -13,6 +13,9 @@ spring:
   thymeleaf:
     cache: false
     prefix: classpath:/templates/
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
   devtools:
     livereload:
       enabled: true
