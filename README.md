@@ -10,6 +10,7 @@
  	6. jQuery
  	7. DataTables
  	8. Chart.js
+ 	
 
 ## 기본세팅
 
@@ -25,3 +26,80 @@
 
 	http://localhost:8077/view/welcome.jiin
 	http://localhost:8077/server/welcome.jiin
+
+## UI 작업물 주소
+
+    http://127.0.0.1:8077/view/s00-dash-board
+        - Home Page (Dashboard)
+    
+    http://127.0.0.1:8077/view/s01-data-list
+        - 지도 데이터 목록 페이지
+        
+    http://127.0.0.1:8077/view/s01-data-detail
+        - 지도 데이터 정보 조회 페이지
+    
+    http://127.0.0.1:8077/view/s01-data-form
+        - 지도 데이터 추가 / 편집 페이지
+        
+    http://127.0.0.1:8077/view/s02-file-converter
+        - 스타일 파일 컨버터 페이지
+        
+    http://127.0.0.1:8077/view/s02-file-generator
+        - Mapfile 생성 페이지
+        
+    http://127.0.0.1:8077/view/s02-file-list
+        - Mapfile 연동 레스터, 벡터 데이터 조회 페이지
+        
+    http://127.0.0.1:8077/view/s02-file-upload
+        - Mapfile 연동 레스터, 벡터 데이터 업로드 페이지
+        
+    http://127.0.0.1:8077/view/s03-map-cache-seed
+        - Map Proxy 기반 Cache Seed 관리 페이지
+        
+    http://127.0.0.1:8077/view/s03-map-cesium-js
+        - 3차원 지도 도시 페이지 (2 차원 지도 도시와 연동 계획)
+    	
+    http://127.0.0.1:8077/view/s03-map-config
+        - Map Proxy 기반 지도 서비스 설정 페이지 
+        
+    http://127.0.0.1:8077/view/s03-map-mapbox-gl
+        - Mapbox GL 엔진 렌더링 페이지
+        
+    http://127.0.0.1:8077/view/s03-map-openlayers
+        - Openlayers 엔진 렌더링 페이지
+        
+    http://127.0.0.1:8077/view/s03-map-overlay
+        - 2 차원 지도 도시 페이지 (중첩 도시, 군대부호, 투명도)
+        
+    http://127.0.0.1:8077/view/s04-system-history-config
+        - Map Server, Map Proxy, Tegola 등 LOG 디렉토리 관리 페이지
+        
+    http://127.0.0.1:8077/view/s04-system-history-list
+        - 파일 동기화 및 업로딩 이력 페이지
+    
+    http://127.0.0.1:8077/view/s04-system-status
+        - Map Server, Map Proxy, Tegola 등 서버 작동 확인 페이지
+        
+    http://127.0.0.1:8077/view/s04-system-version
+        - 시스템 버전 정보 조회 페이지
+        
+    http://127.0.0.1:8077/view/s05-sync-database
+        - PGPool2 기반 DB 동기화 페이지
+        
+    http://127.0.0.1:8077/view/s05-sync-file
+        - Syncthing 기반 파일 동기화 페이지
+        
+    http://127.0.0.1:8077/view/s06-auth-list
+        - 회원 목록 조회 페이지
+        
+    http://127.0.0.1:8077/view/s06-auth-login
+        - 회원 로그인 페이지
+        
+    http://127.0.0.1:8077/view/s06-auth-sign-up
+        - 회원 가입 페이지
+        
+    http://127.0.0.1:8077/view/s07-virtualize-mapbox-ext
+        - Mapbox 기반 시각화 구현 페이지
+        
+    http://127.0.0.1:8077/view/s07-virtualize-ol-ext
+        - Openlayers 기반 시각화 구현 페이지
