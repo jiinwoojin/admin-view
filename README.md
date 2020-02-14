@@ -25,7 +25,7 @@
 ## 기본주소
 
 	http://localhost:8077/view/welcome.jiin
-	http://localhost:8077/server/welcome.jiin
+	http://localhost:8077/server/server-state
 
 ## UI 작업물 주소
 
