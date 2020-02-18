@@ -1,8 +1,8 @@
 ### 스프링 encoding
 spring:
   profiles:
-    ## 개발 : local / 운영 : prod
-    active: "local"
+    ## 개발 : local / 운영 : prod / 외부 : outside(박찬신)
+    active: "outside"
   http:
     encoding:
       charset: UTF-8
