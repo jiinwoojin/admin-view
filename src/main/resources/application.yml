@@ -1,7 +1,8 @@
-project:
-  base-resource-dir: classpath:/
 ### 스프링 encoding
 spring:
+  profiles:
+    ## 개발 : local / 운영 : prod
+    active: "local"
   http:
     encoding:
       charset: UTF-8
