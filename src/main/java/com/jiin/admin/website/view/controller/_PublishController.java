@@ -1,6 +1,5 @@
 package com.jiin.admin.website.view.controller;
 
-import com.jiin.admin.servlet.AdminViewServlet;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// Admin View UI 작업물 (~ 2020.02.14.)
+// 디렉토리 Ref : resources/templates/publish
 @Controller
 @RequestMapping("publish")
 public class _PublishController {

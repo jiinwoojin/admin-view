@@ -19,18 +19,55 @@
     <link rel="stylesheet" th:href="@{/gis/openlayers-6.1.1/ol.css}">
     <script th:src="@{/gis/openlayers-6.1.1/ol.js}"></script>
 
+    <script th:src="@{/jquery/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/page/map-overlay.js}"></script>
+
     <div id="preview_block">
-        <div class="row">
-            <!-- 보유 레이어 목록 -->
-            <div class="col-md-4">
-                <table id="list_table" class="table table-sm table-striped">
-                    <thead class="table-info">
-                    <tr>
-                        <th scope="col" class="text-center">레이어 이름</th>
-                        <th scope="col" class="text-center">레이어 투명 조절 / 보이기</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+        <div id="map" class="map" style="height : calc(100vh - 340px);"></div>
+
+        <div class="d-flex justify-content-between my-1">
+            <div id="military-position">
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#layer_modal" data-backdrop="false">
+                    <i class="fas fa-layer-group"></i> 레이어
+                </button>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#shape_modal" data-backdrop="false">
+                        <i class="fas fa-vector-square"></i> 투명도
+                    </button>
+                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#military_modal" data-backdrop="false">
+                        <i class="fas fa-fighter-jet"></i> 군대부호
+                    </button>
+                </div>
+            </div>
+
+            <!-- 축척 표시 -->
+            <div id="download-position">
+                <a class="btn btn-sm btn-info text-white" type="button" id="download-btn" th:download="${ #dates.format(#dates.createNow(), 'yyyyMMdd_HHmm') + '_capture.png' }">
+                    <i class="fas fa-download"></i> 다운로드
+                </a>
+                <button type="button" class="btn btn-sm btn-primary">
+                    <i class="fas fa-cube"></i> 3차원 변환
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="layer_modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">레이어 목록</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="pt-1 pb-1">
+                        <table id="list_table" class="table table-sm table-striped">
+                        <thead class="table-info">
+                        <tr>
+                            <th scope="col" class="text-center">레이어 이름</th>
+                            <th scope="col" class="text-center">레이어 투명 조절 / 보이기</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         <tr>
                             <td class="text-center align-middle">
                                 레이어 A
@@ -67,64 +104,132 @@
                                 </fieldset>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Openlayers Viewer -->
-            <div class="col-md-8">
-                <div id="map" class="map" style="height : calc(100vh - 340px);"></div>
-
-                <div class="d-flex justify-content-between my-1">
-                    <div id="military-position">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-sm btn-info">
-                                <i class="fas fa-fighter-jet"></i> 군대부호
-                            </button>
-                            <button type="button" class="btn btn-sm btn-info">
-                                <i class="fas fa-vector-square"></i> 투명도
-                            </button>
-                        </div>
+                        </tbody>
+                    </table>
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+                        <i class="fas fa-times"></i> 닫기
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
 
-                    <!-- 축척 표시 -->
-                    <div id="download-position">
-                        <a class="btn btn-sm btn-info text-white" type="button" id="download-btn" th:download="${ #dates.format(#dates.createNow(), 'yyyyMMdd_HHmm') + '_capture.png' }">
-                            <i class="fas fa-download"></i> 다운로드
-                        </a>
-                        <button type="button" class="btn btn-sm btn-primary">
-                            <i class="fas fa-cube"></i> 3차원 변환
+    <div class="modal fade" id="shape_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">투명도 추가</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="pt-1 pb-1">
+                        <!-- 점 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_point.png}" />
+                        </button>
+
+                        <!-- 선 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_line.png}" />
+                        </button>
+
+                        <!-- 연속 선 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_continuous_line.png}" />
+                        </button>
+
+                        <!-- 면 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_polygon.png}" />
+                        </button>
+
+                        <!-- 곡선 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_curve.png}" />
+                        </button>
+
+                        <!-- 곡선 면 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_curve_polygon.png}" />
+                        </button>
+
+                        <!-- 원 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_circle.png}" />
+                        </button>
+
+                        <!-- 정사각형 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_square.png}" />
+                        </button>
+
+                        <!-- 직사각형 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_rectangle.png}" />
+                        </button>
+
+                        <!-- 원형 직사각형 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_circled_rectangle.png}" />
+                        </button>
+
+                        <!-- 호 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_curve.png}" />
+                        </button>
+
+                        <!-- 활꼴 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_bow.png}" />
+                        </button>
+
+                        <!-- 부채꼴 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_circular_sector.png}" />
+                        </button>
+
+                        <!-- 삼각형 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_triangle.png}" />
+                        </button>
+
+                        <!-- 문자 -->
+                        <button class="btn btn-sm">
+                            <img width="25px" th:src="@{/img/shape/btn_text.png}" />
                         </button>
                     </div>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+                        <i class="fas fa-times"></i> 닫기
+                    </button>
+                </div>
             </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
 
-            <script>
-                // 지도 타일 레이어
-                var osmLayer = new ol.layer.Tile({
-                    source: new ol.source.OSM()
-                });
-
-                // [경도(북위이면 양수), 위도(동경이면 양수)] EPSG 는 WGS84 체계로 사용하는 경도와 위도의 상수.
-                var seoul = ol.proj.transform([127.0016985, 37.5642135], 'EPSG:4326', 'EPSG:3857');
-
-                // view 는 보여지게 될 도시와 확대 여부를 설정함.
-                var view = new ol.View({
-                    center: seoul,
-                    zoom: 5
-                });
-
-                // 화면에 보여지는 Map 개체 생성.
-                var map = new ol.Map({
-                    target: 'map'
-                });
-
-                // 지도 타일 레이어 추가.
-                map.addLayer(osmLayer);
-
-                // 보여지게 될 설정을 추가.
-                map.setView(view);
-            </script>
+    <div class="modal fade" id="military_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">군대부호 추가</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="pt-1 pb-1">
+                        <p>군대부호 추가</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+                        <i class="fas fa-times"></i> 닫기
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
         </div>
     </div>
 
