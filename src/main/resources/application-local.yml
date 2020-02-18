@@ -1,0 +1,9 @@
+project:
+  path:
+    cache: classpath:/static/data/cache/
+    data: classpath:/static/data/data/
+    mapnik: classpath:/static/data/mapnik/
+    mapserver: classpath:/static/data/mapserver/
+    proxy: classpath:/static/data/proxy/
+    tmp: classpath:/static/data/tmp/
+    vectortiles: classpath:/static/data/vectortiles/
