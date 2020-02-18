@@ -1,9 +1,9 @@
 project:
   map-datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://211.172.246.71:5000/mims
-    userName: jiserver
-    password: jiserver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
     mybatis-configPath: classpath:/mybatis/mybatis-config.xml
     mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
   path:

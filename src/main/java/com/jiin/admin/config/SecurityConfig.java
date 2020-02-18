@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/error").permitAll()
             .antMatchers("/view/publish/**").permitAll()
             .antMatchers("/view/welcome.jiin").permitAll()
+            .antMatchers("/server/server-state").permitAll()
             .antMatchers("/view/auth/**").permitAll()
             .antMatchers("/**").authenticated();
 
