@@ -82,4 +82,6 @@ $(document).ready(function() {
     modal_draggable('#layer_modal');
     modal_draggable('#shape_modal');
     modal_draggable('#military_modal');
+
+    $('.btn-overlay').tooltip()
 });

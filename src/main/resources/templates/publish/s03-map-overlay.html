@@ -135,88 +135,13 @@
     </div>
 
     <div class="modal fade" id="shape_modal">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">투명도 추가</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="pt-1 pb-1">
-                        <!-- 점 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_point.png}" />
-                        </button>
-
-                        <!-- 선 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_line.png}" />
-                        </button>
-
-                        <!-- 연속 선 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_continuous_line.png}" />
-                        </button>
-
-                        <!-- 면 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_polygon.png}" />
-                        </button>
-
-                        <!-- 곡선 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_curve.png}" />
-                        </button>
-
-                        <!-- 곡선 면 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_curve_polygon.png}" />
-                        </button>
-
-                        <!-- 원 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_circle.png}" />
-                        </button>
-
-                        <!-- 정사각형 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_square.png}" />
-                        </button>
-
-                        <!-- 직사각형 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_rectangle.png}" />
-                        </button>
-
-                        <!-- 원형 직사각형 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_circled_rectangle.png}" />
-                        </button>
-
-                        <!-- 호 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_curve.png}" />
-                        </button>
-
-                        <!-- 활꼴 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_bow.png}" />
-                        </button>
-
-                        <!-- 부채꼴 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_circular_sector.png}" />
-                        </button>
-
-                        <!-- 삼각형 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_triangle.png}" />
-                        </button>
-
-                        <!-- 문자 -->
-                        <button class="btn btn-sm">
-                            <img width="25px" th:src="@{/img/shape/btn_text.png}" />
-                        </button>
-                    </div>
+                    <th:block th:replace="fragments/overlay/html-overlay-main"></th:block>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">

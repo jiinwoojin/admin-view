@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!-- 투명도 추가 기능 분리 -->
+<body th:fragment="html-overlay-main">
+    <div class="pt-1 pb-1">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <!-- 점 -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="점" href="#overlay-point" role="tab" aria-controls="overlay-point" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_point.png}" />
+                </a>
+            </li>
+
+            <!-- 단선 -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="단선" href="#overlay-line" role="tab" aria-controls="overlay-line" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_line.png}" />
+                </a>
+            </li>
+
+            <!-- 선 -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="선" href="#overlay-lines" role="tab" aria-controls="overlay-lines" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_lines.png}" />
+                </a>
+            </li>
+
+            <!-- 면 -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="면" href="#overlay-polygon" role="tab" aria-controls="overlay-polygon" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_polygon.png}" />
+                </a>
+            </li>
+
+            <!-- 곡선 -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="곡선" href="#overlay-curve" role="tab" aria-controls="overlay-curve" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_curve.png}" />
+                </a>
+            </li>
+
+            <!-- 곡선 면 -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="곡선 면" href="#overlay-curve-polygon" role="tab" aria-controls="overlay-curve-polygon" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_curve_polygon.png}" />
+                </a>
+            </li>
+
+            <!-- 원 -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="원" href="#overlay-circle" role="tab" aria-controls="overlay-circle" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_circle.png}" />
+                </a>
+            </li>
+
+            <!-- 정사각형 -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="정사각형" href="#overlay-square" role="tab" aria-controls="overlay-square" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_square.png}" />
+                </a>
+            </li>
+
+            <!-- 직사각형 -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="직사각형" href="#overlay-rectangle" role="tab" aria-controls="overlay-rectangle" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_rectangle.png}" />
+                </a>
+            </li>
+
+            <!-- 둥근 직사각형 -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="둥근 직사각형" href="#overlay-circled-rectangle" role="tab" aria-controls="overlay-circled-rectangle" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_circled_rectangle.png}" />
+                </a>
+            </li>
+
+            <!-- 호 -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="호" href="#overlay-arc" role="tab" aria-controls="overlay-arc" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_arc.png}" />
+                </a>
+            </li>
+
+            <!-- 활꼴 (현) -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="현" href="#overlay-bow" role="tab" aria-controls="overlay-bow" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_bow.png}" />
+                </a>
+            </li>
+
+            <!-- 부채꼴 (파이) -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="부채꼴" href="#overlay-pie" role="tab" aria-controls="overlay-pie" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_pie.png}" />
+                </a>
+            </li>
+
+            <!-- 삼각형 -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="삼각형" href="#overlay-triangle" role="tab" aria-controls="overlay-triangle" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_triangle.png}" />
+                </a>
+            </li>
+
+            <!-- 텍스트 -->
+            <li class="nav-item">
+                <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="텍스트" href="#overlay-text" role="tab" aria-controls="overlay-text" aria-selected="true">
+                    <img width="25px" th:src="@{/img/shape/btn_text.png}" />
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+            <!-- 점 -->
+            <div class="tab-pane fade show active" id="overlay-point" role="tabpanel">
+                <p>OVERLAY POINT</p>
+            </div>
+
+            <!-- 단선 -->
+            <div class="tab-pane fade" id="overlay-line" role="tabpanel">
+                <p>OVERLAY LINE</p>
+            </div>
+
+            <!-- 선 -->
+            <div class="tab-pane fade" id="overlay-lines" role="tabpanel">
+                <p>OVERLAY LINES</p>
+            </div>
+
+            <!-- 면 -->
+            <div class="tab-pane fade" id="overlay-polygon" role="tabpanel">
+                <p>OVERLAY POLYGON</p>
+            </div>
+
+            <!-- 곡선 -->
+            <div class="tab-pane fade" id="overlay-curve" role="tabpanel">
+                <p>OVERLAY CURVE</p>
+            </div>
+
+            <!-- 곡선 면 -->
+            <div class="tab-pane fade" id="overlay-curve-polygon" role="tabpanel">
+                <p>OVERLAY CURVE POLYGON</p>
+            </div>
+
+            <!-- 원 -->
+            <div class="tab-pane fade" id="overlay-circle" role="tabpanel">
+                <p>OVERLAY CIRCLE</p>
+            </div>
+
+            <!-- 정사각형 -->
+            <div class="tab-pane fade" id="overlay-square" role="tabpanel">
+                <p>OVERLAY SQUARE</p>
+            </div>
+
+            <!-- 직사각형 -->
+            <div class="tab-pane fade" id="overlay-rectangle" role="tabpanel">
+                <p>OVERLAY RECTANGLE</p>
+            </div>
+
+            <!-- 둥근 직사각형 -->
+            <div class="tab-pane fade" id="overlay-circled-rectangle" role="tabpanel">
+                <p>OVERLAY CIRCLED RECTANGLE</p>
+            </div>
+
+            <!-- 호 -->
+            <div class="tab-pane fade" id="overlay-arc" role="tabpanel">
+                <p>OVERLAY ARC</p>
+            </div>
+
+            <!-- 활꼴 (현) -->
+            <div class="tab-pane fade" id="overlay-bow" role="tabpanel">
+                <p>OVERLAY BOW</p>
+            </div>
+
+            <!-- 부채꼴 (파이) -->
+            <div class="tab-pane fade" id="overlay-pie" role="tabpanel">
+                <p>OVERLAY PIE</p>
+            </div>
+
+            <!-- 삼각형 -->
+            <div class="tab-pane fade" id="overlay-triangle" role="tabpanel">
+                <p>OVERLAY TRIANGLE</p>
+            </div>
+
+            <!-- 문자 -->
+            <div class="tab-pane fade" id="overlay-text" role="tabpanel">
+                <p>OVERLAY TEXT</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
