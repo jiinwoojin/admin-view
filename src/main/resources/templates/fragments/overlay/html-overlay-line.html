@@ -1,10 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!-- 투명도 속성 분리 : 선 -->
+<body th:fragment="html-overlay-line(shape)">
+    <div th:id="|line-attributes-${shape}|">
+        <div class="form-group row">
+            <label th:for="|line-color-${shape}|" class="col-sm-4 col-form-label">선 색상</label>
+            <div class="col-sm-8">
+                <input type="text" th:id="|line-color-${shape}|" th:name="|line-color-${shape}|" class="form-control form-control-sm" placeholder="선 색상 입력" />
+            </div>
+        </div>
 
+        <div class="form-group row">
+            <label th:for="|line-size-${shape}|" class="col-sm-4 col-form-label">선 굵기</label>
+            <div class="col-sm-8">
+                <input type="range" th:id="|line-size-${shape}|" th:name="|line-size-${shape}|" class="form-control form-control-range form-control-sm" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label th:for="|line-opacity-${shape}|" class="col-sm-4 col-form-label">선 투명도</label>
+            <div class="col-sm-8">
+                <input type="range" th:id="|line-opacity-${shape}|" th:name="|line-opacity-${shape}|" class="form-control form-control-range form-control-sm" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label th:for="|line-type-${shape}|" class="col-sm-4 col-form-label">선 종류</label>
+            <div class="col-sm-8">
+                <select th:id="|line-type-${shape}|" th:name="|line-type-${shape}|" class="form-control form-control-sm">
+                    <option value="0">실선</option>
+                    <option value="1">점선</option>
+                    <option value="2">둥근모양 점선</option>
+                    <option value="3">일점 쇄선</option>
+                    <option value="4">이점 쇄선</option>
+                    <option value="5">사용자 지정 점선 패턴 적용</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label th:for="|line-start-${shape}|" class="col-sm-4 col-form-label">선끝 시작점 종류</label>
+            <div class="col-sm-8">
+                <select th:id="|line-start-${shape}|" th:name="|line-start-${shape}|" class="form-control form-control-sm">
+                    <option value="0">없음</option>
+                    <option value="1">화살표</option>
+                    <option value="2">화살표(좌)</option>
+                    <option value="3">화살표(우)</option>
+                    <option value="4">...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label th:for="|line-end-${shape}|" class="col-sm-4 col-form-label">선끝 종료점 종류</label>
+            <div class="col-sm-8">
+                <select th:id="|line-end-${shape}|" th:name="|line-end-${shape}|" class="form-control form-control-sm">
+                    <option value="0">없음</option>
+                    <option value="1">화살표</option>
+                    <option value="2">화살표(좌)</option>
+                    <option value="3">화살표(우)</option>
+                    <option value="4">...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label th:for="|line-edge-${shape}|" class="col-sm-4 col-form-label">선 연결 종류</label>
+            <div class="col-sm-8">
+                <select th:id="|line-edge-${shape}|" th:name="|line-edge-${shape}|" class="form-control form-control-sm">
+                    <option value="0">뾰족하게 연결</option>
+                    <option value="1">뾰족한 부분 잘라냄</option>
+                    <option value="2">둥글게 연결</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            $('#line-color-[[${shape}]]').colorpicker();
+        });
+    </script>
 </body>
 </html>
