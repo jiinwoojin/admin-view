@@ -1,7 +1,39 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <!-- 투명도 속성 분리 : 텍스트 -->
-<body th:fragment="html-overlay-text">
-    <p>텍스트 속성</p>
+<body th:fragment="html-overlay-text(shape)">
+    <div th:id="|text-attributes-${shape}|">
+        <div class="form-group row">
+            <label th:for="|text-color-${shape}|" class="col-sm-4 col-form-label">글 색상</label>
+            <div class="col-sm-8">
+                <input type="text" th:id="|text-color-${shape}|" th:name="|text-color-${shape}|" class="form-control form-control-sm" placeholder="글 색상 입력" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label th:for="|text-font-${shape}|" class="col-sm-4 col-form-label">글꼴</label>
+            <div class="col-sm-8">
+                <select th:id="|text-font-${shape}|" th:name="|text-font-${shape}|" class="form-control form-control-sm">
+                    <option value="0">맑은 고딕</option>
+                    <option value="1">궁서체</option>
+                    <option value="2">돋움체</option>
+                    <option value="3">굴림체</option>
+                    <option value="4">...</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label th:for="|text-size-${shape}|" class="col-sm-4 col-form-label">글 크기</label>
+            <div class="col-sm-8">
+                <input type="range" th:id="|text-size-${shape}|" th:name="|text-size-${shape}|" class="form-control form-control-range form-control-sm" />
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function(){
+            $('#text-color-[[${shape}]]').colorpicker();
+        });
+    </script>
 </body>
 </html>

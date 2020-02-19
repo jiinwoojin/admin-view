@@ -126,7 +126,9 @@
         <div class="tab-content" id="pills-tabContent">
             <!-- 점 -->
             <div class="tab-pane fade show active" id="overlay-point" role="tabpanel">
-                <p>OVERLAY POINT</p>
+                <form class="mt-2 mb-2" id="form-point">
+                    <th:block th:replace="fragments/overlay/html-overlay-symbol :: html-overlay-symbol('point')"></th:block>
+                </form>
             </div>
 
             <!-- 단선 -->
@@ -240,7 +242,9 @@
 
             <!-- 문자 -->
             <div class="tab-pane fade" id="overlay-text" role="tabpanel">
-                <p>OVERLAY TEXT</p>
+                <form class="mt-2 mb-2" id="form-text">
+                    <th:block th:replace="fragments/overlay/html-overlay-text :: html-overlay-text('text')"></th:block>
+                </form>
             </div>
         </div>
     </div>
