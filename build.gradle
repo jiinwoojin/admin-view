@@ -53,6 +53,7 @@ dependencies {
     compile 'org.apache.poi:poi:3.16'
     compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.0.5'
     compile gradleApi()
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5:3.0.4.RELEASE'
 }
 configurations {
     compile.exclude group:'ch.qos.logback'

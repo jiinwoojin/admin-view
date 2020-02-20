@@ -7,10 +7,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
+@EnableWebSecurity
 @ComponentScan({ "com.jiin.admin.website.security" })
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -50,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/view/publish/**").permitAll()
             .antMatchers("/view/welcome.jiin").permitAll()
             .antMatchers("/server/server-state").permitAll()
+            .antMatchers("/view/home/guest").permitAll()
             .antMatchers("/view/auth/**").permitAll()
             .antMatchers("/**").authenticated();
 
@@ -60,14 +63,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .loginPage("/view/auth/login")
             .loginProcessingUrl("/view/auth/login_process")
             .failureUrl("/view/auth/login?error")
-            .defaultSuccessUrl("/view/user/home")
+            .defaultSuccessUrl("/view/home/user")
             .usernameParameter("username")
             .passwordParameter("password");
 
         http
             .logout()
             .logoutRequestMatcher(new AntPathRequestMatcher("/view/auth/logout_process"))
-            .logoutSuccessUrl("/view/guest/home")
+            .logoutSuccessUrl("/view/home/guest")
             .invalidateHttpSession(true);
 
         http.authenticationProvider(accountAuthProvider);
