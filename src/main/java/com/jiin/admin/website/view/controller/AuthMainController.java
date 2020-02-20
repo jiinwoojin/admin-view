@@ -16,7 +16,7 @@ public class AuthMainController {
     // 회원 가입 페이지
     @RequestMapping("sign")
     public String authSignUpPage(Model model){
-        return "";
+        return "page/auth/sign";
     }
 
 

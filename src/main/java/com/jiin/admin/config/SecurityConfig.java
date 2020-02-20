@@ -1,6 +1,8 @@
 package com.jiin.admin.config;
 
+import com.jiin.admin.website.security.AccountAuthProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,12 +11,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
+@ComponentScan({ "com.jiin.admin.website.security" })
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    public AccountAuthProvider accountAuthProvider;
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .inMemoryAuthentication()
-            .withUser("admin").password("admin").roles("ADMIN");
+            .withUser("test").password("{noop}test").roles("ADMIN");
     }
 
     // Resource 접속 인가 확인 배제.
@@ -63,5 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logoutRequestMatcher(new AntPathRequestMatcher("/view/auth/logout_process"))
             .logoutSuccessUrl("/view/guest/home")
             .invalidateHttpSession(true);
+
+        http.authenticationProvider(accountAuthProvider);
     }
 }
