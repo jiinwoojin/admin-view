@@ -1,11 +1,19 @@
 project:
-  map-datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
-    mybatis-configPath: classpath:/mybatis/mybatis-config.xml
-    mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
+  datasource:
+    base:
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: postgres
+      mybatis-configPath: classpath:/mybatis/mybatis-config.xml
+      mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
+    map:
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: postgres
+      mybatis-configPath: classpath:/mybatis/mybatis-config.xml
+      mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
   path:
     cache: classpath:/static/data/cache/
     data: classpath:/static/data/data/
