@@ -1,11 +1,13 @@
-package com.jiin.admin.config;
+package com.jiin.admin.config.db;
 
 import com.jiin.admin.mapper.MapMapper;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -24,29 +26,21 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = "com.jiin.admin", annotationClass = MapMapper.class,sqlSessionFactoryRef = "sqlSessionFactoryBean_MAP")
 public class MapDatabase {
 
-	@Value("${project.map-datasource.driver-class-name}")
+	@Value("${project.datasource.map.driver-class-name}")
 	private String driverClassName;
-	@Value("${project.map-datasource.url}")
+	@Value("${project.datasource.map.url}")
 	private String url;
-	@Value("${project.map-datasource.username}")
+	@Value("${project.datasource.map.username}")
 	private String username;
-	@Value("${project.map-datasource.password}")
+	@Value("${project.datasource.map.password}")
 	private String password;
-	@Value("${project.map-datasource.mybatis-configPath}")
+	@Value("${project.datasource.map.mybatis-configPath}")
 	private String configPath;
-	@Value("${project.map-datasource.mybatis-mapperLocations}")
+	@Value("${project.datasource.map.mybatis-mapperLocations}")
 	private String mapperLocations;
 
-	@Resource
-	private ApplicationContext applicationContext;
-
 	@Bean
-	public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
-
-	@Bean
-	public DataSource dataSource() {
+	public DataSource mapDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName(driverClassName);
 		dataSource.setUrl(url);
@@ -58,17 +52,20 @@ public class MapDatabase {
 	}
 
 	@Bean("sqlSessionFactoryBean_MAP")
-	public SqlSessionFactory sqlSessionFactory() throws Exception {
+	public SqlSessionFactory mapSqlSessionFactory(
+			@Qualifier("mapDataSource") DataSource dataSource
+			, ApplicationContext applicationContext) throws Exception {
 		PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-		bean.setDataSource(dataSource());
+		bean.setDataSource(dataSource);
 		bean.setConfigLocation(applicationContext.getResource(configPath));
 		bean.setMapperLocations(resolver.getResources(mapperLocations));
 		return bean.getObject();
 	}
 
 	@Bean
-	public PlatformTransactionManager annotationDrivenTransactionManager() {
-		return new DataSourceTransactionManager(dataSource());
+	public PlatformTransactionManager mapAnnotationDrivenTransactionManager() {
+		return new DataSourceTransactionManager(mapDataSource());
 	}
+
 }

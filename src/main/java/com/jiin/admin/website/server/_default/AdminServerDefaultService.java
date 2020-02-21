@@ -1,9 +1,9 @@
 package com.jiin.admin.website.server._default;
 
+import com.jiin.admin.entity.BaseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 
 @Service
@@ -12,7 +12,10 @@ public class AdminServerDefaultService {
 	@Resource
 	private AdminServerDefaultMapper mapper;
 
-	public List<Integer> test() {
-		return mapper.testByXml();
+	@Resource
+	private AdminServerDefaultRepository repo;
+
+	public Iterable<BaseEntity> test() {
+		return repo.findAll();
 	}
 }
