@@ -27,6 +27,11 @@
 	http://localhost:8077/view/welcome.jiin
 	http://localhost:8077/server/server-state
 
+## JPA 활성
+	
+	활성 데이터베이스 > com.jiin.admin.config.db.BaseDatabase
+	엔티티패키지 > com.jiin.admin.entity
+
 ## UI 작업물 주소
 
     http://127.0.0.1:8077/view/s00-dash-board
