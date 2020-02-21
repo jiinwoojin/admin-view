@@ -27,6 +27,12 @@
                     <th:block th:replace="fragments/html-content-title"></th:block>
                     <!-- End of Page Title -->
 
+                    <!-- Breadcrumb Content -->
+                    <div id="breadcrumb" class="mt-1 mb-1">
+                        <th:block layout:fragment="content-breadcrumb-fragment"></th:block>
+                    </div>
+                    <!-- End of Breadcrumb -->
+
                     <!-- Page Content -->
                     <th:block layout:fragment="content-body-fragment"></th:block>
                     <!-- End of Page Content -->

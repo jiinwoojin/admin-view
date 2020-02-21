@@ -45,15 +45,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // HTTP URI Security Customization
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // Web Page
         http
             .authorizeRequests()
             .antMatchers("/").permitAll()
             .antMatchers("/error").permitAll()
             .antMatchers("/view/publish/**").permitAll()
             .antMatchers("/view/welcome.jiin").permitAll()
-            .antMatchers("/server/server-state").permitAll()
-            .antMatchers("/view/home/guest").permitAll()
             .antMatchers("/view/auth/**").permitAll()
+            .antMatchers("/view/home/guest").anonymous()
+            .antMatchers("/server/server-state").permitAll()
+            .antMatchers("/server/api/account/**").hasRole("ADMIN")
             .antMatchers("/**").authenticated();
 
         http.csrf().disable();

@@ -1,5 +1,6 @@
 package com.jiin.admin.website.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,10 +13,12 @@ public class Account implements Serializable, UserDetails {
     private static final long serialVersionUID = 1L;
 
     private String username;
-    private String password;
     private String name;
     private String email;
     private String role;
+
+    @JsonIgnore
+    private String password;
 
     public Account(){
 
@@ -62,6 +65,7 @@ public class Account implements Serializable, UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority(String.format("ROLE_%s", role)));
     }
@@ -77,21 +81,25 @@ public class Account implements Serializable, UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }
