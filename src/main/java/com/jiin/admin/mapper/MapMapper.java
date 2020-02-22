@@ -1,7 +1,7 @@
 package com.jiin.admin.mapper;
 
 /**
- * map-database 매핑
+ * database.map 매핑
  */
 public @interface MapMapper {
 }

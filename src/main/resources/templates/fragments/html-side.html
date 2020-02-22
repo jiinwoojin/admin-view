@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body th:fragment="html-side">
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/view/home/guest">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/view/home/guest" sec:authorize="!isAuthenticated()">
+            <div class="sidebar-brand-icon rotate-n-15" >
+                <i class="fas fa-globe-americas"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">JIMap Server 3.4</div>
+        </a>
+
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/view/home/user" sec:authorize="isAuthenticated()">
+            <div class="sidebar-brand-icon rotate-n-15" >
+                <i class="fas fa-globe-asia"></i>
             </div>
             <div class="sidebar-brand-text mx-3">JIMap Server 3.4</div>
         </a>
@@ -16,9 +23,14 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="/view/home/guest">
+            <a class="nav-link" href="/view/home/guest" sec:authorize="!isAuthenticated()">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>대시보드</span></a>
+                <span>대시보드</span>
+            </a>
+            <a class="nav-link" href="/view/home/user" sec:authorize="isAuthenticated()">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>대시보드</span>
+            </a>
         </li>
 
         <!-- Divider -->
