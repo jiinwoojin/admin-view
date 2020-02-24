@@ -28,42 +28,32 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td class="text-center">user1</td>
-                <td class="text-center">사용자1</td>
-                <td class="text-center">user1@domain.com</td>
+            <tr th:each="account : ${ accounts }">
                 <td class="text-center">
-                    <i class="fas fa-times"></i>
+                    <span th:text="${ account.username }">
+                        [회원 아이디]
+                    </span>
                 </td>
                 <td class="text-center">
-                    <button class="btn btn-sm btn-info">
-                        <i class="fas fa-sync"></i>
+                    <span th:text="${ account.name }">
+                        [회원 이름]
+                    </span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${ account.email }">
+                        [회원 E-Mail]
+                    </span>
+                </td>
+                <td class="text-center">
+                    <i class="fas fa-check-circle" th:if="${ account.role == 'ADMIN' }"></i>
+                    <i class="fas fa-times" th:unless="${ account.role == 'ADMIN' }"></i>
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-sm btn-secondary" th:if="${ account.role == 'ADMIN' }">
+                        <i class="fas fa-user"></i>
                     </button>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">user2</td>
-                <td class="text-center">사용자2</td>
-                <td class="text-center">user2@domain.com</td>
-                <td class="text-center">
-                    <i class="fas fa-times"></i>
-                </td>
-                <td class="text-center">
-                    <button class="btn btn-sm btn-info">
-                        <i class="fas fa-sync"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td class="text-center">admin1</td>
-                <td class="text-center">관리자1</td>
-                <td class="text-center">admin1@domain.com</td>
-                <td class="text-center">
-                    <i class="fas fa-check-circle"></i>
-                </td>
-                <td class="text-center">
-                    <button class="btn btn-sm btn-danger">
-                        <i class="fas fa-times"></i>
+                    <button class="btn btn-sm btn-info" th:unless="${ account.role == 'ADMIN' }">
+                        <i class="fas fa-user-cog"></i>
                     </button>
                 </td>
             </tr>

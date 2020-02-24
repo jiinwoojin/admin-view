@@ -9,7 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AccountServiceImpl implements UserDetailsService, AccountService {
@@ -59,5 +61,12 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
                                     .setName(account.getName())
                                     .setEmail(account.getEmail())
                                     .build() : builder.build();
+    }
+
+    @Override
+    public Map<String, Long> countWithAccountType() {
+        Map<String, Long> map = new HashMap<>();
+        findAllAccounts().forEach(a -> map.put(a.getRole(), map.getOrDefault(a.getRole(), 0L) + 1L));
+        return map;
     }
 }

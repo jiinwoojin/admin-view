@@ -17,7 +17,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
-@ComponentScan(basePackages = {"com.jiin.admin.website.view"})
+@ComponentScan(basePackages = {"com.jiin.admin.website.view", "com.jiin.admin.website.gis"})
 @EnableWebMvc
 @EnableTransactionManagement
 public class AdminViewConfig implements WebMvcConfigurer {
