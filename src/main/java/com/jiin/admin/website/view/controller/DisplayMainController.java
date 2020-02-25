@@ -12,6 +12,11 @@ public class DisplayMainController {
         return "page/display/2d-map";
     }
 
+    @RequestMapping("3d-map")
+    public String threeDimensionDisplayView(Model model){
+        return "page/display/3d-map";
+    }
+
     @RequestMapping("ol-display")
     public String openlayersDisplayView(Model model){
         return "page/display/ol-display";

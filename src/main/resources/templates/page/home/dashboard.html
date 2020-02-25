@@ -26,7 +26,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xl-4 mb-4" th:each="key : ${ status_server.keySet() }">
+            <div class="col-xl-4 mb-4" th:each="key : ${ status_server.keySet() }" th:id="${ key + '_SERVER_STATUS' }" data-toggle="tooltip" data-placement="bottom" onmouseenter="onMouseEnterStatusCard()" title="서버 상태가 나옵니다.">
                 <div class="card border-bottom-success shadow h-100 py-2" th:classappend="${ status_server.get(key) == 'ON' } ? 'border-bottom-success' : 'border-bottom-danger'">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -59,7 +59,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xl-4 mb-4" th:each="key : ${ status_synchronize.keySet() }">
+            <div class="col-xl-4 mb-4" th:each="key : ${ status_synchronize.keySet() }" th:id="${ key + '_SYNC_STATUS' }" data-toggle="tooltip" data-placement="bottom" onmouseenter="onMouseEnterStatusCard()" title="서버 상태가 나옵니다.">
                 <div class="card border-bottom-success shadow h-100 py-2" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'border-bottom-success' : 'border-bottom-danger'">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -167,5 +167,7 @@
             </div>
         </div>
     </div>
+
+    <script th:src="@{/js/page/dashboard.js}"></script>
 </th:block>
 </html>

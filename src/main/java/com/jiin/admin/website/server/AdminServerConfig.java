@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@ComponentScan(basePackages = {"com.jiin.admin.website.server"})
+@ComponentScan(basePackages = {"com.jiin.admin.website.server", "com.jiin.admin.website.gis"})
 @EnableWebMvc
 @EnableTransactionManagement
 public class AdminServerConfig implements WebMvcConfigurer {

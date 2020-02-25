@@ -36,4 +36,15 @@ public class StatusServiceImpl implements StatusService {
         statusMap.put(CENTER_C, statusElement.get(random.nextInt(statusElement.size())));
         return statusMap;
     }
+
+    @Override
+    public Map<String, String> centerServerMemorization(String center) {
+        // Memory Using Find By Center Name
+        Map<String, String> memoryMap = new TreeMap<>();
+        Random random = new Random();
+        memoryMap.put("RAM", String.valueOf(random.nextInt(2000)));
+        memoryMap.put("DATA", String.valueOf(random.nextInt(2000)));
+        memoryMap.put("SPEED", String.valueOf(random.nextInt(2000)));
+        return memoryMap;
+    }
 }
