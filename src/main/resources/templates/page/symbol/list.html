@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">심볼 목록</h1>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/view/symbol/list">심볼 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">심볼 목록</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <div class="row">
+        <div class="col-sm-8">
+            <table id="symbol_list_table" class="table table-sm table-striped">
+                <thead class="table-info">
+                <tr>
+                    <th scope="col" class="text-center">심볼ID</th>
+                    <th scope="col" class="text-center">심볼코드</th>
+                    <th scope="col" class="text-center">심볼타입</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="symbol : ${ RESULTS }">
+                    <td class="text-center"><span th:text="${ symbol.id }">[심볼아이디]</span></td>
+                    <td class="text-center"><span th:text="${ symbol.name }">[심볼명]</span></td>
+                    <td class="text-center"><span th:text="${ symbol.type }">[심볼타입]</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#_symbol-image">심볼</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#_symbol-xml">XML</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#_symbol-json">JSON</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="_symbol-image">
+                    <p>심볼 이미지뷰어</p>
+                </div>
+                <div class="tab-pane fade" id="_symbol-xml">
+                    <p>심볼 XML</p>
+                </div>
+                <div class="tab-pane fade" id="_symbol-json">
+                    <p>심볼 JSON</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#symbol_list_table').DataTable({
+                dom: '<"top"fli>rt<"bottom"p><"clear">',
+                language : {
+                    lengthMenu : "자료 길이 _MENU_",
+                    zeroRecords : "해당 자료가 존재하지 않습니다.",
+                    info : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                    infoEmpty : "해당 자료가 존재하지 않습니다.",
+                    infoFiltered : "(총 _TOTAL_ 건)",
+                    search : "검색 키워드",
+                    paginate : {
+                        first : "<<",
+                        last : ">>",
+                        next : ">",
+                        previous : "<"
+                    }
+                }
+            });
+        });
+    </script>
+</th:block>
+</html>

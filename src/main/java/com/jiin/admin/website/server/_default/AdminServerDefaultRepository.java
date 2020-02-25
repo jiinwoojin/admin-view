@@ -1,16 +1,12 @@
 package com.jiin.admin.website.server._default;
 
-import com.jiin.admin.entity.BaseEntity;
-import com.jiin.admin.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Select;
+import com.jiin.admin.entity.MapSymbol;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface AdminServerDefaultRepository extends CrudRepository<BaseEntity, String> {
+public interface AdminServerDefaultRepository extends CrudRepository<MapSymbol, String> {
 
     @Override
-    Iterable<BaseEntity> findAll();
+    Iterable<MapSymbol> findAll();
 }

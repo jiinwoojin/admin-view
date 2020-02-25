@@ -63,9 +63,10 @@ public class MapDatabase {
 		return bean.getObject();
 	}
 
+	/*
 	@Bean
 	public PlatformTransactionManager mapAnnotationDrivenTransactionManager() {
 		return new DataSourceTransactionManager(mapDataSource());
 	}
-
+	*/
 }

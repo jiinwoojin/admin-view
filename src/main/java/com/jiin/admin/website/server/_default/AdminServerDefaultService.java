@@ -1,6 +1,6 @@
 package com.jiin.admin.website.server._default;
 
-import com.jiin.admin.entity.BaseEntity;
+import com.jiin.admin.entity.MapSymbol;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,7 +15,7 @@ public class AdminServerDefaultService {
 	@Resource
 	private AdminServerDefaultRepository repo;
 
-	public Iterable<BaseEntity> test() {
+	public Iterable<MapSymbol> test() {
 		return repo.findAll();
 	}
 }

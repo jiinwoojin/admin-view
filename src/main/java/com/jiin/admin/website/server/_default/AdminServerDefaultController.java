@@ -1,6 +1,6 @@
 package com.jiin.admin.website.server._default;
 
-import com.jiin.admin.entity.BaseEntity;
+import com.jiin.admin.entity.MapSymbol;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +15,7 @@ public class AdminServerDefaultController {
 	private AdminServerDefaultService service;
 
 	@RequestMapping(value = "server-state", method = { RequestMethod.GET })
-	public Iterable<BaseEntity> test() {
+	public Iterable<MapSymbol> test() {
 		return service.test();
 	}
 

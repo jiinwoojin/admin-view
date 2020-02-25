@@ -48,6 +48,21 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
+        심볼 관리
+    </div>
+
+    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/map') ? 'active' : '' }">
+        <a class="nav-link" href="/view/symbol/list">
+            <i class="fas fa-fw fa-map-pin"></i>
+            <span>심볼 목록</span>
+        </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
         지도 관리
     </div>
 

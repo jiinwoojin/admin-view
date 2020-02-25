@@ -32,6 +32,12 @@
 	활성 데이터베이스 > com.jiin.admin.config.db.BaseDatabase
 	엔티티패키지 > com.jiin.admin.entity
 
+## 심볼관리
+    
+    http://localhost:8077/view/symbol/list
+    엔티티 > com.jiin.admin.entity.MapSymbol(TableName = "MAP_SYMBOL")
+    JPA 활용 구동시 초기 데이터 입력 - com.jiin.admin.config.BootingService
+
 ## UI 작업물 주소
 
     http://127.0.0.1:8077/view/s00-dash-board

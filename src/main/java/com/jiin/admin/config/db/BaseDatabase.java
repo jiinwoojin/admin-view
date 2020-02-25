@@ -44,7 +44,7 @@ import java.util.Map;
  */
 @Configuration
 @MapperScan(basePackages = "com.jiin.admin", annotationClass = BaseMapper.class,sqlSessionFactoryRef = "sqlSessionFactoryBean_BASE")
-@EnableJpaRepositories(basePackages = "com.jiin.admin.website", transactionManagerRef = "transactionManager_BASE")
+@EnableJpaRepositories(basePackages = {"com.jiin.admin.website"}, transactionManagerRef = "transactionManager_BASE")
 @EntityScan("com.jiin.admin.entity")
 public class BaseDatabase {
 
@@ -85,9 +85,11 @@ public class BaseDatabase {
 		return bean.getObject();
 	}
 
+
+	@Primary
 	@Bean("transactionManager_BASE")
-	public PlatformTransactionManager transactionManager() {
-		return new DataSourceTransactionManager(baseDataSource());
+	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+		return new JpaTransactionManager(entityManagerFactory);
 	}
 
 }
