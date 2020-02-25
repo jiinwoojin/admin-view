@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/gis/cesium-1.65/Widgets/widgets.css}">
+    <script th:src="@{/jquery/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/gis/cesium-1.65/Cesium.js}"></script>
+</head>
+<body>
+    <div id="map3d" style="height: 90vh; width: 100%;"></div>
+    <script>
+        var viewer = new Cesium.Viewer('map3d', {
+            sceneMode: Cesium.SceneMode.SCENE3D,
+            timeline: false,
+            animation: false,
+            infoBox: false,
+            scene3DOnly : true,
+            baseLayerPicker : false,
+            requestRenderMode : true,
+            geocoder : false,
+            contextOptions : {
+                webgl : {
+                    preserveDrawingBuffer : true
+                }
+            },
+            navigationHelpButton : false,
+            selectionIndicator : false,
+            navigationInstructionsInitiallyVisible : false,
+            fullscreenButton : false,
+            homeButton : false
+        });
+
+        viewer.scene.globe = new Cesium.Globe(Cesium.Ellipsoid.WGS84);
+
+        viewer.scene.logarithmicDepthBuffer = false;
+
+        viewer.scene.globe.enableLighting = true;
+
+        $('.cesium-widget-credits').hide();
+
+        // var osmImageryProvider = Cesium.createOpenStreetMapImageryProvider();
+        // viewer.imageryLayers.addImageryProvider(osmImageryProvider);
+
+        var osm = new Cesium.OpenStreetMapImageryProvider({
+            url : '//a.tile.openstreetmap.org/'
+        });
+
+        viewer.imageryLayers.addImageryProvider(osm);
+
+        viewer.camera.flyTo({
+            destination : Cesium.Cartesian3.fromDegrees(127.123294, 37.385117, 1000),
+            orientation : {
+                heading : Cesium.Math.toRadians(0.0),
+                pitch : Cesium.Math.toRadians(-40.0),
+                roll : 0.0
+            }
+        });
+    </script>
+</body>
+</html>

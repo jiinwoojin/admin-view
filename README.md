@@ -108,3 +108,12 @@
         
     http://127.0.0.1:8077/view/s07-virtualize-ol-ext
         - Openlayers 기반 시각화 구현 페이지
+
+## 시연 페이지 주소
+
+    http://127.0.0.1:8077/view/home/guest
+    http://127.0.0.1:8077/view/home/user
+        - 대시보드 페이지
+        
+    http://127.0.0.1:8077/view/display/2d-map
+        - 상황도 도시 페이지

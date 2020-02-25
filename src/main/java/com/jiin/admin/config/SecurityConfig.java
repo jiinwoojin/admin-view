@@ -51,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/").permitAll()
             .antMatchers("/view/error").permitAll()
             .antMatchers("/view/publish/**").permitAll()
+            .antMatchers("/view/display/**").permitAll()
             .antMatchers("/view/welcome.jiin").permitAll()
             .antMatchers("/view/auth/edit").authenticated()
             .antMatchers("/view/auth/**").permitAll()
@@ -77,5 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .invalidateHttpSession(true);
 
         http.authenticationProvider(accountAuthProvider);
+
+        http.headers().frameOptions().disable();
     }
 }

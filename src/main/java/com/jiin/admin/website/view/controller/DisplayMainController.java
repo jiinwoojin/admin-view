@@ -11,4 +11,14 @@ public class DisplayMainController {
     public String twoDimensionDisplayView(Model model){
         return "page/display/2d-map";
     }
+
+    @RequestMapping("ol-display")
+    public String openlayersDisplayView(Model model){
+        return "page/display/ol-display";
+    }
+
+    @RequestMapping("cs-display")
+    public String cesiumDisplayView(Model model){
+        return "page/display/cs-display";
+    }
 }
