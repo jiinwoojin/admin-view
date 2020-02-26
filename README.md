@@ -11,7 +11,6 @@
  	7. DataTables
  	8. Chart.js
  	
-
 ## 기본세팅
 
 	1. Main Class : com.jiin.admin.starter.AdminWebApplication
@@ -24,7 +23,7 @@
 	
 ## 기본주소
 
-	http://localhost:8077/view/welcome.jiin
+	http://localhost:8077/view/home/user
 	http://localhost:8077/server/server-state
 
 ## JPA 활성
