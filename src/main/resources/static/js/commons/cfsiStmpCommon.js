@@ -756,7 +756,7 @@ var stmp = {
         var heightText;
 
         if (height === undefined) {
-            heightText = '고도값 : 0m';
+            heightText = '고도값 : 0 m';
         } else {
             heightText = height;
         }
