@@ -51,7 +51,7 @@
         심볼 관리
     </div>
 
-    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/map') ? 'active' : '' }">
+    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/symbol') ? 'active' : '' }">
         <a class="nav-link" href="/view/symbol/list">
             <i class="fas fa-fw fa-map-pin"></i>
             <span>심볼 목록</span>
