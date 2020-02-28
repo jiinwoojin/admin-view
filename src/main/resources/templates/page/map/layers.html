@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h2 mb-0 text-gray-800">레이어 관리</h1>
+    <div id="map_config_button">
+        <a href="/view/map/list" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-list fa-sm text-white-50"></i> 지도 목록
+        </a>
+        <button data-toggle="modal" data-target="#layer-create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+            <i class="fas fa-plus fa-sm text-white-50"></i> 레이어 추가
+        </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="layer-create" tabindex="-1" role="dialog" aria-labelledby="insert-layer" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="insert-layer">레이어 추가</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form autocomplete="off" th:object="${newLayer}">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label>레이어 이름</label>
+                                    <input type="text" class="form-control" th:field="*{name}">
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label>그룹 이름</label>
+                                    <input type="text" class="form-control" th:field="*{group}">
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label>작동 여부</label>
+                                    <select class="form-control" th:field="*{status}">
+                                        <option value="ON">ON</option>
+                                        <option value="OFF">OFF</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>레이어 타입</label>
+                                    <select class="form-control" th:field="*{type}">
+                                        <option disabled value="CHART">CHART (not yet supported)</option>
+                                        <option disabled value="CIRCLE">CIRCLE (not yet supported)</option>
+                                        <option value="LINE">LINE</option>
+                                        <option value="POINT">POINT</option>
+                                        <option value="POLYGON">POLYGON</option>
+                                        <option disabled value="QUERY">QUERY (not yet supported)</option>
+                                        <option value="RASTER">RASTER</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>투영 방식</label>
+                                    <input type="text" class="form-control" th:field="*{projection}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>데이터 연결 타입</label>
+                                    <select class="form-control" th:field="*{connectionType}">
+                                        <option disabled value="CONTOUR">CONTOUR (not yet supported)</option>
+                                        <option disabled value="KERNELDENSITY">KERNELDENSITY (not yet supported)</option>
+                                        <option value="LOCAL">LOCAL</option>
+                                        <option value="OGR">OGR</option>
+                                        <option disabled value="ORACLESPATIAL">ORACLESPATIAL (not yet supported)</option>
+                                        <option disabled value="PLUGIN">PLUGIN (not yet supported)</option>
+                                        <option value="POSTGIS">POSTGIS</option>
+                                        <option disabled value="SDE">SDE (not yet supported)</option>
+                                        <option disabled value="UNION">UNION (not yet supported)</option>
+                                        <option disabled value="UVRASTER">UVRASTER (not yet supported)</option>
+                                        <option value="WFS">WFS</option>
+                                        <option value="WMS">WMS</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>연결 정보</label>
+                                    <input type="text" class="form-control" th:field="*{connection}">
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>데이터</label>
+                                    <input type="text" class="form-control" th:field="*{data}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>최소 ZOOM 축척</label>
+                                    <input type="text" class="form-control" th:field="*{minScaleDenominator}">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>최대 ZOOM 축척</label>
+                                    <input type="text" class="form-control" th:field="*{maxScaleDenominator}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>필터 아이템</label>
+                                    <input type="text" class="form-control" th:field="*{filterItem}">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>필터</label>
+                                    <input type="text" class="form-control" th:field="*{filter}">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>클래스 아이템</label>
+                                    <input type="text" class="form-control" th:field="*{classItem}">
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>라벨 아이템</label>
+                                    <input type="text" class="form-control" th:field="*{labelItem}">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> 취소
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        <i class="fas fa-save"></i> 저장
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/view/map/list">지도 데이터</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">레이어 관리</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <div id="layer_list_view">
+        <table id="list_table" class="table table-sm table-striped">
+            <thead class="table-info">
+            <tr>
+                <th scope="col" class="text-center">이름</th>
+                <th scope="col" class="text-center">그룹</th>
+                <th scope="col" class="text-center">종류</th>
+                <th scope="col" class="text-center">연결 타입</th>
+                <th scope="col" class="text-center">투영 체계</th>
+                <th scope="col" class="text-center">상태</th>
+                <th scope="col" class="text-center">수정</th>
+                <th scope="col" class="text-center">삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="layer : ${ layers }">
+                <td class="text-center" th:text="${ layer.name }"></td>
+                <td class="text-center" th:text="${ layer.group }"></td>
+                <td class="text-center" th:text="${ layer.type }"></td>
+                <td class="text-center" th:text="${ layer.connectionType }"></td>
+                <td class="text-center" th:text="${ layer.projection }"></td>
+                <td class="text-center" th:text="${ layer.status }"></td>
+                <td class="text-center">
+                    <a class="btn btn-primary btn-sm" href="#">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-danger btn-sm" href="#">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <script>
+            $(document).ready(function() {
+                $('#list_table').DataTable({
+                    "language" : {
+                        "lengthMenu" : "자료 길이 _MENU_",
+                        "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                        "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                        "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                        "infoFiltered" : "(총 _TOTAL_ 건)",
+                        "search" : "검색 키워드",
+                        "paginate": {
+                            "first" : "<<",
+                            "last" : ">>",
+                            "next" : ">",
+                            "previous" : "<"
+                        }
+                    }
+                });
+            });
+        </script>
+    </div>
+</th:block>
+</html>

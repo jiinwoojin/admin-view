@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">캐시 리소스 관리 - 레이어</h1>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/view/map/list">지도 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">캐시 리소스 관리 - 레이어</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <div class="row">
+        <div class="col-xl-6">
+            <div id="cache_layer_list_view">
+                <table id="list_table" class="table table-sm table-striped">
+                    <thead class="table-info">
+                    <tr>
+                        <th scope="col" class="text-center">이름</th>
+                        <th scope="col" class="text-center">제목</th>
+                        <th scope="col" class="text-center">축척</th>
+                        <th scope="col" class="text-center">설정</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-center">LAYER1</td>
+                        <td class="text-center">Proxy Layer1</td>
+                        <td class="text-center">1:10000 ~ 1:25000</td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm" onclick="onclick_update()">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <script>
+                    $(document).ready(function() {
+                        $('#list_table').DataTable({
+                            "language" : {
+                                "lengthMenu" : "자료 길이 _MENU_",
+                                "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                                "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                                "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                                "infoFiltered" : "(총 _TOTAL_ 건)",
+                                "search" : "검색 키워드",
+                                "paginate": {
+                                    "first" : "<<",
+                                    "last" : ">>",
+                                    "next" : ">",
+                                    "previous" : "<"
+                                }
+                            }
+                        });
+                    });
+
+                    function onclick_update(){
+                        $("#layer_name").val("LAYER1");
+                        $("#layer_title").val("Proxy Layer1");
+                        $("#layer_min_scale").val(10000);
+                        $("#layer_max_scale").val(25000);
+                    }
+                </script>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div class="form-group">
+                <label for="layer_name">레이어 이름</label>
+                <input type="text" class="form-control" id="layer_name" />
+            </div>
+            <div class="form-group">
+                <label for="layer_title">레이어 제목</label>
+                <input type="text" class="form-control" id="layer_title" />
+            </div>
+            <div class="form-group">
+                <label for="layer_min_scale">레이어 축척 (최소)</label>
+                <input type="text" class="form-control" id="layer_min_scale" />
+            </div>
+            <div class="form-group">
+                <label for="layer_max_scale">레이어 축척 (최대)</label>
+                <input type="text" class="form-control" id="layer_max_scale" />
+            </div>
+            <hr/>
+            <div class="text-right">
+                <button class="btn btn-primary">
+                    <i class="fas fa-save"></i> 저장
+                </button>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>

@@ -73,10 +73,24 @@
         </a>
     </li>
 
-    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/cache') ? 'active' : '' }">
-        <a class="nav-link" href="/view/cache/config">
+    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/cache/layers') ? 'active' : '' }">
+        <a class="nav-link" href="/view/cache/layers">
+            <i class="fas fa-fw fa-database"></i>
+            <span>캐시 데이터 관리 - 레이어</span>
+        </a>
+    </li>
+
+    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/cache/grids') ? 'active' : '' }">
+        <a class="nav-link" href="/view/cache/grids">
+            <i class="fas fa-fw fa-database"></i>
+            <span>캐시 데이터 관리 - 그리드</span>
+        </a>
+    </li>
+
+    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/cache/seeds') ? 'active' : '' }">
+        <a class="nav-link" href="/view/cache/seeds">
             <i class="fas fa-fw fa-memory"></i>
-            <span>캐시 설정</span>
+            <span>캐시 SEED 관리</span>
         </a>
     </li>
 

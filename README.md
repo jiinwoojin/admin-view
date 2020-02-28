@@ -115,10 +115,32 @@
         - Openlayers 기반 시각화 구현 페이지
 
 ## 시연 페이지 주소
-
+    
+    Spring Secutiry 적용
+        ID : admin / PW : admin
+        ID : user / PW : user
+    
     http://127.0.0.1:8077/view/home/guest
     http://127.0.0.1:8077/view/home/user
         - 대시보드 페이지
         
     http://127.0.0.1:8077/view/display/2d-map
         - 상황도 도시 페이지
+        
+    http://127.0.0.1:8077/view/map/list
+        - 지도 데이터 > 지도 목록
+    
+    http://127.0.0.1:8077/view/map/create
+        - 지도 데이터 > 지도 생성
+              
+    http://127.0.0.1:8077/view/map/layers
+        - 지도 데이터 > 레이어 관리
+        
+    http://127.0.0.1:8077/view/cache/layers
+        - 지도 데이터 > 캐시 레이어 관리
+        
+    http://127.0.0.1:8077/view/cache/grids
+        - 지도 데이터 > 캐시 GRIDS 관리
+        
+    http://127.0.0.1:8077/view/cache/seeds
+        - 지도 데이터 > 캐시 SEEDS 관리

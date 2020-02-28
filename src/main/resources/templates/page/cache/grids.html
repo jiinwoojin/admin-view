@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">캐시 리소스 관리 - 그리드</h1>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/view/map/list">지도 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">캐시 리소스 관리 - 그리드</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <div class="row">
+        <div class="col-xl-6">
+            <div id="cache_grid_list_view">
+                <table id="list_table" class="table table-sm table-striped">
+                    <thead class="table-info">
+                    <tr>
+                        <th scope="col" class="text-center">이름</th>
+                        <th scope="col" class="text-center">좌표체계</th>
+                        <th scope="col" class="text-center">BBOX 범위</th>
+                        <th scope="col" class="text-center">설정</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-center">GRID 1</td>
+                        <td class="text-center">EPSG:4326</td>
+                        <td class="text-center">E 180, W -180, S 90, N -90</td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm" onclick="onclick_update()">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <script>
+                    $(document).ready(function() {
+                        $('#list_table').DataTable({
+                            "language" : {
+                                "lengthMenu" : "자료 길이 _MENU_",
+                                "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                                "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                                "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                                "infoFiltered" : "(총 _TOTAL_ 건)",
+                                "search" : "검색 키워드",
+                                "paginate": {
+                                    "first" : "<<",
+                                    "last" : ">>",
+                                    "next" : ">",
+                                    "previous" : "<"
+                                }
+                            }
+                        });
+                    });
+
+                    function onclick_update(){
+                        $("#grid_name").val("GRID 1");
+                        $("#grid_srs").val("EPSG:4326");
+                        $("#grid_bbox_n").val(-90);
+                        $("#grid_bbox_w").val(-180);
+                        $("#grid_bbox_e").val(180);
+                        $("#grid_bbox_s").val(90);
+                        $("#grid_base").val('0');
+                    }
+                </script>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div class="form-group">
+                <label for="grid_name">그리드 이름</label>
+                <input type="text" class="form-control" id="grid_name" />
+            </div>
+            <div class="form-group">
+                <label for="grid_srs">그리드 좌표 체계</label>
+                <input type="text" class="form-control" id="grid_srs" />
+            </div>
+
+            <label>그리드 범위</label>
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="grid_bbox_n" placeholder="BBOX 북 범위" />
+                </div>
+            </div>
+            <div class="row justify-content-around">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="grid_bbox_w" placeholder="BBOX 서 범위" />
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="grid_bbox_e" placeholder="BBOX 동 범위" />
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" id="grid_bbox_s" placeholder="BBOX 남 범위" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="grid_base">그리드 기준</label>
+                <select id="grid_base" class="form-control">
+                    <option value="0">SW / LL</option>
+                    <option value="1">NW / UL</option>
+                </select>
+            </div>
+            <hr/>
+            <div class="text-right">
+                <button class="btn btn-primary">
+                    <i class="fas fa-save"></i> 저장
+                </button>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
