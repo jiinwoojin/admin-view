@@ -15,6 +15,7 @@ var jiMap = function jiMap(options) {
     if (!stmp.MINI_MAP) {
         // 지도 로드 완료 시
         this.map.on('load', function() {
+            stmp.mapObject.setZoomRate(10);
             stmp.mapObject.setWheelZoomRate(1);        // wheel rate 설정
 
             stmp.mapObject._bindEvents();
@@ -38,11 +39,10 @@ jiMap.prototype.setBaseStyle = function setBaseStyle() {
     return {
         'version' : 8,
         'sources' : {
-            'truemarble' : {
+            'world' : {
                 'type' : 'raster',
                 'tiles' : [
-                    'http://' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT
-                    + '/geoserver/gwc/service/wms?bbox={bbox-epsg-3857}&format=image/jpeg&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=256&height=256&layers=' + stmp.getBaseMapSource()
+                    "http://211.172.246.71:12000/service?bbox={bbox-epsg-3857}&format=image/jpeg&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=world_k2"
                 ],
                 'tileSize' : 256
             }
@@ -50,11 +50,10 @@ jiMap.prototype.setBaseStyle = function setBaseStyle() {
         'layers' : [{
             'id' : stmp.BASE_MAP_LAYER_ID,
             'type' : 'raster',
-            'source' : 'truemarble',
+            'source' : 'world',
             'minzoom' : 0,
             'maxzoom' : 22
-        }],
-        'glyphs' : '../js/CF/SI/font/{fontstack}/{range}.pbf'
+        }]
     };
 };
 
@@ -115,6 +114,14 @@ jiMap.prototype.removeMap = function removeMap() {
  */
 jiMap.prototype.setWheelZoomRate = function setWheelZoomRate(value) {
     this.map.scrollZoom.setWheelZoomRate(value);
+};
+
+/**
+ * Zoom 수준을 설정
+ * @param value
+ */
+jiMap.prototype.setZoomRate = function setZoomRate(value) {
+    this.map.scrollZoom.setZoomRate(value);
 };
 
 /**

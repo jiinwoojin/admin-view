@@ -22,8 +22,18 @@ public class DisplayMainController {
         return "page/display/ol-display";
     }
 
+    @RequestMapping("mapbox-display")
+    public String mapboxDisplayView(Model model) {
+        return "page/display/mapbox-display";
+    }
+
     @RequestMapping("cs-display")
     public String cesiumDisplayView(Model model){
         return "page/display/cs-display";
+    }
+
+    @RequestMapping("common-map")
+    public String commonMapDisplayView(Model model) {
+        return "page/display/common-map";
     }
 }

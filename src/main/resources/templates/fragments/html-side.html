@@ -109,6 +109,13 @@
         </a>
     </li>
 
+    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/display/common-map') ? 'active' : '' }">
+        <a class="nav-link" href="/view/display/common-map">
+            <i class="fas fa-fw fa-map-marked"></i>
+            <span>공통 지도</span>
+        </a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 

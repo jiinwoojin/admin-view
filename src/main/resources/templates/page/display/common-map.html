@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">공통 지도</h1>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">지도 도시</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">공통 지도</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <div id="map_block">
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link" id="pills-display2d" style="cursor: pointer;">
+                    <i class="fas fa-vector-square"></i> 2차원
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-display3d" style="cursor: pointer;">
+                    <i class="fas fa-cube"></i> 3차원
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="mapContent" style="width: 100%; height: 65vh;">
+        </div>
+
+        <div class="d-flex justify-content-between my-1">
+            <div id="military-position">
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#layer_modal" data-backdrop="false">
+                    <i class="fas fa-layer-group"></i> 레이어
+                </button>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#shape_modal" data-backdrop="false">
+                        <i class="fas fa-vector-square"></i> 투명도
+                    </button>
+                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#military_modal" data-backdrop="false">
+                        <i class="fas fa-fighter-jet"></i> 군대부호
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="layer_modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">레이어 목록</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="pt-1 pb-1">
+                        <table id="list_table" class="table table-sm table-striped">
+                            <thead class="table-info">
+                            <tr>
+                                <th scope="col" class="text-center">레이어 이름</th>
+                                <th scope="col" class="text-center">레이어 투명 조절 / 보이기</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="text-center align-middle">
+                                    레이어 A
+                                </td>
+                                <td class="text-center align-middle">
+                                    <fieldset id="layer0">
+                                        <input class="opacity form-control-range" type="range" min="0" max="1" step="0.01" />
+                                        <input type="checkbox" class="visible" id="visible0" />
+                                        <label for="visible0"> 보이기</label>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center align-middle">
+                                    레이어 B
+                                </td>
+                                <td class="text-center align-middle">
+                                    <fieldset id="layer1">
+                                        <input class="opacity form-control-range" type="range" min="0" max="1" step="0.01" />
+                                        <input type="checkbox" class="visible" id="visible1" />
+                                        <label for="visible1"> 보이기</label>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center align-middle">
+                                    레이어 C
+                                </td>
+                                <td class="text-center align-middle">
+                                    <fieldset id="layer2">
+                                        <input class="opacity form-control-range" type="range" min="0" max="1" step="0.01" />
+                                        <input type="checkbox" class="visible" id="visible2" />
+                                        <label for="visible2"> 보이기</label>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+                        <i class="fas fa-times"></i> 닫기
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+
+    <div class="modal fade" id="shape_modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">투명도 추가</h4>
+                </div>
+                <div class="modal-body">
+                    <th:block th:replace="fragments/overlay/html-overlay-main" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+                        <i class="fas fa-times"></i> 닫기
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+
+    <div class="modal fade" id="military_modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">군대부호 추가</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="pt-1 pb-1">
+                        <p>군대부호 추가</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+                        <i class="fas fa-times"></i> 닫기
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+
+    <script>
+        function modal_draggable(id){
+            $(id).draggable({
+                handle: ".modal-header"
+            });
+        }
+
+        $(window).ready(function() {
+            modal_draggable('#layer_modal');
+            modal_draggable('#shape_modal');
+            modal_draggable('#military_modal');
+
+            $('.btn-overlay').tooltip();
+
+            $('#list_table').DataTable({
+                "language" : {
+                    "lengthMenu" : "페이지 단위 : _MENU_ 건",
+                    "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                    "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                    "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                    "infoFiltered" : "(총 _TOTAL_ 건)",
+                    "search" : "검색 키워드 : ",
+                    "paginate": {
+                        "first" : "<<",
+                        "last" : ">>",
+                        "next" : ">",
+                        "previous" : "<"
+                    }
+                }
+            });
+
+            stmp.setMilSym(ms);
+
+            getMap('mapbox-display');
+            $('#pills-display2d').addClass('active');
+        });
+
+        function getMap(content) {
+            var url = '/view/display/' + content;
+
+            $('#mapContent').load(url);
+        }
+    </script>
+
+    <script th:src="@{/jquery/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/commons/jsHashMap.js}"></script>
+    <script th:src="@{/js/commons/geoTrans.js}"></script>
+    <script th:src="@{/js/commons/feature.js}"></script>
+    <script th:src="@{/js/milsym/milsymbol.development.js}"></script>
+    <script th:src="@{/js/commons/cfsiStmpCommon.js}"></script>
+</th:block>
+</html>

@@ -4,9 +4,9 @@
  */
 var stmp = {
     // 상황도 서버 도메인 서버 IP
-    SERVER_DOMAIN : '172.23.26.108',
+    SERVER_DOMAIN : '211.172.246.71',
     // 상황도 서버 지도 PORT
-    SERVER_MAP_PORT : '9000',
+    SERVER_MAP_PORT : '12000',
     // 상황도 서버 이미지 PORT
     SERVER_IMG_PORT : '11200',
     STMP_UI_PATH : '/ui/CF/SI',
