@@ -551,3 +551,25 @@ jiMap.prototype._modifyGeoJsonData = function _modifyGeoJsonData(feature) {
         this.getSource(feature.getStmpLayerId()).setData(_geojson);
     }
 };
+jiMap.prototype.getAllFeatures = function() {
+    let sourceIds = Object.keys(stmp.mapObject.map.getStyle().sources)
+    let features = {};
+    for(let i=0; i < sourceIds.length; i++){
+        let source = stmp.mapObject.map.getSource(sourceIds[i]);
+        if(source._data){
+            features[sourceIds[i]] = source._data.features
+        }
+    }
+    /*
+    var img = stmp.mapObject.map.style.getImage("TestLayer_BASE_MILSYMBOL_test3_SYMBOL")
+    var data = img.data.data.buffer
+    var blob = new self.Blob([new Uint8Array(data)], { type: 'image/png' });
+    console.log(data, URL.createObjectURL(blob))
+    self.createImageBitmap(blob).then(function (imgBitmap) {
+        console.log(null, imgBitmap);
+    }).catch(function (e) {
+        callback(new Error('Could not load image because of ' + e.message + '. Please make sure to use a supported image type such as PNG or JPEG. Note that SVGs are not supported.'));
+    });
+    */
+    return features;
+};
