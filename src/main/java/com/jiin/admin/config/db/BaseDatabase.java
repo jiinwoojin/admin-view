@@ -8,6 +8,9 @@ import org.hibernate.cfg.AvailableSettings;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.mapper.MapperFactoryBean;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -44,8 +47,6 @@ import java.util.Map;
  */
 @Configuration
 @MapperScan(basePackages = "com.jiin.admin", annotationClass = BaseMapper.class,sqlSessionFactoryRef = "sqlSessionFactoryBean_BASE")
-@EnableJpaRepositories(basePackages = {"com.jiin.admin.website"}, transactionManagerRef = "transactionManager_BASE")
-@EntityScan("com.jiin.admin.entity")
 public class BaseDatabase {
 
 	@Value("${project.datasource.base.driver-class-name}")
@@ -64,13 +65,11 @@ public class BaseDatabase {
 	@Primary
 	@Bean
 	public DataSource baseDataSource() {
-		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName(driverClassName);
+		PGSimpleDataSource dataSource = new PGSimpleDataSource();
 		dataSource.setUrl(url);
-		dataSource.setUsername(username);
+		dataSource.setUser(username);
 		dataSource.setPassword(password);
-		dataSource.setTestOnBorrow(true);
-		dataSource.setValidationQuery("SELECT 1");
+		dataSource.setReWriteBatchedInserts(true);
 		return dataSource;
 	}
 
@@ -84,7 +83,6 @@ public class BaseDatabase {
 		bean.setMapperLocations(resolver.getResources(mapperLocations));
 		return bean.getObject();
 	}
-
 
 	@Primary
 	@Bean("transactionManager_BASE")

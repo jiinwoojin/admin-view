@@ -1,17 +1,19 @@
 package com.jiin.admin.entity;
 
 import lombok.Data;
+import org.springframework.data.domain.Persistable;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity(name = "MAP_SYMBOL")
 @Data
-public class MapSymbol implements Serializable {
-    public MapSymbol(){ }
+public class MapSymbol implements Persistable<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO) // now work
+    @GeneratedValue
     @Column(name = "ID")
     private Long id;
 
@@ -43,4 +45,8 @@ public class MapSymbol implements Serializable {
     private Float strokeOpacity;
 
 
+    @Override
+    public boolean isNew() {
+        return false;
+    }
 }

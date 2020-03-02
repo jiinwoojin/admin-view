@@ -2,10 +2,15 @@
 spring:
   profiles:
     ## 개발 : local / 운영 : prod / 외부 : outside(박찬신)
-    active: local
+    active: outside
   http:
     encoding:
       charset: UTF-8
+  datasource:
+    driver-class-name: ${project.datasource.base.driver-class-name}
+    url: ${project.datasource.base.url}
+    username: ${project.datasource.base.username}
+    password: ${project.datasource.base.password}
   jpa:
     hibernate:
       ddl-auto: update
@@ -14,6 +19,10 @@ spring:
     properties:
       hibernate.format_sql: false
       hibernate.enable_lazy_load_no_trans: true
+      hibernate.jdbc.batch_size: 100
+      hibernate.jdbc.batch_versioned_data: true
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
     open-in-view: true
   servlet:
     multipart:

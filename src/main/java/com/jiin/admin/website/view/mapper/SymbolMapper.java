@@ -4,6 +4,7 @@ import com.jiin.admin.entity.MapSymbol;
 import com.jiin.admin.mapper.BaseMapper;
 import com.jiin.admin.website.security.AccountAuthProvider;
 import com.jiin.admin.website.security.AccountService;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

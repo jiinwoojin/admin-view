@@ -1,11 +1,13 @@
 package com.jiin.admin.config.db;
 
+import com.jiin.admin.mapper.BaseMapper;
 import com.jiin.admin.mapper.MapMapper;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -62,7 +64,6 @@ public class MapDatabase {
 		bean.setMapperLocations(resolver.getResources(mapperLocations));
 		return bean.getObject();
 	}
-
 	/*
 	@Bean
 	public PlatformTransactionManager mapAnnotationDrivenTransactionManager() {
