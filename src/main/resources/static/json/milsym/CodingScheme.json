@@ -1,0 +1,9 @@
+{
+  "S*Z*------*****": { "KEY_CODE":0, "CODE_KOR_NAME":"미식별", "CODE_NAME":"Unknown"},
+  "S---------*****": { "KEY_CODE":1, "CODE_KOR_NAME":"기본군대부호", "CODE_NAME":"Warfighting symbols"},
+  "G*--------****X": { "KEY_CODE":2, "CODE_KOR_NAME":"작전활동부호 ", "CODE_NAME":"Tactical graphics"},
+  "W--------------": { "KEY_CODE":3, "CODE_KOR_NAME":"기상 및 해양", "CODE_NAME":"METOC"},
+  "I--------------": { "KEY_CODE":4, "CODE_KOR_NAME":"신호정보", "CODE_NAME":"Signals intelligence"},
+  "O*--------*****": { "KEY_CODE":5, "CODE_KOR_NAME":"안정화작전", "CODE_NAME":"Stability operations (SO)"},
+  "E--------------": { "KEY_CODE":6, "CODE_KOR_NAME":"비상관리", "CODE_NAME":"Emergency management symbols"}
+}

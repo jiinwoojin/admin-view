@@ -5,24 +5,23 @@ function modal_draggable(id){
 }
 
 $(document).ready(function() {
-    // 2차원 지도 도시
     // 지도 타일 레이어
     var osmLayer = new ol.layer.Tile({
         source: new ol.source.OSM()
     });
 
     // [경도(북위이면 양수), 위도(동경이면 양수)] EPSG 는 WGS84 체계로 사용하는 경도와 위도의 상수.
-    var seoul = ol.proj.transform([127.0016985, 37.5642135], 'EPSG:4326', 'EPSG:3857');
+    var seohyeon_stn = ol.proj.transform([127.123294, 37.385117], 'EPSG:4326', 'EPSG:3857');
 
     // view 는 보여지게 될 도시와 확대 여부를 설정함.
     var view = new ol.View({
-        center: seoul,
-        zoom: 5
+        center: seohyeon_stn,
+        zoom: 16
     });
 
     // 화면에 보여지는 Map 개체 생성.
     var map = new ol.Map({
-        target: 'map2D'
+        target: 'map'
     });
 
     // 지도 타일 레이어 추가.
@@ -32,7 +31,7 @@ $(document).ready(function() {
     map.setView(view);
 
     // 3차원 지도 도시
-    var viewer = new Cesium.Viewer('map3D', {
+    var viewer = new Cesium.Viewer('map3d', {
         sceneMode: Cesium.SceneMode.SCENE3D,
         timeline: false,
         animation: false,

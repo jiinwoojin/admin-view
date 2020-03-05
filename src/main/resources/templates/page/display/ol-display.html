@@ -2,11 +2,27 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/gis/openlayers-6.1.1/ol.css}">
-    <script th:src="@{/gis/openlayers-6.1.1/ol.js}"></script>
+    <link rel="stylesheet" th:href="@{/gis/openlayers-4.6.4/ol.css}">
+    <script th:src="@{/gis/openlayers-4.6.4/ol.js}"></script>
 </head>
 <body>
-    <div id="map2d" style="height : 90vh; width: 100%;"></div>
+    <div id="map2d" style="height : 90vh; width: 100%;">
+        <!-- Right CLICK EVENT DIV -->
+        <div id="click_coord" style="position: absolute; z-index: 999; display: none; background-color: white; border: 1px solid #aaa; ">
+            <ul class="list-unstyled">
+                <!-- <li id="click_coord_btn" class="rightClickBtn milSymEvent">군대 부호 적용</li> -->
+                <!-- <li id="general_shape_btn" class="rightClickBtn milSymEvent">일반 도형 적용</li> -->
+                <!-- <li class="rightClickBtn hidden" onclick="removeAllMarker();">레이어 전체 도형 삭제</li> -->
+
+                <li id="click_coord_btn_mod" class="rightClickBtn milSymEvent">부호 수정</li>
+                <li id="click_coord_btn_del" class="rightClickBtn milSymEvent">부호 삭제</li>
+                <li id="click_cancel_modify" class="rightClickBtn hidden" onclick="modifyCancel();">수정 중단</li>
+            </ul>
+        </div>
+        <div id="mouse-position" style="position: absolute; padding: 3px; font-weight: bold; left: 0; bottom: 0; background-color: white; z-index: 999;">
+
+        </div>
+    </div>
     <script>
         // 지도 타일 레이어
         var osmLayer = new ol.layer.Tile({

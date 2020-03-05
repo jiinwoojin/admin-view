@@ -19,8 +19,8 @@
     <script th:src="@{/jquery/jquery-ui.min.js}"></script>
     <script th:src="@{/js/page/map-overlay.js}"></script>
 
-    <link rel="stylesheet" th:href="@{/gis/openlayers-6.1.1/ol.css}">
-    <script th:src="@{/gis/openlayers-6.1.1/ol.js}"></script>
+    <link rel="stylesheet" th:href="@{/gis/openlayers-4.6.4/ol.css}">
+    <script th:src="@{/gis/openlayers-4.6.4/ol.js}"></script>
 
     <link rel="stylesheet" th:href="@{/gis/cesium-1.65/Widgets/widgets.css}">
     <script th:src="@{/gis/cesium-1.65/Cesium.js}"></script>
@@ -41,10 +41,10 @@
 
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="display2d" role="tabpanel" aria-labelledby="pills-home-tab">
-                <div id="map2D" class="map2D" style="width: 100%; height : calc(100vh - 340px);"></div>
+                <div id="map" class="map2d" style="width: 100%; height : calc(100vh - 340px);"></div>
             </div>
             <div class="tab-pane fade" id="display3d" role="tabpanel" aria-labelledby="pills-profile-tab">
-                <div id="map3D" class="map3D" style="height : calc(100vh - 340px);"></div>
+                <div id="map3D" class="map3d" style="height : calc(100vh - 340px);"></div>
             </div>
         </div>
 
