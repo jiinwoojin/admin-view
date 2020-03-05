@@ -1,0 +1,175 @@
+LAYER
+  NAME "CELL12_01"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_01.tif"
+END
+
+LAYER
+  NAME "CELL12_02"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_02.tif"
+END
+
+LAYER
+  NAME "CELL12_03"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_03.tif"
+END
+
+LAYER
+  NAME "CELL12_04"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_04.tif"
+END
+
+LAYER
+  NAME "CELL12_05"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_05.tif"
+END
+
+LAYER
+  NAME "CELL12_06"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_06.tif"
+END
+
+LAYER
+  NAME "CELL12_07"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_07.tif"
+END
+
+LAYER
+  NAME "CELL12_08"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_08.tif"
+END
+
+LAYER
+  NAME "CELL12_09"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_09.tif"
+END
+
+LAYER
+  NAME "CELL12_10"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_10.tif"
+END
+
+LAYER
+  NAME "CELL12_11"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_11.tif"
+END
+
+LAYER
+  NAME "CELL12_12"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_12.tif"
+END
+
+LAYER
+  NAME "CELL12_13"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_13.tif"
+END
+
+LAYER
+  NAME "CELL12_14"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_14.tif"
+END
+
+LAYER
+  NAME "CELL12_15"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_15.tif"
+END
+
+LAYER
+  NAME "CELL12_16"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL12/CELL12_16.tif"
+END

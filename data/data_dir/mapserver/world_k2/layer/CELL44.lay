@@ -1,0 +1,175 @@
+LAYER
+  NAME "CELL44_01"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_01.tif"
+END
+
+LAYER
+  NAME "CELL44_02"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_02.tif"
+END
+
+LAYER
+  NAME "CELL44_03"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_03.tif"
+END
+
+LAYER
+  NAME "CELL44_04"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_04.tif"
+END
+
+LAYER
+  NAME "CELL44_05"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_05.tif"
+END
+
+LAYER
+  NAME "CELL44_06"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_06.tif"
+END
+
+LAYER
+  NAME "CELL44_07"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_07.tif"
+END
+
+LAYER
+  NAME "CELL44_08"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_08.tif"
+END
+
+LAYER
+  NAME "CELL44_09"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_09.tif"
+END
+
+LAYER
+  NAME "CELL44_10"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_10.tif"
+END
+
+LAYER
+  NAME "CELL44_11"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_11.tif"
+END
+
+LAYER
+  NAME "CELL44_12"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_12.tif"
+END
+
+LAYER
+  NAME "CELL44_13"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_13.tif"
+END
+
+LAYER
+  NAME "CELL44_14"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_14.tif"
+END
+
+LAYER
+  NAME "CELL44_15"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_15.tif"
+END
+
+LAYER
+  NAME "CELL44_16"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL44/CELL44_16.tif"
+END

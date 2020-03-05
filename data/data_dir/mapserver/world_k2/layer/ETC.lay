@@ -1,0 +1,296 @@
+LAYER
+  NAME "123E39N_04"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/123E39N_04.tif"
+END
+
+LAYER
+  NAME "123E40N_12"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/123E40N_12.tif"
+END
+
+LAYER
+  NAME "123E40N_16"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/123E40N_16.tif"
+END
+
+LAYER
+  NAME "125E41N_08"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/125E41N_08.tif"
+END
+
+LAYER
+  NAME "125E41N_11"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/125E41N_11.tif"
+END
+
+LAYER
+  NAME "125E41N_12"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/125E41N_12.tif"
+END
+
+LAYER
+  NAME "125E41N_13"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/125E41N_13.tif"
+END
+
+LAYER
+  NAME "125E41N_14"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/125E41N_14.tif"
+END
+
+LAYER
+  NAME "125E41N_15"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/125E41N_15.tif"
+END
+
+LAYER
+  NAME "125E41N_16"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/125E41N_16.tif"
+END
+
+LAYER
+  NAME "126E42N_14"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/126E42N_14.tif"
+END
+
+LAYER
+  NAME "126E42N_15"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/126E42N_15.tif"
+END
+
+LAYER
+  NAME "126E42N_16"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/126E42N_16.tif"
+END
+
+LAYER
+  NAME "127E42N_12"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/127E42N_12.tif"
+END
+
+LAYER
+  NAME "127E42N_13"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/127E42N_13.tif"
+END
+
+LAYER
+  NAME "127E42N_16"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/127E42N_16.tif"
+END
+
+LAYER
+  NAME "127E42N_15"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/127E42N_15.tif"
+END
+
+LAYER
+  NAME "130E43N_09"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/130E43N_09.tif"
+END
+
+LAYER
+  NAME "130E43N_10"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/130E43N_10.tif"
+END
+
+LAYER
+  NAME "130E43N_11"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/130E43N_11.tif"
+END
+
+LAYER
+  NAME "130E43N_13"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/130E43N_13.tif"
+END
+
+LAYER
+  NAME "130E43N_14"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/130E43N_14.tif"
+END
+
+LAYER
+  NAME "130E43N_15"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/130E43N_15.tif"
+END
+
+LAYER
+  NAME "130E43N_16"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/130E43N_16.tif"
+END
+
+LAYER
+  NAME "131E42N_01"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/131E42N_01.tif"
+END
+
+LAYER
+  NAME "131E42N_05"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/131E42N_05.tif"
+END
+
+LAYER
+  NAME "131E42N_09"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/ETC/131E42N_09.tif"
+END

@@ -1,0 +1,2701 @@
+[webserver]
+port = ":11000"
+
+	[webserver.headers]
+	Access-Control-Allow-Origin = "*"
+	Cache-Control = "no-cache, no-store, must-revalidate"
+
+[cache]
+type = "file"
+basepath = "/data/jiserver/cache/vecotrtiles"
+
+[[providers]]
+name = "mims"
+type = "postgis"
+host = "211.172.246.71"
+port = "5000"
+database = "mims"
+user = "jiserver"
+password = "jiserver"
+srid = 4326
+max_connections = 50
+
+	[[providers.layers]]
+	name = "g25k_aaa010"
+	tablename = "g25k.aaa010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aaa012"
+	tablename = "g25k.aaa012"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aab000"
+	tablename = "g25k.aab000"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aab010"
+	tablename = "g25k.aab010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aac000"
+	tablename = "g25k.aac000"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aac030"
+	tablename = "g25k.aac030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aad010"
+	tablename = "g25k.aad010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aad030"
+	tablename = "g25k.aad030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aah050"
+	tablename = "g25k.aah050"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aaj030"
+	tablename = "g25k.aaj030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aak030"
+	tablename = "g25k.aak030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aak040"
+	tablename = "g25k.aak040"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aak060"
+	tablename = "g25k.aak060"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aak070"
+	tablename = "g25k.aak070"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aak090"
+	tablename = "g25k.aak090"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aak100"
+	tablename = "g25k.aak100"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aak120"
+	tablename = "g25k.aak120"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aak160"
+	tablename = "g25k.aak160"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aak170"
+	tablename = "g25k.aak170"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aal005"
+	tablename = "g25k.aal005"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aal015"
+	tablename = "g25k.aal015"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aal020"
+	tablename = "g25k.aal020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aal030"
+	tablename = "g25k.aal030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aal060"
+	tablename = "g25k.aal060"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aal170"
+	tablename = "g25k.aal170"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aal195"
+	tablename = "g25k.aal195"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aal200"
+	tablename = "g25k.aal200"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aal210"
+	tablename = "g25k.aal210"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aam010"
+	tablename = "g25k.aam010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aam020"
+	tablename = "g25k.aam020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aam030"
+	tablename = "g25k.aam030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aam060"
+	tablename = "g25k.aam060"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aam070"
+	tablename = "g25k.aam070"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aan060"
+	tablename = "g25k.aan060"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aaq064"
+	tablename = "g25k.aaq064"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aaq116"
+	tablename = "g25k.aaq116"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aaq140"
+	tablename = "g25k.aaq140"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aat050"
+	tablename = "g25k.aat050"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aba023"
+	tablename = "g25k.aba023"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aba030"
+	tablename = "g25k.aba030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aba040"
+	tablename = "g25k.aba040"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abb010"
+	tablename = "g25k.abb010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abb041"
+	tablename = "g25k.abb041"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abb090"
+	tablename = "g25k.abb090"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abb140"
+	tablename = "g25k.abb140"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abb190"
+	tablename = "g25k.abb190"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abb220"
+	tablename = "g25k.abb220"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abb240"
+	tablename = "g25k.abb240"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abd120"
+	tablename = "g25k.abd120"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh010"
+	tablename = "g25k.abh010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh015"
+	tablename = "g25k.abh015"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh020"
+	tablename = "g25k.abh020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh030"
+	tablename = "g25k.abh030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh040"
+	tablename = "g25k.abh040"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh050"
+	tablename = "g25k.abh050"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh077"
+	tablename = "g25k.abh077"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh080"
+	tablename = "g25k.abh080"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh090"
+	tablename = "g25k.abh090"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh120"
+	tablename = "g25k.abh120"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh130"
+	tablename = "g25k.abh130"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh135"
+	tablename = "g25k.abh135"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh140"
+	tablename = "g25k.abh140"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abh155"
+	tablename = "g25k.abh155"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abi020"
+	tablename = "g25k.abi020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_abi030"
+	tablename = "g25k.abi030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_ada010"
+	tablename = "g25k.ada010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_adb090"
+	tablename = "g25k.adb090"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_adb160"
+	tablename = "g25k.adb160"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_adb170"
+	tablename = "g25k.adb170"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aea010"
+	tablename = "g25k.aea010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aea040"
+	tablename = "g25k.aea040"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aea050"
+	tablename = "g25k.aea050"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aeb010"
+	tablename = "g25k.aeb010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aeb020"
+	tablename = "g25k.aeb020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aec010"
+	tablename = "g25k.aec010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aec030"
+	tablename = "g25k.aec030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aec040"
+	tablename = "g25k.aec040"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aed010"
+	tablename = "g25k.aed010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_aed020"
+	tablename = "g25k.aed020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_afa001"
+	tablename = "g25k.afa001"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_afa015"
+	tablename = "g25k.afa015"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_afa070"
+	tablename = "g25k.afa070"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_afa170"
+	tablename = "g25k.afa170"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_agb005"
+	tablename = "g25k.agb005"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_agb015"
+	tablename = "g25k.agb015"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_agb030"
+	tablename = "g25k.agb030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_agb035"
+	tablename = "g25k.agb035"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_agb045"
+	tablename = "g25k.agb045"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_agb055"
+	tablename = "g25k.agb055"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_agb075"
+	tablename = "g25k.agb075"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_azd020"
+	tablename = "g25k.azd020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "multipolygon"
+	id_fieldname = "objectid"
+
+
+
+	[[providers.layers]]
+	name = "g25k_laf020"
+	tablename = "g25k.laf020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lak130"
+	tablename = "g25k.lak130"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lak150"
+	tablename = "g25k.lak150"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lal060"
+	tablename = "g25k.lal060"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lal070"
+	tablename = "g25k.lal070"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lal210"
+	tablename = "g25k.lal210"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lal260"
+	tablename = "g25k.lal260"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lan010"
+	tablename = "g25k.lan010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lan050"
+	tablename = "g25k.lan050"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lap010"
+	tablename = "g25k.lap010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lap020"
+	tablename = "g25k.lap020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lap030"
+	tablename = "g25k.lap030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lap050"
+	tablename = "g25k.lap050"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_laq010"
+	tablename = "g25k.laq010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_laq040"
+	tablename = "g25k.laq040"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_laq064"
+	tablename = "g25k.laq064"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_laq070"
+	tablename = "g25k.laq070"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_laq113"
+	tablename = "g25k.laq113"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_laq130"
+	tablename = "g25k.laq130"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lat005"
+	tablename = "g25k.lat005"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lat030"
+	tablename = "g25k.lat030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lba010"
+	tablename = "g25k.lba010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbb041"
+	tablename = "g25k.lbb041"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbb043"
+	tablename = "g25k.lbb043"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbb140"
+	tablename = "g25k.lbb140"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbb190"
+	tablename = "g25k.lbb190"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbb220"
+	tablename = "g25k.lbb220"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbb230"
+	tablename = "g25k.lbb230"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbb240"
+	tablename = "g25k.lbb240"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbd120"
+	tablename = "g25k.lbd120"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbe010"
+	tablename = "g25k.lbe010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbe015"
+	tablename = "g25k.lbe015"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbh010"
+	tablename = "g25k.lbh010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbh020"
+	tablename = "g25k.lbh020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbh030"
+	tablename = "g25k.lbh030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbh070"
+	tablename = "g25k.lbh070"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbh110"
+	tablename = "g25k.lbh110"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbh120"
+	tablename = "g25k.lbh120"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbh140"
+	tablename = "g25k.lbh140"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbh180"
+	tablename = "g25k.lbh180"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbh210"
+	tablename = "g25k.lbh210"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lbi040"
+	tablename = "g25k.lbi040"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lca010"
+	tablename = "g25k.lca010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_ldb010"
+	tablename = "g25k.ldb010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_ldb070"
+	tablename = "g25k.ldb070"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_ldb090"
+	tablename = "g25k.ldb090"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lea020"
+	tablename = "g25k.lea020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lec040"
+	tablename = "g25k.lec040"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lfa000"
+	tablename = "g25k.lfa000"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lfa020"
+	tablename = "g25k.lfa020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lfa060"
+	tablename = "g25k.lfa060"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_lsu002"
+	tablename = "g25k.lsu002"
+	geometry_fieldname = "the_geom"
+	geometry_type = "MultiLineString"
+	id_fieldname = "objectid"
+
+
+
+	[[providers.layers]]
+	name = "g25k_paa010"
+	tablename = "g25k.paa010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_paa012"
+	tablename = "g25k.paa012"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_paa040"
+	tablename = "g25k.paa040"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_paa050"
+	tablename = "g25k.paa050"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pac000"
+	tablename = "g25k.pac000"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pac020"
+	tablename = "g25k.pac020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pad010"
+	tablename = "g25k.pad010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pad020"
+	tablename = "g25k.pad020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pad030"
+	tablename = "g25k.pad030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_paf010"
+	tablename = "g25k.paf010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_paf030"
+	tablename = "g25k.paf030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_paf040"
+	tablename = "g25k.paf040"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_paf070"
+	tablename = "g25k.paf070"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pah050"
+	tablename = "g25k.pah050"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_paj050"
+	tablename = "g25k.paj050"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_paj051"
+	tablename = "g25k.paj051"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pak020"
+	tablename = "g25k.pak020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pak060"
+	tablename = "g25k.pak060"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pak160"
+	tablename = "g25k.pak160"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pal015"
+	tablename = "g25k.pal015"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pal019"
+	tablename = "g25k.pal019"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pal025"
+	tablename = "g25k.pal025"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pal030"
+	tablename = "g25k.pal030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pal130"
+	tablename = "g25k.pal130"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pal200"
+	tablename = "g25k.pal200"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pal210"
+	tablename = "g25k.pal210"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pal240"
+	tablename = "g25k.pal240"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pal250"
+	tablename = "g25k.pal250"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pam020"
+	tablename = "g25k.pam020"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pam030"
+	tablename = "g25k.pam030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pam060"
+	tablename = "g25k.pam060"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pam070"
+	tablename = "g25k.pam070"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pam080"
+	tablename = "g25k.pam080"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pan075"
+	tablename = "g25k.pan075"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_paq060"
+	tablename = "g25k.paq060"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_paq065"
+	tablename = "g25k.paq065"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_paq068"
+	tablename = "g25k.paq068"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_paq116"
+	tablename = "g25k.paq116"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pat010"
+	tablename = "g25k.pat010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pat040"
+	tablename = "g25k.pat040"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pat050"
+	tablename = "g25k.pat050"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pat080"
+	tablename = "g25k.pat080"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbb010"
+	tablename = "g25k.pbb010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbb080"
+	tablename = "g25k.pbb080"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbd100"
+	tablename = "g25k.pbd100"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbd130"
+	tablename = "g25k.pbd130"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbd180"
+	tablename = "g25k.pbd180"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbg010"
+	tablename = "g25k.pbg010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbh070"
+	tablename = "g25k.pbh070"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbh120"
+	tablename = "g25k.pbh120"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbh145"
+	tablename = "g25k.pbh145"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbh170"
+	tablename = "g25k.pbh170"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbh180"
+	tablename = "g25k.pbh180"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbi010"
+	tablename = "g25k.pbi010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbi040"
+	tablename = "g25k.pbi040"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pbi050"
+	tablename = "g25k.pbi050"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pca030"
+	tablename = "g25k.pca030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pdb030"
+	tablename = "g25k.pdb030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pdb150"
+	tablename = "g25k.pdb150"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pdb160"
+	tablename = "g25k.pdb160"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pgb010"
+	tablename = "g25k.pgb010"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+	[[providers.layers]]
+	name = "g25k_pgb030"
+	tablename = "g25k.pgb030"
+	geometry_fieldname = "the_geom"
+	geometry_type = "point"
+	id_fieldname = "objectid"
+
+[[maps]]
+name = "g25k"
+
+	[[maps.layers]]
+	name = "aaa010"
+
+	provider_layer = "mims.g25k_aaa010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]]
+	name = "aaa012"
+
+	provider_layer = "mims.g25k_aaa012"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]]
+	name = "aab000"
+
+	provider_layer = "mims.g25k_aab000"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]]
+	name = "aab010"
+
+	provider_layer = "mims.g25k_aab010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]]
+	name = "aac000"
+
+	provider_layer = "mims.g25k_aac000"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]]
+	name = "aac030"
+
+	provider_layer = "mims.g25k_aac030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]]
+	name = "aad010"
+
+	provider_layer = "mims.g25k_aad010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]]
+	name = "aad030"
+
+	provider_layer = "mims.g25k_aad030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aah050"
+	provider_layer = "mims.g25k_aah050"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aaj030"
+	provider_layer = "mims.g25k_aaj030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aak030"
+	provider_layer = "mims.g25k_aak030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aak040"
+	provider_layer = "mims.g25k_aak040"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aak060"
+	provider_layer = "mims.g25k_aak060"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aak070"
+	provider_layer = "mims.g25k_aak070"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aak090"
+	provider_layer = "mims.g25k_aak090"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aak100"
+	provider_layer = "mims.g25k_aak100"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aak120"
+	provider_layer = "mims.g25k_aak120"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aak160"
+	provider_layer = "mims.g25k_aak160"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aak170"
+	provider_layer = "mims.g25k_aak170"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aal005"
+	provider_layer = "mims.g25k_aal005"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aal015"
+	provider_layer = "mims.g25k_aal015"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aal020"
+	provider_layer = "mims.g25k_aal020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aal030"
+	provider_layer = "mims.g25k_aal030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aal060"
+	provider_layer = "mims.g25k_aal060"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aal170"
+	provider_layer = "mims.g25k_aal170"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aal195"
+	provider_layer = "mims.g25k_aal195"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aal200"
+	provider_layer = "mims.g25k_aal200"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aal210"
+	provider_layer = "mims.g25k_aal210"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aam010"
+	provider_layer = "mims.g25k_aam010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aam020"
+	provider_layer = "mims.g25k_aam020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aam030"
+	provider_layer = "mims.g25k_aam030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aam060"
+	provider_layer = "mims.g25k_aam060"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aam070"
+	provider_layer = "mims.g25k_aam070"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aan060"
+	provider_layer = "mims.g25k_aan060"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aaq064"
+	provider_layer = "mims.g25k_aaq064"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aaq116"
+	provider_layer = "mims.g25k_aaq116"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aaq140"
+	provider_layer = "mims.g25k_aaq140"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aat050"
+	provider_layer = "mims.g25k_aat050"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aba023"
+	provider_layer = "mims.g25k_aba023"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aba030"
+	provider_layer = "mims.g25k_aba030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aba040"
+	provider_layer = "mims.g25k_aba040"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abb010"
+	provider_layer = "mims.g25k_abb010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abb041"
+	provider_layer = "mims.g25k_abb041"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abb090"
+	provider_layer = "mims.g25k_abb090"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abb140"
+	provider_layer = "mims.g25k_abb140"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abb190"
+	provider_layer = "mims.g25k_abb190"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abb220"
+	provider_layer = "mims.g25k_abb220"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abb240"
+	provider_layer = "mims.g25k_abb240"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abd120"
+	provider_layer = "mims.g25k_abd120"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh010"
+	provider_layer = "mims.g25k_abh010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh015"
+	provider_layer = "mims.g25k_abh015"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh020"
+	provider_layer = "mims.g25k_abh020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh030"
+	provider_layer = "mims.g25k_abh030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh040"
+	provider_layer = "mims.g25k_abh040"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh050"
+	provider_layer = "mims.g25k_abh050"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh077"
+	provider_layer = "mims.g25k_abh077"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh080"
+	provider_layer = "mims.g25k_abh080"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh090"
+	provider_layer = "mims.g25k_abh090"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh120"
+	provider_layer = "mims.g25k_abh120"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh130"
+	provider_layer = "mims.g25k_abh130"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh135"
+	provider_layer = "mims.g25k_abh135"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh140"
+	provider_layer = "mims.g25k_abh140"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abh155"
+	provider_layer = "mims.g25k_abh155"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abi020"
+	provider_layer = "mims.g25k_abi020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "abi030"
+	provider_layer = "mims.g25k_abi030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "ada010"
+	provider_layer = "mims.g25k_ada010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "adb090"
+	provider_layer = "mims.g25k_adb090"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "adb160"
+	provider_layer = "mims.g25k_adb160"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "adb170"
+	provider_layer = "mims.g25k_adb170"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aea010"
+	provider_layer = "mims.g25k_aea010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aea040"
+	provider_layer = "mims.g25k_aea040"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aea050"
+	provider_layer = "mims.g25k_aea050"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aeb010"
+	provider_layer = "mims.g25k_aeb010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aeb020"
+	provider_layer = "mims.g25k_aeb020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aec010"
+	provider_layer = "mims.g25k_aec010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aec030"
+	provider_layer = "mims.g25k_aec030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aec040"
+	provider_layer = "mims.g25k_aec040"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aed010"
+	provider_layer = "mims.g25k_aed010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "aed020"
+	provider_layer = "mims.g25k_aed020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "afa001"
+	provider_layer = "mims.g25k_afa001"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "afa015"
+	provider_layer = "mims.g25k_afa015"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "afa070"
+	provider_layer = "mims.g25k_afa070"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "afa170"
+	provider_layer = "mims.g25k_afa170"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "agb005"
+	provider_layer = "mims.g25k_agb005"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "agb015"
+	provider_layer = "mims.g25k_agb015"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "agb030"
+	provider_layer = "mims.g25k_agb030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "agb035"
+	provider_layer = "mims.g25k_agb035"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "agb045"
+	provider_layer = "mims.g25k_agb045"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "agb055"
+	provider_layer = "mims.g25k_agb055"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "agb075"
+	provider_layer = "mims.g25k_agb075"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "azd020"
+	provider_layer = "mims.g25k_azd020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "laf020"
+	provider_layer = "mims.g25k_laf020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lak130"
+	provider_layer = "mims.g25k_lak130"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lak150"
+	provider_layer = "mims.g25k_lak150"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lal060"
+	provider_layer = "mims.g25k_lal060"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lal070"
+	provider_layer = "mims.g25k_lal070"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lal210"
+	provider_layer = "mims.g25k_lal210"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lal260"
+	provider_layer = "mims.g25k_lal260"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lan010"
+	provider_layer = "mims.g25k_lan010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lan050"
+	provider_layer = "mims.g25k_lan050"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lap010"
+	provider_layer = "mims.g25k_lap010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lap020"
+	provider_layer = "mims.g25k_lap020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lap030"
+	provider_layer = "mims.g25k_lap030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lap050"
+	provider_layer = "mims.g25k_lap050"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "laq010"
+	provider_layer = "mims.g25k_laq010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "laq040"
+	provider_layer = "mims.g25k_laq040"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "laq064"
+	provider_layer = "mims.g25k_laq064"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "laq070"
+	provider_layer = "mims.g25k_laq070"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "laq113"
+	provider_layer = "mims.g25k_laq113"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "laq130"
+	provider_layer = "mims.g25k_laq130"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lat005"
+	provider_layer = "mims.g25k_lat005"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lat030"
+	provider_layer = "mims.g25k_lat030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lba010"
+	provider_layer = "mims.g25k_lba010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbb041"
+	provider_layer = "mims.g25k_lbb041"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbb043"
+	provider_layer = "mims.g25k_lbb043"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbb140"
+	provider_layer = "mims.g25k_lbb140"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbb190"
+	provider_layer = "mims.g25k_lbb190"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbb220"
+	provider_layer = "mims.g25k_lbb220"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbb230"
+	provider_layer = "mims.g25k_lbb230"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbb240"
+	provider_layer = "mims.g25k_lbb240"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbd120"
+	provider_layer = "mims.g25k_lbd120"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbe010"
+	provider_layer = "mims.g25k_lbe010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbe015"
+	provider_layer = "mims.g25k_lbe015"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbh010"
+	provider_layer = "mims.g25k_lbh010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbh020"
+	provider_layer = "mims.g25k_lbh020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbh030"
+	provider_layer = "mims.g25k_lbh030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbh070"
+	provider_layer = "mims.g25k_lbh070"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbh110"
+	provider_layer = "mims.g25k_lbh110"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbh120"
+	provider_layer = "mims.g25k_lbh120"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbh140"
+	provider_layer = "mims.g25k_lbh140"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbh180"
+	provider_layer = "mims.g25k_lbh180"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbh210"
+	provider_layer = "mims.g25k_lbh210"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lbi040"
+	provider_layer = "mims.g25k_lbi040"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lca010"
+	provider_layer = "mims.g25k_lca010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "ldb010"
+	provider_layer = "mims.g25k_ldb010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "ldb070"
+	provider_layer = "mims.g25k_ldb070"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "ldb090"
+	provider_layer = "mims.g25k_ldb090"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lea020"
+	provider_layer = "mims.g25k_lea020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lec040"
+	provider_layer = "mims.g25k_lec040"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lfa000"
+	provider_layer = "mims.g25k_lfa000"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lfa020"
+	provider_layer = "mims.g25k_lfa020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lfa060"
+	provider_layer = "mims.g25k_lfa060"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "lsu002"
+	provider_layer = "mims.g25k_lsu002"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paa010"
+	provider_layer = "mims.g25k_paa010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paa012"
+	provider_layer = "mims.g25k_paa012"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paa040"
+	provider_layer = "mims.g25k_paa040"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paa050"
+	provider_layer = "mims.g25k_paa050"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pac000"
+	provider_layer = "mims.g25k_pac000"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pac020"
+	provider_layer = "mims.g25k_pac020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pad010"
+	provider_layer = "mims.g25k_pad010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pad020"
+	provider_layer = "mims.g25k_pad020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pad030"
+	provider_layer = "mims.g25k_pad030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paf010"
+	provider_layer = "mims.g25k_paf010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paf030"
+	provider_layer = "mims.g25k_paf030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paf040"
+	provider_layer = "mims.g25k_paf040"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paf070"
+	provider_layer = "mims.g25k_paf070"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pah050"
+	provider_layer = "mims.g25k_pah050"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paj050"
+	provider_layer = "mims.g25k_paj050"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paj051"
+	provider_layer = "mims.g25k_paj051"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pak020"
+	provider_layer = "mims.g25k_pak020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pak060"
+	provider_layer = "mims.g25k_pak060"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pak160"
+	provider_layer = "mims.g25k_pak160"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pal015"
+	provider_layer = "mims.g25k_pal015"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pal019"
+	provider_layer = "mims.g25k_pal019"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pal025"
+	provider_layer = "mims.g25k_pal025"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pal030"
+	provider_layer = "mims.g25k_pal030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pal130"
+	provider_layer = "mims.g25k_pal130"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pal200"
+	provider_layer = "mims.g25k_pal200"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pal210"
+	provider_layer = "mims.g25k_pal210"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pal240"
+	provider_layer = "mims.g25k_pal240"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pal250"
+	provider_layer = "mims.g25k_pal250"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pam020"
+	provider_layer = "mims.g25k_pam020"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pam030"
+	provider_layer = "mims.g25k_pam030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pam060"
+	provider_layer = "mims.g25k_pam060"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pam070"
+	provider_layer = "mims.g25k_pam070"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pam080"
+	provider_layer = "mims.g25k_pam080"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pan075"
+	provider_layer = "mims.g25k_pan075"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paq060"
+	provider_layer = "mims.g25k_paq060"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paq065"
+	provider_layer = "mims.g25k_paq065"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paq068"
+	provider_layer = "mims.g25k_paq068"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "paq116"
+	provider_layer = "mims.g25k_paq116"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pat010"
+	provider_layer = "mims.g25k_pat010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pat040"
+	provider_layer = "mims.g25k_pat040"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pat050"
+	provider_layer = "mims.g25k_pat050"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pat080"
+	provider_layer = "mims.g25k_pat080"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbb010"
+	provider_layer = "mims.g25k_pbb010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbb080"
+	provider_layer = "mims.g25k_pbb080"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbd100"
+	provider_layer = "mims.g25k_pbd100"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbd130"
+	provider_layer = "mims.g25k_pbd130"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbd180"
+	provider_layer = "mims.g25k_pbd180"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbg010"
+	provider_layer = "mims.g25k_pbg010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbh070"
+	provider_layer = "mims.g25k_pbh070"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbh120"
+	provider_layer = "mims.g25k_pbh120"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbh145"
+	provider_layer = "mims.g25k_pbh145"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbh170"
+	provider_layer = "mims.g25k_pbh170"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbh180"
+	provider_layer = "mims.g25k_pbh180"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbi010"
+	provider_layer = "mims.g25k_pbi010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbi040"
+	provider_layer = "mims.g25k_pbi040"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pbi050"
+	provider_layer = "mims.g25k_pbi050"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pca030"
+	provider_layer = "mims.g25k_pca030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pdb030"
+	provider_layer = "mims.g25k_pdb030"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pdb150"
+	provider_layer = "mims.g25k_pdb150"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pdb160"
+	provider_layer = "mims.g25k_pdb160"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pgb010"
+	provider_layer = "mims.g25k_pgb010"
+	min_zoom = 13
+	max_zoom = 18
+
+	[[maps.layers]] 
+	name = "pgb030"
+	provider_layer = "mims.g25k_pgb030"
+	min_zoom = 13
+	max_zoom = 18

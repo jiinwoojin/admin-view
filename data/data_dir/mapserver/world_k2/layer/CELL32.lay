@@ -1,0 +1,43 @@
+LAYER
+  NAME "CELL32_07"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL32/CELL32_07.tif"
+END
+
+LAYER
+  NAME "CELL32_08"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL32/CELL32_08.tif"
+END
+
+LAYER
+  NAME "CELL32_11"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL32/CELL32_11.tif"
+END
+
+LAYER
+  NAME "CELL32_12"
+  GROUP "world"
+  TYPE RASTER
+  STATUS OFF
+  PROJECTION
+    "init=epsg:4326"
+  END
+  DATA "/data/jiserver/data_dir/data/k2/CELL32/CELL32_12.tif"
+END

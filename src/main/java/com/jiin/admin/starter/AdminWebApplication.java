@@ -10,6 +10,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
 @SpringBootApplication(scanBasePackages = {"com.jiin.admin.config", "com.jiin.admin.servlet"})
 @EnableJpaRepositories(basePackages = {"com.jiin.admin.website"}, transactionManagerRef = "transactionManager_BASE")
@@ -26,5 +27,10 @@ public class AdminWebApplication extends SpringBootServletInitializer implements
     @Override
     public void run(String... args) {
         bootingService.initializeSymbol();
+        try {
+            bootingService.initializeLayer();
+        } catch (IOException e) {
+            System.out.println("\t\t >> initializeLayer error > " + e.getMessage());
+        }
     }
 }

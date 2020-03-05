@@ -1,0 +1,79 @@
+MAP
+  NAME "WORLD_K2"
+  EXTENT -180 -90 180 90 # Geographic
+  IMAGETYPE jpeg
+  UNITS meters
+  SHAPEPATH "/data/jiserver/data_dir/data"
+  PROJECTION
+    "init=epsg:4326"
+  END
+  WEB
+    IMAGEPATH "/data/jiserver/data_dir/mapserver/tmp/"
+    METADATA
+      "wms_title" "World Map"
+      "wms_srs" "EPSG:4326"
+      "ows_enable_request" "*"
+    END
+  END
+
+  LAYER
+    NAME "ne2"
+    GROUP "world"
+    TYPE RASTER
+    STATUS OFF
+    PROJECTION
+      "init=epsg:4326"
+    END
+    DATA "NE2_HR_LC_SR_W_DR.tif"
+  END
+
+  INCLUDE "./layer/CELL01.lay"
+  INCLUDE "./layer/CELL02.lay"
+  INCLUDE "./layer/CELL03.lay"
+  INCLUDE "./layer/CELL04.lay"
+  INCLUDE "./layer/CELL05.lay"
+  INCLUDE "./layer/CELL06.lay"
+  INCLUDE "./layer/CELL07.lay"
+  INCLUDE "./layer/CELL08.lay"
+  INCLUDE "./layer/CELL09.lay"
+  INCLUDE "./layer/CELL10.lay"
+  INCLUDE "./layer/CELL11.lay"
+  INCLUDE "./layer/CELL12.lay"
+  INCLUDE "./layer/CELL13.lay"
+  INCLUDE "./layer/CELL14.lay"
+  INCLUDE "./layer/CELL15.lay"
+  INCLUDE "./layer/CELL16.lay"
+  INCLUDE "./layer/CELL17.lay"
+  INCLUDE "./layer/CELL18.lay"
+  INCLUDE "./layer/CELL19.lay"
+  INCLUDE "./layer/CELL20.lay"
+  INCLUDE "./layer/CELL21.lay"
+  INCLUDE "./layer/CELL22.lay"
+  INCLUDE "./layer/CELL23.lay"
+  INCLUDE "./layer/CELL24.lay"
+  INCLUDE "./layer/CELL25.lay"
+  INCLUDE "./layer/CELL26.lay"
+  INCLUDE "./layer/CELL27.lay"
+  INCLUDE "./layer/CELL28.lay"
+  INCLUDE "./layer/CELL29.lay"
+  INCLUDE "./layer/CELL30.lay"
+  INCLUDE "./layer/CELL31.lay"
+  INCLUDE "./layer/CELL32.lay"
+  INCLUDE "./layer/CELL33.lay"
+  INCLUDE "./layer/CELL34.lay"
+  INCLUDE "./layer/CELL35.lay"
+  INCLUDE "./layer/CELL36.lay"
+  INCLUDE "./layer/CELL37.lay"
+  INCLUDE "./layer/CELL38.lay"
+  INCLUDE "./layer/CELL39.lay"
+  INCLUDE "./layer/CELL40.lay"
+  INCLUDE "./layer/CELL41.lay"
+  INCLUDE "./layer/CELL42.lay"
+  INCLUDE "./layer/CELL43.lay"
+  INCLUDE "./layer/CELL44.lay"
+  INCLUDE "./layer/CELL45.lay"
+  INCLUDE "./layer/CELL46.lay"
+  INCLUDE "./layer/CELL47.lay"
+  INCLUDE "./layer/CELL48.lay"
+  INCLUDE "./layer/ETC.lay"
+END

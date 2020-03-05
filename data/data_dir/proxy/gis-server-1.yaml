@@ -1,0 +1,32 @@
+services:
+  demo:
+  wms:
+    versions: ['1.1.1', '1.3.0']
+    srs: ['EPSG:4326', 'EPSG:900913', 'EPSG:3857']
+    bbox_srs: ['EPSG:4326', 'EPSG:3857']
+    image_formats: ['image/jpeg', 'image/png']
+
+layers:
+  - name: world_k2
+    title: K2 World Map
+    sources: [world_k2_cache]
+
+caches:
+  world_k2_cache:
+    grids: ['GLOBAL_GEODETIC']
+    meta_size: [1, 1]
+    meta_buffer: 0
+    sources: [world_k2]
+    cache:
+      type: file
+      directory: /data/jiserver/data_dir/cache/world_k2/
+
+sources:
+  world_k2:
+    type: mapserver
+    req:
+      map: /data/jiserver/data_dir/mapserver/world_k2/world_k2.map
+      layers: world
+    mapserver:
+      binary: /usr/local/bin/mapserv
+      working_dir: /data/jiserver/data_dir/tmp
