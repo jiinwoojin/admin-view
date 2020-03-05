@@ -1,0 +1,16 @@
+{
+  "S" : {
+      "-": { "CODE_NAME":"-", "CODE_KOR_NAME":"-"},
+      "A": { "CODE_NAME":"Anticipated/Planned", "CODE_KOR_NAME":"A:예상/계획"},
+      "P": { "CODE_NAME":"Present", "CODE_KOR_NAME":"P:현재"},
+      "C": { "CODE_NAME":"Present/Fully Capable", "CODE_KOR_NAME":"C:현재/정상"},
+      "D": { "CODE_NAME":"Present/Damaged", "CODE_KOR_NAME":"D:현재/손상된"},
+      "X": { "CODE_NAME":"Present/Destroyed", "CODE_KOR_NAME":"X:현재/파괴된"},
+      "F": { "CODE_NAME":"Present/Full To Capacity", "CODE_KOR_NAME":"F:현재/최대가동"}
+  },
+  "O" : {
+      "-": { "CODE_NAME":"-", "CODE_KOR_NAME":"-"},
+      "A": { "CODE_NAME":"Anticipated/Planned", "CODE_KOR_NAME":"A:예상/계획"},
+      "P": { "CODE_NAME":"Present", "CODE_KOR_NAME":"P:현재"} 
+  }
+}

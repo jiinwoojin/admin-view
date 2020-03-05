@@ -1,0 +1,200 @@
+{
+  "arcType": {
+	  "arcTypeArc": { "code":1, "name":"호", "desc":"원호 부호를 호로 도시"},
+	  "arcTypeChord": { "code":2, "name":"현", "desc":"원호 부호를 현으로 도시"},
+	  "arcTypePie": { "code":3, "name":"부채꼴", "desc":"원호 부호를 부채꼴로 도시"}
+	},
+  "coordType": {
+	  "geographic": { "code":0, "name":"지리좌표", "desc":"지리좌표"},
+	  "screen": { "code":1, "name":"화면좌표", "desc":"화면좌표"}
+	},
+  "fillType": {
+	  "solid color": { "code":0, "name":"단색", "desc":"단색 채움"},
+	  "hatch fill": { "code":1, "name":"음영", "desc":"음영 채움"},
+	  "path gradient": { "code":3, "name":"경로형 그라데이션", "desc":"경로형 그라데이션 채움"},
+	  "linear gradation": { "code":4, "name":"선형 그라데이션", "desc":""}
+	},
+  "hatchStyle": {
+	  "horizontal": { "code":0, "name":"넓은간격 가로줄", "desc":"넓은간격 가로줄"},
+	  "vertical": { "code":1, "name":"넓은간격 가로줄", "desc":"넓은간격 가로줄"},
+	  "forwardDiagonal": { "code":2, "name":"넓은간격 우하 대각선", "desc":"넓은간격 우하 대각선"},
+	  "backwardDiagonal": { "code":3, "name":"넓은간격 우상 대각선", "desc":"넓은간격 우상 대각선"},
+	  "cross": { "code":4, "name":"넓은간격 격자", "desc":"넓은간격 격자"},
+	  "diagonalCross": { "code":5, "name":"넓은간격 기울인격자", "desc":"넓은간격 기울인격자"},
+	  "percent05": { "code":6, "name":"5퍼센트", "desc":"5퍼센트"},
+	  "percent10": { "code":7, "name":"10퍼센트", "desc":"10퍼센트"},
+	  "percent20": { "code":8, "name":"20퍼센트", "desc":"20퍼센트"},
+	  "percent25": { "code":9, "name":"25퍼센트", "desc":"25퍼센트"},
+	  "percent30": { "code":10, "name":"30퍼센트", "desc":"30퍼센트"},
+	  "percent40": { "code":11, "name":"40퍼센트", "desc":"40퍼센트"},
+	  "percent50": { "code":12, "name":"50퍼센트", "desc":"50퍼센트"},
+	  "percent60": { "code":13, "name":"60퍼센트", "desc":"60퍼센트"},
+	  "percent70": { "code":14, "name":"70퍼센트", "desc":"70퍼센트"},
+	  "percent75": { "code":15, "name":"75퍼센트", "desc":"75퍼센트"},
+	  "percent80": { "code":16, "name":"80퍼센트", "desc":"80퍼센트"},
+	  "percent90": { "code":17, "name":"90퍼센트", "desc":"90퍼센트"},
+	  "lightDownwardDiagonal": { "code":18, "name":"가는 우하 대각선", "desc":"가는 우하 대각선"},
+	  "lightUpwardDiagonal": { "code":19, "name":"가는 우상 대각선", "desc":"가는 우상 대각선"},
+	  "darkDownwardDiagonal": { "code":20, "name":"보통 우하 대각선", "desc":"보통 우하 대각선"},
+	  "darkUpwardDiagonal": { "code":21, "name":"보통 우상 대각선", "desc":"보통 우상 대각선"},
+	  "wideDownwardDiagonal": { "code":22, "name":"굵은 우하 대각선", "desc":"굵은 우하 대각선"},
+	  "wideUpwardDiagonal": { "code":23, "name":"굵은 우상 대각선", "desc":"굵은 우상 대각선"},
+	  "lightVertical": { "code":24, "name":"가는 세로줄", "desc":"가는 세로줄"},
+	  "lightHorizontal": { "code":25, "name":"가는 가로줄", "desc":"가는 가로줄"},
+	  "narrowVertical": { "code":26, "name":"좁은간격 세로줄", "desc":"좁은간격 세로"},
+	  "narrowHorizontal": { "code":27, "name":"좁은간격 가로줄", "desc":"좁은간격 가로줄"},
+	  "darkVertical": { "code":28, "name":"굵은 세로줄", "desc":"굵은 세로줄"},
+	  "darkHorizontal": { "code":29, "name":"굵은 가로줄", "desc":"굵은 가로줄"},
+	  "dashedDownwardDiagonal": { "code":30, "name":"우하 점선 대각선", "desc":"우하 점선 대각선"},
+	  "dashedUpwardDiagonal": { "code":31, "name":"우상 점선 대각선", "desc":"우상 점선 대각선"},
+	  "dashedHorizontal": { "code":32, "name":"가로 점선", "desc":"가로 점선"},
+	  "dashedVertical": { "code":33, "name":"세로 점선", "desc":"세로 점선"},
+	  "smallConfetti": { "code":34, "name":"작은 조각", "desc":"작은 조각"},
+	  "largeConfetti": { "code":35, "name":"큰 조각", "desc":"큰 조각"},
+	  "zigZag": { "code":36, "name":"지그재그", "desc":"지그재그"},
+	  "wave": { "code":37, "name":"물결", "desc":"물결"},
+	  "diagonalBrick": { "code":38, "name":"대각선 벽돌", "desc":"대각선 벽돌"},
+	  "horizontalBrick": { "code":39, "name":"벽돌", "desc":"벽돌"},
+	  "weave": { "code":40, "name":"엮음", "desc":"엮음"},
+	  "plaid": { "code":41, "name":"격자무늬 천", "desc":"격자무늬 천"},
+	  "divot": { "code":42, "name":"패인 자국", "desc":"패인 자국"},
+	  "dottedGrid": { "code":43, "name":"점선 격자", "desc":"점선 격자"},
+	  "dottedDiamond": { "code":44, "name":"대각선 점선 격자", "desc":"대각선 점선 격자"},
+	  "shingle": { "code":45, "name":"널빤지 지붕", "desc":"널빤지 지붕"},
+	  "trellis": { "code":46, "name":"작은 원", "desc":"작은 원"},
+	  "sphere": { "code":47, "name":"큰 원", "desc":"큰 원"},
+	  "smallGrid": { "code":48, "name":"작은 격자", "desc":"작은 격자"},
+	  "smallCheckerBoard": { "code":49, "name":"작은 체스판", "desc":"작은 체스판"},
+	  "largeCheckerBoard": { "code":50, "name":"큰 체스판", "desc":"큰 체스판"},
+	  "outlinedDiamond": { "code":51, "name":"대각선 격자", "desc":"대각선 격자"},
+	  "solidDiamond": { "code":52, "name":"대각선 체스판", "desc":"대각선 체스판"}
+	},
+  "lineAlignment": {
+	  "center": { "code":0, "name":"치우치지 않음", "desc":"선이 치우치지 않음"},
+	  "inset": { "code":1, "name":"안쪽으로 치우침", "desc":"선이 안쪽으로 치우침"}
+	},
+  "linearGradientMode": {
+	  "horizontal": { "code":0, "name":"수평", "desc":"수평 선형 그라데이션"},
+	  "vertical": { "code":1, "name":"수직", "desc":"수직 선형 그라데이션"},
+	  "fowardDiagonal": { "code":2, "name":"우하", "desc":"우하 방향 대각선 선형 그라데이션"},
+	  "backwardDiagonal": { "code":3, "name":"우상", "desc":"우상 방향 대각선 선형 그라데이션"}
+	},
+  "lineCap": {
+	  "lineCapNone": { "code":0, "name":"없음", "desc":"없음"},
+	  "lineCapArrow": { "code":1, "name":"화살표", "desc":"화살표"},
+	  "lineCapArrow_L": { "code":2, "name":"화살표(좌)", "desc":"화살표(좌)"},
+	  "lineCapArrow_R": { "code":3, "name":"화살표(우)", "desc":"화살표(우)"},
+	  "lineCapTail": { "code":4, "name":"화살꼬리", "desc":"화살꼬리"},
+	  "lineCapTail_L": { "code":5, "name":"화살꼬리(좌)", "desc":"화살꼬리(좌)"},
+	  "lineCapTail_R": { "code":6, "name":"화살꼬리(우)", "desc":"화살꼬리(우)"},
+	  "lineCapTail_F": { "code":7, "name":"화살꼬리채움", "desc":"화살꼬리채움"},
+	  "lineCapTail_LF": { "code":8, "name":"화살꼬리채움(좌)", "desc":"화살꼬리채움(좌)"},
+	  "lineCapTail_RF": { "code":9, "name":"화살꼬리채움(우)", "desc":"화살꼬리채움(우)"},
+	  "lineCapTent_L": { "code":10, "name":"텐트(좌)", "desc":"텐트(좌)"},
+	  "lineCapTent_R": { "code":11, "name":"텐트(우)", "desc":"텐트(우)"},
+	  "lineCapTent_LF": { "code":12, "name":"텐트채움(좌)", "desc":"텐트채움(좌)"},
+	  "lineCapTent_RF": { "code":13, "name":"텐트채움(우)", "desc":"텐트채움(우)"},
+	  "lineCapSlash_L": { "code":14, "name":"사선", "desc":"사선"},
+	  "lineCapSlash_R": { "code":15, "name":"역사선", "desc":"역사선"},
+	  "lineCapCross": { "code":16, "name":"가위표", "desc":"가위표"},
+	  "lineCapTriangle": { "code":17, "name":"삼각형", "desc":"삼각형"},
+	  "lineCapTriangle_F": { "code":18, "name":"삼각형채움", "desc":"삼각형채움"},
+	  "lineCapTriangle_L": { "code":19, "name":"삼각형(좌)", "desc":"삼각형(좌)"},
+	  "lineCapTriangle_LF": { "code":20, "name":"삼각형채움(좌)", "desc":"삼각형채움(좌)"},
+	  "lineCapTriangle_R": { "code":21, "name":"삼각형(우)", "desc":"삼각형(우)"},
+	  "lineCapTriangle_RF": { "code":22, "name":"삼각형채움(우)", "desc":"삼각형채움(우)"},
+	  "lineCapRectangle": { "code":23, "name":"사각형", "desc":"사각형"},
+	  "lineCapRectangle_F": { "code":24, "name":"사각형채움", "desc":"사각형채움"},
+	  "lineCapCircle": { "code":25, "name":"원", "desc":"원"},
+	  "lineCapCircle_F": { "code":26, "name":"원채움", "desc":"원채움"},
+	  "lineCapDiamond": { "code":27, "name":"마름모", "desc":"마름모"},
+	  "lineCapDiamond_F": { "code":28, "name":"마름모채움", "desc":"마름모채움"},
+	  "lineCapThick": { "code":29, "name":"겹화살표", "desc":"겹화살표"},
+	  "lineCapDoubleArrow": { "code":30, "name":"이중화살표", "desc":"이중화살표"},
+	  "lineCapDoubleArrow_L": { "code":31, "name":"이중화살표(좌)", "desc":"이중화살표(좌)"},
+	  "lineCapDoubleArrow_R": { "code":32, "name":"이중화살표(우)", "desc":"이중화살표(우)"},
+	  "lineCapDoubleTail": { "code":33, "name":"이중화살꼬리", "desc":"이중화살꼬리"},
+	  "lineCapDoubleTail_L": { "code":34, "name":"이중화살꼬리(좌)", "desc":"이중화살꼬리(좌)"},
+	  "lineCapDoubleTail_R": { "code":35, "name":"이중화살꼬리(우)", "desc":"이중화살꼬리(우)"}
+	},
+  "lineDashCap": {
+	  "flat": { "code":0, "name":"편평", "desc":"점선 사이의 선 끝을 편평하게 도시"},
+	  "round": { "code":2, "name":"원형", "desc":"점선 사이의 선 끝을 둥글게 도시"},
+	  "triangle": { "code":3, "name":"삼각형", "desc":"점선 사이의 선 끝을 뾰족하게 도시"}
+	},
+  "lineDashStyle": {
+	  "solid": { "code":0, "name":"실선", "desc":"실선"},
+	  "dash": { "code":1, "name":"점선", "desc":"점선"},
+	  "dot": { "code":2, "name":"둥근모양 점선", "desc":"둥근모양 점선"},
+	  "dashDot": { "code":3, "name":"일점쇄선", "desc":"일점쇄선"},
+	  "dashDotDot": { "code":4, "name":"이점쇄선", "desc":"이점쇄선"},
+	  "custom": { "code":5, "name":"점선 패턴 적용", "desc":"사용자 지정 점선 패턴 적용"}
+	},
+  "lineFillType": {
+	  "solid color": { "code":0, "name":"단색", "desc":"단색"},
+	  "hatch fill": { "code":1, "name":"음영", "desc":"음영"},
+	  "path gradient": { "code":3, "name":"경로형 그라데이션", "desc":"경로형 그라데이션"},
+	  "linear gradation": { "code":4, "name":"선형 그라데이션", "desc":"선형 그라데이션"}
+	},
+  "lineJoin": {
+	  "miter": { "code":0, "name":"뾰족하게 연결", "desc":"선 연결 부위를 뾰족하게 처리"},
+	  "bevel": { "code":1, "name":"뾰족한 부분 잘라냄", "desc":"선 연결 부위의 뾰족한 부분을 잘라냄"},
+	  "round": { "code":2, "name":"둥글게 연결", "desc":"선 연결 부위를 둥글게 처리"},
+	  "meterClipped": { "code":3, "name":"뾰족한 부분 길이 제한", "desc":"선 연결 부위가 길어질 경우 뾰족한 부분을 잘라냄"}
+	},
+  "opPos": {
+	  "opPosNone": { "code":0, "name":"미표시", "desc":"운용조건을 표시하지 않음"},
+	  "opPosCenter": { "code":1, "name":"중앙", "desc":"부호 중앙에 표시"},
+	  "opPosBottom": { "code":2, "name":"하단", "desc":"부호 하단에 표시"}
+	},
+  "overlaySymbolType": {
+	  "olsTypeGroup": { "code":0, "name":"그룹", "desc":"부호 그룹"},
+	  "olsTypePoint": { "code":1, "name":"점", "desc":"점 모양의 투명도 부호"},
+	  "olsTypeRect": { "code":2, "name":"사각형", "desc":"사각형 모양의 투명도 부호"},
+	  "olsTypeEllipse": { "code":3, "name":"타원", "desc":"타원 모양의 투명도 부호"},
+	  "olsTypeArc": { "code":4, "name":"원호", "desc":"원호 모양의 투명도 부호"},
+	  "olsTypePolyline": { "code":5, "name":"다각형", "desc":"다각형 모양의 투명도 부호"},
+	  "olsTypeTacSym": { "code":6, "name":"전술부호", "desc":"한국군군대부호 표준에 등록된 군대부호를 사용하는 투명도 부호"}
+	},
+  "pointShape": {
+	  "pointTypeRect": { "code":1, "name":"사각형", "desc":"점 부호를 사각형으로 도시"},
+	  "pointTypeCircle": { "code":2, "name":"원", "desc":"점 부호를 원으로 도시"},
+	  "pointTypeDia": { "code":3, "name":"마름모", "desc":"점 부호를 마름모로 도시"},
+	  "pointTypeTri": { "code":4, "name":"정삼각형", "desc":"점 부호를 정삼각형으로 도시"},
+	  "pointTypeInvTri": { "code":5, "name":"역삼각형", "desc":"점 부호를 역삼각형으로 도시"}
+	},
+  "polylineType": {
+	  "polylineTypeStraight": { "code":0, "name":"직선", "desc":"점간을 직선으로 연결한 다각선으로 도시"},
+	  "polylineTypeSpline": { "code":1, "name":"스프라인 곡선", "desc":"점을 지나는 곡선으로 도시"},
+	  "polylineTypeBezier": { "code":2, "name":"베지어 곡선", "desc":"4개의 점을 제어점으로 사용하여 베지어 곡선으로 도시"}
+	},
+  "security": {
+	  "unclassified": { "code":0, "name":"평문", "desc":"평문"},
+	  "classified": { "code":1, "name":"대외비", "desc":"대외비"},
+	  "confidential": { "code":2, "name":"III급", "desc":"III급"},
+	  "secret": { "code":3, "name":"II급", "desc":"II급"},
+	  "topSecret": { "code":4, "name":"I급", "desc":"I급"}
+	},
+  "shapeType": {
+	  "rectangle": { "code":1, "name":"사각형", "desc":"사각형 도형"},
+	  "ellipse": { "code":2, "name":"타원", "desc":"타원 도형"},
+	  "polygon": { "code":3, "name":"다각형", "desc":"다각형 도형"}
+	},
+  "alignment": {
+	  "near": { "code":0, "name":"가까움", "desc":"기준점에서 가까운 쪽의 기준영역 내부"},
+	  "center": { "code":1, "name":"중앙", "desc":"기준영역 중앙"},
+	  "far": { "code":2, "name":"떨어짐", "desc":"기준점에서 먼 쪽의 기준영역 내부"}
+	},
+  "tacsymColorMode": {
+	  "auto affiliation": { "code":0, "name":"자동적용", "desc":"피아구분색 자동 적용"},
+	  "user affiliation": { "code":1, "name":"피아구분색으로 사용자 지정", "desc":"피아구분색으로 사용자 지정 색상 적용"},
+	  "user fixed icon": { "code":2, "name":"사용자 지정", "desc":"사용자가 지정한 선색상과 채움색상 적용"}
+	},
+  "textureWrapMode": {
+	  "tile": { "code":0, "name":"반복", "desc":"반복"},
+	  "tileFlipX": { "code":1, "name":"가로축 대칭", "desc":"가로축으로 대칭하여 반복"},
+	  "tileFlipY": { "code":2, "name":"세로축 대칭", "desc":"세로축으롣 대칭하여 반복"},
+	  "tileFlipXY": { "code":3, "name":"가로,세로축 대칭", "desc":"가로, 세로축으로 대칭"},
+	  "clamp": { "code":4, "name":"중앙", "desc":"중앙에 하나"}
+	}
+}

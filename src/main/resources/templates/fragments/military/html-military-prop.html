@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="html-military-prop">
+
+<!-- 스타일 -->
+<div id="mil_property" class="modal modal-mil fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">부호 속성 설정</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_01" data-toggle="tab">기본정보</a></li>
+                        <li><a href="#tab_02" data-toggle="tab">속성</a></li>
+                    </ul>
+                    <div class="tab-content py-2">
+                        <div class="tab-pane active" id="tab_01">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <form action="" class="form-horizontal">
+                                        <div class="box-body">
+                                            <div class="form-group row">
+                                                <label for="SIDCAFFILIATION" class="col-sm-4 control-label">피아구분</label>
+                                                <div class="col-sm-8">
+                                                    <select id="SIDCAFFILIATION" class="form-control" onchange="drawSymbol()"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="SIDCSTATUS" class="col-sm-4 control-label">상태구분</label> <!-- 상태 -->
+                                                <div class="col-sm-8">
+                                                    <select id="SIDCSTATUS" class="form-control" onchange="drawSymbol()"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="Size" class="col-sm-4 control-label">부호크기</label> <!-- 크기 -->
+                                                <div class="col-sm-8">
+                                                    <input id="Size" type="range" min="1" max="250" step="1" value="60" onchange="drawSymbol();this.nextSibling.innerHTML = this.value;"/><span>60</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="FillOpacity" class="col-sm-4 control-label">투명</label> <!-- 색 채움 투명도 -->
+                                                <div class="col-sm-8">
+                                                    <input id="FillOpacity" type="range" min="0" max="1" step="0.1" value="1"
+                                                           onchange="drawSymbol();this.nextSibling.innerHTML = this.value;"/><span>1</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 control-label">피아색상</label>
+                                                <div class="col-sm-8">
+                                                    <!--<select id="input004" class="form-control">
+                                                        <option value="">선택하세요.</option>
+                                                    </select>-->
+                                                    <div class="from-group">
+                                                        <label class="chkBox">
+                                                            <input type="checkbox" class="chkBox__inp colorList__chkBox">
+                                                            <span class="chkBox__txt">사용</span> <!-- 민간 -->
+                                                        </label>
+                                                    </div>
+                                                    <div class="colorListBox" style="display:none">
+                                                        <div class="colorList">
+                                                            <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
+                                                            <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
+                                                            <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
+                                                            <label class="colorList__box -red"><input type="radio" name="colorSet01" value="#d73925"></label>
+                                                            <label class="colorList__box -green"><input type="radio" name="colorSet01" value="#008d4c"></label>
+                                                            <label class="colorList__box -blue"><input type="radio" name="colorSet01" value="#3c8dbc"></label>
+                                                            <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
+                                                            <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
+                                                            <div class="input-group mil-colorpicker colorpicker-component">
+                                                                <input  type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <span class="input-group-addon"><i></i></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="colorList">
+                                                            <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
+                                                            <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
+                                                            <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
+                                                            <label class="colorList__box -red"><input type="radio" name="colorSet01" value="#d73925"></label>
+                                                            <label class="colorList__box -green"><input type="radio" name="colorSet01" value="#008d4c"></label>
+                                                            <label class="colorList__box -blue"><input type="radio" name="colorSet01" value="#3c8dbc"></label>
+                                                            <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
+                                                            <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
+                                                            <div class="input-group mil-colorpicker colorpicker-component">
+                                                                <input type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <span class="input-group-addon"><i></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="StrokeWidth" class="col-sm-4 control-label">선 굵기</label> <!-- 획의 폭 -->
+                                                <div class="col-sm-8">
+                                                    <input id="StrokeWidth" type="range" min="1" max="10" step="1" value="3" onchange="drawSymbol();this.nextSibling.innerHTML = this.value;"/><span>3</span>
+                                                </div>
+                                            </div>
+                                            <div id="property_G" class="form-group row">
+                                                <label for="input006" class="col-sm-4 control-label">운용조건</label>
+                                                <div class="col-sm-8">
+                                                    <select id="input006" class="form-control">
+                                                        <option value="">표시하지 않음</option>
+                                                        <option value="">부호중앙</option>
+                                                        <option value="">부호하단</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div id="property_H" class="form-group hidden row">
+                                                <label for="input007" class="col-sm-4 control-label">문자크기</label>
+                                                <div class="col-sm-8">
+                                                    <input id="input007" type="range" min="1" max="10" step="1" value="1" onchange="drawSymbol();this.nextSibling.innerHTML = this.value;"/><span>1</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="box-body">
+                                        <form action="">
+                                            <div id="property_I" class="from-group">
+                                                <label class="chkBox">
+                                                    <input type="checkbox" id="DisplayIcon" class="chkBox__inp" checked onchange="drawSymbol();">
+                                                    <span class="chkBox__txt">기능부호</span>
+                                                </label>
+                                            </div>
+                                            <div id="property_J" class="from-group">
+                                                <label class="chkBox">
+                                                    <input type="checkbox" id="Frame" class="chkBox__inp" checked onchange="drawSymbol();">
+                                                    <span class="chkBox__txt">외형부호</span> <!-- 외형 -->
+                                                </label>
+                                            </div>
+                                            <div id="property_K" class="from-group">
+                                                <label class="chkBox">
+                                                    <input type="checkbox" id="Fill" class="chkBox__inp" checked onchange="drawSymbol();">
+                                                    <span class="chkBox__txt">외형채움</span> <!-- 색채움 -->
+                                                </label>
+                                            </div>
+                                            <div id="property_L" class="from-group">
+                                                <label class="chkBox">
+                                                    <input type="checkbox" id="CivilianColors" class="chkBox__inp" checked onchange="drawSymbol();" disabled>
+                                                    <span class="chkBox__txt">민간구분</span> <!-- 민간 -->
+                                                </label>
+                                            </div>
+                                            <div class="from-group hidden">
+                                                <label class="chkBox">
+                                                    <input type="checkbox" class="chkBox__inp" id="waterFull">
+                                                    <span class="chkBox__txt">물채움</span>
+                                                </label>
+                                                <div class="hide waterFull__info">
+                                                    <select class="form-control">
+                                                        <option value="">표준색상</option>
+                                                    </select>
+                                                    <div class="input-group">
+                                                        <input type="number" min="1" max="100" value="100" class="form-control">
+                                                        <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 수식정보 -->
+                        <div class="tab-pane" id="tab_02">
+                            <div class="milValue">
+                                <form action="" class="form-horizontal">
+                                    <div id="modifier_B" class="form-group row">
+                                        <label class="control-label col-sm-6">B : 부대단위(규모) 코드</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <select id="SIDCSYMBOLMODIFIER12" class="form-control" onchange="drawSymbol()">
+                                                <option value=""></option>
+                                                <option value="A">A:조</option>
+                                                <option value="B">B:조</option>
+                                                <option value="C">C:반</option>
+                                                <option value="D">D:소대</option>
+                                                <option value="E">E:중대,포대</option>
+                                                <option value="F">F:대대</option>
+                                                <option value="G">G:연대,단</option>
+                                                <option value="H">H:여단,전단</option>
+                                                <option value="I">I:사단,함대,비행단</option>
+                                                <option value="J">J:군단,작전사령부</option>
+                                                <option value="K">K:야전군</option>
+                                                <option value="L">L:집단군</option>
+                                                <option value="M">M:지역군</option>
+                                                <option value="P">P:대</option>
+                                                <option value="Q">Q:지역대</option>
+                                                <option value="R">R:군수지원대대</option>
+                                                <option value="S">S:군수지원단</option>
+                                                <option value="T">T:군수지원사</option>
+                                                <option value="U">U:군수사령부</option>
+                                                <option value="V">V:출장소,파견소,어통소</option>
+                                                <option value="W">W:지소,파출소</option>
+                                                <option value="X">X:결찰서,지구해양경찰대</option>
+                                                <option value="Y">Y:경찰국,해양경찰대</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="modifier_C" class="form-group row hidden">
+                                        <label class="control-label col-sm-6">C : 수량</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="C" onkeyup="drawSymbol()">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_D" class="form-group row">
+                                        <label class="control-label col-sm-6">D : 기동부대</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_F" class="form-group row">
+                                        <label class="control-label col-sm-6">F : 부대증감</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="F" onkeyup="drawSymbol()" maxlength="9" placeholder="최대 9자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_G" class="form-group row">
+                                        <label class="control-label col-sm-6">G : 군/군사 구분 코드</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="G" onkeyup="drawSymbol()" maxlength="3" placeholder="최대 3자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_H" class="form-group row">
+                                        <label class="control-label col-sm-6">H : 활동 사항</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="H" onkeyup="drawSymbol()" maxlength="20" placeholder="최대 20자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_H1" class="form-group row">
+                                        <label class="control-label col-sm-6">H1 : 활동 사항1</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="H1" onkeyup="drawSymbol()" maxlength="20" placeholder="최대 20자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_H2" class="form-group row">
+                                        <label class="control-label col-sm-6">H2 : 활동 사항2</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="H2" onkeyup="drawSymbol()" maxlength="20" placeholder="최대 20자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_J" class="form-group row">
+                                        <label class="control-label col-sm-6">J : 평가등급 코드</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <select id="J" class="form-control" onchange="drawSymbol()">
+                                                <option value=""></option>
+                                                <option value="A1">A1:완전 신뢰/다른 출처를 통해 확인됨</option>
+                                                <option value="A2">A2:완전 신뢰/가능성 높음</option>
+                                                <option value="A3">A3:완전 신뢰/가능성 있음</option>
+                                                <option value="A4">A4:완전 신뢰/가능성 낮음</option>
+                                                <option value="A5">A5:완전 신뢰/가능성 희박</option>
+                                                <option value="A6">A6:완전 신뢰/확인 불가</option>
+                                                <option value="B1">B1:신뢰도 높음/다른 출처를 통해 확인됨</option>
+                                                <option value="B2">B2:신뢰도 높음/가능성 높음</option>
+                                                <option value="B3">B3:신뢰도 높음/가능성 있음</option>
+                                                <option value="B4">B4:신뢰도 높음/가능성 낮음</option>
+                                                <option value="B5">B5:신뢰도 높음/가능성 희박</option>
+                                                <option value="B6">B6:신뢰도 높음/확인 불가</option>
+                                                <option value="C1">C1:보통/다른 출처를 통해 확인됨</option>
+                                                <option value="C2">C2:보통/가능성 높음</option>
+                                                <option value="C3">C3:보통/가능성 있음</option>
+                                                <option value="C4">C4:보통/가능성 낮음</option>
+                                                <option value="C5">C5:보통/가능성 희박</option>
+                                                <option value="C6">C6:보통/확인 불가</option>
+                                                <option value="D1">D1:신뢰도 낮음/다른 출처를 통해 확인됨</option>
+                                                <option value="D2">D2:신뢰도 낮음/가능성 높음</option>
+                                                <option value="D3">D3:신뢰도 낮음/가능성 있음</option>
+                                                <option value="D4">D4:신뢰도 낮음/가능성 낮음</option>
+                                                <option value="D5">D5:신뢰도 낮음/가능성 희박</option>
+                                                <option value="D6">D6:신뢰도 낮음/확인 불가</option>
+                                                <option value="E1">E1:신뢰할 수 없음/다른 출처를 통해 확인됨</option>
+                                                <option value="E2">E2:신뢰할 수 없음/가능성 높음</option>
+                                                <option value="E3">E3:신뢰할 수 없음/가능성 있음</option>
+                                                <option value="E4">E4:신뢰할 수 없음/가능성 낮음</option>
+                                                <option value="E5">E5:신뢰할 수 없음/가능성 희박</option>
+                                                <option value="E6">E6:신뢰할 수 없음/확인 불가</option>
+                                                <option value="F1">F1:신뢰성 판단 불가/다른 출처를 통해 확인됨</option>
+                                                <option value="F2">F2:신뢰성 판단 불가/가능성 높음</option>
+                                                <option value="F3">F3:신뢰성 판단 불가/가능성 있음</option>
+                                                <option value="F4">F4:신뢰성 판단 불가/가능성 낮음</option>
+                                                <option value="F5">F5:신뢰성 판단 불가/가능성 희박</option>
+                                                <option value="F6">F6:신뢰성 판단 불가/확인 불가</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="modifier_K" class="form-group row">
+                                        <label class="control-label col-sm-6">K : 전투력</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="K" onkeyup="drawSymbol()" maxlength="5" placeholder="최대 5자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_L" class="form-group row">
+                                        <label class="control-label col-sm-6">L : 신호정보장비</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="L" onkeyup="drawSymbol()" maxlength="1" placeholder="최대 1자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_M" class="form-group row">
+                                        <label class="control-label col-sm-6">M : 상급 부대</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="M" onkeyup="drawSymbol()" maxlength="21" placeholder="최대 21자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_N" class="form-group row">
+                                        <label class="control-label col-sm-6">N : 적군표시</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="N" onkeyup="drawSymbol()" maxlength="3" placeholder="최대 3자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_P" class="form-group row">
+                                        <label class="control-label col-sm-6">P : IFF/SIF</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="P" onkeyup="drawSymbol()" maxlength="5" placeholder="최대 5자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_Q" class="form-group row">
+                                        <label class="control-label col-sm-6">Q : 이동방향 각도(자북 기준..)</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="Q" onkeyup="drawSymbol()" maxlength="4" placeholder="4자(도)">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_R" class="form-group row">
+                                        <label class="control-label col-sm-6">R : 기동수단 코드</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <select class="form-control">
+                                                <option value=""></option>
+                                                <option value="O">O:차륜식(제한된 야지횡단)</option>
+                                                <option value="P">P:야지횡단 차륜식(야지횡단)</option>
+                                                <option value="Q">Q:자주 궤도식</option>
+                                                <option value="R">R:차륜 궤도 혼합식</option>
+                                                <option value="S">S:트레일러 견인식</option>
+                                                <option value="T">T:철로 이동식</option>
+                                                <option value="U">U:설상 이동식(원동기)</option>
+                                                <option value="V">V:빙상 이동식</option>
+                                                <option value="W">W:동물 견인식</option>
+                                                <option value="X">X:바지 예인식</option>
+                                                <option value="Y">Y:수륙양용</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="modifier_R2" class="form-group row">
+                                        <label class="control-label col-sm-6">R2 : 이동성 코드</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <select class="form-control">
+                                                <option value=""></option>
+                                                <option value="M">M:이동 가능</option>
+                                                <option value="S">S:고정</option>
+                                                <option value="U">U:불확실</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="modifier_S" class="form-group row">
+                                        <label class="control-label col-sm-6">S : 지휘소/실제위치 표시</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_T" class="form-group row">
+                                        <label class="control-label col-sm-6">T : 고유명칭</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="T" onkeyup="drawSymbol()" maxlength="21" placeholder="최대 21자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_T1" class="form-group row">
+                                        <label class="control-label col-sm-6">T1 : 고유명칭1</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="T1" onkeyup="drawSymbol()" maxlength="21" placeholder="최대 21자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_V" class="form-group row">
+                                        <label class="control-label col-sm-6">V : 장비명/종류</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="V" onkeyup="drawSymbol()" maxlength="24" placeholder="최대 24자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_W" class="form-group row">
+                                        <label class="control-label col-sm-6">W :  활동시각</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="W" onkeyup="drawSymbol()" maxlength="16" placeholder="최대 16자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_W1" class="form-group row">
+                                        <label class="control-label col-sm-6">W1 :  활동시각1</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="W1" onkeyup="drawSymbol()" maxlength="16" placeholder="최대 16자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_X" class="form-group row">
+                                        <label class="control-label col-sm-6">X : 고도/심도/거리</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="X" onkeyup="drawSymbol()" maxlength="14" placeholder="최대 14자" >
+                                        </div>
+                                    </div>
+                                    <div id="modifier_X1" class="form-group row">
+                                        <label class="control-label col-sm-6">X1 : 고도/심도/거리1</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="X1" onkeyup="drawSymbol()" maxlength="14" placeholder="최대 14자" >
+                                        </div>
+                                    </div>
+                                    <div id="modifier_XN" class="form-group row">
+                                        <label class="control-label col-sm-6">XN : 고도/심도/거리</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="XN" onkeyup="drawSymbol()" maxlength="30" placeholder="(,) 구분" >
+                                        </div>
+                                    </div>
+                                    <div id="modifier_Y" class="form-group row">
+                                        <label class="control-label col-sm-6">Y : 위치</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="Y" onkeyup="drawSymbol()" maxlength="19" placeholder="최대 19자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_Z" class="form-group row">
+                                        <label class="control-label col-sm-6">Z : 속도</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="Z" onkeyup="drawSymbol()" maxlength="8" placeholder="최대 8자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_AA" class="form-group row">
+                                        <label class="control-label col-sm-6">AA : 지휘통제소명</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="AA" onkeyup="drawSymbol()" maxlength="9" placeholder="최대 9자">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_AB" class="form-group row">
+                                        <label class="control-label col-sm-6">AB : 가장/가상 식별부호</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_AD" class="form-group row">
+                                        <label class="control-label col-sm-6">AD : 기반형태</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <select class="form-control">
+                                                <option value=""></option>
+                                                <option value="ELNOT">ELNOT</option>
+                                                <option value="CENOT">CENOT</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="modifier_AE" class="form-group row">
+                                        <label class="control-label col-sm-6">AE : 분해시간</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_AF" class="form-group row">
+                                        <label class="control-label col-sm-6">AF : 공통명칭</label>
+                                        <div class="col-sm- property-clean">
+                                            <input type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div id="modifier_AG" class="form-group row">
+                                        <label class="control-label col-sm-6">AG : 보조장비 코드</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <select class="form-control">
+                                                <option value=""></option>
+                                                <option value="S">S:견인 소나열 (단)</option>
+                                                <option value="L">L:견인 소나열 (장)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="modifier_AH" class="form-group row">
+                                        <label class="control-label col-sm-6">AH : 불확정 구역 표시</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" readonly>
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#mil-area">추가</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="modifier_AI" class="form-group row">
+                                        <label class="control-label col-sm-6">AI : 추측선 표시</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" readonly>
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#mil-line01">추가</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="modifier_AJ" class="form-group row">
+                                        <label class="control-label col-sm-6">AJ : 속도선 표시</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" readonly>
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#mil-line02">추가</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="modifier_AM" class="form-group row">
+                                        <label class="control-label col-sm-6">AM : 거리(미터)</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="AM" onkeyup="drawSymbol()" maxlength="30" placeholder="(,) 구분" >
+                                        </div>
+                                    </div>
+                                    <div id="modifier_AN" class="form-group row">
+                                        <label class="control-label col-sm-6">AN : 각도(도)</label>
+                                        <div class="col-sm-6 property-clean">
+                                            <input type="text" id="AN" onkeyup="drawSymbol()" maxlength="30" placeholder="(,) 구분" >
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <!-- 20200211 속성 변경 시 바로 변경되는 구조로 인해 확인/취소 개념이 없어 닫기로 통일
+                <button type="button" class="btn btn-primary">확인</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button> -->
+                <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 불확정 구역 표시 팝업 -->
+<div id="mil-area" class="modal modal-mil fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">불확정 구역 표시</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="chkBox">
+                        <input type="checkbox" class="chkBox__inp useChk">
+                        <span class="chkBox__txt">기능 사용</span>
+                    </label>
+                </div>
+                <div class="useChk-content" style="display:none">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_0102" data-toggle="tab">방향</a></li>
+                        <li><a href="#tab_0103" data-toggle="tab">타원</a></li>
+                        <li><a href="#tab_0104" data-toggle="tab">사각형</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab_0102" class="tab-pane active">
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-map"></i> <b>도시형태</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">길이</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">방위각</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">오차각</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-tasks"></i> <b>방위선 속성</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선색상</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="colorList">
+                                                            <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
+                                                            <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
+                                                            <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
+                                                            <label class="colorList__box -red"><input type="radio" name="colorSet01" value="#d73925"></label>
+                                                            <label class="colorList__box -green"><input type="radio" name="colorSet01" value="#008d4c"></label>
+                                                            <label class="colorList__box -blue"><input type="radio" name="colorSet01" value="#3c8dbc"></label>
+                                                            <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
+                                                            <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
+                                                            <div class="input-group mil-colorpicker colorpicker-component">
+                                                                <input  type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <span class="input-group-addon"><i></i></span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선 굵기</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">점선형태</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-tasks"></i> <b>오차선 속성</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선색상</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="colorList">
+                                                            <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
+                                                            <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
+                                                            <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
+                                                            <label class="colorList__box -red"><input type="radio" name="colorSet01" value="#d73925"></label>
+                                                            <label class="colorList__box -green"><input type="radio" name="colorSet01" value="#008d4c"></label>
+                                                            <label class="colorList__box -blue"><input type="radio" name="colorSet01" value="#3c8dbc"></label>
+                                                            <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
+                                                            <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
+                                                            <div class="input-group mil-colorpicker colorpicker-component">
+                                                                <input  type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <span class="input-group-addon"><i></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선 굵기</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">점선형태</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab_0103" class="tab-pane">
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-map"></i> <b>도시형태</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">길이</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">방위각</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">오차각</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-circle-o "></i> <b>타원 속성</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선색상</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="colorList">
+                                                            <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
+                                                            <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
+                                                            <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
+                                                            <label class="colorList__box -red"><input type="radio" name="colorSet01" value="#d73925"></label>
+                                                            <label class="colorList__box -green"><input type="radio" name="colorSet01" value="#008d4c"></label>
+                                                            <label class="colorList__box -blue"><input type="radio" name="colorSet01" value="#3c8dbc"></label>
+                                                            <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
+                                                            <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
+                                                            <div class="input-group mil-colorpicker colorpicker-component">
+                                                                <input  type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <span class="input-group-addon"><i></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">채움색상</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="colorList">
+                                                            <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
+                                                            <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
+                                                            <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
+                                                            <label class="colorList__box -red"><input type="radio" name="colorSet01" value="#d73925"></label>
+                                                            <label class="colorList__box -green"><input type="radio" name="colorSet01" value="#008d4c"></label>
+                                                            <label class="colorList__box -blue"><input type="radio" name="colorSet01" value="#3c8dbc"></label>
+                                                            <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
+                                                            <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
+                                                            <div class="input-group mil-colorpicker--transparent colorpicker-component">
+                                                                <input  type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <span class="input-group-addon"><i></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선 굵기</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">점선형태</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab_0104" class="tab-pane">
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-map"></i> <b>도시형태</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">길이</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">방위각</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">오차각</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-square-o  "></i> <b>사각형 속성</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선색상</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="colorList">
+                                                            <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
+                                                            <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
+                                                            <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
+                                                            <label class="colorList__box -red"><input type="radio" name="colorSet01" value="#d73925"></label>
+                                                            <label class="colorList__box -green"><input type="radio" name="colorSet01" value="#008d4c"></label>
+                                                            <label class="colorList__box -blue"><input type="radio" name="colorSet01" value="#3c8dbc"></label>
+                                                            <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
+                                                            <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
+                                                            <div class="input-group mil-colorpicker colorpicker-component">
+                                                                <input  type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <span class="input-group-addon"><i></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">채움색상</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="colorList">
+                                                            <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
+                                                            <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
+                                                            <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
+                                                            <label class="colorList__box -red"><input type="radio" name="colorSet01" value="#d73925"></label>
+                                                            <label class="colorList__box -green"><input type="radio" name="colorSet01" value="#008d4c"></label>
+                                                            <label class="colorList__box -blue"><input type="radio" name="colorSet01" value="#3c8dbc"></label>
+                                                            <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
+                                                            <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
+                                                            <div class="input-group mil-colorpicker--transparent colorpicker-component">
+                                                                <input  type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <span class="input-group-addon"><i></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선 굵기</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">점선형태</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">확인</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 추측선 표시 -->
+<div id="mil-line01" class="modal modal-mil fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">선위의 추측</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="chkBox">
+                        <input type="checkbox" class="chkBox__inp useChk">
+                        <span class="chkBox__txt">기능 사용</span>
+                    </label>
+                </div>
+                <div class="useChk-content" style="display:none">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_0202" data-toggle="tab">원</a></li>
+                        <li><a href="#tab_0203" data-toggle="tab">선</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab_0202" class="tab-pane active">
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-map"></i> <b>추측위치</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">반경</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-circle-o"></i> <b>추측원 속성</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선색상</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="colorList">
+                                                            <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
+                                                            <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
+                                                            <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
+                                                            <label class="colorList__box -red"><input type="radio" name="colorSet01" value="#d73925"></label>
+                                                            <label class="colorList__box -green"><input type="radio" name="colorSet01" value="#008d4c"></label>
+                                                            <label class="colorList__box -blue"><input type="radio" name="colorSet01" value="#3c8dbc"></label>
+                                                            <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
+                                                            <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
+                                                            <div class="input-group mil-colorpicker colorpicker-component">
+                                                                <input  type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <span class="input-group-addon"><i></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">채움색상</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="colorList">
+                                                            <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
+                                                            <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
+                                                            <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
+                                                            <label class="colorList__box -red"><input type="radio" name="colorSet01" value="#d73925"></label>
+                                                            <label class="colorList__box -green"><input type="radio" name="colorSet01" value="#008d4c"></label>
+                                                            <label class="colorList__box -blue"><input type="radio" name="colorSet01" value="#3c8dbc"></label>
+                                                            <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
+                                                            <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
+                                                            <div class="input-group mil-colorpicker--transparent colorpicker-component">
+                                                                <input  type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <span class="input-group-addon"><i></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선 굵기</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">점선형태</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab_0203" class="tab-pane">
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-map"></i> <b>추측위치</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">X 좌표</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">Y 좌표</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-link "></i> <b>추측선 속성</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선색상</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="colorList">
+                                                            <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
+                                                            <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
+                                                            <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
+                                                            <label class="colorList__box -red"><input type="radio" name="colorSet01" value="#d73925"></label>
+                                                            <label class="colorList__box -green"><input type="radio" name="colorSet01" value="#008d4c"></label>
+                                                            <label class="colorList__box -blue"><input type="radio" name="colorSet01" value="#3c8dbc"></label>
+                                                            <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
+                                                            <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
+                                                            <div class="input-group mil-colorpicker colorpicker-component">
+                                                                <input  type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <span class="input-group-addon"><i></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선 굵기</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">점선형태</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">확인</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 속도선 표시 -->
+<div id="mil-line02" class="modal modal-mil fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">속도선</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="chkBox">
+                        <input type="checkbox" class="chkBox__inp useChk">
+                        <span class="chkBox__txt">기능 사용</span>
+                    </label>
+                </div>
+                <div class="useChk-content" style="display:none">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_0302" data-toggle="tab">속도선</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab_0302" class="tab-pane active">
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-map"></i> <b>속도</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">이동방향</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">이동속력</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-gear"></i> <b>길이조건</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2">속력구간</label>
+                                                    <div class="col-sm-10">
+                                                        <div class="row">
+                                                            <label class="control-label col-sm-2">저속 <i class="fa fa-chevron-right"></i></label>
+                                                            <div class="col-sm-2">
+                                                                <input type="text" class="form-control">
+                                                            </div>
+                                                            <label class="control-label col-sm-4" style="text-align: center">
+                                                                <i class="fa fa-chevron-left"></i>
+                                                                중간
+                                                                <i class="fa fa-chevron-left"></i>
+                                                            </label>
+                                                            <div class="col-sm-2">
+                                                                <input type="text" class="form-control">
+                                                            </div>
+                                                            <label class="control-label col-sm-2"><i class="fa fa-chevron-left "></i> 고속</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-2">길이</label>
+                                                    <div class="col-sm-10">
+                                                        <div class="row">
+                                                            <div class="col-sm-2">
+                                                                <input type="text" class="form-control">
+                                                            </div>
+                                                            <div class="col-sm-offset-2 col-sm-4" style="text-align:center">
+                                                                <input type="text" class="form-control">
+                                                            </div>
+                                                            <div class="col-sm-offset-2 col-sm-2">
+                                                                <input type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-gear"></i> <b>속성</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선색상</label>
+                                                    <div class="col-sm-8">
+                                                        <div class="colorList">
+                                                            <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
+                                                            <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
+                                                            <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
+                                                            <label class="colorList__box -red"><input type="radio" name="colorSet01" value="#d73925"></label>
+                                                            <label class="colorList__box -green"><input type="radio" name="colorSet01" value="#008d4c"></label>
+                                                            <label class="colorList__box -blue"><input type="radio" name="colorSet01" value="#3c8dbc"></label>
+                                                            <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
+                                                            <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
+                                                            <div class="input-group mil-colorpicker colorpicker-component">
+                                                                <input  type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <span class="input-group-addon"><i></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">선 굵기</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">점선형태</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="box box-solid">
+                                <div class="box-header with-border">
+                                    <h5><i class="fa fa-gear"></i> <b>가변견인센서열</b></h5>
+                                </div>
+                                <div class="box-body">
+                                    <form action="" class="form-horizontal">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">거리</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">크기</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">확인</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

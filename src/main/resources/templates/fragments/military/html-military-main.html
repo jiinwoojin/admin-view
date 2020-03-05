@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<!-- 메인 화면 -->
+<body th:fragment="html-military-main">
+    <div id="symbol_info" style="display: none;">
+        <div id="milSymbol_viewer">
+            <div id="mil_body">
+                <div class="mil_body--wrap">
+                    <div class="row">
+                        <div id="selectionstuff" class="col-md-6">
+                            <form>
+                                <div class="mil_body--tabs">
+                                    <div class="mil_body--tabOuter" style="opacity: 0;position:absolute;">
+                                        <div class="active" id="2525C"><a href="javascript:activateTab('2525C');">부호선택</a></div>
+                                        <!-- parkjh 추가 부분 -->
+                                        <div id="m_style" class="hidden"><a href="javascript:activateTab('m_style');">스타일</a></div>
+                                        <div id="m_value" class="hidden"><a href="javascript:activateTab('m_value');">수식 정보</a></div>
+                                    </div>
+                                    <!-- 기존 종류선택 설렉트박스 삭제하면 에러남 -->
+                                    <select id="SIDCCODINGSCHEME" style="opacity: 0;position:absolute" ></select>
+
+                                    <div class="mil_body--tabInner">
+                                        <!-- MAKE SYMBOL -->
+                                        <div id="letterSIDCtab" class="active" style="position: relative;">
+
+                                            <!-- function, battle_dimension selectBox -> tree(ul,li) modifier-->
+                                            <h4>부호 선택</h4>
+
+                                            <p id="disabled_p" style="display: none; margin: 8px 0px 0px 0px;"></p>
+                                            <ul id="FUNCTIONS" data-widget="tree"></ul>
+
+                                            <div id="SIDCSEARCH" class="input-group input-group-sm">
+                                                <input name="search_sidc_text" type="text" class="form-control" placeholder="검색 부호 코드 입력">
+                                                <div class="input-group-btn">
+                                                    <button type="button" class="btn btn-info btn-sm" id="search_sidc_btn">
+                                                        <i class="fa fa-search text-muted"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- END -->
+                                            <!-- 필수 선택 Option END -->
+
+                                        </div>
+                                        <!-- SYMBOL STYLE 화면 2020/02/05/ hidden 처리함 -->
+                                        <div id="styleSIDCtab" style="opacity: 0;position: absolute;visibility: hidden;">
+                                            <span class="sidcLabel SUB_mod">수식정보_11</span>
+                                            <select id="SIDCSYMBOLMODIFIER11" class="form-control SUB_mod" onchange="letterSIDC.modifier12();drawSymbol()"></select>
+
+                                            <!-- <span class="sidcLabel SUB_mod">수식정보_12</span>
+                                            <select id="SIDCSYMBOLMODIFIER12" class="form-control SUB_mod" onchange="drawSymbol()"></select> -->
+                                            <table>
+                                                <tr>
+                                                    <td>명도</td>
+                                                    <td>
+                                                        <select id="ColorMode" class="form-control baseproperty" onchange="drawSymbol()">
+                                                            <!--  <option value="" SELECTED>-</option>-->
+                                                            <option value="Light">밝음</option>
+                                                            <option value="Medium">중간</option>
+                                                            <option value="Dark">어두움</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>hqStafLength</td>
+                                                    <td><input id="hqStafLength" type="range" min="0" max="100" step="1" value="100"
+                                                               onchange="drawSymbol();this.nextSibling.innerHTML = this.value;"/><span>100</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>수식 정보 색</td>
+                                                    <td>
+                                                        <select id="InfoColor" class="form-control baseproperty" onchange="drawSymbol()"></select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>수식 정보</td>
+                                                    <td><input type="checkbox" id="infoFields" checked onchange="drawSymbol();"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>수식 정보 크기</td>
+                                                    <td><input id="infoSize" type="range" min="0" max="100" step="1" value="40"
+                                                               onchange="drawSymbol();this.nextSibling.innerHTML = this.value;"/><span>40</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>선 색상 (M)</td>
+                                                    <td>
+                                                        <select id="MonoColor" class="form-control baseproperty" onchange="drawSymbol()"></select>
+                                                    </td>
+                                                </tr>
+                                                <!-- <tr><td>선 투명도 (M) </td><td><input id="MonoOpacity" type="range" min="0" max="1" step="0.1" value="1" onchange="this.nextSibling.innerHTML = this.value;"/><span>1</span></td></tr> -->
+                                                <tr>
+                                                    <td>윤곽선 색</td>
+                                                    <td>
+                                                        <select id="outlineColor" class="form-control baseproperty" onchange="drawSymbol()"></select>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>윤곽선 너비</td>
+                                                    <td><input id="outlineWidth" type="range" min="1" max="10" step="1" value="0"
+                                                               onchange="drawSymbol();this.nextSibling.innerHTML = this.value;"/><span>0</span>
+                                                    </td>
+                                                </tr>
+                                                <tr><td>평가 등급: </td>
+                                                    <td>
+                                                        <input type="text" id="evaluationRating" onkeyup="drawSymbol()"><br></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <!-- SYMBOL INPUT VALUE -->
+                                        <div id="valueSIDCtab" style="opacity: 0;position: absolute">
+                                            <table id="textField" cellspacing="0" cellpadding="3">
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div id="symbolOuter" class="col-md-6">
+                            <div id="symbolstuff">
+                                <div class="symbolStuff__top">
+                                    <label class="symbolStuff__label">계층 번호 :</label>
+                                    <input type="text" id="SIDC_HIER" class="symbolStuff__inp"><br>
+                                    <label class="symbolStuff__label">부호 코드 :</label>
+                                    <input type="text" id="SIDC" class="symbolStuff__inp">
+                                </div>
+                                <div class="canvasWrap">
+                                    <div id="CanvasSymbol"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <div class="pull-right margin_5">
+                    <input type="hidden" id="mod_id">
+                    <button id="btn_property" class="btn btn-warning" data-toggle="modal" data-target="#mil_property">속성</button>
+                    <button id="mod" class="btn btn-success hidden" onclick="Mod_Symbol();">수정</button>
+                    <button id="add" class="btn btn-primary" onclick="Draw_Symbol();">확인</button>
+                    <button id="closer_x" class="btn btn-danger">취소</button>
+                </div>
+
+                <!-- Library -->
+                <!-- HashMap JavaScript -->
+                <script th:src="@{/js/commons/jsHashMap.js}"></script>
+
+                <script th:src="@{/js/milsymbol-2/milsymbol.js}"></script>
+
+                <script th:src="@{/js/milsymbol-2/savm-bc.js}" type="text/javascript"></script>
+
+                <!-- symbol JavaScript -->
+                <script th:src="@{/js/symbol/symbol.js}"></script>
+
+                <!-- Military Common Symbol JavaScript -->
+                <script th:src="@{/js/symbol/symbolCommon.js}"></script>
+
+                <!-- Military Graphics Symbol JavaScript -->
+                <script th:src="@{/js/symbol/graphics.js}"></script>
+
+                <!-- Draw Action Script -->
+                <script>
+                    // draw Symbol
+                    function Draw_Symbol() {
+                        var mil_symbol; // military symbol Object
+
+                        // Single(symbol) or Multiple(Graphics)
+                        var SorG = $('#SIDCCODINGSCHEME').val();
+                        if (SorG.charAt(0) == 'W' || SorG.charAt(0) == 'G') {
+                            // max, min, constraint 가져오는 방식 변경
+                            var sidc = document.getElementById('SIDC').value;
+                            var drawInfo = getDrawGraphicsInfo(sidc);
+                            if (drawInfo.draw_type == '')
+                                return;
+
+                            drawGraphis(drawInfo.min_point, drawInfo.max_point, drawInfo.draw_type, drawInfo.constraint);
+                        } else {
+                            drawGraphis(1, 1, 'Point', 'milSym');
+
+                        }
+                        $('#symbol_info').hide();
+                    }
+
+                    // modify Symbol
+                    function Mod_Symbol() {
+                        var id = document.getElementById('mod_id'); // 수정할 ID
+
+                        if (id.value != '') {
+                            var format = 'geoJSON';
+                            // Single(symbol) or Multiple(Graphics)
+                            var SorG = $('#SIDCCODINGSCHEME').val();
+                            if (SorG.charAt(0) == 'W' || SorG.charAt(0) == 'G') {
+                                //multiple
+                                if (id.value.split('_')[1] != '0') {
+                                    var ops = id.value.split('_');
+                                    for (var i = 0; i < Number(ops[1]); i++) {
+                                        if (id.value.length < 4) {
+                                            deleteMarker(ops[0] + '_' + (i + 1));
+                                            format = 'SVG';
+                                        } else
+                                            deleteMarker(ops[0] + '_' + ops[1] + '_' + i);
+                                    }
+                                } else {
+                                    deleteMarker(id);
+                                }
+
+                                drawMsymbol(id.value.split('_')[0], format);
+                                if (format == 'SVG') {
+                                    addMarker(myGSymbol, id.value.split('_')[0], G_coordinates[0].x, G_coordinates[0].y, 'Msymbol');
+                                } else
+                                    addMarker(mygeoJSON, id.value.split('_')[0], '', '', 'Msymbol');
+
+                            } else {
+                                //single
+                                var changeFeature = selectLayer.getSource().getFeatureById(id.value);
+
+                                var mysvg = new Image();
+                                mysvg.src = 'data:image/svg+xml,' + encodeURIComponent(mySymbol.asSVG());
+
+                                var style = new ol.style.Style({
+                                    image: new ol.style.Icon(({
+                                        anchor: [mySymbol.getAnchor().x, mySymbol.getAnchor().y],
+                                        anchorXUnits: 'pixels',
+                                        anchorYUnits: 'pixels',
+                                        imgSize: [Math.floor(mySymbol.getSize().width), Math.floor(mySymbol.getSize().height)],
+//                             img: (mysvg)
+                                        //20200228 - ol.js SCRIPT5022: IndexSizeError
+                                        img: (mySymbol.asCanvas())
+                                    }))
+                                });
+                                changeFeature.setStyle(style);
+                                changeFeature.setProperties({
+                                    'options': mySymbol.getOptions()
+                                });
+                            }
+                            id.value = '';
+                        }
+
+                        selectClick.getFeatures().clear();
+                        $('#symbol_info').hide();
+                        $('#mod').addClass('hidden');
+                    }
+
+                    // Only Input Number
+                    function InputNum(obj) {
+                        var keyValue = event.keyCode;
+                        if (((keyValue >= 48) && (keyValue <= 57)) || (keyValue == 46)) return true;
+                        else return false;
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/map/mapCommonJs.js}"></script>
+    <script th:src="@{/js/map/mapJs.js}"></script>
+
+    <script th:src="@{/js/military/milSymbol.js}"></script>
+
+    <script th:src="@{/js/map/mapFunction/transparentMap.js}"></script>
+    <script th:src="@{/js/map/mapFunction/dataCommon.js}"></script>
+    <script th:src="@{/js/map/mapFunction/dataReader.js}"></script>
+</body>
+</html>

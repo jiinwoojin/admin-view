@@ -1,0 +1,36 @@
+{
+  "A" : {
+	  "-": { "CODE_NAME":"-", "CODE_KOR_NAME":"-"},
+	  "A": { "CODE_NAME":"Team/Crew", "CODE_KOR_NAME":"A:조/병사"},
+	  "B": { "CODE_NAME":"Squad", "CODE_KOR_NAME":"B:분대"},
+	  "C": { "CODE_NAME":"Section", "CODE_KOR_NAME":"C:반"},
+	  "D": { "CODE_NAME":"Platoon/Detachment", "CODE_KOR_NAME":"D:소대/분견대"},
+	  "E": { "CODE_NAME":"Company/Battery/Troop", "CODE_KOR_NAME":"E:중대/포대/기갑"},
+	  "F": { "CODE_NAME":"Battalion/Squadron", "CODE_KOR_NAME":"F:대대/비행대대"},
+	  "G": { "CODE_NAME":"Regiment/Group", "CODE_KOR_NAME":"G:연대/단"},
+	  "H": { "CODE_NAME":"Brigade", "CODE_KOR_NAME":"H:여단"},
+	  "I": { "CODE_NAME":"Division", "CODE_KOR_NAME":"I:사단"},
+	  "J": { "CODE_NAME":"Corps/Mef", "CODE_KOR_NAME":"J:군단"},
+	  "K": { "CODE_NAME":"Army", "CODE_KOR_NAME":"K:아전군"},
+	  "L": { "CODE_NAME":"Army Group/Front", "CODE_KOR_NAME":"L:집단군"},
+	  "M": { "CODE_NAME":"Region", "CODE_KOR_NAME":"M:지역군"},
+	  "N": { "CODE_NAME":"Command", "CODE_KOR_NAME":"N:사령부"}
+  },
+  "M" : {
+	  "O": { "CODE_NAME":"Wheeled/Limited", "CODE_KOR_NAME":"차륜식"},
+	  "P": { "CODE_NAME":"Wheeled", "CODE_KOR_NAME":"야지횡단 차륜식"},
+	  "Q": { "CODE_NAME":"Tracked", "CODE_KOR_NAME":"궤도식"},
+	  "R": { "CODE_NAME":"Wheeled And Tracked", "CODE_KOR_NAME":"차륜 궤도식"},
+	  "S": { "CODE_NAME":"Towed", "CODE_KOR_NAME":"견인식"},
+	  "T": { "CODE_NAME":"Rail", "CODE_KOR_NAME":"철도식"},
+	  "U": { "CODE_NAME":"Over The Snow", "CODE_KOR_NAME":"설상 이동식"},
+	  "V": { "CODE_NAME":"Sled", "CODE_KOR_NAME":"썰매 이동식"},
+	  "W": { "CODE_NAME":"Pack Animals", "CODE_KOR_NAME":"동물 견인식"},
+	  "Y": { "CODE_NAME":"Barge", "CODE_KOR_NAME":"선박 이동식"},
+	  "Z": { "CODE_NAME":"Amphibious", "CODE_KOR_NAME":"수륙 양용식"}
+  },
+  "N" : {
+	  "S": { "CODE_NAME":"Towed Array (Short)", "CODE_KOR_NAME":"견인 소나 열 (단)"},
+	  "L": { "CODE_NAME":"Towed Array (Long)", "CODE_KOR_NAME":"견인 소나 열 (장)"}
+  }
+}
