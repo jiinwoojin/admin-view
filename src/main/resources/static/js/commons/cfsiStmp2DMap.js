@@ -387,10 +387,46 @@ jiMap.prototype.removeFeature = function removeFeature(feature) {
     // features 배열에서 해당 id 의 값을 제거 한다
     // 이미지가 등록 되어 있을 경우 이미지 제거
     // 결과를 리턴 한다
+
+    var featureIndex = this._getFeatureIndex(feature.getStmpLayerId(), feature.getId());
+
+    console.log(featureIndex);
+
+    // source 에서 제거
+    if (featureIndex > -1) {
+        this._removeFeature(feature.getStmpLayerId(), featureIndex);
+        if (this.map.hasImage(feature.getImageId())) {
+            this._removeImage(feature.getImageId());
+        }
+    }
 };
 
 jiMap.prototype.removeFeatures = function removeFeatures(features) {
     // for 돌면서 removeFeature 호출
+};
+
+jiMap.prototype._getFeatureIndex = function _getFeatureIndex(stmpLayerId, id) {
+    var sourceList = this._getSourceDataList(stmpLayerId);
+
+    return sourceList.findIndex(function(item) {
+        return item.id === id
+    });
+};
+
+jiMap.prototype._removeFeature = function _removeFeature(stmpLayerId, index) {
+    var sourceJson = this.getSource(stmpLayerId).serialize().data;
+
+    sourceJson.features.splice(index, 1);
+
+    this._setGeoJsonData(stmpLayerId, sourceJson);
+};
+
+jiMap.prototype._removeImage = function _removeImage(id) {
+    this.map.removeImage(id);
+};
+
+jiMap.prototype._getSourceDataList = function _getSourceDataList(stmpLayerId) {
+    return this.getSource(stmpLayerId).serialize().data.features;
 };
 
 /**
