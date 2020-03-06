@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity(name = "MAP_SYMBOL")
+@Entity(name = "_MAP_SYMBOL")
 @Data
 public class MapSymbol implements Persistable<Long> {
 

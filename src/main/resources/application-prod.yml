@@ -14,4 +14,6 @@ project:
       password: postgres
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
       mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
-  data-path: /Users/PIG/SourceTree/admin-view/data/data_dir
+  data-path: /data/jiserver/data_dir
+  mapserver:
+    binary: /usr/local/bin/mapserv

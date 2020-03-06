@@ -12,6 +12,12 @@ layers:
 - name: world_k2_test
   title: K2 World Map Test
   sources: [world_k2_test_cache]
+- name: sample
+  title: 테스트 레이어
+  sources: []
+- name: SAMPLE
+  title: ㅇㅁㄹㅁㄹ
+  source: []
 caches:
   world_k2_cache:
     grids: [GLOBAL_GEODETIC]
@@ -24,7 +30,7 @@ caches:
     meta_size: [1, 1]
     meta_buffer: 0
     sources: [world_k2_test]
-    cache: {type: file, directory: /data/jiserver/data_dir/cache/world_k2_test/}
+    cache: {type: file, directory: /data/jiserver/data_dir/cache/world_k2/}
 sources:
   world_k2:
     type: mapserver
@@ -32,5 +38,5 @@ sources:
     mapserver: {binary: /usr/local/bin/mapserv, working_dir: /data/jiserver/data_dir/tmp}
   world_k2_test:
     type: mapserver
-    req: {map: /data/jiserver/data_dir/mapserver/world_k2_test/world_k2.map, layers: world}
+    req: {map: /data/jiserver/data_dir/mapserver/world_k2/world_k2.map, layers: world}
     mapserver: {binary: /usr/local/bin/mapserv, working_dir: /data/jiserver/data_dir/tmp}

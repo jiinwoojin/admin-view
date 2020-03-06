@@ -3,12 +3,10 @@ package com.jiin.admin.entity;
 import lombok.Data;
 import org.springframework.data.domain.Persistable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
-@Entity(name = "MAP_LAYER")
+@Entity(name = "_MAP_LAYER")
 @Data
 public class MapLayer implements Persistable<Long> {
 
@@ -17,26 +15,21 @@ public class MapLayer implements Persistable<Long> {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "TYPE", length = 20, nullable = false)
-    private String type;
+    @Column(name = "NAME", length = 20, nullable = false, unique = true)
+    private String name;
 
     @Column(name = "TITLE", length = 100, nullable = false)
     private String title;
 
-    @Column(name = "SRS", length = 20, nullable = false)
-    private String srs;
+    @Column(name = "IS_DEFAULT", nullable = false)
+    private boolean isDefault;
 
-    @Column(name = "BBOX_E", nullable = false)
-    private Float bboxE;
-
-    @Column(name = "BBOX_W", nullable = false)
-    private Float bboxW;
-
-    @Column(name = "BBOX_S", nullable = false)
-    private Float bboxS;
-
-    @Column(name = "BBOX_N", nullable = false)
-    private Float bboxN;
+    @ManyToMany
+    @JoinTable(name = "_MAP_LAYER_SOURCE"
+            , joinColumns = @JoinColumn(name="LAYER_ID")
+            , inverseJoinColumns = @JoinColumn(name="SOURCE_ID")
+    )
+    private List<MapSource> source;
 
     @Override
     public boolean isNew() {

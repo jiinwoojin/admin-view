@@ -1,0 +1,54 @@
+services:
+  demo:
+  wms:
+    versions: ['1.1.1', '1.3.0']
+    srs: ['EPSG:4326', 'EPSG:900913', 'EPSG:3857']
+    bbox_srs: ['EPSG:4326', 'EPSG:3857']
+    image_formats: ['image/jpeg', 'image/png']
+
+layers:
+  - name: world_k2
+    title: K2 World Map
+    sources: [world_k2_cache]
+  - name: world_k2_test
+    title: K2 World Map Test
+    sources: [world_k2_test_cache]
+  - name: sample
+    title: 테스트 레이어
+    sources: []
+
+caches:
+  world_k2_cache:
+    grids: ['GLOBAL_GEODETIC']
+    meta_size: [1, 1]
+    meta_buffer: 0
+    sources: [world_k2]
+    cache:
+      type: file
+      directory: /data/jiserver/data_dir/cache/world_k2/
+  world_k2_test_cache:
+    grids: ['GLOBAL_GEODETIC']
+    meta_size: [1, 1]
+    meta_buffer: 0
+    sources: [world_k2_test]
+    cache:
+      type: file
+      directory: /data/jiserver/data_dir/cache/world_k2/
+
+sources:
+  world_k2:
+    type: mapserver
+    req:
+      map: /data/jiserver/data_dir/mapserver/world_k2/world_k2.map
+      layers: world
+    mapserver:
+      binary: /usr/local/bin/mapserv
+      working_dir: /data/jiserver/data_dir/tmp
+  world_k2_test:
+    type: mapserver
+    req:
+      map: /data/jiserver/data_dir/mapserver/world_k2/world_k2.map
+      layers: world
+    mapserver:
+      binary: /usr/local/bin/mapserv
+      working_dir: /data/jiserver/data_dir/tmp
