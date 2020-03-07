@@ -588,10 +588,10 @@ jiMap.prototype._modifyGeoJsonData = function _modifyGeoJsonData(feature) {
     }
 };
 jiMap.prototype.getAllFeatures = function() {
-    let sourceIds = Object.keys(stmp.mapObject.map.getStyle().sources)
-    let features = {};
-    for(let i=0; i < sourceIds.length; i++){
-        let source = stmp.mapObject.map.getSource(sourceIds[i]);
+    var sourceIds = Object.keys(stmp.mapObject.map.getStyle().sources)
+    var features = {};
+    for(var i=0; i < sourceIds.length; i++){
+        var source = stmp.mapObject.map.getSource(sourceIds[i]);
         if(source._data){
             features[sourceIds[i]] = source._data.features
         }

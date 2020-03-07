@@ -1294,7 +1294,9 @@ var stmp = {
      * @param features
      */
     removeFeatures : function removeFeatures(features) {
-
+        for (var i = 0; i < features.length; i++) {
+            this.removeFeature(features[i]);
+        }
     },
     /**
      * 이벤트 등록
