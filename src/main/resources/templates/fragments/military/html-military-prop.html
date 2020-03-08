@@ -7,9 +7,8 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">부호 속성 설정</h4>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
-
+                <h4 class="modal-title">부호 속성 설정</h4>
             </div>
             <div class="modal-body">
                 <div class="">
@@ -26,7 +25,7 @@
                                             <div class="form-group row">
                                                 <label for="SIDCAFFILIATION" class="col-sm-4 control-label">피아구분</label>
                                                 <div class="col-sm-8">
-                                                    <select id="SIDCAFFILIATION" class="form-control" onchange="drawSymbol()"></select>
+                                                    <select id="SIDCAFFILIATION" class="form-control" checked onchange="drawSymbol()"></select>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -58,12 +57,12 @@
                                                     </select>-->
                                                     <div class="from-group">
                                                         <label class="chkBox">
-                                                            <input type="checkbox" class="chkBox__inp colorList__chkBox">
+                                                            <input type="checkbox" id="MonoColorChk" class="chkBox__inp colorList__chkBox" onchange="drawSymbol();">
                                                             <span class="chkBox__txt">사용</span> <!-- 민간 -->
                                                         </label>
                                                     </div>
                                                     <div class="colorListBox" style="display:none">
-                                                        <div class="colorList">
+                                                        <div class="colorList MonoColor1">
                                                             <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
                                                             <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
                                                             <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
@@ -73,11 +72,11 @@
                                                             <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
                                                             <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
                                                             <div class="input-group mil-colorpicker colorpicker-component">
-                                                                <input  type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <input  type="text" class="form-control" id="MonoColor1" placeholder="색상코드 입력" onchange="drawSymbol();">
                                                                 <span class="input-group-addon"><i></i></span>
                                                             </div>
                                                         </div>
-                                                        <div class="colorList">
+                                                        <div class="colorList MonoColor2" style="display:none">
                                                             <label class="colorList__box -none"><input type="radio" name="colorSet01" value="transparent">색없음</label>
                                                             <label class="colorList__box -white"><input type="radio" name="colorSet01" value="#ffffff"></label>
                                                             <label class="colorList__box -black"><input type="radio" name="colorSet01" value="#000000"></label>
@@ -87,7 +86,7 @@
                                                             <label class="colorList__box -yellow"><input type="radio" name="colorSet01" value="#f2da4f"></label>
                                                             <label class="colorList__box -brown"><input type="radio" name="colorSet01" value="#f27500"></label>
                                                             <div class="input-group mil-colorpicker colorpicker-component">
-                                                                <input type="text" class="form-control" placeholder="색상코드 입력">
+                                                                <input type="text" class="form-control" id="MonoColor2" placeholder="색상코드 입력" onchange="drawSymbol();">
                                                                 <span class="input-group-addon"><i></i></span>
                                                             </div>
                                                         </div>
@@ -142,7 +141,7 @@
                                             </div>
                                             <div id="property_L" class="from-group">
                                                 <label class="chkBox">
-                                                    <input type="checkbox" id="CivilianColors" class="chkBox__inp" checked onchange="drawSymbol();" disabled>
+                                                    <input type="checkbox" id="CivilianColors" class="chkBox__inp" onchange="drawSymbol();" disabled>
                                                     <span class="chkBox__txt">민간구분</span> <!-- 민간 -->
                                                 </label>
                                             </div>
@@ -329,7 +328,7 @@
                                     <div id="modifier_R" class="form-group row">
                                         <label class="control-label col-sm-6">R : 기동수단 코드</label>
                                         <div class="col-sm-6 property-clean">
-                                            <select class="form-control">
+                                            <select id="R" class="form-control" onchange="drawSymbol()">
                                                 <option value=""></option>
                                                 <option value="O">O:차륜식(제한된 야지횡단)</option>
                                                 <option value="P">P:야지횡단 차륜식(야지횡단)</option>
@@ -459,7 +458,7 @@
                                     <div id="modifier_AG" class="form-group row">
                                         <label class="control-label col-sm-6">AG : 보조장비 코드</label>
                                         <div class="col-sm-6 property-clean">
-                                            <select class="form-control">
+                                            <select id="AG" class="form-control" onchange="drawSymbol()">
                                                 <option value=""></option>
                                                 <option value="S">S:견인 소나열 (단)</option>
                                                 <option value="L">L:견인 소나열 (장)</option>
@@ -1263,5 +1262,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>

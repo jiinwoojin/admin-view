@@ -264,53 +264,6 @@ function deleteActivation(){
 	}
 }
 
-function createTransparentMapLayer(name, type){
-	// milSymbol maker layer
-	var TMapLayer = new ol.layer.Vector({
-		source: new ol.source.Vector({
-			features: [],
-			projection: 'EPSG:4326'
-		})
-	});
-	if(name == undefined){
-		name = 'tms_00';
-	} 
-	
-	TMapLayer.set('name', name);
-	
-	if(type == undefined){
-		var check = tmsLayerCheck();
-		if(check){
-			map.addLayer(TMapLayer);
-			selectLayer = chooseLayer(name);
-			
-			var file_info = {};
-			file_info.file_name = '새 레이어 0';
-			var index = '00';
-			selectTransparentMapList('', file_info, index);
-		} else {
-			alert('생성된 투명도가 있습니다.');
-			return;
-		}
-	} else if (type == 'road') {
-		map.addLayer(TMapLayer);
-		selectLayer = chooseLayer(name);
-	}
-}
-
-function tmsLayerCheck(){
-	var check = true;
-	map.getLayers().forEach(function (layer){
-		if (layer.get('name') != undefined){
-			if(layer.get('name').substring(0, 3) == 'tms'){
-				check = false;
-			}
-		}
-	});
-	
-	return check;
-}
-
 function chooseLayer(name){
 	var TMaplayer;
 	map.getLayers().forEach(function (layer){

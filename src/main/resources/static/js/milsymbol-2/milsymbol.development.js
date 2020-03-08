@@ -384,6 +384,7 @@
       if (!this.metadata.numberSIDC) {
         //Sea mine exercise has stuff outsIde the boundingbox...
         //TODO see if we can fix this in another way.
+        /*
         if (
           ["WMGX--", "WMMX--", "WMFX--", "WMX---", "WMSX--"].indexOf(
             this.metadata.functionid
@@ -394,6 +395,7 @@
             gbbox.x2 = this.metadata.baseGeometry.bbox.x2 + 20;
           }
         }
+        */
 
         //Try to fetch the icons form the cache
         if (ms._iconCache[icnet].hasOwnProperty("letterSIDC")) {
@@ -1938,6 +1940,7 @@
 
     //Check that we have some texts to print
     var textFields =
+      this.options.sidcsymbolModifier12 ||
       this.options.quantity ||
       this.options.reinforcedReduced ||
       this.options.staffComments ||
@@ -3485,10 +3488,6 @@
                   svg += processInstructions.call(this, instruction[i].draw);
                   svg += "</g>";
                   break;
-                case "transform":
-                  svg += processInstructions.call(this, instruction[i].draw);
-                  svg += "</g>";
-                  break;
               }
             }
             svgxml += svg;
@@ -3542,6 +3541,7 @@
     var baseColorNone = ms.getColorMode("None");
 
     //If it is a Civilian Symbol and civilian colors not are turned off, use civilian colors...
+    this.metadata.civilian = this.style.civilianColor;
     if (this.style.civilianColor && this.metadata.civilian) {
       baseFillColor.Friend = baseFillColor.Neutral = baseFillColor.Unknown =
         baseFillColor.Civilian;
@@ -3557,11 +3557,11 @@
       baseIconColor.Friend = baseIconColor.Hostile;
     }
     //If the user has specified a mono color to use for all symbols.
-    if (this.style.monoColor != "") {
-      baseFrameColor.Friend = baseFrameColor.Neutral = baseFrameColor.Hostile = baseFrameColor.Unknown = baseFrameColor.Civilian = this.style.monoColor;
-      baseColorBlack = baseFrameColor;
-      baseColorWhite = baseFillColor = baseColorNone;
-    }
+    /* //20200306 if문 안의 아래 3줄 주석처리
+      //    baseFrameColor.Friend = baseFrameColor.Neutral = baseFrameColor.Hostile = baseFrameColor.Unknown = baseFrameColor.Civilian = this.style.monoColor;
+      //    baseColorBlack = baseFrameColor;
+      //    baseColorWhite = baseFillColor = baseColorNone; */
+    if (this.style.monoColor != "") ;
 
     var colors = {
       fillColor: baseFillColor,
@@ -3602,7 +3602,7 @@
       colors.fillColor = baseColorNone;
       //Fix frame color if it should be turned off.
       colors.frameColor = !this.metadata.frame ? baseColorNone : baseFrameColor;
-      colors.iconColor = baseFrameColor;
+      colors.iconColor = baseIconColor; //baseFrameColor; //20200306
       colors.iconFillColor = baseColorNone;
       //If everything turned off, make everything black.
       if (!this.metadata.frame && !this.metadata.fill && !this.style.icon) {
@@ -3612,6 +3612,50 @@
       //Another dirty override to get correct 2525 colors for special symbols with filled icn.
       //Colors.black = baseFrameColor;
     }
+    //20200305
+    var hexToRgb = function(hex) {
+      // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+      var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+      hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+      });
+
+      var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result
+        ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+          }
+        : null;
+    };
+    //20200305
+    if (this.options.monoColor1) {
+      if (this.options.monoColor1 == "transparent") {
+        if (this.style.fill) {
+          colors.fillColor = baseColorNone;
+        } else {
+          baseFrameColor.Friend = baseFrameColor.Neutral = baseFrameColor.Unknown = baseFrameColor.Civilian = baseFrameColor.Hostile = baseColorNone;
+          colors.frameColor = baseFrameColor;
+        }
+      } else {
+        var rgb = hexToRgb(this.options.monoColor1);
+        var strRgb = "rgb(" + rgb.r + "," + rgb.g + "," + rgb.b + ")";
+        if (this.style.fill) {
+          if (this.metadata.fill) {
+            baseIconFillColor.Friend = baseIconFillColor.Neutral = baseIconFillColor.Unknown = baseIconFillColor.Civilian = baseIconFillColor.Hostile = strRgb;
+            colors.iconFillColor = baseIconFillColor;
+          } else {
+            baseFrameColor.Friend = baseFrameColor.Neutral = baseFrameColor.Unknown = baseFrameColor.Civilian = baseFrameColor.Hostile = strRgb;
+            colors.frameColor = baseFrameColor;
+          }
+        } else {
+          baseFrameColor.Friend = baseFrameColor.Neutral = baseFrameColor.Unknown = baseFrameColor.Civilian = baseFrameColor.Hostile = strRgb;
+          colors.frameColor = baseFrameColor;
+        }
+      }
+    }
+
     return colors;
   }
 
@@ -3695,10 +3739,8 @@
     if (this.style.standard) {
       metadata.STD2525 = this.style.standard == "APP6" ? false : true;
     }
-
-    if (this.style.monoColor != "") {
-      metadata.fill = false;
-    }
+    //20200306 - if문 안의 metadata.fill = false; 주석처리
+    if (this.style.monoColor != "") ;
     this.options.sidc = String(this.options.sidc)
       .replace(/\*/g, "-")
       .replace(/ /g, "");
@@ -3966,6 +4008,7 @@
     this.octagonAnchor = { x: 50, y: 50 }; // The anchor point for the octagon for the current symbol
 
     this.options = {}; //initiate options object.
+    this.options.sidcsymbolModifier12 = ""; // FieldID B
     this.options.quantity = ""; // FieldID C
     this.options.reinforcedReduced = ""; // FieldID F
     this.options.staffComments = ""; // FieldID G
@@ -4114,10 +4157,6 @@
 
     //dimension is in Space
     if (battledimension == "P" && codingscheme != "O") metadata.space = true;
-    //codingscheme that are Activities
-    //  if (codingscheme == "O" && ["V", "O", "R"].indexOf(battledimension) > -1) {
-    //    metadata.activity = true;
-    //  }
     //SymbolSets that are control-measure
     if (codingscheme == "G") metadata.controlMeasure = true;
     //symbolmodifier11 that are Installations
@@ -4281,13 +4320,11 @@
     }
     //This is for 2525
     //Civilian stuff
-    //  if (
-    //    (battledimension == "A" && functionid.charAt(0) == "C") ||
-    //    (battledimension == "G" && functionid.substring(0, 3) == "EVC") ||
-    //    (battledimension == "S" && functionid.charAt(0) == "X")
-    //  ) {
-    //    metadata.civilian = true;
-    //  }
+    if (
+      (battledimension == "A" && functionid.charAt(0) == "C") ||
+      (battledimension == "G" && functionid.substring(0, 3) == "EVC") ||
+      (battledimension == "S" && functionid.charAt(0) == "X")
+    ) ;
     //Colors will be have to be fixed in symbolColors
     if (battledimension == "Z" || battledimension == "X") {
       if (["P", "U", "F", "N", "H", "A", "S", "G", "W"].indexOf(affiliation) > -1)
@@ -4492,18 +4529,18 @@
   }
 
   function text(str) {
-    var size = 42;
+    var size = 40;
     var y = 115;
     if (str.length == 1) {
       size = 45;
       y = 115;
     }
     if (str.length == 3) {
-      size = 35;
+      size = 33;
       y = 110;
     }
     if (str.length >= 4) {
-      size = 32;
+      size = 26;
       y = 110;
     }
     var t = {
@@ -5086,8 +5123,8 @@
     //var numberSIDC = metadata.numberSIDC;
     var icn = {};
 
-    icn["AR.I.MILITARY"] = text_kor("군용");
-    icn["AR.I.CIVILIAN"] = text_kor("민간");
+    icn["AR.I.MILITARY"] = text("MIL");
+    icn["AR.I.CIVILIAN"] = text("CIV");
     /*
     if (!frame) {
       icn["AR.I.CIVILIAN"].fill =
@@ -5968,7 +6005,7 @@
       fontsize: 23,
       text: "특"
     };
-    icn["GR.IC.ADMINISTRATIVE"] = text_kor("행정");
+    icn["GR.IC.ADMINISTRATIVE"] = text("ADM");
     icn["GR.IC.CIVIL"] = text_kor("민사");
     icn["GR.IC.MANUAL TRACK"] = text("MAN");
     icn["GR.IC.AIR DEFENSE CHAPARRAL"] = [
@@ -6140,7 +6177,7 @@
       type: "path",
       d: "M64,130.7l36-61.3l36,61.3H64z",
       strokewidth: 2,
-      fill: iconFillColor
+      fill: false
     };
     icn["GR.IC.AVIATION ROTARY WING 2525C"] = {
       type: "path",
@@ -6218,7 +6255,7 @@
       d: "m 60,80 80,0 0,20 c 0,25 -80,25 -80,0 z",
       fill: false
     };
-    icn["GR.I.CIVILIAN"] = text_kor("민간");
+    icn["GR.I.CIVILIAN"] = text("CIV");
     if (!frame) {
       icn["GR.I.CIVILIAN"].fill =
         STD2525 || numberSIDC ? iconFillColor : !frame ? iconFillColor : false;
@@ -6226,7 +6263,7 @@
       icn["GR.I.CIVILIAN"].strokewidth = 3;
     } else {
       icn["GR.I.CIVILIAN"] = new Object();
-      icn["GR.I.CIVILIAN"] = text_kor("민간");
+      icn["GR.I.CIVILIAN"] = text("CIV");
     }
 
     icn["GR.IC.COMMAND AND CONTROL"] = text("C2");
@@ -6362,15 +6399,15 @@
           "M112.6,77.5l0.8,4.1l0.1,0l2.8-5.7c1.2-1.7,2.5-3.4,3.7-5.1c-1.8,1-3.7,2.1-5.5,3.1l-5.9,2.2l-0.1,0.1L112.6,77.5z M87.5,77.5l-0.7,4.2l-0.1,0L83.7,76c-1.2-1.7-2.5-3.4-3.7-5.1c1.8,1,3.7,2,5.5,3l6,2.1l0.1,0.1L87.5,77.5z"
       }
     ];
-    icn["GR.IC.INFORMATION OPERATIONS"] = text_kor(
-      STD2525 && !numberSIDC ? "정보전" : "IO"
+    icn["GR.IC.INFORMATION OPERATIONS"] = text(
+      STD2525 && !numberSIDC ? "IW" : "IO"
     );
     icn["GR.IC.INTERNATIONAL SECURITY ASSISTANCE FORCE (ISAF)"] = text("ISAF");
     icn["GR.IC.INTERROGATION"] = text("IPW");
     icn["GR.IC.JOINT FIRE SUPPORT"] = text("JFS");
-    icn["GR.IC.JOINT INFORMATION BUREAU"] = text_kor("보도국");
+    icn["GR.IC.JOINT INFORMATION BUREAU"] = text("JIB");
     icn["GR.IC.JOINT INTELLIGENCE CENTRE"] = text("JIC");
-    icn["GR.IC.JUDGE ADVOCATE GENERAL"] = text_kor("법무");
+    icn["GR.IC.JUDGE ADVOCATE GENERAL"] = text("JAG");
     icn["GR.IC.LABOUR"] = {
       type: "path",
       d: "m 90,85 20,0 m -10,0 0,25 -10,0 10,10 10,-10 -10,0",
@@ -6479,7 +6516,7 @@
       x: 100,
       y: 110,
       fontsize: 30,
-      text: "복지"
+      text: "MWR"
     };
     icn["GR.IC.MORTAR"] = [
       { type: "circle", cx: 100, cy: 115, r: 5, fill: false },
@@ -6528,7 +6565,7 @@
         "M 90,97 83,83 m 27,14 7,-14 M 95,95 90,81 m 15,14 5,-14 m 10,26.5 c 0,6.9 -9,12.5 -20,12.5 -11,0 -20,-5.6 -20,-12.5 0,-6.9 9,-12.5 20,-12.5 11,0 20,5.6 20,12.5 z",
       fill: false
     };
-    icn["GR.IC.PERSONNEL SERVICES"] = text_kor("인사");
+    icn["GR.IC.PERSONNEL SERVICES"] = text("PS");
     icn["GR.IC.PETROLEUM OIL LUBRICANTS"] = {
       type: "path",
       d: "m 100,119 0,-24 m 0,0 C 99,95 85,81 85,81 l 30,0 z",
@@ -6545,8 +6582,8 @@
       d: "m 80,80 30,0 c -1.4,15.5 0,25 10,35 -20,0 -40,-20 -40,-35 z",
       fill: false
     };
-    icn["GR.IC.PUBLIC AFFAIRS"] = text_kor("공무");
-    icn["GR.IC.PUBLIC AFFAIRS BROADCAST"] = text_kor("공보방송");
+    icn["GR.IC.PUBLIC AFFAIRS"] = text("PA");
+    icn["GR.IC.PUBLIC AFFAIRS BROADCAST"] = text("BPAD");
     icn["GR.IC.PSYCHOLOGICAL OPERATIONS"] = {
       type: "path",
       fill: STD2525 ? iconFillColor : false,
@@ -6604,8 +6641,8 @@
         { type: "circle", fill: false, cx: 135, cy: 125, r: 5 }
       ])
     ];
-    icn["GR.IC.RELIGIOUS SUPPORT"] = text_kor("군종");
-    icn["GR.IC.REPLACEMENT HOLDING UNIT"] = text_kor("보충");
+    icn["GR.IC.RELIGIOUS SUPPORT"] = text("REL");
+    icn["GR.IC.REPLACEMENT HOLDING UNIT"] = text("RHU");
     icn["GR.IC.RECRUIT TRAINING CENTER"] = text_kor("훈련");
     icn["GR.IC.RESERVED"] = text_kor("예비");
     icn["GR.IC.SEA-AIR-LAND"] = text("SEAL");
@@ -6704,6 +6741,12 @@
       type: "path",
       d:
         "M132.5,130.6 67.5,130.6 67.5,103.5 104,103.5 132.5,103.5z M81.4,69.4 81.4,75 81.4,103.5z M72.9,88.8 86.1,88.8 89.9,88.8z M72.9,78.7 86,78.7 89.9,78.7z M118.6,69.4 118.6,76.4 118.6,103.5z M110.1,88.8 122.4,88.8 127.1,88.8z M110.1,78.7 122.8,78.7 127.1,78.7z"
+    };
+    icn["GR.IC.JAMMER"] = {
+      type: "path",
+      d:
+        "M140,81.4l-40,61l-40-61h40H140z M73,101.4c0,0,5.5-11,5.5-11s5.5,11,5.5,11s5.5-11,5.5-11s5.5,11,5.5,11l5.9-11v0c0,0,5.1,11,5.1,11 s5.5-11,5.5-11s5.5,11,5.5,11s5.5-11,5.5-11s5.5,11,5.5,11 M89,125.4c0,0,5.5-11,5.5-11s5.5,11,5.5,11l5.9-11v0c0,0,5.1,11,5.1,11",
+      fill: false
     };
     icn["GR.IC.WATER PURIFICATION"] = [
       icn["GR.IC.WATER"],
@@ -7569,14 +7612,16 @@
       stroke: false,
       x: 100,
       y: 75,
-      fontsize: 22,
-      text: "건설"
+      fontsize: 20,
+      text: "CONST"
     };
     icn["GR.M1.COMPANY"] = textm1("I");
     icn["GR.M1.CORPS"] = textm1("XXX");
     icn["GR.M1.CROSS CULTURAL COMMUNICATION"] = textm1("CCC");
     icn["GR.M1.CROWD AND RIOT CONTROL"] = textm1("CRC");
     icn["GR.M1.DECONTAMINATION"] = textm1("D");
+    icn["GR.M1.WMD TF"] = text("WMD");
+    icn["GR.M1.CRRT"] = textm1("CRRT");
     icn["GR.M1.DETENTION"] = textm1("DET");
     icn["GR.M1.DEPUTY"] = textm1("DEP");
     icn["GR.M1.C4I"] = textm1("C4I");
@@ -7743,7 +7788,7 @@
       { type: "circle", fill: false, cx: 125, cy: 125, r: 5 },
       { type: "circle", fill: false, cx: 135, cy: 125, r: 5 }
     ]);
-    icn["GR.M1.RADIOLOGICAL"] = textm1("RAD");
+    icn["GR.M1.RADIOLOGICAL"] = textm1("R");
     icn["GR.M1.RANGER"] = textm1("RGR");
     icn["GR.M1.RECON"] = textm1("R");
     icn["GR.M1.REGIMENT"] = textm1("III");
@@ -8826,6 +8871,105 @@
         stroke: false
       }
     ];
+    icn["GR.EQ.SWITCHBOARD"] = {
+      type: "path",
+      d:
+        "M131.5,84.9h-29v-18h29V84.9z M102.5,120.9h-29v18h29V120.9z M102.5,84.9v36 M115.5,92.9H92 c-5.8,0-10.5,4.7-10.5,10.5l0,0c0,5.8,4.7,10.5,10.5,10.5h23.5",
+      fill: false
+    };
+    icn["GR.EQ.MULTIPLEX AGGREGATOR"] = {
+      type: "path",
+      d:
+        "M112.9,64v36v36l-50-36L112.9,64z M112.9,79.5h18 M112.9,89.3h18 M112.9,99.2h18 M112.9,109.1h18 M112.9,119h18",
+      fill: false
+    };
+    icn["GR.EQ.NETWORK"] = {
+      type: "path",
+      d:
+        "M127.6,127.6c-15.2,15.2-39.9,15.2-55.2,0s-15.2-39.9,0-55.2s39.9-15.2,55.2,0S142.8,112.3,127.6,127.6z M127.6,72.4l-55.2,55.2 M127.6,127.6L72.4,72.4",
+      fill: false
+    };
+    icn["GR.EQ.M2.ROUTER"] = {
+      type: "text",
+      stroke: false,
+      x: 100,
+      y: 135,
+      fontsize: 25,
+      text: "R"
+    };
+    icn["GR.EQ.TACTICAL MULTIPLEX EQUIPMENT (TERMINAL)"] = {
+      type: "path",
+      d:
+        "M121,126c0,11.6-9.4,21-21,21s-21-9.4-21-21s9.4-21,21-21S121,114.4,121,126z M79,58.6h39.9 M90.5,107.2V78.6l15.8,12.7V58.6",
+      fill: false
+    };
+    icn["GR.EQ.REPEATER"] = {
+      type: "path",
+      d: "M60,85 l40,15 40,-15 0,30 -40,-15 -40,15 z",
+      fill: false,
+      strokewidth: 6
+    };
+    icn["GR.EQ.TACTICAL MOBLIE COMMUNICATION EQUIPMENT"] = {
+      type: "path",
+      d:
+        "M100,102.3v-38 M100,102.3c11.9,0,21.5,9.6,21.5,21.5s-9.6,21.5-21.5,21.5s-21.5-9.6-21.5-21.5S88.1,102.3,100,102.3z",
+      fill: false
+    };
+    icn["GR.EQ.M2.MOBILE SUBSCRIBER BASE STATION"] = {
+      type: "text",
+      stroke: false,
+      x: 100,
+      y: 135,
+      fontsize: 25,
+      text: "A"
+    };
+    icn["GR.EQ.M2.MOBILE"] = {
+      type: "text",
+      stroke: false,
+      x: 100,
+      y: 135,
+      fontsize: 25,
+      text: "M"
+    };
+    icn["GR.EQ.MOBILE SUBSCRIBER BASE STATION"] = [
+      {
+        type: "path",
+        d: "M75,64.3h50"
+      },
+      {
+        type: "text",
+        stroke: false,
+        x: 100,
+        y: 135,
+        fontsize: 25,
+        text: "A"
+      }
+    ];
+    icn["GR.EQ.COMBAT RADIO EQUIPMENT (TERMINAL)"] = {
+      type: "path",
+      d:
+        "M100,102.3v-27 M100,102.3c11.9,0,21.5,9.6,21.5,21.5s-9.6,21.5-21.5,21.5s-21.5-9.6-21.5-21.5S88.1,102.3,100,102.3z M129,58.3l-9.7,17l-9.6-17l-9.7,17l-9.7-17l-9.6,17l-9.7-17",
+      fill: false
+    };
+    icn["GR.EQ.FIELD PHONE"] = {
+      type: "path",
+      d:
+        "M80.5,88c0,5.5-4.5,10-10,10s-10-4.5-10-10s4.5-10,10-10S80.5,82.5,80.5,88z M74.4,78.8c0,0,10.1-10.8,26.1-10.8 M129.5,78c5.5,0,10,4.5,10,10s-4.5,10-10,10c-5.5,0-10-4.5-10-10S124,78,129.5,78z M99.5,68c16,0,26.1,10.8,26.1,10.8 M126.5,132h-26h-26l26-57L126.5,132z",
+      fill: false
+    };
+
+    icn["GR.EQ.KR.NETWORK MANAGEMENT EQUIPMENT"] = text_kor("망관리");
+    icn["GR.EQ.FACSIMILE EQUIPMENT"] = text("FAX");
+    icn["GR.EQ.COMPUTER"] = text("COM");
+    icn["GR.EQ.KR.OPTICAL TRANSMISSION EQUIPMENT"] = text_kor("광전송");
+    icn["GR.EQ.M2.SWITCH"] = {
+      type: "text",
+      stroke: false,
+      x: 100,
+      y: 135,
+      fontsize: 25,
+      text: "S"
+    };
     icn["GR.EQ.ANTITANK MINE"] = { type: "circle", cx: 100, cy: 100, r: 22 };
     icn["GR.EQ.IMPROVISED EXPLOSIVE DEVICE"] = text("IED");
     icn["GR.EQ.LAND MINES"] = [
@@ -9028,6 +9172,7 @@
     };
     icn["GR.IN.M1.CIVILIAN"] = textm1("CIV");
     icn["GR.IN.M1.CIVILIAN TELEPHONE"] = textm1("T");
+    icn["GR.IN.M1.PATROL"] = textm1("P");
     icn["GR.IN.M1.CIVILIAN TELEVISION"] = textm1("TV");
     icn["GR.IN.M1.AMPHIBIOUS ARMORED VEHICLE"] = textm1("P");
     icn["GR.IN.M1.AMPHIBIOUS ARMORED VEHICLE(HOWITZER)"] = textm1("H");
@@ -9039,6 +9184,7 @@
     icn["GR.IN.M2.CHEMICAL & BIOLOGICAL WARFARE"] = textm2("B");
     icn["GR.IN.M2.SHIP CONSTRUCTION"] = textm2("YRD");
     icn["GR.IN.M2.WEAPONS GRADE PRODUCTION"] = textm2("W");
+    icn["GR.IN.M2.NUCLEAR MATERIAL STORAGE"] = textm2("S");
 
     // SUBSURFACE
 
@@ -10837,7 +10983,7 @@
     icn["GR.IC.KR.COMPUTER"] = text_kor("전산");
     icn["GR.IC.KR.PRESSWORK"] = text_kor("인쇄");
     icn["GR.IC.KR.CARTOGRAPHIC"] = text_kor("지도");
-    icn["GR.IC.KR.COUNTER-INTELLIGENCE"] = text_kor("방첩");
+    icn["GR.IC.KR.COUNTER-INTELLIGENCE"] = text("CI");
     icn["GR.IN.IC.KR.BROADCASTING FACILITY"] = text_kor("방 송");
     icn["GR.IN.IC.KR.WAR SUPPLIES FACTORY"] = [
       { type: "text", stroke: false, x: 100, y: 90, fontsize: 30, text: "군수" },
@@ -10868,6 +11014,8 @@
     icn["GR.IN.IC.KR.CULTURAL PROPERTIES"] = text_kor("문화재");
     icn["GR.IN.IC.KR.NATIONAL TREASURE"] = text_kor("국보");
     icn["GR.IN.IC.KR.TREASURE"] = text_kor("보물");
+    icn["GR.IC.KR.PRISONER OF WAR(POW)"] = text_kor("포로");
+
     /*
     icn["CY.IC.COMMAND AND CONTROL (C2)"] = text("BC2");
     icn["CY.IC.HERDER"] = text("HDR");
@@ -11131,6 +11279,10 @@
       sId["S-G-UCVFT-"] = [
         icn["GR.IC.AVIATION FIXED WING"],
         icn["GR.IN.M1.CIVILIAN TELEPHONE"]
+      ];
+      sId["S-G-UCVFP-"] = [
+        icn["GR.IC.AVIATION FIXED WING"],
+        icn["GR.IN.M1.PATROL"]
       ];
       sId["S-G-UCVR--"] = _STD2525
         ? [
@@ -11587,6 +11739,8 @@
         icn["GR.EQ.CBRN EQUIPMENT"],
         icn["GR.M1.DECONTAMINATION"]
       ];
+      sId["S-G-UUAW--"] = [icn["GR.M1.WMD TF"]];
+      sId["S-G-UUAR--"] = [icn["GR.EQ.CBRN EQUIPMENT"], icn["GR.M1.CRRT"]];
       sId["S-G-UUADT-"] = [
         icn["GR.IC.CBRN"],
         icn["GR.M1.DECONTAMINATION"],
@@ -11870,6 +12024,7 @@
       ];
       sId["S-G-USAA--"] = [icn["GR.EQ.ANTIPERSONNEL LAND MINE LESS THAN LETHAL"]];
       sId["S-G-USAB--"] = [icn["GR.IC.RESERVED"]];
+      sId["S-G-USAE--"] = [icn["GR.IC.KR.PRISONER OF WAR(POW)"]];
       sId["S-G-USM---"] = [icn["GR.IC.FF.MEDICAL"]];
       sId["S-G-USMT--"] = [icn["GR.IC.FF.MEDICAL THEATER"]];
       sId["S-G-USMC--"] = [icn["GR.IC.FF.MEDICAL CORPS"]];
@@ -11936,26 +12091,29 @@
       sId["S-G-USS3A-"] = [
         icn["GR.IC.FF.SUPPLY"],
         icn["GR.IC.FF.CLASS III"],
-        ms._translate(25, 5, ms._scale(0.5, icn["GR.IC.AVIATION ROTARY WING"]))
+        ms._translate(20, 5, ms._scale(0.3, icn["GR.IC.AVIATION ROTARY WING"]))
       ];
       sId["S-G-USS3AT"] = [
         icn["GR.IC.FF.SUPPLY THEATER"],
         icn["GR.IC.FF.CLASS III"],
-        ms._translate(25, 5, ms._scale(0.5, icn["GR.IC.AVIATION ROTARY WING"]))
+        ms._translate(20, 5, ms._scale(0.3, icn["GR.IC.AVIATION ROTARY WING"]))
       ];
       sId["S-G-USS3AC"] = [
         icn["GR.IC.FF.SUPPLY CORPS"],
         icn["GR.IC.FF.CLASS III"],
-        ms._translate(25, 5, ms._scale(0.5, icn["GR.IC.AVIATION ROTARY WING"]))
+        ms._translate(20, 5, ms._scale(0.3, icn["GR.IC.AVIATION ROTARY WING"]))
       ];
-      sId["S-G-USS4--"] = [icn["GR.IC.FF.SUPPLY"], icn["GR.IC.FF.CLASS IV"]];
+      sId["S-G-USS4--"] = [
+        icn["GR.IC.FF.SUPPLY"],
+        ms._scale(0.7, icn["GR.IC.FF.CLASS IV"])
+      ];
       sId["S-G-USS4T-"] = [
         icn["GR.IC.FF.SUPPLY THEATER"],
-        icn["GR.IC.FF.CLASS IV"]
+        ms._scale(0.7, icn["GR.IC.FF.CLASS IV"])
       ];
       sId["S-G-USS4C-"] = [
         icn["GR.IC.FF.SUPPLY CORPS"],
-        icn["GR.IC.FF.CLASS IV"]
+        ms._scale(0.7, icn["GR.IC.FF.CLASS IV"])
       ];
       sId["S-G-USS5--"] = [icn["GR.IC.FF.SUPPLY"], icn["GR.IC.FF.CLASS V"]];
       sId["S-G-USS5T-"] = [
@@ -12178,16 +12336,16 @@
         icn["GR.IC.FF.CORPS SUPPORT"],
         icn["GR.M2.HEAVY"]
       ];
-      sId["S-G-USXR--"] = [icn["GR.IC.MAINTENANCE"], icn["GR.M2.RAILROAD"]];
+      sId["S-G-USXR--"] = [icn["GR.IC.MAINTENANCE"], icn["GR.M2.TRUCK"]];
       sId["S-G-USXRT-"] = [
         icn["GR.IC.MAINTENANCE"],
         icn["GR.IC.FF.THEATRE SUPPORT"],
-        icn["GR.M2.RAILROAD"]
+        icn["GR.M2.TRUCK"]
       ];
       sId["S-G-USXRC-"] = [
         icn["GR.IC.MAINTENANCE"],
         icn["GR.IC.FF.CORPS SUPPORT"],
-        icn["GR.M2.RAILROAD"]
+        icn["GR.M2.TRUCK"]
       ];
       sId["S-G-USXO--"] = [icn["GR.IC.MAINTENANCE"], icn["GR.M1.AMMUNITION"]];
       sId["S-G-USXOT-"] = [
@@ -12883,7 +13041,36 @@
       sId["S-G-EXM---"] = [icn["GR.EQ.LAND MINES"]];
       sId["S-G-EXMC--"] = [icn["GR.EQ.ANTIPERSONNEL LAND MINE"]];
       sId["S-G-EXML--"] = [icn["GR.EQ.ANTIPERSONNEL LAND MINE LESS THAN LETHAL"]];
-
+      sId["S-G-EXC---"] = []; // N/A
+      sId["S-G-EXCB--"] = [icn["GR.EQ.SWITCHBOARD"]];
+      sId["S-G-EXCD--"] = [icn["GR.EQ.MULTIPLEX AGGREGATOR"]];
+      sId["S-G-EXCR--"] = [icn["GR.EQ.NETWORK"], icn["GR.EQ.M2.ROUTER"]];
+      sId["S-G-EXCE--"] = [icn["GR.EQ.TACTICAL MULTIPLEX EQUIPMENT (TERMINAL)"]];
+      sId["S-G-EXCG--"] = [
+        icn["GR.EQ.TACTICAL MULTIPLEX EQUIPMENT (TERMINAL)"],
+        ms._translate(0, 25, ms._scale(0.35, icn["GR.EQ.REPEATER"]))
+      ];
+      sId["S-G-EXCA--"] = [
+        icn["GR.EQ.MOBILE SUBSCRIBER BASE STATION"],
+        icn["GR.EQ.TACTICAL MOBLIE COMMUNICATION EQUIPMENT"],
+        icn["GR.EQ.M2.MOBILE SUBSCRIBER BASE STATION"]
+      ];
+      sId["S-G-EXCM--"] = [
+        icn["GR.EQ.TACTICAL MOBLIE COMMUNICATION EQUIPMENT"],
+        icn["GR.EQ.M2.MOBILE"]
+      ];
+      sId["S-G-EXCH--"] = [icn["GR.I.FF.SATELLITE"]];
+      sId["S-G-EXCI--"] = [icn["GR.EQ.COMBAT RADIO EQUIPMENT (TERMINAL)"]];
+      sId["S-G-EXCJ--"] = [
+        icn["GR.EQ.COMBAT RADIO EQUIPMENT (TERMINAL)"],
+        ms._translate(0, 25, ms._scale(0.35, icn["GR.EQ.REPEATER"]))
+      ];
+      sId["S-G-EXCK--"] = [icn["GR.EQ.KR.NETWORK MANAGEMENT EQUIPMENT"]];
+      sId["S-G-EXCP--"] = [icn["GR.EQ.FIELD PHONE"]];
+      sId["S-G-EXCF--"] = [icn["GR.EQ.FACSIMILE EQUIPMENT"]];
+      sId["S-G-EXCC--"] = [icn["GR.EQ.COMPUTER"]];
+      sId["S-G-EXCL--"] = [icn["GR.EQ.KR.OPTICAL TRANSMISSION EQUIPMENT"]];
+      sId["S-G-EXCS--"] = [icn["GR.EQ.NETWORK"], icn["GR.EQ.M2.SWITCH"]];
       //This sets up the bounding boxes for equipment to have the bottom at the right place. (this will be used for mobility when unframed)
       var equipmentBottom = {
         "E-----": 0,
@@ -13075,12 +13262,15 @@
       sId["S-G-IR----"] = [icn["GR.IN.IC.RAW MATERIAL PRODUCTION/STORAGE"]];
       sId["S-G-IRM---"] = [icn["GR.IN.IC.MINE"]];
       sId["S-G-IRP---"] = [icn["GR.IC.FF.CLASS III"]];
-      sId["S-G-IRN---"] = [icn["GR.IC.CBRN"]];
-      sId["S-G-IRNB--"] = [icn["GR.IC.CBRN"], icn["GR.M1.BIOLOGICAL"]];
-      sId["S-G-IRNC--"] = [icn["GR.IC.CBRN"], icn["GR.M1.CHEMICAL"]];
-      sId["S-G-IRNN--"] = [icn["GR.IC.CBRN"], icn["GR.M1.NUCLEAR"]];
+      sId["S-G-IRN---"] = [icn["GR.EQ.CBRN EQUIPMENT"]];
+      sId["S-G-IRNB--"] = [icn["GR.EQ.CBRN EQUIPMENT"], icn["GR.M1.BIOLOGICAL"]];
+      sId["S-G-IRNC--"] = [icn["GR.EQ.CBRN EQUIPMENT"], icn["GR.M1.CHEMICAL"]];
+      sId["S-G-IRNN--"] = [icn["GR.EQ.CBRN EQUIPMENT"], icn["GR.M1.NUCLEAR"]];
       sId["S-G-IP----"] = [icn["GR.IN.IC.PROCESSING FACILITY"]];
-      sId["S-G-IPD---"] = [icn["GR.IC.CBRN"], icn["GR.M1.DECONTAMINATION"]];
+      sId["S-G-IPD---"] = [
+        icn["GR.EQ.CBRN EQUIPMENT"],
+        icn["GR.M1.DECONTAMINATION"]
+      ];
       sId["S-G-IE----"] = [icn["GR.IC.EQUIPMENT MANUFACTURE"]];
       sId["S-G-IU----"] = [icn["GR.IN.IC.UTILITY FACILITY"]];
       sId["S-G-IUR---"] = [icn["GR.IN.IC.RESEARCH"]];
@@ -13474,7 +13664,7 @@
     icn["SE.IC.STORES SHIP"] = text("AF");
     icn["SE.IC.AUXILIARY FLAG OR COMMAND SHIP"] = text("AGF");
     icn["SE.IC.INTELLIGENCE COLLECTOR"] = text(STD2525 ? "JI" : "AI");
-    icn["SE.IC.INTELLIGENCE COLLECTOR, 1.4.2.3.1"] = text("ASG");
+    icn["SE.IC.AUXILIARY GATHERING SHIP"] = text("AGS");
     icn["SE.IC.OCEAN RESEARCH SHIP"] = text("AGO");
     icn["SE.IC.SURVEY SHIP"] = text("AGS");
     icn["SE.IC.HOSPITAL SHIP"] = text("AH");
@@ -13597,7 +13787,7 @@
         : "m 90,80 0,15.6 C 78.4,96.9 70,100.6 70,105 c 0,5.5 13.4,10 30,10 16.6,0 30,-4.5 30,-10 0,-4.4 -8.4,-8.1 -20,-9.4 L 110,80 90,80 z m -15,40 50,0"
     };
 
-    icn["SE.IC.HOVERCRAFT CIVILIAN, 1.4.3.6"] = [
+    icn["SE.IC.GOVERNMENT SHIP"] = [
       {
         type: "path",
         fill: iconFillColor,
@@ -13610,7 +13800,7 @@
         x: 100,
         y: 120,
         fontsize: 30,
-        text: "관"
+        text: "GOV"
       }
     ];
 
@@ -13971,7 +14161,7 @@
       sId["S-S-NFPY--"] = [icn["SE.IC.TUG, 1.4.2.2.8.3"]];
       sId["S-S-NFPS--"] = [icn["SE.IC.TUG, 1.4.2.2.8.4"]];
       sId["S-S-NI----"] = [icn["SE.IC.INTELLIGENCE COLLECTOR"]];
-      sId["S-S-NIN---"] = [icn["SE.IC.INTELLIGENCE COLLECTOR, 1.4.2.3.1"]];
+      sId["S-S-NIN---"] = [icn["SE.IC.AUXILIARY GATHERING SHIP"]];
       sId["S-S-NM----"] = [icn["SE.IC.HOSPITAL SHIP"]];
       sId["S-S-NS----"] = [icn["SE.IC.SERVICE CRAFT, YARD, GENERAL"]];
       sId["S-S-NR----"] = [icn["SE.IC.REPAIR SHIP"]];
@@ -13998,7 +14188,7 @@
       sId["S-S-XR----"] = [icn["SE.IC.LEISURE CRAFT, SAILING BOAT"]];
       sId["S-S-XL----"] = [icn["SE.IC.LAW ENFORCEMENT VESSEL"]];
       sId["S-S-XH----"] = [icn["SE.IC.HOVERCRAFT CIVILIAN"]];
-      sId["S-S-XG----"] = [icn["SE.IC.HOVERCRAFT CIVILIAN, 1.4.3.6"]];
+      sId["S-S-XG----"] = [icn["SE.IC.GOVERNMENT SHIP"]];
 
       sId["S-S-XA----"] = [icn["SE.IC.LEISURE CRAFT, MOTORIZED"]];
       sId["S-S-XAR---"] = [
@@ -14397,7 +14587,8 @@
         y: 112,
         fontsize: 30,
         text: "EX"
-      },
+      }
+      /*,
       numberSIDC
         ? []
         : {
@@ -14408,7 +14599,34 @@
             y: 46,
             fontsize: 40,
             text: "X"
-          }
+          }*/
+    ];
+    icn["SU.IC.SEA MINE EXERCISE MINE2"] = [
+      {
+        type: "path",
+        fill:
+          (STD2525 || numberSIDC) && !monoColor
+            ? alternateMedal
+              ? black
+              : colors.iconColor.Neutral
+            : iconFillColor,
+        stroke: (STD2525 || numberSIDC) && !monoColor ? black : iconColor,
+        d:
+          "M 115.9,73 126.5,62.4 137.1,73 126.5,83.6 m -53,0 L 62.9,73 73.5,62.4 84.1,73 m 8.4,-3 0,-15 15,0 0,15 m 22.5,30 c 0,16.6 -13.4,30 -30,30 -16.6,0 -30,-13.4 -30,-30 0,-16.6 13.4,-30 30,-30 C 116.6,70 130,83.4 130,100 z"
+      },
+      {
+        type: "text",
+        stroke: false,
+        fill: monoColor
+          ? monoColor
+          : (STD2525 || numberSIDC) && !alternateMedal
+          ? black
+          : white,
+        x: 100,
+        y: 112,
+        fontsize: 30,
+        text: "EX"
+      }
     ];
     icn["SU.IC.SEA MINE EXERCISE MINE - BOTTOM"] = [
       icn["SU.IC.SEA MINE EXERCISE MINE"],
@@ -14448,14 +14666,14 @@
       }
     ];
     icn["SU.IC.SEA MINE EXERCISE MINE - RISING"] = [
-      icn["SU.IC.SEA MINE EXERCISE MINE"],
+      icn["SU.IC.SEA MINE EXERCISE MINE2"],
       {
         type: "path",
         fill:
           (STD2525 || numberSIDC) && !monoColor
             ? alternateMedal
               ? black
-              : "rgb(0, 130, 24)"
+              : colors.iconColor.Neutral
             : iconFillColor,
         stroke: (STD2525 || numberSIDC) && !monoColor ? black : iconColor,
         d: "m 100,128 -10,15 20,0 z"
@@ -20635,6 +20853,7 @@
       sId["S-G-IBN---"] = [icn["GR.IC.NAVAL"]];
       sId["S-G-IUP---"] = [icn["GR.IC.WATER"]];
       sId["S-G-IUN---"] = [icn["GR.IC.POWER SUPPLY FACILITY"]];
+      sId["S-G-IL----"] = [icn["GR.IC.JAMMER"]];
     }
   };
 

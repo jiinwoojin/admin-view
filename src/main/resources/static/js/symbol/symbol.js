@@ -91,28 +91,67 @@ var battle_sidc = ''; // battle dimension sidc
 		if ( document.getElementById("ColorMode").selectedIndex > -1 ) {
 			options.colorMode = document.getElementById("ColorMode")[document.getElementById("ColorMode").selectedIndex].value;
 		}
-		if ( document.getElementById("MonoColor").selectedIndex > -1 ) {
+		/* if ( document.getElementById("MonoColor").selectedIndex > -1 ) {
 			options.monoColor = document.getElementById("MonoColor")[document.getElementById("MonoColor").selectedIndex].value;
+		} */
+		//20200304
+		var selectedSIdcaffiliation =  document.getElementById("SIDCAFFILIATION")[document.getElementById("SIDCAFFILIATION").selectedIndex].value;
+		options.monoColor = "";
+		//외형채움과 맵핑하기 위해 변수추가
+		if ( $("input:checkbox[id='MonoColorChk']").is(":checked")) {
+			options.monoColor1 = $('#MonoColor1').val();
+		}else{
+			options.monoColor1 = "";
 		}
 		options.hqStafLength = document.getElementById("hqStafLength").value;
 		if ( document.getElementById("InfoColor").selectedIndex > -1 ) {
 			options.infoColor = document.getElementById("InfoColor")[document.getElementById("InfoColor").selectedIndex].value;
 		}
-	    options.infoSize = document.getElementById("infoSize").value;
-	    options.frame =  document.getElementById("Frame").checked;
-	    options.fill = document.getElementById("Fill").checked;
-	    options.fillOpacity = document.getElementById("FillOpacity").value;
-	    options.icon = document.getElementById("DisplayIcon").checked;
+		/* if ( $("input:checkbox[id='MonoColorChk']").is(":checked") && $("input:checkbox[id='Fill']").is(":checked")) {
+			options.frameColor = $('#MonoColor1').val();
+		}else{
+			options.frameColor = "";
+		} */
+		options.infoSize = document.getElementById("infoSize").value;
+		options.frame =  document.getElementById("Frame").checked;
+		options.fill = document.getElementById("Fill").checked;
+		options.fillOpacity = document.getElementById("FillOpacity").value;
+		options.icon = document.getElementById("DisplayIcon").checked;
 		options.civilianColor = document.getElementById("CivilianColors").checked;
 		options.infoFields = document.getElementById("infoFields").checked;
 		if ( document.getElementById("outlineColor").selectedIndex > -1 ) {
 			options.outlineColor = document.getElementById("outlineColor")[document.getElementById("outlineColor").selectedIndex].value;
 		}
-	    options.outlineWidth = document.getElementById("outlineWidth").value;
-	    options.size = document.getElementById("Size").value;
+		options.outlineWidth = document.getElementById("outlineWidth").value;
+		options.size = document.getElementById("Size").value;
 		options.strokeWidth = document.getElementById("StrokeWidth").value;
 
 	
+		if ( bChangeID ) { // 20200305 부호 변경 시 기존 수식정보 모두 초기화. 초기화가 되지 않을 경우 변경하지 않아야 할 정보도 자동으로 변경되어 버림.
+			// A:기본부호지정, B:부대단위, C:장비수량, D:기동부대식별,
+			// F:부대증감, G:군 및 국가 구분, H:추가사항, H1:추가사항, H2:추가사항, 
+			// J:평가등급, K:전투효과, L:신호정보장비, M:상급부대, N:적군표시,
+			// P:피아식별모드/코드, Q:이동방향, R:이동수단, R2:신호정보 장비 이동성,
+			// S:지휘소표시/실제위치표시, T:고유명칭, T1:고유명칭1, V:장비명, W:활동시각, W1:활동시각1, 
+			// X:고도/심도, X1:고도/심도1, XN:고도/심도[], Y:위치, Z:속도, AA:지휘통제소, AB:가장/가상식별부호,
+			// AD:기반형태, AE:장비분해시간, AF:공통명칭, AG:보조장비 식별부호,
+			// AH:불확정영역, AI:선위의 추측선, AJ:속도선, AM:거리(미터), AN:각도(도)
+			var propNm = ['B', 'C', 'D', 'F', 'G', 'H', 'H1', 'H2', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'R2', 'S', 'T', 'T1', 'V', 'W', 'W1', 'X', 'X1', 'XN', 'Y', 'Z', 'AA', 'AB', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AM', 'AN'];
+			for (var j = 0; j < propNm.length; j++) {		
+				if (propNm[j] === 'B') {
+					$('#SIDCSYMBOLMODIFIER12').find("option:eq(0)").prop("selected", true);
+				}else if (propNm[j] === 'J' || propNm[j] === 'R' || propNm[j] === 'R2' || propNm[j] === 'AD' || propNm[j] === 'AG') {
+					if ($('#'+propNm[j]) !== undefined) {
+						$('#'+propNm[j]).find("option:eq(0)").prop("selected", true);
+					}
+				}else{
+					if ( propNm[j] !== '' && $('#'+propNm[j]) !== undefined) {
+						$('#'+propNm[j]).val("");					
+					}
+				}
+			}
+		}
+		
 		/* //FieldID C
 		options.quantity = document.getElementById("Quantity").value
 		validateTexts("Quantity",(!isNaN(options.quantity) && options.quantity.length <= 9));
@@ -236,6 +275,11 @@ var battle_sidc = ''; // battle dimension sidc
 		//FieldID Q
 		options.direction = document.getElementById("Q").value
 		validateTexts("Q",(!isNaN(options.direction) && options.direction.length <= 4));
+
+		//FieldID R
+		if ( document.getElementById("R").selectedIndex > -1 ) {
+			options.R = document.getElementById("R")[document.getElementById("R").selectedIndex].value;
+		}
 	
 		//FieldID T
 		options.uniqueDesignation = document.getElementById("T").value
@@ -264,13 +308,18 @@ var battle_sidc = ''; // battle dimension sidc
 		//FieldID AA
 		options.specialHeadquarters = document.getElementById("AA").value
 		validateTexts("AA",(options.specialHeadquarters.length <= 9)); 
+
+		//FieldID AG
+		if ( document.getElementById("AG").selectedIndex > -1 ) {
+			options.AG = document.getElementById("AG")[document.getElementById("AG").selectedIndex].value;
+		}
 		
 		// 수정 부분
 		var sidc = '';
 		if(activeStandard == 'letter'){ 
 			// 주 메뉴
 			var SIDCFUNCTIONID = function_sidc; 
-			sidc = buildSymbolID(SIDCFUNCTIONID);
+			sidc = buildSymbolID(SIDCFUNCTIONID, options);
 		}
 		document.getElementById("SIDC").value = sidc;
 		window.location.hash = sidc;	
@@ -320,12 +369,14 @@ var battle_sidc = ''; // battle dimension sidc
 					var keyCode = document.getElementById('SIDCSYMBOLMODIFIER11').value;
 					if(keyCode == 'M'){
 						values = data['M'];
+						selection = document.getElementById('R');
 					} else if (keyCode == 'N'){
 						values = data['N'];
+						selection = document.getElementById('AG');
 					} else {
 						values = data['A'];
+						selection = document.getElementById('SIDCSYMBOLMODIFIER12');
 					}
-					selection = document.getElementById('SIDCSYMBOLMODIFIER12');
 					value = selection.value;
 					selection.innerHTML = "";
 					for (var key in values){

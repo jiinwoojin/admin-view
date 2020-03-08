@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
 
+<head>
+    <link rel="stylesheet" th:href="@{/css/symbol/symbol-bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/symbol/symbol.css}">
+    <script th:src="@{/jquery/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/commons/jsHashMap.js}"></script>
+    <script th:src="@{/js/commons/geoTrans.js}"></script>
+    <script th:src="@{/js/commons/feature.js}"></script>
+    <script th:src="@{/js/military/mb-milSymbol.js}"></script>
+    <script th:src="@{/js/military/milSymbol.js}"></script>
+    <script th:src="@{/js/commons/cfsiStmpCommon.js}"></script>
+</head>
+
 <th:block layout:fragment="content-title-fragment">
     <h1 class="h3 mb-0 text-gray-800">공통 지도</h1>
 </th:block>
@@ -43,7 +55,7 @@
                     <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#shape_modal" data-backdrop="false">
                         <i class="fas fa-vector-square"></i> 투명도
                     </button>
-                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#military_modal" data-backdrop="false">
+                    <button type="button" class="btn btn-sm btn-info" id="click_coord_btn">
                         <i class="fas fa-fighter-jet"></i> 군대부호
                     </button>
                 </div>
@@ -136,26 +148,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="military_modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">군대부호 추가</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="pt-1 pb-1">
-                        <p>군대부호 추가</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
-                        <i class="fas fa-times"></i> 닫기
-                    </button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-    </div>
+    <th:block th:replace="fragments/military/html-military-prop"/>
+    <th:block th:replace="fragments/military/html-military-main"/>
 
     <script>
         function modal_draggable(id){
@@ -200,12 +194,5 @@
             $('#mapContent').load(url);
         }
     </script>
-
-    <script th:src="@{/jquery/jquery-ui.min.js}"></script>
-    <script th:src="@{/js/commons/jsHashMap.js}"></script>
-    <script th:src="@{/js/commons/geoTrans.js}"></script>
-    <script th:src="@{/js/commons/feature.js}"></script>
-    <script th:src="@{/js/milsymbol-2/milsymbol.development.js}"></script>
-    <script th:src="@{/js/commons/cfsiStmpCommon.js}"></script>
 </th:block>
 </html>

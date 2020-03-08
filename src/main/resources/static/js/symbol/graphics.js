@@ -45,7 +45,7 @@ function drawMsymbol(id, format, sidc){
 			if(SIDCFUNCTIONID.length != 15)
 				return;
 			
-			sidc = buildSymbolID(function_sidc);
+			sidc = buildSymbolID(function_sidc, null);
 		}
 		document.getElementById("SIDC").value = sidc;
 		window.location.hash = sidc;
@@ -100,7 +100,8 @@ function drawMsymbol(id, format, sidc){
 			modifiers.KEEPUNITRATIO = keepUnitRatio;
 			modifiers.ICON = drawAsIcon;
 			
-			var lineColor = document.getElementById("MonoColor")[document.getElementById("MonoColor").selectedIndex].value;
+			//var lineColor = document.getElementById("MonoColor")[document.getElementById("MonoColor").selectedIndex].value;
+			var lineColor = SymbolUtilities.getLineColorOfAffiliation(code).toHexString(false);//20200303
 			if(lineColor != ''){
 				modifiers.LINECOLOR = lineColor;
 			}

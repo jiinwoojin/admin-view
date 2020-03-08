@@ -17,20 +17,22 @@
 	  "N": { "CODE_NAME":"Command", "CODE_KOR_NAME":"N:사령부"}
   },
   "M" : {
-	  "O": { "CODE_NAME":"Wheeled/Limited", "CODE_KOR_NAME":"차륜식"},
-	  "P": { "CODE_NAME":"Wheeled", "CODE_KOR_NAME":"야지횡단 차륜식"},
-	  "Q": { "CODE_NAME":"Tracked", "CODE_KOR_NAME":"궤도식"},
-	  "R": { "CODE_NAME":"Wheeled And Tracked", "CODE_KOR_NAME":"차륜 궤도식"},
-	  "S": { "CODE_NAME":"Towed", "CODE_KOR_NAME":"견인식"},
-	  "T": { "CODE_NAME":"Rail", "CODE_KOR_NAME":"철도식"},
-	  "U": { "CODE_NAME":"Over The Snow", "CODE_KOR_NAME":"설상 이동식"},
-	  "V": { "CODE_NAME":"Sled", "CODE_KOR_NAME":"썰매 이동식"},
-	  "W": { "CODE_NAME":"Pack Animals", "CODE_KOR_NAME":"동물 견인식"},
-	  "Y": { "CODE_NAME":"Barge", "CODE_KOR_NAME":"선박 이동식"},
-	  "Z": { "CODE_NAME":"Amphibious", "CODE_KOR_NAME":"수륙 양용식"}
+	  "":  { "CODE_NAME":"", "CODE_KOR_NAME":""},
+	  "O": { "CODE_NAME":"Wheeled/Limited", "CODE_KOR_NAME":"O:차륜식(제한된 야지횡단)"},
+	  "P": { "CODE_NAME":"Wheeled", "CODE_KOR_NAME":"P:야지횡단 차륜식(야지횡단)"},
+	  "Q": { "CODE_NAME":"Tracked", "CODE_KOR_NAME":"Q:자주 궤도식"},
+	  "R": { "CODE_NAME":"Wheeled And Tracked", "CODE_KOR_NAME":"R:차륜 궤도 혼합식"},
+	  "S": { "CODE_NAME":"Towed", "CODE_KOR_NAME":"S:트레일러 견인식"},
+	  "T": { "CODE_NAME":"Rail", "CODE_KOR_NAME":"T:철로 이동식"},
+	  "U": { "CODE_NAME":"Over The Snow", "CODE_KOR_NAME":"U:설상 이동식(원동기)"},
+	  "V": { "CODE_NAME":"Sled", "CODE_KOR_NAME":"V:빙상 이동식"},
+	  "W": { "CODE_NAME":"Pack Animals", "CODE_KOR_NAME":"W:동물 견인식"},
+	  "X": { "CODE_NAME":"Barge", "CODE_KOR_NAME":"X:바지 예인식"},
+	  "Y": { "CODE_NAME":"Amphibious", "CODE_KOR_NAME":"Y:수륙양용"}
   },
   "N" : {
-	  "S": { "CODE_NAME":"Towed Array (Short)", "CODE_KOR_NAME":"견인 소나 열 (단)"},
-	  "L": { "CODE_NAME":"Towed Array (Long)", "CODE_KOR_NAME":"견인 소나 열 (장)"}
+	  "":  { "CODE_NAME":"", "CODE_KOR_NAME":""},
+	  "S": { "CODE_NAME":"Towed Array (Short)", "CODE_KOR_NAME":"S:견인 소나열 (단)"},
+	  "L": { "CODE_NAME":"Towed Array (Long)", "CODE_KOR_NAME":"L:견인 소나열 (장)"}
   }
 }

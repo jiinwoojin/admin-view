@@ -79,8 +79,15 @@ function drawSymbol(){
 
 	if(cs.charAt(0) == 'G' || cs.charAt(0) == 'W'){
 		document.getElementById('ImageSymbol').src = '';
+		if ( $('input:checkbox[id=MonoColorChk]').is(':checked') ) {//20200304
+			$('.MonoColor2').removeAttr('style');
+		}
 		drawMsymbol();
 	} else {
+		if ( $('input:checkbox[id=MonoColorChk]').is(':checked') ) {//20200304
+			$('.MonoColor2').attr('style', "display:none;");
+		}
+		bChangeID = false;
 		drawSsymbol();
 	}
 	
@@ -156,6 +163,7 @@ function drawSymbol(){
 		}else{
 			bChangeID = false;
 		}		
+		
 		var milCode = Selector.id;
 		var keyCode = '';
 			keyCode = Selector.id.split('_')[1];
@@ -244,7 +252,8 @@ function drawSymbol(){
 	        symbolID += sidc.substring(2,3);
 	        symbolID += '*';//20200208
 			symbolID += sidc.substring(4,10);
-			if( sidc.substring(10,11) != "-" && sidc.substring(10,11) != "*") {//20200211
+			if( sidc.substring(10,11) != "-" && sidc.substring(10,11) != "*" //20200211
+				&& sidc.substring(10,11) != "M" && sidc.substring(10,11) != "N") {  //20200304 
 				symbolID += sidc.substring(10,11);
 			}else{
 				symbolID += '-';
@@ -381,17 +390,20 @@ function drawSymbol(){
 		} else {
 			function_sidc = symbol_code;
 		}
-		if(cs.charAt(0) == 'G' || cs.charAt(0) == 'W'){
-			drawMsymbol();
-		} else {
-			drawSsymbol();
-		}
-		if ( selectedID !== id) {
+		
+		if ( selectedID !== id) {			
 			bChangeID = true;
 		}else{
 			bChangeID = false;
 		}	
 		changeModifer(id);		
+		
+		if(cs.charAt(0) == 'G' || cs.charAt(0) == 'W'){
+			drawMsymbol();
+		} else {
+			drawSsymbol();
+		}
+		
 		letterSIDC.status(); //20200212 속성->상태구분 변경		
 	}
 
@@ -773,14 +785,14 @@ function drawSymbol(){
 			type = 'Ssymbol';
 		}
 		
-		var ids = ["MonoColor","InfoColor","outlineColor"]; 
+		/* var ids = ["MonoColor","InfoColor","outlineColor"]; 
 		for(var i = 0; i < ids.length; i++){
 			var id = ids[i];
 			if(type == 'Msymbol' && ids[i] == 'outlineColor')
 				break;
 			
 			getColor(id, type);
-		}
+		} */
 	}
 	
 	function getColor(id, type){
@@ -884,6 +896,40 @@ function drawSymbol(){
 			var SIDCSYMBOLMODIFIER12 = document.getElementById("SIDCSYMBOLMODIFIER12")[document.getElementById("SIDCSYMBOLMODIFIER12").selectedIndex].value;
 	        var modifiers = SIDCSYMBOLMODIFIER11 + SIDCSYMBOLMODIFIER12;
 
+	        var symbolID = basicID.substring(0,1);
+	        symbolID += affiliation;
+	        symbolID += basicID.substring(2,3);
+	        symbolID += status;
+	        symbolID += basicID.substring(4,10);
+	        if(basicID.charAt(0) !== 'G'){
+	        	symbolID += modifiers;
+	        }else{
+	        	symbolID += (modifiers.length === 5) ? modifiers : basicID.substring(10,15);
+			}
+	        return symbolID;
+	    }
+	    else
+	        return basicID
+	}
+
+	function buildSymbolID(basicID, options)	{
+	    if(basicID != '' && basicID.charAt(0) !== 'W')   {
+	        var affiliation = document.getElementById("SIDCAFFILIATION")[document.getElementById("SIDCAFFILIATION").selectedIndex].value;
+	        var status = document.getElementById("SIDCSTATUS")[document.getElementById("SIDCSTATUS").selectedIndex].value;
+	        var SIDCSYMBOLMODIFIER11 = document.getElementById("SIDCSYMBOLMODIFIER11")[document.getElementById("SIDCSYMBOLMODIFIER11").selectedIndex].value.split('_')[0];
+			var SIDCSYMBOLMODIFIER12 = "-";
+			if ( document.getElementById("SIDCSYMBOLMODIFIER12").selectedIndex > -1 ) {
+				SIDCSYMBOLMODIFIER12 = document.getElementById("SIDCSYMBOLMODIFIER12")[document.getElementById("SIDCSYMBOLMODIFIER12").selectedIndex].value;
+			}
+			var modifiers = SIDCSYMBOLMODIFIER11 + SIDCSYMBOLMODIFIER12;
+			if(basicID.charAt(0) !== 'G')   {				
+				if (options.AG !== "") {
+					modifiers = "N" + options.AG;
+				}
+				if ( options.R !== "") {
+					modifiers = "M" + options.R;
+				}
+			}
 	        var symbolID = basicID.substring(0,1);
 	        symbolID += affiliation;
 	        symbolID += basicID.substring(2,3);

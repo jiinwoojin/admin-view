@@ -13,7 +13,8 @@ var milcodeChange = function(sidc){
 		symbolID += sidc.substring(2,3);
 		symbolID += '*';
 		symbolID += sidc.substring(4,10);
-		if( sidc.substring(10,11) != "-" && sidc.substring(10,11) != "*") {//20200211
+		if( sidc.substring(10,11) != "-" && sidc.substring(10,11) != "*"		//20200211
+		    && sidc.substring(10,11) != "M" && sidc.substring(10,11) != "N") {  //20200304 
 			symbolID += sidc.substring(10,11);
 		}else{
 			symbolID += '*';
@@ -480,6 +481,7 @@ $('#click_coord_btn_mod').on('click', function(event){
 			// 부호 수정은 없이 style과 수식정보 수정만 가능
 			var options = feature.getProperties().options;
 			var modifiers = feature.getProperties().modifier;
+			setMapProperties(feature.getProperties().mapProperties, "S");//20200304
 			var drawPoints = selectLayer.getSource().getFeatureById('P'+id.split('_')[0]).getGeometry().getCoordinates();
 			if(drawPoints[0][0] != undefined){
 				if(drawPoints[0][0][0] != undefined){
@@ -535,6 +537,7 @@ $('#click_coord_btn_mod').on('click', function(event){
 			
 			//document.getElementById('SIDC').value = feature.getProperties().options['sidc'];
 			var changSidc = feature.getProperties().options['sidc'];
+			setMapProperties(feature.getProperties().mapProperties, "G");//20200304
 			var symbolID = changSidc.substring(0,1);
 	        symbolID += '*';
 	        symbolID += changSidc.substring(2,3);
@@ -643,11 +646,11 @@ function modifyCancel(){
 
 // military Symbol ADD function
 function addMarker(symbol, id, lon, lat, type){
-
 	var geom;
 	var feature;
 	var ratio = window.devicePixelRatio || 1;
-	
+	var mapProperties = getMapProperties();//20200304
+
 	if(type == 'Ssymbol'){
 		// create a point
 		geom = new ol.geom.Point([lon, lat]);
@@ -656,7 +659,7 @@ function addMarker(symbol, id, lon, lat, type){
 		// 하나의 CSS 픽셀에 대한 현재 디스플레이 장치 상의 하나의 물리적인 픽셀의 비율을 반환
 		var mysvg = new Image();
 		mysvg.src = 'data:image/svg+xml,' + escape(symbol.asSVG());
-		
+
 		feature.setStyle([
 			new ol.style.Style({
 				image: new ol.style.Icon(({
@@ -669,28 +672,29 @@ function addMarker(symbol, id, lon, lat, type){
 				}))
 			})
 		]);
-		
+
 		// Insert properties
 		feature.setProperties({
-			'options' : symbol.getOptions()
+			'options' : symbol.getOptions(),
+			'mapProperties' : mapProperties//20200304
 		});
-		
+
 		if(id != null){
 			feature.setId(id+'_0');
 		}
-		
+
 		selectLayer.getSource().addFeature(feature);
-		
+
 	} else if(type == 'Msymbol') {
 		var properties = JSON.parse(mygeoJSON)['properties'];
 
 		if(lat != '' && lon != ''){
 			geom = new ol.geom.Point([lon, lat]);
 			feature = new ol.Feature(geom);
-			
+
 			var mysvg = new Image();
 			/*mysvg.src = 'data:image/svg+xml,' + escape(symbol.getSVG());*/
-			
+
 			feature.setStyle([
 				new ol.style.Style({
 					image: new ol.style.Icon(({
@@ -702,26 +706,27 @@ function addMarker(symbol, id, lon, lat, type){
 					}))
 				})
 			]);
-			
+
 			// Insert properties
 			feature.setProperties({
 				'options' : properties,
-				'drawPoints' : G_coordinates
+				'drawPoints' : G_coordinates,
+				'mapProperties' : mapProperties//20200304
 			});
-			
+
 			if(id != null){
 				feature.setId(id+'_1');
 			}
 			selectLayer.getSource().addFeature(feature);
-			
+
 		} else {
-			// style
+			/* // style
 			var color = document.getElementById('MonoColor')[document.getElementById("MonoColor").selectedIndex].value;
 			if(color == ''){
 				//color = JSON.parse(mygeoJSON).features[0].properties.strokeColor;
 			}
 			var size = 4;
-			
+
 			var geoJSONFormat = new ol.format.GeoJSON();
 			var features1 = geoJSONFormat.readFeatures(mygeoJSON);
 			for(var i = 0; i < features1.length; i++){
@@ -738,11 +743,50 @@ function addMarker(symbol, id, lon, lat, type){
 					})
 				});
 				features1[i].setStyle(style);
-				
+
 				features1[i].setProperties({
 					'options' : properties,
 					'drawPoints' : G_coordinates,
 					'modifier' : G_modifiers
+				});
+				if(id != null){
+					features1[i].setId(id+'_'+features1.length+'_'+i);
+				}
+			}
+			selectLayer.getSource().addFeatures(features1); */
+
+			// style
+			var color = SymbolUtilities.getLineColorOfAffiliation(JSON.parse(mygeoJSON)["properties"]["symbolID"]).toHexString(false);//20200303
+			var size = 4;
+
+			var geoJSONFormat = new ol.format.GeoJSON();
+			var features1 = geoJSONFormat.readFeatures(mygeoJSON);
+			for(var i = 0; i < features1.length; i++){
+				var color1 = null;
+				var color2 = null;
+				if ( $("input:checkbox[id='MonoColorChk']").is(":checked") ) {
+					color1 = $('#MonoColor1').val();
+					color2 = $('#MonoColor2').val();
+				}
+				var style = new ol.style.Style({
+					fill: new ol.style.Fill({ color: (color2 === null ? color : color2)}),
+					stroke: new ol.style.Stroke({ color: (color1 === null ? color : color1), width: 3 }),
+					text: new ol.style.Text({
+						text:  features1[i].N.label,
+						font: '17px Calibri,sans-serif',
+						fill: new ol.style.Fill({ color: color }),
+						stroke: new ol.style.Stroke({
+							color: '#fff', width: 3
+						})
+					})
+				});
+				features1[i].setStyle(style);
+
+				features1[i].setProperties({
+					'options' : properties,
+					'drawPoints' : G_coordinates,
+					'modifier' : G_modifiers,
+					'mapProperties' : mapProperties//20200304
 				});
 				if(id != null){
 					features1[i].setId(id+'_'+features1.length+'_'+i);
@@ -1081,4 +1125,83 @@ function idMapping(optionStr) { //20200227 modifiers id mapping
 	}else{
 		return "";
 	}
+}
+
+function getMapProperties(){//20200304
+	var propNm = ['SIDCAFFILIATION', 'SIDCSTATUS', 'Size', 'FillOpacity', 'MonoColorChk', 'MonoColor1', 'MonoColor2', 'StrokeWidth', 'input006', 'input007', 'DisplayIcon', 'Frame', 'Fill', 'CivilianColors'];
+	var mapProperties = {};
+
+	for (var i = 0; i < propNm.length; i++) {		
+		if (propNm[i] === 'SIDCAFFILIATION' || propNm[i] === 'SIDCSTATUS' || propNm[i] === 'input006' ) {
+			if ($('#'+propNm[i]) !== undefined) {
+				mapProperties[propNm[i]] = $('#'+propNm[i] + ' option:selected').val();
+			}
+			//$('#'+propNm[i]).val("1").prop("selected", true);
+		}else if ( propNm[i] === 'MonoColorChk' 
+			|| propNm[i] === 'DisplayIcon' || propNm[i] === 'Frame' 
+			|| propNm[i] === 'Fill' || propNm[i] === 'CivilianColors' ) {
+			if ($('#'+propNm[i]) !== undefined) {
+				mapProperties[propNm[i]] = $('input:checkbox[id='+propNm[i] +']').is(':checked');
+			}
+			//$('input:checkbox[id='+propNm[i] +']').prop("checked", true);
+		}else{
+			if ($('#'+propNm[i]) !== undefined) {
+				mapProperties[propNm[i]] = $('#'+propNm[i]).val();					
+			}
+		}
+	}
+	return mapProperties;
+}
+
+function setMapProperties(mapProperties, milCode){//20200304
+	for(var propNm in mapProperties) {
+		propVal = mapProperties[propNm];
+		if (propNm === 'SIDCAFFILIATION' || propNm === 'SIDCSTATUS' || propNm === 'input006' ) {
+			if ($('#'+propNm) !== undefined) {
+				$('#'+propNm).val(propVal).prop("selected", true);
+			}			
+		}else if ( propNm === 'MonoColorChk' 
+			|| propNm === 'DisplayIcon' || propNm === 'Frame' 
+			|| propNm === 'Fill' || propNm === 'CivilianColors' ) {
+			if ($('#'+propNm) !== undefined) {
+				$('input:checkbox[id='+propNm +']').prop("checked", propVal);
+				if ( propNm === 'MonoColorChk' ) {
+					if ( propVal) {
+						if ( milCode === "G") {
+							$('.MonoColor2').removeAttr('style');
+						}else{// S
+							$('.MonoColor2').attr('style', "display:none;");
+						}
+						$('#'+propNm).parent().parent().next().removeAttr('style');
+					}else{
+						$('#'+propNm).parent().parent().next().attr('style', "display:none;");
+					}				
+				}
+			}
+		}else if ( propNm === 'Size' || propNm === 'FillOpacity' || propNm === 'StrokeWidth') {
+			if ($('#'+propNm) !== undefined) {
+				$('#'+propNm).val(propVal);	
+				$('#'+propNm).next("span").html(propVal);
+			}
+		}else if ( propNm === 'MonoColor1' || propNm === 'MonoColor2') {
+			if ($('#'+propNm) !== undefined) {
+				$('#'+propNm).val(propVal);	
+				$('#'+propNm).closest(".colorList").find(".colorList__box").removeClass("-active");
+				var colorCnt = $('#'+propNm).closest(".colorList").find(".colorList__box").length;
+				for(var i=0; i<colorCnt; i++){  
+					var $this = $('#'+propNm).closest(".colorList").find(".colorList__box").eq(i);                        
+					var $thisVal = $this.find("input").val();
+					if (  $thisVal === propVal) {
+						$this.addClass("-active");
+					}
+				}
+				$('#'+propNm).closest(".colorList").find(".mil-colorpicker,.mil-colorpicker--transparent").colorpicker('setValue',propVal);
+			}
+		}else{
+			if ($('#'+propNm) !== undefined) {
+				$('#'+propNm).val(propVal);					
+			}
+		}
+	}
+	drawSymbol();
 }
