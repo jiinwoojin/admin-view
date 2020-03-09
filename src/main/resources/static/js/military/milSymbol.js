@@ -27,7 +27,7 @@ var milcodeChange = function(sidc){
 }
 // page loading draw Symbol
 var sidcKey = '';
-$('#mil_body').ready(function(){
+$('#mil_body').ready(function() {
 	sidcCreatorInit('SFG*IGA---H****');	//SFG*IGA---H-  WO--IC--------- WOS-HDS---P----
 	
 	drawSymbol();
@@ -276,16 +276,16 @@ $('#mil_body').ready(function(){
 			document.getElementById("SIDC").value = milCode;
 			sidcCreatorInit(milCode);
 			saveFuncSIDC(careateSidc);
-	}
+	};
 
-	$('#search_sidc_btn').click(function(){
+	$('#search_sidc_btn').click(function() {
 		var searchData = $('input[name=search_sidc_text]').val();
 		if(searchData != ''){
 			searchSidcKey(searchData);
 		}
 	});
 
-	$('input[name=search_sidc_text]').keydown(function(key){
+	$('input[name=search_sidc_text]').keydown(function(key) {
 		var searchData = $(this).val();
 		if(key.keyCode == 13) {
 			if(searchData != ''){
@@ -315,6 +315,7 @@ $('#mil_body').ready(function(){
         color:"#000000",
         horizontal: true
     });
+
     //투명배경 기본
     $(".mil-colorpicker--transparent").colorpicker({
         color:"transparent",
@@ -322,9 +323,8 @@ $('#mil_body').ready(function(){
         format:"hex"
     });
 
-
     //구역 표시 사용여부 체크박스
-    $(".useChk").on("click",function(){
+    $(".useChk").on("click",function() {
         var $this = $(this);
         var $tar = $this.closest(".modal-body").find(".useChk-content");
         if($this.is(":checked")){
@@ -335,16 +335,18 @@ $('#mil_body').ready(function(){
     });
 
     //색상코드표 지정색
-    $(".colorList__box").on("click",function(){
+    $(".colorList__box").on("click",function() {
         var $this = $(this);
         var $thisVal = $this.find("input").val();
         $this.addClass("-active").siblings().removeClass("-active");
         $this.closest(".colorList").find(".mil-colorpicker,.mil-colorpicker--transparent").colorpicker('setValue',$thisVal);
     });
-    $(".colorList .input-group-addon").on("click",function(){
+
+    $(".colorList .input-group-addon").on("click",function() {
         $(this).closest(".colorList").find(".colorList__box").removeClass("-active");
     });
-    $(".colorList__chkBox").on("click",function(){
+
+    $(".colorList__chkBox").on("click",function() {
         if($(this).is(":checked")){
             $(this).closest(".from-group").next(".colorListBox").show();
         }else{
@@ -380,9 +382,6 @@ $('#closer_x').on('click', function(){
 	$('#symbol_info').hide();
 });
 
-
-
-
 /** 
  * Military Symbol Button click Event
  * */
@@ -390,12 +389,7 @@ $('#closer_x').on('click', function(){
 // '군대 부호 적용' button click EVENT
 $('#click_coord_btn').on('click', function(event) {
 	drawSymbol();
-	var pixelArray = new Array();
-	pixelArray.push(layerX);
-	pixelArray.push(layerY);
-	
-	var coord = map.getCoordinateFromPixel(pixelArray); // 마우스 pixel 기준으로 좌표값 가져오기
-	
+
 	// 수정 버튼 감추기
 	if($('#mod').hasClass('hidden') === false){
 		$('#mod').addClass('hidden');
@@ -798,155 +792,11 @@ function addMarker(symbol, id, lon, lat, type){
 	}
 }
 
-// military Symbol DEL function
-function deleteMarker(id){
-	var id = selectLayer.getSource().getFeatureById(id);
-	selectLayer.getSource().removeFeature(id);
-}
-
-//milirary Symbol ALL DEL function
-function removeAllMarker(){
-	modifyCancel();
-	selectClick.getFeatures().clear();
-	selectLayer.getSource().clear();
-}
-
 var selectFeatureId;
 var selectFeatureId_arr;
 var interaction;
 var modify;
 var snap;
-selectClick.on('select', function(e){
-	var selectFeature; 
-	var selectClickFeature = selectClick.getFeatures().getArray()[0];
-	var extent = [];
-	
-	if(selectClickFeature){
-		var selectId = selectClickFeature.getId();
-		if(selectId != undefined){
-			if(selectId.split('_')[1] == 0){
-				modifyCancel();
-				return;
-			} else if(selectFeatureId != undefined){
-				if(selectFeatureId.substr(0,3) != selectId.substr(0,3)){
-					modifyCancel();
-				}
-			}
-			
-			if(selectId.charAt(0) == 'S'){
-				return;
-			} else {
-				selectFeatureId = selectId;
-				selectFeatureId_arr = selectFeatureId.split('_');
-				
-				if(selectFeatureId_arr.length > 2){
-					selectFeature = selectLayer.getSource().getFeatureById('P'+selectFeatureId_arr[0]);
-					if(selectFeature.getGeometry().getType() == 'Point'){
-						modifyCancel();
-						return;
-					}
-				} else if(selectFeatureId_arr.length == 1){
-					selectFeature = selectLayer.getSource().getFeatureById(selectId); // general shape
-				}
-			}
-		} else {
-			selectClick.getFeatures().clear();
-		}
-	} else {
-		modifyCancel();
-	}
-	
-	if(selectFeature != undefined){
-		$('#click_cancel_modify').removeClass('hidden');
-		$('.milSymEvent').addClass('hidden');
-		
-		if(selectFeature.getGeometry().getType() == 'MultiLineString' || selectFeature.getGeometry().getType() == 'Polygon'){
-			modify = new ol.interaction.Modify({
-				features: new ol.Collection([selectFeature])
-			});
-		} else {
-			modify = new ol.interaction.Modify({
-				features: new ol.Collection([selectFeature]),
-				insertVertexCondition: function(e){
-					return ol.events.condition.never();
-				}
-			});
-		}
-		
-		snap = new ol.interaction.Snap({
-			features: new ol.Collection([selectFeature])
-	    });
-		
-		selectFeature.setStyle(null);
-		
-		// Modify select Line to Red
-		var selectStyle = new ol.style.Style({
-			stroke : new ol.style.Stroke({
-				color: '#FF0000', width: 3
-			})
-		});
-		selectFeature.setStyle(selectStyle);
-		
-		modify.on('modifyend', function(e){
-			G_coordinates = new Array();
-			
-			var coordinates = e.features.getArray()[0].getGeometry().getCoordinates();
-			for(var i = 0; i < coordinates.length; i++){
-				if(coordinates[0].length > 2){
-					coordinates = coordinates[0];
-					getCoordinates(coordinates[i][0], coordinates[i][1]);
-				} else {
-					getCoordinates(coordinates[i][0], coordinates[i][1]);
-				}
-			}
-			
-			var source = selectLayer.getSource();
-			var ids = selectFeatureId.split('_');
-			var id = ids[0];
-			var sidc = source.getFeatureById(selectFeatureId).getProperties().options['symbolID'];
-			var modifiers = source.getFeatureById(selectFeatureId).getProperties().modifier;
-			
-			for(var j = 0; j < ids[1]; j++){
-				deleteMarker(ids[0]+'_'+ids[1]+'_'+j);
-			}
-			
-			createModifiers(sidc);
-			if(modifiers != undefined){
-				var code = SymbolUtilities.getBasicSymbolID(sidc);
-				var mtgs = SymbolDefTable.getSymbolDef(code, symStd);
-				var mtgs_split = mtgs.modifiers.split('.');
-				for(var i = 0; i < mtgs_split.length; i++){
-					if(mtgs_split[i] != ''){
-						var input = document.getElementById(mtgs_split[i]);
-						if (input != undefined ) {  // 20200214
-							var modifData = modifiers[mtgs_split[i]];
-							var val = '';
-							if(mtgs_split[i] == 'AM' || mtgs_split[i] == 'AN' || mtgs_split[i] == 'XN'){//20200226 X-> XN
-								for(var k = 0; k < modifData.length; k++){
-									val += modifData[k];
-									if(k < (modifData.length-1)){
-										val += ',';
-									}
-								}
-							} else {
-								val = modifData;
-							}
-							input.value = val;
-						}
-					}
-				}
-			}
-			
-			drawMsymbol(id, 'geoJSON', sidc);
-			addMarker(mygeoJSON, id, '', '', 'Msymbol');
-			
-			selectClick.getFeatures().clear();  
-		});
-		
-		map.addInteraction(modify);
-	    map.addInteraction(snap);
-	}
-});
 
 function selectedSymbol(searchData) {//20200207
 	var careateSidc = '';

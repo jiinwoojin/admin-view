@@ -4,13 +4,6 @@
 <head>
     <link rel="stylesheet" th:href="@{/css/symbol/symbol-bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/symbol/symbol.css}">
-    <script th:src="@{/jquery/jquery-ui.min.js}"></script>
-    <script th:src="@{/js/commons/jsHashMap.js}"></script>
-    <script th:src="@{/js/commons/geoTrans.js}"></script>
-    <script th:src="@{/js/commons/feature.js}"></script>
-    <script th:src="@{/js/military/mb-milSymbol.js}"></script>
-    <script th:src="@{/js/military/milSymbol.js}"></script>
-    <script th:src="@{/js/commons/cfsiStmpCommon.js}"></script>
 </head>
 
 <th:block layout:fragment="content-title-fragment">
@@ -194,5 +187,13 @@
             $('#mapContent').load(url);
         }
     </script>
+
+    <script th:src="@{/jquery/jquery-ui.min.js}"></script>
+    <script th:src="@{/js/commons/jsHashMap.js}"></script>
+    <script th:src="@{/js/commons/geoTrans.js}"></script>
+    <script th:src="@{/js/commons/feature.js}"></script>
+    <script th:src="@{/js/military/mb-milSymbol.js}"></script>
+    <script th:src="@{/js/military/milSymbol.js}"></script>
+    <script th:src="@{/js/commons/cfsiStmpCommon.js}"></script>
 </th:block>
 </html>

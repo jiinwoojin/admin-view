@@ -135,3 +135,148 @@ function createTransparentMapLayer(name, type){
         selectLayer = chooseLayer(name);
     }
 }
+
+selectClick.on('select', function(e){
+    var selectFeature;
+    var selectClickFeature = selectClick.getFeatures().getArray()[0];
+    var extent = [];
+
+    if(selectClickFeature){
+        var selectId = selectClickFeature.getId();
+        if(selectId != undefined){
+            if(selectId.split('_')[1] == 0){
+                modifyCancel();
+                return;
+            } else if(selectFeatureId != undefined){
+                if(selectFeatureId.substr(0,3) != selectId.substr(0,3)){
+                    modifyCancel();
+                }
+            }
+
+            if(selectId.charAt(0) == 'S'){
+                return;
+            } else {
+                selectFeatureId = selectId;
+                selectFeatureId_arr = selectFeatureId.split('_');
+
+                if(selectFeatureId_arr.length > 2){
+                    selectFeature = selectLayer.getSource().getFeatureById('P'+selectFeatureId_arr[0]);
+                    if(selectFeature.getGeometry().getType() == 'Point'){
+                        modifyCancel();
+                        return;
+                    }
+                } else if(selectFeatureId_arr.length == 1){
+                    selectFeature = selectLayer.getSource().getFeatureById(selectId); // general shape
+                }
+            }
+        } else {
+            selectClick.getFeatures().clear();
+        }
+    } else {
+        modifyCancel();
+    }
+
+    if(selectFeature != undefined){
+        $('#click_cancel_modify').removeClass('hidden');
+        $('.milSymEvent').addClass('hidden');
+
+        if(selectFeature.getGeometry().getType() == 'MultiLineString' || selectFeature.getGeometry().getType() == 'Polygon'){
+            modify = new ol.interaction.Modify({
+                features: new ol.Collection([selectFeature])
+            });
+        } else {
+            modify = new ol.interaction.Modify({
+                features: new ol.Collection([selectFeature]),
+                insertVertexCondition: function(e){
+                    return ol.events.condition.never();
+                }
+            });
+        }
+
+        snap = new ol.interaction.Snap({
+            features: new ol.Collection([selectFeature])
+        });
+
+        selectFeature.setStyle(null);
+
+        // Modify select Line to Red
+        var selectStyle = new ol.style.Style({
+            stroke : new ol.style.Stroke({
+                color: '#FF0000', width: 3
+            })
+        });
+        selectFeature.setStyle(selectStyle);
+
+        modify.on('modifyend', function(e){
+            G_coordinates = new Array();
+
+            var coordinates = e.features.getArray()[0].getGeometry().getCoordinates();
+            for(var i = 0; i < coordinates.length; i++){
+                if(coordinates[0].length > 2){
+                    coordinates = coordinates[0];
+                    getCoordinates(coordinates[i][0], coordinates[i][1]);
+                } else {
+                    getCoordinates(coordinates[i][0], coordinates[i][1]);
+                }
+            }
+
+            var source = selectLayer.getSource();
+            var ids = selectFeatureId.split('_');
+            var id = ids[0];
+            var sidc = source.getFeatureById(selectFeatureId).getProperties().options['symbolID'];
+            var modifiers = source.getFeatureById(selectFeatureId).getProperties().modifier;
+
+            for(var j = 0; j < ids[1]; j++){
+                deleteMarker(ids[0]+'_'+ids[1]+'_'+j);
+            }
+
+            createModifiers(sidc);
+            if(modifiers != undefined){
+                var code = SymbolUtilities.getBasicSymbolID(sidc);
+                var mtgs = SymbolDefTable.getSymbolDef(code, symStd);
+                var mtgs_split = mtgs.modifiers.split('.');
+                for(var i = 0; i < mtgs_split.length; i++){
+                    if(mtgs_split[i] != ''){
+                        var input = document.getElementById(mtgs_split[i]);
+                        if (input != undefined ) {  // 20200214
+                            var modifData = modifiers[mtgs_split[i]];
+                            var val = '';
+                            if(mtgs_split[i] == 'AM' || mtgs_split[i] == 'AN' || mtgs_split[i] == 'XN'){//20200226 X-> XN
+                                for(var k = 0; k < modifData.length; k++){
+                                    val += modifData[k];
+                                    if(k < (modifData.length-1)){
+                                        val += ',';
+                                    }
+                                }
+                            } else {
+                                val = modifData;
+                            }
+                            input.value = val;
+                        }
+                    }
+                }
+            }
+
+            drawMsymbol(id, 'geoJSON', sidc);
+            addMarker(mygeoJSON, id, '', '', 'Msymbol');
+
+            selectClick.getFeatures().clear();
+        });
+
+        map.addInteraction(modify);
+        map.addInteraction(snap);
+    }
+});
+
+// military Symbol DEL function
+function deleteMarker(id){
+    var id = selectLayer.getSource().getFeatureById(id);
+    selectLayer.getSource().removeFeature(id);
+}
+
+//milirary Symbol ALL DEL function
+function removeAllMarker(){
+    modifyCancel();
+    selectClick.getFeatures().clear();
+    selectLayer.getSource().clear();
+}
