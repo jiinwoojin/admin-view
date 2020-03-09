@@ -36,8 +36,8 @@
             </li>
         </ul>
 
-        <div class="tab-content" id="mapContent" style="width: 100%; height: 65vh;">
-        </div>
+        <div class="sample-div" style="width: 100%; height: 65vh; position: absolute; z-index: 999;"></div>
+        <div class="tab-content" id="mapContent" style="width: 100%; height: 65vh;"></div>
 
         <div class="d-flex justify-content-between my-1">
             <div id="military-position">
@@ -150,6 +150,15 @@
                 handle: ".modal-header"
             });
         }
+
+        let d3Canvas = null;
+        let comAttr = type_common;
+        let options = {
+            h: '65vh',
+            w: '100%',
+            addTo: '.sample-div',
+            addBorderRect: true
+        };
 
         $(window).ready(function() {
             modal_draggable('#layer_modal');

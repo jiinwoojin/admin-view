@@ -11,13 +11,13 @@ const NS = {
     XMLNS: 'http://www.w3.org/2000/xmlns/' // see http://www.w3.org/TR/REC-xml-names/#xmlReserved
 };
 
-SVG = document.createElementNS(NS.SVG,"svg");
+const SVG = document.createElementNS(NS.SVG,"svg");
 
-getElem = function(id){
-    return SVG.querySelector("#"+id);
-}
+let getElem = function(id){
+    return SVG.querySelector("#" + id);
+};
 
-assignAttributes = function(node, attrs, suspendLength, text){
+let assignAttributes = function(node, attrs, suspendLength, text){
     if(!suspendLength){
         suspendLength = 0;
     }
@@ -37,7 +37,7 @@ assignAttributes = function(node, attrs, suspendLength, text){
     }
 }
 
-addSvgElementFromJson = function(data){
+let addSvgElementFromJson = function(data){
     var shape = getElem(data.attr.id);
 
     if(shape && data.element != shape.tagName){
@@ -57,25 +57,25 @@ addSvgElementFromJson = function(data){
  * @param {Object} paramOjb - 수정하고자 하는 정보 OJB
  */
 //var shapeResizer = d3.behavior.drag().origin(Object).on("drag", shapeResize("a"));
-shapeResizeDir = function( param ){
+let shapeResizeDir = function( param ){
     var _pointPosition = param.position;
     var _canvasId = param.canvasId;
     var _paramOjb = param;
 
-    start = function() {
+    this.start = function() {
         console.log(2);
         return false;
-    }
+    };
 
-    drag = function() {
+    this.drag = function() {
         console.log(3);
         return false;
-    }
+    };
 
-    end = function() {
+    this.end = function() {
         console.log(4);
         return false;
-    }
+    };
 
     return {
         start: start,
@@ -110,7 +110,7 @@ shapeResizeDir = function( param ){
     if( _pointPosition === "se" ){
         _canvasId.resizePointSE( _paramOjb );
     }*/
-}
+};
 
 /**
  * 정규식을 이용하여 숫자만 제거

@@ -588,11 +588,7 @@ var stmp = {
                 return false;
             }else if( a !== null && typeof a === "object" && Object.keys(a).length < 1 ){
                 return false;
-            }else if( Array.isArray(a) && a.length < 1 ){
-                return false;
-            }else{
-                return true;
-            }
+            }else return !(Array.isArray(a) && a.length < 1);
 
         },
         /**
@@ -1525,8 +1521,17 @@ var stmp = {
     //투명도 캔버스 ID
     d3Canvas : null
     ,
-    //투명도 캔버스 ID
+    //군대부호 정보(그려진 부호 편집을 위해)
     milSymEditOjb : null
+    ,
+    //투명도 편집중 맵이동 여부 체크
+    editingToMoveMapYn : false
+    ,
+    // 공통속성 오브젝트 저장
+    svgCommonAttr : null
+    ,
+    //  서버 저장용
+    saveShapeData : null
 
     /******************** 투명도 관련 객체 끝 **************************/
 

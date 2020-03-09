@@ -552,18 +552,18 @@ var enumType = {
 
     //점 부호(Point)의 점 모양 구분 코드
     , enum_pointShape : {
-        pointTypeRect       : 0 //점 부호를 사각형으로 도시
-        ,pointTypeCircle    : 1 //점 부호를 원으로 도시
-        ,pointTypeDia       : 2 //점 부호를 마름모로 도시
-        ,pointTypeTri       : 3 //점 부호를 정삼각형으로 도시
-        ,pointTypeInvTri    : 4 //점 부호를 역삼각형으로 도시
+        pointTypeRect       : 1 //점 부호를 사각형으로 도시
+        ,pointTypeCircle    : 2 //점 부호를 원으로 도시
+        ,pointTypeDia       : 3//점 부호를 마름모로 도시
+        ,pointTypeTri       : 4 //점 부호를 정삼각형으로 도시
+        ,pointTypeInvTri    : 5 //점 부호를 역삼각형으로 도시
     }
 
     //다각선의 직선/곡선 종류
     , enum_polylineType : {
-        polylineTypeStraight    : 0 //점 부호를 사각형으로 도시
-        ,polylineTypeSpline     : 1 //점 부호를 원으로 도시
-        ,polylineTypeBezier     : 2 //점 부호를 마름모로 도시
+        polylineTypeStraight    : 0 //직선 연결
+        ,polylineTypeSpline     : 1 //스프라인 곡선
+        ,polylineTypeBezier     : 2 //베지어 곡선
     }
 
     //비밀등급

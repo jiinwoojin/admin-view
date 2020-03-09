@@ -61,3 +61,14 @@ $('.scroller-left').click(function() {
 
     });
 });
+
+// line click
+$('#overlay_line').click(function(e) {
+    console.log('Line');
+
+    if (d3Canvas === null) {
+        d3Canvas = new SVGCanvas(options);
+    }
+
+    SelectedShape(d3Canvas, "line");
+});

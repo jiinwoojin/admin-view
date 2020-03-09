@@ -26,7 +26,7 @@
 
                 <!-- 단선 -->
                 <li class="nav-item">
-                    <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="단선" href="#overlay-line" role="tab" aria-controls="overlay-line" aria-selected="true">
+                    <a class="btn-overlay nav-link" id="overlay_line" data-toggle="pill" data-placement="top" title="단선" href="#overlay-line" role="tab" aria-controls="overlay-line" aria-selected="true">
                         <img width="25px" th:src="@{/img/shape/btn_line.png}" />
                     </a>
                 </li>
@@ -127,127 +127,132 @@
             <!-- 점 -->
             <div class="tab-pane fade show active" id="overlay-point" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-point">
-                    <th:block th:replace="fragments/overlay/html-overlay-symbol :: html-overlay-symbol('point')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-symbol :: html-overlay-symbol('point')"/>
                 </form>
             </div>
 
             <!-- 단선 -->
             <div class="tab-pane fade" id="overlay-line" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-line">
-                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('line')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('line')"/>
                 </form>
             </div>
 
             <!-- 선 -->
             <div class="tab-pane fade" id="overlay-lines" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-lines">
-                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('lines')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('lines')"/>
                 </form>
             </div>
 
             <!-- 면 -->
             <div class="tab-pane fade" id="overlay-polygon" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-polygon">
-                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('polygon')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('polygon')"/>
                     <hr/>
-                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('polygon')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('polygon')"/>
                 </form>
             </div>
 
             <!-- 곡선 -->
             <div class="tab-pane fade" id="overlay-curve" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-curve">
-                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('curve')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('curve')"/>
                 </form>
             </div>
 
             <!-- 곡선 면 -->
             <div class="tab-pane fade" id="overlay-curve-polygon" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-curve-polygon">
-                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('curve-polygon')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('curve-polygon')"/>
                     <hr/>
-                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('curve-polygon')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('curve-polygon')"/>
                 </form>
             </div>
 
             <!-- 원 -->
             <div class="tab-pane fade" id="overlay-circle" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-circle">
-                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('circle')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('circle')"/>
                     <hr/>
-                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('circle')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('circle')"/>
                 </form>
             </div>
 
             <!-- 정사각형 -->
             <div class="tab-pane fade" id="overlay-square" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-square">
-                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('square')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('square')"/>
                     <hr/>
-                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('square')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('square')"/>
                 </form>
             </div>
 
             <!-- 직사각형 -->
             <div class="tab-pane fade" id="overlay-rectangle" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-rectangle">
-                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('rectangle')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('rectangle')"/>
                     <hr/>
-                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('rectangle')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('rectangle')"/>
                 </form>
             </div>
 
             <!-- 둥근 직사각형 -->
             <div class="tab-pane fade" id="overlay-circled-rectangle" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-circled-rectangle">
-                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('circled-rectangle')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('circled-rectangle')"/>
                     <hr/>
-                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('circled-rectangle')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('circled-rectangle')"/>
                 </form>
             </div>
 
             <!-- 호 -->
             <div class="tab-pane fade" id="overlay-arc" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-arc">
-                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('arc')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('arc')"/>
                 </form>
             </div>
 
             <!-- 활꼴 (현) -->
             <div class="tab-pane fade" id="overlay-bow" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-bow">
-                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('bow')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('bow')"/>
                     <hr/>
-                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('bow')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('bow')"/>
                 </form>
             </div>
 
             <!-- 부채꼴 (파이) -->
             <div class="tab-pane fade" id="overlay-pie" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-pie">
-                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('pie')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('pie')"/>
                     <hr/>
-                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('pie')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('pie')"/>
                 </form>
             </div>
 
             <!-- 삼각형 -->
             <div class="tab-pane fade" id="overlay-triangle" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-triangle">
-                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('triangle')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-fill :: html-overlay-fill('triangle')"/>
                     <hr/>
-                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('triangle')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-line :: html-overlay-line('triangle')"/>
                 </form>
             </div>
 
             <!-- 문자 -->
             <div class="tab-pane fade" id="overlay-text" role="tabpanel">
                 <form class="mt-2 mb-2" id="form-text">
-                    <th:block th:replace="fragments/overlay/html-overlay-text :: html-overlay-text('text')"></th:block>
+                    <th:block th:replace="fragments/overlay/html-overlay-text :: html-overlay-text('text')"/>
                 </form>
             </div>
         </div>
     </div>
 </body>
 <script th:src="@{/js/overlay/ui/overlay-main.js}"></script>
+<script th:src="@{/vendor/d3/d3.js}"></script>
+<script th:src="@{/js/overlay/overlayDrawUtil.js}"></script>
+<script th:src="@{/js/overlay/overlayEnum.js}"></script>
+<script th:src="@{/js/overlay/overlayAtrributes.js}"></script>
+<script th:src="@{/js/overlay/d3Drawing.js}"></script>
 </html>
