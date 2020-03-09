@@ -10,7 +10,7 @@ var stmp = {
     // 상황도 서버 이미지 PORT
     SERVER_IMG_PORT : '11200',
     STMP_UI_PATH : '/ui/CF/SI',
-    BASE_MAP_SOURCE : 'world:truemarble',
+    BASE_MAP_SOURCE : 'world_k2',
     BASE_MAP_LAYER_ID : 'BASE_MAP',
     setBaseMapSource : function setBaseMapSource(value) {
         this.BASE_MAP_SOURCE = value;

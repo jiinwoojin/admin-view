@@ -310,7 +310,7 @@ selectorObj.prototype = {
         getEndY : function (){
             return this.endY;
         },
-}
+};
 
 //속성 반영(도형 update)
 var updateShapeAttrs = function ( paramObj , xmlToShapeId ){
@@ -345,7 +345,7 @@ var updateShapeAttrs = function ( paramObj , xmlToShapeId ){
                     textId = e.id;
                 }
             }
-        )
+        );
         if( textId === null ){
             textId = idMaker(d3Canvas,'text');
             if( paramObj.type_tp.hasOwnProperty('tx') ) {

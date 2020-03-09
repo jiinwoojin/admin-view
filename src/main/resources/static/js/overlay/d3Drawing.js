@@ -656,7 +656,7 @@ d3.contextMenu = function(menu, svgCanvasId, shapeId){
          .style('display', 'block');
 
      d3.event.preventDefault();
-}
+};
 
 SVGCanvas.prototype.selectShape = function (shapeId){
     var self = this;
@@ -667,7 +667,7 @@ SVGCanvas.prototype.selectShape = function (shapeId){
     }
 
     self.setActive(shapeId);
-}
+};
 
 SVGCanvas.prototype.selectEditor = function (editorId){
     var self = this;

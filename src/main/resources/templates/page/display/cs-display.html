@@ -5,11 +5,15 @@
     <link rel="stylesheet" th:href="@{/gis/cesium-1.65/Widgets/widgets.css}">
     <script th:src="@{/jquery/jquery-3.4.1.min.js}"></script>
     <script th:src="@{/gis/cesium-1.65/Cesium.js}"></script>
+    <script th:src="@{/js/commons/cfsiStmp3DMap.js}"></script>
 </head>
 <body>
-    <div id="map3d" style="height: 90vh; width: 100%;"></div>
+    <div id="map3d" style="height: 100%; width: 100%;"></div>
     <script>
-        var viewer = new Cesium.Viewer('map3d', {
+        stmp.mapObject = new ji3DMap({
+            container : 'map3d'
+        });
+        /*var viewer = new Cesium.Viewer('map3d', {
             sceneMode: Cesium.SceneMode.SCENE3D,
             timeline: false,
             animation: false,
@@ -54,7 +58,7 @@
                 pitch : Cesium.Math.toRadians(-40.0),
                 roll : 0.0
             }
-        });
+        });*/
     </script>
 </body>
 </html>

@@ -3,7 +3,7 @@ var ji3DMap = function ji3DMap(options) {
 
     this.map.scene.globe = new Cesium.Globe(Cesium.Ellipsoid.WGS84);
 
-    this.setBaseTerrain();
+    // this.setBaseTerrain();
 
     this.map.scene.logarithmicDepthBuffer = false; // Black Spot 방지
 
@@ -126,17 +126,14 @@ ji3DMap.prototype.setBaseImagery = function setBaseImagery() {
     var imageryLayers = this.map.imageryLayers;
     imageryLayers.removeAll();
     imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-        url : 'http://' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT + '/geoserver/wms',
+        url : 'http://' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT + '/service',
         layers : stmp.getBaseMapSource(),
         parameters : {
-            service : 'WMS',
             transparent : 'true',
             format : 'image/jpeg',
-            tiled : 'true',
             version : '1.1.1'
         }
     }));
-
 };
 
 /**

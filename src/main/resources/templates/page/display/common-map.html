@@ -25,18 +25,18 @@
     <div id="map_block">
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link" id="pills-display2d" style="cursor: pointer;">
+                <a class="nav-link map-item" id="pills-display2d" style="cursor: pointer;">
                     <i class="fas fa-vector-square"></i> 2차원
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="pills-display3d" style="cursor: pointer;">
+                <a class="nav-link  map-item" id="pills-display3d" style="cursor: pointer;">
                     <i class="fas fa-cube"></i> 3차원
                 </a>
             </li>
         </ul>
 
-        <div class="sample-div" style="width: 100%; height: 65vh; position: absolute; z-index: 999;"></div>
+        <div class="sample-div" style="width: 100%; height: 65vh; position: absolute; z-index: 999; display: none;"></div>
         <div class="tab-content" id="mapContent" style="width: 100%; height: 65vh;"></div>
 
         <div class="d-flex justify-content-between my-1">
@@ -188,6 +188,28 @@
 
             getMap('mapbox-display');
             $('#pills-display2d').addClass('active');
+
+            $('.map-item').click(function(e) {
+                let _id = e.target.id;
+
+                let contentName;
+
+                if (_id === 'pills-display2d') {
+                    contentName = 'mapbox-display';
+                    $('#pills-display3d').removeClass('active');
+                    $('#pills-display2d').addClass('active');
+                } else if (_id === 'pills-display3d') {
+                    contentName = 'cs-display';
+                    $('#pills-display2d').removeClass('active');
+                    $('#pills-display3d').addClass('active');
+                }
+
+                if (stmp.mapObject !== null) {
+                    stmp.mapObject = null;
+                }
+
+                getMap(contentName);
+            });
         });
 
         function getMap(content) {

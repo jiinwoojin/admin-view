@@ -604,4 +604,4 @@ var enumType = {
         ,tileFlipXY : 3 //가로,세로축 대칭
         ,clamp      : 4 //중앙
     }
-}
+};
