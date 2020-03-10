@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style type="text/css">
+        #generalShapeInfo_Div td {
+            padding: 3px 0px;
+        }
+    </style>
+</head>
+<body th:fragment="html-general-shape-prop">
+<div id="shape_style_info" style="display: none; width: 310px;">
+    <div id="generalShapeInfo_viewer">
+        <div id="generalShapeInfo_Div">
+            <table>
+                <tr id="generalShapeInfo-header"><td width="110"></td>
+                    <td><span id="shapeInfo_close" class="btn-close pull-right">X</span></td>
+                </tr>
+                <tr class="shape_style_box"><td>색 체움 </td>
+                    <td><input type="checkbox" id="shape_fill" onchange="shapeStyle();"></td>
+                </tr>
+                <tr  class="shape_style_box"><td>색 체움 색상 </td>
+                    <td>
+                        <input type="text" id="shape_fill_color" class="form-control" onchange="shapeStyle();">
+                    </td>
+                </tr>
+                <tr  class="shape_style_box"><td>색 채움 투명도 </td>
+                    <td><input id="shape_fill_opacity" type="range" min="0" max="1" step="0.1" value="1" onchange="shapeStyle();this.nextSibling.innerHTML = this.value;"/><span>1</span></td>
+                </tr>
+                <tr  class="shape_style_box"><td>선 색상 </td>
+                    <td>
+                        <input type="text" id="shape_line_color" class="form-control" onchange="shapeStyle();">
+                    </td>
+                </tr>
+                <tr  class="shape_style_box"><td>선 크기 </td>
+                    <td><input id="shape_line_size" type="range" min="1" max="10" step="1" value="3" onchange="shapeStyle();this.nextSibling.innerHTML = this.value;"/><span>3</span></td>
+                </tr>
+                <tr  class="shape_style_box"><td>선 종류 </td>
+                    <td>
+                        <select id="shape_line_type" class="form-control" onchange="shapeStyle();">
+                            <option value="none">선 없음</option>
+                            <option value="hidden">선 감춤</option>
+                            <option value="solid" selected="selected">실선</option>
+                            <option value="dot">점선</option>
+                            <option value="dash">파선</option>
+                            <!-- <option value="double">두개의 실선</option> -->
+                            <option value="dashDot">1점 쇄선</option>
+                            <option value="dashDotDot">2점 쇄선</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr  class="shape_style_box"><td>선 모양 </td>
+                    <td>
+                        <select id="shape_endLine_type" class="form-control" onchange="shapeStyle();">
+                            <option value="butt">없음</option>
+                            <option value="round" selected="selected">원형</option>
+                            <option value="square">사각형</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr  class="shape_style_box"><td>선 연결 모양 </td>
+                    <td>
+                        <select id="shape_joinLine_type" class="form-control" onchange="shapeStyle();">
+                            <option value="miter" selected="selected">뾰족하게 연결</option>
+                            <option value="bevel">뾰족한 부분 잘라냄</option>
+                            <option value="round">둥글게 연결</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr  class="shape_style_box"><td>선 투명도 </td>
+                    <td><input id="shape_line_opacity" type="range" min="0" max="1" step="0.1" value="1" onchange="shapeStyle();this.nextSibling.innerHTML = this.value;"/><span>1</span></td>
+                </tr>
+                <tr class="text_style_box"><td>텍스트 색상 </td>
+                    <td>
+                        <input type="text" id="shape_text_color" class="form-control" onchange="shapeStyle();">
+                    </td>
+                </tr>
+                <tr class="text_style_box"><td>텍스트 선 색상 </td>
+                    <td>
+                        <input type="text" id="shape_text_line_color" class="form-control" onchange="shapeStyle();">
+                    </td>
+                </tr>
+                <tr class="text_style_box"><td>텍스트 크기 </td>
+                    <td><input id="shape_text_size" type="range" min="1" max="100" step="1" value="17" onchange="shapeStyle();this.nextSibling.innerHTML = this.value;"/><span>17</span></td>
+                </tr>
+                <tr class="text_style_box"><td>텍스트 선 크기 </td>
+                    <td><input id="shape_text_line_size" type="range" min="0" max="10" step="1" value="3" onchange="shapeStyle();this.nextSibling.innerHTML = this.value;"/><span>3</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

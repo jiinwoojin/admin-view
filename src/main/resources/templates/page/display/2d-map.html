@@ -4,8 +4,13 @@
 <head>
     <link rel="stylesheet" th:href="@{/css/symbol/symbol-bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/symbol/symbol.css}">
+
     <link rel="stylesheet" th:href="@{/gis/openlayers-4.6.4/ol.css}">
     <script th:src="@{/gis/openlayers-4.6.4/ol.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/gis/ol-ext-3.1.9/ol-ext.min.css}">
+    <script th:src="@{/gis/ol-ext-3.1.9/ol-ext.min.js}"></script>
+
     <link rel="stylesheet" th:href="@{/gis/cesium-1.65/Widgets/widgets.css}">
     <script th:src="@{/gis/cesium-1.65/Cesium.js}"></script>
 </head>
@@ -58,6 +63,10 @@
                             <li id="click_cancel_modify" class="rightClickBtn hidden" onclick="modifyCancel();">수정 중단</li>
                         </ul>
                     </div>
+
+                    <div id="mouse-position" style="position: absolute; padding: 3px; font-weight: bold; left: 0; bottom: 0; background-color: white; z-index: 999;">
+
+                    </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="display3d" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -71,7 +80,7 @@
                     <i class="fas fa-layer-group"></i> 레이어
                 </button>
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#shape_modal" data-backdrop="false">
+                    <button type="button" class="btn btn-sm btn-info" id="general_shape_btn">
                         <i class="fas fa-vector-square"></i> 투명도
                     </button>
                     <button type="button" class="btn btn-sm btn-info" id="click_coord_btn">
@@ -168,6 +177,10 @@
         </div>
     </div>
 
+    <!-- 투명도 -->
+    <th:block th:replace="fragments/generalShape/html-general-shape-main"></th:block>
+    <th:block th:replace="fragments/generalShape/html-general-shape-prop"></th:block>
+
     <!-- 군머부호 -->
     <th:block th:replace="fragments/military/html-military-prop"></th:block>
     <th:block th:replace="fragments/military/html-military-main"></th:block>
@@ -198,6 +211,9 @@
     <script th:src="@{/js/military/ol-milSymbol.js}"></script>
 
     <script th:src="@{/js/military/milSymbol.js}"></script>
+
+    <script th:src="@{/js/generalShape/generalShape.js}"></script>
+    <script th:src="@{/js/generalShape/generalShapeInfo.js}"></script>
 
     <script th:src="@{/js/map/mapFunction/transparentMap.js}"></script>
     <script th:src="@{/js/map/mapFunction/dataCommon.js}"></script>
