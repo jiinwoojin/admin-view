@@ -538,11 +538,11 @@ Geometry.Circle = function Circle(center, radius, units) {
 	if (!radius) {
 		throw new Error('반지름 없음');
 	}
-	if (!units) {
+	if (!units) {	// 반지름 단위
 		units = 'kilometers';
 	}
 
-	var steps = 128;
+	var steps = 128;	// 생성할 버텍스 수
 
 	var coordinates = [];
 	for (var i = 0; i < steps; i++) {

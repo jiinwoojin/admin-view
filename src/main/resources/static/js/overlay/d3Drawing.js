@@ -529,7 +529,7 @@ SVGCanvas.prototype.makeAddLine = function() {
     // Methods for adding Line to the svg.
     var self = this;
     //var lineNum =  type_common.shape.line;
-    this.start = function() {
+    var start = function() {    // ohhk var 추가
         // 0. Get Id
         self.Line.id = idMaker(self,"line");
         var shapeId = self.Line.id;
@@ -541,52 +541,52 @@ SVGCanvas.prototype.makeAddLine = function() {
 
         // 2. Make a rectangle
         self.Line.r = self.svg
-          .append('g')
-          .attr('class', 'g-line ' + self.Line.id)
-          .append('line') // An SVG element
-          .attr('x1', self.Line.x1) // Position at mouse location
-          .attr('y1', self.Line.y1)
-          .attr('x2', self.Line.x1+1) // Make it tiny
-          .attr('y2', self.Line.y1+1)
-          .attr('id',self.Line.id)
-          .style('stroke', comAttr.commonAttr.stroke)
-          .style('stroke-width', comAttr.commonAttr.strokeWidth)
-          .style('fill', comAttr.commonAttr.color)
-          .on("click",
-                  function (d){
-                      self.selectShape(shapeId);
-                  }
-              )
-          .on("contextmenu",
-                  function (d){
-                      //우클릭시 서브 메뉴바 띄우기 예제
-                  d3.contextMenu(menu, self, shapeId);
-                  }
-              );
-      };
+            .append('g')
+            .attr('class', 'g-line ' + self.Line.id)
+            .append('line') // An SVG element
+            .attr('x1', self.Line.x1) // Position at mouse location
+            .attr('y1', self.Line.y1)
+            .attr('x2', self.Line.x1+1) // Make it tiny
+            .attr('y2', self.Line.y1+1)
+            .attr('id',self.Line.id)
+            .style('stroke', comAttr.commonAttr.stroke)
+            .style('stroke-width', comAttr.commonAttr.strokeWidth)
+            .style('fill', comAttr.commonAttr.color)
+            .on("click",
+                function (d){
+                    self.selectShape(shapeId);
+                }
+            )
+            .on("contextmenu",
+                function (d){
+                    //우클릭시 서브 메뉴바 띄우기 예제
+                    d3.contextMenu(menu, self, shapeId);
+                }
+            );
+    };
 
-     this.drag = function() {
-            // What to do when mouse is dragged
-            // 1. Get the new mouse position
-            var m = self.mouseOffset();
-            self.Line.x2 = m.x;
-            self.Line.y2 = m.y;
+    var drag = function() {    // ohhk var 추가
+        // What to do when mouse is dragged
+        // 1. Get the new mouse position
+        var m = self.mouseOffset();
+        self.Line.x2 = m.x;
+        self.Line.y2 = m.y;
 
-            // 2. Update the attributes of the Line
-            self.Line.r.attr('x1', self.Line.x1)
-              .attr('y1', self.Line.y1)
-              .attr('x2', m.x)
-              .attr('y2', m.y);
+        // 2. Update the attributes of the Line
+        self.Line.r.attr('x1', self.Line.x1)
+            .attr('y1', self.Line.y1)
+            .attr('x2', m.x)
+            .attr('y2', m.y);
 
-            self.Line.x1 = self.Line.x1;
-            self.Line.y1 = self.Line.y1;
-            self.Line.x2 = m.x;
-            self.Line.y2 = m.y;
-            self.Line.cx = (self.Line.x1+self.Line.x2) / 2;
-            self.Line.cy = (self.Line.y1+self.Line.y2) / 2;
-      };
+        self.Line.x1 = self.Line.x1;
+        self.Line.y1 = self.Line.y1;
+        self.Line.x2 = m.x;
+        self.Line.y2 = m.y;
+        self.Line.cx = (self.Line.x1+self.Line.x2) / 2;
+        self.Line.cy = (self.Line.y1+self.Line.y2) / 2;
+    };
 
-    this.end = function() {
+    var end = function() {  // ohhk var 추가
         // 1. Get the new mouse position
         var m = self.mouseOffset();
 
@@ -598,13 +598,13 @@ SVGCanvas.prototype.makeAddLine = function() {
         self.setActive(self.Line.id);
     };
 
-//    type_common.shape.line = lineNum++;
+    //    type_common.shape.line = lineNum++;
     return {
-        start: this.start,
-        drag: this.drag,
-        end: this.end
+        start: start,
+        drag: drag,
+        end: end
     };
-}
+};
 
 
 //현재 selected(active 상태인) selector Id 리턴 및 확인
@@ -2167,75 +2167,75 @@ SVGCanvas.prototype.makeAddCircle = function() {
     // Methods for adding rectangles to the svg.
     var self = this;
 
-    start = function() {
-    // 0. Get Id
-    self.Circle.id = idMaker(self,"circle");
-    var shapeId = self.Circle.id;
-     // 1. Get mouse location in SVG
-     var m = self.mouseOffset();
-     self.Circle.cx = m.x;
-     self.Circle.cy = m.y;
+    var start = function() {       // ohhk this 추가
+        // 0. Get Id
+        self.Circle.id = idMaker(self,"circle");
+        var shapeId = self.Circle.id;
+        // 1. Get mouse location in SVG
+        var m = self.mouseOffset();
+        self.Circle.cx = m.x;
+        self.Circle.cy = m.y;
 
-     // 2. Make a rectangle
-     self.Circle.r = self.svg //self.
-       .append('g')
-       .attr('class', 'g-circle ' + shapeId)
-       .append('circle')
-       .attr('cx', self.Circle.cx) // Position at mouse location
-       .attr('cy', self.Circle.cy)
-       .attr('r', 1) // Make it tiny
-         .attr('id',shapeId)
-         .style('stroke', comAttr.commonAttr.stroke)
-         .style('stroke-width', comAttr.commonAttr.strokeWidth)
-         .style('fill', comAttr.commonAttr.color)
-         .on("click",
-                 function (d){
-                     self.selectShape(shapeId);
-                 }
-             )
-         .on("contextmenu",
-                 function (d){
-                     //우클릭시 서브 메뉴바 띄우기 예제
-                     d3.contextMenu(menu, self, shapeId);
-                 }
-             );
-       /*.attr('class', 'circle-main ' + self.state.class + ' ' + self.state.id)*/
-    }
+        // 2. Make a rectangle
+        self.Circle.r = self.svg //self.
+            .append('g')
+            .attr('class', 'g-circle ' + shapeId)
+            .append('circle')
+            .attr('cx', self.Circle.cx) // Position at mouse location
+            .attr('cy', self.Circle.cy)
+            .attr('r', 1) // Make it tiny
+            .attr('id',shapeId)
+            .style('stroke', comAttr.commonAttr.stroke)
+            .style('stroke-width', comAttr.commonAttr.strokeWidth)
+            .style('fill', comAttr.commonAttr.color)
+            .on("click",
+                function (d){
+                    self.selectShape(shapeId);
+                }
+            )
+            .on("contextmenu",
+                function (d){
+                    //우클릭시 서브 메뉴바 띄우기 예제
+                    d3.contextMenu(menu, self, shapeId);
+                }
+            );
+        /*.attr('class', 'circle-main ' + self.state.class + ' ' + self.state.id)*/
+    };
 
-    drag = function() {
-     // What to do when mouse is dragged
-     // 1. Get the new mouse position
-     var m = self.mouseOffset();
+    var drag = function() {        // ohhk var 추가
+        // What to do when mouse is dragged
+        // 1. Get the new mouse position
+        var m = self.mouseOffset();
 
-     var distanceX = self.Circle.cx - m.x;
-     var distanceY = self.Circle.cy - m.y;
+        var distanceX = self.Circle.cx - m.x;
+        var distanceY = self.Circle.cy - m.y;
 
-     if( distanceX == 0 ){
-         distanceX = 1;
-     }
+        if( distanceX == 0 ){
+            distanceX = 1;
+        }
 
-     if( distanceY == 0 ){
-         distanceY = 1;
-     }
+        if( distanceY == 0 ){
+            distanceY = 1;
+        }
 
-     // 좌표 간의 거리를 구하는 공식 직각삼각형 빗변 계산 공식 (피타고라스 정리)
-     var distance = Math.abs(Math.sqrt(Math.pow(Math.abs(distanceX),2)+Math.pow(Math.abs(distanceY),2)));
-     self.Circle.distance = distance;
-     // 2. Update the attributes of the Circle
-     self.Circle.r.attr('cx', self.Circle.cx)
-       .attr('cy', self.Circle.cy)
-       .attr('r', distance)
-       /*.attr('class', 'rect-main' + self.state.class + ' ' + self.state.id)*/
-      .style('stroke', comAttr.commonAttr.stroke)
-      .style('stroke-width', comAttr.commonAttr.strokeWidth)
-      .style('fill', comAttr.commonAttr.color)
+        // 좌표 간의 거리를 구하는 공식 직각삼각형 빗변 계산 공식 (피타고라스 정리)
+        var distance = Math.abs(Math.sqrt(Math.pow(Math.abs(distanceX),2)+Math.pow(Math.abs(distanceY),2)));
+        self.Circle.distance = distance;
+        // 2. Update the attributes of the Circle
+        self.Circle.r.attr('cx', self.Circle.cx)
+            .attr('cy', self.Circle.cy)
+            .attr('r', distance)
+            /*.attr('class', 'rect-main' + self.state.class + ' ' + self.state.id)*/
+            .style('stroke', comAttr.commonAttr.stroke)
+            .style('stroke-width', comAttr.commonAttr.strokeWidth)
+            .style('fill', comAttr.commonAttr.color);
 
-     self.Circle.cx = self.Circle.cx;
-     self.Circle.cy = self.Circle.cy;
-     self.Circle.distance = distance;
-    }
+        self.Circle.cx = self.Circle.cx;
+        self.Circle.cy = self.Circle.cy;
+        self.Circle.distance = distance;
+    };
 
-    end = function() {
+    var end = function() {     // ohhk var 추가
         // 1. Get the new mouse position
         var m = self.mouseOffset();
         // What to do on mouseup
@@ -2245,14 +2245,14 @@ SVGCanvas.prototype.makeAddCircle = function() {
 
         // Make it active.
         self.setActive(self.Circle.id);
-    }
+    };
 
     return {
-     start: start,
-     drag: drag,
-     end: end
+        start: start,
+        drag: drag,
+        end: end
     };
-}
+};
 
 SVGCanvas.prototype.resizeCircle = function( param ) {
     var self = this;

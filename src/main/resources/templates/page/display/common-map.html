@@ -36,7 +36,7 @@
             </li>
         </ul>
 
-        <div class="sample-div" style="width: 100%; height: 65vh; position: absolute; z-index: 999; display: none;"></div>
+        <div class="sample-div" style="position: absolute; z-index: 999; display: none;"></div>
         <div class="tab-content" id="mapContent" style="width: 100%; height: 65vh;"></div>
 
         <div class="d-flex justify-content-between my-1">
@@ -132,6 +132,9 @@
                     <th:block th:replace="fragments/overlay/html-overlay-main" />
                 </div>
                 <div class="modal-footer">
+                    <button type="button" id="overlay_save" class="btn btn-sm btn-primary">
+                        <i class="fas fa-save"></i> 저장
+                    </button>
                     <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
                         <i class="fas fa-times"></i> 닫기
                     </button>
@@ -151,10 +154,12 @@
             });
         }
 
+        let overlayModal = '#shape_modal';
+
         let d3Canvas = null;
         let comAttr = type_common;
         let options = {
-            h: '65vh',
+            h: '100%',
             w: '100%',
             addTo: '.sample-div',
             addBorderRect: true
@@ -184,10 +189,39 @@
                 }
             });
 
-            stmp.setMilSym(ms);
+            if (stmp.getMilsym() === undefined) {
+                stmp.setMilSym(ms);
+            }
 
             getMap('mapbox-display');
             $('#pills-display2d').addClass('active');
+
+            $(overlayModal).on('show.bs.modal', function (e) {
+                document.querySelector('.sample-div').style.setProperty('display', 'block');
+                document.querySelector('.sample-div').style.setProperty('width', document.querySelector('#mapContent').clientWidth + 'px');
+                document.querySelector('.sample-div').style.setProperty('height', document.querySelector('#mapContent').clientHeight + 'px');
+                document.querySelector('#mapContent').style.setProperty('pointer-events', 'none');
+
+                stmp.drawMode = true;
+
+                if (d3Canvas === null) {    // 새로운 시작
+                    d3Canvas = new SVGCanvas(options);
+                    stmp.d3Canvas = d3Canvas;
+                } else {                    // 편집 재시작
+                    if (stmp.editingToMoveMapYn) {
+                        mapMoveToEditing(stmp.d3Canvas);
+                    }
+                }
+            });
+
+            $(overlayModal).on('hide.bs.modal', function() {
+                stmp.drawMode = false;
+
+                document.querySelector('.sample-div').style.setProperty('pointer-events', 'none');
+                document.querySelector('#mapContent').style.removeProperty('pointer-events');
+
+                stmp.d3Canvas.closeCanvas();
+            });
 
             $('.map-item').click(function(e) {
                 let _id = e.target.id;
@@ -209,6 +243,12 @@
                 }
 
                 getMap(contentName);
+            });
+
+            $('#overlay_save').click(function() {
+                console.log('save');
+                debugger;
+                saveCanvasData(stmp.d3Canvas);
             });
         });
 

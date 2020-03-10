@@ -63,12 +63,26 @@ $('.scroller-left').click(function() {
 });
 
 // line click
-$('#overlay_line').click(function(e) {
-    console.log('Line');
-
+$('#draw_line').click(function(e) {
     if (d3Canvas === null) {
         d3Canvas = new SVGCanvas(options);
     }
 
     SelectedShape(d3Canvas, "line");
+});
+
+$('#draw_circle').click(function(e) {
+    if (d3Canvas === null) {
+        d3Canvas = new SVGCanvas(options);
+    }
+
+    SelectedShape(d3Canvas, 'circle');
+});
+
+$('#draw_point').click(function(e) {
+    if (d3Canvas === null) {
+        d3Canvas = new SVGCanvas(options);
+    }
+
+    SelectedShape(d3Canvas, 'point');
 });
