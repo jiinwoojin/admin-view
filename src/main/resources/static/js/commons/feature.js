@@ -504,7 +504,7 @@ Geometry.Polygon = function Polygon(coordinates) {
 		throw new Error('좌표값이 없습니다.');
 	}
 	if (!stmp.valid.polygon(coordinates)) {
-		throw new Error('Start 좌표와 End 좌표가 동일하지 않습니다.');
+		throw new Error('시작 좌표와 종료 좌표가 동일하지 않습니다.');
 	}
 
 	this.type = 'Polygon';
@@ -533,10 +533,10 @@ Geometry.MultiPolygon = function MultiPolygon() {
 
 Geometry.Circle = function Circle(center, radius, units) {
 	if (!center) {
-		throw new Error('중심 좌표 없음');
+		throw new Error('중심 좌표값이 없습니다.');
 	}
 	if (!radius) {
-		throw new Error('반지름 없음');
+		throw new Error('반지름 값이 없습니다.');
 	}
 	if (!units) {	// 반지름 단위
 		units = 'kilometers';
