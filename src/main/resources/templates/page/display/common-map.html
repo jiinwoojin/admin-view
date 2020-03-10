@@ -36,7 +36,7 @@
             </li>
         </ul>
 
-        <div class="sample-div" style="position: absolute; z-index: 999; display: none;"></div>
+        <div class="sample-div" style="position: absolute;"></div>
         <div class="tab-content" id="mapContent" style="width: 100%; height: 65vh;"></div>
 
         <div class="d-flex justify-content-between my-1">
@@ -132,6 +132,12 @@
                     <th:block th:replace="fragments/overlay/html-overlay-main" />
                 </div>
                 <div class="modal-footer">
+                    <button type="button" id="overlay_start" class="btn btn-sm btn-primary">
+                        <i class="fas fa-save"></i> 편집 시작
+                    </button>
+                    <button type="button" id="overlay_move" class="btn btn-sm btn-primary">
+                        <i class="fas fa-save"></i> 지도 이동
+                    </button>
                     <button type="button" id="overlay_save" class="btn btn-sm btn-primary">
                         <i class="fas fa-save"></i> 저장
                     </button>
@@ -155,6 +161,9 @@
         }
 
         let overlayModal = '#shape_modal';
+
+        var sampleDiv = document.querySelector('.sample-div');
+        var mapContent = document.querySelector('#mapContent');
 
         let d3Canvas = null;
         let comAttr = type_common;
@@ -196,29 +205,11 @@
             getMap('mapbox-display');
             $('#pills-display2d').addClass('active');
 
-            $(overlayModal).on('show.bs.modal', function (e) {
-                document.querySelector('.sample-div').style.setProperty('display', 'block');
-                document.querySelector('.sample-div').style.setProperty('width', document.querySelector('#mapContent').clientWidth + 'px');
-                document.querySelector('.sample-div').style.setProperty('height', document.querySelector('#mapContent').clientHeight + 'px');
-                document.querySelector('#mapContent').style.setProperty('pointer-events', 'none');
-
-                stmp.drawMode = true;
-
-                if (d3Canvas === null) {    // 새로운 시작
-                    d3Canvas = new SVGCanvas(options);
-                    stmp.d3Canvas = d3Canvas;
-                } else {                    // 편집 재시작
-                    if (stmp.editingToMoveMapYn) {
-                        mapMoveToEditing(stmp.d3Canvas);
-                    }
-                }
-            });
-
             $(overlayModal).on('hide.bs.modal', function() {
                 stmp.drawMode = false;
 
-                document.querySelector('.sample-div').style.setProperty('pointer-events', 'none');
-                document.querySelector('#mapContent').style.removeProperty('pointer-events');
+                sampleDiv.style.setProperty('pointer-events', 'none');
+                mapContent.style.removeProperty('pointer-events');
 
                 stmp.d3Canvas.closeCanvas();
             });
@@ -251,6 +242,33 @@
                 console.log('save');
                 debugger;
                 saveCanvasData(stmp.d3Canvas);
+            });
+
+            $('#overlay_move').click(function() {
+                stmp.drawMode = false;
+
+                sampleDiv.style.setProperty('pointer-events', 'none');
+                mapContent.style.removeProperty('pointer-events');
+
+                editingMoveMap(d3Canvas);
+            });
+
+            $('#overlay_start').click(function() {
+                sampleDiv.style.setProperty('z-index', 999);
+                sampleDiv.style.setProperty('width', document.querySelector('#mapContent').clientWidth + 'px');
+                sampleDiv.style.setProperty('height', document.querySelector('#mapContent').clientHeight + 'px');
+                mapContent.style.setProperty('pointer-events', 'none');
+
+                stmp.drawMode = true;
+
+                if (d3Canvas === null) {    // 새로운 시작
+                    d3Canvas = new SVGCanvas(options);
+                    stmp.d3Canvas = d3Canvas;
+                } else {                    // 편집 재시작
+                    if (stmp.editingToMoveMapYn) {
+                        mapMoveToEditing(stmp.d3Canvas);
+                    }
+                }
             });
         });
 

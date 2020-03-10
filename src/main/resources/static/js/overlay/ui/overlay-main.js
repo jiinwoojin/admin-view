@@ -62,6 +62,10 @@ $('.scroller-left').click(function() {
 });
 
 $('.btn-overlay').click(function() {
+    if (!stmp.drawMode) {
+        alert('편집 모드에서만 작동합니다.');
+        return;
+    }
     if (this.id) {
         var _id = this.id.split('_')[1];
 
