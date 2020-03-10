@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/overlay/overlay-main.css}">
+    <style type="text/css">
+        #generalShape_Div ul {
+            display: inline;
+        }
+
+        #generalShape_Div li {
+            display: inline-block;
+            padding: 3px 7px;
+            border: 1px solid #aaa;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-shape {
+            background-color: #898989;
+            color: white;
+        }
+
+        .btn-close {
+            padding: 3px 7px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-close:hover {
+            background-color: #d9534f;
+            color: white;
+        }
+    </style>
+</head>
+
+<body th:fragment="html-general-shape-main">
+<div id="shape_info" style="display: none;">
+    <div id="generalShape_viewer">
+        <div id="generalShape_Div">
+
+<!--            <ul class="list-unstyled list">-->
+<!--                &lt;!&ndash; 점 &ndash;&gt;-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="btn btn-shape btn-overlay" data-toggle="pill" data-placement="top" title="점" href="#overlay-point" role="tab" aria-controls="overlay-point" aria-selected="true">-->
+<!--                        <img width="25px" th:src="@{/img/shape/btn_point.png}" />-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash; 곡선 &ndash;&gt;-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="곡선" href="#overlay-curve" role="tab" aria-controls="overlay-curve" aria-selected="true">-->
+<!--                        <img width="25px" th:src="@{/img/shape/btn_curve.png}" />-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash; 곡선 면 &ndash;&gt;-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="곡선 면" href="#overlay-curve-polygon" role="tab" aria-controls="overlay-curve-polygon" aria-selected="true">-->
+<!--                        <img width="25px" th:src="@{/img/shape/btn_curve_polygon.png}" />-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash; 둥근 직사각형 &ndash;&gt;-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="둥근 직사각형" href="#overlay-circled-rectangle" role="tab" aria-controls="overlay-circled-rectangle" aria-selected="true">-->
+<!--                        <img width="25px" th:src="@{/img/shape/btn_circled_rectangle.png}" />-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash; 호 &ndash;&gt;-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="호" href="#overlay-arc" role="tab" aria-controls="overlay-arc" aria-selected="true">-->
+<!--                        <img width="25px" th:src="@{/img/shape/btn_arc.png}" />-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash; 활꼴 (현) &ndash;&gt;-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="현" href="#overlay-bow" role="tab" aria-controls="overlay-bow" aria-selected="true">-->
+<!--                        <img width="25px" th:src="@{/img/shape/btn_bow.png}" />-->
+<!--                    </a>-->
+<!--                </li>-->
+
+<!--                &lt;!&ndash; 부채꼴 (파이) &ndash;&gt;-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="btn-overlay nav-link" data-toggle="pill" data-placement="top" title="부채꼴" href="#overlay-pie" role="tab" aria-controls="overlay-pie" aria-selected="true">-->
+<!--                        <img width="25px" th:src="@{/img/shape/btn_pie.png}" />-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+
+            <ul class="list-unstyled">
+                <li id="Point" class="btn btn-shape" onclick="draw_shape(this);">
+                    <img width="25px" th:src="@{/img/shape/btn_point.png}" />
+                </li>
+                <li id="Circle" class="btn btn-shape" onclick="draw_shape(this);">
+                    <img width="25px" th:src="@{/img/shape/btn_circle.png}" />
+                </li>
+                <li id="Triangle" class="btn btn-shape" onclick="draw_shape(this);">
+                    <img width="25px" th:src="@{/img/shape/btn_triangle.png}" />
+                </li>
+                <li id="Square" class="btn btn-shape" onclick="draw_shape(this);">
+                    <img width="25px" th:src="@{/img/shape/btn_square.png}" />
+                </li>
+                <li id="Box" class="btn btn-shape" onclick="draw_shape(this);">
+                    <img width="25px" th:src="@{/img/shape/btn_rectangle.png}" />
+                </li>
+                <li id="CircledRectangle" class="btn btn-shape" onclick="draw_shape(this);">
+                    <img width="25px" th:src="@{/img/shape/btn_circled_rectangle.png}" />
+                </li>
+                <li id="Polygon" class="btn btn-shape" onclick="draw_shape(this);">
+                    <img width="25px" th:src="@{/img/shape/btn_polygon.png}" />
+                </li>
+                <li id="Line" class="btn btn-shape" onclick="draw_shape(this);">
+                    <img width="25px" th:src="@{/img/shape/btn_line.png}" />
+                </li>
+                <li id="LineString" class="btn btn-shape" onclick="draw_shape(this);">
+                    <img width="25px" th:src="@{/img/shape/btn_lines.png}" />
+                </li>
+                <li id="Text" class="btn btn-shape">
+                    <img width="25px" th:src="@{/img/shape/btn_text.png}" />
+                </li>
+                <li id="shape_style" class="btn btn-shape">
+                    <i class="fas fa-brush"></i>
+                </li>
+                <li id="shape_close" class="btn-close">
+                    <i class="fas fa-times-circle"></i>
+                </li>
+            </ul>
+            <div id="text_box" class="input-group" style="display: none;">
+                <input type="text" class="form-control" id="shapeText">
+                <span class="input-group-btn">
+                    <input type="button" class="btn btn-primary" onclick="setText();" value="적용">
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/overlay/ui/overlay-main.js}"></script>
+</body>
+</html>
