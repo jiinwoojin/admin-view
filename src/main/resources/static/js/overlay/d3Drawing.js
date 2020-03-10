@@ -1639,66 +1639,66 @@ SVGCanvas.prototype.makeAddRoundrect = function() {
     // Methods for adding rectangles to the svg.
     var self = this;
 
-    start = function() {
+    var start = function() {    // ohhk var 추가
         // 0. Get Id
-       self.Rect.id = idMaker(self,"rect");
-       var shapeId = self.Rect.id;
+        self.Rect.id = idMaker(self,"rect");
+        var shapeId = self.Rect.id;
 
-      // 1. Get mouse location in SVG
-      var m = self.mouseOffset();
-      self.Rect.x = m.x;
-      self.Rect.y = m.y;
+        // 1. Get mouse location in SVG
+        var m = self.mouseOffset();
+        self.Rect.x = m.x;
+        self.Rect.y = m.y;
 
-      // 2. Make a rectangle
-      self.Rect.g = self.svg
-        .append('g')
-        .attr('class', 'g-rect '+shapeId);
+        // 2. Make a rectangle
+        self.Rect.g = self.svg
+            .append('g')
+            .attr('class', 'g-rect '+shapeId);
 
-      // 3. Make a rectangle
-      self.Rect.r = self.Rect.g //self.zoomG
-        .append('rect') // An SVG element
-        .attr('x', self.Rect.x) // Position at mouse location
-        .attr('y', self.Rect.y)
-        .attr('width', 1) // Make it tiny
-        .attr('height', 1)
-        .attr('rx', 30)
-        .attr('ry', 30)
-        .attr('id', shapeId)
-        .style('stroke', comAttr.commonAttr.stroke)
-        .style('stroke-width', comAttr.commonAttr.strokeWidth)
-        .style('fill', comAttr.commonAttr.color)
-        .on("click",
+        // 3. Make a rectangle
+        self.Rect.r = self.Rect.g //self.zoomG
+            .append('rect') // An SVG element
+            .attr('x', self.Rect.x) // Position at mouse location
+            .attr('y', self.Rect.y)
+            .attr('width', 1) // Make it tiny
+            .attr('height', 1)
+            .attr('rx', 30)
+            .attr('ry', 30)
+            .attr('id', shapeId)
+            .style('stroke', comAttr.commonAttr.stroke)
+            .style('stroke-width', comAttr.commonAttr.strokeWidth)
+            .style('fill', comAttr.commonAttr.color)
+            .on("click",
                 function (d){
                     self.selectShape(shapeId);
                 }
             )
-        .on("contextmenu",
+            .on("contextmenu",
                 function (d){
                     //우클릭시 서브 메뉴바 띄우기 예제
                     d3.contextMenu(menu, self, shapeId);
                 }
             );
-    }
+    };
 
-    drag = function() {
-      // What to do when mouse is dragged
-      // 1. Get the new mouse position
-      var m = self.mouseOffset();
-      // 2. Update the attributes of the rectangle
-      self.Rect.r.attr('x', Math.min(self.Rect.x, m.x))
-        .attr('y', Math.min(self.Rect.y, m.y))
-        .attr('width', Math.abs(self.Rect.x - m.x))
-        .attr('height', Math.abs(self.Rect.y - m.y));
+    var drag = function() {     // ohhk var 추가
+                                // What to do when mouse is dragged
+                                // 1. Get the new mouse position
+        var m = self.mouseOffset();
+        // 2. Update the attributes of the rectangle
+        self.Rect.r.attr('x', Math.min(self.Rect.x, m.x))
+            .attr('y', Math.min(self.Rect.y, m.y))
+            .attr('width', Math.abs(self.Rect.x - m.x))
+            .attr('height', Math.abs(self.Rect.y - m.y));
 
-      self.Rect.x = Math.min(self.Rect.x, m.x);
-      self.Rect.y = Math.min(self.Rect.y, m.y);
-      self.Rect.width = Math.abs(self.Rect.x - m.x);
-      self.Rect.height =  Math.abs(self.Rect.y - m.y);
-      self.Rect.cx =  (self.Rect.x+self.Rect.width) / 2;
-      self.Rect.cy =  (self.Rect.y+self.Rect.height) / 2;
-    }
+        self.Rect.x = Math.min(self.Rect.x, m.x);
+        self.Rect.y = Math.min(self.Rect.y, m.y);
+        self.Rect.width = Math.abs(self.Rect.x - m.x);
+        self.Rect.height =  Math.abs(self.Rect.y - m.y);
+        self.Rect.cx =  (self.Rect.x+self.Rect.width) / 2;
+        self.Rect.cy =  (self.Rect.y+self.Rect.height) / 2;
+    };
 
-    end = function() {
+    var end = function() {      // ohhk var 추가
         // 1. Get the new mouse position
         var m = self.mouseOffset();
         // What to do on mouseup
@@ -1717,14 +1717,14 @@ SVGCanvas.prototype.makeAddRoundrect = function() {
 
         // Make it active.
         self.setActive(self.Rect.id);
-    }
+    };
 
     return {
-      start: start,
-      drag: drag,
-      end: end
+        start: start,
+        drag: drag,
+        end: end
     };
-  }
+  };
 
 SVGCanvas.prototype.keydownEventHandlers = function () {
   // Event handler for keydown events
@@ -1739,64 +1739,64 @@ SVGCanvas.prototype.makeAddRect = function() {
     // Methods for adding rectangles to the svg.
     var self = this;
 
-    start = function() {
+    var start = function() {        // ohhk var 추가
         // 0. Get Id
-       self.Rect.id = idMaker(self,"rect");
-       var shapeId = self.Rect.id;
+        self.Rect.id = idMaker(self,"rect");
+        var shapeId = self.Rect.id;
 
-      // 1. Get mouse location in SVG
-      var m = self.mouseOffset();
-      self.Rect.x = m.x;
-      self.Rect.y = m.y;
+        // 1. Get mouse location in SVG
+        var m = self.mouseOffset();
+        self.Rect.x = m.x;
+        self.Rect.y = m.y;
 
-      // 2. Make a rectangle
-      self.Rect.g = self.svg
-        .append('g')
-        .attr('class', 'g-rect '+shapeId);
+        // 2. Make a rectangle
+        self.Rect.g = self.svg
+            .append('g')
+            .attr('class', 'g-rect '+shapeId);
 
-      // 3. Make a rectangle
-      self.Rect.r = self.Rect.g //self.zoomG
-        .append('rect') // An SVG element
-        .attr('x', self.Rect.x) // Position at mouse location
-        .attr('y', self.Rect.y)
-        .attr('width', 1) // Make it tiny
-        .attr('height', 1)
-        .attr('id', shapeId)
-        .style('stroke', comAttr.commonAttr.stroke)
-        .style('stroke-width', comAttr.commonAttr.strokeWidth)
-        .style('fill', comAttr.commonAttr.color)
-        .on("click",
+        // 3. Make a rectangle
+        self.Rect.r = self.Rect.g //self.zoomG
+            .append('rect') // An SVG element
+            .attr('x', self.Rect.x) // Position at mouse location
+            .attr('y', self.Rect.y)
+            .attr('width', 1) // Make it tiny
+            .attr('height', 1)
+            .attr('id', shapeId)
+            .style('stroke', comAttr.commonAttr.stroke)
+            .style('stroke-width', comAttr.commonAttr.strokeWidth)
+            .style('fill', comAttr.commonAttr.color)
+            .on("click",
                 function (d){
                     self.selectShape(shapeId);
                 }
             )
-        .on("contextmenu",
+            .on("contextmenu",
                 function (d){
                     //우클릭시 서브 메뉴바 띄우기 예제
                     d3.contextMenu(menu, self, shapeId);
                 }
             );
-    }
+    };
 
-    drag = function() {
-      // What to do when mouse is dragged
-      // 1. Get the new mouse position
-      var m = self.mouseOffset();
-      // 2. Update the attributes of the rectangle
-      self.Rect.r.attr('x', Math.min(self.Rect.x, m.x))
-        .attr('y', Math.min(self.Rect.y, m.y))
-        .attr('width', Math.abs(self.Rect.x - m.x))
-        .attr('height', Math.abs(self.Rect.y - m.y));
+    var drag = function() {     // ohhk var 추가
+        // What to do when mouse is dragged
+        // 1. Get the new mouse position
+        var m = self.mouseOffset();
+        // 2. Update the attributes of the rectangle
+        self.Rect.r.attr('x', Math.min(self.Rect.x, m.x))
+            .attr('y', Math.min(self.Rect.y, m.y))
+            .attr('width', Math.abs(self.Rect.x - m.x))
+            .attr('height', Math.abs(self.Rect.y - m.y));
 
-      self.Rect.x = Math.min(self.Rect.x, m.x);
-      self.Rect.y = Math.min(self.Rect.y, m.y);
-      self.Rect.width = Math.abs(self.Rect.x - m.x);
-      self.Rect.height =  Math.abs(self.Rect.y - m.y);
-      self.Rect.cx =  (self.Rect.x+self.Rect.width) / 2;
-      self.Rect.cy =  (self.Rect.y+self.Rect.height) / 2;
-    }
+        self.Rect.x = Math.min(self.Rect.x, m.x);
+        self.Rect.y = Math.min(self.Rect.y, m.y);
+        self.Rect.width = Math.abs(self.Rect.x - m.x);
+        self.Rect.height =  Math.abs(self.Rect.y - m.y);
+        self.Rect.cx =  (self.Rect.x+self.Rect.width) / 2;
+        self.Rect.cy =  (self.Rect.y+self.Rect.height) / 2;
+    };
 
-    end = function() {
+    var end = function() {      // ohhk var 추가
         // 1. Get the new mouse position
         var m = self.mouseOffset();
         // What to do on mouseup
@@ -1815,123 +1815,123 @@ SVGCanvas.prototype.makeAddRect = function() {
 
         // Make it active.
         self.setActive(self.Rect.id);
-    }
+    };
 
     return {
-      start: start,
-      drag: drag,
-      end: end
+        start: start,
+        drag: drag,
+        end: end
     };
-  }
+  };
 
 //3.btn_icons5s-삼각형
 SVGCanvas.prototype.makeAddTriangle = function() {
-  // Methods for adding Triangle to the svg.
-  var self = this;
-  var startX = null;
-  var startY = null;
+    // Methods for adding Triangle to the svg.
+    var self = this;
+    var startX = null;
+    var startY = null;
 
-  start = function() {
-      // 0. Get Id
-      self.Triangle.id = idMaker(self,"triangle");
-      var shapeId = self.Triangle.id;
-    //Add a rectangle
-    // 1. Get mouse location in SVG
-    var m = self.mouseOffset();
-    startX = m.x;
-    startY = m.y;
-    // 2. Make a triangle
-    self.Triangle.r = self.svg //self.zoomG
-      .append('g')
-      .attr('class', 'g-triangle ' +shapeId )
-      .append('polygon') // An SVG `rect` element
-      .attr('points', startX+","+startY+" ") // Position at mouse location
-      .attr('id',self.Triangle.id)
-      .style('stroke', comAttr.commonAttr.stroke)
-      .style('stroke-width', comAttr.commonAttr.strokeWidth)
-      .style('fill', comAttr.commonAttr.color)
-      .on("click",
-              function (d){
-                  self.selectShape(shapeId);
-              }
-          )
-      .on("contextmenu",
-              function (d){
-                  //우클릭시 서브 메뉴바 띄우기 예제
-                  d3.contextMenu(menu, self, shapeId);
-              }
-          );
-  }
+    var start = function() {      // ohhk var 추가
+        // 0. Get Id
+        self.Triangle.id = idMaker(self,"triangle");
+        var shapeId = self.Triangle.id;
+        //Add a rectangle
+        // 1. Get mouse location in SVG
+        var m = self.mouseOffset();
+        startX = m.x;
+        startY = m.y;
+        // 2. Make a triangle
+        self.Triangle.r = self.svg //self.zoomG
+            .append('g')
+            .attr('class', 'g-triangle ' +shapeId )
+            .append('polygon') // An SVG `rect` element
+            .attr('points', startX+","+startY+" ") // Position at mouse location
+            .attr('id',self.Triangle.id)
+            .style('stroke', comAttr.commonAttr.stroke)
+            .style('stroke-width', comAttr.commonAttr.strokeWidth)
+            .style('fill', comAttr.commonAttr.color)
+            .on("click",
+                function (d){
+                    self.selectShape(shapeId);
+                }
+            )
+            .on("contextmenu",
+                function (d){
+                    //우클릭시 서브 메뉴바 띄우기 예제
+                    d3.contextMenu(menu, self, shapeId);
+                }
+            );
+    };
 
-  drag = function() {
-    // What to do when mouse is dragged
-    // 1. Get the new mouse position
-    var m = self.mouseOffset();
-    // 2. Update the attributes of the rectangle
-    var dist = Math.sqrt(
-      Math.pow(Math.abs(startX - m.x),2)
-    + Math.pow(Math.abs(startY - m.y),2)
-    );
+    var drag = function() {       // ohhk var 추가
+        // What to do when mouse is dragged
+        // 1. Get the new mouse position
+        var m = self.mouseOffset();
+        // 2. Update the attributes of the rectangle
+        var dist = Math.sqrt(
+            Math.pow(Math.abs(startX - m.x),2)
+            + Math.pow(Math.abs(startY - m.y),2)
+        );
 
-    self.Triangle.dist = dist;
+        self.Triangle.dist = dist;
 
-    // 셀렉터를 기준으로 좌표값을 미리 가지고있는다.
-    var nx = null;
-    var ny = null;
-    var swx = null;
-    var swy = null;
-    var sex = null;
-    var sey = null;
-    // 중심값 구하기
-    var centerX = nx;
-    var centerY = (ny+sey) / 2;
+        // 셀렉터를 기준으로 좌표값을 미리 가지고있는다.
+        var nx = null;
+        var ny = null;
+        var swx = null;
+        var swy = null;
+        var sex = null;
+        var sey = null;
+        // 중심값 구하기
+        var centerX = nx;
+        var centerY = (ny+sey) / 2;
 
-    nx    = startX;
-    ny    = startY-dist;
-    swx = startX-dist;
-    swy = startY;
-    sex = startX+dist;
-    sey = startY;
+        nx    = startX;
+        ny    = startY-dist;
+        swx = startX-dist;
+        swy = startY;
+        sex = startX+dist;
+        sey = startY;
 
-    var points = startX+","+(startY-dist)+" ";
+        var points = startX+","+(startY-dist)+" ";
         points += (startX-dist)+","+startY+" ";
         points += (startX+dist)+","+startY;
-    var r = self.Triangle.r.attr('points');
+        var r = self.Triangle.r.attr('points');
 
-    self.Triangle.r
-      .attr('points',points)
-      .style('stroke', comAttr.commonAttr.stroke)
-      .style('stroke-width', comAttr.commonAttr.strokeWidth)
-      .style('fill', comAttr.commonAttr.color);
+        self.Triangle.r
+            .attr('points',points)
+            .style('stroke', comAttr.commonAttr.stroke)
+            .style('stroke-width', comAttr.commonAttr.strokeWidth)
+            .style('fill', comAttr.commonAttr.color);
 
-    self.Triangle.points = points;
-    self.Triangle.nx    = nx  ;
-    self.Triangle.ny    = ny  ;
-    self.Triangle.swx  = swx ;
-    self.Triangle.swy  = swy ;
-    self.Triangle.sex  = sex ;
-    self.Triangle.sey  = sey ;
-    self.Triangle.cx  = centerX ;
-    self.Triangle.cy  = centerY ;
-  }
+        self.Triangle.points = points;
+        self.Triangle.nx    = nx  ;
+        self.Triangle.ny    = ny  ;
+        self.Triangle.swx  = swx ;
+        self.Triangle.swy  = swy ;
+        self.Triangle.sex  = sex ;
+        self.Triangle.sey  = sey ;
+        self.Triangle.cx  = centerX ;
+        self.Triangle.cy  = centerY ;
+    };
 
-  end = function() {
-      // 1. Get the new mouse position
-      var m = self.mouseOffset();
-      // What to do on mouseup
-      self.Shapes.shape[self.Triangle.id] =  self.Triangle;
-      comAttr.svgShapeNum.triangle += 1;
+    var end = function() {        // ohhk var 추가
+        // 1. Get the new mouse position
+        var m = self.mouseOffset();
+        // What to do on mouseup
+        self.Shapes.shape[self.Triangle.id] =  self.Triangle;
+        comAttr.svgShapeNum.triangle += 1;
 
-      // Make it active.
-      self.setActive(self.Triangle.id);
-  }
+        // Make it active.
+        self.setActive(self.Triangle.id);
+    };
 
-  return {
-    start: start,
-    drag: drag,
-    end: end
-  };
-}
+    return {
+        start: start,
+        drag: drag,
+        end: end
+    };
+};
 
 SVGCanvas.prototype.resizeTriangle = function( param ) {
     var self = this;
@@ -2261,6 +2261,9 @@ SVGCanvas.prototype.resizeCircle = function( param ) {
         var cx = setResultOjb.cx;
         var cy = setResultOjb.cy;
 
+        var distanceX;
+        var distanceY;
+
         // 정점별 계산 로직 선택
         // N으로 시작하는 애들은 삼각형의 가장 상위 좌표에 영향
         // S로 시작하는 애들은 하위 변의 좌표들에 영향
@@ -2268,28 +2271,28 @@ SVGCanvas.prototype.resizeCircle = function( param ) {
         if( posit === "nw" ){
             distanceX = Math.abs(cx - d.x);
             distanceY = Math.abs(cy - d.y);
-         } else if ( posit === "n" ) {
-             distanceX = Math.abs(cx - d.x);
-             distanceY = Math.abs(cy - d.y);
-         } else if ( posit === "ne" ) {
-             distanceX = Math.abs(d.x+d.w-cx);
-             distanceY = Math.abs(cy - d.y);
-         } else if ( posit === "w" ) {
-             distanceX = Math.abs(cx - d.x);
-             distanceY = Math.abs(cy - d.y);
-         } else if ( posit === "e" ) {
-             distanceX = Math.abs(d.x+d.w-cx);
-             distanceY = Math.abs(d.y+d.h-cy);
-         } else if ( posit === "sw" ) {
-             distanceX = Math.abs(cx - d.x);
-             distanceY = Math.abs(d.y+d.h-cy);
-         } else if ( posit === "s" ) {
-             distanceX = Math.abs(d.x+d.w-cx);
-             distanceY = Math.abs(d.y+d.h-cy);
-         } else if ( posit === "se" ) {
-             distanceX = Math.abs(d.x+d.w-cx);
-             distanceY = Math.abs(d.y+d.h-cy);
-         }
+        } else if ( posit === "n" ) {
+            distanceX = Math.abs(cx - d.x);
+            distanceY = Math.abs(cy - d.y);
+        } else if ( posit === "ne" ) {
+            distanceX = Math.abs(d.x+d.w-cx);
+            distanceY = Math.abs(cy - d.y);
+        } else if ( posit === "w" ) {
+            distanceX = Math.abs(cx - d.x);
+            distanceY = Math.abs(cy - d.y);
+        } else if ( posit === "e" ) {
+            distanceX = Math.abs(d.x+d.w-cx);
+            distanceY = Math.abs(d.y+d.h-cy);
+        } else if ( posit === "sw" ) {
+            distanceX = Math.abs(cx - d.x);
+            distanceY = Math.abs(d.y+d.h-cy);
+        } else if ( posit === "s" ) {
+            distanceX = Math.abs(d.x+d.w-cx);
+            distanceY = Math.abs(d.y+d.h-cy);
+        } else if ( posit === "se" ) {
+            distanceX = Math.abs(d.x+d.w-cx);
+            distanceY = Math.abs(d.y+d.h-cy);
+        }
 
         // 좌표 간의 거리를 구하는 공식 직각삼각형 빗변 계산 공식 (피타고라스 정리)
         var distance = Math.abs(Math.sqrt(Math.pow(Math.abs(distanceX),2)+Math.pow(Math.abs(distanceY),2)));
@@ -2298,8 +2301,8 @@ SVGCanvas.prototype.resizeCircle = function( param ) {
         var children = d3.selectAll('#' + shapeId);
 
         children.attr('cx', cx)
-        .attr('cy', cy)
-        .attr('r', distance);
+            .attr('cy', cy)
+            .attr('r', distance);
 
         //도형 및 셀렉터 갱신을 위한 결과 오브젝트
         setResultOjb.cx = cx;
@@ -2312,80 +2315,80 @@ SVGCanvas.prototype.resizeCircle = function( param ) {
     // Resize the rectangle by dragging the corners
     function getDragCorners() {
         return {
-          nw    : function (d, bb0, m) {
-            d.x = Math.max(0, Math.min(bb0.x + bb0.width, m.x));
-            d.y = Math.max(0, Math.min(bb0.y + bb0.height, m.y));
-            d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x + bb0.width - m.x)) : d.w;
-            d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y + bb0.height - m.y)) : d.h;
-          },
-          n     : function (d, bb0, m) {
-            d.y = Math.max(0, Math.min(bb0.y + bb0.height, m.y));
-            d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y + bb0.height - m.y)) : d.h;
-          },
-          ne    : function (d, bb0, m) {
-            d.x = Math.max(0, Math.min(bb0.x, m.x));
-            d.y = Math.max(0, Math.min(bb0.y + bb0.height, m.y));
-            d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x - m.x)) : d.w;
-            d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y + bb0.height - m.y)) : d.h;
-          },
-          w     : function (d, bb0, m) {
-            d.x = Math.max(0, Math.min(bb0.x + bb0.width, m.x));
-            d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x + bb0.width - m.x)) : d.w;
-          },
-          e     : function (d, bb0, m) {
-            d.x = Math.max(0, Math.min(bb0.x, m.x));
-            d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x - m.x)) : d.w;
-          },
-          sw    : function (d, bb0, m) {
-            d.x = Math.max(0, Math.min(bb0.x + bb0.width, m.x));
-            d.y = Math.max(0, Math.min(bb0.y, m.y));
-            d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x + bb0.width - m.x)) : d.w;
-            d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y - m.y)) : d.h;
-          },
-          s     : function (d, bb0, m) {
-            d.y = Math.max(0, Math.min(bb0.y, m.y));
-            d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y - m.y)) : d.h;
-          },
-          se    : function (d, bb0, m) {
-            d.x = Math.max(0, Math.min(bb0.x, m.x));
-            d.y = Math.max(0, Math.min(bb0.y, m.y));
-            d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x - m.x)) : d.w;
-            d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y - m.y)) : d.h;
-          }
+            nw    : function (d, bb0, m) {
+                d.x = Math.max(0, Math.min(bb0.x + bb0.width, m.x));
+                d.y = Math.max(0, Math.min(bb0.y + bb0.height, m.y));
+                d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x + bb0.width - m.x)) : d.w;
+                d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y + bb0.height - m.y)) : d.h;
+            },
+            n     : function (d, bb0, m) {
+                d.y = Math.max(0, Math.min(bb0.y + bb0.height, m.y));
+                d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y + bb0.height - m.y)) : d.h;
+            },
+            ne    : function (d, bb0, m) {
+                d.x = Math.max(0, Math.min(bb0.x, m.x));
+                d.y = Math.max(0, Math.min(bb0.y + bb0.height, m.y));
+                d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x - m.x)) : d.w;
+                d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y + bb0.height - m.y)) : d.h;
+            },
+            w     : function (d, bb0, m) {
+                d.x = Math.max(0, Math.min(bb0.x + bb0.width, m.x));
+                d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x + bb0.width - m.x)) : d.w;
+            },
+            e     : function (d, bb0, m) {
+                d.x = Math.max(0, Math.min(bb0.x, m.x));
+                d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x - m.x)) : d.w;
+            },
+            sw    : function (d, bb0, m) {
+                d.x = Math.max(0, Math.min(bb0.x + bb0.width, m.x));
+                d.y = Math.max(0, Math.min(bb0.y, m.y));
+                d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x + bb0.width - m.x)) : d.w;
+                d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y - m.y)) : d.h;
+            },
+            s     : function (d, bb0, m) {
+                d.y = Math.max(0, Math.min(bb0.y, m.y));
+                d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y - m.y)) : d.h;
+            },
+            se    : function (d, bb0, m) {
+                d.x = Math.max(0, Math.min(bb0.x, m.x));
+                d.y = Math.max(0, Math.min(bb0.y, m.y));
+                d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x - m.x)) : d.w;
+                d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y - m.y)) : d.h;
+            }
         };
-      }
+    }
 
-      var makeContainer = function ( paramOjb, shapeId, selectorInfo ) {
-          // Make a container, which depends on the corner (specified by `id`)
-          var dragCorners
-                   ,cursor  = null
-                   ,bb0 = null
-                   ,g = null
-                   ,posit = paramOjb.method.position;
-          var  resultOjb = {
-                  shapeOjb : null,
-                  reSelectorInfo : null,
-          };
+    var makeContainer = function ( paramOjb, shapeId, selectorInfo ) {
+        // Make a container, which depends on the corner (specified by `id`)
+        var dragCorners
+            ,cursor  = null
+            ,bb0 = null
+            ,g = null
+            ,posit = paramOjb.method.position;
+        var  resultOjb = {
+            shapeOjb : null,
+            reSelectorInfo : null,
+        };
 
-          var _selectorOjb = paramOjb;
-          var selectorId = selectorInfo.id;
-          var selectorGid = selectorInfo.gid;
-          var rBB = d3.selectAll("#"+shapeId).node().getBBox();
-          var sBB = d3.selectAll("#"+selectorId).node().getBBox();
-          var p = {
-              x: sBB.x,
-              y: sBB.y,
-              w: sBB.width,
-              h: sBB.height,
-          };
-          g = p;
+        var _selectorOjb = paramOjb;
+        var selectorId = selectorInfo.id;
+        var selectorGid = selectorInfo.gid;
+        var rBB = d3.selectAll("#"+shapeId).node().getBBox();
+        var sBB = d3.selectAll("#"+selectorId).node().getBBox();
+        var p = {
+            x: sBB.x,
+            y: sBB.y,
+            w: sBB.width,
+            h: sBB.height,
+        };
+        g = p;
 
         // Get the correct transformation function
         dragCorners = getDragCorners()[posit];
         var start = function () {
             //도형의 현재 좌표들 가지고 있기
             bb0 = rBB;
-        }
+        };
 
         var drag = function () {
             var m = d3Canvas.mouseOffset();
@@ -2394,7 +2397,7 @@ SVGCanvas.prototype.resizeCircle = function( param ) {
             // 위에서 계산된 값을 가지고 도형 및 셀렉터 다시 그리고 해당 데이터 가져오기
             resultOjb.shapeOjb = setCoordsData(g, shapeId, selectorInfo, posit);
             resultOjb.reSelectorInfo = self.tempSelectorDraw(g, shapeId, selectorInfo);
-        }
+        };
 
         var end = function () {
             //기존 셀렉터 삭제
@@ -2406,89 +2409,89 @@ SVGCanvas.prototype.resizeCircle = function( param ) {
             self.Shapes.shape[shapeId] =  resultOjb.shapeOjb;
             // Make it active.
             self.setActive(reSelOjb.shapeId);
-        }
+        };
 
         // return the drag container
         return d3.drag()
-          .on('start', start)
-          .on('drag', drag)
-          .on('end', end);
-      }
-      // Make drag containers for each
-      return {
+            .on('start', start)
+            .on('drag', drag)
+            .on('end', end);
+    }
+    // Make drag containers for each
+    return {
         makeContainer: makeContainer,
-      }
-}
+    }
+};
 
 //6.btn_icons7s-타원
 SVGCanvas.prototype.makeAddEllipse = function() {
     var self = this;
 
-    start = function() {
+    var start = function() {    // ohhk var
         // 0. Get Id
         self.Ellipse.id = idMaker(self,"ellipse");
         var shapeId = self.Ellipse.id;
 
-         var m = self.mouseOffset();
-         self.Ellipse.cx = m.x;
-         self.Ellipse.cy = m.y;
-         self.Ellipse.r = self.svg //self
-           .append('g')
-           .attr('class', 'g-ellipse ' + self.Ellipse.id)
-           .append('ellipse')
-           .attr('cx', self.Ellipse.cx) // Position at mouse location
-           .attr('cy', self.Ellipse.cy)
-           .attr('rx', 1)
-           .attr('ry', 1)
-           .attr('id',self.Ellipse.id)
-           .style('stroke', comAttr.commonAttr.stroke)
-           .style('stroke-width', comAttr.commonAttr.strokeWidth)
-           .style('fill', comAttr.commonAttr.color)
-           .on("click",
-                   function (d){
-                       self.selectShape(shapeId);
-                   }
-               )
-           .on("contextmenu",
-                   function (d){
-                       //우클릭시 서브 메뉴바 띄우기 예제
-                   d3.contextMenu(menu, self, shapeId);
-                   }
-               );
-    }
+        var m = self.mouseOffset();
+        self.Ellipse.cx = m.x;
+        self.Ellipse.cy = m.y;
+        self.Ellipse.r = self.svg //self
+            .append('g')
+            .attr('class', 'g-ellipse ' + self.Ellipse.id)
+            .append('ellipse')
+            .attr('cx', self.Ellipse.cx) // Position at mouse location
+            .attr('cy', self.Ellipse.cy)
+            .attr('rx', 1)
+            .attr('ry', 1)
+            .attr('id',self.Ellipse.id)
+            .style('stroke', comAttr.commonAttr.stroke)
+            .style('stroke-width', comAttr.commonAttr.strokeWidth)
+            .style('fill', comAttr.commonAttr.color)
+            .on("click",
+                function (d){
+                    self.selectShape(shapeId);
+                }
+            )
+            .on("contextmenu",
+                function (d){
+                    //우클릭시 서브 메뉴바 띄우기 예제
+                    d3.contextMenu(menu, self, shapeId);
+                }
+            );
+    };
 
-    drag = function() {
-         // What to do when mouse is dragged
-         // 1. Get the new mouse position
-         var m = self.mouseOffset();
+    var drag = function() {     // ohhk var
+        // What to do when mouse is dragged
+        // 1. Get the new mouse position
+        var m = self.mouseOffset();
 
-         var distanceX = self.Ellipse.cx - m.x;
-         var distanceY = self.Ellipse.cy - m.y;
+        var distanceX = self.Ellipse.cx - m.x;
+        var distanceY = self.Ellipse.cy - m.y;
 
-         self.Ellipse.rx = Math.abs(distanceX);
-         self.Ellipse.ry = Math.abs(distanceY);
+        self.Ellipse.rx = Math.abs(distanceX);
+        self.Ellipse.ry = Math.abs(distanceY);
 
-         if( distanceX == 0 ){
-             distanceX = 1;
-         }
+        if( distanceX === 0 ){
+            distanceX = 1;
+        }
 
-         if( distanceY == 0 ){
-             distanceY = 1;
-         }
+        if( distanceY === 0 ){
+            distanceY = 1;
+        }
 
-         // 2. Update the attributes of the Ellipse
-         self.Ellipse.r.attr('cx', Math.min(self.Ellipse.cx, m.x))
-           .attr('cy', Math.min(self.Ellipse.cy, m.y))
-           .attr('rx', Math.abs(distanceX))
-           .attr('ry', Math.abs(distanceY));
+        // 2. Update the attributes of the Ellipse
+        self.Ellipse.r.attr('cx', Math.min(self.Ellipse.cx, m.x))
+            .attr('cy', Math.min(self.Ellipse.cy, m.y))
+            .attr('rx', Math.abs(distanceX))
+            .attr('ry', Math.abs(distanceY));
 
-         self.Ellipse.cx = Math.min(self.Ellipse.cx, m.x);
-         self.Ellipse.cy = Math.min(self.Ellipse.cy, m.y);
-         self.Ellipse.rx = Math.abs(distanceX);
-         self.Ellipse.ry = Math.abs(distanceY);
-    }
+        self.Ellipse.cx = Math.min(self.Ellipse.cx, m.x);
+        self.Ellipse.cy = Math.min(self.Ellipse.cy, m.y);
+        self.Ellipse.rx = Math.abs(distanceX);
+        self.Ellipse.ry = Math.abs(distanceY);
+    };
 
-    end = function() {
+    var end = function() {      // ohhk var
         // 1. Get the new mouse position
         var m = self.mouseOffset();
 
@@ -2498,14 +2501,14 @@ SVGCanvas.prototype.makeAddEllipse = function() {
 
         // Make it active.
         self.setActive(self.Ellipse.id);
-    }
+    };
 
     return {
-         start: start,
-         drag: drag,
-         end: end
+        start: start,
+        drag: drag,
+        end: end
     };
-}
+};
 
 SVGCanvas.prototype.resizeEllipse = function( param ) {
     var self = this;
@@ -2736,56 +2739,56 @@ SVGCanvas.prototype.resizeEllipse = function( param ) {
 
 //7.btn_icons8s-호
 SVGCanvas.prototype.makeAddArc = function() {
-  var self = this;
+    var self = this;
 
-  start = function() {
-      // 0. Get Id
-      self.Arc.id = idMaker(self,"arc");
-      var shapeId = self.Arc.id;
+    var start = function() {      // ohhk var 추가
+        // 0. Get Id
+        self.Arc.id = idMaker(self,"arc");
+        var shapeId = self.Arc.id;
 
-       var m = self.mouseOffset();
-       self.Arc.x1 = m.x;
-       self.Arc.y1 = m.y;
-       self.Arc.r = self.svg //self.
-         .append('g')
-         .attr('class', 'g-arc ' + self.Arc.id)
-         .append('path')
-         .attr('id',self.Arc.id);
-  }
+        var m = self.mouseOffset();
+        self.Arc.x1 = m.x;
+        self.Arc.y1 = m.y;
+        self.Arc.r = self.svg //self.
+            .append('g')
+            .attr('class', 'g-arc ' + self.Arc.id)
+            .append('path')
+            .attr('id',self.Arc.id);
+    };
 
-  drag = function() {
-   // What to do when mouse is dragged
-   // 1. Get the new mouse position
-   var m = self.mouseOffset();
+    var drag = function() {       // ohhk var 추가
+        // What to do when mouse is dragged
+        // 1. Get the new mouse position
+        var m = self.mouseOffset();
 
-   self.Arc.x1 = self.Arc.x1;
-   self.Arc.y1 = self.Arc.y1;
-   self.Arc.x2 = m.x;
-   self.Arc.y2 = m.y;
+        self.Arc.x1 = self.Arc.x1;
+        self.Arc.y1 = self.Arc.y1;
+        self.Arc.x2 = m.x;
+        self.Arc.y2 = m.y;
 
-   makeD = "M "+self.Arc.x1+" "+self.Arc.y1+" "+ self.Arc.x2 + " "+self.Arc.y2;
-   self.Arc.d = makeD;
+        var makeD = "M "+self.Arc.x1+" "+self.Arc.y1+" "+ self.Arc.x2 + " "+self.Arc.y2;
+        self.Arc.d = makeD;
 
-   // 2. Update the attributes of the Ellipse
-       self.Arc.r.attr('d', makeD)
-       .style('stroke', comAttr.commonAttr.stroke)
-       .style('stroke-width', comAttr.commonAttr.strokeWidth)
-       .style('fill', comAttr.commonAttr.color)
-  }
+        // 2. Update the attributes of the Ellipse
+        self.Arc.r.attr('d', makeD)
+            .style('stroke', comAttr.commonAttr.stroke)
+            .style('stroke-width', comAttr.commonAttr.strokeWidth)
+            .style('fill', comAttr.commonAttr.color)
+    };
 
-  end = function() {
-      makeAngle(self, "a",  self.Arc.x1,  self.Arc.y1,  self.Arc.x2,  self.Arc.y2 );
+    var end = function() {        // ohhk var 추가
+        makeAngle(self, "a",  self.Arc.x1,  self.Arc.y1,  self.Arc.x2,  self.Arc.y2 );
 
-      self.Shapes.shape[self.Arc.id] =  self.Arc;
-      comAttr.svgShapeNum.arc += 1;
-  }
+        self.Shapes.shape[self.Arc.id] =  self.Arc;
+        comAttr.svgShapeNum.arc += 1;
+    };
 
-  return {
-   start: start,
-   drag: drag,
-   end: end
-  };
-}
+    return {
+        start: start,
+        drag: drag,
+        end: end
+    };
+};
 
 // 호 그릴때 각도 조절  (각도를 만들 제 3의 점의 좌표를 선택시 곡선 그리기)
 function makeAngle(self, id, a, b, c, d){
@@ -2809,7 +2812,7 @@ function makeAngle(self, id, a, b, c, d){
             .style('fill', comAttr.commonAttr.color)
         })
         .on('end', function(){
-            self.Shapes.push(self.Arc);
+            self.Shapes.shape.push(self.Arc);   // ohhk shape 추가
         })
     )
     return;
@@ -2824,78 +2827,78 @@ SVGCanvas.prototype.makeAddPie = function() {
     var point3 = null;
     var point4 = null;
 
-    start = function() {
+    var start = function() {    // ohhk var
         // 0. Get Id
         self.Pie.id = idMaker(self,"pie");
         var shapeId = self.Pie.id;
-       // 1. Get mouse location in SVG
-       var m = self.mouseOffset();
-       self.Pie.x1 = m.x;
-       self.Pie.y1 = m.y;
+        // 1. Get mouse location in SVG
+        var m = self.mouseOffset();
+        self.Pie.x1 = m.x;
+        self.Pie.y1 = m.y;
 
-       // 2. Make a rectangle
-       self.Pie.r = self.svg //self.zoomG
-         .append('g')
-         .attr('class', 'g-pie ' + self.Pie.id)
-         .append('path') // An SVG element
-         .attr('id',self.Pie.id)
-        .style('stroke', comAttr.commonAttr.stroke)
-        .style('stroke-width', comAttr.commonAttr.strokeWidth)
-        .style('fill', comAttr.commonAttr.color)
-        .on("click",
+        // 2. Make a rectangle
+        self.Pie.r = self.svg //self.zoomG
+            .append('g')
+            .attr('class', 'g-pie ' + self.Pie.id)
+            .append('path') // An SVG element
+            .attr('id',self.Pie.id)
+            .style('stroke', comAttr.commonAttr.stroke)
+            .style('stroke-width', comAttr.commonAttr.strokeWidth)
+            .style('fill', comAttr.commonAttr.color)
+            .on("click",
                 function (d){
                     self.selectShape(shapeId);
                 }
             )
-        .on("contextmenu",
+            .on("contextmenu",
                 function (d){
                     //우클릭시 서브 메뉴바 띄우기 예제
-                d3.contextMenu(menu, self, shapeId);
+                    d3.contextMenu(menu, self, shapeId);
                 }
             );
-     }
+    };
 
-    drag = function() {
-           // What to do when mouse is dragged
-           // 1. Get the new mouse position
-           var m = self.mouseOffset();
+    var drag = function() {     // ohhk var
+        // What to do when mouse is dragged
+        // 1. Get the new mouse position
+        var m = self.mouseOffset();
 
-           var distanceX = Math.abs(self.Pie.x1 - m.x);
-           var distanceY = Math.abs(self.Pie.y1 - m.y);
-           /*사용 좌표 (x1, y1) 중심좌표 */
-           var x1  = self.Pie.x1;
-           var y1  = self.Pie.y1;
-           var x0  = x1 - Math.abs(distanceX);
-           var x2  = x1 + Math.abs(distanceX);
-           var y0  = y1 - Math.abs(distanceY);
-           var y2  = y1 + Math.abs(distanceY);
+        var distanceX = Math.abs(self.Pie.x1 - m.x);
+        var distanceY = Math.abs(self.Pie.y1 - m.y);
+        /*사용 좌표 (x1, y1) 중심좌표 */
+        var x1  = self.Pie.x1;
+        var y1  = self.Pie.y1;
+        var x0  = x1 - Math.abs(distanceX);
+        var x2  = x1 + Math.abs(distanceX);
+        var y0  = y1 - Math.abs(distanceY);
+        var y2  = y1 + Math.abs(distanceY);
 
-           var top     = x1 + " " + y0;
-           var middle  = x1 + " " + y1;
-           var bottom  = x1 + " " + y2;
-           var left    = x0 + " " + y1;
-           var right   = x2 + " " + y1;
+        var top     = x1 + " " + y0;
+        var middle  = x1 + " " + y1;
+        var bottom  = x1 + " " + y2;
+        var left    = x0 + " " + y1;
+        var right   = x2 + " " + y1;
 
-           // 2. Update the attributes of the Line
-           var makeD = "M "+left+
-           " C "+left+" "+x0+" "+y0+" "+ top+
-           " C "+top+" "+x2+" "+y0+" "+ right+
-           " L "+right+" "+ bottom+
-           " Z ";
-           self.Pie.d = makeD;
-           self.Pie.r.attr('d', makeD);
+        // 2. Update the attributes of the Line
+        var makeD = "M "+left+
+            " C "+left+" "+x0+" "+y0+" "+ top+
+            " C "+top+" "+x2+" "+y0+" "+ right+
+            " L "+right+" "+ bottom+
+            " Z ";
+        self.Pie.d = makeD;
+        self.Pie.r.attr('d', makeD);
 
-           self.Pie.top        =    top;
-           self.Pie.middle  =   middle;
-           self.Pie.bottom  =   bottom;
-           self.Pie.left         =   left;
-           self.Pie.right      =   right;
-           self.Pie.d           =   makeD;
-           self.Pie.cx      =   x1;
-           self.Pie.cy      =   y1;
-     }
+        self.Pie.top        =    top;
+        self.Pie.middle  =   middle;
+        self.Pie.bottom  =   bottom;
+        self.Pie.left         =   left;
+        self.Pie.right      =   right;
+        self.Pie.d           =   makeD;
+        self.Pie.cx      =   x1;
+        self.Pie.cy      =   y1;
+    };
 
-    end = function() {
+    var end = function() {      // ohhk var
         // 1. Get the new mouse position
         var m = self.mouseOffset();
         // What to do on mouseup
@@ -2904,14 +2907,14 @@ SVGCanvas.prototype.makeAddPie = function() {
 
         // Make it active.
         self.setActive(self.Pie.id);
-    }
+    };
 
     return {
-       start: start,
-       drag: drag,
-       end: end
+        start: start,
+        drag: drag,
+        end: end
     };
-}
+};
 
 SVGCanvas.prototype.resizePie = function( param ) {
     var self = this;
@@ -2928,9 +2931,9 @@ SVGCanvas.prototype.resizePie = function( param ) {
         // N으로 시작하는 애들은 삼각형의 가장 상위 좌표에 영향
         // S로 시작하는 애들은 하위 변의 좌표들에 영향
         // E를 포함하면 오른쪽 끝점, W를 포함하면 왼쪽 끝점
-       if( posit === "nw" ){
-           distanceX = Math.abs(cx - d.x);
-           distanceY = Math.abs(cy - d.y);
+        if( posit === "nw" ){
+            distanceX = Math.abs(cx - d.x);
+            distanceY = Math.abs(cy - d.y);
         } else if ( posit === "n" ) {
             distanceX = Math.abs(cx - d.x);
             distanceY = Math.abs(cy - d.y);
@@ -2955,24 +2958,24 @@ SVGCanvas.prototype.resizePie = function( param ) {
         }
 
         // 2. Update the attributes of the shape
-       var x1  = parseInt(cx);
-       var y1  = parseInt(cy);
-       var x0  = x1 - Math.abs(distanceX);
-       var x2  = x1 + Math.abs(distanceX);
-       var y0  = y1 - Math.abs(distanceY);
-       var y2  = y1 + Math.abs(distanceY);
+        var x1  = parseInt(cx);
+        var y1  = parseInt(cy);
+        var x0  = x1 - Math.abs(distanceX);
+        var x2  = x1 + Math.abs(distanceX);
+        var y0  = y1 - Math.abs(distanceY);
+        var y2  = y1 + Math.abs(distanceY);
 
-       var top     = x1 + " " + y0;
-       var middle  = x1 + " " + y1;
-       var bottom  = x1 + " " + y2;
-       var left    = x0 + " " + y1;
-       var right   = x2 + " " + y1;
+        var top     = x1 + " " + y0;
+        var middle  = x1 + " " + y1;
+        var bottom  = x1 + " " + y2;
+        var left    = x0 + " " + y1;
+        var right   = x2 + " " + y1;
 
-       var makeD = "M "+left+
-       " C "+left+" "+x0+" "+y0+" "+ top+
-       " C "+top+" "+x2+" "+y0+" "+ right+
-       " L "+right+" "+ bottom+
-       " Z ";
+        var makeD = "M "+left+
+            " C "+left+" "+x0+" "+y0+" "+ top+
+            " C "+top+" "+x2+" "+y0+" "+ right+
+            " L "+right+" "+ bottom+
+            " Z ";
 
         // Set the coordinates of shape
         var children = d3.selectAll('#' + shapeId);
@@ -2994,80 +2997,80 @@ SVGCanvas.prototype.resizePie = function( param ) {
     // Resize the rectangle by dragging the corners
     function getDragCorners() {
         return {
-          nw    : function (d, bb0, m) {
-            d.x = Math.max(0, Math.min(bb0.x + bb0.width, m.x));
-            d.y = Math.max(0, Math.min(bb0.y + bb0.height, m.y));
-            d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x + bb0.width - m.x)) : d.w;
-            d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y + bb0.height - m.y)) : d.h;
-          },
-          n     : function (d, bb0, m) {
-            d.y = Math.max(0, Math.min(bb0.y + bb0.height, m.y));
-            d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y + bb0.height - m.y)) : d.h;
-          },
-          ne    : function (d, bb0, m) {
-            d.x = Math.max(0, Math.min(bb0.x, m.x));
-            d.y = Math.max(0, Math.min(bb0.y + bb0.height, m.y));
-            d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x - m.x)) : d.w;
-            d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y + bb0.height - m.y)) : d.h;
-          },
-          w     : function (d, bb0, m) {
-            d.x = Math.max(0, Math.min(bb0.x + bb0.width, m.x));
-            d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x + bb0.width - m.x)) : d.w;
-          },
-          e     : function (d, bb0, m) {
-            d.x = Math.max(0, Math.min(bb0.x, m.x));
-            d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x - m.x)) : d.w;
-          },
-          sw    : function (d, bb0, m) {
-            d.x = Math.max(0, Math.min(bb0.x + bb0.width, m.x));
-            d.y = Math.max(0, Math.min(bb0.y, m.y));
-            d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x + bb0.width - m.x)) : d.w;
-            d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y - m.y)) : d.h;
-          },
-          s     : function (d, bb0, m) {
-            d.y = Math.max(0, Math.min(bb0.y, m.y));
-            d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y - m.y)) : d.h;
-          },
-          se    : function (d, bb0, m) {
-            d.x = Math.max(0, Math.min(bb0.x, m.x));
-            d.y = Math.max(0, Math.min(bb0.y, m.y));
-            d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x - m.x)) : d.w;
-            d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y - m.y)) : d.h;
-          }
+            nw    : function (d, bb0, m) {
+                d.x = Math.max(0, Math.min(bb0.x + bb0.width, m.x));
+                d.y = Math.max(0, Math.min(bb0.y + bb0.height, m.y));
+                d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x + bb0.width - m.x)) : d.w;
+                d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y + bb0.height - m.y)) : d.h;
+            },
+            n     : function (d, bb0, m) {
+                d.y = Math.max(0, Math.min(bb0.y + bb0.height, m.y));
+                d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y + bb0.height - m.y)) : d.h;
+            },
+            ne    : function (d, bb0, m) {
+                d.x = Math.max(0, Math.min(bb0.x, m.x));
+                d.y = Math.max(0, Math.min(bb0.y + bb0.height, m.y));
+                d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x - m.x)) : d.w;
+                d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y + bb0.height - m.y)) : d.h;
+            },
+            w     : function (d, bb0, m) {
+                d.x = Math.max(0, Math.min(bb0.x + bb0.width, m.x));
+                d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x + bb0.width - m.x)) : d.w;
+            },
+            e     : function (d, bb0, m) {
+                d.x = Math.max(0, Math.min(bb0.x, m.x));
+                d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x - m.x)) : d.w;
+            },
+            sw    : function (d, bb0, m) {
+                d.x = Math.max(0, Math.min(bb0.x + bb0.width, m.x));
+                d.y = Math.max(0, Math.min(bb0.y, m.y));
+                d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x + bb0.width - m.x)) : d.w;
+                d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y - m.y)) : d.h;
+            },
+            s     : function (d, bb0, m) {
+                d.y = Math.max(0, Math.min(bb0.y, m.y));
+                d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y - m.y)) : d.h;
+            },
+            se    : function (d, bb0, m) {
+                d.x = Math.max(0, Math.min(bb0.x, m.x));
+                d.y = Math.max(0, Math.min(bb0.y, m.y));
+                d.w = (m.x > 0) ? Math.min(Math.abs(self.options.w - d.x), Math.abs(bb0.x - m.x)) : d.w;
+                d.h = (m.y > 0) ? Math.min(Math.abs(self.options.h - d.y), Math.abs(bb0.y - m.y)) : d.h;
+            }
         };
-      }
+    }
 
-      var makeContainer = function ( paramOjb, shapeId, selectorInfo ) {
-          // Make a container, which depends on the corner (specified by `id`)
-          var dragCorners
-                   ,cursor  = null
-                   ,bb0 = null
-                   ,g = null
-                   ,posit = paramOjb.method.position;
-          var  resultOjb = {
-                  shapeOjb : null,
-                  reSelectorInfo : null,
-          };
+    var makeContainer = function ( paramOjb, shapeId, selectorInfo ) {
+        // Make a container, which depends on the corner (specified by `id`)
+        var dragCorners
+            ,cursor  = null
+            ,bb0 = null
+            ,g = null
+            ,posit = paramOjb.method.position;
+        var  resultOjb = {
+            shapeOjb : null,
+            reSelectorInfo : null,
+        };
 
-          var _selectorOjb = paramOjb;
-          var selectorId = selectorInfo.id;
-          var selectorGid = selectorInfo.gid;
-          var rBB = d3.selectAll("#"+shapeId).node().getBBox();
-          var sBB = d3.selectAll("#"+selectorId).node().getBBox();
-          var p = {
-              x: sBB.x,
-              y: sBB.y,
-              w: sBB.width,
-              h: sBB.height,
-          };
-          g = p;
+        var _selectorOjb = paramOjb;
+        var selectorId = selectorInfo.id;
+        var selectorGid = selectorInfo.gid;
+        var rBB = d3.selectAll("#"+shapeId).node().getBBox();
+        var sBB = d3.selectAll("#"+selectorId).node().getBBox();
+        var p = {
+            x: sBB.x,
+            y: sBB.y,
+            w: sBB.width,
+            h: sBB.height,
+        };
+        g = p;
 
         // Get the correct transformation function
         dragCorners = getDragCorners()[posit];
         var start = function () {
             //도형의 현재 좌표들 가지고 있기
             bb0 = rBB;
-        }
+        };
 
         var drag = function () {
             var m = d3Canvas.mouseOffset();
@@ -3076,7 +3079,7 @@ SVGCanvas.prototype.resizePie = function( param ) {
             // 위에서 계산된 값을 가지고 도형 및 셀렉터 다시 그리고 해당 데이터 가져오기
             resultOjb.shapeOjb = setCoordsData(g, shapeId, selectorInfo, posit);
             resultOjb.reSelectorInfo = self.tempSelectorDraw(g, shapeId, selectorInfo);
-        }
+        };
 
         var end = function () {
             //기존 셀렉터 삭제
@@ -3088,115 +3091,115 @@ SVGCanvas.prototype.resizePie = function( param ) {
             self.Shapes.shape[shapeId] =  resultOjb.shapeOjb;
             // Make it active.
             self.setActive(reSelOjb.shapeId);
-        }
+        };
 
         // return the drag container
         return d3.drag()
-          .on('start', start)
-          .on('drag', drag)
-          .on('end', end);
-      }
-      // Make drag containers for each
-      return {
+            .on('start', start)
+            .on('drag', drag)
+            .on('end', end);
+    }
+    // Make drag containers for each
+    return {
         makeContainer: makeContainer,
-      }
-}
+    }
+};
 
 //9.btn_icons10s-육각형
 SVGCanvas.prototype.makeAddHexagon = function() {
     var self = this;
 
-    start = function() {
-            // 0. Get Id
-            self.Hexagon.id = idMaker(self,"hexagon");
-            var shapeId = self.Hexagon.id;
-           // 1. Get mouse location in SVG
-           var m = self.mouseOffset();
-           self.Hexagon.cx = m.x;
-           self.Hexagon.cy = m.y;
-           // 2. Make a rectangle
-           self.Hexagon.r = self.svg //self.zoomG
-             .append('g')
-             .attr('class', 'g-hexagon ' + self.Hexagon.id)
-             .append('polygon') // An SVG element
-             .attr('id',self.Hexagon.id)
-             .style('stroke', comAttr.commonAttr.stroke)
-             .style('stroke-width', comAttr.commonAttr.strokeWidth)
-             .style('fill', comAttr.commonAttr.color)
-             .on("click",
-                     function (d){
-                         self.selectShape(shapeId);
-                     }
-                 )
-             .on("contextmenu",
-                     function (d){
-                         //우클릭시 서브 메뉴바 띄우기 예제
-                     d3.contextMenu(menu, self, shapeId);
-                     }
-                 );
-     }
+    var start = function() {        // ohhk var
+        // 0. Get Id
+        self.Hexagon.id = idMaker(self,"hexagon");
+        var shapeId = self.Hexagon.id;
+        // 1. Get mouse location in SVG
+        var m = self.mouseOffset();
+        self.Hexagon.cx = m.x;
+        self.Hexagon.cy = m.y;
+        // 2. Make a rectangle
+        self.Hexagon.r = self.svg //self.zoomG
+            .append('g')
+            .attr('class', 'g-hexagon ' + self.Hexagon.id)
+            .append('polygon') // An SVG element
+            .attr('id',self.Hexagon.id)
+            .style('stroke', comAttr.commonAttr.stroke)
+            .style('stroke-width', comAttr.commonAttr.strokeWidth)
+            .style('fill', comAttr.commonAttr.color)
+            .on("click",
+                function (d){
+                    self.selectShape(shapeId);
+                }
+            )
+            .on("contextmenu",
+                function (d){
+                    //우클릭시 서브 메뉴바 띄우기 예제
+                    d3.contextMenu(menu, self, shapeId);
+                }
+            );
+    };
 
-    drag = function() {
-           // What to do when mouse is dragged
-           // 1. Get the new mouse position
-           var m = self.mouseOffset();
+    var drag = function() {         // ohhk var
+        // What to do when mouse is dragged
+        // 1. Get the new mouse position
+        var m = self.mouseOffset();
 
-           var distanceX = Math.abs(self.Hexagon.cx - m.x);
-           var distanceY = Math.abs(self.Hexagon.cy - m.y);
-           // 좌표 간의 거리를 구하는 공식 직각삼각형 빗변 계산 공식 (피타고라스 정리)
-           var cr = Math.abs(Math.sqrt(Math.pow(Math.abs(distanceX),2)+Math.pow(Math.abs(distanceY),2)));
-           var startX = Math.sqrt((2 * cr * cr),2);
-           var disX = startX / 2
+        var distanceX = Math.abs(self.Hexagon.cx - m.x);
+        var distanceY = Math.abs(self.Hexagon.cy - m.y);
+        // 좌표 간의 거리를 구하는 공식 직각삼각형 빗변 계산 공식 (피타고라스 정리)
+        var cr = Math.abs(Math.sqrt(Math.pow(Math.abs(distanceX),2)+Math.pow(Math.abs(distanceY),2)));
+        var startX = Math.sqrt((2 * cr * cr),2);
+        var disX = startX / 2
 
-           /*사용 좌표 중심좌표 */
-           var x0  = self.Hexagon.cx - startX ;
-           var x1  = x0 + disX;
-           var x2  = x1 + disX;
-           var x3  = x2 + disX;
-           var y0  = self.Hexagon.cy - distanceY;
-           var y1  = self.Hexagon.cy;
-           var y2  = y1+distanceY;
+        /*사용 좌표 중심좌표 */
+        var x0  = self.Hexagon.cx - startX ;
+        var x1  = x0 + disX;
+        var x2  = x1 + disX;
+        var x3  = x2 + disX;
+        var y0  = self.Hexagon.cy - distanceY;
+        var y1  = self.Hexagon.cy;
+        var y2  = y1+distanceY;
 
-           var top1     = x1 + "," + y2 + " ";
-           var top2     = x2 + "," + y2 + " ";
-           var bottom1  = x1 + "," + y0 + " ";
-           var bottom2  = x2 + "," + y0 + " ";
-           var left     = x0 + "," + y1 + " ";
-           var right    = x3 + "," + y1 + " ";
+        var top1     = x1 + "," + y2 + " ";
+        var top2     = x2 + "," + y2 + " ";
+        var bottom1  = x1 + "," + y0 + " ";
+        var bottom2  = x2 + "," + y0 + " ";
+        var left     = x0 + "," + y1 + " ";
+        var right    = x3 + "," + y1 + " ";
 
-           // 2. Update the attributes of the Points
-           var makeP = left + top1 + top2 + right + bottom2 + bottom1;
-           self.Hexagon.r.attr('points', makeP);
+        // 2. Update the attributes of the Points
+        var makeP = left + top1 + top2 + right + bottom2 + bottom1;
+        self.Hexagon.r.attr('points', makeP);
 
-           self.Hexagon.points   = makeP;
-           self.Hexagon.cx      = self.Hexagon.cx;
-           self.Hexagon.cy      = self.Hexagon.cy;
-           self.Hexagon.top2      = top2;
-           self.Hexagon.top1      = top1;
-           self.Hexagon.bottom1  = bottom1;
-           self.Hexagon.bottom2  = bottom2;
-           self.Hexagon.left         = left;
-           self.Hexagon.right      = right;
-     }
+        self.Hexagon.points   = makeP;
+        self.Hexagon.cx      = self.Hexagon.cx;
+        self.Hexagon.cy      = self.Hexagon.cy;
+        self.Hexagon.top2      = top2;
+        self.Hexagon.top1      = top1;
+        self.Hexagon.bottom1  = bottom1;
+        self.Hexagon.bottom2  = bottom2;
+        self.Hexagon.left         = left;
+        self.Hexagon.right      = right;
+    };
 
-    end = function() {
-            // 1. Get the new mouse position
-            var m = self.mouseOffset();
+    var end = function() {      // ohhk var
+        // 1. Get the new mouse position
+        var m = self.mouseOffset();
 
-            // What to do on mouseup
-            self.Shapes.shape[self.Hexagon.id] =  self.Hexagon;
-            comAttr.svgShapeNum.hexagon += 1;
+        // What to do on mouseup
+        self.Shapes.shape[self.Hexagon.id] =  self.Hexagon;
+        comAttr.svgShapeNum.hexagon += 1;
 
-            // Make it active.
-            self.setActive(self.Hexagon.id);
-    }
+        // Make it active.
+        self.setActive(self.Hexagon.id);
+    };
 
     return {
-           start: start,
-           drag: drag,
-           end: end
+        start: start,
+        drag: drag,
+        end: end
     };
-}
+};
 
 
 //10.btn_icons11s-점 생성
@@ -3288,6 +3291,9 @@ SVGCanvas.prototype.resizeHexagon = function( param ) {
         /*중심좌표*/
         var cx = setResultOjb.cx;
         var cy = setResultOjb.cy;
+
+        var distanceX;
+        var distanceY;
 
         // 정점별 계산 로직 선택
         // N으로 시작하는 애들은 삼각형의 가장 상위 좌표에 영향
@@ -3475,128 +3481,128 @@ SVGCanvas.prototype.resizeHexagon = function( param ) {
 
 //10.btn_icons11s-Text
 SVGCanvas.prototype.makeAddText = function() {
-  var self = this;
+    var self = this;
 
-  start = function() {
-      var m = self.mouseOffset();
-      var x = m.x;
-      var y = m.y;
-      var id = idMaker(self,"text");
-      var inputbox ="<input type='text' id='"+id+"' style='width: 100px; height: 20px;'>";
-/*
-      var inputbox = "<foreignObject x='"+x+"' y='"+y+"' width='100' height='20'" +
-          " transform='translate(0,0)' style='overflow: visible;'>" +
-          "<input type='text' id='"+id+"' style='width: 100px; height: 20px;'></foreignObject>";*/
-      self.Text.r= self.svg
-      .append("g")
-      .append("foreignObject")
-      .attr("x",x)
-      .attr("y",y)
-      .attr("width","100px")
-      .attr("height","20px")
-      .style("overflow","visible")
-      .html(inputbox);
+    var start = function() {      // ohhk var
+        var m = self.mouseOffset();
+        var x = m.x;
+        var y = m.y;
+        var id = idMaker(self,"text");
+        var inputbox ="<input type='text' id='"+id+"' style='width: 100px; height: 20px;'>";
+        /*
+              var inputbox = "<foreignObject x='"+x+"' y='"+y+"' width='100' height='20'" +
+                  " transform='translate(0,0)' style='overflow: visible;'>" +
+                  "<input type='text' id='"+id+"' style='width: 100px; height: 20px;'></foreignObject>";*/
+        self.Text.r= self.svg
+            .append("g")
+            .append("foreignObject")
+            .attr("x",x)
+            .attr("y",y)
+            .attr("width","100px")
+            .attr("height","20px")
+            .style("overflow","visible")
+            .html(inputbox);
 
-      focus(id);
- }
+        focus(id);
+    };
 
-  focus = function( objId ){
-      document.getElementById(objId).focus();
-  }
+    focus = function( objId ){
+        document.getElementById(objId).focus();
+    };
 
-  return {
-      start: start
-  };
-}
+    return {
+        start: start
+    };
+};
 
 //20.btn_icons24s-이미지
 SVGCanvas.prototype.makeAddImage = function() {
     var self = this;
 
-    start = function() {
-         var m = self.mouseOffset();
-         self.Image.r = self.svg //self.
-           .append('g')
-           .append('image')
-           .attr('x', m.x) // Position at mouse location
-           .attr('y', m.y)
-           .text("image")
-           .attr('xlink:href',self.Image.href);
-    }
+    var start = function() {        // ohhk var
+        var m = self.mouseOffset();
+        self.Image.r = self.svg //self.
+            .append('g')
+            .append('image')
+            .attr('x', m.x) // Position at mouse location
+            .attr('y', m.y)
+            .text("image")
+            .attr('xlink:href',self.Image.href);
+    };
 
-    drag = function() {
-     // What to do when mouse is dragged
-     // 1. Get the new mouse position
-     var m = self.mouseOffset();
+    var drag = function() {         // ohhk var
+        // What to do when mouse is dragged
+        // 1. Get the new mouse position
+        var m = self.mouseOffset();
 
 
-     // 2. Update the attributes of the Ellipse
-     self.Image.r.attr('x', m.x)
-       .attr('y', m.y)
-       .style('stroke', comAttr.commonAttr.stroke)
-       .style('stroke-width', comAttr.commonAttr.strokeWidth)
-       .style('fill', comAttr.commonAttr.color);
-    }
+        // 2. Update the attributes of the Ellipse
+        self.Image.r.attr('x', m.x)
+            .attr('y', m.y)
+            .style('stroke', comAttr.commonAttr.stroke)
+            .style('stroke-width', comAttr.commonAttr.strokeWidth)
+            .style('fill', comAttr.commonAttr.color);
+    };
 
-    end = function() {
-         // What to do on mouseup
-         self.Shapes.push(self.Image);
-    }
+    var end = function() {          // ohhk var
+        // What to do on mouseup
+        self.Shapes.push(self.Image);
+    };
 
     return {
-         start: start,
-         drag: drag,
-         end: end
+        start: start,
+        drag: drag,
+        end: end
     };
-}
+};
 
 //@@@ 미니 맵용 영역 그리기(rect)
 SVGCanvas.prototype.makeMiniMapRect = function() {
- // Methods for adding rectangles to the svg.
- var self = this;
- var x0, y0;
+    // Methods for adding rectangles to the svg.
+    var self = this;
+    var x0, y0;
 
- start = function() {
-   self.svg.selectAll('g').remove();
-   //Add a rectangle
-   // 1. Get mouse location in SVG
-   var m = self.mouseOffset();
-   self.mapRect.x0 = m.x;
-   self.mapRect.y0 = m.y;
+    var start = function() {       // ohhk var
+        self.svg.selectAll('g').remove();
+        //Add a rectangle
+        // 1. Get mouse location in SVG
+        var m = self.mouseOffset();
+        self.mapRect.x0 = m.x;
+        self.mapRect.y0 = m.y;
 
-   // 3. Make a rectangle
-   self.mapRect.r = self.svg //self.
-     .append('g')
-     .append('rect') // An SVG element
-     .attr('x', self.mapRect.x0) // Position at mouse location
-     .attr('y', self.mapRect.y0)
-     .attr('width', 1) // Make it tiny
-     .attr('height', 1)
-     .style('stroke', "black")
-     .style('stroke-width', "2")
-     .style('fill', "none");
- }
+        // 3. Make a rectangle
+        self.mapRect.r = self.svg //self.
+            .append('g')
+            .append('rect') // An SVG element
+            .attr('x', self.mapRect.x0) // Position at mouse location
+            .attr('y', self.mapRect.y0)
+            .attr('width', 1) // Make it tiny
+            .attr('height', 1)
+            .style('stroke', "black")
+            .style('stroke-width', "2")
+            .style('fill', "none");
+    };
 
- drag = function() {
-   var m = self.mouseOffset();
-   // 2. Update the attributes of the rectangle
-   self.mapRect.r.attr('x', Math.min(self.mapRect.x0, m.x))
-     .attr('y', Math.min(self.mapRect.y0, m.y))
-     .attr('width', Math.abs(self.mapRect.x0 - m.x))
-     .attr('height', Math.abs(self.mapRect.y0 - m.y));
- }
+    var drag = function() {        // ohhk var
+        var m = self.mouseOffset();
+        // 2. Update the attributes of the rectangle
+        self.mapRect.r.attr('x', Math.min(self.mapRect.x0, m.x))
+            .attr('y', Math.min(self.mapRect.y0, m.y))
+            .attr('width', Math.abs(self.mapRect.x0 - m.x))
+            .attr('height', Math.abs(self.mapRect.y0 - m.y));
+    };
 
- end = function() {
-     // What to do on mouseup
-     self.Shapes.push(self.mapRect);
- }
+    var end = function() {         // ohhk var
+        // What to do on mouseup
+        self.Shapes.push(self.mapRect);
+    };
 
- return {
-   start: start,
-   drag: drag,
-   end: end
- };
-}
+    return {
+        start: start,
+        drag: drag,
+        end: end
+    };
+};
 
 //임시 삭제예정
 SVGCanvas.prototype.selectorMode = function() {
@@ -3604,23 +3610,23 @@ SVGCanvas.prototype.selectorMode = function() {
     var self = this;
     var x0, y0;
 
-    this.start = function() {
+    var start = function() {
         var m = self.mouseOffset();
     };
 
-    this.drag = function() {
+    var drag = function() {
         var m = self.mouseOffset();
     };
 
-    this.end = function() {
+    var end = function() {
     };
 
     return {
-     start: this.start,
-     drag: this.drag,
-     end: this.end
+     start: start,
+     drag: drag,
+     end: end
     };
-}
+};
 
 // SVGCanvas에 작도 메소드 연결(그리기 타입별)
 function SelectedShape(canvasId, shape, imageUrl) {
@@ -3751,10 +3757,8 @@ function SelectedShape(canvasId, shape, imageUrl) {
           'id': null,
           'attr': null,
           'distance': null,
-          'id': null,
-          'geo': null,
-          'attr': null,
-        };
+          'geo': null
+        };  // id, attr 중복으로 삭제  ohhk
 
         canvasId.svg.call(d3.drag().on('start',canvasId.addCircle.start).on('drag',canvasId.addCircle.drag).on('end',canvasId.addCircle.end));
     }
@@ -4087,69 +4091,70 @@ SVGCanvas.prototype.updateAttrObj = function(id, attrNm, value) {
 
 //마커 생성 메소드
 SVGCanvas.prototype.makeMarker = function(d, markerCol, shapeId, reverseYn) {
-  var self = this;
-  var markerId = shapeId+'_'+idMaker(self,"marker")+'_'+d.id;
-  var drefX = "0";
+    var self = this;
+    var markerId = shapeId+'_'+idMaker(self,"marker")+'_'+d.id;
+    var drefX = "0";
 
-  /* 예외처리
-   * 1) fill = none 이 필수인 마커에서만 사용
-   * - 사각형 채움(lineCapRectangle_F)
-     - 원채움(lineCapCircle_F)
-     - 마름모 채움(lineCapDiamond_F)
-     2) 원 처리 할경우 refX = -2.5 값 넣어야함
-     - 원(lineCapCircle)
-  */
-  //fill = none 처리변수
-  var fillYn = false;
-  if( d.id === "lineCapRectangle" || d.id === "lineCapCircle" || d.id === "lineCapDiamond"  ){
-      fillYn = true;
-  }
+    /* 예외처리
+     * 1) fill = none 이 필수인 마커에서만 사용
+     * - 사각형 채움(lineCapRectangle_F)
+       - 원채움(lineCapCircle_F)
+       - 마름모 채움(lineCapDiamond_F)
+       2) 원 처리 할경우 refX = -2.5 값 넣어야함
+       - 원(lineCapCircle)
+    */
+    //fill = none 처리변수
+    var fillYn = false;
+    if( d.id === "lineCapRectangle" || d.id === "lineCapCircle" || d.id === "lineCapDiamond"  ){
+        fillYn = true;
+    }
 
-  //원 예외처리 변수
-  if( d.id === "lineCapCircle"){
-      drefX = "-2.5";
-  }
+    //원 예외처리 변수
+    if( d.id === "lineCapCircle"){
+        drefX = "-2.5";
+    }
 
-  if( reverseYn === "Y" ){
-      orient = "auto-start-reverse";
-  } else {
-      orient = "auto";
-  }
+    var orient;
+    if( reverseYn === "Y" ){
+        orient = "auto-start-reverse";
+    } else {
+        orient = "auto";
+    }
 
-  if( fillYn ){
-      this.svg.select('defs')
-      .append('svg:marker')
-      .attr('id', markerId)
-      .attr('markerWidth', 10)
-      .attr('markerHeight', d.height)
-      .attr('markerUnits', 'strokeWidth')
-      .attr('orient',  orient)
-      .attr('refX', drefX)
-      .attr('refY', 0)
-      .attr('viewBox', d.viewbox)
-      .append('svg:path')
-      .attr('d', d.path)
-      .attr('fill', "none")
-      .attr('stroke', markerCol);
-  } else {
-      this.svg.select('defs')
-      .append('svg:marker')
-      .attr('id', markerId)
-      .attr('markerWidth', 10)
-      .attr('markerHeight', d.height)
-      .attr('markerUnits', 'strokeWidth')
-      .attr('orient',  orient)
-      .attr('refX', 0)
-      .attr('refY', 0)
-      .attr('viewBox', d.viewbox)
-      .append('svg:path')
-      .attr('d', d.path)
-      .attr('fill', markerCol);
-  }
+    if( fillYn ){
+        this.svg.select('defs')
+            .append('svg:marker')
+            .attr('id', markerId)
+            .attr('markerWidth', 10)
+            .attr('markerHeight', d.height)
+            .attr('markerUnits', 'strokeWidth')
+            .attr('orient',  orient)
+            .attr('refX', drefX)
+            .attr('refY', 0)
+            .attr('viewBox', d.viewbox)
+            .append('svg:path')
+            .attr('d', d.path)
+            .attr('fill', "none")
+            .attr('stroke', markerCol);
+    } else {
+        this.svg.select('defs')
+            .append('svg:marker')
+            .attr('id', markerId)
+            .attr('markerWidth', 10)
+            .attr('markerHeight', d.height)
+            .attr('markerUnits', 'strokeWidth')
+            .attr('orient',  orient)
+            .attr('refX', 0)
+            .attr('refY', 0)
+            .attr('viewBox', d.viewbox)
+            .append('svg:path')
+            .attr('d', d.path)
+            .attr('fill', markerCol);
+    }
 
-  comAttr.svgShapeNum.marker += 1;
-  return markerId;
-}
+    comAttr.svgShapeNum.marker += 1;
+    return markerId;
+};
 
 //속성 저장 메소드
 SVGCanvas.prototype.saveAttrObj = function(id, paramOjbj) {
@@ -4204,6 +4209,7 @@ SVGCanvas.prototype.hatchSelect = function ( shapeId, hatchOjb ) {
     var hatchForeCol = null;
     var hatchBackCol = null;
     var hatchId = null;
+    var hatchIdMod = null;      // 변수 추가
 
     hatchCode = hatchOjb.hs;
     hatchForeCol = hatchOjb.fg;
@@ -4222,7 +4228,7 @@ SVGCanvas.prototype.hatchSelect = function ( shapeId, hatchOjb ) {
     self.svg.selectAll('defs').selectAll('#'+patternId).selectAll('rect').attr("fill",hatchBackCol);
     //패턴 적용
     //self.svg.selectAll('#'+shapeId).attr("fill",hatchIdForm);
-}
+};
 
 
 function patternCanvas(options) {
@@ -4288,9 +4294,9 @@ patternCanvas.prototype.hatchInit = function () {
             .attr('patternUnits', 'userSpaceOnUse')
             .attr('width', '10')
             .attr('height', '10')
-            .html(function(d){ return d.pattern})
+            .html(function(d){ return d.pattern});
     return 0;
-}
+};
 
 patternCanvas.prototype.hatchSelect = function ( svgId , hatchOjb ) {
     console.log('음영 선택');
@@ -4302,6 +4308,7 @@ patternCanvas.prototype.hatchSelect = function ( svgId , hatchOjb ) {
     var hatchForeCol = null;
     var hatchBackCol = null;
     var hatchId = null;
+    var hatchIdMod = null;
 
     hatchCode = hatchOjb.hs;
     hatchForeCol = hatchOjb.fg;
@@ -4329,7 +4336,7 @@ patternCanvas.prototype.hatchSelect = function ( svgId , hatchOjb ) {
         //패턴 적용
         self.svg.selectAll('#patternModify').attr("fill",hatchIdModForm);
     }
-}
+};
 
 function selectedPatternCanvas(options) {
   // An SVG-based drawing
@@ -4565,7 +4572,7 @@ SVGCanvas.prototype.addShapePaste = function( paramOjb, copyHtmlOjb, shapeId, mo
     var cx = null;
     var cy = null;
 
-    start = function() {
+    var start = function() {        // ohhk var
         var m = self.mouseOffset();
         shapeType = numberRemove(shapeId);
         //shapeId 변경_새로 만든 id로
@@ -4601,9 +4608,9 @@ SVGCanvas.prototype.addShapePaste = function( paramOjb, copyHtmlOjb, shapeId, mo
         //copyHtmlOjb.selectAll("#"+shapeId).attr("transform", "translate(10,10)").attr("id",newShapeId).style("display",null);
 
         copyHtmlOjb.selectAll("#"+shapeId).attr("transform", attrTransformStart).attr("id",newShapeId).style("display",null);
-    }
+    };
 
-    drag = function() {
+    var drag = function() {         // ohhk var
         var m = self.mouseOffset();
 
         distX = m.x - cx;
@@ -4616,12 +4623,12 @@ SVGCanvas.prototype.addShapePaste = function( paramOjb, copyHtmlOjb, shapeId, mo
         var attrTransform = self.updateTransForm( shapeId, 'translate', attrTranslate);
 
         copyHtmlOjb.selectAll("#"+newShapeId).attr("transform", attrTransform)
-        .on("click",
+            .on("click",
                 function (d){
                     self.selectShape(newShapeId);
                 }
             )
-        .on("contextmenu",
+            .on("contextmenu",
                 function (d){
                     //우클릭시 서브 메뉴바 띄우기 예제
                     d3.contextMenu(menu, self, newShapeId);
@@ -4631,9 +4638,9 @@ SVGCanvas.prototype.addShapePaste = function( paramOjb, copyHtmlOjb, shapeId, mo
         //상위 g 의 클래스명 변경
         var fistClass = d3Canvas.svg.selectAll("#"+newShapeId).node().parentNode.classList[0];
         d3Canvas.svg.selectAll("#"+newShapeId).node().parentNode.classList.value = fistClass +" "+ newShapeId;
-    }
+    };
 
-    end = function() {
+    var end = function() {          // ohhk var
         var m = self.mouseOffset();
         _shapeOjb.id = newShapeId;
         _shapeOjb.cx = m.x;
@@ -4644,14 +4651,14 @@ SVGCanvas.prototype.addShapePaste = function( paramOjb, copyHtmlOjb, shapeId, mo
         comAttr.svgShapeNum[shapeType] += 1;
 
         self.setActive(newShapeId);
-    }
+    };
 
     return {
-         start: start,
-         drag: drag,
-         end: end
+        start: start,
+        drag: drag,
+        end: end
     };
-}
+};
 
 // transForm 처리 함수 ( 회전 및 이동 정보를 받아와서 업데이트 해주는 기능)
 SVGCanvas.prototype.updateTransForm = function( shapeId, updateKind, updateInfo ) {
@@ -5303,8 +5310,8 @@ SVGCanvas.prototype.centerMoveReDraw = function( shapeId,  shapeSelection, cente
     // 타입별 모양
     if( shapeType === "circle" || shapeType === "ellipse" ){
         shapeSelection
-                .attr("cx", Math.round(cx))
-                .attr("cy", Math.round(cy));
+            .attr("cx", Math.round(cx))
+            .attr("cy", Math.round(cy));
     } else if ( shapeType === "rect" || shapeType === "roundrect" ) {
         shapeSelection
             .attr("x", Math.round(x1))
@@ -5314,6 +5321,11 @@ SVGCanvas.prototype.centerMoveReDraw = function( shapeId,  shapeSelection, cente
         var s2 = shapeSelection.property('x2').animVal.value;
         var d1 = shapeSelection.property('y1').animVal.value;
         var d2 = shapeSelection.property('y2').animVal.value;
+
+        var dx1;
+        var dy1;
+        var dx2;
+        var dy2;
 
         // LINE Case (화살표)
         if( d1 < d2 ){
@@ -5349,10 +5361,10 @@ SVGCanvas.prototype.centerMoveReDraw = function( shapeId,  shapeSelection, cente
         }
 
         shapeSelection
-        .attr("x1", dx1)
-        .attr("y1", dy1)
-        .attr("x2", dx2)
-        .attr("y2", dy2);
+            .attr("x1", dx1)
+            .attr("y1", dy1)
+            .attr("x2", dx2)
+            .attr("y2", dy2);
     } else if(  shapeType === "triangle"  ) {
         var nx = cx;
         var ny = y1;
@@ -5362,8 +5374,8 @@ SVGCanvas.prototype.centerMoveReDraw = function( shapeId,  shapeSelection, cente
         var sey = y2;
 
         var points = nx + "," + ny + " "+
-        swx + "," + swy + " "+
-        sex + "," + sey + " ";
+            swx + "," + swy + " "+
+            sex + "," + sey + " ";
 
         shapeSelection.attr('points', points);
     } else if(  shapeType === "pie"  ) {
@@ -5371,58 +5383,58 @@ SVGCanvas.prototype.centerMoveReDraw = function( shapeId,  shapeSelection, cente
         var distanceX = disX;
         var distanceY =  disY;
 
-       var x1  = cx;
-       var y1  = cy;
+        var x1  = cx;
+        var y1  = cy;
 
-       var x0  = x1 - Math.abs(distanceX);
-       var x2  = x1 + Math.abs(distanceX);
-       var y0  = y1 - Math.abs(distanceY);
-       var y2  = y1 + Math.abs(distanceY);
+        var x0  = x1 - Math.abs(distanceX);
+        var x2  = x1 + Math.abs(distanceX);
+        var y0  = y1 - Math.abs(distanceY);
+        var y2  = y1 + Math.abs(distanceY);
 
-       var top     = x1 + " " + y0;
-       var middle  = x1 + " " + y1;
-       var bottom  = x1 + " " + y2;
-       var left    = x0 + " " + y1;
-       var right   = x2 + " " + y1;
+        var top     = x1 + " " + y0;
+        var middle  = x1 + " " + y1;
+        var bottom  = x1 + " " + y2;
+        var left    = x0 + " " + y1;
+        var right   = x2 + " " + y1;
 
-       var makeD = "M "+left+
-       " C "+left+" "+x0+" "+y0+" "+ top+
-       " C "+top+" "+x2+" "+y0+" "+ right+
-       " L "+right+" "+ bottom+
-       " Z ";
+        var makeD = "M "+left+
+            " C "+left+" "+x0+" "+y0+" "+ top+
+            " C "+top+" "+x2+" "+y0+" "+ right+
+            " L "+right+" "+ bottom+
+            " Z ";
 
         // Set the coordinates of shape
-       shapeSelection.attr('d', makeD);
+        shapeSelection.attr('d', makeD);
     } else if(  shapeType === "hexagon"  ) {
         /*중심좌표*/
         var distanceX = disX;
         var distanceY =  disY;
 
-       // 좌표 간의 거리를 구하는 공식 직각삼각형 빗변 계산 공식 (피타고라스 정리)
-       var cr = Math.abs(Math.sqrt(Math.pow(Math.abs(distanceX),2)+Math.pow(Math.abs(distanceY),2)));
-       var startX = Math.sqrt((2 * cr * cr),2);
-       var disX = startX / 2
+        // 좌표 간의 거리를 구하는 공식 직각삼각형 빗변 계산 공식 (피타고라스 정리)
+        var cr = Math.abs(Math.sqrt(Math.pow(Math.abs(distanceX),2)+Math.pow(Math.abs(distanceY),2)));
+        var startX = Math.sqrt((2 * cr * cr),2);
+        var disX = startX / 2
 
-       /*사용 좌표 중심좌표 */
-       var x0  = cx - startX;
-       var x1  = x0 + disX;
-       var x2  = x1 + disX;
-       var x3  = x2 + disX;
-       var y0  = cy - distanceY;
-       var y1  = cy;
-       var y2  = y1+distanceY;
+        /*사용 좌표 중심좌표 */
+        var x0  = cx - startX;
+        var x1  = x0 + disX;
+        var x2  = x1 + disX;
+        var x3  = x2 + disX;
+        var y0  = cy - distanceY;
+        var y1  = cy;
+        var y2  = y1+distanceY;
 
-       var top1     = x1 + "," + y2 + " ";
-       var top2     = x2 + "," + y2 + " ";
-       var bottom1  = x1 + "," + y0 + " ";
-       var bottom2  = x2 + "," + y0 + " ";
-       var left     = x0 + "," + y1 + " ";
-       var right    = x3 + "," + y1 + " ";
+        var top1     = x1 + "," + y2 + " ";
+        var top2     = x2 + "," + y2 + " ";
+        var bottom1  = x1 + "," + y0 + " ";
+        var bottom2  = x2 + "," + y0 + " ";
+        var left     = x0 + "," + y1 + " ";
+        var right    = x3 + "," + y1 + " ";
 
-       // 2. Update the attributes of the Points
-       var makeP = left + top1 + top2 + right + bottom2 + bottom1;
+        // 2. Update the attributes of the Points
+        var makeP = left + top1 + top2 + right + bottom2 + bottom1;
 
-       shapeSelection.attr('points', makeP);
+        shapeSelection.attr('points', makeP);
     } else if(  shapeType === "milsymbol"  ) {
         shapeSelection
             .attr("x", Math.round(x1))
@@ -5443,7 +5455,7 @@ SVGCanvas.prototype.centerMoveReDraw = function( shapeId,  shapeSelection, cente
         makeRotateForm = tempInfo[0] + ','+cx+','+cy+')';
         shapeSelection.attr('transform', makeRotateForm);
     }
-}
+};
 
 /* 현재까지 모든 작업 저장 (dma_insertInfoOvlay, data:json,dma_ovlayDrawData)
  * 1) 현재 캔버스에 그려진 모든 정보를 객체화 하여 전달

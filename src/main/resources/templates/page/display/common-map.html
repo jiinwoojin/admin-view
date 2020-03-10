@@ -224,25 +224,27 @@
             });
 
             $('.map-item').click(function(e) {
-                let _id = e.target.id;
+                if (this.id) {
+                    let _id = this.id;
 
-                let contentName;
+                    let contentName;
 
-                if (_id === 'pills-display2d') {
-                    contentName = 'mapbox-display';
-                    $('#pills-display3d').removeClass('active');
-                    $('#pills-display2d').addClass('active');
-                } else if (_id === 'pills-display3d') {
-                    contentName = 'cs-display';
-                    $('#pills-display2d').removeClass('active');
-                    $('#pills-display3d').addClass('active');
+                    if (_id === 'pills-display2d') {
+                        contentName = 'mapbox-display';
+                        $('#pills-display3d').removeClass('active');
+                        $('#pills-display2d').addClass('active');
+                    } else if (_id === 'pills-display3d') {
+                        contentName = 'cs-display';
+                        $('#pills-display2d').removeClass('active');
+                        $('#pills-display3d').addClass('active');
+                    }
+
+                    if (stmp.mapObject !== null) {
+                        stmp.mapObject = null;
+                    }
+
+                    getMap(contentName);
                 }
-
-                if (stmp.mapObject !== null) {
-                    stmp.mapObject = null;
-                }
-
-                getMap(contentName);
             });
 
             $('#overlay_save').click(function() {

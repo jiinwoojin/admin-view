@@ -1,4 +1,3 @@
-var hidWidth;
 var scrollBarWidths = 40;
 
 var widthOfList = function(){
@@ -12,7 +11,7 @@ var widthOfList = function(){
 };
 
 var widthOfHidden = function(){
-    return (($('.wrapper').outerWidth())-widthOfList()-getLeftPosi())-scrollBarWidths;
+    return (($('.wrapper').outerWidth()) - widthOfList() - getLeftPosi()) - scrollBarWidths;
 };
 
 var getLeftPosi = function(){
@@ -27,18 +26,18 @@ var reAdjust = function(){
         $('.scroller-right').hide();
     }
 
-    if (getLeftPosi()<0) {
+    if (getLeftPosi() < 0) {
         $('.scroller-left').show();
     }
     else {
-        $('.item').animate({left:"-="+getLeftPosi()+"px"},'slow');
+        $('.item').animate({left:"-="+getLeftPosi() + "px"},'slow');
         $('.scroller-left').hide();
     }
-}
+};
 
 reAdjust();
 
-$(window).on('resize',function(e){
+$(window).on('resize', function(){
     reAdjust();
 });
 
@@ -47,7 +46,7 @@ $('.scroller-right').click(function() {
     $('.scroller-left').fadeIn('slow');
     $('.scroller-right').fadeOut('slow');
 
-    $('.list').animate({left:"+="+widthOfHidden()+"px"},'slow',function(){
+    $('.list').animate({left: "+=" + widthOfHidden() + "px"},'slow',function() {
 
     });
 });
@@ -57,32 +56,19 @@ $('.scroller-left').click(function() {
     $('.scroller-right').fadeIn('slow');
     $('.scroller-left').fadeOut('slow');
 
-    $('.list').animate({left:"-="+getLeftPosi()+"px"},'slow',function(){
+    $('.list').animate({left: "-=" + getLeftPosi() + "px"},'slow',function() {
 
     });
 });
 
-// line click
-$('#draw_line').click(function(e) {
-    if (d3Canvas === null) {
-        d3Canvas = new SVGCanvas(options);
+$('.btn-overlay').click(function() {
+    if (this.id) {
+        var _id = this.id.split('_')[1];
+
+        if (d3Canvas === null) {
+            d3Canvas = new SVGCanvas(options);
+        }
+
+        SelectedShape(d3Canvas, _id);
     }
-
-    SelectedShape(d3Canvas, "line");
-});
-
-$('#draw_circle').click(function(e) {
-    if (d3Canvas === null) {
-        d3Canvas = new SVGCanvas(options);
-    }
-
-    SelectedShape(d3Canvas, 'circle');
-});
-
-$('#draw_point').click(function(e) {
-    if (d3Canvas === null) {
-        d3Canvas = new SVGCanvas(options);
-    }
-
-    SelectedShape(d3Canvas, 'point');
 });
