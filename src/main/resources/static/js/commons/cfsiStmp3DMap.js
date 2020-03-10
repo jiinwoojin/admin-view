@@ -3,7 +3,16 @@ var ji3DMap = function ji3DMap(options) {
 
     this.map.scene.globe = new Cesium.Globe(Cesium.Ellipsoid.WGS84);
 
-    // this.setBaseTerrain();
+    this.map.scene.globe.showGroundAtmosphere = false;
+    this.map.scene.globe.showWaterEffect = true;
+
+    this.minHeight = -74777.0;
+    this.maxHeight = 8777.0;
+    this.shadingUniforms = {};
+
+    this.setBaseTerrain();
+
+    this._updateMaterial();
 
     this.map.scene.logarithmicDepthBuffer = false; // Black Spot 방지
 
@@ -51,7 +60,9 @@ ji3DMap.prototype.init = function init(options) {
             webgl : {
                 preserveDrawingBuffer : true
             }
-        }
+        },
+        terrainExaggeration : 10.0,
+        navigationInstructionsInitiallyVisible : false
     });
 
     if(stmp.mapSource!==''&& stmp.mapSource!=='world:truemarble')
@@ -64,53 +75,22 @@ ji3DMap.prototype.init = function init(options) {
  * TODO 추후 변경 필요
  */
 ji3DMap.prototype.setBaseTerrain = function setBaseTerrain() {
-    this.map.scene.globe.terrainProvider = new Cesium.GeoserverTerrainProvider({
-        service : 'WMS',
-        url : 'http://' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT + '/geoserver/wms',
-        layerName : 'world:dted2048',
-        styleName : 'mySLD',
-        waterMask : false,
-        heightMapWidth : 64,
-        heightMapHeight : 64,
-        offset : 0,
-        highest : 12000,
-        lowest : -5000,
-        hasStyledImage : true,
-        maxLevel : 13,
-        formatImage : {
-            format : "image/png",
-            extension : "png"
-        },
-        formatArray : {
-            format : "image/bil",
-            postProcessArray : function(bufferIn, size, highest,
-                                        lowest, offset) {
-                var resultat;
-                var viewerIn = new DataView(bufferIn);
-                var littleEndianBuffer = new ArrayBuffer(size.height
-                    * size.width * 2);
-                var viewerOut = new DataView(littleEndianBuffer);
-                if (littleEndianBuffer.byteLength === bufferIn.byteLength) {
-                    // time to switch bytes!!
-                    var temp, goodCell = 0, somme = 0;
-                    for (var i = 0; i < littleEndianBuffer.byteLength; i += 2) {
-                        temp = viewerIn.getInt16(i, false) - offset;
-                        if (temp > lowest && temp < highest) {
-                            viewerOut.setInt16(i, temp, true);
-                            somme += temp;
-                            goodCell++;
-                        } else {
-                            var val = (goodCell === 0 ? 1 : somme
-                                / goodCell);
-                            viewerOut.setInt16(i, val, true);
-                        }
-                    }
-                    resultat = new Int16Array(littleEndianBuffer);
-                }
-                return resultat;
-            }
-        }
+    var terrainProvider = new Cesium.CesiumTerrainProvider({
+        url : 'http://' + stmp.SERVER_DOMAIN + ':10000/tilesets/navy'
     });
+
+    this.map.terrainProvider = terrainProvider;
+    this.map.scene.terrainProvider = terrainProvider;
+};
+
+ji3DMap.prototype._updateMaterial = function _updateMaterial() {
+    /*var material = Cesium.Material.fromType('ElevationRamp');
+    this.shadingUniforms = material.uniforms;
+    this.shadingUniforms.minimumHeight = this.minHeight;
+    this.shadingUniforms.maximumHeight = this.maxHeight;
+    this.shadingUniforms.image = this._getColorRamp('sixteenColor');*/
+
+    //this.map.scene.globe.material = material;
 };
 
 ji3DMap.prototype.changeTerrain = function changeTerrain() {
@@ -130,8 +110,7 @@ ji3DMap.prototype.setBaseImagery = function setBaseImagery() {
         layers : stmp.getBaseMapSource(),
         parameters : {
             transparent : 'true',
-            format : 'image/jpeg',
-            version : '1.1.1'
+            format : 'image/jpeg'
         }
     }));
 };
@@ -413,6 +392,52 @@ ji3DMap.prototype._addPolygon = function _addPolygon(feature) {
  */
 ji3DMap.prototype._add3dTileset = function _add3dTileset() {
 
+};
+
+ji3DMap.prototype._getColorRamp = function _getColorRamp(selectedColorMode) {
+    var ramp = document.createElement('canvas');
+    ramp.width = 100;
+    ramp.height = 1;
+    var ctx = ramp.getContext('2d');
+    var values;
+    var grd = ctx.createLinearGradient(0, 0, 100, 0);
+
+    if (selectedColorMode === 'sixteenColor') {
+        values = [0.0, 0.012, 0.12, 0.18, 0.25, 0.31, 0.37, 0.43, 0.5, 0.56, 0.62, 0.68, 0.75, 0.80, 0.83, 1];
+
+        grd.addColorStop(values[0], '#000075'); //Navy
+        grd.addColorStop(values[1], '#f032e6'); //Magenta
+        grd.addColorStop(values[2], '#911eb4'); //Purple
+        grd.addColorStop(values[3], '#4363d8'); //Blue
+        grd.addColorStop(values[4], '#42d4f4'); //Cyan
+        grd.addColorStop(values[5], '#3cb44b'); //Green
+        grd.addColorStop(values[6], '#bfef45'); //Lime
+        grd.addColorStop(values[7], '#a9a9a9'); //Grey
+        grd.addColorStop(values[8], '#ffe119'); //Yellow
+        grd.addColorStop(values[9], '#f58231'); //Orange
+        grd.addColorStop(values[10], '#e6194B'); //Red
+        grd.addColorStop(values[11], '#800000'); //Maroon
+        grd.addColorStop(values[12], '#9A6324'); //Brown
+        grd.addColorStop(values[13], '#808000'); //Olive
+        grd.addColorStop(values[14], '#27AA00'); //Dark Green
+        grd.addColorStop(values[15], '#a9a9a900'); //Transparent
+    } else if (selectedColorMode === 'eightColor') {
+        values = [0.0, 0.045, 0.1, 0.3, 0.5, 0.7, 0.86, 1.0];
+
+        grd.addColorStop(values[0], '#9400D3AA'); //Violet
+        grd.addColorStop(values[1], '#0000FFAA'); //Blue
+        grd.addColorStop(values[2], '#00FF00AA'); //Green
+        grd.addColorStop(values[3], '#FFFF00AA'); //Yellow
+        grd.addColorStop(values[4], '#FF7F00AA'); //orange
+        grd.addColorStop(values[5], '#FF0000AA'); //Red
+        grd.addColorStop(values[6], '#27AA00AA'); //Dark Green
+        grd.addColorStop(values[7], '#a9a9a900'); //Transparent
+    }
+
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, 100, 1);
+
+    return ramp;
 };
 
 /**
