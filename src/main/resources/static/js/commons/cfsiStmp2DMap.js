@@ -1,4 +1,4 @@
-
+// mapbox gl js 2D
 var jiMap = function jiMap(options) {
     if (stmp.valid.checkValue(stmp.mapExtents)) {
         options.bounds = [stmp.mapExtents.west, stmp.mapExtents.south,
