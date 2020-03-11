@@ -24,6 +24,7 @@ public class CacheMainController {
 
     @RequestMapping("grids")
     public String cacheGridsPage(Model model){
+        model.addAttribute("boundingBox", cacheService.getBoundingBoxInfoWithCrs());
         return "page/cache/grids";
     }
 

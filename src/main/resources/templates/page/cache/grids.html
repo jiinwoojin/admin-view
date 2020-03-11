@@ -22,26 +22,29 @@
                 <table id="list_table" class="table table-sm table-striped">
                     <thead class="table-info">
                     <tr>
-                        <th scope="col" class="text-center">이름</th>
                         <th scope="col" class="text-center">좌표체계</th>
                         <th scope="col" class="text-center">BBOX 범위</th>
                         <th scope="col" class="text-center">설정</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="text-center">GRID 1</td>
-                        <td class="text-center">EPSG:4326</td>
-                        <td class="text-center">E 180, W -180, S 90, N -90</td>
+                    <tr th:each="crs : ${ boundingBox.keySet() }">
+                        <td class="text-center" th:text="${ crs }"></td>
                         <td class="text-center">
-                            <button class="btn btn-primary btn-sm" onclick="onclick_update()">
+                            E <span th:text="${#numbers.formatInteger(boundingBox.get(crs).maxx, 1, 'POINT')}"></span>
+                            W <span th:text="${#numbers.formatInteger(boundingBox.get(crs).minx, 1, 'POINT')}"></span>
+                            S <span th:text="${#numbers.formatInteger(boundingBox.get(crs).miny, 1, 'POINT')}"></span>
+                            N <span th:text="${#numbers.formatInteger(boundingBox.get(crs).maxy, 1, 'POINT')}"></span>
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm" type="button" th:attr="onclick=|onclick_update('${crs}')|">
                                 <i class="fas fa-cog"></i>
                             </button>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <script>
+                <script type="text/javascript" th:inline="javascript">
                     $(document).ready(function() {
                         $('#list_table').DataTable({
                             "language" : {
@@ -61,13 +64,14 @@
                         });
                     });
 
-                    function onclick_update(){
-                        $("#grid_name").val("GRID 1");
-                        $("#grid_srs").val("EPSG:4326");
-                        $("#grid_bbox_n").val(-90);
-                        $("#grid_bbox_w").val(-180);
-                        $("#grid_bbox_e").val(180);
-                        $("#grid_bbox_s").val(90);
+                    function onclick_update(key){
+                        var obj = /*[[${boundingBox}]]*/ [];
+                        var detail = obj[key];
+                        $("#grid_srs").val(detail.CRS);
+                        $("#grid_bbox_n").val(detail.maxy);
+                        $("#grid_bbox_w").val(detail.minx);
+                        $("#grid_bbox_e").val(detail.maxx);
+                        $("#grid_bbox_s").val(detail.miny);
                         $("#grid_base").val('0');
                     }
                 </script>
@@ -75,10 +79,6 @@
         </div>
 
         <div class="col-xl-6">
-            <div class="form-group">
-                <label for="grid_name">그리드 이름</label>
-                <input type="text" class="form-control" id="grid_name" />
-            </div>
             <div class="form-group">
                 <label for="grid_srs">그리드 좌표 체계</label>
                 <input type="text" class="form-control" id="grid_srs" />

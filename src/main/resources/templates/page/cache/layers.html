@@ -91,12 +91,12 @@
                     <tbody>
                     <tr th:each="crs : ${ boundingBox.keySet() }">
                         <td class="text-center" th:text="${crs}"></td>
-                        <td class="text-center" th:text="${boundingBox.get(crs).minx}"></td>
-                        <td class="text-center" th:text="${boundingBox.get(crs).maxx}"></td>
-                        <td class="text-center" th:text="${boundingBox.get(crs).miny}"></td>
-                        <td class="text-center" th:text="${boundingBox.get(crs).maxy}"></td>
+                        <td class="text-center" th:text="${#numbers.formatInteger(boundingBox.get(crs).minx, 1, 'POINT')}"></td>
+                        <td class="text-center" th:text="${#numbers.formatInteger(boundingBox.get(crs).maxx, 1, 'POINT')}"></td>
+                        <td class="text-center" th:text="${#numbers.formatInteger(boundingBox.get(crs).miny, 1, 'POINT')}"></td>
+                        <td class="text-center" th:text="${#numbers.formatInteger(boundingBox.get(crs).maxy, 1, 'POINT')}"></td>
                         <td class="text-center">
-                            <button class="btn btn-primary btn-sm">
+                            <button class="btn btn-primary btn-sm" type="button">
                                 <i class="fas fa-cog"></i>
                             </button>
                         </td>
@@ -122,13 +122,6 @@
                             }
                         });
                     });
-
-                    function onclick_update(){
-                        $("#layer_name").val("LAYER1");
-                        $("#layer_title").val("Proxy Layer1");
-                        $("#layer_min_scale").val(10000);
-                        $("#layer_max_scale").val(25000);
-                    }
                 </script>
             </div>
         </div>
