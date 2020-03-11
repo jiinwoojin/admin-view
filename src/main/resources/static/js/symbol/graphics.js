@@ -177,75 +177,7 @@ function getCoordinates(coordX, coordY){
 }
 
 
-// datum_point: 1/점, 2/선, 3/면    over_point: boolean   constraint: 제약조건
-// 마우스 EVENT 시 도형 View EVENT
-var draw;
-function drawGraphis(datum_point, over_point, draw_type, constraint){
 
-	G_coordinates = new Array();
-	
-	var FigureType = draw_type;
-	draw = new ol.interaction.Draw({
-		source : selectLayer.getSource(),
-		type : FigureType,
-		minPoints : datum_point,
-		maxPoints : over_point
-	});
-	
-	var draw_id = 'P' + symbol_serial;
-	draw.on('drawend', function(e) {
-		// 그린 좌표에 ID 입력
-		e.feature.setId(draw_id);
-		G_coordinates = new Array(); // 좌표값 초기화
-		var coordinate;
-		if(FigureType == 'Polygon'){
-			coordinate = draw.a[0];
-		} else {
-			coordinate = draw.a;
-		}
-		var id = symbol_serial;
-		symbol_serial ++;
-		
-		if(FigureType == 'Point' && constraint == 'milSym'){
-			getCoordinates(coordinate[0], coordinate[1]);
-			
-			if(mySymbol != undefined) {
-				addMarker(mySymbol, id, draw.a[0], draw.a[1], 'Ssymbol'); // Make Marker
-			}
-		}else if(FigureType == 'Point' && constraint == ''){
-			getCoordinates(coordinate[0], coordinate[1]);
-			drawMsymbol(id, 'SVG');
-			addMarker(myGSymbol, id, draw.a[0], draw.a[1], 'Msymbol');
-		} else {
-			if(constraint != ''){
-				if(FigureType == 'Point'){
-					getCoordinates(coordinate[0], coordinate[1]);
-				} else {
-					for(var i = 0; i < coordinate.length; i++){
-						getCoordinates(coordinate[i][0], coordinate[i][1]);
-					}
-				}
-				setAM_AN(constraint);
-			} else {
-				for(var i = 0; i < coordinate.length; i++){
-					getCoordinates(coordinate[i][0], coordinate[i][1]);
-				}
-			}
-			
-			drawMsymbol(id, 'geoJSON');
-			addMarker(mygeoJSON, id, '', '', 'Msymbol');
-		}
-		
-		var draw_style = new ol.style.Style({
-			visibility: 'hidden'
-		});
-		e.feature.setStyle(draw_style);
-		
-		map.removeInteraction(draw);
-	});
-	
-	map.addInteraction(draw);
-}
 
 
 function mapScale(dpi) {

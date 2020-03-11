@@ -17,12 +17,36 @@ function Draw_Symbol() {
             return;
         }
     } else {
-
+        drawBaseSymbol();
     }
 
     document.querySelector('#symbol_info').style.setProperty('display', 'none');
 }
 
-var drawMilitary = function() {
+function drawBaseSymbol() {
+    stmp.addEvent('click', baseSymbolCallBack);
+}
 
-};
+function baseSymbolCallBack(e) {
+    console.log(e);
+    console.log(this);
+
+    var _lngLat = e.lngLat;
+
+    let featureParam = {
+        id : 'test',
+        layerId : 'TestLayer',
+        type : stmp.DRAW_TYPE_KIND.BASE_MILSYMBOL,
+        coordInfo : {
+            type : stmp.COORDINATE_SYSTEM.WGS84,
+            coords : [_lngLat.lng, _lngLat.lat]
+        },
+        styleInfo : {
+            milsymbol : {
+
+            }
+        }
+    };
+
+    stmp.removeEvent('click', baseSymbolCallBack);
+}
