@@ -945,40 +945,6 @@ var stmp = {
                 throw new Error('');
         }
     },
-    /**
-     * Geometry Type 설정
-     */
-    checkGeometryType : function checkGeometryType(type) {
-        var _geometryType;
-        var _layerType;
-
-        switch (type) {
-            case stmp.DRAW_TYPE_KIND.POINT.CD :
-                _geometryType = stmp.GEOMETRY_TYPE.POINT;
-                _layerType = stmp.LAYER_TYPE.CIRCLE;
-                break;
-            case stmp.DRAW_TYPE_KIND.BASE_MILSYMBOL.CD :
-            case stmp.DRAW_TYPE_KIND.IMAGE.CD :
-            case stmp.DRAW_TYPE_KIND.OVERLAY.CD :
-                _geometryType = stmp.GEOMETRY_TYPE.POINT;
-                _layerType = stmp.LAYER_TYPE.SYMBOL;
-                break;
-            case stmp.DRAW_TYPE_KIND.LINE.CD :
-                _geometryType = stmp.GEOMETRY_TYPE.LINESTRING;
-                _layerType = stmp.LAYER_TYPE.LINE;
-                break;
-            case stmp.DRAW_TYPE_KIND.CIRCLE.CD :
-            case stmp.DRAW_TYPE_KIND.POLYGON.CD :
-                _geometryType = stmp.GEOMETRY_TYPE.POLYGON;
-                _layerType = stmp.LAYER_TYPE.FILL;
-                break;
-        }
-
-        return {
-            'geometryType' : _geometryType,
-            'layerType' : _layerType
-        }
-    },
     addFeature : function addFeature(params) {
         // 2D 일 경우 addLayer
         // 3D 일 경우 entities
@@ -1022,11 +988,6 @@ var stmp = {
             throw new Error('스타일 정보 또는 군대부호 정보가 있어야 합니다.');
         }
 
-        var _typeValue = this.checkGeometryType(params.type.CD);
-
-        _options.geometryType = _typeValue.geometryType;
-        _options.layerType = _typeValue.layerType;
-
         _options.id = params.id;
         _options.layerId = params.layerId;
         _options.coordInfo = params.coordInfo;
@@ -1040,6 +1001,11 @@ var stmp = {
         // callback 함수 체크
         if (this.valid.checkValue(params.callBackFN)) {
             _options.callBackFN = params.callBackFN;
+        }
+
+        // overlayData 체크
+        if (this.valid.checkValue(params.overlayData)) {
+            _options.overlayData = params.overlayData;
         }
 
         var feature = new jiFeature(_options);
@@ -1176,10 +1142,6 @@ var stmp = {
                 }
             };
 
-            var _typeValue = stmp.checkGeometryType(_options.type.CD);
-            _options.geometryType = _typeValue.geometryType;
-            _options.layerType = _typeValue.layerType;
-
             var feature = new jiFeature(_options);
 
             stmp.setGlobalFeatures(feature);
@@ -1249,10 +1211,6 @@ var stmp = {
                     }
                 }
             };
-
-            var _typeValue = stmp.checkGeometryType(_options.type.CD);
-            _options.geometryType = _typeValue.geometryType;
-            _options.layerType = _typeValue.layerType;
 
             var feature = new jiFeature(_options);
 

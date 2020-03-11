@@ -5023,6 +5023,8 @@ let editingMoveMap = function(canvasId) {
             var result = null;
             var rotateInfo = null;
 
+            var overlayType = value.r.node().nodeName;      // draw type 추가 ohhk
+
             // 이동 및 회전 체크를 위한 데이터 가져오기
             transformInfo = self.svg.selectAll('#'+_shapeId).node().getAttribute('transform');
 
@@ -5071,7 +5073,7 @@ let editingMoveMap = function(canvasId) {
             var featureParams = {
                 id : key,
                 layerId : canvasToMapNm,
-                type : stmp.DRAW_TYPE_KIND.IMAGE,
+                type : stmp.DRAW_TYPE_KIND.OVERLAY,         // 투명도 일 경우
                 coordInfo : {
                     type : stmp.COORDINATE_SYSTEM.WGS84,
 //                    coords : stmp.getMapCenter()
@@ -5083,14 +5085,12 @@ let editingMoveMap = function(canvasId) {
                     },
                     style : {                                       // 군대부호 외 스타일 정의
                         size : 1
-                    },
-                    overlayData : {
-                        nodeInfo : shapeNodeInfo
-                        ,bboxInfo : shapeMeta
-                    },
+                    }
                 },
-                properties : {
-                    nodeInfo : shapeNodeInfo
+                overlayData : {                             // 투명도 속성 정보
+                    type : overlayType,
+                    nodeInfo : value,
+                    bboxInfo : shapeMeta
                 }
             };
 

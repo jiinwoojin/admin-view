@@ -7,11 +7,14 @@ var jiFeature = function jiFeature(params) {
 	this.id = params.id;								// 객체 ID
 	this.stmpLayerId = params.layerId;					// 레이어 ID
 	this.type = params.type;							// 객체 TYPE
-	this.geometryType = params.geometryType;			// geometry Type
-	this.layerType = params.layerType;					// layer Type
+	this.geometryType = null;							// geometry Type
+	this.layerType = null;								// layer Type
+
+	this._checkGeometryType();
 	this.coordInfo = params.coordInfo;					// 좌표 정보
 	this.pixel = params.pixel || undefined;				// 화면 좌표 정보
 	this.callBackFN = params.callBackFN || undefined;	// callback 함수 정의
+	this.overlayData = params.overlayData || undefined;	// 투명도 데이터
 	this.featureId = this.getStmpLayerId() + '_' + this.getId();
 
 	this.styleInfo = params.styleInfo;					// 객체 Style 정보
@@ -375,7 +378,45 @@ jiFeature.prototype = {
 		return {
 			'paint' : paint
 		}
-    }
+    },
+	_checkGeometryType : function _checkGeometryType() {
+		var _geometryType;
+		var _layerType;
+
+		switch (this.type) {
+			case stmp.DRAW_TYPE_KIND.POINT.CD :
+				_geometryType = stmp.GEOMETRY_TYPE.POINT;
+				_layerType = stmp.LAYER_TYPE.CIRCLE;
+				break;
+			case stmp.DRAW_TYPE_KIND.BASE_MILSYMBOL.CD :
+			case stmp.DRAW_TYPE_KIND.IMAGE.CD :
+				_geometryType = stmp.GEOMETRY_TYPE.POINT;
+				_layerType = stmp.LAYER_TYPE.SYMBOL;
+				break;
+			case stmp.DRAW_TYPE_KIND.LINE.CD :
+				_geometryType = stmp.GEOMETRY_TYPE.LINESTRING;
+				_layerType = stmp.LAYER_TYPE.LINE;
+				break;
+			case stmp.DRAW_TYPE_KIND.CIRCLE.CD :
+			case stmp.DRAW_TYPE_KIND.POLYGON.CD :
+				_geometryType = stmp.GEOMETRY_TYPE.POLYGON;
+				_layerType = stmp.LAYER_TYPE.FILL;
+				break;
+			case stmp.DRAW_TYPE_KIND.OVERLAY.CD :       // 투명도 일 경우 feature 에서 정의
+				switch (this.overlayData.type) {
+					case stmp.OVERLAY_TYPE.LINE :
+						_geometryType = stmp.GEOMETRY_TYPE.LINESTRING;
+						_layerType = stmp.LAYER_TYPE.LINE;
+						break;
+					case stmp.OVERLAY_TYPE.ARC :
+						break;
+				}
+				break;
+		}
+
+		this.geometryType = _geometryType;
+		this.layerType = _layerType;
+	}
 };
 
 var Geometry = {};
