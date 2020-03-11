@@ -227,6 +227,15 @@ var stmp = {
         MILITARY_MILSYMBOL : 'MILITARY_MILSYMBOL',
         OVERLAY : 'OVERLAY'
     },
+    // 투명도 Draw 종류
+    OVERLAY_TYPE : {
+        LINE : 'line',
+        POINT : 'point',
+        RECT : 'rect',
+        ROUNDRECT : 'roundrect',
+        CIRCLE : 'circle',
+        ARC : 'arc'
+    },
     SOURCE_LIST_2D : [],
     /**
      * 2D 지도에 등록되어 있는 layer 목록

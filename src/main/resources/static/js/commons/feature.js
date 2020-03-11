@@ -605,3 +605,12 @@ if (window.jiFeature === undefined) {
 if (window.Geometry === undefined) {
 	window.Geometry = Geometry;
 }
+
+/**
+ 	투명도 객체를 맵에 넣을경우 해당 svg 를 geojson 으로 변환하여 넣는다.
+ 	원 -> polygon 으로 변환하여 저장
+ 	선 -> 가운데 line은 그대로 표현, 시작점과 끝점이 arrow 일 경우 point에 arrow 이미지 패턴으로 표현
+ 	사각형 -> polygon 으로 표현
+ 	둥근사각형 -> svg 를 geojson 으로 변환하여 표현
+ 	호 -> svg 를 geojson 으로 변환하여 표현
+ **/

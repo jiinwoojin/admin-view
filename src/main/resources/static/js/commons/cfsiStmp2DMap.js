@@ -15,8 +15,8 @@ var jiMap = function jiMap(options) {
     if (!stmp.MINI_MAP) {
         // 지도 로드 완료 시
         this.map.on('load', function() {
-            stmp.mapObject.setZoomRate(10);
-            stmp.mapObject.setWheelZoomRate(1);        // wheel rate 설정
+            stmp.mapObject.setZoomRate(10);             // wheel rate 설정
+            stmp.mapObject.setWheelZoomRate(1);         // wheel rate 설정
 
             stmp.mapObject._bindEvents();
 
