@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/jquery/**",
             "/js/**",
             "/json/**",
+            "/style/**",
             "/scss/**",
             "/toastr-lib/**",
             "/vendor/**",

@@ -165,6 +165,17 @@ jiFeature.prototype = {
         	if (this.styleInfo.style['outline-color']) {
         		_properties['outline-color'] = this.styleInfo.style['outline-color'];
 			}
+		} else if (this.getLayerType() === stmp.LAYER_TYPE.LINE) {
+        	_properties.cap = stmp.valid.defaultValue(this.styleInfo.style.cap,
+				stmp.STYLE_2D_LAYOUT.LINE.CAP.default);
+        	_properties.join = stmp.valid.defaultValue(this.styleInfo.style.join,
+				stmp.STYLE_2D_LAYOUT.LINE.JOIN.default);
+        	_properties['line-color'] = stmp.valid.defaultValue(this.styleInfo.style.color,
+				stmp.STYLE_2D_PAINT.LINE.COLOR.default);
+        	_properties['line-width'] = stmp.valid.defaultValue(this.styleInfo.style.width,
+				stmp.STYLE_2D_PAINT.LINE.WIDTH.default);
+        	_properties['line-opacity'] = stmp.valid.defaultValue(this.styleInfo.style.opacity,
+				stmp.STYLE_2D_PAINT.LINE.OPACITY.default);
 		}
 
         _properties.type = this.getTypeName();
@@ -383,7 +394,7 @@ jiFeature.prototype = {
 		var _geometryType;
 		var _layerType;
 
-		switch (this.type) {
+		switch (this.type.CD) {
 			case stmp.DRAW_TYPE_KIND.POINT.CD :
 				_geometryType = stmp.GEOMETRY_TYPE.POINT;
 				_layerType = stmp.LAYER_TYPE.CIRCLE;
@@ -402,7 +413,7 @@ jiFeature.prototype = {
 				_geometryType = stmp.GEOMETRY_TYPE.POLYGON;
 				_layerType = stmp.LAYER_TYPE.FILL;
 				break;
-			case stmp.DRAW_TYPE_KIND.OVERLAY.CD :       // 투명도 일 경우 feature 에서 정의
+			case stmp.DRAW_TYPE_KIND.OVERLAY.CD :
 				switch (this.overlayData.type) {
 					case stmp.OVERLAY_TYPE.LINE :
 						_geometryType = stmp.GEOMETRY_TYPE.LINESTRING;

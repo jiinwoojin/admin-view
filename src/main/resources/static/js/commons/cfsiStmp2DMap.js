@@ -63,7 +63,8 @@ jiMap.prototype.setBaseStyle = function setBaseStyle() {
 jiMap.prototype.init = function init(options) {
     return new mapboxgl.Map({
         container : options.container,
-        style : this.setBaseStyle(),
+        //style : this.setBaseStyle(),
+        style : '/style/g25k_style.json',
         center : options.center || [0, 0],
         bounds : options.bounds || undefined,
         zoom : options.zoom || 10,
@@ -224,7 +225,7 @@ jiMap.prototype.removeSource = function removeSource(id) {
 jiMap.prototype.addLayer = function addLayer(feature) {
     if (!stmp.getLayerList2d().containsKey(feature.getLayerId())) {
         stmp.setLayerList2d(feature);
-        this.map.addLayer(feature.getLayer());
+        this.map.addLayer(this._setLayer(feature));
     }
 };
 
@@ -608,4 +609,112 @@ jiMap.prototype.getAllFeatures = function() {
     });
     */
     return features;
+};
+
+/**
+ * 스타일에 사용할 layer 생성
+ * @param feature
+ * @private
+ */
+jiMap.prototype._setLayer = function _setLayer(feature) {
+    var _layer = {
+        'id' : feature.getLayerId(),
+        'type' : feature.getLayerType(),
+        'source' : feature.getStmpLayerId(),
+        'filter' : ['all', ['==', 'isVisible', true]]
+    };
+
+    _layer.filter.push(['==', 'type', feature.getTypeName()]);
+
+    var _style = this._setLayerStyle(feature);
+
+    if (_style.layout) {
+        _layer.layout = _style.layout;
+    }
+
+    if (_style.paint) {
+        _layer.paint = _style.paint;
+    }
+
+    return _layer;
+};
+
+jiMap.prototype._setLayerStyle = function _setLayerStyle(feature) {
+    var _layerType = feature.getLayerType();
+    var _layout = null;
+    var _paint = null;
+    var _style = {};
+
+    var symbolStyle = function() {
+        _layout = {
+            'icon-image' : '{img}',
+            'icon-size' : ['get', 'size'],
+            'icon-allow-overlap' : true
+        };
+
+        _style.layout = _layout;
+    };
+
+    var lineStyle = function() {
+        _layout = {
+            'line-cap' : ['get', 'cap'],
+            'line-join' : ['get', 'join']
+        };
+
+        _paint = {
+            'line-color' : ['get', 'line-color'],
+            'line-width' : ['get', 'line-width'],
+            'line-opacity' : ['get', 'line-opacity']
+        };
+
+        _style.layout = _layout;
+        _style.paint = _paint;
+    };
+
+    var fillStyle = function() {
+        _paint = {
+            'fill-color' : ['get', 'color'],
+            'fill-opacity' : ['get', 'opacity']
+        };
+
+        if (feature.styleInfo.style['outline-color']) {
+            _paint['fill-outline-color'] = ['get', 'outline-color'];
+        }
+
+        _style.paint = _paint;
+    };
+
+    var circleStyle = function() {
+        _paint = {
+            'circle-radius' : ['get', 'radius'],
+            'circle-color' : ['get', 'color'],
+            'circle-opacity' : ['get', 'opacity']
+        };
+
+        _style.paint = _paint;
+    };
+
+    var rasterStyle = function() {
+
+    };
+
+    switch (_layerType) {
+        case stmp.LAYER_TYPE.CIRCLE :
+            circleStyle();
+            break;
+        case stmp.LAYER_TYPE.LINE :
+            lineStyle();
+            break;
+        case stmp.LAYER_TYPE.FILL :
+            fillStyle();
+            break;
+        case stmp.LAYER_TYPE.SYMBOL :
+            symbolStyle();
+            break;
+        case stmp.LAYER_TYPE.RASTER :
+            rasterStyle();
+            break;
+    }
+
+    return _style;
 };
