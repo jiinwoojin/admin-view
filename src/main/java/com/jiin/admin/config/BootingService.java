@@ -20,10 +20,7 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -37,11 +34,13 @@ public class BootingService {
     @Value("classpath:data/default-map-proxy.yaml")
     File defaultMapProxy;
 
-    @PersistenceContext
-    EntityManager entityManager;
 
     @Resource
     DockerService dockerService;
+
+
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Transactional
     public void initializeSymbol() {
@@ -61,6 +60,7 @@ public class BootingService {
     public void initializeLayer() throws IOException {
         // 기본 레이어 및 소스 초기화
         System.out.println(">>> initializeLayer Start");
+        Date now = new Date();
         entityManager.createQuery("DELETE FROM " + MapLayer.class.getAnnotation(Entity.class).name() + " WHERE IS_DEFAULT = true").executeUpdate();
         entityManager.createQuery("DELETE FROM " + MapSource.class.getAnnotation(Entity.class).name()+ " WHERE IS_DEFAULT = true").executeUpdate();
         YAMLFactory fac = new YAMLFactory();
@@ -91,6 +91,9 @@ public class BootingService {
                     break;
                 }
             }
+            source.setRegistorId("system");
+            source.setRegistorName("system");
+            source.setRegistTime(now);
             entityManager.persist(source);
             entity.put(source.isUseCache() ? source.getCacheName() : source.getName(),source);
         }
@@ -105,6 +108,9 @@ public class BootingService {
                 sourceEntity.add(entity.get(sourceStr));
             }
             layer.setSource(sourceEntity);
+            layer.setRegistorId("system");
+            layer.setRegistorName("system");
+            layer.setRegistTime(now);
             entityManager.persist(layer);
         }
         // mapproxy write

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -26,6 +27,8 @@ public class AdminViewConfig implements WebMvcConfigurer {
     private String thymeleafPrefix;
     @Value("${spring.thymeleaf.cache}")
     private boolean thymeleafCache;
+    @Value("${spring.servlet.multipart.max-file-size}")
+    private String maxFileSize;
 
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -55,6 +58,15 @@ public class AdminViewConfig implements WebMvcConfigurer {
         thymeleafViewResolver.setCharacterEncoding("UTF-8");
         thymeleafViewResolver.setOrder(0);
         return thymeleafViewResolver;
+    }
+
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        long mb = Long.parseLong(maxFileSize.replace("MB",""));
+        mb = mb * 1024 * 1024;
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(mb);
+        return multipartResolver;
     }
 
 }

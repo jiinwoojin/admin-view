@@ -3,10 +3,9 @@ package com.jiin.admin.entity;
 import lombok.Data;
 import org.springframework.data.domain.Persistable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity(name = "_MAP_SOURCE")
 @Data
@@ -35,8 +34,23 @@ public class MapSource implements Persistable<Long> {
     @Column(name = "CACHE_NAME", unique = true)
     private String cacheName;
 
+    @Column(name = "DESCRIPTION")
+    private String description;
+
     @Column(name = "IS_DEFAULT", nullable = false)
     private boolean isDefault;
+
+    @Column(name = "REGISTOR_ID", nullable = false)
+    private String registorId;
+
+    @Column(name = "REGISTOR_NAME", nullable = false)
+    private String registorName;
+    
+    @Column(name = "REGIST_TIME", nullable = false)
+    private Date registTime;
+
+    @ManyToMany
+    private List<MapSource> source;
 
     @Override
     public boolean isNew() {

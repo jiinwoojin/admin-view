@@ -28,7 +28,7 @@ import java.util.Map;
 import static java.util.stream.Collectors.toList;
 
 
-@Configuration
+@Service
 public class DockerService {
 
     @Value("classpath:data/default-map-proxy.yaml")
@@ -43,9 +43,7 @@ public class DockerService {
     @PersistenceContext
     EntityManager entityManager;
 
-    @Bean
-    @Lazy
-    public void restart() {
+    public boolean restart() {
         // docker restart
         try{
             System.out.println(">> run > " + "docker restart gis-server1");
@@ -55,12 +53,13 @@ public class DockerService {
             while ((line = reader.readLine()) != null) {
                 System.out.println(">> read > " + line);
             }
+            return true;
         }catch (Exception e){
             System.out.println(">> error > " + e.getMessage());
+            return false;
         }
     }
-    @Bean
-    @Lazy
+
     public void proxyReloadFromDatabase() throws IOException {
         // default load
         YAMLFactory fac = new YAMLFactory();

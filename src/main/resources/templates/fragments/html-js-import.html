@@ -13,8 +13,29 @@
     <!-- Data Tables : Grid 기능 -->
     <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
     <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+    <script type="text/javascript">
+        // datatables default settings
+        $.extend( true, $.fn.dataTable.defaults, {
+            "language" : {
+                "lengthMenu" : "자료 길이 _MENU_",
+                "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                "infoFiltered" : "(총 _TOTAL_ 건)",
+                "search" : "검색 키워드",
+                "paginate": {
+                    "first" : "<<",
+                    "last" : ">>",
+                    "next" : ">",
+                    "previous" : "<"
+                }
+            }
+        });
+    </script>
 
     <!-- toastr JS : Toast 알림 기능 -->
     <script th:src="@{/vendor/toastr-lib/toastr.min.js}"></script>
+
+    <script th:src="@{/js/commons/common.js}"></script>
 </body>
 </html>
