@@ -44,14 +44,12 @@
                 <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#layer_modal" data-backdrop="false">
                     <i class="fas fa-layer-group"></i> 레이어
                 </button>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#shape_modal" data-backdrop="false">
-                        <i class="fas fa-vector-square"></i> 투명도
-                    </button>
-                    <button type="button" class="btn btn-sm btn-info" id="click_coord_btn">
-                        <i class="fas fa-fighter-jet"></i> 군대부호
-                    </button>
-                </div>
+                <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#shape_modal" data-backdrop="false">
+                    <i class="fas fa-vector-square"></i> 투명도
+                </button>
+                <button type="button" class="btn btn-sm btn-info" id="click_coord_btn">
+                    <i class="fas fa-fighter-jet"></i> 군대부호
+                </button>
             </div>
         </div>
     </div>
@@ -68,10 +66,10 @@
                             <thead class="table-info">
                             <tr>
                                 <th scope="col" class="text-center">레이어 이름</th>
-                                <th scope="col" class="text-center">레이어 투명 조절 / 보이기</th>
+                                <th scope="col" class="text-center">레이어 ON / OFF</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="layerContent">
                             <tr>
                                 <td class="text-center align-middle">
                                     레이어 A
@@ -161,6 +159,7 @@
         }
 
         let overlayModal = '#shape_modal';
+        let layerModal = '#layer_modal';
 
         var sampleDiv = document.querySelector('.sample-div');
         var mapContent = document.querySelector('#mapContent');
@@ -206,13 +205,17 @@
             $('#pills-display2d').addClass('active');
 
             $(overlayModal).on('hide.bs.modal', function() {
-                stmp.drawMode = false;
+                if (stmp.drawMode) {
+                    stmp.drawMode = false;
 
-                sampleDiv.style.setProperty('pointer-events', 'none');
-                mapContent.style.removeProperty('pointer-events');
+                    sampleDiv.style.setProperty('pointer-events', 'none');
+                    mapContent.style.removeProperty('pointer-events');
 
-                stmp.d3Canvas.closeCanvas();
+                    stmp.d3Canvas.closeCanvas();
+                }
             });
+
+            $(layerModal).on('show.bs.modal', setLayer);
 
             $('.map-item').click(function(e) {
                 if (this.id) {
@@ -276,6 +279,11 @@
             let url = '/view/display/' + content;
 
             $('#mapContent').load(url);
+        }
+
+        function setLayer() {
+            debugger;
+            console.log('레이어 클릭.');
         }
     </script>
 

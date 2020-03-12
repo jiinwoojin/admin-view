@@ -52,7 +52,7 @@ jiMap.prototype.setBaseStyle = function setBaseStyle() {
             'type' : 'raster',
             'source' : 'world',
             'minzoom' : 0,
-            'maxzoom' : 22
+            'maxzoom' : 20
         }]
     };
 };
@@ -441,6 +441,15 @@ jiMap.prototype._bindEvents = function _bindEvents() {
 
     this.map.on('zoomend', function(e) {
         console.log(e);
+        // zoom 레벨에 따라 지도 변환
+        // 육도일 경우 육도로만 전환 
+        // 14LV : 2.5만
+        // 13LV : 5만
+        // 12LV : 10만
+        // 11LV : 25만
+        // 10LV : 50만
+        // 9LV  : 100만
+        // 8LV  : 200만
     });
 };
 
