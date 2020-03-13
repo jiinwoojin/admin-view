@@ -277,6 +277,16 @@ ji3DMap.prototype.removeFeature = function removeFeature(feature) {
 };
 
 /**
+ * globalFeatures 에 있는 도시요소를 map 에 draw
+ * @param featureMap
+ */
+ji3DMap.prototype.changeMapDrawFeatures = function changeMapDrawFeatures(featureMap) {
+    for (var feature of featureMap.values()) {
+        this.addFeature(feature);
+    }
+};
+
+/**
  * id 값으로 entity 삭제
  * @private
  */

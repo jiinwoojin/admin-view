@@ -621,6 +621,16 @@ jiMap.prototype.getAllFeatures = function() {
 };
 
 /**
+ * globalFeatures 에 있는 도시요소를 map 에 draw
+ * @param featureMap
+ */
+jiMap.prototype.changeMapDrawFeatures = function changeMapDrawFeatures(featureMap) {
+    for (var feature of featureMap.values()) {
+        this.addFeature(feature);
+    }
+};
+
+/**
  * 스타일에 사용할 layer 생성
  * @param feature
  * @private

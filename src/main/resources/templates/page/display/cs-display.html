@@ -13,6 +13,11 @@
         stmp.mapObject = new ji3DMap({
             container : 'map3d'
         });
+
+        if (stmp.getGlobalFeatures().size() > 0) {
+            // 2D -> 3D or 3D -> 2D 객체 draw
+            stmp.changeMapDrawFeatures();
+        }
     </script>
 </body>
 </html>

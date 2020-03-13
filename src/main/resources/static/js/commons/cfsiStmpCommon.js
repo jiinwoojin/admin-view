@@ -1414,7 +1414,11 @@ var stmp = {
     changeMapDrawFeatures : function changeMapDrawFeatures() {
         if (stmp.getGlobalFeatures().size() > 0) {
             console.log('layer 구성 시작');
+            if (this.getLayerList2d().size() > 0) {     // 2D 에 등록되어 있는 layer 정보 제거
+                this.getLayerList2d().clear();
+            }
 
+            this.mapObject.changeMapDrawFeatures(this.getGlobalFeatures());
             console.log('layer 구성 완료');
         }
     },

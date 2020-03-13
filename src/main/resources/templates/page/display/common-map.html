@@ -203,6 +203,7 @@
 
             getMap('mapbox-display');
             $('#pills-display2d').addClass('active');
+            stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
 
             $(overlayModal).on('hide.bs.modal', function() {
                 if (stmp.drawMode) {
@@ -223,14 +224,18 @@
 
                     let contentName;
 
+                    stmp.mapObject.getExtents();
+
                     if (_id === 'pills-display2d') {
                         contentName = 'mapbox-display';
                         $('#pills-display3d').removeClass('active');
                         $('#pills-display2d').addClass('active');
+                        stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
                     } else if (_id === 'pills-display3d') {
                         contentName = 'cs-display';
                         $('#pills-display2d').removeClass('active');
                         $('#pills-display3d').addClass('active');
+                        stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_3D;
                     }
 
                     if (stmp.mapObject !== null) {
