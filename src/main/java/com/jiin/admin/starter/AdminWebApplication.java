@@ -30,7 +30,7 @@ public class AdminWebApplication extends SpringBootServletInitializer implements
         try {
             bootingService.initializeLayer();
         } catch (IOException e) {
-            System.out.println("\t\t >> initializeLayer error > " + e.getMessage());
+            System.out.println(">> initializeLayer error > " + e.getMessage());
         }
     }
 }

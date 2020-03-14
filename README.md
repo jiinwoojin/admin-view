@@ -37,6 +37,10 @@
 	활성 데이터베이스 > com.jiin.admin.config.db.BaseDatabase
 	엔티티패키지 > com.jiin.admin.entity
 
+## 공통함수
+
+    jiCommon.reloadDocker() - restart Docker
+
 ## 심볼관리
     
     http://localhost:8077/view/symbol/list

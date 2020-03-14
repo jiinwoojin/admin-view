@@ -3,9 +3,15 @@
  * 스크립트 공통
  */
 var jiCommon = {
-   reloadDocker : function() {
+    showLoading : function() {
+        jQuery("#loader-wrapper").show()
+    },
+    hideLoading : function() {
+        jQuery("#loader-wrapper").hide()
+    },
+    reloadDocker : function() {
        if(confirm("Docker를 재시작 하시겠습니까?")){
-           jQuery("#loader-wrapper").show()
+           jiCommon.showLoading()
            jQuery.post({
                url: "/server/api/docker/reload"
            }).done(function(result) {
@@ -17,7 +23,7 @@ var jiCommon = {
            }).fail(function() {
                toastr.error('Docker Reload Error.');
            }).always(function() {
-               jQuery("#loader-wrapper").hide()
+               jiCommon.hideLoading()
            })
        }
     },
@@ -27,7 +33,7 @@ var jiCommon = {
             jQuery(targetId).focus()
             return
         }
-        jQuery("#loader-wrapper").show()
+        jiCommon.showLoading()
         jQuery.post({
             url: "/server/api/check/duplicate",
             data: {type : type, name : name}
@@ -43,7 +49,7 @@ var jiCommon = {
             toastr.error('중복체크에 실패하였습니다.')
             jQuery(targetId).data("check-duplicate",false)
         }).always(function() {
-            jQuery("#loader-wrapper").hide()
+            jiCommon.hideLoading()
         })
     }
 };

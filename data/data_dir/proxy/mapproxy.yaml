@@ -15,9 +15,6 @@ layers:
 - name: sample
   title: 테스트 레이어
   sources: []
-- name: aaa
-  title: ''
-  source: []
 caches:
   world_k2_cache:
     grids: [GLOBAL_GEODETIC]

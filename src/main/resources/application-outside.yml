@@ -17,3 +17,7 @@ project:
   data-path: /Users/PIG/SourceTree/admin-view/data/data_dir
   mapserver:
     binary: /usr/local/bin/mapserv
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop

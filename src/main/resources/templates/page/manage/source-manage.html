@@ -130,9 +130,8 @@
                 <th scope="col" class="text-center">이름</th>
                 <th scope="col" class="text-center">설명</th>
                 <th scope="col" class="text-center">종류</th>
-                <th scope="col" class="text-center">연결타입</th>
-                <th scope="col" class="text-center">투영체계</th>
-                <th scope="col" class="text-center">상태</th>
+                <th scope="col" class="text-center">레이어명</th>
+                <th scope="col" class="text-center">생성일</th>
                 <th scope="col" class="text-center">기본여부</th>
                 <th scope="col" class="text-center">삭제</th>
             </tr>
@@ -142,9 +141,8 @@
                 <td class="text-center" th:text="${ source['name'] }"></td>
                 <td class="text-center" th:text="${ source['description'] }"></td>
                 <td class="text-center" th:text="${ source['type'] }"></td>
-                <td class="text-center" th:text="${''}"></td>
-                <td class="text-center" th:text="${''}"></td>
-                <td class="text-center" th:text="${''}"></td>
+                <td class="text-center" th:text="${ source['layers'] }"></td>
+                <td class="text-center" th:text="${ source['regist_time'] }"></td>
                 <td class="text-center" th:text="${ source.is_default }"></td>
                 <td class="text-center">
                     <span th:if="${!source.is_default}" class="btn btn-danger btn-sm" th:onclick="delSource(this,[[${source['name']}]],[[${source['id']}]])" >
@@ -186,6 +184,11 @@
                 if(jQuery.isEmptyObject(form['file'].value)){
                     form['file'].focus()
                     toastr.warning("파일이 첨부되지 않았습니다.")
+                    return
+                }
+                if(form['file'].value.lastIndexOf(".zip") === -1){
+                    form['file'].focus()
+                    toastr.warning("Zip 파일을 첨부해 주세요.")
                     return
                 }
                 form.submit()

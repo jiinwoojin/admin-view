@@ -55,8 +55,8 @@
                             <div class="col-sm-4">
                                 <label class="col-form-label">Layer Type</label>
                                 <select class="form-control" name="type">
-                                    <option value="1">Raster</option>
-                                    <option value="1">Vector</option>
+                                    <option value="Raster">Raster</option>
+                                    <option value="Vector">Vector</option>
                                 </select>
                             </div>
                             <div class="col-sm-8">
@@ -86,10 +86,10 @@
                             </div>
                             <div class="col-12 input-group">
                                 <select class="form-control custom-select" id="___customSelect">
-                                    <option th:each="source : ${ sources }" th:value="${source.id}" th:label="${source.name}" />
+                                    <option th:each="source : ${ sources }" th:value="${source.id}" th:text="${source.name} + ' [' + ${source.layers} + ']'" />
                                 </select>
                                 <div class="input-group-append">
-                                    <span class="input-group-btn btn btn-primary">추가</span>
+                                    <span class="input-group-btn btn btn-primary" onclick="addSource(this)">추가</span>
                                 </div>
                             </div>
                         </div>
@@ -97,10 +97,6 @@
                             <label class="col-form-label">Source 연결 목록</label>
                             <div class="btn-group-sm collapse show" id="parent-buttons">
                                 <button type="button" class="btn btn-warning text-white mb-1 p-1" style="padding-top: 3px !important;padding-bottom: 3px !important;" id="btn-parent-all">연결된 Source 가 없습니다.</button>
-                                <button type="button" class="btn btn-outline-warning mb-1 p-1" style="padding-top: 3px !important;padding-bottom: 3px !important;" id="0a01ebbb8c1042da89211663d30d04ef"><span>...</span>
-                                    <i class="fa fa-fw fa-times" onclick="remove('0a01ebbb8c1042da89211663d30d04ef','...')"></i>
-                                    <input type="hidden" name="sources" value="1">
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -190,9 +186,14 @@
                                 </th:block>
                             </p>
                             <div class="text-right">
-                                <a th:href="${ '/view/map/edit?name=' + layer.name }" class="btn btn-primary" >
+                                <button data-toggle="modal" data-target="#layer-create" class="btn btn-primary"
+                                        th:data-id="${ layer['id'] }"
+                                        th:data-title="${ layer['title'] }"
+                                        th:data-thumbnail="${ layer['thumbnail'] }"
+                                        th:data-sources="${ layer['source_ids'] }"
+                                        >
                                     <i class="fas fa-cog"></i>
-                                </a>
+                                </button>
                                 <span th:if="${!layer.is_default}" class="btn btn-danger" th:onclick="delLayer(this,[[${layer['name']}]],[[${layer['id']}]])" >
                                     <i class="fas fa-trash"></i>
                                 </span>
@@ -230,7 +231,7 @@
                     toastr.warning("이름 중복확인이 되지 않았습니다.")
                     return
                 }
-                if(jQuery.isEmptyObject(form['sources'].value)){
+                if(jQuery("#parent-buttons").find("[data-source-id]").length === 0){
                     jQuery("#___customSelect").focus()
                     toastr.warning("소스연결이 되지 않았습니다.")
                     return
@@ -256,6 +257,64 @@
                     })
                 }
             }
+            function addSource(id){
+                var option
+                if(id){
+                    option = jQuery("#___customSelect").find("option[value='"+id+"']")
+                }else{
+                    option = jQuery("#___customSelect").find("option:checked")
+                }
+                var area = jQuery("#parent-buttons")
+                var sources = area.find("[data-source-id]")
+                if(sources.length === 0){
+                    area.empty()
+                }
+                area.append("<button data-source-id='"+option.val()+"' type=\"button\" class=\"btn btn-outline-warning mb-1 ml-1 p-1 hidden\" " +
+                    "               style=\"padding-top: 3px !important;padding-bottom: 3px !important;\"><span>"+option.text()+"</span>\n" +
+                    "           <i class=\"fa fa-fw fa-times\" onclick=\"removeSource('"+option.val()+"')\"></i>\n" +
+                    "               <input type=\"hidden\" name=\"sources\" value=\""+option.val()+"\">\n" +
+                    "       </button>")
+                if(id) {
+                    // nothing
+                }else{
+                    toastr.success("Source[" + option.text() + "]가 연결되었습니다.")
+                }
+            }
+            function removeSource(sourceId){
+                var area = jQuery("#parent-buttons")
+                var source = area.find("[data-source-id='"+sourceId+"']")
+                source.remove()
+                //
+                var sources = area.find("[data-source-id]")
+                if(sources.length === 0){
+                    area.append("<button type=\"button\" class=\"btn btn-warning text-white mb-1 p-1\" style=\"padding-top: 3px !important;padding-bottom: 3px !important;\" id=\"btn-parent-all\">연결된 Source 가 없습니다.</button>")
+                }
+            }
+            jQuery("#layer-create").on("shown.bs.modal",function(e){
+                var btn = e.relatedTarget;
+                var layerId = jQuery(btn).data("id");
+                var layerTitle = jQuery(btn).data("title");
+                var thumbnail = jQuery(btn).data("thumbnail");
+                var sources = jQuery(btn).data("sources");
+                var target = jQuery(btn).data("target");
+                var area = jQuery("#parent-buttons")
+                area.empty()
+                var popup = jQuery(target);
+                if(layerId){
+                    //view
+                    popup.find("[name='name']").val(layerId)
+                    popup.find("[name='title']").val(layerTitle)
+                    jQuery.each(sources,function(idx,id){
+                        addSource(id)
+                    })
+                }else{
+                    //new
+                    popup.find("[name='name']").empty()
+                    popup.find("[name='title']").empty()
+                    popup.find("[name='thumbnail']").empty()
+                    area.append("<button type=\"button\" class=\"btn btn-warning text-white mb-1 p-1\" style=\"padding-top: 3px !important;padding-bottom: 3px !important;\" id=\"btn-parent-all\">연결된 Source 가 없습니다.</button>")
+                }
+            });
         </script>
     </div>
 </th:block>
