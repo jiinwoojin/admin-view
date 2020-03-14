@@ -5073,7 +5073,7 @@ let editingMoveMap = function(canvasId) {
             var featureParams = {
                 id : key,
                 layerId : canvasToMapNm,
-                type : stmp.DRAW_TYPE_KIND.OVERLAY,         // 투명도 일 경우
+                type : stmp.DRAW_TYPE_KIND.IMAGE,         // 투명도 일 경우
                 coordInfo : {
                     type : stmp.COORDINATE_SYSTEM.WGS84,
 //                    coords : stmp.getMapCenter()

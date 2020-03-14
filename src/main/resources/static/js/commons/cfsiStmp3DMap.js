@@ -73,6 +73,7 @@ ji3DMap.prototype.init = function init(options) {
 
 /**
  * TODO 추후 변경 필요
+ * 고도 종류가 여러가지 일 경우 url 받아 오게 수정 필요
  */
 ji3DMap.prototype.setBaseTerrain = function setBaseTerrain() {
     var terrainProvider = new Cesium.CesiumTerrainProvider({
