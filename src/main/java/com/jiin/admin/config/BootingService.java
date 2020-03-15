@@ -7,10 +7,8 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.jiin.admin.entity.MapLayer;
 import com.jiin.admin.entity.MapSource;
 import com.jiin.admin.entity.MapSymbol;
-import org.gradle.internal.impldep.org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.DumperOptions;
 
 import javax.annotation.Resource;
 import javax.persistence.Entity;
@@ -19,10 +17,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.*;
-
-import static java.util.stream.Collectors.toList;
 
 
 @Service

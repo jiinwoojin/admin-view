@@ -16,6 +16,6 @@ import java.util.List;
 @BaseMapper
 public interface SymbolMapper {
 
-    @Select("SELECT * FROM MAP_SYMBOL")
+    @Select("SELECT * FROM _MAP_SYMBOL")
     List<MapSymbol> list();
 }

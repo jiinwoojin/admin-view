@@ -26,9 +26,9 @@ spring:
     open-in-view: true
   servlet:
     multipart:
-      enabled: true
-      max-file-size: 20MB
-      max-request-size: 100MB
+      enabled: false
+      max-file-size: -1
+      max-request-size: -1
   thymeleaf:
     cache: false
     prefix: classpath:/templates/
@@ -49,3 +49,8 @@ server:
       enabled: true
   tomcat:
     uri-encoding: UTF-8
+
+logging:
+  level:
+    org.springframework : INFO
+    org.springframework.web : DEBUG

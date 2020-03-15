@@ -1,11 +1,11 @@
 package com.jiin.admin.website.util;
 
-import org.gradle.internal.impldep.org.apache.http.HttpResponse;
-import org.gradle.internal.impldep.org.apache.http.client.HttpClient;
-import org.gradle.internal.impldep.org.apache.http.client.ResponseHandler;
-import org.gradle.internal.impldep.org.apache.http.client.methods.HttpGet;
-import org.gradle.internal.impldep.org.apache.http.impl.client.BasicResponseHandler;
-import org.gradle.internal.impldep.org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONObject;
 import org.json.XML;
 
