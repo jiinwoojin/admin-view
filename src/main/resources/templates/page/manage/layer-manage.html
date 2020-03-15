@@ -1,25 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
-<th:block layout:fragment="content-breadcrumb-fragment">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">지도 관리</li>
-            <li class="breadcrumb-item active" aria-current="page">Layer 관리</li>
-        </ol>
-    </nav>
-</th:block>
 <th:block layout:fragment="content-title-fragment">
     <h1 class="h2 mb-0 text-gray-800">Layer 관리</h1>
     <div id="map_config_button">
         <button data-toggle="modal" data-target="#layer-create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-plus fa-sm text-white-50"></i> Layer 추가
         </button>
-        <a href="/view/manage/source-manage" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <!--<a href="/view/manage/source-manage" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-layer-group fa-sm text-white-50"></i> Source 관리
         </a>
         <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm text-white" onclick="jiCommon.reloadDocker()">
             <i class="fas fa-layer-group fa-sm text-white"></i> Docker 적용
-        </a>
+        </a>-->
     </div>
     <!-- Modal -->
     <div class="modal fade" id="layer-create" tabindex="-1" role="dialog" aria-labelledby="insert-layer" aria-hidden="true">
@@ -35,7 +27,7 @@
                     <div class="modal-body">
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="layer-name">Layer ID</label>
+                                <label for="layer-name">Layer Name</label>
                             </div>
                             <div class="col-12 input-group">
                                 <input type="text" class="form-control" name="name" id="layer-name">
@@ -48,19 +40,19 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>설명</label>
-                            <input type="text" class="form-control" name="title" >
+                            <label for="layer-title">설명</label>
+                            <input type="text" class="form-control" name="title" id="layer-title">
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-4">
-                                <label class="col-form-label">Layer Type</label>
-                                <select class="form-control" name="type">
+                                <label class="col-form-label" for="layer-type">Layer Type</label>
+                                <select class="form-control" name="type" id="layer-type">
                                     <option value="Raster">Raster</option>
                                     <option value="Vector">Vector</option>
                                 </select>
                             </div>
                             <div class="col-sm-8">
-                                <label class="col-form-label" for="___customFile">썸네일 이미지</label>
+                                <label class="col-form-label" for="___customFile">지도 파일</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="___customFileAddon">Upload</span>
@@ -80,7 +72,7 @@
                                 </script>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <!--<div class="form-group row">
                             <div class="col-12">
                                 <label for="___customSelect">Source 연결</label>
                             </div>
@@ -98,7 +90,7 @@
                             <div class="btn-group-sm collapse show" id="parent-buttons">
                                 <button type="button" class="btn btn-warning text-white mb-1 p-1" style="padding-top: 3px !important;padding-bottom: 3px !important;" id="btn-parent-all">연결된 Source 가 없습니다.</button>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -112,6 +104,14 @@
             </div>
         </div>
     </div>
+</th:block>
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">지도 관리</li>
+            <li class="breadcrumb-item active" aria-current="page">Layer 관리</li>
+        </ol>
+    </nav>
 </th:block>
 <th:block layout:fragment="content-body-fragment">
     <!-- 지도 검색 목록 -->
@@ -178,7 +178,7 @@
                         <div class="card-body">
                             <h5 class="card-title" th:text="${ layer.title }"></h5>
                             <p class="card-text">
-                                <i class="fas fa-calendar"></i> 2020-02-26 11:11:11 <br/>
+                                <i class="fas fa-calendar"></i>[[${layer.regist_time}]]<br/>
                                 <i class="fas fa-user"></i> UPLOADER <br/>
                                 <i class="fas fa-atlas"></i> <span th:text="${ layer.name }"></span><br/>
                                 <th:block th:if="${layer.is_default}">
@@ -188,13 +188,13 @@
                             <div class="text-right">
                                 <button data-toggle="modal" data-target="#layer-create" class="btn btn-primary"
                                         th:data-id="${ layer['id'] }"
+                                        th:data-name="${ layer['name'] }"
                                         th:data-title="${ layer['title'] }"
                                         th:data-thumbnail="${ layer['thumbnail'] }"
-                                        th:data-sources="${ layer['source_ids'] }"
                                         >
                                     <i class="fas fa-cog"></i>
                                 </button>
-                                <span th:if="${!layer.is_default}" class="btn btn-danger" th:onclick="delLayer(this,[[${layer['name']}]],[[${layer['id']}]])" >
+                                <span th:if="${!layer.is_default}" class="btn btn-danger" th:onclick="delLayer(this, [[${layer['name']}]], [[${layer['id']}]])" >
                                     <i class="fas fa-trash"></i>
                                 </span>
                             </div>
@@ -207,112 +207,121 @@
             var message = /*[[ ${message} ]]*/ null;
             var table = null;
             $(document).ready(function() {
-                if(!jQuery.isEmptyObject(message)){
-                    toastr.info(message)
+                if(!jQuery.isEmptyObject(message)) {
+                    toastr.info(message);
                 }
-                $('#layer-name').change(function(){
-                    $('#layer-name').data("check-duplicate",false)
-                    $('#duplicate-check-message').text("중복확인을 해주세요.")
-                })
+                $('#layer-name').change(function() {
+                    $('#layer-name').data("check-duplicate",false);
+                    $('#duplicate-check-message').text("중복확인을 해주세요.");
+                });
             });
-            function preSubmit(form){
-                var action = form.action
-                if(action.indexOf("add-layer") > -1){
-                    addLayer(form)
+
+            function preSubmit(form) {
+                var action = form.action;
+                if(action.indexOf("add-layer") > -1) {
+                    addLayer(form);
                 }
-                return false
+                return false;
             }
+
             function addLayer(form) {
-                if(jQuery.isEmptyObject(form['name'].value)){
-                    form['name'].focus()
-                    toastr.warning("이름이 입력되지 않았습니다.")
+                if(jQuery.isEmptyObject(form['name'].value)) {
+                    form['name'].focus();
+                    toastr.warning("이름이 입력되지 않았습니다.");
                     return
-                }else if(jQuery(form['name']).data("check-duplicate") === false){
-                    toastr.warning("이름 중복확인이 되지 않았습니다.")
-                    return
-                }
-                if(jQuery("#parent-buttons").find("[data-source-id]").length === 0){
-                    jQuery("#___customSelect").focus()
-                    toastr.warning("소스연결이 되지 않았습니다.")
+                }else if(jQuery(form['name']).data("check-duplicate") === false) {
+                    toastr.warning("이름 중복확인이 되지 않았습니다.");
                     return
                 }
-                form.submit()
+                // layer 등록 시 source 연결 체크 제거
+                /*if(jQuery("#parent-buttons").find("[data-source-id]").length === 0) {
+                    jQuery("#___customSelect").focus();
+                    toastr.warning("소스연결이 되지 않았습니다.");
+                    return
+                }*/
+                form.submit();
             }
-            function delLayer(ths,layerName,layerId) {
-                if(confirm("["+layerName+"] Layer 를 제거 하시겠습니까?")){
+
+            function delLayer(ths, layerName, layerId) {
+                debugger;
+                if(confirm("[" + layerName + "] Layer 를 제거 하시겠습니까?")) {
                     jQuery.post({
                         url: "/view/manage/del-layer",
                         data: {layerId : layerId}
                     }).done(function(result) {
-                        if(result){
-                            toastr.success("Layer["+layerName+"]가 제거 되었습니다.")
-                            jQuery(ths).parents('.layer-item').remove()
-                        }else{
-                            toastr.error('Layer 제거 중 오류가 발생하였습니다.')
+                        if (result) {
+                            toastr.success("Layer["+layerName+"]가 제거 되었습니다.");
+                            jQuery(ths).parents('.layer-item').remove();
+                        } else {
+                            toastr.error('Layer 제거 중 오류가 발생하였습니다.');
                         }
                     }).fail(function() {
-                        toastr.error('Layer 제거에 실패하였습니다.')
+                        toastr.error('Layer 제거에 실패하였습니다.');
                     }).always(function() {
-                        jQuery("#loader-wrapper").hide()
-                    })
+                        jQuery("#loader-wrapper").hide();
+                    });
                 }
             }
-            function addSource(id){
-                var option
-                if(id){
-                    option = jQuery("#___customSelect").find("option[value='"+id+"']")
-                }else{
+
+            function addSource(id) {
+                var option;
+                if (id) {
+                    option = jQuery("#___customSelect").find("option[value='"+id+"']");
+                } else {
                     option = jQuery("#___customSelect").find("option:checked")
                 }
-                var area = jQuery("#parent-buttons")
-                var sources = area.find("[data-source-id]")
-                if(sources.length === 0){
-                    area.empty()
+                var area = jQuery("#parent-buttons");
+                var sources = area.find("[data-source-id]");
+                if (sources.length === 0) {
+                    area.empty();
                 }
                 area.append("<button data-source-id='"+option.val()+"' type=\"button\" class=\"btn btn-outline-warning mb-1 ml-1 p-1 hidden\" " +
                     "               style=\"padding-top: 3px !important;padding-bottom: 3px !important;\"><span>"+option.text()+"</span>\n" +
                     "           <i class=\"fa fa-fw fa-times\" onclick=\"removeSource('"+option.val()+"')\"></i>\n" +
                     "               <input type=\"hidden\" name=\"sources\" value=\""+option.val()+"\">\n" +
-                    "       </button>")
+                    "       </button>");
                 if(id) {
                     // nothing
-                }else{
-                    toastr.success("Source[" + option.text() + "]가 연결되었습니다.")
+                }else {
+                    toastr.success("Source[" + option.text() + "]가 연결되었습니다.");
                 }
             }
+
             function removeSource(sourceId){
-                var area = jQuery("#parent-buttons")
-                var source = area.find("[data-source-id='"+sourceId+"']")
-                source.remove()
+                var area = jQuery("#parent-buttons");
+                var source = area.find("[data-source-id='"+sourceId+"']");
+                source.remove();
                 //
-                var sources = area.find("[data-source-id]")
-                if(sources.length === 0){
-                    area.append("<button type=\"button\" class=\"btn btn-warning text-white mb-1 p-1\" style=\"padding-top: 3px !important;padding-bottom: 3px !important;\" id=\"btn-parent-all\">연결된 Source 가 없습니다.</button>")
+                var sources = area.find("[data-source-id]");
+                if(sources.length === 0) {
+                    area.append("<button type=\"button\" class=\"btn btn-warning text-white mb-1 p-1\" style=\"padding-top: 3px !important;padding-bottom: 3px !important;\" id=\"btn-parent-all\">연결된 Source 가 없습니다.</button>");
                 }
             }
-            jQuery("#layer-create").on("shown.bs.modal",function(e){
+
+            jQuery("#layer-create").on("shown.bs.modal", function(e) {
                 var btn = e.relatedTarget;
-                var layerId = jQuery(btn).data("id");
+                var layerId = jQuery(btn).data('id');
+                var layerName = jQuery(btn).data("name");
                 var layerTitle = jQuery(btn).data("title");
                 var thumbnail = jQuery(btn).data("thumbnail");
                 var sources = jQuery(btn).data("sources");
                 var target = jQuery(btn).data("target");
-                var area = jQuery("#parent-buttons")
-                area.empty()
+                /*var area = jQuery("#parent-buttons");
+                area.empty();*/
                 var popup = jQuery(target);
-                if(layerId){
+                if(layerId) {
                     //view
-                    popup.find("[name='name']").val(layerId)
-                    popup.find("[name='title']").val(layerTitle)
-                    jQuery.each(sources,function(idx,id){
+                    popup.find("[name='name']").val(layerName);
+                    popup.find("[name='title']").val(layerTitle);
+                    /*jQuery.each(sources,function(idx,id) {
                         addSource(id)
-                    })
-                }else{
+                    });*/
+                } else {
                     //new
-                    popup.find("[name='name']").empty()
-                    popup.find("[name='title']").empty()
-                    popup.find("[name='thumbnail']").empty()
-                    area.append("<button type=\"button\" class=\"btn btn-warning text-white mb-1 p-1\" style=\"padding-top: 3px !important;padding-bottom: 3px !important;\" id=\"btn-parent-all\">연결된 Source 가 없습니다.</button>")
+                    popup.find("[name='name']").val('');
+                    popup.find("[name='title']").val('');
+                    popup.find("[name='thumbnail']").val('');
+                    //area.append("<button type=\"button\" class=\"btn btn-warning text-white mb-1 p-1\" style=\"padding-top: 3px !important;padding-bottom: 3px !important;\" id=\"btn-parent-all\">연결된 Source 가 없습니다.</button>")
                 }
             });
         </script>

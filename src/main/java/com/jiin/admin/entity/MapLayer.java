@@ -25,6 +25,9 @@ public class MapLayer implements Persistable<Long> {
     @Column(name = "THUMBNAIL", length = 254)
     private String thumbnail;
 
+    @Column(name = "FILE_PATH", length = 254)
+    private String filePath;
+
     @Column(name = "IS_DEFAULT", nullable = false)
     private boolean isDefault;
 
@@ -37,12 +40,12 @@ public class MapLayer implements Persistable<Long> {
     @Column(name = "REGIST_TIME", nullable = false)
     private Date registTime;
 
-    @ManyToMany
+    /*@ManyToMany
     @JoinTable(name = "_MAP_LAYER_SOURCE"
             , joinColumns = @JoinColumn(name="LAYER_ID")
             , inverseJoinColumns = @JoinColumn(name="SOURCE_ID")
-    )
-    private List<MapSource> source;
+    )*/
+    //private List<MapSource> source;
 
     @Override
     public boolean isNew() {

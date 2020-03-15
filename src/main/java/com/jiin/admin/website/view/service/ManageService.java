@@ -49,10 +49,10 @@ public class ManageService {
         return mapper.getSourceList();
     }
 
-    public List<Map> getLayerList() {
-        List<Map> layers = mapper.getLayerList();
-        for(Map layer : layers){
-            List<Map> sources = mapper.getSourceListByLayerId((Long) layer.get("id"));
+    public List<Map<String, Object>> getLayerList() {
+        List<Map<String, Object>> layers = mapper.getLayerList();
+        for(Map<String, Object> layer : layers){
+            List<Map<String, Object>> sources = mapper.getSourceListByLayerId((Long) layer.get("id"));
             List<Object> sourceIds = sources.stream().map(s -> s.get("id")).collect(toList());
             layer.put("source_ids", StringUtil.join(",",sourceIds));
         }
@@ -161,7 +161,7 @@ public class ManageService {
     }
 
     @Transactional
-    public boolean addLayer(String name, String title, Long[] sources, MultipartFile thumbnail) throws IOException {
+    public boolean addLayer(String name, String title, MultipartFile thumbnail) throws IOException {
         String thumbnailName = "empty";
         if(thumbnail != null && thumbnail.getSize() > 0){
             thumbnailName = UUID.randomUUID().toString();
@@ -169,17 +169,17 @@ public class ManageService {
             thumbnail.transferTo(thumbnailFile);
         }
         //
-        TypedQuery<MapSource> query = entityManager.createQuery(
+        /*TypedQuery<MapSource> query = entityManager.createQuery(
                 "SELECT T FROM " + MapSource.class.getAnnotation(Entity.class).name() + " T WHERE ID IN ("+StringUtil.join(sources, ",")+")"
                 , MapSource.class);
-        List<MapSource> sourceEntity = query.getResultList();
+        List<MapSource> sourceEntity = query.getResultList();*/
         //
         String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         MapLayer entity = new MapLayer();
         entity.setDefault(false);
         entity.setName(name);
         entity.setTitle(title);
-        entity.setSource(sourceEntity);
+        //entity.setSource(sourceEntity);
         entity.setThumbnail(thumbnailName);
         entity.setRegistorId(loginUser);
         entity.setRegistorName(loginUser);

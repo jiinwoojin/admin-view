@@ -12,13 +12,13 @@ import java.util.Map;
 public interface ManageMapper {
 
     @Select("SELECT * FROM _MAP_LAYER")
-    List<Map> getLayerList();
+    List<Map<String, Object>> getLayerList();
 
     @Select("SELECT * FROM _MAP_SOURCE")
     List<Map> getSourceList();
 
     @Select("SELECT S.* FROM _MAP_SOURCE S INNER JOIN _MAP_LAYER_SOURCE LS ON S.ID = LS.SOURCE_ID WHERE LS.LAYER_ID = #{layerId}")
-    List<Map> getSourceListByLayerId(@Param("layerId") Long layerId);
+    List<Map<String, Object>> getSourceListByLayerId(@Param("layerId") Long layerId);
 
     @Select("SELECT COUNT(1) FROM _MAP_LAYER L INNER JOIN _MAP_LAYER_SOURCE LS ON L.ID = LS.LAYER_ID WHERE LS.SOURCE_ID = #{sourceId}")
     long getLayerCountBySourceId(@Param("sourceId") Long sourceId);

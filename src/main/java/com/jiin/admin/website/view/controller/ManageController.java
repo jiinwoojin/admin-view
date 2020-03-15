@@ -1,9 +1,7 @@
 package com.jiin.admin.website.view.controller;
 
-import com.jiin.admin.Constants;
 import com.jiin.admin.config.SessionService;
 import com.jiin.admin.website.view.service.ManageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
@@ -63,7 +60,7 @@ public class ManageController {
     @RequestMapping("layer-manage")
     public String layer(Model model){
         model.addAttribute("layers", service.getLayerList());
-        model.addAttribute("sources", service.getSourceList());
+        //model.addAttribute("sources", service.getSourceList());
         model.addAttribute("message", session.message());
         return "page/manage/layer-manage";
     }
@@ -71,9 +68,9 @@ public class ManageController {
     @PostMapping("add-layer")
     public String addSource(@RequestParam("name") String name,
                             @RequestParam("title") String title,
-                            @RequestParam("sources") Long[] sources,
+                            //@RequestParam("sources") Long[] sources,
                             @RequestParam("thumbnail") MultipartFile thumbnail) throws IOException {
-        boolean result = service.addLayer(name,title,sources,thumbnail);
+        boolean result = service.addLayer(name, title, thumbnail);
         session.message(String.format("MAP LAYER [%s] 추가 %s하였습니다.",name,(result ? "성공" : "실패")));
         return "redirect:layer-manage";
     }

@@ -15,8 +15,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @ComponentScan({ "com.jiin.admin.website.security" })
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    public AccountAuthProvider accountAuthProvider;
+
+    public final AccountAuthProvider accountAuthProvider;
+
+    public SecurityConfig(AccountAuthProvider accountAuthProvider) {
+        this.accountAuthProvider = accountAuthProvider;
+    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -37,7 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/json/**",
             "/style/**",
             "/scss/**",
-            "/toastr-lib/**",
             "/vendor/**",
             "/vue/**",
             "/favicon.ico"
