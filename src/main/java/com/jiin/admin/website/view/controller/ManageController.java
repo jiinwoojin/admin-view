@@ -67,12 +67,12 @@ public class ManageController {
 
     @PostMapping("add-layer")
     public String addLayer(@RequestParam("name") String name,
-                           @RequestParam("title") String title,
+                           @RequestParam("description") String description,
                            @RequestParam(value = "projection", defaultValue = "epsg:4326") String projection,
-                           @RequestParam("folder") String folder,
+                           @RequestParam("middle_folder") String middle_folder,
                            @RequestParam("type") String type,
-                           @RequestParam("thumbnail") MultipartFile thumbnail) throws IOException {
-        boolean result = service.addLayer(name, title, projection, folder, type, thumbnail);
+                           @RequestParam("data_file") MultipartFile data_file) throws IOException {
+        boolean result = service.addLayer(name, description, projection, middle_folder, type, data_file);
         session.message(String.format("MAP LAYER [%s] 추가 %s하였습니다.",name,(result ? "성공" : "실패")));
         return "redirect:layer-manage";
     }
