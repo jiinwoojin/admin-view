@@ -25,6 +25,21 @@ public class MapLayer implements Persistable<Long> {
     @Column(name = "THUMBNAIL", length = 254)
     private String thumbnail;
 
+    /**
+     * RASTER, VECTOR
+     */
+    @Column(name = "TYPE", length = 10)
+    private String type;
+
+    /**
+     * 기본값 epsg:4326
+     */
+    @Column(name = "PROJECTION", length = 15)
+    private String projection;
+
+    @Column(name = "folder", length = 50)
+    private String folder;
+
     @Column(name = "FILE_PATH", length = 254)
     private String filePath;
 

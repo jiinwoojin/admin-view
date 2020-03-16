@@ -1,38 +1,34 @@
 package com.jiin.admin.website.view.service;
 
+import com.jiin.admin.Constants;
 import com.jiin.admin.entity.MapLayer;
 import com.jiin.admin.entity.MapSource;
 import com.jiin.admin.website.view.mapper.ManageMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.util.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.security.Principal;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import static java.util.stream.Collectors.toList;
 
+@Slf4j
 @Service
 public class ManageService {
 
@@ -161,11 +157,20 @@ public class ManageService {
     }
 
     @Transactional
-    public boolean addLayer(String name, String title, MultipartFile thumbnail) throws IOException {
-        String thumbnailName = "empty";
+    public boolean addLayer(String name, String title, String projection, String folder, String type, MultipartFile thumbnail) throws IOException {
+        log.info("Folder : " + folder);
+        log.info("Data Folder : " + dataPath + Constants.DATA_PATH + "/" + folder);
+
+        String filePath = null;
         if(thumbnail != null && thumbnail.getSize() > 0){
-            thumbnailName = UUID.randomUUID().toString();
-            File thumbnailFile = new File(dataPath, "tmp/thumbnail/" + thumbnailName);
+            String dirPath = dataPath + Constants.DATA_PATH + "/" + folder;
+            File dir = new File(dirPath);
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+
+            filePath = dirPath + "/" + thumbnail.getOriginalFilename();
+            File thumbnailFile = new File(filePath);
             thumbnail.transferTo(thumbnailFile);
         }
         //
@@ -180,7 +185,10 @@ public class ManageService {
         entity.setName(name);
         entity.setTitle(title);
         //entity.setSource(sourceEntity);
-        entity.setThumbnail(thumbnailName);
+        entity.setProjection(projection);
+        entity.setType(type.toUpperCase());
+        entity.setFolder(folder);
+        entity.setFilePath(Objects.requireNonNull(filePath).replaceAll(dataPath, ""));
         entity.setRegistorId(loginUser);
         entity.setRegistorName(loginUser);
         entity.setRegistTime(new Date());
