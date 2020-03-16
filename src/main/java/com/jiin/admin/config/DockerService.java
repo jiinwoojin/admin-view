@@ -19,8 +19,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.stream.Collectors.toList;
-
 
 @Service
 public class DockerService {
@@ -72,8 +70,8 @@ public class DockerService {
             Map map = new LinkedHashMap();
             map.put("name",o.getName());
             map.put("title",o.getTitle());
-            List<String> sourceNames= o.getSource().stream().map(s -> (s.getCacheName() == null ? s.getName() : s.getCacheName())).collect(toList());
-            map.put("source",sourceNames);
+            //List<String> sourceNames= o.getSource().stream().map(s -> (s.getCacheName() == null ? s.getName() : s.getCacheName())).collect(toList());
+            //map.put("source",sourceNames);
             layers.add(map);
         }
         List<MapSource> dbSources = entityManager
