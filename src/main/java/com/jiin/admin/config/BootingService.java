@@ -102,7 +102,7 @@ public class BootingService {
             for(String sourceStr : sourceStrs){
                 sourceEntity.add(entity.get(sourceStr));
             }
-            layer.setSource(sourceEntity);
+            //layer.setSource(sourceEntity);
             layer.setRegistorId("system");
             layer.setRegistorName("system");
             layer.setRegistTime(now);

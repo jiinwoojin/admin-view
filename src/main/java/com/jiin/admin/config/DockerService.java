@@ -72,8 +72,8 @@ public class DockerService {
             Map map = new LinkedHashMap();
             map.put("name",o.getName());
             map.put("title",o.getTitle());
-            List<String> sourceNames= o.getSource().stream().map(s -> (s.getCacheName() == null ? s.getName() : s.getCacheName())).collect(toList());
-            map.put("source",sourceNames);
+            //List<String> sourceNames= o.getSource().stream().map(s -> (s.getCacheName() == null ? s.getName() : s.getCacheName())).collect(toList());
+            //map.put("source",sourceNames);
             layers.add(map);
         }
         List<MapSource> dbSources = entityManager
