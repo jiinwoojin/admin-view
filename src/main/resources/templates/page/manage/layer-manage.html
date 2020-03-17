@@ -11,7 +11,7 @@
     <div class="modal fade" id="layer-create" tabindex="-1" role="dialog" aria-labelledby="insert-layer" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form action="/view/manage/add-layer" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" enctype="multipart/form-data">
+                <form th:action="@{/view/manage/add-layer}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h5 class="modal-title" id="insert-layer">Layer 추가</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -173,17 +173,17 @@
 
         <!-- Layer List View -->
         <div class="col-lg-9 col-md-8">
-            <h4 class="mt-1">검색 결과 : 총 <span th:text="${ layers.size() }"></span> 건</h4>
+            <h4 class="mt-1">검색 결과 : 총 <span th:text="${ layers.size() }" id="total"></span> 건</h4>
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-2 layer-item" th:each="layer : ${ layers }">
                     <div class="card">
                         <img class="card-img-top p-2" th:src="'../image/' + ${layer['thumbnail'] + '.thumbnail.img'}" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${ layer.title }"></h5>
+                            <h5 class="card-title" th:text="${ layer.name }"></h5>
                             <p class="card-text">
                                 <i class="fas fa-calendar"></i>[[${layer.regist_time}]]<br/>
                                 <i class="fas fa-user"></i> UPLOADER <br/>
-                                <i class="fas fa-atlas"></i> <span th:text="${ layer.name }"></span><br/>
+                                <i class="fas fa-atlas"></i> <span th:text="${ layer.description }"></span><br/>
                                 <th:block th:if="${layer.is_default}">
                                     <i class="fas fa-layer-group" ></i> <span>기본레이어(편집불가)</span>
                                 </th:block>
@@ -192,8 +192,10 @@
                                 <button data-toggle="modal" data-target="#layer-create" class="btn btn-primary"
                                         th:data-id="${ layer['id'] }"
                                         th:data-name="${ layer['name'] }"
-                                        th:data-title="${ layer['title'] }"
+                                        th:data-description="${ layer['description'] }"
                                         th:data-thumbnail="${ layer['thumbnail'] }"
+                                        th:data-projection="${layer['projection']}"
+                                        th:data-middleFolder="${layer['middle_folder']}"
                                         >
                                     <i class="fas fa-cog"></i>
                                 </button>
@@ -246,14 +248,16 @@
             }
 
             function delLayer(ths, layerName, layerId) {
-                if(confirm("[" + layerName + "] Layer 를 제거 하시겠습니까?")) {
+                if(confirm("[ " + layerName + " ] Layer 를 제거 하시겠습니까?")) {
                     jQuery.post({
-                        url: "/view/manage/del-layer",
+                        url: CONTEXT + "/view/manage/del-layer",
                         data: {layerId : layerId}
                     }).done(function(result) {
                         if (result) {
-                            toastr.success("Layer["+layerName+"]가 제거 되었습니다.");
+                            toastr.success("Layer [ " + layerName + " ] 가 제거 되었습니다.");
                             jQuery(ths).parents('.layer-item').remove();
+                            var total = $('#total');
+                            total.html((Number(total.html()) - 1));
                         } else {
                             toastr.error('Layer 제거 중 오류가 발생하였습니다.');
                         }
@@ -304,7 +308,10 @@
                 var btn = e.relatedTarget;
                 var layerId = jQuery(btn).data('id');
                 var layerName = jQuery(btn).data("name");
-                var layerTitle = jQuery(btn).data("title");
+                var layerDescription = jQuery(btn).data("description");
+                var layerProjection = jQuery(btn).data('projection');
+                var layerMiddleFolder = $(btn).data('middlefolder');
+                console.log(layerMiddleFolder);
                 var thumbnail = jQuery(btn).data("thumbnail");
                 var sources = jQuery(btn).data("sources");
                 var target = jQuery(btn).data("target");
@@ -314,15 +321,19 @@
                 if(layerId) {
                     //view
                     popup.find("[name='name']").val(layerName);
-                    popup.find("[name='title']").val(layerTitle);
+                    popup.find("[name='description']").val(layerDescription);
+                    popup.find("[name='projection']").val(layerProjection);
+                    popup.find("[name='middle_folder']").val(layerMiddleFolder);
                     /*jQuery.each(sources,function(idx,id) {
                         addSource(id)
                     });*/
                 } else {
                     //new
                     popup.find("[name='name']").val('');
-                    popup.find("[name='title']").val('');
-                    popup.find("[name='thumbnail']").val('');
+                    popup.find("[name='description']").val('');
+                    popup.find("[name='projection']").val('');
+                    popup.find("[name='middle_folder']").val('');
+                    //popup.find("[name='thumbnail']").val('');
                     //area.append("<button type=\"button\" class=\"btn btn-warning text-white mb-1 p-1\" style=\"padding-top: 3px !important;padding-bottom: 3px !important;\" id=\"btn-parent-all\">연결된 Source 가 없습니다.</button>")
                 }
             });
