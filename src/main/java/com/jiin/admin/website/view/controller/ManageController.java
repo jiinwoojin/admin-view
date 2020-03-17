@@ -57,7 +57,7 @@ public class ManageController {
                             @RequestParam("desc") String desc,
                             @RequestParam("file") MultipartFile file){
         boolean result = service.addSource(name,type,desc,file);
-        session.message(String.format("MAP SOURCE [%s] 추가 %s하였습니다.",name,(result ? "성공" : "실패")));
+        session.message(String.format("MAP [%s] 추가 %s하였습니다.",name,(result ? "성공" : "실패")));
         return "redirect:map-manage";
     }
 

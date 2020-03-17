@@ -14,8 +14,8 @@ public interface ManageMapper {
     @Select("SELECT * FROM _LAYER")
     List<Map<String, Object>> getLayerList();
 
-    @Select("SELECT * FROM _MAP_SOURCE")
-    List<Map> getSourceList();
+    @Select("SELECT * FROM _MAP")
+    List<Map<String, Object>> getSourceList();
 
     @Select("SELECT S.* FROM _MAP_SOURCE S INNER JOIN _MAP_LAYER_SOURCE LS ON S.ID = LS.SOURCE_ID WHERE LS.LAYER_ID = #{layerId}")
     List<Map<String, Object>> getSourceListByLayerId(@Param("layerId") Long layerId);

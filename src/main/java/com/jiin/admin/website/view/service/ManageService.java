@@ -33,13 +33,16 @@ public class ManageService {
     @Value("${project.data-path}")
     private String dataPath;
 
+    @Value("classpath:data/default-layer.lay")
+    File defaultLayer;
+
     @Resource
     private ManageMapper mapper;
 
     @PersistenceContext
     EntityManager entityManager;
 
-    public List<Map> getSourceList() {
+    public List<Map<String, Object>> getSourceList() {
         return mapper.getSourceList();
     }
 
@@ -185,6 +188,14 @@ public class ManageService {
         layer.setRegistorName(loginUser);
         layer.setRegistTime(new Date());
 
+        List<String> defaultLayerList = Files.readAllLines(defaultLayer.toPath());
+
+        log.info(Arrays.toString(defaultLayerList.toArray()));
+
+        for (String line : defaultLayerList) {
+
+        }
+
         // lay 파일 생성
         String layFilePath = dataPath + Constants.LAY_FILE_PATH + "/" + name + Constants.LAY_SUFFIX;
 
@@ -218,19 +229,6 @@ public class ManageService {
         layer.setLayerFilePath(Objects.requireNonNull(layFilePath).replaceAll(dataPath, ""));
 
         entityManager.persist(layer);
-        /*MapLayer entity = new MapLayer();
-        entity.setDefault(false);
-        entity.setName(name);
-        entity.setTitle(title);
-        //entity.setSource(sourceEntity);
-        entity.setProjection(projection);
-        entity.setType(type.toUpperCase());
-        entity.setFolder(folder);
-        entity.setFilePath(Objects.requireNonNull(filePath).replaceAll(dataPath, ""));
-        entity.setRegistorId(loginUser);
-        entity.setRegistorName(loginUser);
-        entity.setRegistTime(new Date());
-        entityManager.persist(entity);*/
         return true;
     }
 
