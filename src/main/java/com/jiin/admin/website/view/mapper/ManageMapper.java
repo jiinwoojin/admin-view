@@ -11,7 +11,7 @@ import java.util.Map;
 @BaseMapper
 public interface ManageMapper {
 
-    @Select("SELECT * FROM _MAP_LAYER")
+    @Select("SELECT * FROM _LAYER")
     List<Map<String, Object>> getLayerList();
 
     @Select("SELECT * FROM _MAP_SOURCE")

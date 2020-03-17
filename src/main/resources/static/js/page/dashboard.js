@@ -4,7 +4,7 @@ $(function () {
 
 function onMouseEnterStatusCard(){
     var obj = $.ajax({
-        url: "/server/api/status/memory/" + event.target.id,
+        url: CONTEXT + "/server/api/status/memory/" + event.target.id,
         type: 'GET',
         async: false
     }).responseText;

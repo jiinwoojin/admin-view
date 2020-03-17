@@ -4,7 +4,7 @@
 <!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/view/home/user" sec:authorize="isAuthenticated()">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/view/home/user}" sec:authorize="isAuthenticated()">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-globe-asia"></i>
         </div>
@@ -12,7 +12,7 @@
     </a>
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/view/home/guest" sec:authorize="isAuthenticated() == false">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/view/home/guest}" sec:authorize="isAuthenticated() == false">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-globe-asia"></i>
         </div>
@@ -29,7 +29,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/home') ? 'active' : '' }" sec:authorize="isAuthenticated() == false">
-        <a class="nav-link" href="/view/home/guest">
+        <a class="nav-link" th:href="@{/view/home/guest}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>대시보드</span>
         </a>
@@ -37,7 +37,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/home') ? 'active' : '' }" sec:authorize="isAuthenticated()">
-        <a class="nav-link" href="/view/home/user">
+        <a class="nav-link" th:href="@{/view/home/user}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>대시보드</span>
         </a>
@@ -52,7 +52,7 @@
     </div>
 
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/symbol') ? 'active' : '' }">
-        <a class="nav-link" href="/view/symbol/list">
+        <a class="nav-link" th:href="@{/view/symbol/list}">
             <i class="fas fa-fw fa-map-pin"></i>
             <span>심볼 목록</span>
         </a>
@@ -66,43 +66,43 @@
         지도 관리
     </div>
 
-    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/manage/source-manage') ? 'active' : '' }">
-        <a class="nav-link" href="/view/manage/source-manage">
+    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/manage/map-manage') ? 'active' : '' }">
+        <a class="nav-link" th:href="@{/view/manage/map-manage}">
             <i class="fas fa-fw fa-layer-group"></i>
             <span>Map 관리</span>
         </a>
     </li>
 
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/manage/layer-manage') ? 'active' : '' }">
-        <a class="nav-link" href="/view/manage/layer-manage">
+        <a class="nav-link" th:href="@{/view/manage/layer-manage}">
             <i class="fas fa-fw fa-layer-group"></i>
             <span>Layer 관리</span>
         </a>
     </li>
 
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/map') ? 'active' : '' }">
-        <a class="nav-link" href="/view/map/list">
+        <a class="nav-link" th:href="@{/view/map/list}">
             <i class="fas fa-fw fa-layer-group"></i>
             <span>지도 데이터</span>
         </a>
     </li>
 
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/cache/layers') ? 'active' : '' }">
-        <a class="nav-link" href="/view/cache/layers">
+        <a class="nav-link" th:href="@{/view/cache/layers}">
             <i class="fas fa-fw fa-database"></i>
             <span>캐시 데이터 관리 - 레이어</span>
         </a>
     </li>
 
-    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/cache/grids') ? 'active' : '' }">
-        <a class="nav-link" href="/view/cache/grids">
+    <!--<li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/cache/grids') ? 'active' : '' }">
+        <a class="nav-link" th:href="@{/view/cache/grids}">
             <i class="fas fa-fw fa-database"></i>
             <span>캐시 데이터 관리 - 그리드</span>
         </a>
-    </li>
+    </li>-->
 
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/cache/seeds') ? 'active' : '' }">
-        <a class="nav-link" href="/view/cache/seeds">
+        <a class="nav-link" th:href="@{/view/cache/seeds}">
             <i class="fas fa-fw fa-memory"></i>
             <span>캐시 SEED 관리</span>
         </a>
@@ -117,7 +117,7 @@
     </div>
 
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/display/2d-map') ? 'active' : '' }">
-        <a class="nav-link" href="/view/display/2d-map">
+        <a class="nav-link" th:href="@{/view/display/2d-map}">
             <i class="fas fa-fw fa-map-marked"></i>
             <span>상황도</span>
         </a>
@@ -132,15 +132,15 @@
     </li>
     -->
 
-    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/display/los-virtual') ? 'active' : '' }">
-        <a class="nav-link" href="/view/display/los-virtual">
+    <!--<li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/display/los-virtual') ? 'active' : '' }">
+        <a class="nav-link" th:href="@{/view/display/los-virtual}">
             <i class="fas fa-fw fa-map-pin"></i>
             <span>LOS 가시화</span>
         </a>
-    </li>
+    </li>-->
 
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/display/common-map') ? 'active' : '' }">
-        <a class="nav-link" href="/view/display/common-map">
+        <a class="nav-link" th:href="@{/view/display/common-map}">
             <i class="fas fa-fw fa-map-marked"></i>
             <span>공통 지도</span>
         </a>
@@ -161,8 +161,8 @@
         </a>
         <div id="collapse1" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/view/server/sync-database">데이터베이스</a>
-                <a class="collapse-item" href="/view/server/sync-file">파일</a>
+                <a class="collapse-item" th:href="@{/view/server/sync-database}">데이터베이스</a>
+                <a class="collapse-item" th:href="@{/view/server/sync-file}">파일</a>
             </div>
         </div>
     </li>
@@ -176,7 +176,7 @@
     </div>
 
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/account') ? 'active' : '' }">
-        <a class="nav-link" href="/view/account/list">
+        <a class="nav-link" th:href="@{/view/account/list}">
             <i class="fas fa-fw fa-users"></i>
             <span>사용자</span>
         </a>

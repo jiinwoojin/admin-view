@@ -65,7 +65,7 @@ jiMap.prototype.init = function init(options) {
     return new mapboxgl.Map({
         container : options.container,
         //style : this.setBaseStyle(),
-        style : '/style/g25k_style.json',
+        style : CONTEXT + '/style/g25k_style.json',
         center : options.center || [0, 0],
         bounds : options.bounds || undefined,
         zoom : options.zoom || 10,

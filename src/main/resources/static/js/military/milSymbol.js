@@ -41,7 +41,7 @@ $('#mil_body').ready(function() {
 		var milCode = '';
 		var searchOk = false;
 		var careateSidc = '';
-		var JSONfile = '/json/milsym/S.json';
+		var JSONfile = CONTEXT + '/json/milsym/S.json';
 			$.ajax({
 				url: JSONfile,
 				dataType: 'json',
@@ -80,7 +80,7 @@ $('#mil_body').ready(function() {
 			});
 
 			if(!searchOk){
-				JSONfile = '/json/milsym/G.json';
+				JSONfile = CONTEXT + '/json/milsym/G.json';
 				$.ajax({
 					url: JSONfile,
 					dataType: 'json',
@@ -119,7 +119,7 @@ $('#mil_body').ready(function() {
 			}
 
 			if(!searchOk){
-				JSONfile = '/json/milsym/W.json';
+				JSONfile = CONTEXT + '/json/milsym/W.json';
 				$.ajax({
 					url: JSONfile,
 					dataType: 'json',
@@ -158,7 +158,7 @@ $('#mil_body').ready(function() {
 			}
 
 			if(!searchOk){
-				JSONfile = '/json/milsym/I.json';
+				JSONfile = CONTEXT + '/json/milsym/I.json';
 				$.ajax({
 					url: JSONfile,
 					dataType: 'json',
@@ -197,7 +197,7 @@ $('#mil_body').ready(function() {
 			}
 
 			if(!searchOk){
-				JSONfile = '/json/milsym/O.json';
+				JSONfile = CONTEXT + '/json/milsym/O.json';
 				$.ajax({
 					url: JSONfile,
 					dataType: 'json',
@@ -236,7 +236,7 @@ $('#mil_body').ready(function() {
 			}
 
 			if(!searchOk){
-				JSONfile = '/json/milsym/E.json';
+				JSONfile = CONTEXT + '/json/milsym/E.json';
 				$.ajax({
 					url: JSONfile,
 					dataType: 'json',
@@ -804,7 +804,7 @@ function selectedSymbol(searchData) {//20200207
 	var searchOk = false;
 	if(searchData != ''){
 		searchData = milcodeChange(searchData);
-		var JSONfile = '/json/milsym/S.json';
+		var JSONfile = CONTEXT + '/json/milsym/S.json';
 		$.ajax({
 			url: JSONfile,
 			dataType: 'json',
@@ -824,7 +824,7 @@ function selectedSymbol(searchData) {//20200207
 		});
 
 		if(!searchOk){
-			JSONfile = '/json/milsym/G.json';
+			JSONfile = CONTEXT + '/json/milsym/G.json';
 			$.ajax({
 				url: JSONfile,
 				dataType: 'json',
@@ -845,7 +845,7 @@ function selectedSymbol(searchData) {//20200207
 		}
 
 		if(!searchOk){
-			JSONfile = '/json/milsym/W.json';
+			JSONfile = CONTEXT + '/json/milsym/W.json';
 			$.ajax({
 				url: JSONfile,
 				dataType: 'json',
@@ -866,7 +866,7 @@ function selectedSymbol(searchData) {//20200207
 		}
 
 		if(!searchOk){
-			JSONfile = '/json/milsym/I.json';
+			JSONfile = CONTEXT + '/json/milsym/I.json';
 			$.ajax({
 				url: JSONfile,
 				dataType: 'json',
@@ -887,7 +887,7 @@ function selectedSymbol(searchData) {//20200207
 		}
 
 		if(!searchOk){
-			JSONfile = '/json/milsym/O.json';
+			JSONfile = CONTEXT + '/json/milsym/O.json';
 			$.ajax({
 				url: JSONfile,
 				dataType: 'json',
@@ -908,7 +908,7 @@ function selectedSymbol(searchData) {//20200207
 		}
 
 		if(!searchOk){
-			JSONfile = '/json/milsym/E.json';
+			JSONfile = CONTEXT + '/json/milsym/E.json';
 			$.ajax({
 				url: JSONfile,
 				dataType: 'json',

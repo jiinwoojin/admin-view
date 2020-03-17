@@ -281,7 +281,7 @@ function wirteXMLTransparentMap(){
 						}
 						
 						$.ajax({
-						       url: '/json/makeXML/shapeStyle.json',
+						       url: CONTEXT + '/json/makeXML/shapeStyle.json',
 						       dataType: 'json',
 						       async: false,
 						       success: function(data){

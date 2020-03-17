@@ -230,19 +230,19 @@ var battle_sidc = ''; // battle dimension sidc
 		}
 
 		//FieldID C
-		options.quantity = document.getElementById("C").value
+		options.quantity = document.getElementById("C").value;
 		validateTexts("C",(!isNaN(options.quantity) && options.quantity.length <= 9));
 	
 		//FieldID F
-		options.reinforcedReduced = document.getElementById("F").value
+		options.reinforcedReduced = document.getElementById("F").value;
 		validateTexts("F",(options.reinforcedReduced.length <= 3));
 
 		//FieldID G
-		options.staffComments = document.getElementById("G").value
+		options.staffComments = document.getElementById("G").value;
 		validateTexts("G",(options.staffComments.length <= 20));
 	
 		//FieldID H
-		options.additionalInformation = document.getElementById("H").value
+		options.additionalInformation = document.getElementById("H").value;
 		validateTexts("H",(options.additionalInformation.length <= 20));
 	
 		//FieldID J
@@ -253,27 +253,27 @@ var battle_sidc = ''; // battle dimension sidc
 		//validateTexts("J",(options.evaluationRating.length <= 2));
 	
 		//FieldID K
-		options.combatEffectiveness = document.getElementById("K").value
+		options.combatEffectiveness = document.getElementById("K").value;
 		validateTexts("K",(options.combatEffectiveness.length <= 5));
 	
 		//FieldID L
-		options.signatureEquipment = document.getElementById("L").value
+		options.signatureEquipment = document.getElementById("L").value;
 		validateTexts("L",(options.signatureEquipment.length <= 1));
 	
 		//FieldID M
-		options.higherFormation = document.getElementById("M").value
+		options.higherFormation = document.getElementById("M").value;
 		validateTexts("M",(options.higherFormation.length <= 21));
 	
 		//FieldID N
-		options.hostile = document.getElementById("N").value
+		options.hostile = document.getElementById("N").value;
 		validateTexts("N",(options.hostile.length <= 3));
 	
 		//FieldID P
-		options.iffSif = document.getElementById("P").value
+		options.iffSif = document.getElementById("P").value;
 		validateTexts("P",(options.iffSif.length <= 5));
 	
 		//FieldID Q
-		options.direction = document.getElementById("Q").value
+		options.direction = document.getElementById("Q").value;
 		validateTexts("Q",(!isNaN(options.direction) && options.direction.length <= 4));
 
 		//FieldID R
@@ -282,31 +282,31 @@ var battle_sidc = ''; // battle dimension sidc
 		}
 	
 		//FieldID T
-		options.uniqueDesignation = document.getElementById("T").value
+		options.uniqueDesignation = document.getElementById("T").value;
 		validateTexts("T",(options.uniqueDesignation.length <= 21));
 	
 		//FieldID V
-		options.type = document.getElementById("V").value
+		options.type = document.getElementById("V").value;
 		validateTexts("V",(options.type.length <= 24));
 	
 		//FieldID W
-		options.dtg = document.getElementById("W").value
+		options.dtg = document.getElementById("W").value;
 		validateTexts("W",(options.dtg.length <= 16));
 	
 		//FieldID X
-		options.altitudeDepth = document.getElementById("X").value
+		options.altitudeDepth = document.getElementById("X").value;
 		validateTexts("X",(options.altitudeDepth.length <= 14));
 	
 		//FieldID Y
-		options.location = document.getElementById("Y").value
+		options.location = document.getElementById("Y").value;
 		validateTexts("Y",(options.location.length <= 19));
 	
 		//FieldID Z
-		options.speed = document.getElementById("Z").value
+		options.speed = document.getElementById("Z").value;
 		validateTexts("Z",(options.speed.length <= 8));
 	
 		//FieldID AA
-		options.specialHeadquarters = document.getElementById("AA").value
+		options.specialHeadquarters = document.getElementById("AA").value;
 		validateTexts("AA",(options.specialHeadquarters.length <= 9)); 
 
 		//FieldID AG
@@ -316,7 +316,7 @@ var battle_sidc = ''; // battle dimension sidc
 		
 		// 수정 부분
 		var sidc = '';
-		if(activeStandard == 'letter'){ 
+		if(activeStandard === 'letter'){
 			// 주 메뉴
 			var SIDCFUNCTIONID = function_sidc; 
 			sidc = buildSymbolID(SIDCFUNCTIONID, options);
@@ -336,7 +336,7 @@ var battle_sidc = ''; // battle dimension sidc
 	
 	var letterSIDC = {
 		modifier11: function(){
-			var JSONfile = '/json/milsymInfo/Modifier_11.json';
+			var JSONfile = CONTEXT + '/json/milsymInfo/Modifier_11.json';
 			$.ajax({
 				url : JSONfile,
 				dataType: 'json',
@@ -350,7 +350,7 @@ var battle_sidc = ''; // battle dimension sidc
 					}
 					for (var i in selection){
 						if(!isNaN(i)){
-							if(selection.options[i].value == value){
+							if(selection.options[i].value === value){
 								selection.selectedIndex = i;
 								break;
 							}
@@ -360,17 +360,17 @@ var battle_sidc = ''; // battle dimension sidc
 			});
 		},
 		modifier12: function(){
-			var JSONfile = '/json/milsymInfo/Modifier_12.json';
+			var JSONfile = CONTEXT + '/json/milsymInfo/Modifier_12.json';
 			$.ajax({
 				url : JSONfile,
 				dataType: 'json',
 				async: false,
 				success: function(data){
 					var keyCode = document.getElementById('SIDCSYMBOLMODIFIER11').value;
-					if(keyCode == 'M'){
+					if(keyCode === 'M'){
 						values = data['M'];
 						selection = document.getElementById('R');
-					} else if (keyCode == 'N'){
+					} else if (keyCode === 'N'){
 						values = data['N'];
 						selection = document.getElementById('AG');
 					} else {
@@ -384,7 +384,7 @@ var battle_sidc = ''; // battle dimension sidc
 					}
 					for (var i in selection){
 						if(!isNaN(i)){
-							if(selection.options[i].value == value){
+							if(selection.options[i].value === value){
 								selection.selectedIndex = i;
 								break;
 							}
@@ -394,7 +394,7 @@ var battle_sidc = ''; // battle dimension sidc
 			});
 		},
 		affiliation: function(){ 
-			var JSONfile = '/json/milsymInfo/Affiliation.json';
+			var JSONfile = CONTEXT + '/json/milsymInfo/Affiliation.json';
 			$.ajax({
 				url : JSONfile,
 				dataType: 'json',
@@ -408,7 +408,7 @@ var battle_sidc = ''; // battle dimension sidc
 					}
 					for (var i in selection){
 						if(!isNaN(i)){
-							if(selection.options[i].value == value){
+							if(selection.options[i].value === value){
 								selection.selectedIndex = i;
 								break;
 							}
@@ -418,14 +418,14 @@ var battle_sidc = ''; // battle dimension sidc
 			});
 		},
 		status: function(){
-			var JSONfile = '/json/milsymInfo/Status.json';
+			var JSONfile = CONTEXT + '/json/milsymInfo/Status.json';
 			$.ajax({
 				url : JSONfile,
 				dataType: 'json',
 				async: false,
 				success: function(data){
 					var keyCode = document.getElementById('SIDCCODINGSCHEME').value.charAt(0);
-					if(keyCode == 'S'){
+					if(keyCode === 'S'){
 						values = data['S'];
 					} else {
 						values = data['O'];
@@ -438,7 +438,7 @@ var battle_sidc = ''; // battle dimension sidc
 					}
 					for (var i in selection){
 						if(!isNaN(i)){
-							if(selection.options[i].value == value){
+							if(selection.options[i].value === value){
 								selection.selectedIndex = i;
 								break;
 							}
@@ -448,7 +448,7 @@ var battle_sidc = ''; // battle dimension sidc
 			});
 		},
 		sidccodingscheme: function(){ 
-			var JSONfile = '/json/milsym/CodingScheme.json';
+			var JSONfile = CONTEXT + '/json/milsym/CodingScheme.json';
 			$.ajax({
 				url : JSONfile,
 				dataType: 'json',
@@ -462,7 +462,7 @@ var battle_sidc = ''; // battle dimension sidc
 					}
 					for (var i in selection){
 						if(!isNaN(i)){
-							if(selection.options[i].value == value){
+							if(selection.options[i].value === value){
 								selection.selectedIndex = i;
 								break;
 							}

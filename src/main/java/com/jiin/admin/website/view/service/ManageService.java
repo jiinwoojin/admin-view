@@ -1,6 +1,7 @@
 package com.jiin.admin.website.view.service;
 
 import com.jiin.admin.Constants;
+import com.jiin.admin.entity.Layer;
 import com.jiin.admin.entity.MapLayer;
 import com.jiin.admin.entity.MapSource;
 import com.jiin.admin.website.view.mapper.ManageMapper;
@@ -16,10 +17,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -46,13 +44,13 @@ public class ManageService {
     }
 
     public List<Map<String, Object>> getLayerList() {
-        List<Map<String, Object>> layers = mapper.getLayerList();
-        for(Map<String, Object> layer : layers){
+        //List<Map<String, Object>> layers = mapper.getLayerList();
+        /*for(Map<String, Object> layer : layers){
             List<Map<String, Object>> sources = mapper.getSourceListByLayerId((Long) layer.get("id"));
             List<Object> sourceIds = sources.stream().map(s -> s.get("id")).collect(toList());
             layer.put("source_ids", StringUtil.join(",",sourceIds));
-        }
-        return layers;
+        }*/
+        return mapper.getLayerList();
     }
 
     @Transactional
@@ -157,30 +155,70 @@ public class ManageService {
     }
 
     @Transactional
-    public boolean addLayer(String name, String title, String projection, String folder, String type, MultipartFile thumbnail) throws IOException {
-        log.info("Folder : " + folder);
-        log.info("Data Folder : " + dataPath + Constants.DATA_PATH + "/" + folder);
+    public boolean addLayer(String name, String description, String projection, String middle_folder, String type, MultipartFile data_file) throws IOException {
+        log.info("Folder : " + middle_folder);
+        log.info("Data Folder : " + dataPath + Constants.DATA_PATH + "/" + middle_folder);
 
         String filePath = null;
-        if(thumbnail != null && thumbnail.getSize() > 0){
-            String dirPath = dataPath + Constants.DATA_PATH + "/" + folder;
+        if(data_file != null && data_file.getSize() > 0){
+            String dirPath = dataPath + Constants.DATA_PATH + "/" + middle_folder;
             File dir = new File(dirPath);
             if (!dir.exists()) {
                 dir.mkdir();
             }
 
-            filePath = dirPath + "/" + thumbnail.getOriginalFilename();
+            filePath = dirPath + "/" + data_file.getOriginalFilename();
             File thumbnailFile = new File(filePath);
-            thumbnail.transferTo(thumbnailFile);
+            data_file.transferTo(thumbnailFile);
         }
-        //
-        /*TypedQuery<MapSource> query = entityManager.createQuery(
-                "SELECT T FROM " + MapSource.class.getAnnotation(Entity.class).name() + " T WHERE ID IN ("+StringUtil.join(sources, ",")+")"
-                , MapSource.class);
-        List<MapSource> sourceEntity = query.getResultList();*/
-        //
+
         String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        MapLayer entity = new MapLayer();
+        Layer layer = new Layer();
+        layer.setDefault(false);
+        layer.setName(name);
+        layer.setDescription(description);
+        layer.setProjection(projection);
+        layer.setType(type.toUpperCase());
+        layer.setMiddleFolder(middle_folder);
+        layer.setDataFilePath(Objects.requireNonNull(filePath).replaceAll(dataPath, ""));
+        layer.setRegistorId(loginUser);
+        layer.setRegistorName(loginUser);
+        layer.setRegistTime(new Date());
+
+        // lay 파일 생성
+        String layFilePath = dataPath + Constants.LAY_FILE_PATH + "/" + name + Constants.LAY_SUFFIX;
+
+        StringWriter layContent = new StringWriter();
+        BufferedWriter writer = new BufferedWriter(layContent);
+        writer.write("LAYER");
+        writer.newLine();
+        writer.write("  NAME \"" + name + "\"");
+        writer.newLine();
+        writer.write("  TYPE " + layer.getType());
+        writer.newLine();
+        writer.write("  STATUS OFF");
+        writer.newLine();
+        writer.write("  PROJECTION");
+        writer.newLine();
+        writer.write("    \"init=" + projection + "\"");
+        writer.newLine();
+        writer.write("  END");
+        writer.newLine();
+        writer.write("  DATA \"../.." + layer.getDataFilePath() + "\"");
+        writer.newLine();
+        writer.write("END");
+        writer.close();
+
+        if (FileUtils.getFile(layFilePath).isFile()) {
+            FileUtils.forceDelete(FileUtils.getFile(layFilePath));
+        }
+
+        FileUtils.write(new File(layFilePath), layContent.toString(), "utf-8");
+
+        layer.setLayerFilePath(Objects.requireNonNull(layFilePath).replaceAll(dataPath, ""));
+
+        entityManager.persist(layer);
+        /*MapLayer entity = new MapLayer();
         entity.setDefault(false);
         entity.setName(name);
         entity.setTitle(title);
@@ -192,13 +230,35 @@ public class ManageService {
         entity.setRegistorId(loginUser);
         entity.setRegistorName(loginUser);
         entity.setRegistTime(new Date());
-        entityManager.persist(entity);
+        entityManager.persist(entity);*/
         return true;
     }
 
     @Transactional
     public boolean delLayer(Long layerId) {
-        entityManager.remove(entityManager.find(MapLayer.class,layerId));
+        Layer layer = entityManager.find(Layer.class, layerId);
+
+        // DATA 파일 삭제
+        String dataFilePath = dataPath + layer.getDataFilePath();
+        String layFilePath = dataPath + layer.getLayerFilePath();
+        try {
+            if (FileUtils.getFile(dataFilePath).isFile()) {
+                FileUtils.forceDelete(FileUtils.getFile(dataFilePath));
+            }
+        } catch (IOException e) {
+            log.error(layer.getName() + " DATA 파일 삭제 실패했습니다.");
+        }
+
+        // lay 파일 삭제
+        try {
+            if (FileUtils.getFile(layFilePath).isFile()) {
+                FileUtils.forceDelete(FileUtils.getFile(layFilePath));
+            }
+        } catch (IOException e) {
+            log.error(layer.getName() + " LAY 파일 삭제 실패했습니다.");
+        }
+
+        entityManager.remove(layer);
         return true;
     }
 }

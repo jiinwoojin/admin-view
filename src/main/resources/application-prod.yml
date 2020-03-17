@@ -17,3 +17,7 @@ project:
   data-path: /data/jiserver/data_dir
   mapserver:
     binary: /usr/local/bin/mapserv
+logging:
+  level:
+    org.springframework : INFO
+    org.springframework.web : INFO

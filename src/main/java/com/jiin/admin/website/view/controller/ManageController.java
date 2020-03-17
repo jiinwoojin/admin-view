@@ -1,6 +1,7 @@
 package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.config.SessionService;
+import com.jiin.admin.entity.Map;
 import com.jiin.admin.website.view.service.ManageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -30,15 +31,24 @@ public class ManageController {
     @Resource
     private ManageService service;
 
-    @RequestMapping("source-manage")
-    public String source(Model model){
+    @RequestMapping("map-manage")
+    public String map(Model model){
         model.addAttribute("sources", service.getSourceList());
         model.addAttribute("mapserverBinary", mapserverBinary);
         model.addAttribute("mapserverWorkingDir", dataPath + "/tmp");
         model.addAttribute("cacheType", "map");
         model.addAttribute("cacheDirectory", dataPath + "/cache");
         model.addAttribute("message", session.message());
-        return "page/manage/source-manage";
+
+        return "page/manage/map-manage";
+    }
+
+    @RequestMapping("map-form")
+    public String mapForm(Model model) {
+        model.addAttribute("map", new Map());
+        model.addAttribute("layers", service.getLayerList());
+
+        return "page/manage/map-form";
     }
 
     @PostMapping("add-source")
@@ -48,7 +58,7 @@ public class ManageController {
                             @RequestParam("file") MultipartFile file){
         boolean result = service.addSource(name,type,desc,file);
         session.message(String.format("MAP SOURCE [%s] 추가 %s하였습니다.",name,(result ? "성공" : "실패")));
-        return "redirect:source-manage";
+        return "redirect:map-manage";
     }
 
     @ResponseBody
@@ -73,13 +83,13 @@ public class ManageController {
                            @RequestParam("type") String type,
                            @RequestParam("data_file") MultipartFile data_file) throws IOException {
         boolean result = service.addLayer(name, description, projection, middle_folder, type, data_file);
-        session.message(String.format("MAP LAYER [%s] 추가 %s하였습니다.",name,(result ? "성공" : "실패")));
+        session.message(String.format("LAYER [%s] 추가 %s하였습니다.",name,(result ? "성공" : "실패")));
         return "redirect:layer-manage";
     }
 
     @ResponseBody
     @PostMapping("del-layer")
-    public boolean delLayer(@RequestParam("layerId") Long layerId){
+    public boolean delLayer(@RequestParam("layerId") Long layerId) {
         return service.delLayer(layerId);
     }
 }

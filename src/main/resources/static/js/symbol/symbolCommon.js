@@ -113,12 +113,12 @@ function drawSymbol(){
 		var ul = document.getElementById('FUNCTIONS');
 		ul.innerHTML = '';
 		$.ajax({
-		       url: '/json/milsym/CodingSchemeInfo.json',
+		       url: CONTEXT + '/json/milsym/CodingSchemeInfo.json',
 		       dataType: 'json',
 		       async: false,
 		       success: function(data){
 				$.each(data, function(index, item){	
-				if(item != undefined){
+				if(item !== undefined){
 					var li = document.createElement('li');
 					li.id = item['MIL_CODE']+'_'+index+'_'+item['PROPERTIES']+'_'+item['MODIFIER'];
 					li.classList.add('treeview');
@@ -182,7 +182,7 @@ function drawSymbol(){
 			$("#SIDCSYMBOLMODIFIER11").val(Selector.id.split('_')[0].charAt(10)).prop("selected", true);
 		}
 		
-		var JSONfile = '/json/milsym/'+milCode.charAt(0)+'.json';
+		var JSONfile = CONTEXT + '/json/milsym/'+milCode.charAt(0)+'.json';
 		$.ajax({
 				url: JSONfile,
 				dataType: 'json',
@@ -281,9 +281,9 @@ function drawSymbol(){
 				BD_list[i].parentElement.classList.add('active');
 				//sidc_val = sidc.substring(2,10).toUpperCase();//20200207					
 				function_sidc = sidc;
-				if (sidc.charAt(0) == 'W'){
+				if (sidc.charAt(0) === 'W'){
 					searchItem = '';
-					JSONfile = '/json/milsym/W.json';
+					JSONfile = CONTEXT + '/json/milsym/W.json';
 					$.ajax({
 						url: JSONfile,
 						dataType: 'json',

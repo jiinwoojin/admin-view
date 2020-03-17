@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="html-head">
+    <link rel="icon" th:href="@{/favicon.ico}" />
     <!-- Bootstrap 4 SB Admin 2 CSS Importing -->
     <link rel="stylesheet" th:href="@{/css/sb-admin-2.css}">
 
@@ -16,10 +17,17 @@
     <!-- toastr CSS Importing -->
     <link rel="stylesheet" th:href="@{/vendor/toastr-lib/toastr.css}">
 
+    <link id="ContextPath" th:data-contextPath="${#httpServletRequest.getContextPath()}" />
+
     <!-- VueJS CDN Importing -->
     <script th:src="@{/vue/vue.min.js}"></script>
 
     <!-- jQuery Importing -->
     <script th:src="@{/jquery/jquery-3.4.1.min.js}"></script>
+
+    <script th:inline="javascript">
+        let ContextPath = '#ContextPath';
+        const CONTEXT = $(ContextPath).attr('data-contextPath') ? $(ContextPath).attr('data-contextPath') : '';
+    </script>
 </head>
 </html>

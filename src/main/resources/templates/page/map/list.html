@@ -3,10 +3,10 @@
 <th:block layout:fragment="content-title-fragment">
     <h1 class="h2 mb-0 text-gray-800">지도 목록</h1>
     <div id="map_config_button">
-        <a href="/view/map/create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <a th:href="@{/view/map/create}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-plus fa-sm text-white-50"></i> 지도 추가
         </a>
-        <a href="/view/map/layers" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <a th:href="@{/view/map/layers}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-layer-group fa-sm text-white-50"></i> 레이어 관리
         </a>
     </div>
@@ -16,7 +16,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="/view/map/list">지도 관리</a>
+                <a th:href="@{/view/map/list}">지도 관리</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">지도 목록</li>
         </ol>
@@ -29,7 +29,7 @@
         <!-- Search Box -->
         <div class="col-xl-3">
             <div class="form-group">
-                <label>키워드 검색</label>
+                <label for="keyword">키워드 검색</label>
                 <input id="keyword" type="text" class="form-control" placeholder="검색어" />
             </div>
 

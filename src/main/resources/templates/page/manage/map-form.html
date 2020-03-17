@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">지도 생성</h1>
+    <a href="/view/map/list" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-save fa-sm text-white-50"></i> 저장하기</a>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/view/map/list">지도 데이터</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">지도 생성</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <form autocomplete="off" th:object="${map}">
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="map-name">지도 이름</label>
+                    <input type="text" class="form-control" th:field="*{name}">
+                </div>
+            </div>
+            <!--<div class="col-2">
+                <div class="form-group">
+                    <label for="map-status">작동 여부</label>
+                    <select class="form-control" th:field="*{status}">
+                        <option value="ON">ON</option>
+                        <option value="OFF">OFF</option>
+                    </select>
+                </div>
+            </div>-->
+            <!--<div class="col-4">
+                <div class="form-group">
+                    <label for="map-size-x">지도 크기</label>
+                    <div class="row no-gutters">
+                        <div class="col-6">
+                            <input type="number" min="0" class="form-control text-right" th:field="*{width}">
+                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> 가로</small>
+                        </div>
+                        <div class="col-6">
+                            <input type="number" min="0" class="form-control text-right" th:field="*{height}">
+                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> 세로</small>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="map-projection">투영</label>
+                    <input type="text" id="map-projection" class="form-control" th:field="*{projection}">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="map-units">측정 단위</label>
+                    <select class="form-control" id="map-units" th:field="*{units}">
+                        <option value="DD">DD</option>
+                        <option value="FEET">FEET</option>
+                        <option value="INCHES">INCHES</option>
+                        <option value="KILOMETERS">KILOMETERS</option>
+                        <option value="METERS">METERS</option>
+                        <option value="MILES">MILES</option>
+                        <option value="NAUTICALMILES">NAUTICALMILES</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="map-extent">위도 / 경도 범위</label>
+                    <div class="row no-gutters" id="map-extent">
+                        <div class="col-3">
+                            <input type="text" class="form-control text-right" th:field="*{minX}">
+                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> Min. X</small>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control text-right" th:field="*{minY}">
+                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> Min. Y</small>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control text-right" th:field="*{maxX}">
+                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> Max. X</small>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control text-right" th:field="*{maxY}">
+                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> Max. Y</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div id="layer-list">
+        <h3>레이어 목록</h3>
+        <div class="text-right mb-1">
+            <button data-toggle="modal" data-target="#layer-add" class="btn btn-sm btn-success mr-1">
+                <i class="fas fa-plus"></i>
+            </button>
+            <button class="btn btn-sm btn-danger ml-1">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+        <table class="table table-striped text-center">
+            <thead>
+            <tr>
+                <th>체크</th>
+                <th>이름</th>
+                <th>종류</th>
+                <th>투영</th>
+                <th>설명</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="layer : ${ map.layers }">
+                <td class="text-center">
+                    <a class="btn btn-primary btn-sm" href="#">
+                        <i class="fas fa-check"></i>
+                    </a>
+                </td>
+                <td class="text-center" th:text="${ layer.name }"></td>
+                <td class="text-center" th:text="${ layer.type }"></td>
+                <td class="text-center" th:text="${ layer.projection }"></td>
+                <td class="text-center" th:text="${ layer.description }"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Modal -->
+        <div class="modal fade" id="layer-add" tabindex="-1" role="dialog" aria-labelledby="add-layer" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="add-layer">레이어 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <table id="list_table" class="table table-sm table-striped">
+                            <thead class="table-info">
+                            <tr>
+                                <th>체크</th>
+                                <th scope="col" class="text-center">이름</th>
+                                <th scope="col" class="text-center">종류</th>
+                                <th scope="col" class="text-center">투영</th>
+                                <th scope="col" class="text-center">설명</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="layer : ${ layers }">
+                                <td class="text-center">
+                                    <a class="btn btn-primary btn-sm" href="#">
+                                        <i class="fas fa-check"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center" th:text="${ layer.name }"></td>
+                                <td class="text-center" th:text="${ layer.type }"></td>
+                                <td class="text-center" th:text="${ layer.projection }"></td>
+                                <td class="text-center" th:text="${ layer.description }"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <script>
+                            $(document).ready(function() {
+                                $('#list_table').DataTable({
+                                    "language" : {
+                                        "lengthMenu" : "자료 길이 _MENU_",
+                                        "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                                        "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                                        "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                                        "infoFiltered" : "(총 _TOTAL_ 건)",
+                                        "search" : "검색 키워드",
+                                        "paginate": {
+                                            "first" : "<<",
+                                            "last" : ">>",
+                                            "next" : ">",
+                                            "previous" : "<"
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times"></i> 취소
+                        </button>
+                        <button type="button" class="btn btn-success">
+                            <i class="fas fa-plus"></i> 추가
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</html>
