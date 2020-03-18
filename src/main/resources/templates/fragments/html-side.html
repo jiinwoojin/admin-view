@@ -80,12 +80,12 @@
         </a>
     </li>
 
-    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/map') ? 'active' : '' }">
+    <!--<li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/map') ? 'active' : '' }">
         <a class="nav-link" th:href="@{/view/map/list}">
             <i class="fas fa-fw fa-layer-group"></i>
             <span>지도 데이터</span>
         </a>
-    </li>
+    </li>-->
 
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/cache/layers') ? 'active' : '' }">
         <a class="nav-link" th:href="@{/view/cache/layers}">

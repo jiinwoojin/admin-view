@@ -6,15 +6,26 @@ import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "_LAYER")
+@SequenceGenerator(
+        name = "LAYER_SEQ_GEN",
+        sequenceName = "LAYER_SEQ",
+        initialValue = 1,
+        allocationSize = 1
+)
 @Getter
 @Setter
 public class Layer implements Persistable<Long> {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "LAYER_SEQ_GEN"
+    )
     @Column(name = "ID")
     private Long id;
 
@@ -84,11 +95,8 @@ public class Layer implements Persistable<Long> {
     @Column(name = "REGIST_TIME", nullable = false)
     private Date registTime;
 
-    @OneToMany
-    @JoinTable(name = "_MAP_LAYER_RELATION"
-            , joinColumns = @JoinColumn(name = "LAYER_ID")
-            , inverseJoinColumns = @JoinColumn(name = "MAP_ID"))
-    private List<Map> maps;
+    @OneToMany(mappedBy = "layer", cascade = CascadeType.ALL)
+    private Set<MapLayerRelation> mapLayerRelations = new HashSet<>();
 
     @Override
     public boolean isNew() {

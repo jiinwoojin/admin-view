@@ -7,18 +7,17 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "_MAP_LAYER_RELATION")
-@IdClass(MapLayerRelationId.class)
 @Getter
 @Setter
-public class MapLayerRelation {
+public class MapLayerRelation implements Serializable {
     @Id
-    @OneToOne
-    @JoinColumn(name = "MAP_ID", nullable = false)
+    @ManyToOne
+    @JoinColumn
     private Map map;
 
     @Id
-    @OneToOne
-    @JoinColumn(name = "LAYER_ID", nullable = false)
+    @ManyToOne
+    @JoinColumn
     private Layer layer;
 
     /**
@@ -26,12 +25,4 @@ public class MapLayerRelation {
      */
     @Column(name = "LAYER_ORDER", nullable = false)
     private Integer layerOrder;
-}
-
-@Getter
-@Setter
-class MapLayerRelationId implements Serializable {
-    private Long map;
-
-    private Long layer;
 }

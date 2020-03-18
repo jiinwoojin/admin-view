@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
 <th:block layout:fragment="content-title-fragment">
     <h1 class="h3 mb-0 text-gray-800">지도 생성</h1>
-    <a href="/view/map/list" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-save fa-sm text-white-50"></i> 저장하기</a>
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="/view/map/list">지도 데이터</a>
+                <a th:href="@{/view/manage/map-manage}">지도 관리</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">지도 생성</li>
         </ol>
@@ -17,44 +16,52 @@
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
-    <form autocomplete="off" th:object="${map}">
+    <form action="#" th:action="@{/view/manage/add-map}" th:object="${map}" method="post" onsubmit="return preSubmit(this)">
+        <input type="hidden" id="layerList">
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> 저장
+            </button>
+        </div>
+        <div class="form-group row">
+            <div class="col-12">
+                <label for="map-name">지도 이름</label>
+            </div>
+            <div class="col-6 input-group">
+                <input type="text" class="form-control" th:field="*{name}" id="map-name">
+                <div class="input-group-append">
+                    <span class="input-group-btn btn btn-primary" onclick="jiCommon.duplicateCheck('MAP','#map-name','#duplicate-check-message')">중복확인</span>
+                </div>
+            </div>
+            <div class="col-12">
+                <small class="form-text text-muted" id="duplicate-check-message">중복확인을 해주세요.</small>
+            </div>
+        </div>
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <label for="map-name">지도 이름</label>
-                    <input type="text" class="form-control" th:field="*{name}">
+                    <label for="map-description">설명</label>
+                    <input type="text" id="map-description" class="form-control" th:field="*{description}">
                 </div>
             </div>
-            <!--<div class="col-2">
+            <div class="col-2">
                 <div class="form-group">
-                    <label for="map-status">작동 여부</label>
-                    <select class="form-control" th:field="*{status}">
-                        <option value="ON">ON</option>
-                        <option value="OFF">OFF</option>
+                    <label for="map-imageType">Ooutput Format</label>
+                    <select class="form-control" id="map-imageType" th:field="*{imageType}">
+                        <option value="jpeg">jpeg</option>
+                        <option value="png">png</option>
                     </select>
                 </div>
-            </div>-->
-            <!--<div class="col-4">
-                <div class="form-group">
-                    <label for="map-size-x">지도 크기</label>
-                    <div class="row no-gutters">
-                        <div class="col-6">
-                            <input type="number" min="0" class="form-control text-right" th:field="*{width}">
-                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> 가로</small>
-                        </div>
-                        <div class="col-6">
-                            <input type="number" min="0" class="form-control text-right" th:field="*{height}">
-                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> 세로</small>
-                        </div>
-                    </div>
-                </div>
-            </div>-->
+            </div>
         </div>
         <div class="row">
             <div class="col-4">
                 <div class="form-group">
                     <label for="map-projection">투영</label>
-                    <input type="text" id="map-projection" class="form-control" th:field="*{projection}">
+                    <select class="form-control" id="map-projection" th:field="*{projection}">
+                        <option value="epsg:3857">EPSG:3857</option>
+                        <option value="epsg:4326">EPSG:4326</option>
+                    </select>
                 </div>
             </div>
             <div class="col-2">
@@ -65,7 +72,7 @@
                         <option value="FEET">FEET</option>
                         <option value="INCHES">INCHES</option>
                         <option value="KILOMETERS">KILOMETERS</option>
-                        <option value="METERS">METERS</option>
+                        <option value="METERS" selected>METERS</option>
                         <option value="MILES">MILES</option>
                         <option value="NAUTICALMILES">NAUTICALMILES</option>
                     </select>
@@ -76,20 +83,36 @@
                     <label for="map-extent">위도 / 경도 범위</label>
                     <div class="row no-gutters" id="map-extent">
                         <div class="col-3">
-                            <input type="text" class="form-control text-right" th:field="*{minX}">
-                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> Min. X</small>
+                            <input type="text" class="form-control text-right" id="map-minx" th:field="*{minX}">
+                            <label for="map-minx">
+                                <small class="form-text text-muted">
+                                    <i class="far fa-question-circle"></i> Min. X
+                                </small>
+                            </label>
                         </div>
                         <div class="col-3">
-                            <input type="text" class="form-control text-right" th:field="*{minY}">
-                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> Min. Y</small>
+                            <input type="text" class="form-control text-right" id="map-miny" th:field="*{minY}">
+                            <label for="map-miny">
+                                <small class="form-text text-muted">
+                                    <i class="far fa-question-circle"></i> Min. Y
+                                </small>
+                            </label>
                         </div>
                         <div class="col-3">
-                            <input type="text" class="form-control text-right" th:field="*{maxX}">
-                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> Max. X</small>
+                            <input type="text" class="form-control text-right" id="map-maxx" th:field="*{maxX}">
+                            <label for="map-maxx">
+                                <small class="form-text text-muted">
+                                    <i class="far fa-question-circle"></i> Max. X
+                                </small>
+                            </label>
                         </div>
                         <div class="col-3">
-                            <input type="text" class="form-control text-right" th:field="*{maxY}">
-                            <small class="form-text text-muted"><i class="far fa-question-circle"></i> Max. Y</small>
+                            <input type="text" class="form-control text-right" id="map-maxy" th:field="*{maxY}">
+                            <label for="map-maxy">
+                                <small class="form-text text-muted">
+                                    <i class="far fa-question-circle"></i> Max. Y
+                                </small>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -103,35 +126,22 @@
             <button data-toggle="modal" data-target="#layer-add" class="btn btn-sm btn-success mr-1">
                 <i class="fas fa-plus"></i>
             </button>
-            <button class="btn btn-sm btn-danger ml-1">
-                <i class="fas fa-trash"></i>
-            </button>
         </div>
-        <table class="table table-striped text-center">
+        <table class="table table-striped text-center" id="layer_list">
             <thead>
             <tr>
+                <th>순서</th>
                 <th>체크</th>
                 <th>이름</th>
                 <th>종류</th>
                 <th>투영</th>
                 <th>설명</th>
+                <th>삭제</th>
             </tr>
             </thead>
-            <tbody>
-            <tr th:each="layer : ${ map.layers }">
-                <td class="text-center">
-                    <a class="btn btn-primary btn-sm" href="#">
-                        <i class="fas fa-check"></i>
-                    </a>
-                </td>
-                <td class="text-center" th:text="${ layer.name }"></td>
-                <td class="text-center" th:text="${ layer.type }"></td>
-                <td class="text-center" th:text="${ layer.projection }"></td>
-                <td class="text-center" th:text="${ layer.description }"></td>
-            </tr>
+            <tbody id="layer-body">
             </tbody>
         </table>
-
         <!-- Modal -->
         <div class="modal fade" id="layer-add" tabindex="-1" role="dialog" aria-labelledby="add-layer" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -155,11 +165,11 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="layer : ${ layers }">
+                            <tr th:each="layer, index : ${ layers }">
                                 <td class="text-center">
-                                    <a class="btn btn-primary btn-sm" href="#">
-                                        <i class="fas fa-check"></i>
-                                    </a>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" th:value="${index.index}" onchange="checkLayer(this);">
+                                    </div>
                                 </td>
                                 <td class="text-center" th:text="${ layer.name }"></td>
                                 <td class="text-center" th:text="${ layer.type }"></td>
@@ -168,33 +178,12 @@
                             </tr>
                             </tbody>
                         </table>
-                        <script>
-                            $(document).ready(function() {
-                                $('#list_table').DataTable({
-                                    "language" : {
-                                        "lengthMenu" : "자료 길이 _MENU_",
-                                        "zeroRecords" : "해당 자료가 존재하지 않습니다.",
-                                        "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
-                                        "infoEmpty" : "해당 자료가 존재하지 않습니다.",
-                                        "infoFiltered" : "(총 _TOTAL_ 건)",
-                                        "search" : "검색 키워드",
-                                        "paginate": {
-                                            "first" : "<<",
-                                            "last" : ">>",
-                                            "next" : ">",
-                                            "previous" : "<"
-                                        }
-                                    }
-                                });
-                            });
-                        </script>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                             <i class="fas fa-times"></i> 취소
                         </button>
-                        <button type="button" class="btn btn-success">
+                        <button type="button" class="btn btn-success" onclick="addLayer();">
                             <i class="fas fa-plus"></i> 추가
                         </button>
                     </div>
@@ -202,5 +191,154 @@
             </div>
         </div>
     </div>
+    <script th:inline="javascript">
+        var message = /*[[ ${message} ]]*/ null;
+        var table = null;
+        /*<![CDATA[*/
+        var layers = [[${layers}]];
+        /*]]>*/
+
+        var checkLayers = {};
+
+        var layerBody = document.querySelector('#layer-body');
+
+        var layerTable;
+
+        var layerCount = 0;
+
+        var drawLayer = {};
+
+        $(document).ready(function() {
+            if (!jQuery.isEmptyObject(message)) {
+                toastr.info(message);
+            }
+
+            table = $('#list_table').DataTable();
+
+            $('#map-name').change(function() {
+                $('#map-name').data("check-duplicate",false);
+                $('#duplicate-check-message').text("중복확인을 해주세요.");
+            });
+
+            layerTable = $('#layer_list').DataTable({
+                rowReorder: true,
+                stateSave: true
+            });
+        });
+
+        function preSubmit(form) {
+            var action = form.action;
+            if (action.indexOf("add-map") > -1) {
+                addMap(form)
+            }
+            return false
+        }
+
+        function addMap(form) {
+            if (jQuery.isEmptyObject(form['name'].value)) {
+                form['name'].focus();
+                toastr.warning("이름이 입력되지 않았습니다.");
+                return
+            } else if (jQuery(form['name']).data("check-duplicate") === false) {
+                toastr.warning("이름 중복확인이 되지 않았습니다.");
+                return
+            }
+            form.submit()
+        }
+
+        function checkLayer(el) {
+            var index = $(el).val();
+            if (el.checked) {
+                checkLayers[index] = layers[index];
+            } else {
+                if (checkLayers[index]) {
+                    delete checkLayers[index];
+                }
+            }
+        }
+
+        function addLayer() {
+            if (Object.keys(checkLayers).length > 0) {
+                $('#layer_list').DataTable().destroy();
+                for (var [key, value] of Object.entries(checkLayers)) {
+                    var id = value.id;
+
+                    if (drawLayer[id] === undefined) {
+                        createTableData(key, value);
+                    }
+                }
+
+                checkLayers = {};
+            }
+
+            layerTable = $('#layer_list').DataTable({
+                rowReorder: true,
+                stateSave: true
+            });
+
+            $('#layer-add').modal('hide');
+        }
+
+        function checkLayerMap(el) {
+            console.log(this);
+        }
+
+        function createTableData(order, layer) {
+            var tr = document.createElement('tr');
+
+            var orderTd = document.createElement('td');
+            orderTd.innerHTML = ++layerCount;
+            tr.appendChild(orderTd);
+
+            // ID
+            var checkTd = document.createElement('td');
+            checkTd.className = 'text-center';
+            var checkDiv = document.createElement('div');
+            checkDiv.className = 'form-check';
+            var checkInput = document.createElement('input');
+            checkInput.type = 'checkbox';
+            checkInput.value = layer.id;
+            checkInput.onchange = checkLayerMap;
+            checkInput.className = 'form-check-input';
+            checkInput.checked = true;
+            checkDiv.appendChild(checkInput);
+            checkTd.appendChild(checkDiv);
+
+            tr.appendChild(checkTd);
+
+            // 이름 name
+            var nameTd = document.createElement('td');
+            nameTd.innerHTML = layer.name;
+
+            tr.appendChild(nameTd);
+
+            // 종류 type
+            var typeTd = document.createElement('td');
+            typeTd.innerHTML = layer.type;
+
+            tr.appendChild(typeTd);
+
+            // 투영 projection
+            var projectionTd = document.createElement('td');
+            projectionTd.innerHTML = layer.projection;
+
+            tr.appendChild(projectionTd);
+
+            // 설명 description
+            var descriptionTd = document.createElement('td');
+            descriptionTd.innerHTML = layer.description;
+
+            tr.appendChild(descriptionTd);
+
+            var deleteTd = document.createElement('td');
+            deleteTd.innerHTML = '삭제';
+
+            tr.appendChild(deleteTd);
+
+            layerBody.appendChild(tr);
+
+            drawLayer[layer.id] = 1;
+        }
+    </script>
 </th:block>
 </html>

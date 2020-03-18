@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
 <th:block layout:fragment="content-breadcrumb-fragment">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -18,106 +18,6 @@
             <i class="fas fa-list fa-sm text-white-50"></i> Layer 관리
         </a>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="source-create" tabindex="-1" role="dialog" aria-labelledby="insert-layer" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <form th:action="@{/view/manage/add-source}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="insert-layer">Source 추가</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label for="source-name">Source ID</label>
-                            </div>
-                            <div class="col-12 input-group">
-                                <input type="text" class="form-control" name="name" id="source-name">
-                                <div class="input-group-append">
-                                    <span class="input-group-btn btn btn-primary" onclick="jiCommon.duplicateCheck('SOURCE','#source-name','#duplicate-check-message')">중복확인</span>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <small class="form-text text-muted" id="duplicate-check-message">중복확인을 해주세요.</small>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>설명</label>
-                            <input type="text" class="form-control" name="desc">
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label class="col-form-label">종류</label>
-                                <select class="form-control" name="type">
-                                    <option value="mapserver">mapserver</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="col-form-label">연결타입</label>
-                                <input type="text" class="form-control" >
-                            </div>
-                            <div class="col-sm-4">
-                                <label class="col-form-label">좌표계</label>
-                                <input type="text" class="form-control" >
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="source-name">파일</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="___customFileAddon">Upload</span>
-                                </div>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="___customFile" name="file"
-                                           aria-describedby="___customFileAddon">
-                                    <label class="custom-file-label" for="___customFile">Choose file</label>
-                                </div>
-                            </div>
-                            <script>
-                                // Add the following code if you want the name of the file appear on select
-                                $(".custom-file-input").on("change", function() {
-                                    var fileName = $(this).val().split("\\").pop();
-                                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-                                });
-                            </script>
-                            <small class="form-text text-muted">압축파일(.zip) 형태로 올려주세요. 검증 실패시 Source는 추가되지 않습니다.</small>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label class="col-form-label">Map Server Binary</label>
-                                <input type="text" class="form-control" th:value="${mapserverBinary}" disabled="disabled">
-                            </div>
-                            <div class="col-sm-8">
-                                <label class="col-form-label">Map Server Working Dir</label>
-                                <input type="text" class="form-control" th:value="${mapserverWorkingDir}" disabled="disabled">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label class="col-form-label">Cache Type</label>
-                                <input type="text" class="form-control" th:value="${cacheType}" disabled="disabled">
-                            </div>
-                            <div class="col-sm-8">
-                                <label class="col-form-label">Cache Directory</label>
-                                <input type="text" class="form-control" th:value="${cacheDirectory}" disabled="disabled">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fas fa-times"></i> 취소
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> 저장
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 </th:block>
 <th:block layout:fragment="content-body-fragment">
     <div id="layer_list_view">
@@ -126,23 +26,23 @@
             <tr>
                 <th scope="col" class="text-center">이름</th>
                 <th scope="col" class="text-center">설명</th>
-                <th scope="col" class="text-center">종류</th>
-                <th scope="col" class="text-center">레이어명</th>
+                <th scope="col" class="text-center">투영</th>
+                <th scope="col" class="text-center">OUTPUT FORMAT</th>
                 <th scope="col" class="text-center">생성일</th>
                 <th scope="col" class="text-center">기본여부</th>
                 <th scope="col" class="text-center">삭제</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="source : ${ sources }">
-                <td class="text-center" th:text="${ source['name'] }"></td>
-                <td class="text-center" th:text="${ source['description'] }"></td>
-                <td class="text-center" th:text="${ source['type'] }"></td>
-                <td class="text-center" th:text="${ source['layers'] }"></td>
-                <td class="text-center" th:text="${ source['regist_time'] }"></td>
-                <td class="text-center" th:text="${ source.is_default }"></td>
+            <tr th:each="map : ${ maps }">
+                <td class="text-center" th:text="${ map.name }"></td>
+                <td class="text-center" th:text="${ map.description }"></td>
+                <td class="text-center" th:text="${ map.projection }"></td>
+                <td class="text-center" th:text="${ map.imageType }"></td>
+                <td class="text-center" th:text="${ map.registTime }"></td>
+                <td class="text-center" th:text="${ map.isDefault() }"></td>
                 <td class="text-center">
-                    <span th:if="${!source.is_default}" class="btn btn-danger btn-sm" th:onclick="delSource(this,[[${source['name']}]],[[${source['id']}]])" >
+                    <span th:if="${!map.isDefault()}" class="btn btn-danger btn-sm" th:onclick="delMap(this,[[${map.name}]],[[${map.id}]])" >
                         <i class="fas fa-trash"></i>
                     </span>
                 </td>
@@ -155,60 +55,30 @@
 
             $(document).ready(function() {
                 if (!jQuery.isEmptyObject(message)) {
-                    toastr.info(message)
+                    toastr.info(message);
                 }
                 table = $('#list_table').DataTable();
                 $('#source-name').change(function() {
-                    $('#source-name').data("check-duplicate",false)
-                    $('#duplicate-check-message').text("중복확인을 해주세요.")
+                    $('#source-name').data("check-duplicate",false);
+                    $('#duplicate-check-message').text("중복확인을 해주세요.");
                 })
             });
 
-            function preSubmit(form) {
-                var action = form.action;
-                if (action.indexOf("add-source") > -1){
-                    addSource(form)
-                }
-                return false
-            }
-
-            function addSource(form) {
-                if (jQuery.isEmptyObject(form['name'].value)) {
-                    form['name'].focus()
-                    toastr.warning("이름이 입력되지 않았습니다.");
-                    return
-                } else if (jQuery(form['name']).data("check-duplicate") === false) {
-                    toastr.warning("이름 중복확인이 되지 않았습니다.");
-                    return
-                }
-                if (jQuery.isEmptyObject(form['file'].value)) {
-                    form['file'].focus();
-                    toastr.warning("파일이 첨부되지 않았습니다.");
-                    return
-                }
-                if (form['file'].value.lastIndexOf(".zip") === -1) {
-                    form['file'].focus();
-                    toastr.warning("Zip 파일을 첨부해 주세요.");
-                    return
-                }
-                form.submit()
-            }
-
-            function delSource(ths,sourceName,sourceId) {
-                if (confirm("["+sourceName+"] Source 를 제거 하시겠습니까?")) {
+            function delMap(ths, mapName, mapId) {
+                if (confirm("[ " + mapName + " ] Map 을 제거 하시겠습니까?")) {
                     jQuery.post({
-                        url: CONTEXT + "/view/manage/del-source",
-                        data: {sourceId : sourceId}
+                        url: CONTEXT + "/view/manage/del-map",
+                        data: {mapId : mapId}
                     }).done(function(result) {
                         if(result) {
-                            toastr.success("Source["+sourceName+"]가 제거 되었습니다.");
+                            toastr.success("Map [ " + mapName+ " ] 가 제거 되었습니다.");
                             table.row(jQuery(ths).parents('tr')).remove();
                             table.draw();
                         } else {
-                            toastr.error('Source 제거 중 오류가 발생하였습니다.');
+                            toastr.error('Map 제거 중 오류가 발생하였습니다.');
                         }
                     }).fail(function() {
-                        toastr.error('Source 제거에 실패하였습니다.');
+                        toastr.error('Map 제거에 실패하였습니다.');
                     }).always(function() {
                         jQuery("#loader-wrapper").hide();
                     })

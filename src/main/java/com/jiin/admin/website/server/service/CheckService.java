@@ -18,7 +18,7 @@ public class CheckService {
         String tableName = null;
         if(type.equalsIgnoreCase("layer")){
             tableName = Layer.class.getAnnotation(Entity.class).name();
-        }else if(type.equalsIgnoreCase("source")){
+        }else if(type.equalsIgnoreCase("map")){
             tableName = Map.class.getAnnotation(Entity.class).name();
         }
         int count = mapper.countDuplicate(tableName,name);

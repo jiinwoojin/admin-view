@@ -6,13 +6,11 @@ import com.jiin.admin.website.view.service.ManageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
@@ -33,22 +31,28 @@ public class ManageController {
 
     @RequestMapping("map-manage")
     public String map(Model model){
-        model.addAttribute("sources", service.getSourceList());
-        model.addAttribute("mapserverBinary", mapserverBinary);
+        model.addAttribute("maps", service.getSourceList());
+        /*model.addAttribute("mapserverBinary", mapserverBinary);
         model.addAttribute("mapserverWorkingDir", dataPath + "/tmp");
         model.addAttribute("cacheType", "map");
-        model.addAttribute("cacheDirectory", dataPath + "/cache");
+        model.addAttribute("cacheDirectory", dataPath + "/cache");*/
         model.addAttribute("message", session.message());
 
         return "page/manage/map-manage";
     }
 
     @RequestMapping("map-form")
-    public String mapForm(Model model) {
-        model.addAttribute("map", new Map());
+    public String mapForm(Model model, @ModelAttribute Map map) {
         model.addAttribute("layers", service.getLayerList());
 
         return "page/manage/map-form";
+    }
+
+    @PostMapping("add-map")
+    public String addMap(@Valid Map map) throws IOException {
+        boolean result = service.addMap(map);
+        session.message(String.format("MAP [%s] 추가 %s하였습니다.", map.getName(), (result ? "성공" : "실패")));
+        return "redirect:map-manage";
     }
 
     @PostMapping("add-source")
@@ -62,9 +66,9 @@ public class ManageController {
     }
 
     @ResponseBody
-    @PostMapping("del-source")
-    public boolean delSource(@RequestParam("sourceId") Long sourceId){
-        return service.delSource(sourceId);
+    @PostMapping("del-map")
+    public boolean delMap(@RequestParam("mapId") Long mapId){
+        return service.delMap(mapId);
     }
 
     @RequestMapping("layer-manage")

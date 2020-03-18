@@ -1,6 +1,6 @@
 package com.jiin.admin.website.view.mapper;
 
-import com.jiin.admin.entity.MapSymbol;
+import com.jiin.admin.entity.Layer;
 import com.jiin.admin.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -12,10 +12,10 @@ import java.util.Map;
 public interface ManageMapper {
 
     @Select("SELECT * FROM _LAYER")
-    List<Map<String, Object>> getLayerList();
+    List<Layer> getLayerList();
 
     @Select("SELECT * FROM _MAP")
-    List<Map<String, Object>> getSourceList();
+    List<com.jiin.admin.entity.Map> getSourceList();
 
     @Select("SELECT S.* FROM _MAP_SOURCE S INNER JOIN _MAP_LAYER_SOURCE LS ON S.ID = LS.SOURCE_ID WHERE LS.LAYER_ID = #{layerId}")
     List<Map<String, Object>> getSourceListByLayerId(@Param("layerId") Long layerId);

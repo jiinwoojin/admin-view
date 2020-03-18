@@ -19,4 +19,6 @@ public class Constants {
      * MAP 파일 경로
      */
     public static final String MAP_FILE_PATH = "/mapserver";
+
+    public static final String MAP_SUFFIX = ".map";
 }

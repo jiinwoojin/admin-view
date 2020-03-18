@@ -40,7 +40,10 @@
                         <!-- TODO select 로 수정 필요함 -->
                         <div class="form-group">
                             <label for="layer-projection">투영</label>
-                            <input type="text" class="form-control" name="projection" id="layer-projection">
+                            <select class="form-control" id="layer-projection" name="projection">
+                                <option value="epsg:3857">EPSG:3857</option>
+                                <option value="epsg:4326">EPSG:4326</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="layer-middle_folder">폴더명</label>
@@ -75,25 +78,6 @@
                                 </script>
                             </div>
                         </div>
-                        <!--<div class="form-group row">
-                            <div class="col-12">
-                                <label for="___customSelect">Source 연결</label>
-                            </div>
-                            <div class="col-12 input-group">
-                                <select class="form-control custom-select" id="___customSelect">
-                                    <option th:each="source : ${ sources }" th:value="${source.id}" th:text="${source.name} + ' [' + ${source.layers} + ']'" />
-                                </select>
-                                <div class="input-group-append">
-                                    <span class="input-group-btn btn btn-primary" onclick="addSource(this)">추가</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-form-label">Source 연결 목록</label>
-                            <div class="btn-group-sm collapse show" id="parent-buttons">
-                                <button type="button" class="btn btn-warning text-white mb-1 p-1" style="padding-top: 3px !important;padding-bottom: 3px !important;" id="btn-parent-all">연결된 Source 가 없습니다.</button>
-                            </div>
-                        </div>-->
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -177,29 +161,28 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-2 layer-item" th:each="layer : ${ layers }">
                     <div class="card">
-                        <img class="card-img-top p-2" th:src="'../image/' + ${layer['thumbnail'] + '.thumbnail.img'}" alt="Card image cap">
+                        <!--<img class="card-img-top p-2" th:src="'../image/' + ${layer['thumbnail'] + '.thumbnail.img'}" alt="Card image cap">-->
                         <div class="card-body">
                             <h5 class="card-title" th:text="${ layer.name }"></h5>
                             <p class="card-text">
-                                <i class="fas fa-calendar"></i>[[${layer.regist_time}]]<br/>
-                                <i class="fas fa-user"></i> UPLOADER <br/>
+                                <i class="fas fa-calendar"></i> <span th:text="${layer.registTime}"></span><br/>
+                                <i class="fas fa-user"></i> <span th:text="${layer.registorName}"></span><br/>
                                 <i class="fas fa-atlas"></i> <span th:text="${ layer.description }"></span><br/>
-                                <th:block th:if="${layer.is_default}">
+                                <th:block th:if="${layer.isDefault()}">
                                     <i class="fas fa-layer-group" ></i> <span>기본레이어(편집불가)</span>
                                 </th:block>
                             </p>
                             <div class="text-right">
                                 <button data-toggle="modal" data-target="#layer-create" class="btn btn-primary"
-                                        th:data-id="${ layer['id'] }"
-                                        th:data-name="${ layer['name'] }"
-                                        th:data-description="${ layer['description'] }"
-                                        th:data-thumbnail="${ layer['thumbnail'] }"
-                                        th:data-projection="${layer['projection']}"
-                                        th:data-middleFolder="${layer['middle_folder']}"
+                                        th:data-id="${ layer.id }"
+                                        th:data-name="${ layer.name }"
+                                        th:data-description="${ layer.description }"
+                                        th:data-projection="${layer.projection}"
+                                        th:data-middleFolder="${layer.middleFolder}"
                                         >
                                     <i class="fas fa-cog"></i>
                                 </button>
-                                <span th:if="${!layer.is_default}" class="btn btn-danger" th:onclick="delLayer(this, [[${layer['name']}]], [[${layer['id']}]])" >
+                                <span th:if="${!layer.isDefault()}" class="btn btn-danger" th:onclick="delLayer(this, [[${layer.name}]], [[${layer.id}]])" >
                                     <i class="fas fa-trash"></i>
                                 </span>
                             </div>
@@ -312,8 +295,6 @@
                 var layerProjection = jQuery(btn).data('projection');
                 var layerMiddleFolder = $(btn).data('middlefolder');
                 console.log(layerMiddleFolder);
-                var thumbnail = jQuery(btn).data("thumbnail");
-                var sources = jQuery(btn).data("sources");
                 var target = jQuery(btn).data("target");
                 /*var area = jQuery("#parent-buttons");
                 area.empty();*/
@@ -331,7 +312,7 @@
                     //new
                     popup.find("[name='name']").val('');
                     popup.find("[name='description']").val('');
-                    popup.find("[name='projection']").val('');
+                    popup.find("[name='projection'] > option").first().attr('selected', 'true');
                     popup.find("[name='middle_folder']").val('');
                     //popup.find("[name='thumbnail']").val('');
                     //area.append("<button type=\"button\" class=\"btn btn-warning text-white mb-1 p-1\" style=\"padding-top: 3px !important;padding-bottom: 3px !important;\" id=\"btn-parent-all\">연결된 Source 가 없습니다.</button>")

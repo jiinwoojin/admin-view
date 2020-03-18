@@ -42,7 +42,7 @@ var jiCommon = {
                 jQuery(messageId).html("사용가능한 이름입니다.");
                 jQuery(targetId).data("check-duplicate", true);
             } else {
-                toastr.error('중복체크 중 오류가 발생하였습니다.');
+                toastr.error('사용불가능한 이름입니다.');
                 jQuery(targetId).data("check-duplicate",false);
             }
         }).fail(function() {

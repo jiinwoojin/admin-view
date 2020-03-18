@@ -1,0 +1,20 @@
+MAP
+  NAME "NAME_VALUE"
+  EXTENT MIN_X MIN_Y MAX_X MAX_Y
+  IMAGETYPE IMAGETYPE_VALUE
+  UNITS UNITS_VALUE
+  SHAPEPATH "../data"
+  PROJECTION
+    "init=PROJECTION_VALUE"
+  END
+  WEB
+    IMAGEPATH "IMAGEPATH_VALUE"
+    METADATA
+      "wms_title" "WMS_TITLE_VALUE"
+      "wms_srs" "WMS_SRS_VALUE"
+      "wms_enable_request" "*"
+    END
+  END
+
+  LAYER_INCLUDE
+END
