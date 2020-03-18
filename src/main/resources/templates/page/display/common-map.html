@@ -63,50 +63,13 @@
                 <div class="modal-body">
                     <div class="pt-1 pb-1">
                         <table id="list_table" class="table table-sm table-striped">
-                            <thead class="table-info">
+                            <thead class="table-info w-100">
                             <tr>
                                 <th scope="col" class="text-center">레이어 이름</th>
                                 <th scope="col" class="text-center">레이어 ON / OFF</th>
+                                <th scope="col" class="text-center">레이어 순서</th>
                             </tr>
                             </thead>
-                            <tbody id="layerContent">
-                            <tr>
-                                <td class="text-center align-middle">
-                                    레이어 A
-                                </td>
-                                <td class="text-center align-middle">
-                                    <fieldset id="layer0">
-                                        <input class="opacity form-control-range" type="range" min="0" max="1" step="0.01" />
-                                        <input type="checkbox" class="visible" id="visible0" />
-                                        <label for="visible0"> 보이기</label>
-                                    </fieldset>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center align-middle">
-                                    레이어 B
-                                </td>
-                                <td class="text-center align-middle">
-                                    <fieldset id="layer1">
-                                        <input class="opacity form-control-range" type="range" min="0" max="1" step="0.01" />
-                                        <input type="checkbox" class="visible" id="visible1" />
-                                        <label for="visible1"> 보이기</label>
-                                    </fieldset>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center align-middle">
-                                    레이어 C
-                                </td>
-                                <td class="text-center align-middle">
-                                    <fieldset id="layer2">
-                                        <input class="opacity form-control-range" type="range" min="0" max="1" step="0.01" />
-                                        <input type="checkbox" class="visible" id="visible2" />
-                                        <label for="visible2"> 보이기</label>
-                                    </fieldset>
-                                </td>
-                            </tr>
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -180,23 +143,6 @@
 
             $('.btn-overlay').tooltip();
 
-            $('#list_table').DataTable({
-                "language" : {
-                    "lengthMenu" : "페이지 단위 : _MENU_ 건",
-                    "zeroRecords" : "해당 자료가 존재하지 않습니다.",
-                    "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
-                    "infoEmpty" : "해당 자료가 존재하지 않습니다.",
-                    "infoFiltered" : "(총 _TOTAL_ 건)",
-                    "search" : "검색 키워드 : ",
-                    "paginate": {
-                        "first" : "<<",
-                        "last" : ">>",
-                        "next" : ">",
-                        "previous" : "<"
-                    }
-                }
-            });
-
             if (stmp.getMilsym() === undefined) {
                 stmp.setMilSym(ms);
             }
@@ -215,8 +161,6 @@
                     stmp.d3Canvas.closeCanvas();
                 }
             });
-
-            $(layerModal).on('show.bs.modal', setLayer);
 
             $('.map-item').click(function(e) {
                 if (this.id) {
@@ -285,10 +229,55 @@
 
             $('#mapContent').load(url);
         }
+        $(layerModal).on('show.bs.modal', function(e) {
+            $('#list_table').DataTable().destroy()
+            var layers = stmp.mapObject.map.getStyle().layers
+            var layerTable = $('#list_table').DataTable({
+                data : layers,
+                columns: [
+                    { title: "레이어 이름" , data:'id', className: "text-center" },
+                    { title: "레이어 ON / OFF", className: "text-center", render: function(data,type,row,meta) {
+                        var layer = stmp.mapObject.map.getLayer(row.id)
+                        var visible = (layer.visibility === "visible")
+                        var html = "<fieldset>\n" +
+                            "             <input class=\"opacity form-control-range\" type=\"range\" min=\"0\" max=\"1\" step=\"0.01\" onchange=\"fn_set_layer_opacity(this)\" />\n" +
+                            "             <input type=\"checkbox\" class=\"visible\" onclick=\"fn_set_layer_visible(this)\" data-layerid='"+row.id+"' " + (visible ? "checked='checked'" : "") + ">" +
+                            "             <label> 보이기</label>\n" +
+                            "       </fieldset>"
+                        return html
+                    }},
+                    { title: "레이어 순서", className: "text-center", render: function(data,type,row,meta) {
+                            var layer = stmp.mapObject.map.getLayer(row.id)
+                            var html = "<fieldset>\n" +
+                                "             <button type=\"button\" class=\"btn btn-sm btn-primary\" onclick='fn_set_layer_order_up(this)'>위로</button>\n" +
+                                "             <button type=\"button\" class=\"btn btn-sm btn-primary\" onclick='fn_set_layer_order_down(this)'>아래로</button>\n" +
+                                "       </fieldset>"
+                            return html
+                        }}
+                ],
+                language : {
+                    "info" : "총 _MAX_ 건"
+                },
+                paging: false,
+                scrollY: '50vh',
+                scrollCollapse: true,
+                ordering: false
+            });
+            setTimeout(function(){layerTable.columns.adjust().draw()},0);
+        });
+        function fn_set_layer_visible(elem){
+            var layerId = elem.getAttribute("data-layerid")
+            var visible = (elem.checked ? 'visible' : 'none')
+            stmp.mapObject.map.setLayoutProperty(layerId,"visibility",visible)
+        }
+        function fn_set_layer_opacity(elem){
 
-        function setLayer() {
-            debugger;
-            console.log('레이어 클릭.');
+        }
+        function fn_set_layer_order_up(elem){
+
+        }
+        function fn_set_layer_order_down(elem){
+
         }
     </script>
 
