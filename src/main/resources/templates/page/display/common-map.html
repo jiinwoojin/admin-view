@@ -67,9 +67,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="pt-1 pb-1">
-                        <table id="list_table" class="table table-sm table-striped">
-                            <thead class="table-info w-100">
+                        <table id="list_table" class="table table-sm table-striped w-100">
+                            <thead class="table-info">
                             <tr>
+                                <th scope="col" class="text-center text-nowrap">레이어 순서</th>
                                 <th scope="col" class="text-center text-nowrap">레이어 이름</th>
                                 <th scope="col" class="text-center text-nowrap">레이어 타입</th>
                                 <th scope="col" class="text-center text-nowrap">레이어 보임</th>
@@ -208,6 +209,8 @@
             });
         }
 
+        var _TEGOLA_CONFIG = {}
+
         let overlayModal = '#shape_modal';
         let layerModal = '#layer_modal';
 
@@ -312,6 +315,21 @@
                     }
                 }
             });
+            // load tegola config
+            jiCommon.showLoading()
+            jQuery.post({
+                url: CONTEXT + "/server/layer/load-tegola-config"
+            }).done(function(result) {
+                if (result instanceof Object) {
+                    window._TEGOLA_CONFIG = result
+                } else {
+                    toastr.error('서버 로드 오류입니다.');
+                }
+            }).fail(function() {
+                toastr.error('서버 로드 오류입니다.');
+            }).always(function() {
+                jiCommon.hideLoading()
+            });
         });
 
         function getMap(content) {
@@ -320,6 +338,7 @@
             $('#mapContent').load(url);
         }
         $(layerModal).on('show.bs.modal', function(e) {
+            jiCommon.showLoading()
             $('#list_table').DataTable().destroy()
             var layers = stmp.mapObject.map.getStyle().layers
             var maxzoom = stmp.mapObject.map.getMaxZoom()
@@ -331,6 +350,9 @@
             var layerTable = jQuery('#list_table').DataTable({
                 data : layers,
                 columns: [
+                    { title: "순서" , className: "text-center", orderable : false, render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }},
                     { title: "이름" , data:'id', className: "text-center", orderable : false },
                     { title: "타입" , data:'type', className: "text-center" },
                     { title: "보임", className: "text-center", render: function(data,type,row,meta) {
@@ -340,8 +362,22 @@
                             return html
                         }},
                     { title: "투명도", className: "text-center align-middle", render: function(data,type,row,meta) {
-                            var layer = stmp.mapObject.map.getLayer(row.id)
-                            var html = "<input class=\"opacity form-control-range align-middle\" type=\"range\" min=\"0\" max=\"1\" step=\"0.01\" onchange=\"fn_set_layer_opacity(this)\" />"
+                            var type = row.type
+                            var opacity
+                            if(type === "background"){
+                                opacity = stmp.mapObject.map.getPaintProperty(row.id,"background-opacity")
+                            }else if(type === "fill"){
+                                opacity = stmp.mapObject.map.getPaintProperty(row.id,"fill-opacity")
+                            }else if(type === "line"){
+                                opacity = stmp.mapObject.map.getPaintProperty(row.id,"line-opacity")
+                            }else if(type === "symbol"){
+                                opacity = stmp.mapObject.map.getPaintProperty(row.id,"icon-opacity")
+                                //stmp.mapObject.map.getPaintProperty(row.id,"text-opacity") // TODO : icon / text 분리 필요
+                            }
+                            if(opacity === undefined){
+                                opacity = 1
+                            }
+                            var html = "<input class=\"opacity form-control-range align-middle\" type=\"range\" min='0' max='1' step='0.01' value='"+opacity+"' onchange='fn_set_layer_opacity(this)' data-layerid='"+row.id+"'/>"
                             return html
                         }},
                     { title: "순서", className: "text-center text-nowrap", render: function(data,type,row,meta) {
@@ -350,8 +386,14 @@
                             return html
                         }},
                     { title: "축적(최소-최대)", className: "text-center text-nowrap", render: function(data,type,row,meta) {
+                            var sourceLayer = row['source-layer']
                             var maxzoom = row.maxzoom
                             var minzoom = row.minzoom
+                            //console.log(sourceLayer, _TEGOLA_CONFIG[sourceLayer])
+                            if(_TEGOLA_CONFIG[sourceLayer]){
+                                maxzoom = _TEGOLA_CONFIG[sourceLayer].maxzoom
+                                minzoom = _TEGOLA_CONFIG[sourceLayer].minzoom
+                            }
                             var maxzoomOptionHtml = optionHtml.replace("value='"+maxzoom+"'","value='"+maxzoom+"' selected='selected'")
                             var minzoomOptionHtml = optionHtml.replace("value='"+minzoom+"'","value='"+minzoom+"' selected='selected'")
                             var html =  "<select class='custom-select custom-select-sm' style='width: 65px;' onchange='fn_set_layer_min_zoom(this)' data-layerid='"+row.id+"'>"+minzoomOptionHtml+"</select>" +
@@ -368,15 +410,40 @@
                 scrollCollapse: true,
                 ordering: false
             });
-            setTimeout(function(){layerTable.columns.adjust().draw()},0);
+            setTimeout(function(){
+                layerTable.columns.adjust().draw()
+                jiCommon.hideLoading()
+                },0);
         });
         function fn_set_layer_visible(elem){
             var layerId = elem.getAttribute("data-layerid")
             var visible = (elem.checked ? 'visible' : 'none')
+            console.log(layerId,"visibility",visible)
             stmp.mapObject.map.setLayoutProperty(layerId,"visibility",visible)
         }
-        function fn_set_layer_opacity(elem){
 
+        /**
+         * background / background-opacity
+         * fill / fill-opacity
+         * line / line-opacity
+         * symbol / icon-opacity & text-opacity
+         * @param elem
+         */
+        function fn_set_layer_opacity(elem){
+            var layerId = elem.getAttribute("data-layerid")
+            var layer = stmp.mapObject.map.getLayer(layerId)
+            var type = layer.type
+            var value = parseFloat(elem.value)
+            if(type === "background"){
+                stmp.mapObject.map.setPaintProperty(layerId,"background-opacity",value)
+            }else if(type === "fill"){
+                stmp.mapObject.map.setPaintProperty(layerId,"fill-opacity",value)
+            }else if(type === "line"){
+                stmp.mapObject.map.setPaintProperty(layerId,"line-opacity",value)
+            }else if(type === "symbol"){
+                stmp.mapObject.map.setPaintProperty(layerId,"icon-opacity",value)
+                stmp.mapObject.map.setPaintProperty(layerId,"text-opacity",value)
+            }
         }
         function fn_set_layer_order_up(elem){
             var layers = stmp.mapObject.map.getStyle().layers
