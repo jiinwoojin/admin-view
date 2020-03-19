@@ -70,15 +70,21 @@
                         <table id="list_table" class="table table-sm table-striped">
                             <thead class="table-info w-100">
                             <tr>
-                                <th scope="col" class="text-center">레이어 이름</th>
-                                <th scope="col" class="text-center">레이어 ON / OFF</th>
-                                <th scope="col" class="text-center">레이어 순서</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 이름</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 타입</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 보임</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 투명도</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 순서</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 축적</th>
                             </tr>
                             </thead>
                         </table>
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-success" data-dismiss="modal">
+                        <i class="fas fa-server"></i> 레이어 상태 서버저장
+                    </button>
                     <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
                         <i class="fas fa-times"></i> 닫기
                     </button>
@@ -316,26 +322,41 @@
         $(layerModal).on('show.bs.modal', function(e) {
             $('#list_table').DataTable().destroy()
             var layers = stmp.mapObject.map.getStyle().layers
-            var layerTable = $('#list_table').DataTable({
+            var maxzoom = stmp.mapObject.map.getMaxZoom()
+            var minzoom = stmp.mapObject.map.getMinZoom()
+            var optionHtml = "<option value=''>선택</option>"
+            for(var i=minzoom; i <= maxzoom; i++){
+                optionHtml += "<option value='"+i+"'>"+i+"</option>"
+            }
+            var layerTable = jQuery('#list_table').DataTable({
                 data : layers,
                 columns: [
-                    { title: "레이어 이름" , data:'id', className: "text-center" },
-                    { title: "레이어 ON / OFF", className: "text-center", render: function(data,type,row,meta) {
-                        var layer = stmp.mapObject.map.getLayer(row.id)
-                        var visible = (layer.visibility === "visible")
-                        var html = "<fieldset>\n" +
-                            "             <input class=\"opacity form-control-range\" type=\"range\" min=\"0\" max=\"1\" step=\"0.01\" onchange=\"fn_set_layer_opacity(this)\" />\n" +
-                            "             <input type=\"checkbox\" class=\"visible\" onclick=\"fn_set_layer_visible(this)\" data-layerid='"+row.id+"' " + (visible ? "checked='checked'" : "") + ">" +
-                            "             <label> 보이기</label>\n" +
-                            "       </fieldset>"
-                        return html
-                    }},
-                    { title: "레이어 순서", className: "text-center", render: function(data,type,row,meta) {
+                    { title: "이름" , data:'id', className: "text-center", orderable : false },
+                    { title: "타입" , data:'type', className: "text-center" },
+                    { title: "보임", className: "text-center", render: function(data,type,row,meta) {
                             var layer = stmp.mapObject.map.getLayer(row.id)
-                            var html = "<fieldset>\n" +
-                                "             <button type=\"button\" class=\"btn btn-sm btn-primary\" onclick='fn_set_layer_order_up(this)'>위로</button>\n" +
-                                "             <button type=\"button\" class=\"btn btn-sm btn-primary\" onclick='fn_set_layer_order_down(this)'>아래로</button>\n" +
-                                "       </fieldset>"
+                            var visible = (layer.visibility === "visible")
+                            var html = "<input type=\"checkbox\" class=\"visible align-middle\" onclick=\"fn_set_layer_visible(this)\" data-layerid='"+row.id+"' " + (visible ? "checked='checked'" : "") + ">"
+                            return html
+                        }},
+                    { title: "투명도", className: "text-center align-middle", render: function(data,type,row,meta) {
+                            var layer = stmp.mapObject.map.getLayer(row.id)
+                            var html = "<input class=\"opacity form-control-range align-middle\" type=\"range\" min=\"0\" max=\"1\" step=\"0.01\" onchange=\"fn_set_layer_opacity(this)\" />"
+                            return html
+                        }},
+                    { title: "순서", className: "text-center text-nowrap", render: function(data,type,row,meta) {
+                            var html =  "<button type=\"button\" class=\"btn btn-sm small btn-primary p-0 mr-1\" onclick='fn_set_layer_order_up(this)' data-layerid='"+row.id+"'>&#8593;</button>" +
+                                        "<button type=\"button\" class=\"btn btn-sm small btn-primary p-0\" onclick='fn_set_layer_order_down(this)' data-layerid='"+row.id+"'>&#8595;</button>"
+                            return html
+                        }},
+                    { title: "축적(최소-최대)", className: "text-center text-nowrap", render: function(data,type,row,meta) {
+                            var maxzoom = row.maxzoom
+                            var minzoom = row.minzoom
+                            var maxzoomOptionHtml = optionHtml.replace("value='"+maxzoom+"'","value='"+maxzoom+"' selected='selected'")
+                            var minzoomOptionHtml = optionHtml.replace("value='"+minzoom+"'","value='"+minzoom+"' selected='selected'")
+                            var html =  "<select class='custom-select custom-select-sm' style='width: 65px;' onchange='fn_set_layer_min_zoom(this)' data-layerid='"+row.id+"'>"+minzoomOptionHtml+"</select>" +
+                                        " - " +
+                                        "<select class='custom-select custom-select-sm' style='width: 65px;' onchange='fn_set_layer_max_zoom(this)' data-layerid='"+row.id+"'>"+maxzoomOptionHtml+"</select>"
                             return html
                         }}
                 ],
@@ -358,12 +379,67 @@
 
         }
         function fn_set_layer_order_up(elem){
-
+            var layers = stmp.mapObject.map.getStyle().layers
+            var layerId = elem.getAttribute("data-layerid")
+            var prevLayerIdx = -1
+            var currLayerIdx = -1
+            jQuery.each(layers, function(idx, layer){
+                if(layer.id === layerId){
+                    prevLayerIdx = idx - 1
+                    currLayerIdx = idx
+                    return
+                }
+            })
+            if(prevLayerIdx > -1){
+                var targetItem = layers[prevLayerIdx]
+                var currentItem = layers[currLayerIdx]
+                stmp.mapObject.map.moveLayer(layerId,targetItem.id)
+                jQuery('#list_table').DataTable().row(prevLayerIdx).data(currentItem).draw(false);
+                jQuery('#list_table').DataTable().row(currLayerIdx).data(targetItem).draw(false);
+            }else{
+                toastr.warning("레이어 순서조정이 불가능합니다.")
+            }
         }
         function fn_set_layer_order_down(elem){
-
+            var layers = stmp.mapObject.map.getStyle().layers
+            var layerId = elem.getAttribute("data-layerid")
+            var nextLayerIdx = -1
+            var currLayerIdx = -1
+            jQuery.each(layers, function(idx, layer){
+                if(layer.id === layerId){
+                    nextLayerIdx = idx + 1
+                    currLayerIdx = idx
+                    return
+                }
+            })
+            if(nextLayerIdx < layers.length){
+                var targetItem = layers[nextLayerIdx + 1]
+                var moveTargetItem = layers[nextLayerIdx]
+                var currentItem = layers[currLayerIdx]
+                if(nextLayerIdx === layers.length - 1) {
+                    targetItem = layers[nextLayerIdx]
+                    stmp.mapObject.map.moveLayer(targetItem.id,layerId)
+                }else {
+                    stmp.mapObject.map.moveLayer(layerId, targetItem.id)
+                }
+                jQuery('#list_table').DataTable().row(nextLayerIdx).data(currentItem).draw(false);
+                jQuery('#list_table').DataTable().row(currLayerIdx).data(moveTargetItem).draw(false);
+            }else{
+                toastr.warning("레이어 순서조정이 불가능합니다.")
+            }
         }
-
+        function fn_set_layer_min_zoom(elem){
+            var layerId = elem.getAttribute("data-layerid")
+            var layer = stmp.mapObject.map.getLayer(layerId)
+            layer.minzoom = elem.value
+            stmp.mapObject.map.resize()
+        }
+        function fn_set_layer_max_zoom(elem){
+            var layerId = elem.getAttribute("data-layerid")
+            var layer = stmp.mapObject.map.getLayer(layerId)
+            layer.maxzoom = elem.value
+            stmp.mapObject.map.resize()
+        }
         //이지훈 UUID 생성
         function getUUID() { // UUID v4 generator in JavaScript (RFC4122 compliant)
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
