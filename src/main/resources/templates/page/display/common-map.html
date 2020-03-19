@@ -350,7 +350,7 @@
             var layerTable = jQuery('#list_table').DataTable({
                 data : layers,
                 columns: [
-                    { title: "순서" , className: "text-center", orderable : false, render: function (data, type, row, meta) {
+                    { title: "NO" , className: "text-center", orderable : false, render: function (data, type, row, meta) {
                             return meta.row + meta.settings._iDisplayStart + 1;
                         }},
                     { title: "이름" , data:'id', className: "text-center", orderable : false },
