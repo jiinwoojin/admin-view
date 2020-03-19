@@ -17,7 +17,7 @@
 
 <th:block layout:fragment="content-body-fragment">
     <form action="#" th:action="@{/view/manage/add-map}" th:object="${map}" method="post" onsubmit="return preSubmit(this)">
-        <input type="hidden" id="layerList">
+        <input type="hidden" id="layerList" name="layerList">
         <div class="text-right">
             <button type="submit" class="btn btn-primary">
                 <i class="fas fa-save"></i> 저장
@@ -229,9 +229,9 @@
         function preSubmit(form) {
             var action = form.action;
             if (action.indexOf("add-map") > -1) {
-                addMap(form)
+                addMap(form);
             }
-            return false
+            return false;
         }
 
         function addMap(form) {
@@ -243,7 +243,38 @@
                 toastr.warning("이름 중복확인이 되지 않았습니다.");
                 return
             }
-            form.submit()
+
+            if (Object.keys(drawLayer).length === 0) {
+                toastr.warning('레이어를 추가하지 않았습니다.');
+                return;
+            } else {
+                setLayer();
+            }
+
+            if (confirm("[ " + form['name'].value + " ] Map 을 등록 하시겠습니까?")) {
+                form.submit();
+            }
+        }
+
+        function setLayer() {
+            var layerTable = document.querySelector('#layer_list').tBodies;
+            console.log(layerTable);
+
+            // layerList
+            var layers = [];
+            for (var value of layerTable[0].rows) {
+                var layer = {};
+                layer.layerId = value.querySelector('input').value;
+                layer.order = Number(value.children[0].innerHTML);
+
+                layers.push(layer);
+            }
+
+            console.log(layers);
+
+            debugger;
+
+            document.querySelector('#layerList').value = JSON.stringify(layers);
         }
 
         function checkLayer(el) {
@@ -267,21 +298,19 @@
                         createTableData(key, value);
                     }
                 }
-
-                checkLayers = {};
             }
 
-            layerTable = $('#layer_list').DataTable({
-                rowReorder: true,
-                stateSave: true
-            });
+            tableReroad();
 
             $('#layer-add').modal('hide');
         }
 
-        /*function checkLayerMap(el) {
-            console.log(this);
-        }*/
+        function tableReroad() {
+            layerTable = $('#layer_list').DataTable({
+                rowReorder: true,
+                stateSave: true
+            });
+        }
 
         function createTableData(order, layer) {
             var tr = document.createElement('tr');
@@ -345,7 +374,23 @@
         }
 
         function deleteLayer() {
-            console.log(this);
+            $('#layer_list').DataTable().destroy();
+
+            var row = this.parentNode;
+
+            var checkTd = row.childNodes[1];
+
+            var layerId = checkTd.querySelector('input').value;
+
+            if (drawLayer[layerId] !== undefined) {
+                delete drawLayer[layerId];
+            }
+            var rowIndex = row.rowIndex;
+            document.querySelector('#layer_list').deleteRow(rowIndex);
+
+            layerCount--;
+
+            tableReroad();
         }
     </script>
 </th:block>

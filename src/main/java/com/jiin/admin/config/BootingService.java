@@ -1,11 +1,8 @@
 package com.jiin.admin.config;
 
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.jiin.admin.entity.MapLayer;
-import com.jiin.admin.entity.MapSource;
+import com.jiin.admin.entity.LayerEntity;
+import com.jiin.admin.entity.MapEntity;
 import com.jiin.admin.entity.MapSymbol;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -17,7 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Date;
 
 
 @Service
@@ -56,9 +53,9 @@ public class BootingService {
         // 기본 레이어 및 소스 초기화
         System.out.println(">>> initializeLayer Start");
         Date now = new Date();
-        entityManager.createQuery("DELETE FROM " + MapLayer.class.getAnnotation(Entity.class).name() + " WHERE IS_DEFAULT = true").executeUpdate();
-        entityManager.createQuery("DELETE FROM " + MapSource.class.getAnnotation(Entity.class).name()+ " WHERE IS_DEFAULT = true").executeUpdate();
-        YAMLFactory fac = new YAMLFactory();
+        entityManager.createQuery("DELETE FROM " + MapEntity.class.getAnnotation(Entity.class).name() + " WHERE IS_DEFAULT = true").executeUpdate();
+        entityManager.createQuery("DELETE FROM " + LayerEntity.class.getAnnotation(Entity.class).name()+ " WHERE IS_DEFAULT = true").executeUpdate();
+        /*YAMLFactory fac = new YAMLFactory();
         ObjectMapper mapper = new ObjectMapper(fac);
         mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
         Map mapproxy = mapper.readValue(defaultMapProxy, Map.class);
@@ -107,7 +104,7 @@ public class BootingService {
             layer.setRegistorName("system");
             layer.setRegistTime(now);
             entityManager.persist(layer);
-        }
+        }*/
         // mapproxy write
         dockerService.proxyReloadFromDatabase();
 

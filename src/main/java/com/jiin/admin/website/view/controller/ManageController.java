@@ -1,7 +1,7 @@
 package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.config.SessionService;
-import com.jiin.admin.entity.Map;
+import com.jiin.admin.entity.MapEntity;
 import com.jiin.admin.website.view.service.ManageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -42,20 +42,20 @@ public class ManageController {
     }
 
     @RequestMapping("map-form")
-    public String mapForm(Model model, @ModelAttribute Map map) {
+    public String mapForm(Model model, @ModelAttribute MapEntity map) {
         model.addAttribute("layers", service.getLayerList());
 
         return "page/manage/map-form";
     }
 
     @PostMapping("add-map")
-    public String addMap(@Valid Map map) throws IOException {
-        boolean result = service.addMap(map);
+    public String addMap(@Valid MapEntity map, @RequestParam("layerList") String layerList) throws IOException {
+        boolean result = service.addMap(map, layerList);
         session.message(String.format("MAP [%s] 추가 %s하였습니다.", map.getName(), (result ? "성공" : "실패")));
         return "redirect:map-manage";
     }
 
-    @PostMapping("add-source")
+    /*@PostMapping("add-source")
     public String addSource(@RequestParam("name") String name,
                             @RequestParam("type") String type,
                             @RequestParam("desc") String desc,
@@ -63,7 +63,7 @@ public class ManageController {
         boolean result = service.addSource(name,type,desc,file);
         session.message(String.format("MAP [%s] 추가 %s하였습니다.",name,(result ? "성공" : "실패")));
         return "redirect:map-manage";
-    }
+    }*/
 
     @ResponseBody
     @PostMapping("del-map")

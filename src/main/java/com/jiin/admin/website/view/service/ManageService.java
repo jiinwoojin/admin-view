@@ -1,10 +1,11 @@
 package com.jiin.admin.website.view.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.Constants;
-import com.jiin.admin.entity.Layer;
-import com.jiin.admin.entity.Map;
-import com.jiin.admin.entity.MapLayerRelation;
-import com.jiin.admin.entity.MapSource;
+import com.jiin.admin.entity.LayerEntity;
+import com.jiin.admin.entity.MapEntity;
+import com.jiin.admin.entity.MapLayerRelationEntity;
 import com.jiin.admin.website.view.mapper.ManageMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -17,12 +18,14 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -43,11 +46,11 @@ public class ManageService {
     @PersistenceContext
     EntityManager entityManager;
 
-    public List<Map> getSourceList() {
+    public List<MapEntity> getSourceList() {
         return mapper.getSourceList();
     }
 
-    public List<Layer> getLayerList() {
+    public List<LayerEntity> getLayerList() {
         //List<Map<String, Object>> layers = mapper.getLayerList();
         /*for(Map<String, Object> layer : layers){
             List<Map<String, Object>> sources = mapper.getSourceListByLayerId((Long) layer.get("id"));
@@ -58,24 +61,28 @@ public class ManageService {
     }
 
     @Transactional
-    public boolean addMap(com.jiin.admin.entity.Map map) throws IOException {
+    public boolean addMap(MapEntity map, String layerList) throws IOException {
         String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         map.setDefault(false);
         map.setRegistorId(loginUser);
         map.setRegistorName(loginUser);
         map.setRegistTime(new Date());
 
-        List<Layer> layers = mapper.getLayerList();
+        List<java.util.Map<String, Object>> orderLayerList = new ObjectMapper().readValue(layerList, new TypeReference<LinkedList<java.util.Map<String, Object>>>(){});
 
-        int layerCount = 0;
+        StringBuilder layerBuilder = new StringBuilder();
 
-        for (Layer layer : layers) {
-            MapLayerRelation mapLayerRelation = new MapLayerRelation();
+        for (java.util.Map<String, Object> orderLayer : orderLayerList) {
+            LayerEntity layer = entityManager.find(LayerEntity.class, Long.parseLong(String.valueOf(orderLayer.get("layerId"))));
+            MapLayerRelationEntity mapLayerRelation = new MapLayerRelationEntity();
             mapLayerRelation.setMap(map);
             mapLayerRelation.setLayer(layer);
-            mapLayerRelation.setLayerOrder(++layerCount);
+            mapLayerRelation.setLayerOrder(Integer.parseInt(String.valueOf(orderLayer.get("order"))));
 
             map.getMapLayerRelations().add(mapLayerRelation);
+
+            layerBuilder.append("  INCLUDE ./").append(layer.getName()).append(Constants.LAY_SUFFIX);
+            layerBuilder.append(System.lineSeparator());
         }
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -105,10 +112,7 @@ public class ManageService {
                 } else if (line.contains("LAYER_INCLUDE")) {
                     // 레이어 등록
                     // INCLUDE ./layer/레이어명.lay
-                    for (Layer layer : layers) {
-                        stringBuilder.append("  INCLUDE ./").append(layer.getName()).append(".").append(Constants.LAY_SUFFIX);
-                        stringBuilder.append(System.lineSeparator());
-                    }
+                    line = layerBuilder.toString();
                 }
 
                 stringBuilder.append(line);
@@ -118,7 +122,7 @@ public class ManageService {
             log.error(e.getMessage());
         }
 
-        // lay 파일 생성
+        // map 파일 생성
         String mapFilePath = dataPath + Constants.MAP_FILE_PATH + "/" + map.getName() + Constants.MAP_SUFFIX;
 
         if (FileUtils.getFile(mapFilePath).isFile()) {
@@ -133,7 +137,7 @@ public class ManageService {
         return true;
     }
 
-    @Transactional
+    /*@Transactional
     public boolean addSource(String name, String type, String desc, MultipartFile file) {
         Path destDir;
         try{
@@ -207,7 +211,7 @@ public class ManageService {
         entity.setRegistTime(new Date());
         entityManager.persist(entity);
         return true;
-    }
+    }*/
 
     private File findMapFile(File destDir) {
         File[] files = destDir.listFiles();
@@ -230,7 +234,7 @@ public class ManageService {
         if(cnt > 0){
             return false;
         }*/
-        Map map = entityManager.find(Map.class, mapId);
+        MapEntity map = entityManager.find(MapEntity.class, mapId);
 
         String mapFilePath = dataPath + map.getMapFilePath();
 
@@ -277,7 +281,7 @@ public class ManageService {
         }
 
         String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Layer layer = new Layer();
+        LayerEntity layer = new LayerEntity();
         layer.setDefault(false);
         layer.setName(name);
         layer.setDescription(description);
@@ -329,7 +333,7 @@ public class ManageService {
 
     @Transactional
     public boolean delLayer(Long layerId) {
-        Layer layer = entityManager.find(Layer.class, layerId);
+        LayerEntity layer = entityManager.find(LayerEntity.class, layerId);
 
         // DATA 파일 삭제
         String dataFilePath = dataPath + layer.getDataFilePath();

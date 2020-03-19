@@ -7,7 +7,6 @@ import org.springframework.data.domain.Persistable;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity(name = "_LAYER")
@@ -19,7 +18,7 @@ import java.util.Set;
 )
 @Getter
 @Setter
-public class Layer implements Persistable<Long> {
+public class LayerEntity implements Persistable<Long> {
 
     @Id
     @GeneratedValue(
@@ -96,7 +95,7 @@ public class Layer implements Persistable<Long> {
     private Date registTime;
 
     @OneToMany(mappedBy = "layer", cascade = CascadeType.ALL)
-    private Set<MapLayerRelation> mapLayerRelations = new HashSet<>();
+    private Set<MapLayerRelationEntity> mapLayerRelations = new HashSet<>();
 
     @Override
     public boolean isNew() {

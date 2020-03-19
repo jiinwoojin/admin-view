@@ -4,8 +4,8 @@ package com.jiin.admin.config;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.jiin.admin.entity.MapLayer;
-import com.jiin.admin.entity.MapSource;
+import com.jiin.admin.entity.LayerEntity;
+import com.jiin.admin.entity.MapEntity;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -62,23 +62,23 @@ public class DockerService {
         List<Map> layers = (List<Map>) mapproxy.get("layers");
         Map caches = (Map) mapproxy.get("caches");
         Map sources = (Map) mapproxy.get("sources");
-        List<MapLayer> dbLayers = entityManager
-                .createQuery("SELECT T FROM " + MapLayer.class.getAnnotation(Entity.class).name() + " T WHERE IS_DEFAULT = false", MapLayer.class)
+        List<LayerEntity> dbLayers = entityManager
+                .createQuery("SELECT T FROM " + LayerEntity.class.getAnnotation(Entity.class).name() + " T WHERE IS_DEFAULT = false", LayerEntity.class)
                 .getResultList();
         mapproxy.get("layers");
-        for(MapLayer o:dbLayers){
+        for(LayerEntity o:dbLayers){
             Map map = new LinkedHashMap();
             map.put("name",o.getName());
-            map.put("title",o.getTitle());
+            //map.put("title",o.getTitle());
             //List<String> sourceNames= o.getSource().stream().map(s -> (s.getCacheName() == null ? s.getName() : s.getCacheName())).collect(toList());
             //map.put("source",sourceNames);
             layers.add(map);
         }
-        List<MapSource> dbSources = entityManager
-                .createQuery("SELECT T FROM " + MapSource.class.getAnnotation(Entity.class).name() + " T WHERE IS_DEFAULT = false", MapSource.class)
+        List<MapEntity> dbSources = entityManager
+                .createQuery("SELECT T FROM " + MapEntity.class.getAnnotation(Entity.class).name() + " T WHERE IS_DEFAULT = false", MapEntity.class)
                 .getResultList();
-        for(MapSource o:dbSources){
-            Map sourceMap = new LinkedHashMap();
+        for(MapEntity o:dbSources){
+            /*Map sourceMap = new LinkedHashMap();
             Map sourceReqMap = new LinkedHashMap();
             Map sourceTypeMap = new LinkedHashMap();
             sourceMap.put("type",o.getType());
@@ -101,7 +101,7 @@ public class DockerService {
             cacheTypeMap.put("type","file");
             cacheTypeMap.put("directory",dataPath + "/cache/" + o.getName());
             cacheMap.put("cache",cacheTypeMap);
-            caches.put((o.getCacheName() == null ? o.getName() : o.getCacheName()),cacheMap);
+            caches.put((o.getCacheName() == null ? o.getName() : o.getCacheName()),cacheMap);*/
         }
         // write
         DumperOptions options = new DumperOptions();
