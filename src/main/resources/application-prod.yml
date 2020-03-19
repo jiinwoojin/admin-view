@@ -17,6 +17,11 @@ project:
   data-path: /data/jiserver/data_dir
   mapserver:
     binary: /usr/local/bin/mapserv
+  los:
+    host: http://192.168.99.100
+    port: 9000
+    accessKey: minioadmin
+    secretKey: minioadmin
 logging:
   level:
     org.springframework : INFO

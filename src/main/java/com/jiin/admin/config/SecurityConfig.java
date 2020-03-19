@@ -51,37 +51,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // Web Page
-        http
-            .authorizeRequests()
-            .antMatchers("/").permitAll()
-            .antMatchers("/view/error").permitAll()
-            .antMatchers("/view/publish/**").permitAll()
-            .antMatchers("/view/display/**").permitAll()
-            .antMatchers("/view/welcome.jiin").permitAll()
-            .antMatchers("/view/auth/edit").authenticated()
-            .antMatchers("/view/auth/**").permitAll()
-            .antMatchers("/view/home/guest").anonymous()
-            .antMatchers("/server/server-state").permitAll()
-            .antMatchers("/server/api/status/**").permitAll()
-            .antMatchers("/server/api/account/**").hasRole("ADMIN")
-            .antMatchers("/**").authenticated();
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/view/error").permitAll()
+                .antMatchers("/view/publish/**").permitAll()
+                .antMatchers("/view/display/**").permitAll()
+                .antMatchers("/view/welcome.jiin").permitAll()
+                .antMatchers("/view/auth/edit").authenticated()
+                .antMatchers("/view/auth/**").permitAll()
+                .antMatchers("/view/home/guest").anonymous()
+                .antMatchers("/view/los/**").anonymous()	//이지훈 LOS가시화 예외추가
+                .antMatchers("/server/api/los/**").anonymous()	//이지훈 LOS가시화 예외추가
+                .antMatchers("/server/server-state").permitAll()
+                .antMatchers("/server/api/status/**").permitAll()
+                .antMatchers("/server/api/account/**").hasRole("ADMIN")
+                .antMatchers("/**").authenticated();
 
         http.csrf().disable();
 
-        http
-            .formLogin()
-            .loginPage("/view/auth/login")
-            .loginProcessingUrl("/view/auth/login_process")
-            .failureUrl("/view/auth/login?error")
-            .defaultSuccessUrl("/view/home/user")
-            .usernameParameter("username")
-            .passwordParameter("password");
+        http.formLogin()
+                .loginPage("/view/auth/login")
+                .loginProcessingUrl("/view/auth/login_process")
+                .failureUrl("/view/auth/login?error")
+                .defaultSuccessUrl("/view/home/user")
+                .usernameParameter("username")
+                .passwordParameter("password");
 
-        http
-            .logout()
-            .logoutRequestMatcher(new AntPathRequestMatcher("/view/auth/logout_process"))
-            .logoutSuccessUrl("/view/home/guest")
-            .invalidateHttpSession(true);
+        http.logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/view/auth/logout_process"))
+                .logoutSuccessUrl("/view/home/guest")
+                .invalidateHttpSession(true);
 
         http.authenticationProvider(accountAuthProvider);
 
