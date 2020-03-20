@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-success" data-dismiss="modal">
+                    <button type="button" class="btn btn-sm btn-success hidden" data-dismiss="modal">
                         <i class="fas fa-server"></i> 레이어 상태 서버저장
                     </button>
                     <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
@@ -351,7 +351,7 @@
                 data : layers,
                 columns: [
                     { title: "NO" , className: "text-center", orderable : false, render: function (data, type, row, meta) {
-                            return meta.row + meta.settings._iDisplayStart + 1;
+                            return parseInt(meta.row) + 1;
                         }},
                     { title: "이름" , data:'id', className: "text-center", orderable : false },
                     { title: "타입" , data:'type', className: "text-center" },
