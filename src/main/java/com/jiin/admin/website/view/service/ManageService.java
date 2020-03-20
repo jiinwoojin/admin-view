@@ -22,10 +22,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.PosixFileAttributes;
+import java.nio.file.attribute.PosixFilePermission;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -81,7 +82,7 @@ public class ManageService {
 
             map.getMapLayerRelations().add(mapLayerRelation);
 
-            layerBuilder.append("  INCLUDE ./").append(layer.getName()).append(Constants.LAY_SUFFIX);
+            layerBuilder.append("  INCLUDE \"./layer/").append(layer.getName()).append(Constants.LAY_SUFFIX).append("\"");
             layerBuilder.append(System.lineSeparator());
         }
 
@@ -101,6 +102,8 @@ public class ManageService {
                     line = line.replaceAll("IMAGETYPE_VALUE", map.getImageType());
                 } else if (line.contains("UNITS_VALUE")) {
                     line = line.replaceAll("UNITS_VALUE", map.getUnits());
+                } else if (line.contains("SHAPEPATH_VALUE")) {
+                    line = line.replaceAll("SHAPEPATH_VALUE", dataPath + Constants.DATA_PATH);
                 } else if (line.contains("PROJECTION_VALUE")) {
                     line = line.replaceAll("PROJECTION_VALUE", map.getProjection());
                 } else if (line.contains("IMAGEPATH_VALUE")) {
@@ -129,12 +132,37 @@ public class ManageService {
             FileUtils.forceDelete(FileUtils.getFile(mapFilePath));
         }
 
-        FileUtils.write(new File(mapFilePath), stringBuilder.toString(), "utf-8");
+        File mapFile = new File(mapFilePath);
+
+        FileUtils.write(mapFile, stringBuilder.toString(), "utf-8");
+
+        setPermission(mapFile.toPath());
 
         map.setMapFilePath(Objects.requireNonNull(mapFilePath).replaceAll(dataPath, ""));
 
         entityManager.persist(map);
         return true;
+    }
+
+    /**
+     * 파일 권한 설정
+     * @param file Path
+     * @throws IOException Exception
+     */
+    private void setPermission(Path file) throws IOException{
+        Set<PosixFilePermission> permissionSet = Files.readAttributes(file, PosixFileAttributes.class).permissions();
+
+        permissionSet.add(PosixFilePermission.OWNER_WRITE);
+        permissionSet.add(PosixFilePermission.OWNER_READ);
+        permissionSet.add(PosixFilePermission.OWNER_EXECUTE);
+        permissionSet.add(PosixFilePermission.GROUP_WRITE);
+        permissionSet.add(PosixFilePermission.GROUP_READ);
+        permissionSet.add(PosixFilePermission.GROUP_EXECUTE);
+        permissionSet.add(PosixFilePermission.OTHERS_WRITE);
+        permissionSet.add(PosixFilePermission.OTHERS_READ);
+        permissionSet.add(PosixFilePermission.OTHERS_EXECUTE);
+
+        Files.setPosixFilePermissions(file, permissionSet);
     }
 
     /*@Transactional
@@ -268,6 +296,7 @@ public class ManageService {
         log.info("Data Folder : " + dataPath + Constants.DATA_PATH + "/" + middle_folder);
 
         String filePath = null;
+        File dataFile;
         if(data_file != null && data_file.getSize() > 0){
             String dirPath = dataPath + Constants.DATA_PATH + "/" + middle_folder;
             File dir = new File(dirPath);
@@ -276,8 +305,10 @@ public class ManageService {
             }
 
             filePath = dirPath + "/" + data_file.getOriginalFilename();
-            File thumbnailFile = new File(filePath);
-            data_file.transferTo(thumbnailFile);
+            dataFile = new File(filePath);
+            data_file.transferTo(dataFile);
+
+            setPermission(dataFile.toPath());
         }
 
         String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -305,7 +336,7 @@ public class ManageService {
                 } else if (line.contains("PROJECT_VALUE")) {
                     line = line.replaceAll("PROJECT_VALUE", layer.getProjection());
                 } else if (line.contains("DATA_VALUE")) {
-                    line = line.replaceAll("DATA_VALUE", "../.." + layer.getDataFilePath());
+                    line = line.replaceAll("DATA_VALUE", dataPath + layer.getDataFilePath());
                 }
 
                 stringBuilder.append(line);
@@ -322,7 +353,11 @@ public class ManageService {
             FileUtils.forceDelete(FileUtils.getFile(layFilePath));
         }
 
-        FileUtils.write(new File(layFilePath), stringBuilder.toString(), "utf-8");
+        File layFile = new File(layFilePath);
+
+        FileUtils.write(layFile, stringBuilder.toString(), "utf-8");
+
+        setPermission(layFile.toPath());
 
         layer.setLayerFilePath(Objects.requireNonNull(layFilePath).replaceAll(dataPath, ""));
 

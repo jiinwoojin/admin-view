@@ -221,12 +221,6 @@
                     toastr.warning("이름 중복확인이 되지 않았습니다.");
                     return
                 }
-                // layer 등록 시 source 연결 체크 제거
-                /*if(jQuery("#parent-buttons").find("[data-source-id]").length === 0) {
-                    jQuery("#___customSelect").focus();
-                    toastr.warning("소스연결이 되지 않았습니다.");
-                    return
-                }*/
                 form.submit();
             }
 

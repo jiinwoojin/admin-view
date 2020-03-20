@@ -20,71 +20,71 @@
     </div>
 </th:block>
 <th:block layout:fragment="content-body-fragment">
-    <div id="layer_list_view">
-        <table id="list_table" class="table table-sm table-striped">
-            <thead class="table-info">
-            <tr>
-                <th scope="col" class="text-center">이름</th>
-                <th scope="col" class="text-center">설명</th>
-                <th scope="col" class="text-center">투영</th>
-                <th scope="col" class="text-center">OUTPUT FORMAT</th>
-                <th scope="col" class="text-center">생성일</th>
-                <th scope="col" class="text-center">기본여부</th>
-                <th scope="col" class="text-center">삭제</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="map : ${ maps }">
-                <td class="text-center" th:text="${ map.name }"></td>
-                <td class="text-center" th:text="${ map.description }"></td>
-                <td class="text-center" th:text="${ map.projection }"></td>
-                <td class="text-center" th:text="${ map.imageType }"></td>
-                <td class="text-center" th:text="${ map.registTime }"></td>
-                <td class="text-center" th:text="${ map.isDefault() }"></td>
-                <td class="text-center">
-                    <span th:if="${!map.isDefault()}" class="btn btn-danger btn-sm" th:onclick="delMap(this,[[${map.name}]],[[${map.id}]])" >
-                        <i class="fas fa-trash"></i>
-                    </span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <script th:inline="javascript">
-            var message = /*[[ ${message} ]]*/ null;
-            var table = null;
-
-            $(document).ready(function() {
-                if (!jQuery.isEmptyObject(message)) {
-                    toastr.info(message);
-                }
-                table = $('#list_table').DataTable();
-                $('#source-name').change(function() {
-                    $('#source-name').data("check-duplicate",false);
-                    $('#duplicate-check-message').text("중복확인을 해주세요.");
-                })
-            });
-
-            function delMap(ths, mapName, mapId) {
-                if (confirm("[ " + mapName + " ] Map 을 제거 하시겠습니까?")) {
-                    jQuery.post({
-                        url: CONTEXT + "/view/manage/del-map",
-                        data: {mapId : mapId}
-                    }).done(function(result) {
-                        if(result) {
-                            toastr.success("Map [ " + mapName+ " ] 가 제거 되었습니다.");
-                            table.row(jQuery(ths).parents('tr')).remove();
-                            table.draw();
-                        } else {
-                            toastr.error('Map 제거 중 오류가 발생하였습니다.');
-                        }
-                    }).fail(function() {
-                        toastr.error('Map 제거에 실패하였습니다.');
-                    }).always(function() {
-                        jQuery("#loader-wrapper").hide();
-                    })
-                }
-            }
-        </script>
+    <div class="row">
+        <div class="col-lg-9 col-md-8">
+            <h4 class="mt-1">검색 결과 : 총 <span th:text="${maps.size()}" id="total"></span> 건</h4>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-2 map-item" th:each="map : ${maps}">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${map.name}"></h5>
+                            <p class="card-text">
+                                <i class="fas fa-calendar"></i> <span th:text="${map.registTime}"></span><br/>
+                                <i class="fas fa-user"></i> <span th:text="${map.registorName}"></span><br>
+                                <i class="fas fa-atlas"></i> <span th:text="${map.imageType}"></span><br>
+                                <th:block th:if="${map.isDefault()}">
+                                    <i class="fas fa-layer-group"></i> <span>기본지도(편집불가)</span>
+                                </th:block>
+                            </p>
+                            <div class="text-right">
+                                <button class="btn btn-primary"><i class="fas fa-cog"></i></button>
+                                <span th:if="${!map.isDefault()}" class="btn btn-danger" th:onclick="delMap(this,[[${map.name}]],[[${map.id}]])" >
+                                    <i class="fas fa-trash"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script th:inline="javascript">
+        var message = /*[[ ${message} ]]*/ null;
+        var table = null;
+
+        $(document).ready(function() {
+            if (!jQuery.isEmptyObject(message)) {
+                toastr.info(message);
+            }
+
+            $('#source-name').change(function() {
+                $('#source-name').data("check-duplicate",false);
+                $('#duplicate-check-message').text("중복확인을 해주세요.");
+            })
+        });
+
+        function delMap(ths, mapName, mapId) {
+            if (confirm("[ " + mapName + " ] Map 을 제거 하시겠습니까?")) {
+                jQuery.post({
+                    url: CONTEXT + "/view/manage/del-map",
+                    data: {mapId : mapId}
+                }).done(function(result) {
+                    if(result) {
+                        toastr.success("Map [ " + mapName+ " ] 가 제거 되었습니다.");
+                        jQuery(ths).parents('.map-item').remove();
+                        var total = $('#total');
+                        total.html((Number(total.html()) - 1));
+                    } else {
+                        toastr.error('Map 제거 중 오류가 발생하였습니다.');
+                    }
+                }).fail(function() {
+                    toastr.error('Map 제거에 실패하였습니다.');
+                }).always(function() {
+                    jQuery("#loader-wrapper").hide();
+                })
+            }
+        }
+    </script>
 </th:block>
 </html>

@@ -16,7 +16,7 @@
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
-    <form action="#" th:action="@{/view/manage/add-map}" th:object="${map}" method="post" onsubmit="return preSubmit(this)">
+    <form action="#" th:action="@{/view/manage/add-map}" th:object="${mapEntity}" method="post" onsubmit="return preSubmit(this)">
         <input type="hidden" id="layerList" name="layerList">
         <div class="text-right">
             <button type="submit" class="btn btn-primary">
@@ -271,8 +271,6 @@
             }
 
             console.log(layers);
-
-            debugger;
 
             document.querySelector('#layerList').value = JSON.stringify(layers);
         }
