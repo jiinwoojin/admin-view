@@ -1530,7 +1530,152 @@ var stmp = {
         }
         return oStr;
     }
+    , drawGraticules : function(type, bounds, stepX, stepY){
+        if(stmp.mapObject.map.getLayer("graticules-boundry")) stmp.mapObject.map.removeLayer("graticules-boundry")
+        if(stmp.mapObject.map.getLayer("graticules-line")) stmp.mapObject.map.removeLayer("graticules-line")
+        if(stmp.mapObject.map.getLayer("graticules-label")) stmp.mapObject.map.removeLayer("graticules-label")
+        if(stmp.mapObject.map.getSource("graticules-source")) stmp.mapObject.map.removeSource("graticules-source")
+        if(jQuery.isEmptyObject(type)){
+            console.log("그리드 타입이 지정되지 않았습니다.")
+            return
+        }
+        var xmin = bounds[0];
+        var ymin = bounds[1];
+        var xmax = bounds[2];
+        var ymax = bounds[3];
+        var startpoint = [xmin, ymin] //좌하단
+        var horizonPoints = [startpoint.slice(0)]
+        var verticalPoints = [startpoint.slice(0)]
+        while(true){
+            var lastpoint = horizonPoints[horizonPoints.length - 1]
+            var x = lastpoint[0] + stepX
+            var y = lastpoint[1]
+            var newpoint = [x,y]
+            horizonPoints.push(newpoint)
+            if(x > xmax){
+                break
+            }
+        }
+        while(true){
+            var lastpoint = verticalPoints[verticalPoints.length - 1]
+            var x = lastpoint[0]
+            var y = lastpoint[1] + stepY
+            var newpoint = [x,y]
+            verticalPoints.push(newpoint)
+            if(y > ymax){
+                break
+            }
+        }
+        // create box features
+        var newMaxY = verticalPoints[verticalPoints.length - 1]
+        var newMaxX = horizonPoints[horizonPoints.length - 1]
+        var box = [] //bound box
+        box.push([xmin, ymin])
+        box.push([xmin, newMaxY[1]])
+        box.push([newMaxX[0], newMaxY[1]])
+        box.push([newMaxX[0], ymin])
+        box.push([xmin, ymin])
+        console.log(box)
+        var boxFeatures = [{
+            'type': 'Feature',
+            'geometry': {
+                'type': 'Polygon',
+                'coordinates': [box]
+            }}]
+        // create line features
+        var horizonFeatures = []
+        var verticalFeatures = []
+        jQuery.each(horizonPoints,function(idx, first){
+            var newVerticalPoints =  JSON.parse(JSON.stringify(verticalPoints))
+            jQuery.each(newVerticalPoints,function(_,pos){
+                pos[0] = first[0]
+            })
+            verticalFeatures.push({
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': newVerticalPoints
+                }
+            })
+        })
+        jQuery.each(verticalPoints,function(idx, first){
+            var newHorizonPoints =  JSON.parse(JSON.stringify(horizonPoints))
+            jQuery.each(newHorizonPoints,function(_,pos){
+                pos[1] = first[1]
+            })
+            horizonFeatures.push({
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'LineString',
+                    'coordinates': newHorizonPoints
+                }
+            })
+        })
+        // create text features
+        var labelFeatures = [{
+            'type': 'Feature',
+            'properties': {
+                'description': 'Motown Memories',
+                'icon': 'music'
+            },
+            'geometry': {
+                'type': 'Point',
+                'coordinates': [126, 38]
+            }
+        }]
+        jQuery.each(horizonPoints,function(hidx, hfirst){
+            jQuery.each(horizonPoints,function(vidx, vfirst){
 
+            })
+        })
+        var features = boxFeatures
+            .concat(horizonFeatures)
+            .concat(verticalFeatures)
+            .concat(labelFeatures)
+        //
+        stmp.mapObject.map.addSource('graticules-source', {
+            'type': 'geojson',
+            'data': {
+                'type': 'FeatureCollection',
+                'features': features
+            }
+        });
+        stmp.mapObject.map.addLayer({
+            'id': 'graticules-boundry',
+            'type': 'fill',
+            'source': 'graticules-source',
+            'paint': {
+                'fill-color': '#888888',
+                'fill-opacity': 0.4
+            },
+            'filter': ['==', '$type', 'Polygon']
+        },stmp.mapObject.map.getStyle().layers[1].id);
+        stmp.mapObject.map.addLayer({
+            'id': 'graticules-line',
+            'type': 'line',
+            'source': 'graticules-source',
+            'paint': {
+                'line-color': '#333333',
+                'line-width': 0.8,
+                "line-dasharray": [8, 2]
+            },
+            'filter': ['==', '$type', 'LineString']
+        },stmp.mapObject.map.getStyle().layers[2].id);
+        stmp.mapObject.map.addLayer({
+            'id': 'graticules-label',
+            'type': 'symbol',
+            'source': 'graticules-source',
+            'layout': {
+                /*'text-field': ['get', 'description'],*/
+                'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
+                'text-radial-offset': 0.5,
+                'text-justify': 'auto',
+                'icon-image': ['concat', ['get', 'icon'], '-15']
+            },
+            'filter': ['==', '$type', 'Point']
+        },stmp.mapObject.map.getStyle().layers[3].id);
+        return box
+    }
 };
 
 if (window.stmp === undefined) {
