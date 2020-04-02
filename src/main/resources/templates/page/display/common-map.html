@@ -326,7 +326,7 @@
             // load tegola config
             jiCommon.showLoading()
             jQuery.post({
-                url: CONTEXT + "/server/layer/load-tegola-config"
+                url: CONTEXT + "/server/api/layer/load-tegola-config"
             }).done(function(result) {
                 if (result instanceof Object) {
                     window._TEGOLA_CONFIG = result

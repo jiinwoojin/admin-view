@@ -65,9 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/server/api/los/**").anonymous()	//이지훈 LOS가시화 예외추가
                 .antMatchers("/server/server-state").permitAll()
                 .antMatchers("/server/api/status/**").permitAll()
-                .antMatchers("/server/api/layer/list").permitAll()
-                .antMatchers("/server/api/layer/options/ob").permitAll()
-                .antMatchers("/server/api/layer/options/sb").permitAll()
+                .antMatchers("/server/api/layer/**").permitAll()
                 .antMatchers("/server/api/account/**").hasRole("ADMIN")
                 .antMatchers("/**").authenticated();
 
