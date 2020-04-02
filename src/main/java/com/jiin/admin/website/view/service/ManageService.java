@@ -6,10 +6,13 @@ import com.jiin.admin.Constants;
 import com.jiin.admin.entity.LayerEntity;
 import com.jiin.admin.entity.MapEntity;
 import com.jiin.admin.entity.MapLayerRelationEntity;
+import com.jiin.admin.website.model.OptionModel;
+import com.jiin.admin.website.model.PaginationModel;
 import com.jiin.admin.website.view.mapper.ManageMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +30,7 @@ import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -59,6 +63,75 @@ public class ManageService {
             layer.put("source_ids", StringUtil.join(",",sourceIds));
         }*/
         return mapper.getLayerList();
+    }
+
+    // Get Layer List With Pagination Model
+    public List<LayerEntity> getLayerListByPaginationModel(PaginationModel paginationModel){
+        final Sort[] sorts = {
+            Sort.by("id").descending(),
+            Sort.by("id").ascending(),
+            Sort.by("regist_time").descending(),
+        };
+
+        Pageable pageable = PageRequest.of(paginationModel.getPg() - 1, paginationModel.getSz(), sorts[paginationModel.getOb()]);
+
+        List<LayerEntity> sbRes = new ArrayList<>();
+        switch(paginationModel.getSb()){
+            // find By Default
+            case 0 :
+                sbRes = mapper.getLayerList();
+                break;
+
+            // find By Name
+            case 1 :
+                sbRes = mapper.getLayerList()
+                            .stream()
+                            .filter(layer -> layer.getName().contains(paginationModel.getSt()))
+                            .collect(Collectors.toList());
+                break;
+
+            // find By Registor
+            case 2 :
+                sbRes = mapper.getLayerList()
+                        .stream()
+                        .filter(layer -> layer.getRegistorId().contains(paginationModel.getSt()))
+                        .collect(Collectors.toList());
+                break;
+
+            // find By Projection (EPSG)
+            case 3 :
+                sbRes = mapper.getLayerList()
+                        .stream()
+                        .filter(layer -> layer.getProjection().contains(paginationModel.getSt()))
+                        .collect(Collectors.toList());
+                break;
+        }
+
+        int pageSize = pageable.getPageSize();
+        long pageOffset = pageable.getOffset();
+        long pageEnd = (pageOffset + pageSize) > sbRes.size() ? sbRes.size() : pageOffset + pageSize;
+
+        Page<LayerEntity> page = new PageImpl<>(sbRes.subList((int) pageOffset, (int) pageEnd), pageable, sbRes.size());
+        paginationModel.setRecordCount((int) page.getTotalElements());
+
+        return page.getContent();
+    }
+
+    public List<OptionModel> searchByOptions(){
+        return Arrays.asList(
+            new OptionModel("-- 검색 키워드 선택 --", 0),
+            new OptionModel("레이어 이름", 1),
+            new OptionModel("레이어 등록자", 2),
+            new OptionModel("레이어 좌표 체계", 3)
+        );
+    }
+
+    public List<OptionModel> orderByOptions(){
+        return Arrays.asList(
+            new OptionModel("ID 역순서 정렬", 0),
+            new OptionModel("ID 순서 정렬", 1),
+            new OptionModel("등록 기간", 2)
+        );
     }
 
     @Transactional
