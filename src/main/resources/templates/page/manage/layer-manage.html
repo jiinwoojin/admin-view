@@ -104,34 +104,48 @@
     <!-- 지도 검색 목록 -->
     <div class="row">
         <!-- Search Box -->
-        <div class="col-lg-3 col-md-4">
+        <form class="col-lg-3 col-md-4" onsubmit="onsubmit_func()">
+            <div class="form-group">
+                <label>정렬 방식</label>
+                <select id="ob" name="ob" class="form-control">
+                    <option value="999">[정렬 방식 선택]</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>검색 종류</label>
+                <select id="sb" name="sb" class="form-control">
+                    <option value="999">[검색 종류 선택]</option>
+                </select>
+            </div>
+
             <div class="form-group">
                 <label>키워드 검색</label>
-                <input id="keyword" type="text" class="form-control" placeholder="검색어" />
+                <input id="st" name="st" type="text" class="form-control" placeholder="검색어" />
             </div>
 
             <div class="form-group">
                 <label>업로드 일자</label>
-                <input id="start_date" type="date" class="form-control mb-1" />
-                <input id="end_date" type="date" class="form-control mt-1" />
+                <input id="sDate" name="sDate" type="date" class="form-control mb-1" />
+                <input id="eDate" name="eDate" type="date" class="form-control mt-1" />
             </div>
 
             <div class="form-group">
                 <label>날짜 선택</label>
                 <div class="form-check">
-                    <input id="day1" name="day" type="radio" class="form-check-input" value="1" />
+                    <input id="day1" name="day" type="radio" class="form-check-input" value="1" onclick="onclick_day_radio(this)" />
                     <label class="form-check-label" for="day1">1일</label>
                 </div>
                 <div class="form-check">
-                    <input id="day3" name="day" type="radio" class="form-check-input" value="3" />
+                    <input id="day3" name="day" type="radio" class="form-check-input" value="3" onclick="onclick_day_radio(this)" />
                     <label class="form-check-label" for="day3">3일</label>
                 </div>
                 <div class="form-check">
-                    <input id="day7" name="day" type="radio" class="form-check-input" value="7" />
+                    <input id="day7" name="day" type="radio" class="form-check-input" value="7" onclick="onclick_day_radio(this)" />
                     <label class="form-check-label" for="day7">7일</label>
                 </div>
                 <div class="form-check">
-                    <input id="day30" name="day" type="radio" class="form-check-input" value="30" />
+                    <input id="day30" name="day" type="radio" class="form-check-input" value="30" onclick="onclick_day_radio(this)" />
                     <label class="form-check-label" for="day30">30일</label>
                 </div>
             </div>
@@ -139,58 +153,29 @@
             <div class="form-group">
                 <label>데이터 유형</label>
                 <div class="form-check">
-                    <input id="raster" type="checkbox" class="form-check-input" />
+                    <input type="radio" id="raster" name="lType" value="RASTER" class="form-check-input" />
                     <label class="form-check-label" for="raster">레스터</label>
                 </div>
                 <div class="form-check">
-                    <input id="vector" type="checkbox" class="form-check-input" />
+                    <input type="radio" id="vector" name="lType" value="VECTOR" class="form-check-input" />
                     <label class="form-check-label" for="vector">벡터</label>
                 </div>
             </div>
 
             <div class="form-group">
-                <button class="btn btn-block btn-primary">
+                <button class="btn btn-block btn-primary" type="submit">
                     <i class="fas fa-search"></i> 검색
                 </button>
             </div>
-        </div>
+        </form>
 
         <!-- Layer List View -->
         <div class="col-lg-9 col-md-8">
-            <h4 class="mt-1">검색 결과 : 총 <span th:text="${ layers.size() }" id="total"></span> 건</h4>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-12 mb-2 layer-item" th:each="layer : ${ layers }">
-                    <div class="card">
-                        <!--<img class="card-img-top p-2" th:src="'../image/' + ${layer['thumbnail'] + '.thumbnail.img'}" alt="Card image cap">-->
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${ layer.name }"></h5>
-                            <p class="card-text">
-                                <i class="fas fa-calendar"></i> <span th:text="${layer.registTime}"></span><br/>
-                                <i class="fas fa-user"></i> <span th:text="${layer.registorName}"></span><br/>
-                                <i class="fas fa-atlas"></i> <span th:text="${ layer.description }"></span><br/>
-                                <th:block th:if="${layer.isDefault()}">
-                                    <i class="fas fa-layer-group" ></i> <span>기본레이어(편집불가)</span>
-                                </th:block>
-                            </p>
-                            <div class="text-right">
-                                <button data-toggle="modal" data-target="#layer-create" class="btn btn-primary"
-                                        th:data-id="${ layer.id }"
-                                        th:data-name="${ layer.name }"
-                                        th:data-description="${ layer.description }"
-                                        th:data-projection="${layer.projection}"
-                                        th:data-middleFolder="${layer.middleFolder}"
-                                        >
-                                    <i class="fas fa-cog"></i>
-                                </button>
-                                <span th:if="${!layer.isDefault()}" class="btn btn-danger" th:onclick="delLayer(this, [[${layer.name}]], [[${layer.id}]])" >
-                                    <i class="fas fa-trash"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h4 id="search_count" class="my-2"></h4>
+            <div id="pagination_bar"></div>
+            <div class="row" id="search_layers"></div>
         </div>
+
         <script th:inline="javascript">
             var message = /*[[ ${message} ]]*/ null;
             var table = null;
@@ -313,6 +298,7 @@
                 }
             });
         </script>
+        <script th:src="@{/js/page/search.js}"></script>
     </div>
 </th:block>
 </html>

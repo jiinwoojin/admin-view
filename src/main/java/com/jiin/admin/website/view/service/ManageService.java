@@ -6,8 +6,8 @@ import com.jiin.admin.Constants;
 import com.jiin.admin.entity.LayerEntity;
 import com.jiin.admin.entity.MapEntity;
 import com.jiin.admin.entity.MapLayerRelationEntity;
+import com.jiin.admin.website.model.LayerSearchModel;
 import com.jiin.admin.website.model.OptionModel;
-import com.jiin.admin.website.model.PaginationModel;
 import com.jiin.admin.website.view.mapper.ManageMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -29,6 +29,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -66,15 +68,18 @@ public class ManageService {
     }
 
     // Get Layer List With Pagination Model
-    public List<LayerEntity> getLayerListByPaginationModel(PaginationModel paginationModel){
+    public Map<String, Object> getLayerListByPaginationModel(LayerSearchModel paginationModel) throws ParseException {
+        // Order By Field
         final Sort[] sorts = {
             Sort.by("id").descending(),
             Sort.by("id").ascending(),
+            Sort.by("name").ascending(),
             Sort.by("regist_time").descending(),
         };
 
         Pageable pageable = PageRequest.of(paginationModel.getPg() - 1, paginationModel.getSz(), sorts[paginationModel.getOb()]);
 
+        // Search By Keyword
         List<LayerEntity> sbRes = new ArrayList<>();
         switch(paginationModel.getSb()){
             // find By Default
@@ -107,14 +112,48 @@ public class ManageService {
                 break;
         }
 
+        // Date Separator
+        String sDate = paginationModel.getSDate();
+        String eDate = paginationModel.getEDate();
+        if(sDate != null && eDate != null){
+            if(sDate.compareTo(eDate) < 0) {
+                Date start = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+                Date end = new SimpleDateFormat("yyyy-MM-dd").parse(eDate);
+                sbRes = sbRes.stream()
+                        .filter(layer -> layer.getRegistTime().after(start) && layer.getRegistTime().before(end))
+                        .collect(Collectors.toList());
+            }
+        }
+
+        // Type Separator
+        switch(paginationModel.getLType()){
+            case "RASTER" :
+                sbRes = sbRes.stream()
+                        .filter(layer -> layer.getType().equalsIgnoreCase("RASTER"))
+                        .collect(Collectors.toList());
+                break;
+            case "VECTOR" :
+                sbRes = sbRes.stream()
+                        .filter(layer -> layer.getType().equalsIgnoreCase("VECTOR"))
+                        .collect(Collectors.toList());
+                break;
+
+            /*
+             * 나머지는 RASTER, VECTOR 모든 타입이 나오는 걸로 작동.
+             */
+        }
+
         int pageSize = pageable.getPageSize();
         long pageOffset = pageable.getOffset();
         long pageEnd = (pageOffset + pageSize) > sbRes.size() ? sbRes.size() : pageOffset + pageSize;
 
         Page<LayerEntity> page = new PageImpl<>(sbRes.subList((int) pageOffset, (int) pageEnd), pageable, sbRes.size());
-        paginationModel.setRecordCount((int) page.getTotalElements());
 
-        return page.getContent();
+        Map<String, Object> map = new HashMap<>();
+        map.put("count", page.getTotalElements());
+        map.put("data", page.getContent());
+
+        return map;
     }
 
     public List<OptionModel> searchByOptions(){
@@ -128,9 +167,10 @@ public class ManageService {
 
     public List<OptionModel> orderByOptions(){
         return Arrays.asList(
-            new OptionModel("ID 역순서 정렬", 0),
+            new OptionModel("-- 정렬 방식 선택 --", 0),
             new OptionModel("ID 순서 정렬", 1),
-            new OptionModel("등록 기간", 2)
+            new OptionModel("이름 순서 정렬", 2),
+            new OptionModel("등록 기간", 3)
         );
     }
 

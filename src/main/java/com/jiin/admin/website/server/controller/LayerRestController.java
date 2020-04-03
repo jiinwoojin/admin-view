@@ -1,17 +1,16 @@
 package com.jiin.admin.website.server.controller;
 
-import com.jiin.admin.entity.LayerEntity;
+import com.jiin.admin.website.model.LayerSearchModel;
 import com.jiin.admin.website.model.OptionModel;
-import com.jiin.admin.website.model.PaginationModel;
 import com.jiin.admin.website.server.service.TegolaService;
 import com.jiin.admin.website.view.service.ManageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +30,7 @@ public class LayerRestController {
     }
 
     @GetMapping("list")
-    public List<LayerEntity> layerList(PaginationModel pagination){
+    public Map<String, Object> layerList(LayerSearchModel pagination) throws ParseException {
         return manageService.getLayerListByPaginationModel(pagination);
     }
 
