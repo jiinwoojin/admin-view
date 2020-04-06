@@ -74,7 +74,7 @@
     </li>
 
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().startsWith('/view/manage/layer-manage') ? 'active' : '' }">
-        <a class="nav-link" th:href="@{/view/manage/layer-manage}">
+        <a class="nav-link" th:href="@{/view/manage/layer-manage?pg=1&sz=6&lType=ALL}">
             <i class="fas fa-fw fa-layer-group"></i>
             <span>Layer 관리</span>
         </a>

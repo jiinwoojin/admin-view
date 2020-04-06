@@ -69,16 +69,6 @@ public class ManageService {
 
     // Get Layer List With Pagination Model
     public Map<String, Object> getLayerListByPaginationModel(LayerSearchModel paginationModel) throws ParseException {
-        // Order By Field
-        final Sort[] sorts = {
-            Sort.by("id").descending(),
-            Sort.by("id").ascending(),
-            Sort.by("name").ascending(),
-            Sort.by("regist_time").descending(),
-        };
-
-        Pageable pageable = PageRequest.of(paginationModel.getPg() - 1, paginationModel.getSz(), sorts[paginationModel.getOb()]);
-
         // Search By Keyword
         List<LayerEntity> sbRes = new ArrayList<>();
         switch(paginationModel.getSb()){
@@ -132,6 +122,7 @@ public class ManageService {
                         .filter(layer -> layer.getType().equalsIgnoreCase("RASTER"))
                         .collect(Collectors.toList());
                 break;
+
             case "VECTOR" :
                 sbRes = sbRes.stream()
                         .filter(layer -> layer.getType().equalsIgnoreCase("VECTOR"))
@@ -142,6 +133,42 @@ public class ManageService {
              * 나머지는 RASTER, VECTOR 모든 타입이 나오는 걸로 작동.
              */
         }
+
+        // Order By Field
+        switch(paginationModel.getOb()){
+            case 0 :
+                sbRes = sbRes.stream()
+                            .sorted(Comparator.comparingLong(LayerEntity::getId).reversed())
+                            .collect(Collectors.toList());
+                break;
+
+            case 1 :
+                sbRes = sbRes.stream()
+                        .sorted(Comparator.comparingLong(LayerEntity::getId))
+                        .collect(Collectors.toList());
+                break;
+
+            case 2 :
+                sbRes = sbRes.stream()
+                        .sorted(Comparator.comparing(LayerEntity::getName))
+                        .collect(Collectors.toList());
+                break;
+
+            case 3 :
+                sbRes = sbRes.stream()
+                        .sorted(Comparator.comparing(LayerEntity::getRegistTime).reversed())
+                        .collect(Collectors.toList());
+                break;
+        }
+
+        final Sort[] sorts = {
+                Sort.by("id").descending(),
+                Sort.by("id"),
+                Sort.by("name"),
+                Sort.by("regist_time").descending(),
+        };
+
+        Pageable pageable = PageRequest.of(paginationModel.getPg() - 1, paginationModel.getSz(), sorts[paginationModel.getOb()]);
 
         int pageSize = pageable.getPageSize();
         long pageOffset = pageable.getOffset();
@@ -156,7 +183,7 @@ public class ManageService {
         return map;
     }
 
-    public List<OptionModel> searchByOptions(){
+    public List<OptionModel> layerSearchByOptions(){
         return Arrays.asList(
             new OptionModel("-- 검색 키워드 선택 --", 0),
             new OptionModel("레이어 이름", 1),
@@ -165,12 +192,12 @@ public class ManageService {
         );
     }
 
-    public List<OptionModel> orderByOptions(){
+    public List<OptionModel> layerOrderByOptions(){
         return Arrays.asList(
             new OptionModel("-- 정렬 방식 선택 --", 0),
             new OptionModel("ID 순서 정렬", 1),
             new OptionModel("이름 순서 정렬", 2),
-            new OptionModel("등록 기간", 3)
+            new OptionModel("등록 기간 역순 정렬", 3)
         );
     }
 

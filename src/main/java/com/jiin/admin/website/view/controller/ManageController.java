@@ -2,6 +2,7 @@ package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.config.SessionService;
 import com.jiin.admin.entity.MapEntity;
+import com.jiin.admin.website.model.LayerSearchModel;
 import com.jiin.admin.website.view.service.ManageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.text.ParseException;
 
 @Controller
 @RequestMapping("manage")
@@ -72,10 +74,11 @@ public class ManageController {
     }
 
     @RequestMapping("layer-manage")
-    public String layer(Model model){
-        model.addAttribute("layers", service.getLayerList());
-        //model.addAttribute("sources", service.getSourceList());
+    public String layer(Model model, LayerSearchModel layerSearchModel) throws ParseException {
+        model.addAttribute("resMap", service.getLayerListByPaginationModel(layerSearchModel));
         model.addAttribute("message", session.message());
+        model.addAttribute("obList", service.layerOrderByOptions());
+        model.addAttribute("sbList", service.layerSearchByOptions());
         return "page/manage/layer-manage";
     }
 
@@ -88,7 +91,7 @@ public class ManageController {
                            @RequestParam("data_file") MultipartFile data_file) throws IOException {
         boolean result = service.addLayer(name, description, projection, middle_folder, type, data_file);
         session.message(String.format("LAYER [%s] 추가 %s하였습니다.",name,(result ? "성공" : "실패")));
-        return "redirect:layer-manage";
+        return "redirect:layer-manage?pg=1&sz=6";
     }
 
     @ResponseBody

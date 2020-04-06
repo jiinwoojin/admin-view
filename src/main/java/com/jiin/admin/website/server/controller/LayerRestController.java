@@ -36,11 +36,11 @@ public class LayerRestController {
 
     @GetMapping("options/ob")
     public List<OptionModel> orderByOptions(){
-        return manageService.orderByOptions();
+        return manageService.layerOrderByOptions();
     }
 
     @GetMapping("options/sb")
     public List<OptionModel> searchByOptions(){
-        return manageService.searchByOptions();
+        return manageService.layerSearchByOptions();
     }
 }

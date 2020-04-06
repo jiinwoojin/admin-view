@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="html-pagination-bar(pageName)">
+    <div id="pagination_bar"></div>
+    <script>
+        render_pagination_bar([[${param.pg}]], [[${param.sz}]], [[${resMap.count}]]);
+
+        function getQueryStringObject() {
+            var a = window.location.search.substr(1).split('&');
+            if (a == "") return {};
+            var b = {};
+            for (var i = 0; i < a.length; ++i) {
+                var p = a[i].split('=', 2);
+                if (p.length == 1)
+                    b[p[0]] = "";
+                else
+                    b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+            }
+            return b;
+        }
+
+        function convertObjectToQueryStringWithoutPage(){
+            var obj = {}
+            var qs = getQueryStringObject();
+
+            obj.ob = qs.ob || 0;
+            obj.sb = qs.sb || 0;
+            obj.sz = qs.sz || 6;
+            obj.st = qs.st || '';
+
+            obj.sDate = qs.sDate || '';
+            obj.eDate = qs.eDate || '';
+            obj.lType = qs.lType || 'ALL';
+
+            var str = '';
+            for(var key in obj){
+                str += `${key}=${obj[key]}&`;
+            }
+
+            str = str.substring(0, str.length - 1);
+            return str;
+        }
+
+        function render_pagination_bar(pg, sz, count){
+            var pageCount = Math.ceil(count / sz);
+
+            var first = Math.floor(((pg - 1) * 1) / 5) * 5 + 1;
+            var last = Math.floor(((pg - 1) * 1) / 5) * 5 + 5;
+
+            var pagination = `<ul class="pagination justify-content-center">`;
+
+            if(first > 1){
+                pagination += `
+                <li class="page-item">
+                    <a class="page-link" href="${ '/admin-view/view/manage/' + '[[${pageName}]]' + '?pg=' + (first - 1) + "&" + convertObjectToQueryStringWithoutPage() }">&lt;</a>
+                </li>
+            `;
+            }
+
+            for(var i = first; i <= last && i <= pageCount; i++){
+                pagination += `
+                ${ i == pg ? `<li class="page-item active">` : `<li class="page-item">` }
+                    <a class="page-link" href="${ '/admin-view/view/manage/' + '[[${pageName}]]' + '?pg=' + i + "&" + convertObjectToQueryStringWithoutPage() }">${ i }</a>
+                </li>
+            `;
+            }
+
+            if(last < pageCount){
+                pagination += `
+                <li class="page-item">
+                    <a class="page-link" href="${ '/admin-view/view/manage/' + '[[${pageName}]]' + '?pg=' + (last + 1) + "&" + convertObjectToQueryStringWithoutPage() }">&gt;</a>
+                </li>
+            `;
+            }
+
+            pagination += `</ul>`;
+
+            var dom = document.getElementById('pagination_bar');
+            dom.innerHTML = pagination;
+        }
+    </script>
+</body>
+</html>
