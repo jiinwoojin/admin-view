@@ -54,7 +54,7 @@ function render_pagination_bar(pg, count){
     var pageCount = Math.ceil(count / 6);
 
     var first = Math.floor(((pg - 1) * 1) / 5) * 5 + 1;
-    var last = Math.floor(((pg - 1) * 1) / 5) * 5 + 2;
+    var last = Math.floor(((pg - 1) * 1) / 5) * 5 + 5;
 
     var pagination = `<ul class="pagination justify-content-center">`;
 

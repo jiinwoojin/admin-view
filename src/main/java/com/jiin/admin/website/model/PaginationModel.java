@@ -18,7 +18,7 @@ public abstract class PaginationModel {
     private int recordCount;
 
     public PaginationModel(){
-        this.sz = 6;
+        this.sz = 9;
     }
 
     public PaginationModel(int sz){

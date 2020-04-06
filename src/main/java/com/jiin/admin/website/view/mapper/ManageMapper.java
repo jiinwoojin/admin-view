@@ -3,6 +3,8 @@ package com.jiin.admin.website.view.mapper;
 import com.jiin.admin.entity.LayerEntity;
 import com.jiin.admin.entity.MapEntity;
 import com.jiin.admin.mapper.BaseMapper;
+import com.jiin.admin.website.model.LayerSearchModel;
+import com.jiin.admin.website.model.MapSearchModel;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -17,6 +19,65 @@ public interface ManageMapper {
 
     @Select("SELECT * FROM _MAP")
     List<MapEntity> getSourceList();
+
+    @Select({
+        "<script>",
+            "SELECT * FROM _LAYER L ",
+            "<where>",
+                "<choose>",
+                    "<when test='sb == 1'> L.NAME LIKE CONCAT('%', #{st}, '%') </when>",
+                    "<when test='sb == 2'> L.REGISTOR_ID LIKE CONCAT('%', #{st}, '%') </when>",
+                    "<when test='sb == 3'> LOWER(L.PROJECTION) LIKE CONCAT('%', #{st}, '%') </when>",
+                    "<otherwise> 1=1 </otherwise>",
+                "</choose>",
+                "<if test=\" sDate != null and eDate != null and sDate != '' and eDate != '' \">",
+                    " AND L.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD') ",
+                "</if>",
+                "<if test=\" lType != 'ALL' \">",
+                    " AND L.TYPE = #{lType} ",
+                "</if>",
+            "</where>",
+            "ORDER BY ",
+            "<choose>",
+                "<when test='ob == 1'>L.ID ASC</when>",
+                "<when test='ob == 2'>L.NAME ASC</when>",
+                "<when test='ob == 3'>L.REGIST_TIME DESC</when>",
+                "<otherwise>L.ID DESC</otherwise>",
+            "</choose>",
+        "</script>"
+    })
+    List<LayerEntity> findLayerEntitiesByPaginationModel(LayerSearchModel layerSearchModel);
+
+    @Select({
+        "<script>",
+            "SELECT * FROM _MAP M ",
+            "<where>",
+                "<choose>",
+                    "<when test='sb == 1'> M.NAME LIKE CONCAT('%', #{st}, '%') </when>",
+                    "<when test='sb == 2'> M.REGISTOR_ID LIKE CONCAT('%', #{st}, '%') </when>",
+                    "<when test='sb == 3'> LOWER(M.PROJECTION) LIKE CONCAT('%', #{st}, '%') </when>",
+                    "<otherwise> 1=1 </otherwise>",
+                "</choose>",
+                "<if test=\" sDate != null and eDate != null and sDate != '' and eDate != '' \">",
+                    " AND M.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD')",
+                "</if>",
+                "<if test=\" iType != 'ALL' \">",
+                    " AND M.IMAGE_TYPE = #{iType}",
+                "</if>",
+                "<if test=\" units != 'ALL' \">",
+                    " AND M.UNITS = #{units}",
+                "</if>",
+            "</where>",
+            "ORDER BY ",
+            "<choose>",
+                "<when test='ob == 1'>M.ID ASC</when>",
+                "<when test='ob == 2'>M.NAME ASC</when>",
+                "<when test='ob == 3'>M.REGIST_TIME DESC</when>",
+                "<otherwise>M.ID DESC</otherwise>",
+            "</choose>",
+        "</script>"
+    })
+    List<MapEntity> findMapEntitiesByPaginationModel(MapSearchModel mapSearchModel);
 
     @Select("SELECT S.* FROM _MAP_SOURCE S INNER JOIN _MAP_LAYER_SOURCE LS ON S.ID = LS.SOURCE_ID WHERE LS.LAYER_ID = #{layerId}")
     List<Map<String, Object>> getSourceListByLayerId(@Param("layerId") Long layerId);

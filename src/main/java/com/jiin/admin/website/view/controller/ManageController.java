@@ -3,6 +3,7 @@ package com.jiin.admin.website.view.controller;
 import com.jiin.admin.config.SessionService;
 import com.jiin.admin.entity.MapEntity;
 import com.jiin.admin.website.model.LayerSearchModel;
+import com.jiin.admin.website.model.MapSearchModel;
 import com.jiin.admin.website.view.service.ManageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -32,12 +33,18 @@ public class ManageController {
     private ManageService service;
 
     @RequestMapping("map-manage")
-    public String map(Model model){
-        model.addAttribute("maps", service.getSourceList());
-        /*model.addAttribute("mapserverBinary", mapserverBinary);
-        model.addAttribute("mapserverWorkingDir", dataPath + "/tmp");
-        model.addAttribute("cacheType", "map");
-        model.addAttribute("cacheDirectory", dataPath + "/cache");*/
+    public String map(Model model, MapSearchModel mapSearchModel) {
+        /*
+            임시 주석 처리 : 언제 재사용 될지 몰라 우선은 남겨 두겠음.
+            model.addAttribute("mapserverBinary", mapserverBinary);
+            model.addAttribute("mapserverWorkingDir", dataPath + "/tmp");
+            model.addAttribute("cacheType", "map");
+            model.addAttribute("cacheDirectory", dataPath + "/cache");
+        */
+
+        model.addAttribute("resMap", service.getMapListByPaginationModel(mapSearchModel));
+        model.addAttribute("obList", service.mapOrderByOptions());
+        model.addAttribute("sbList", service.mapSearchByOptions());
         model.addAttribute("message", session.message());
 
         return "page/manage/map-manage";
@@ -54,7 +61,7 @@ public class ManageController {
     public String addMap(@Valid MapEntity map, @RequestParam("layerList") String layerList) throws IOException {
         boolean result = service.addMap(map, layerList);
         session.message(String.format("MAP [%s] 추가 %s하였습니다.", map.getName(), (result ? "성공" : "실패")));
-        return "redirect:map-manage";
+        return "redirect:map-manage?pg=1&sz=9&iType=ALL&units=ALL";
     }
 
     /*@PostMapping("add-source")
@@ -76,9 +83,9 @@ public class ManageController {
     @RequestMapping("layer-manage")
     public String layer(Model model, LayerSearchModel layerSearchModel) throws ParseException {
         model.addAttribute("resMap", service.getLayerListByPaginationModel(layerSearchModel));
-        model.addAttribute("message", session.message());
         model.addAttribute("obList", service.layerOrderByOptions());
         model.addAttribute("sbList", service.layerSearchByOptions());
+        model.addAttribute("message", session.message());
         return "page/manage/layer-manage";
     }
 
@@ -91,7 +98,7 @@ public class ManageController {
                            @RequestParam("data_file") MultipartFile data_file) throws IOException {
         boolean result = service.addLayer(name, description, projection, middle_folder, type, data_file);
         session.message(String.format("LAYER [%s] 추가 %s하였습니다.",name,(result ? "성공" : "실패")));
-        return "redirect:layer-manage?pg=1&sz=6";
+        return "redirect:layer-manage?pg=1&sz=9&lType=ALL";
     }
 
     @ResponseBody

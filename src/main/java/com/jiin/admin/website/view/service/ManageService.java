@@ -7,6 +7,7 @@ import com.jiin.admin.entity.LayerEntity;
 import com.jiin.admin.entity.MapEntity;
 import com.jiin.admin.entity.MapLayerRelationEntity;
 import com.jiin.admin.website.model.LayerSearchModel;
+import com.jiin.admin.website.model.MapSearchModel;
 import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.view.mapper.ManageMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +31,7 @@ import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -69,98 +68,6 @@ public class ManageService {
 
     // Get Layer List With Pagination Model
     public Map<String, Object> getLayerListByPaginationModel(LayerSearchModel paginationModel) throws ParseException {
-        // Search By Keyword
-        List<LayerEntity> sbRes = new ArrayList<>();
-        switch(paginationModel.getSb()){
-            // find By Default
-            case 0 :
-                sbRes = mapper.getLayerList();
-                break;
-
-            // find By Name
-            case 1 :
-                sbRes = mapper.getLayerList()
-                            .stream()
-                            .filter(layer -> layer.getName().contains(paginationModel.getSt()))
-                            .collect(Collectors.toList());
-                break;
-
-            // find By Registor
-            case 2 :
-                sbRes = mapper.getLayerList()
-                        .stream()
-                        .filter(layer -> layer.getRegistorId().contains(paginationModel.getSt()))
-                        .collect(Collectors.toList());
-                break;
-
-            // find By Projection (EPSG)
-            case 3 :
-                sbRes = mapper.getLayerList()
-                        .stream()
-                        .filter(layer -> layer.getProjection().contains(paginationModel.getSt()))
-                        .collect(Collectors.toList());
-                break;
-        }
-
-        // Date Separator
-        String sDate = paginationModel.getSDate();
-        String eDate = paginationModel.getEDate();
-        if(sDate != null && eDate != null){
-            if(sDate.compareTo(eDate) < 0) {
-                Date start = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
-                Date end = new SimpleDateFormat("yyyy-MM-dd").parse(eDate);
-                sbRes = sbRes.stream()
-                        .filter(layer -> layer.getRegistTime().after(start) && layer.getRegistTime().before(end))
-                        .collect(Collectors.toList());
-            }
-        }
-
-        // Type Separator
-        switch(paginationModel.getLType()){
-            case "RASTER" :
-                sbRes = sbRes.stream()
-                        .filter(layer -> layer.getType().equalsIgnoreCase("RASTER"))
-                        .collect(Collectors.toList());
-                break;
-
-            case "VECTOR" :
-                sbRes = sbRes.stream()
-                        .filter(layer -> layer.getType().equalsIgnoreCase("VECTOR"))
-                        .collect(Collectors.toList());
-                break;
-
-            /*
-             * 나머지는 RASTER, VECTOR 모든 타입이 나오는 걸로 작동.
-             */
-        }
-
-        // Order By Field
-        switch(paginationModel.getOb()){
-            case 0 :
-                sbRes = sbRes.stream()
-                            .sorted(Comparator.comparingLong(LayerEntity::getId).reversed())
-                            .collect(Collectors.toList());
-                break;
-
-            case 1 :
-                sbRes = sbRes.stream()
-                        .sorted(Comparator.comparingLong(LayerEntity::getId))
-                        .collect(Collectors.toList());
-                break;
-
-            case 2 :
-                sbRes = sbRes.stream()
-                        .sorted(Comparator.comparing(LayerEntity::getName))
-                        .collect(Collectors.toList());
-                break;
-
-            case 3 :
-                sbRes = sbRes.stream()
-                        .sorted(Comparator.comparing(LayerEntity::getRegistTime).reversed())
-                        .collect(Collectors.toList());
-                break;
-        }
-
         final Sort[] sorts = {
                 Sort.by("id").descending(),
                 Sort.by("id"),
@@ -168,6 +75,10 @@ public class ManageService {
                 Sort.by("regist_time").descending(),
         };
 
+        if(paginationModel.getSb() == 3)
+            paginationModel.setSt(paginationModel.getSt() != null ? paginationModel.getSt().toLowerCase() : "");
+
+        List<LayerEntity> sbRes = mapper.findLayerEntitiesByPaginationModel(paginationModel);
         Pageable pageable = PageRequest.of(paginationModel.getPg() - 1, paginationModel.getSz(), sorts[paginationModel.getOb()]);
 
         int pageSize = pageable.getPageSize();
@@ -193,6 +104,51 @@ public class ManageService {
     }
 
     public List<OptionModel> layerOrderByOptions(){
+        return Arrays.asList(
+            new OptionModel("-- 정렬 방식 선택 --", 0),
+            new OptionModel("ID 순서 정렬", 1),
+            new OptionModel("이름 순서 정렬", 2),
+            new OptionModel("등록 기간 역순 정렬", 3)
+        );
+    }
+
+    public Map<String, Object> getMapListByPaginationModel(MapSearchModel paginationModel) {
+        final Sort[] sorts = {
+                Sort.by("id").descending(),
+                Sort.by("id"),
+                Sort.by("name"),
+                Sort.by("regist_time").descending(),
+        };
+
+        if(paginationModel.getSb() == 3)
+            paginationModel.setSt(paginationModel.getSt() != null ? paginationModel.getSt().toLowerCase() : "");
+
+        List<MapEntity> sbRes = mapper.findMapEntitiesByPaginationModel(paginationModel);
+        Pageable pageable = PageRequest.of(paginationModel.getPg() - 1, paginationModel.getSz(), sorts[paginationModel.getOb()]);
+
+        int pageSize = pageable.getPageSize();
+        long pageOffset = pageable.getOffset();
+        long pageEnd = (pageOffset + pageSize) > sbRes.size() ? sbRes.size() : pageOffset + pageSize;
+
+        Page<MapEntity> page = new PageImpl<>(sbRes.subList((int) pageOffset, (int) pageEnd), pageable, sbRes.size());
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("count", page.getTotalElements());
+        map.put("data", page.getContent());
+
+        return map;
+    }
+
+    public List<OptionModel> mapSearchByOptions(){
+        return Arrays.asList(
+            new OptionModel("-- 검색 키워드 선택 --", 0),
+            new OptionModel("MAP 이름", 1),
+            new OptionModel("MAP 등록자", 2),
+            new OptionModel("MAP 좌표 체계", 3)
+        );
+    }
+
+    public List<OptionModel> mapOrderByOptions(){
         return Arrays.asList(
             new OptionModel("-- 정렬 방식 선택 --", 0),
             new OptionModel("ID 순서 정렬", 1),

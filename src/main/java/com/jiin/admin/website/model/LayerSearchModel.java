@@ -15,6 +15,7 @@ public class LayerSearchModel extends PaginationModel {
 
     public LayerSearchModel(){
         super();
+        this.lType = "ALL"; // Default Value
     }
 
     public LayerSearchModel(int pg, int sz, int ob, int sb, String st, String sDate, String eDate, String lType){
