@@ -1,6 +1,6 @@
 package com.jiin.admin.website.security;
 
-import com.jiin.admin.website.dto.Account;
+import com.jiin.admin.entity.AccountEntity;
 import com.jiin.admin.website.model.AccountModel;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,8 +9,11 @@ import java.util.Map;
 
 public interface AccountService {
     UserDetails loadUserByUsername(String username);
-    Account findByUsername(String username);
-    List<Account> findAllAccounts();
+    AccountEntity findByUsername(String username);
+    List<AccountEntity> findAllAccounts();
     AccountModel createModelWithAuthentication(AccountAuthProvider.AccountAuthentication auth);
     Map<String, Long> countWithAccountType();
+    AccountEntity createAccountWithModel(AccountModel accountModel);
+    AccountEntity updateAccountWithModel(AccountModel accountModel);
+    AccountEntity deleteAccountWithModel(String loginId);
 }

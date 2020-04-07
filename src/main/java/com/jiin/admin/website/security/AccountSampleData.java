@@ -1,9 +1,9 @@
 package com.jiin.admin.website.security;
 
-import com.jiin.admin.website.dto.Account;
+import com.jiin.admin.entity.AccountEntity;
 
 public interface AccountSampleData {
-    Account USER = new Account("user", "user",  "USER", "user@ji-in.com", "USER");
-    Account DEV = new Account("dev", "dev", "DEVELOPER", "dev@ji-in.com", "USER");
-    Account ADMIN = new Account("admin", "admin", "ADMINISTRATOR", "admin@ji-in.com", "ADMIN");
+    AccountEntity USER = new AccountEntity("user", "user",  "USER", "user@ji-in.com", "USER");
+    AccountEntity DEV = new AccountEntity("dev", "dev", "DEVELOPER", "dev@ji-in.com", "USER");
+    AccountEntity ADMIN = new AccountEntity("admin", "admin", "ADMINISTRATOR", "admin@ji-in.com", "ADMIN");
 }

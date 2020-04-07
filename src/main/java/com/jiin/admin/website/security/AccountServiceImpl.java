@@ -1,6 +1,6 @@
 package com.jiin.admin.website.security;
 
-import com.jiin.admin.website.dto.Account;
+import com.jiin.admin.entity.AccountEntity;
 import com.jiin.admin.website.model.AccountModel;
 import com.jiin.admin.website.model.AccountModelBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +30,7 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
     }
 
     @Override
-    public Account findByUsername(String username) {
+    public AccountEntity findByUsername(String username) {
         // 임시 로직만 작성. 내용 변동 가능성 有.
         switch(username){
             case "admin" :
@@ -45,7 +45,7 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
     }
 
     @Override
-    public List<Account> findAllAccounts() {
+    public List<AccountEntity> findAllAccounts() {
         return Arrays.asList(AccountSampleData.ADMIN, AccountSampleData.DEV, AccountSampleData.USER);
     }
 
@@ -53,7 +53,7 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
     public AccountModel createModelWithAuthentication(AccountAuthProvider.AccountAuthentication auth) {
         AccountModelBuilder builder = AccountModelBuilder.builder();
         if(auth == null) return builder.build();
-        Account account = auth.getAccount();
+        AccountEntity account = auth.getAccount();
         return account != null ? builder
                                     .setUsername(account.getUsername())
                                     .setPassword1("")
@@ -68,5 +68,20 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
         Map<String, Long> map = new HashMap<>();
         findAllAccounts().forEach(a -> map.put(a.getRole(), map.getOrDefault(a.getRole(), 0L) + 1L));
         return map;
+    }
+
+    @Override
+    public AccountEntity createAccountWithModel(AccountModel accountModel) {
+        return null;
+    }
+
+    @Override
+    public AccountEntity updateAccountWithModel(AccountModel accountModel) {
+        return null;
+    }
+
+    @Override
+    public AccountEntity deleteAccountWithModel(String loginId) {
+        return null;
     }
 }

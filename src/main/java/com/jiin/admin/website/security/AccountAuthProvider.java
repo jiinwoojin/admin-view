@@ -1,6 +1,6 @@
 package com.jiin.admin.website.security;
 
-import com.jiin.admin.website.dto.Account;
+import com.jiin.admin.entity.AccountEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,7 +24,7 @@ public class AccountAuthProvider implements AuthenticationProvider {
     }
 
     public Authentication authenticate(String username, String password){
-        Account account = accountService.findByUsername(username);
+        AccountEntity account = accountService.findByUsername(username);
         if(account == null) return null;
         if(!account.getPassword().equals(password)) return null;
         return new AccountAuthentication(username, password, account.getAuthorities(), account);
@@ -37,18 +37,18 @@ public class AccountAuthProvider implements AuthenticationProvider {
 
     public class AccountAuthentication extends UsernamePasswordAuthenticationToken {
         private static final long serialVersionUID = 1L;
-        private Account account;
+        private AccountEntity account;
 
-        public AccountAuthentication(String username, String password, Collection<? extends GrantedAuthority> collection, Account account){
+        public AccountAuthentication(String username, String password, Collection<? extends GrantedAuthority> collection, AccountEntity account){
             super(username, password, collection);
             this.account = account;
         }
 
-        public Account getAccount(){
+        public AccountEntity getAccount(){
             return this.account;
         }
 
-        public void setAccount(Account account){
+        public void setAccount(AccountEntity account){
             this.account = account;
         }
     }

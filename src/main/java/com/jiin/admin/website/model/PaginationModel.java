@@ -32,15 +32,4 @@ public abstract class PaginationModel {
         this.sb = sb;
         this.st = st;
     }
-
-    public String getQueryString() {
-        String url = "";
-        try {
-            String temp = (this.st == null) ? "" : URLEncoder.encode(this.st, "UTF-8");
-            url = String.format("pg=%d&sz=%d&ob=%d&sb=%d&st=%s", this.pg, this.sz, this.ob, this.sb, temp);
-        } catch (UnsupportedEncodingException e){
-            e.printStackTrace();
-        }
-        return url;
-    }
 }

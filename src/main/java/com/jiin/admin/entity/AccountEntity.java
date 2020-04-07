@@ -1,30 +1,42 @@
-package com.jiin.admin.website.dto;
+package com.jiin.admin.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class Account implements Serializable, UserDetails {
+@Entity(name = "_ACCOUNT")
+public class AccountEntity implements Serializable, UserDetails {
     private static final long serialVersionUID = 1L;
 
+    @Id
     private String username;
+
+    @Column(name = "NAME", length = 15, nullable = false, unique = true)
     private String name;
+
+    @Column(name = "EMAIL", nullable = false)
     private String email;
+
+    @Column(name = "ROLE", nullable = false)
     private String role;
 
     @JsonIgnore
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    public Account(){
+    public AccountEntity(){
 
     }
 
-    public Account(String username, String password, String name, String email, String role){
+    public AccountEntity(String username, String password, String name, String email, String role){
         this.username = username;
         this.password = password;
         this.name = name;
