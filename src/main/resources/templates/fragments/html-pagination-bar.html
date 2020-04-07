@@ -19,7 +19,7 @@
             return b;
         }
 
-        function convertObjectToQueryStringWithoutPage(){
+        function convertObjectToQueryStringWithoutPage(pageName){
             var obj = {}
             var qs = getQueryStringObject();
 
@@ -30,7 +30,15 @@
 
             obj.sDate = qs.sDate || '';
             obj.eDate = qs.eDate || '';
-            obj.lType = qs.lType || 'ALL';
+
+            if(pageName == 'layer-manage') {
+                obj.lType = qs.lType || 'ALL';
+            }
+
+            if(pageName == 'map-manage') {
+                obj.iType = qs.iType || 'ALL';
+                obj.units = qs.units || 'ALL';
+            }
 
             var str = '';
             for(var key in obj){
@@ -51,26 +59,26 @@
 
             if(first > 1){
                 pagination += `
-                <li class="page-item">
-                    <a class="page-link" href="${ '/admin-view/view/manage/' + '[[${pageName}]]' + '?pg=' + (first - 1) + "&" + convertObjectToQueryStringWithoutPage() }">&lt;</a>
-                </li>
-            `;
+                    <li class="page-item">
+                        <a class="page-link" href="${ '/admin-view/view/manage/' + '[[${pageName}]]' + '?pg=' + (first - 1) + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">&lt;</a>
+                    </li>
+                `;
             }
 
             for(var i = first; i <= last && i <= pageCount; i++){
                 pagination += `
-                ${ i == pg ? `<li class="page-item active">` : `<li class="page-item">` }
-                    <a class="page-link" href="${ '/admin-view/view/manage/' + '[[${pageName}]]' + '?pg=' + i + "&" + convertObjectToQueryStringWithoutPage() }">${ i }</a>
-                </li>
-            `;
+                    ${ i == pg ? `<li class="page-item active">` : `<li class="page-item">` }
+                        <a class="page-link" href="${ '/admin-view/view/manage/' + '[[${pageName}]]' + '?pg=' + i + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">${ i }</a>
+                    </li>
+                `;
             }
 
             if(last < pageCount){
                 pagination += `
-                <li class="page-item">
-                    <a class="page-link" href="${ '/admin-view/view/manage/' + '[[${pageName}]]' + '?pg=' + (last + 1) + "&" + convertObjectToQueryStringWithoutPage() }">&gt;</a>
-                </li>
-            `;
+                    <li class="page-item">
+                        <a class="page-link" href="${ '/admin-view/view/manage/' + '[[${pageName}]]' + '?pg=' + (last + 1) + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">&gt;</a>
+                    </li>
+                `;
             }
 
             pagination += `</ul>`;
