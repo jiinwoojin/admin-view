@@ -12,14 +12,14 @@
         <ul class="navbar-nav ml-auto">
             <!-- Nav Item - Login Button -->
             <li class="nav-item no-arrow mx-1">
-                <a class="nav-link" href="/view/auth/login" sec:authorize="isAuthenticated() == false">
+                <a class="nav-link" th:href="@{/view/auth/login}" sec:authorize="isAuthenticated() == false">
                     <i class="fas fa-key fa-fw"></i>
                 </a>
             </li>
 
             <!-- Nav Item - Sign Up Button -->
             <li class="nav-item no-arrow mx-1">
-                <a class="nav-link" href="/view/auth/sign" sec:authorize="isAuthenticated() == false">
+                <a class="nav-link" th:href="@{/view/auth/sign}" sec:authorize="isAuthenticated() == false">
                     <i class="fas fa-user-plus fa-fw"></i>
                 </a>
             </li>
