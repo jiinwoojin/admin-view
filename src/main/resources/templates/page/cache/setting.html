@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+
+<head>
+    <link rel="stylesheet" th:href="@{/gis/openlayers-4.6.4/ol.css}">
+    <script th:src="@{/gis/openlayers-4.6.4/ol.js}"></script>
+</head>
+
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">캐시 리소스 관리 - 설정</h1>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/view/map/list}">지도 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">캐시 리소스 관리 - 설정</li>
+        </ol>
+</th:block>
+</nav>
+
+<th:block layout:fragment="content-body-fragment">
+    <div class="row">
+        <div class="col-xl-6">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="layer-tab" data-toggle="tab" href="#layer" role="tab" aria-controls="layer" aria-selected="true">Layer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="source-tab" data-toggle="tab" href="#source" role="tab" aria-controls="source" aria-selected="false">Source</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="cache-tab" data-toggle="tab" href="#cache" role="tab" aria-controls="cache" aria-selected="false">Cache</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="tab_context_view">
+                <div class="tab-pane fade show active" id="layer" role="tabpanel" aria-labelledby="layer-tab">
+                    <div class="py-1">
+                        <h3 class="my-1">레이어 관리</h3>
+                        <div class="text-right my-1">
+                            <button type="button" class="btn btn-info btn-sm">
+                                <i class="fas fa-plus"></i> 데이터 추가
+                            </button>
+                        </div>
+                        <table id="list_table_layer" class="table table-sm table-striped my-1">
+                            <thead class="table-info">
+                            <tr>
+                                <th scope="col" class="text-center">이름</th>
+                                <th scope="col" class="text-center">제목</th>
+                                <th scope="col" class="text-center">수정 및 삭제</th>
+                                <th scope="col" class="text-center">설정 적용</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="layer : ${ layerMap.data }">
+                                <td class="text-center" th:text="${ layer.name }"></td>
+                                <td class="text-center" th:text="${ layer.title }"></td>
+                                <td class="text-center">
+                                    <a class="btn btn-info btn-circle btn-sm mx-1" href="#">
+                                        <i class="fas fa-cog"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-circle btn-sm mx-1" href="#">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedLayers', [[${layer.name}]])">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <script>
+                            $(document).ready(function() {
+                                $('#list_table_layer').DataTable({
+                                    "language" : {
+                                        "lengthMenu" : "자료 길이 _MENU_",
+                                        "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                                        "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                                        "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                                        "infoFiltered" : "(총 _TOTAL_ 건)",
+                                        "search" : "검색 키워드",
+                                        "paginate": {
+                                            "first" : "<<",
+                                            "last" : ">>",
+                                            "next" : ">",
+                                            "previous" : "<"
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="source" role="tabpanel" aria-labelledby="source-tab">
+                    <div class="py-1">
+                        <h3 class="my-1">소스 관리</h3>
+                        <div class="text-right my-1">
+                            <button type="button" class="btn btn-info btn-sm">
+                                <i class="fas fa-plus"></i> 데이터 추가
+                            </button>
+                        </div>
+                        <table id="list_table_source" class="table table-sm table-striped my-1">
+                            <thead class="table-info">
+                            <tr>
+                                <th scope="col" class="text-center">이름</th>
+                                <th scope="col" class="text-center">종류</th>
+                                <th scope="col" class="text-center">수정 및 삭제</th>
+                                <th scope="col" class="text-center">설정 적용</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="source : ${ sourceMap.data }">
+                                <td class="text-center" th:text="${ source.name }"></td>
+                                <td class="text-center" th:text="${ source.type }"></td>
+                                <td class="text-center">
+                                    <a class="btn btn-info btn-circle btn-sm mx-1" href="#">
+                                        <i class="fas fa-cog"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-circle btn-sm mx-1" href="#">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedSources', [[${source.name}]])">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <script>
+                            $(document).ready(function() {
+                                $('#list_table_source').DataTable({
+                                    "language" : {
+                                        "lengthMenu" : "자료 길이 _MENU_",
+                                        "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                                        "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                                        "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                                        "infoFiltered" : "(총 _TOTAL_ 건)",
+                                        "search" : "검색 키워드",
+                                        "paginate": {
+                                            "first" : "<<",
+                                            "last" : ">>",
+                                            "next" : ">",
+                                            "previous" : "<"
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="cache" role="tabpanel" aria-labelledby="cache-tab">
+                    <div class="py-1">
+                        <h3 class="my-1">캐시 관리</h3>
+                        <div class="text-right my-1">
+                            <button type="button" class="btn btn-info btn-sm">
+                                <i class="fas fa-plus"></i> 데이터 추가
+                            </button>
+                        </div>
+                        <table id="list_table_cache" class="table table-sm table-striped my-1">
+                            <thead class="table-info">
+                            <tr>
+                                <th scope="col" class="text-center">이름</th>
+                                <th scope="col" class="text-center">종류</th>
+                                <th scope="col" class="text-center">수정 및 삭제</th>
+                                <th scope="col" class="text-center">설정 적용</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="cache : ${ cacheMap.data }">
+                                <td class="text-center" th:text="${ cache.name }"></td>
+                                <td class="text-center" th:text="${ cache.cacheType }"></td>
+                                <td class="text-center">
+                                    <a class="btn btn-info btn-circle btn-sm mx-1" href="#">
+                                        <i class="fas fa-cog"></i>
+                                    </a>
+                                    <a class="btn btn-danger btn-circle btn-sm mx-1" href="#">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedCaches', [[${cache.name}]])">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <script>
+                            $(document).ready(function() {
+                                $('#list_table_cache').DataTable({
+                                    "language" : {
+                                        "lengthMenu" : "자료 길이 _MENU_",
+                                        "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                                        "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                                        "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                                        "infoFiltered" : "(총 _TOTAL_ 건)",
+                                        "search" : "검색 키워드",
+                                        "paginate": {
+                                            "first" : "<<",
+                                            "last" : ">>",
+                                            "next" : ">",
+                                            "previous" : "<"
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div id="layer_select" class="my-2">
+                <p>레이어 선택</p>
+
+                <ul class="list-group" id="selectedLayers">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        데이터 로딩 중
+                        <span class="badge badge-info badge-pill">
+                            <i class="fas fa-sync"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="source_select" class="my-2">
+                <p>소스 선택</p>
+
+                <ul class="list-group" id="selectedSources">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        데이터 로딩 중
+                        <span class="badge badge-info badge-pill">
+                            <i class="fas fa-sync"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="cache_select" class="my-2">
+                <p>캐시 선택</p>
+
+                <ul class="list-group" id="selectedCaches">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        데이터 로딩 중
+                        <span class="badge badge-info badge-pill">
+                            <i class="fas fa-sync"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            Map Proxy YAML 설정
+
+            <button type="button" class="btn btn-primary btn-sm">
+                <i class="fas fa-search"></i> 설정 미리 보기
+            </button>
+
+            <button type="button" class="btn btn-secondary btn-sm" onclick="initialize_selected_data()">
+                <i class="fas fa-sync"></i> 설정 초기화
+            </button>
+        </div>
+    </div>
+
+    <script th:src="@{/js/page/proxy-select.js}"></script>
+</th:block>
+</html>

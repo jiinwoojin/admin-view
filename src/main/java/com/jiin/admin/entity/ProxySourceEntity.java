@@ -60,6 +60,12 @@ public class ProxySourceEntity implements Persistable<Long> {
     @Column(name = "MAP_SERVER_WORK_DIR", nullable = false)
     private String mapServerWorkDir;
 
+    /**
+     * SELECTED BOOL
+     */
+    @Column(name = "SELECTED")
+    private Boolean selected;
+
     public ProxySourceEntity(){
 
     }

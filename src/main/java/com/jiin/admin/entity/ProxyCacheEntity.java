@@ -65,6 +65,12 @@ public class ProxyCacheEntity implements Persistable<Long> {
     @Column(name = "CACHE_DIRECTORY", length = 20, nullable = false)
     private String cacheDirectory;
 
+    /**
+     * SELECTED BOOL
+     */
+    @Column(name = "SELECTED")
+    private Boolean selected;
+
     public ProxyCacheEntity(){
         this.sources = new ArrayList<>();
     }
