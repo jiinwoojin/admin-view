@@ -517,31 +517,8 @@
         }
         function fn_set_graticules(elem){
             var type = elem.value
-            var bounds
-            var stepX
-            var stepY
-            if(type == "WGS84"){
-                bounds = [122,32,132,43]
-                stepX = 1
-                stepY = 1
-            }else if(type == "MGRS"){
-                bounds = [121,32,132,43]
-                stepX = 1
-                stepY = 1
-            }else if(type == "UTM"){
-                bounds = [120,32,132,43]
-                stepX = 0.5
-                stepY =  0.5
-            }else if(type == "GARS"){
-                bounds = [120,31,132,43]
-                stepX =  0.3
-                stepY =  0.3
-            }else if(type == "GEOREF"){
-                bounds = [120,30,132,43]
-                stepX =  0.1
-                stepY =  0.1
-            }
-            stmp.drawGraticules(type,bounds,stepX,stepY)
+            var bounds = [122,32,132,43]
+            stmp.drawGraticules(type,bounds)
         }
         //이지훈 UUID 생성
         function getUUID() { // UUID v4 generator in JavaScript (RFC4122 compliant)

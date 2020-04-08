@@ -22,7 +22,8 @@ var jiMap = function jiMap(options) {
 
             console.log('2DMap 생성 완료.');
         });
-
+        // 그리드 라벨 redraw
+        this.map.on('moveend', stmp.redrawGraticulesLabel)
         /**
          * callback 함수가 있을 경우 호출
          */
