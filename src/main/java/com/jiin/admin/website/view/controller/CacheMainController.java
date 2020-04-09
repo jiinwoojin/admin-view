@@ -1,6 +1,6 @@
 package com.jiin.admin.website.view.controller;
 
-import com.jiin.admin.website.gis.CacheService;
+import com.jiin.admin.website.gis.ProxySettingService;
 import com.jiin.admin.website.util.MapProxyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +11,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("cache")
 public class CacheMainController {
     @Autowired
-    private CacheService cacheService;
+    private ProxySettingService cacheService;
+
+    @RequestMapping("preview")
+    public String cacheDataPreview(Model model){
+        model.addAttribute("layer", cacheService.getCachedLayerData());
+        model.addAttribute("request", cacheService.getCachedRequestData());
+        model.addAttribute("boundingBox", cacheService.getBoundingBoxInfoWithCrs());
+        model.addAttribute("serviceURL", MapProxyUtil.getServiceURL());
+        return "page/cache/preview";
+    }
+
+    @RequestMapping("setting")
+    public String cacheDataSetting(Model model){
+        model.addAttribute("layerMap", cacheService.getProxyLayerEntities());
+        model.addAttribute("sourceMap", cacheService.getProxySourceEntities());
+        model.addAttribute("cacheMap", cacheService.getProxyCacheEntities());
+
+        model.addAttribute("setForm", cacheService.getCurrentMapProxySettings());
+
+        model.addAttribute("layer", cacheService.getCachedLayerData());
+        model.addAttribute("request", cacheService.getCachedRequestData());
+        model.addAttribute("boundingBox", cacheService.getBoundingBoxInfoWithCrs());
+        model.addAttribute("serviceURL", MapProxyUtil.getServiceURL());
+        return "page/cache/setting";
+    }
 
     @RequestMapping("layers")
     public String cacheSourcesPage(Model model){

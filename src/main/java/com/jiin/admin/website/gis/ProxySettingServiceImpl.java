@@ -1,15 +1,53 @@
 package com.jiin.admin.website.gis;
 
+import com.jiin.admin.website.model.ProxySelectModel;
 import com.jiin.admin.website.util.MapProxyUtil;
+import com.jiin.admin.website.view.mapper.ProxyMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
-public class CacheServiceImpl implements CacheService {
+public class ProxySettingServiceImpl implements ProxySettingService {
+    @Resource
+    private ProxyMapper proxyMapper;
+
+    @Override
+    public Map<String, Object> getProxyLayerEntities() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", proxyMapper.findAllProxyLayerEntities());
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> getProxySourceEntities() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", proxyMapper.findAllProxySourceEntities());
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> getProxyCacheEntities() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", proxyMapper.findAllProxyCacheEntities());
+        return result;
+    }
+
+    @Override
+    public ProxySelectModel getCurrentMapProxySettings() {
+        return new ProxySelectModel(
+            proxyMapper.findProxyLayerSelectedEntities().stream().map(o -> o.getName()).collect(Collectors.toList()),
+            proxyMapper.findProxySourceSelectedEntities().stream().map(o -> o.getName()).collect(Collectors.toList()),
+            proxyMapper.findProxyCacheSelectedEntities().stream().map(o -> o.getName()).collect(Collectors.toList())
+        );
+    }
+
     @Override
     public Map<String, Object> getCachedRequestData() {
         Map<String, Object> capability = MapProxyUtil.getCapabilities();

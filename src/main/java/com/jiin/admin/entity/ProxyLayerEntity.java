@@ -41,6 +41,12 @@ public class ProxyLayerEntity implements Persistable<Long> {
     @OneToMany(mappedBy = "source", cascade = CascadeType.ALL)
     private List<ProxyLayerSourceRelationEntity> sources;
 
+    /**
+     * SELECTED BOOL
+     */
+    @Column(name = "SELECTED")
+    private Boolean selected;
+
     public ProxyLayerEntity(){
         this.sources = new ArrayList<>();
     }
