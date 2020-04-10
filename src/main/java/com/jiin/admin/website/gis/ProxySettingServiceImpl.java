@@ -159,4 +159,35 @@ public class ProxySettingServiceImpl implements ProxySettingService {
             return true;
         }
     }
+
+    @Override
+    @Transactional
+    public void deleteProxyLayerEntityById(long id) {
+        Map<String, Long> searchMap = new HashMap<String, Long>() {{
+            put("id", id);
+        }};
+        proxyMapper.deleteProxyLayerSourceRelationByLayerId(searchMap);
+        proxyMapper.deleteProxyLayerById(searchMap);
+    }
+
+    @Override
+    @Transactional
+    public void deleteProxySourceEntityById(long id) {
+        Map<String, Long> searchMap = new HashMap<String, Long>() {{
+            put("id", id);
+        }};
+        proxyMapper.deleteProxyLayerSourceRelationBySourceId(searchMap);
+        proxyMapper.deleteProxyCacheSourceRelationBySourceId(searchMap);
+        proxyMapper.deleteProxySourceById(searchMap);
+    }
+
+    @Override
+    @Transactional
+    public void deleteProxyCacheEntityById(long id) {
+        Map<String, Long> searchMap = new HashMap<String, Long>() {{
+            put("id", id);
+        }};
+        proxyMapper.deleteProxyCacheSourceRelationByCacheId(searchMap);
+        proxyMapper.deleteProxyCacheById(searchMap);
+    }
 }

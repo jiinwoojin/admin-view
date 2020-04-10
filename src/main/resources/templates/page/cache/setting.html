@@ -114,9 +114,9 @@
                                     <button class="btn btn-info btn-circle btn-sm mx-1" type="button">
                                         <i class="fas fa-cog"></i>
                                     </button>
-                                    <button class="btn btn-danger btn-circle btn-sm mx-1" type="button">
+                                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="${ '/admin-view/view/cache/delete-proxy-layer/' + layer.id }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                                         <i class="fas fa-trash"></i>
-                                    </button>
+                                    </a>
                                 </td>
                                 <td class="text-center">
                                     <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedLayers', [[${layer.name}]])">
@@ -240,9 +240,9 @@
                                     <button class="btn btn-info btn-circle btn-sm mx-1" type="button">
                                         <i class="fas fa-cog"></i>
                                     </button>
-                                    <button class="btn btn-danger btn-circle btn-sm mx-1" type="button">
+                                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="${ '/admin-view/view/cache/delete-proxy-source/' + source.id }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                                         <i class="fas fa-trash"></i>
-                                    </button>
+                                    </a>
                                 </td>
                                 <td class="text-center">
                                     <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedSources', [[${source.name}]])">
@@ -373,9 +373,9 @@
                                     <button class="btn btn-info btn-circle btn-sm mx-1" type="button">
                                         <i class="fas fa-cog"></i>
                                     </button>
-                                    <button class="btn btn-danger btn-circle btn-sm mx-1" type="button">
+                                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="${ '/admin-view/view/cache/delete-proxy-cache/' + cache.id }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                                         <i class="fas fa-trash"></i>
-                                    </button>
+                                    </a>
                                 </td>
                                 <td class="text-center">
                                     <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedCaches', [[${cache.name}]])">

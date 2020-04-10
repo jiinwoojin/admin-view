@@ -7,10 +7,7 @@ import com.jiin.admin.mapper.BaseMapper;
 import com.jiin.admin.website.model.ProxyCacheModel;
 import com.jiin.admin.website.model.ProxyLayerModel;
 import com.jiin.admin.website.model.ProxySourceModel;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -63,4 +60,25 @@ public interface ProxyMapper {
     @Insert("INSERT INTO _PROXY_CACHE_SOURCE_RELATION(ID, CACHE_ID, SOURCE_ID) VALUES(#{id}, #{cacheId}, #{sourceId})")
     @SelectKey(statement="SELECT NEXTVAL('PROXY_CACHE_SOURCE_SEQ')", keyProperty="id", before=true, resultType=long.class)
     void insertProxyCacheSourceRelationWithMap(Map<String, Long> map);
+
+    @Delete("DELETE FROM _PROXY_LAYER WHERE ID = #{id}")
+    void deleteProxyLayerById(Map<String, Long> map);
+
+    @Delete("DELETE FROM _PROXY_SOURCE WHERE ID = #{id}")
+    void deleteProxySourceById(Map<String, Long> map);
+
+    @Delete("DELETE FROM _PROXY_CACHE WHERE ID = #{id}")
+    void deleteProxyCacheById(Map<String, Long> map);
+
+    @Delete("DELETE FROM _PROXY_LAYER_SOURCE_RELATION WHERE LAYER_ID = #{id}")
+    void deleteProxyLayerSourceRelationByLayerId(Map<String, Long> map);
+
+    @Delete("DELETE FROM _PROXY_LAYER_SOURCE_RELATION WHERE SOURCE_ID = #{id}")
+    void deleteProxyLayerSourceRelationBySourceId(Map<String, Long> map);
+
+    @Delete("DELETE FROM _PROXY_CACHE_SOURCE_RELATION WHERE CACHE_ID = #{id}")
+    void deleteProxyCacheSourceRelationByCacheId(Map<String, Long> map);
+
+    @Delete("DELETE FROM _PROXY_CACHE_SOURCE_RELATION WHERE SOURCE_ID = #{id}")
+    void deleteProxyCacheSourceRelationBySourceId(Map<String, Long> map);
 }

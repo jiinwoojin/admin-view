@@ -8,8 +8,12 @@ import com.jiin.admin.website.util.MapProxyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("cache")
@@ -57,6 +61,24 @@ public class CacheMainController {
     public String addProxyCache(Model model, ProxyCacheModel proxyCacheModel){
         cacheService.createProxyCacheEntityWithModel(proxyCacheModel);
         return "redirect:setting";
+    }
+
+    @RequestMapping("delete-proxy-layer/{id}")
+    public String deleteProxyLayerByName(Model model, @PathVariable String id){
+        cacheService.deleteProxyLayerEntityById(Long.parseLong(id));
+        return "redirect:../setting";
+    }
+
+    @RequestMapping("delete-proxy-source/{id}")
+    public String deleteProxySourceByName(Model model, @PathVariable String id){
+        cacheService.deleteProxySourceEntityById(Long.parseLong(id));
+        return "redirect:../setting";
+    }
+
+    @RequestMapping("delete-proxy-cache/{id}")
+    public String deleteProxyCacheByName(Model model, @PathVariable String id){
+        cacheService.deleteProxyCacheEntityById(Long.parseLong(id));
+        return "redirect:../setting";
     }
 
     @RequestMapping("layers")
