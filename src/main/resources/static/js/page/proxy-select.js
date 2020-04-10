@@ -119,4 +119,3 @@ window.onload = function() {
         $('#duplicate-check-message-proxy-cache').text("중복확인을 해주세요.");
     });
 }
-

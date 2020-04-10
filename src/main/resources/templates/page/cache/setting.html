@@ -46,12 +46,12 @@
                         </div>
 
                         <!-- Data Inserting Modal -->
-                        <div class="modal fade" id="layerDataInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+                        <div class="modal fade" id="layerDataInsert" tabindex="-1" role="dialog" aria-labelledby="insertModalCenterTitle1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
                                     <form id="add-proxy-layer" th:action="@{/view/cache/add-proxy-layer}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" th:object="${addProxyLayer}">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalCenterTitle1">데이터 추가 - Layer</h5>
+                                            <h5 class="modal-title" id="insertModalCenterTitle1">데이터 추가 - Layer</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('proxyLayerName', 'layer')">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -97,6 +97,52 @@
                             </div>
                         </div>
 
+                        <!-- Data Updating Modal -->
+                        <div class="modal fade" id="layerDataUpdate" tabindex="-1" role="dialog" aria-labelledby="updateModalCenterTitle1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <form id="update-proxy-layer" th:action="@{/view/cache/update-proxy-layer}" method="post" accept-charset="utf-8">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="updateModalCenterTitle1">데이터 추가 - Layer</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group row">
+                                                <div class="col-12">
+                                                    <label for="proxyLayerName_u">레이어 이름</label>
+                                                </div>
+                                                <div class="col-12 input-group">
+                                                    <input type="text" class="form-control" id="proxyLayerName_u" name="proxyLayerName" readonly />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxyLayerTitle_u">레이어 제목</label>
+                                                <input type="text" class="form-control" id="proxyLayerTitle_u" name="proxyLayerTitle" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxySources_u">레이어 연계 소스</label>
+                                                <select class="form-control" id="proxySources_u" name="proxySources" multiple>
+                                                    <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                <i class="fas fa-times"></i> 취소
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-save"></i> 저장
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                         <table id="list_table_layer" class="table table-sm table-striped my-1">
                             <thead class="table-info">
                             <tr>
@@ -111,9 +157,15 @@
                                 <td class="text-center" th:text="${ layer.name }"></td>
                                 <td class="text-center" th:text="${ layer.title }"></td>
                                 <td class="text-center">
-                                    <button class="btn btn-info btn-circle btn-sm mx-1" type="button">
+                                    <button th:id="${ 'layerUpdate' + layer.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#layerDataUpdate">
                                         <i class="fas fa-cog"></i>
                                     </button>
+                                    <script th:inline="javascript">
+                                        var json[[${layer.id}]] = /*[[${ layer }]]*/ {};
+                                        document.getElementById('layerUpdate' + [[${layer.id}]]).onclick = function() {
+                                            onclick_update_layer(json[[${layer.id}]]);
+                                        };
+                                    </script>
                                     <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="${ '/admin-view/view/cache/delete-proxy-layer/' + layer.id }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                                         <i class="fas fa-trash"></i>
                                     </a>
@@ -145,6 +197,10 @@
                                     }
                                 });
                             });
+
+                            function onclick_update_layer(obj){
+                                console.log(obj)
+                            }
                         </script>
                     </div>
                 </div>
@@ -467,8 +523,5 @@
     </div>
 
     <script th:src="@{/js/page/proxy-select.js}"></script>
-    <script>
-
-    </script>
 </th:block>
 </html>
