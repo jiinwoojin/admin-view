@@ -14,6 +14,9 @@ import java.io.Serializable;
         initialValue = 1,
         allocationSize = 1
 )
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = { "LAYER_ID", "SOURCE_ID" })
+})
 @Getter
 @Setter
 public class ProxyLayerSourceRelationEntity implements Serializable {

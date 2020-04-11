@@ -68,6 +68,54 @@ function initialize_selected_data(){
     });
 }
 
+function nameValidation(form, field){
+    if(jQuery.isEmptyObject(form[field].value)) {
+        form[field].focus();
+        toastr.warning("이름이 입력되지 않았습니다.");
+        return false;
+    }else if(jQuery(form[field]).data("check-duplicate") === false) {
+        toastr.warning("이름 중복확인이 되지 않았습니다.");
+        return false;
+    }
+    return true;
+}
+
+function preSubmit(form){
+    var action = form.action;
+    if(action.indexOf('add') > -1){
+        switch(form.id){
+            case 'add-proxy-layer' :
+                return nameValidation(form, 'proxyLayerName');
+            case 'add-proxy-source' :
+                return nameValidation(form, 'proxySourceName');
+            case 'add-proxy-cache' :
+                return nameValidation(form, 'proxyCacheName');
+        }
+    }
+    return false;
+}
+
+function onclick_close(field, context){
+    $(`#${field}`).val('');
+    $(`#${field}`).data("check-duplicate",false);
+    $(`#duplicate-check-message-proxy-${context}`).text("중복확인을 해주세요.");
+}
+
 window.onload = function() {
     initialize_selected_data();
+
+    $('#proxyLayerName').change(function() {
+        $('#proxyLayerName').data("check-duplicate",false);
+        $('#duplicate-check-message-proxy-layer').text("중복확인을 해주세요.");
+    });
+
+    $('#proxySourceName').change(function() {
+        $('#proxySourceName').data("check-duplicate",false);
+        $('#duplicate-check-message-proxy-source').text("중복확인을 해주세요.");
+    });
+
+    $('#proxyCacheName').change(function() {
+        $('#proxyCacheName').data("check-duplicate",false);
+        $('#duplicate-check-message-proxy-cache').text("중복확인을 해주세요.");
+    });
 }

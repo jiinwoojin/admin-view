@@ -38,7 +38,7 @@ public class ProxyLayerEntity implements Persistable<Long> {
     @Column(name = "TITLE", nullable = false)
     private String title;
 
-    @OneToMany(mappedBy = "source", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "layer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProxyLayerSourceRelationEntity> sources;
 
     /**

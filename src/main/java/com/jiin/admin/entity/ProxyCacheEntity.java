@@ -50,7 +50,7 @@ public class ProxyCacheEntity implements Persistable<Long> {
     @Column(name = "META_BUFFER")
     private Integer metaBuffer;
 
-    @OneToMany(mappedBy = "source", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cache", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<ProxyCacheSourceRelationEntity> sources;
 
     /**
