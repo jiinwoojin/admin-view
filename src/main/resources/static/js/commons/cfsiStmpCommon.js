@@ -1706,6 +1706,7 @@ var stmp = {
         if(stmp.mapObject.map.getSource("graticules-source-label"))         stmp.mapObject.map.removeSource("graticules-source-label")
 
         /**
+         * inside label 기준은 [120,32]
          * zoomRange : all, 00-to-05, 05-to-10, 10-to-20
          */
         var options = {
@@ -1715,7 +1716,7 @@ var stmp = {
             labelSize : 10,
             labelGenerator : stmp.graticulesLabelGenerator
         }
-        if(type == "WGS84"){
+        if(type == "WGS84"){ // 외곽 라벨링
             options.graticules.push({
                 coordStepX: 1,
                 coordStepY: 1,
@@ -1770,6 +1771,7 @@ var stmp = {
                 labelStepY: 'H',
                 zoomRange : "05-to-10"
             })
+            // 성능이슈...
             options.graticules.push({
                 coordStepX: 1/60,
                 coordStepY: 1/60,
@@ -1891,6 +1893,7 @@ var stmp = {
                         labelFeatures.push({type: 'Feature', properties: {description: dms, zoomRange: item.zoomRange, origin: latlon, position: 'top'}, 'geometry': {'type': 'Point', 'coordinates': latlon}})
                     }
                     if(hidx !== horizonPoints.length - 1 && vidx !== verticalPoints.length - 1){
+                        //TODO : inside label genegator 작업예정
                         var latlon = [hpos[0] + (item.coordStepX / 2), vpos[1] + (item.coordStepY / 2)]
                         labelFeatures.push({type: 'Feature', properties: {description: 'X', zoomRange: item.zoomRange, position: 'inside'}, 'geometry': {'type': 'Point', 'coordinates': latlon}})
                     }
@@ -1911,7 +1914,7 @@ var stmp = {
                 features: labelFeatures
             }
         })
-        console.log(features)
+        //console.log(features)
         var prevLayerIdx = stmp.mapObject.map.getStyle().layers.length - 1
         // graticules-boundry-zoom-all
         stmp.mapObject.map.addLayer({
@@ -1919,8 +1922,8 @@ var stmp = {
             'type': 'fill',
             'source': 'graticules-source-feature',
             'paint': {
-                'fill-color': '#888888',
-                'fill-opacity': 0.4
+                'fill-color': '#efefef',
+                'fill-opacity': 0.2
             },
             'filter': ["all", ['==', '$type', 'Polygon'], ["==", "zoomRange", 'all']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
@@ -1930,8 +1933,8 @@ var stmp = {
             'type': 'fill',
             'source': 'graticules-source-feature',
             'paint': {
-                'fill-color': '#888888',
-                'fill-opacity': 0.4
+                'fill-color': '#efefef',
+                'fill-opacity': 0.1
             },
             'filter': ["all", ['==', '$type', 'Polygon'], ["==", "zoomRange", '00-to-05']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
@@ -1943,8 +1946,8 @@ var stmp = {
             'type': 'fill',
             'source': 'graticules-source-feature',
             'paint': {
-                'fill-color': '#888888',
-                'fill-opacity': 0.4
+                'fill-color': '#efefef',
+                'fill-opacity': 0.1
             },
             'filter': ["all", ['==', '$type', 'Polygon'], ["==", "zoomRange", '05-to-10']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
@@ -1956,8 +1959,8 @@ var stmp = {
             'type': 'fill',
             'source': 'graticules-source-feature',
             'paint': {
-                'fill-color': '#888888',
-                'fill-opacity': 0.4
+                'fill-color': '#efefef',
+                'fill-opacity': 0.1
             },
             'filter': ["all", ['==', '$type', 'Polygon'], ["==", "zoomRange", '10-to-20']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
@@ -1970,8 +1973,8 @@ var stmp = {
             'source': 'graticules-source-feature',
             'paint': {
                 'line-color': '#333333',
-                'line-width': 0.8,
-                "line-dasharray": [8, 2]
+                'line-width': 0.3,
+                "line-dasharray": [10, 8]
             },
             'filter': ["all", ['==', '$type', 'LineString'], ["==", "zoomRange", 'all']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
@@ -1982,8 +1985,8 @@ var stmp = {
             'source': 'graticules-source-feature',
             'paint': {
                 'line-color': '#333333',
-                'line-width': 0.8,
-                "line-dasharray": [8, 2]
+                'line-width': 0.3,
+                "line-dasharray": [10, 8]
             },
             'filter': ["all", ['==', '$type', 'LineString'], ["==", "zoomRange", '00-to-05']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
@@ -1996,8 +1999,8 @@ var stmp = {
             'source': 'graticules-source-feature',
             'paint': {
                 'line-color': '#333333',
-                'line-width': 0.8,
-                "line-dasharray": [8, 2]
+                'line-width': 0.3,
+                "line-dasharray": [10, 8]
             },
             'filter': ["all", ['==', '$type', 'LineString'], ["==", "zoomRange", '05-to-10']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
@@ -2010,8 +2013,8 @@ var stmp = {
             'source': 'graticules-source-feature',
             'paint': {
                 'line-color': '#333333',
-                'line-width': 0.8,
-                "line-dasharray": [8, 2]
+                'line-width': 0.3,
+                "line-dasharray": [10, 8]
             },
             'filter': ["all", ['==', '$type', 'LineString'], ["==", "zoomRange", '10-to-20']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
