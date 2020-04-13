@@ -1530,12 +1530,12 @@ var stmp = {
         }
         return oStr;
     }
-    , graticulesLabelGenerator : function(){
+    , graticulesLabelGenerator : function(evt){
         var options = stmp.mapObject.map._graticules_options
         if(options === undefined){
             return
         }
-        if(options.type === "WGS84"){
+        if(options.type === "WGS84") {
             var source = stmp.mapObject.map.getSource("graticules-source-label")
             var data = source._data
             var features = data.features
@@ -1544,37 +1544,37 @@ var stmp = {
             var n = stmp.mapObject.map.getBounds().getNorth()
             var s = stmp.mapObject.map.getBounds().getSouth()
             var newfeatures = []
-            jQuery.each(features,function(idx, feature){
+            jQuery.each(features, function (idx, feature) {
                 var position = feature.properties.position
-                if(position === "inside"){
+                if (position === "inside") {
                     newfeatures.push(feature)
                     return
                 }
                 var coordinates = feature.properties.origin
                 var lat = coordinates[0]
                 var lon = coordinates[1]
-                var newcoordinates = [lat,lon]
-                if(w > lat){
+                var newcoordinates = [lat, lon]
+                if (w > lat) {
                     newcoordinates[0] = w
                 }
-                if(lat > e){
+                if (lat > e) {
                     newcoordinates[0] = e
                 }
-                if(s > lon){
+                if (s > lon) {
                     newcoordinates[1] = s
                 }
-                if(lon > n){
+                if (lon > n) {
                     newcoordinates[1] = n
                 }
                 feature.geometry.coordinates = newcoordinates
                 newfeatures.push(feature)
             })
-            if(stmp.mapObject.map.getLayer("graticules-label-left")) stmp.mapObject.map.removeLayer("graticules-label-left")
-            if(stmp.mapObject.map.getLayer("graticules-label-right")) stmp.mapObject.map.removeLayer("graticules-label-right")
-            if(stmp.mapObject.map.getLayer("graticules-label-top")) stmp.mapObject.map.removeLayer("graticules-label-top")
-            if(stmp.mapObject.map.getLayer("graticules-label-bottom")) stmp.mapObject.map.removeLayer("graticules-label-bottom")
-            if(stmp.mapObject.map.getLayer("graticules-label-inside")) stmp.mapObject.map.removeLayer("graticules-label-inside")
-            if(stmp.mapObject.map.getSource("graticules-source-label")) stmp.mapObject.map.removeSource("graticules-source-label")
+            if (stmp.mapObject.map.getLayer("graticules-label-left")) stmp.mapObject.map.removeLayer("graticules-label-left")
+            if (stmp.mapObject.map.getLayer("graticules-label-right")) stmp.mapObject.map.removeLayer("graticules-label-right")
+            if (stmp.mapObject.map.getLayer("graticules-label-top")) stmp.mapObject.map.removeLayer("graticules-label-top")
+            if (stmp.mapObject.map.getLayer("graticules-label-bottom")) stmp.mapObject.map.removeLayer("graticules-label-bottom")
+            if (stmp.mapObject.map.getLayer("graticules-label-inside")) stmp.mapObject.map.removeLayer("graticules-label-inside")
+            if (stmp.mapObject.map.getSource("graticules-source-label")) stmp.mapObject.map.removeSource("graticules-source-label")
             stmp.mapObject.map.addSource('graticules-source-label', {
                 type: 'geojson',
                 data: {
@@ -1584,117 +1584,124 @@ var stmp = {
             })
             options.labelDrawn = false
         }
-        if(options.labelDrawn === false){
-            var zoom = stmp.mapObject.map.getZoom()
-            var zoomRangeFilter = ["any", ['==', 'zoomRange', 'all']]
-            if(zoom < 5){
-                zoomRangeFilter.push(['==', 'zoomRange', '00-to-05'])
+        var zoom = stmp.mapObject.map.getZoom()
+        var zoomRangeFilter = ["any", ['==', 'zoomRange', 'all']]
+        if(zoom < 7){
+            zoomRangeFilter.push(['==', 'zoomRange', '00-to-07'])
+        }else if(zoom < 10){
+            zoomRangeFilter.push(['==', 'zoomRange', '07-to-10'])
+        }else if(zoom < 20){
+            zoomRangeFilter.push(['==', 'zoomRange', '10-to-20'])
+        }
+        var insideLabelSize = options.labelSize
+        if(insideLabelSize === undefined){
+            if(zoom < 7){
+                insideLabelSize = 30
             }else if(zoom < 10){
-                zoomRangeFilter.push(['==', 'zoomRange', '05-to-10'])
+                insideLabelSize = 15
             }else if(zoom < 20){
-                zoomRangeFilter.push(['==', 'zoomRange', '10-to-20'])
+                insideLabelSize = 10
             }
-            if(stmp.mapObject.map.getLayer("graticules-label-left")) stmp.mapObject.map.removeLayer("graticules-label-left")
-            if(stmp.mapObject.map.getLayer("graticules-label-right")) stmp.mapObject.map.removeLayer("graticules-label-right")
-            if(stmp.mapObject.map.getLayer("graticules-label-top")) stmp.mapObject.map.removeLayer("graticules-label-top")
-            if(stmp.mapObject.map.getLayer("graticules-label-bottom")) stmp.mapObject.map.removeLayer("graticules-label-bottom")
-            if(stmp.mapObject.map.getLayer("graticules-label-inside")) stmp.mapObject.map.removeLayer("graticules-label-inside")
-            var prevLayerIdx = options.prevLayerIdx
-            if(options.type === "WGS84"){
-                stmp.mapObject.map.addLayer({
-                    'id': 'graticules-label-top',
-                    'type': 'symbol',
-                    'source': 'graticules-source-label',
-                    'layout': {
-                        'text-field': ['get', 'description'],
-                        'text-variable-anchor': ['top'],
-                        'text-radial-offset': 0.2,
-                        "text-size": 10,
-                    },
-                    "paint": {
-                        "text-halo-color": "#fff",
-                        "text-halo-width": 1
-                    },
-                    'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'top'], zoomRangeFilter]
-                },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
-                stmp.mapObject.map.addLayer({
-                    'id': 'graticules-label-bottom',
-                    'type': 'symbol',
-                    'source': 'graticules-source-label',
-                    'layout': {
-                        'text-field': ['get', 'description'],
-                        'text-variable-anchor': ['bottom'],
-                        'text-radial-offset': 0.2,
-                        "text-size": 10,
-                    },
-                    "paint": {
-                        "text-halo-color": "#fff",
-                        "text-halo-width": 1
-                    },
-                    'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'bottom'], zoomRangeFilter]
-                },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
-                stmp.mapObject.map.addLayer({
-                    'id': 'graticules-label-left',
-                    'type': 'symbol',
-                    'source': 'graticules-source-label',
-                    'layout': {
-                        'text-field': ['get', 'description'],
-                        'text-variable-anchor': ['left'],
-                        'text-radial-offset': 0.2,
-                        "text-size": 10,
-                    },
-                    "paint": {
-                        "text-halo-color": "#fff",
-                        "text-halo-width": 1
-                    },
-                    'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'left'], zoomRangeFilter]
-                },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
-                stmp.mapObject.map.addLayer({
-                    'id': 'graticules-label-right',
-                    'type': 'symbol',
-                    'source': 'graticules-source-label',
-                    'layout': {
-                        'text-field': ['get', 'description'],
-                        'text-variable-anchor': ['right'],
-                        'text-radial-offset': 0.2,
-                        "text-size": 10,
-                    },
-                    "paint": {
-                        "text-halo-color": "#fff",
-                        "text-halo-width": 1
-                    },
-                    'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'right'], zoomRangeFilter]
-                },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
-            }else{
-                stmp.mapObject.map.addLayer({
-                    'id': 'graticules-label-inside',
-                    'type': 'symbol',
-                    'source': 'graticules-source-label',
-                    'layout': {
-                        'text-field': ['get', 'description'],
-                        "text-size": 10,
-                    },
-                    "paint": {
-                        "text-halo-color": "#fff",
-                        "text-halo-width": 1
-                    },
-                    'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'inside'], zoomRangeFilter]
-                },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
-            }
-            options.labelDrawn = true
+        }
+        if(stmp.mapObject.map.getLayer("graticules-label-left")) stmp.mapObject.map.removeLayer("graticules-label-left")
+        if(stmp.mapObject.map.getLayer("graticules-label-right")) stmp.mapObject.map.removeLayer("graticules-label-right")
+        if(stmp.mapObject.map.getLayer("graticules-label-top")) stmp.mapObject.map.removeLayer("graticules-label-top")
+        if(stmp.mapObject.map.getLayer("graticules-label-bottom")) stmp.mapObject.map.removeLayer("graticules-label-bottom")
+        if(stmp.mapObject.map.getLayer("graticules-label-inside")) stmp.mapObject.map.removeLayer("graticules-label-inside")
+        var prevLayerIdx = options.prevLayerIdx
+        if(options.type === "WGS84"){
+            stmp.mapObject.map.addLayer({
+                'id': 'graticules-label-top',
+                'type': 'symbol',
+                'source': 'graticules-source-label',
+                'layout': {
+                    'text-field': ['get', 'description'],
+                    'text-variable-anchor': ['top'],
+                    'text-radial-offset': 0.2,
+                    "text-size": 10,
+                },
+                "paint": {
+                    "text-halo-color": "#fff",
+                    "text-halo-width": 1
+                },
+                'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'top'], zoomRangeFilter]
+            },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+            stmp.mapObject.map.addLayer({
+                'id': 'graticules-label-bottom',
+                'type': 'symbol',
+                'source': 'graticules-source-label',
+                'layout': {
+                    'text-field': ['get', 'description'],
+                    'text-variable-anchor': ['bottom'],
+                    'text-radial-offset': 0.2,
+                    "text-size": 10,
+                },
+                "paint": {
+                    "text-halo-color": "#fff",
+                    "text-halo-width": 1
+                },
+                'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'bottom'], zoomRangeFilter]
+            },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+            stmp.mapObject.map.addLayer({
+                'id': 'graticules-label-left',
+                'type': 'symbol',
+                'source': 'graticules-source-label',
+                'layout': {
+                    'text-field': ['get', 'description'],
+                    'text-variable-anchor': ['left'],
+                    'text-radial-offset': 0.2,
+                    "text-size": 10,
+                },
+                "paint": {
+                    "text-halo-color": "#fff",
+                    "text-halo-width": 1
+                },
+                'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'left'], zoomRangeFilter]
+            },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+            stmp.mapObject.map.addLayer({
+                'id': 'graticules-label-right',
+                'type': 'symbol',
+                'source': 'graticules-source-label',
+                'layout': {
+                    'text-field': ['get', 'description'],
+                    'text-variable-anchor': ['right'],
+                    'text-radial-offset': 0.2,
+                    "text-size": 10,
+                },
+                "paint": {
+                    "text-halo-color": "#fff",
+                    "text-halo-width": 1
+                },
+                'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'right'], zoomRangeFilter]
+            },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+        }else{
+            stmp.mapObject.map.addLayer({
+                'id': 'graticules-label-inside',
+                'type': 'symbol',
+                'source': 'graticules-source-label',
+                'layout': {
+                    'text-field': ['get', 'description'],
+                    "text-size": insideLabelSize,
+                },
+                "paint": {
+                    "text-halo-color": "#fff",
+                    "text-halo-width": 1
+                },
+                'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'inside'], zoomRangeFilter]
+            },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
         }
         jiCommon.hideLoading()
     }
     , drawGraticules : function(type){
         // boundry
         if(stmp.mapObject.map.getLayer("graticules-boundry-zoom-all"))      stmp.mapObject.map.removeLayer("graticules-boundry-zoom-all")
-        if(stmp.mapObject.map.getLayer("graticules-boundry-zoom-00-to-05")) stmp.mapObject.map.removeLayer("graticules-boundry-zoom-00-to-05")
-        if(stmp.mapObject.map.getLayer("graticules-boundry-zoom-05-to-10")) stmp.mapObject.map.removeLayer("graticules-boundry-zoom-05-to-10")
+        if(stmp.mapObject.map.getLayer("graticules-boundry-zoom-00-to-07")) stmp.mapObject.map.removeLayer("graticules-boundry-zoom-00-to-07")
+        if(stmp.mapObject.map.getLayer("graticules-boundry-zoom-07-to-10")) stmp.mapObject.map.removeLayer("graticules-boundry-zoom-07-to-10")
         if(stmp.mapObject.map.getLayer("graticules-boundry-zoom-10-to-20")) stmp.mapObject.map.removeLayer("graticules-boundry-zoom-10-to-20")
         // line
         if(stmp.mapObject.map.getLayer("graticules-line-zoom-all"))         stmp.mapObject.map.removeLayer("graticules-line-zoom-all")
-        if(stmp.mapObject.map.getLayer("graticules-line-zoom-00-to-05"))    stmp.mapObject.map.removeLayer("graticules-line-zoom-00-to-05")
-        if(stmp.mapObject.map.getLayer("graticules-line-zoom-05-to-10"))    stmp.mapObject.map.removeLayer("graticules-line-zoom-05-to-10")
+        if(stmp.mapObject.map.getLayer("graticules-line-zoom-00-to-07"))    stmp.mapObject.map.removeLayer("graticules-line-zoom-00-to-07")
+        if(stmp.mapObject.map.getLayer("graticules-line-zoom-07-to-10"))    stmp.mapObject.map.removeLayer("graticules-line-zoom-07-to-10")
         if(stmp.mapObject.map.getLayer("graticules-line-zoom-10-to-20"))    stmp.mapObject.map.removeLayer("graticules-line-zoom-10-to-20")
         // label
         if(stmp.mapObject.map.getLayer("graticules-label-left"))            stmp.mapObject.map.removeLayer("graticules-label-left")
@@ -1708,25 +1715,24 @@ var stmp = {
 
         /**
          * inside label 기준은 [120,32]
-         * zoomRange : all, 00-to-05, 05-to-10, 10-to-20
+         * zoomRange : all, 00-to-07, 07-to-10, 10-to-20
          */
         var options = {
             type : type,
             bounds : [120,32,132,48],
             graticules : [],
-            labelSize : 10,
             labelGenerator : stmp.graticulesLabelGenerator
         }
         if(type == "WGS84"){ // 외곽 라벨링
             options.graticules.push({
                 coordStepX: 1,
                 coordStepY: 1,
-                zoomRange : "00-to-05"
+                zoomRange : "00-to-07"
             })
             options.graticules.push({
                 coordStepX: 0.5,
                 coordStepY: 0.5,
-                zoomRange : "05-to-10"
+                zoomRange : "07-to-10"
             })
             options.graticules.push({
                 coordStepX: 0.1,
@@ -1734,6 +1740,7 @@ var stmp = {
                 zoomRange : "10-to-20"
             })
         }else if(type == "MGRS"){
+            options.labelSize = 30
             options.graticules.push({
                 coordStepX: 6,
                 coordStepY: 8,
@@ -1742,7 +1749,7 @@ var stmp = {
                 zoomRange : "all"
             })
         }else if(type == "UTM"){
-            options.labelSize = 20
+            options.labelSize = 30
             options.graticules.push({
                 coordStepX: 6,
                 coordStepY: 90,
@@ -1750,6 +1757,7 @@ var stmp = {
                 zoomRange : "all"
             })
         }else if(type == "GARS"){
+            options.labelSize = 10
             options.graticules.push({
                 coordStepX: 0.5,
                 coordStepY: 0.5,
@@ -1761,23 +1769,17 @@ var stmp = {
             options.graticules.push({
                 coordStepX: 15,
                 coordStepY: 15,
-                labelStepX: 'H',
-                labelStepY: 'H',
-                zoomRange : "00-to-05"
+                zoomRange : "00-to-07"
             })
             options.graticules.push({
                 coordStepX: 1,
                 coordStepY: 1,
-                labelStepX: 'H',
-                labelStepY: 'H',
-                zoomRange : "05-to-10"
+                zoomRange : "07-to-10"
             })
             // 성능이슈...
             options.graticules.push({
-                coordStepX: 1/60,
-                coordStepY: 1/60,
-                labelStepX: 'H',
-                labelStepY: 'H',
+                coordStepX: 1,
+                coordStepY: 1,
                 zoomRange : "10-to-20"
             })
         }else{
@@ -1872,31 +1874,48 @@ var stmp = {
                     if(hidx === 0){
                         //left
                         var latlon = vpos
-                        var dms = stmp.getDMS(latlon[1], 'lon')
-                        labelFeatures.push({type: 'Feature', properties: {description: dms, zoomRange: item.zoomRange, origin: latlon, position: 'left'}, 'geometry': {'type': 'Point', 'coordinates': latlon}})
+                        var label = stmp.getGridLabel(latlon[1], 'lon', type)
+                        labelFeatures.push({type: 'Feature', properties: {description: label, zoomRange: item.zoomRange, origin: latlon, position: 'left'}, 'geometry': {'type': 'Point', 'coordinates': latlon}})
                     }
                     if(hidx === horizonPoints.length - 1){
                         //right
                         var latlon = [hpos[0],vpos[1]]
-                        var dms = stmp.getDMS(latlon[1], 'lon')
-                        labelFeatures.push({type: 'Feature', properties: {description: dms, zoomRange: item.zoomRange, origin: latlon, position: 'right'}, 'geometry': {'type': 'Point', 'coordinates': latlon}})
+                        var label = stmp.getGridLabel(latlon[1], 'lon', type)
+                        labelFeatures.push({type: 'Feature', properties: {description: label, zoomRange: item.zoomRange, origin: latlon, position: 'right'}, 'geometry': {'type': 'Point', 'coordinates': latlon}})
                     }
                     if(vidx === 0){
                         //bottom
                         var latlon = hpos
-                        var dms = stmp.getDMS(latlon[0], 'lat')
-                        labelFeatures.push({type: 'Feature', properties: {description: dms, zoomRange: item.zoomRange, origin: latlon, position: 'bottom'}, 'geometry': {'type': 'Point', 'coordinates': latlon}})
+                        var label = stmp.getGridLabel(latlon[0], 'lat', type)
+                        labelFeatures.push({type: 'Feature', properties: {description: label, zoomRange: item.zoomRange, origin: latlon, position: 'bottom'}, 'geometry': {'type': 'Point', 'coordinates': latlon}})
                     }
                     if(vidx === verticalPoints.length - 1){
                         //top
                         var latlon = [hpos[0],vpos[1]]
-                        var dms = stmp.getDMS(latlon[0], 'lat')
-                        labelFeatures.push({type: 'Feature', properties: {description: dms, zoomRange: item.zoomRange, origin: latlon, position: 'top'}, 'geometry': {'type': 'Point', 'coordinates': latlon}})
+                        var label = stmp.getGridLabel(latlon[0], 'lat', type)
+                        labelFeatures.push({type: 'Feature', properties: {description: label, zoomRange: item.zoomRange, origin: latlon, position: 'top'}, 'geometry': {'type': 'Point', 'coordinates': latlon}})
                     }
                     if(hidx !== horizonPoints.length - 1 && vidx !== verticalPoints.length - 1){
-                        //TODO : inside label genegator 작업예정
                         var latlon = [hpos[0] + (item.coordStepX / 2), vpos[1] + (item.coordStepY / 2)]
-                        labelFeatures.push({type: 'Feature', properties: {description: 'X', zoomRange: item.zoomRange, position: 'inside'}, 'geometry': {'type': 'Point', 'coordinates': latlon}})
+                        var origin = [hpos[0],vpos[1]]
+                        var label = null
+                        var labelX = stmp.getGridLabel(hpos[0], 'lon', type, options.bounds[0], item.coordStepX, item.labelStepX)
+                        var labelY = stmp.getGridLabel(vpos[1], 'lat', type, options.bounds[1], item.coordStepY, item.labelStepY)
+                        if(jQuery.isEmptyObject(labelX) && jQuery.isEmptyObject(labelY)){
+                            return
+                        }
+                        if(type == "GEOREF"){
+                            if(labelX.length === 1){
+                                label = labelX.charAt(0) + labelY.charAt(0)
+                            }else if(labelX.length === 2){
+                                label = labelX.charAt(0) + labelY.charAt(0) + labelX.charAt(1) + labelY.charAt(1)
+                            }else{ // length : 4
+                                label = labelX.charAt(0) + labelY.charAt(0) + labelX.charAt(1) + labelY.charAt(1) + labelX.charAt(2) + labelX.charAt(3) + labelY.charAt(2) + labelY.charAt(3)
+                            }
+                        }else{
+                            label = labelX + "" + labelY
+                        }
+                        labelFeatures.push({type: 'Feature', properties: {description: label, zoomRange: item.zoomRange, position: 'inside'}, 'geometry': {'type': 'Point', 'coordinates': latlon}})
                     }
                 })
             })
@@ -1928,32 +1947,32 @@ var stmp = {
             },
             'filter': ["all", ['==', '$type', 'Polygon'], ["==", "zoomRange", 'all']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
-        // graticules-boundry-zoom-00-to-05
+        // graticules-boundry-zoom-00-to-07
         stmp.mapObject.map.addLayer({
-            'id': 'graticules-boundry-zoom-00-to-05',
+            'id': 'graticules-boundry-zoom-00-to-07',
             'type': 'fill',
             'source': 'graticules-source-feature',
             'paint': {
                 'fill-color': '#efefef',
                 'fill-opacity': 0.1
             },
-            'filter': ["all", ['==', '$type', 'Polygon'], ["==", "zoomRange", '00-to-05']]
+            'filter': ["all", ['==', '$type', 'Polygon'], ["==", "zoomRange", '00-to-07']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
-        stmp.mapObject.map.getLayer("graticules-boundry-zoom-00-to-05").minzoom = 0
-        stmp.mapObject.map.getLayer("graticules-boundry-zoom-00-to-05").maxzoom = 5
-        // graticules-boundry-zoom-05-to-10
+        stmp.mapObject.map.getLayer("graticules-boundry-zoom-00-to-07").minzoom = 0
+        stmp.mapObject.map.getLayer("graticules-boundry-zoom-00-to-07").maxzoom = 5
+        // graticules-boundry-zoom-07-to-10
         stmp.mapObject.map.addLayer({
-            'id': 'graticules-boundry-zoom-05-to-10',
+            'id': 'graticules-boundry-zoom-07-to-10',
             'type': 'fill',
             'source': 'graticules-source-feature',
             'paint': {
                 'fill-color': '#efefef',
                 'fill-opacity': 0.1
             },
-            'filter': ["all", ['==', '$type', 'Polygon'], ["==", "zoomRange", '05-to-10']]
+            'filter': ["all", ['==', '$type', 'Polygon'], ["==", "zoomRange", '07-to-10']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
-        stmp.mapObject.map.getLayer("graticules-boundry-zoom-05-to-10").minzoom = 5
-        stmp.mapObject.map.getLayer("graticules-boundry-zoom-05-to-10").maxzoom = 10
+        stmp.mapObject.map.getLayer("graticules-boundry-zoom-07-to-10").minzoom = 5
+        stmp.mapObject.map.getLayer("graticules-boundry-zoom-07-to-10").maxzoom = 10
         // graticules-boundry-zoom-10-to-20
         stmp.mapObject.map.addLayer({
             'id': 'graticules-boundry-zoom-10-to-20',
@@ -1979,9 +1998,9 @@ var stmp = {
             },
             'filter': ["all", ['==', '$type', 'LineString'], ["==", "zoomRange", 'all']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
-        // graticules-line-zoom-00-to-05
+        // graticules-line-zoom-00-to-07
         stmp.mapObject.map.addLayer({
-            'id': 'graticules-line-zoom-00-to-05',
+            'id': 'graticules-line-zoom-00-to-07',
             'type': 'line',
             'source': 'graticules-source-feature',
             'paint': {
@@ -1989,13 +2008,13 @@ var stmp = {
                 'line-width': 0.3,
                 "line-dasharray": [10, 8]
             },
-            'filter': ["all", ['==', '$type', 'LineString'], ["==", "zoomRange", '00-to-05']]
+            'filter': ["all", ['==', '$type', 'LineString'], ["==", "zoomRange", '00-to-07']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
-        stmp.mapObject.map.getLayer("graticules-line-zoom-00-to-05").minzoom = 0
-        stmp.mapObject.map.getLayer("graticules-line-zoom-00-to-05").maxzoom = 5
-        // graticules-line-zoom-05-to-10
+        stmp.mapObject.map.getLayer("graticules-line-zoom-00-to-07").minzoom = 0
+        stmp.mapObject.map.getLayer("graticules-line-zoom-00-to-07").maxzoom = 7
+        // graticules-line-zoom-07-to-10
         stmp.mapObject.map.addLayer({
-            'id': 'graticules-line-zoom-05-to-10',
+            'id': 'graticules-line-zoom-07-to-10',
             'type': 'line',
             'source': 'graticules-source-feature',
             'paint': {
@@ -2003,10 +2022,10 @@ var stmp = {
                 'line-width': 0.3,
                 "line-dasharray": [10, 8]
             },
-            'filter': ["all", ['==', '$type', 'LineString'], ["==", "zoomRange", '05-to-10']]
+            'filter': ["all", ['==', '$type', 'LineString'], ["==", "zoomRange", '07-to-10']]
         },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
-        stmp.mapObject.map.getLayer("graticules-line-zoom-05-to-10").minzoom = 5
-        stmp.mapObject.map.getLayer("graticules-line-zoom-05-to-10").maxzoom = 10
+        stmp.mapObject.map.getLayer("graticules-line-zoom-07-to-10").minzoom = 7
+        stmp.mapObject.map.getLayer("graticules-line-zoom-07-to-10").maxzoom = 10
         // graticules-line-zoom-10-to-20
         stmp.mapObject.map.addLayer({
             'id': 'graticules-line-zoom-10-to-20',
@@ -2035,6 +2054,60 @@ var stmp = {
         const seconds = ((absDD - degrees - minutes / 60) * Math.pow(60, 2)).toFixed(0);
         let dmsArray = [degrees, minutes, seconds, hemisphere];
         return `${dmsArray[0]}°${dmsArray[1]}'${dmsArray[2]}" ${dmsArray[3]}`;
+    }
+    , getGridLabel : function(value, longOrLat, type, start, coordStep, firstLabel){
+        var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        if(type === "WGS84"){
+            // WGS84 / 경계라벨
+            return stmp.getDMS(value, longOrLat)
+        }else if(type === "GEOREF"){
+            // GEOREF / 박스형
+            var label = null
+            if(longOrLat == "lat"){
+                value = value + 90
+            }
+            var firstCharRemain = Math.floor(value / 15) - 1
+            label = alphabet.substring(firstCharRemain,firstCharRemain + 1)
+            if(coordStep < 15){
+                var secondCharRemain = Math.floor(value % 15)
+                label += alphabet.substring(secondCharRemain,secondCharRemain + 1)
+            }
+            if(coordStep < 1){
+                var thirdCharRemain = (value - Math.floor(value)) / coordStep
+                label += (thirdCharRemain + "").padStart(2,"0")
+            }
+            return label
+        }else{
+            // MGRS, UTM, GARS / 순차형
+            if(jQuery.isEmptyObject(firstLabel)){
+                return ''
+            }
+            var label = null
+            var stepIndex = Math.floor((value - start) / coordStep)
+            var isAlphabet = (alphabet.indexOf(firstLabel.charAt(0)) > -1 ? true : false)
+            if(isAlphabet){
+                if(firstLabel.length === 1){
+                    var charIndex = (alphabet.length + alphabet.indexOf(firstLabel)) % alphabet.length
+                    var charRemain = (charIndex + stepIndex) % alphabet.length
+                    label = alphabet.substring(charRemain,charRemain + 1)
+                }else if(firstLabel.length === 2){
+                    var firstChar = firstLabel.charAt(0)
+                    var secondChar = firstLabel.charAt(1)
+                    var firstCharIndex = (alphabet.length + alphabet.indexOf(firstChar)) % alphabet.length
+                    var secondCharIndex = (alphabet.length + alphabet.indexOf(secondChar)) % alphabet.length
+                    var firstCharRemain = (firstCharIndex + Math.floor((secondCharIndex + stepIndex) / alphabet.length)) % alphabet.length
+                    var secondCharRemain = (secondCharIndex + stepIndex) % alphabet.length
+                    label = alphabet.substring(firstCharRemain,firstCharRemain + 1) + alphabet.substring(secondCharRemain,secondCharRemain + 1)
+                }else{
+                    console.warn(value,"getGridLabel()::","3자리 지원안함...")
+                    return
+                }
+            }else{
+                // number
+                label = parseInt(firstLabel) + stepIndex
+            }
+            return label
+        }
     }
 };
 if (window.stmp === undefined) {
