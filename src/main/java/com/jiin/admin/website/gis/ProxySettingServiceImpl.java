@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.persistence.Entity;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -278,5 +275,31 @@ public class ProxySettingServiceImpl implements ProxySettingService {
         }};
         proxyMapper.deleteProxyCacheSourceRelationByCacheId(searchMap);
         proxyMapper.deleteProxyCacheById(searchMap);
+    }
+
+    @Override
+    @Transactional
+    public void checkProxyDataSettingsWithModel(ProxySelectModel proxySelectModel) {
+        List<String> tables = Arrays.asList(
+            ProxyLayerEntity.class.getAnnotation(Entity.class).name(),
+            ProxySourceEntity.class.getAnnotation(Entity.class).name(),
+            ProxyCacheEntity.class.getAnnotation(Entity.class).name()
+        );
+
+        proxyMapper.updateProxyEntitySelected(tables.get(0), false);
+        proxyMapper.updateProxyEntitySelected(tables.get(1), false);
+        proxyMapper.updateProxyEntitySelected(tables.get(2), false);
+
+        for(String layer : proxySelectModel.getLayers()){
+            proxyMapper.updateProxyEntitySelectedByName(tables.get(0), true, layer);
+        }
+
+        for(String source : proxySelectModel.getSources()){
+            proxyMapper.updateProxyEntitySelectedByName(tables.get(1), true, source);
+        }
+
+        for(String cache : proxySelectModel.getCaches()){
+            proxyMapper.updateProxyEntitySelectedByName(tables.get(2), true, cache);
+        }
     }
 }

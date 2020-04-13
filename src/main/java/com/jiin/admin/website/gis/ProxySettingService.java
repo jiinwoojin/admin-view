@@ -29,4 +29,6 @@ public interface ProxySettingService {
     void deleteProxyLayerEntityById(long id);
     void deleteProxySourceEntityById(long id);
     void deleteProxyCacheEntityById(long id);
+
+    void checkProxyDataSettingsWithModel(ProxySelectModel proxySelectModel);
 }

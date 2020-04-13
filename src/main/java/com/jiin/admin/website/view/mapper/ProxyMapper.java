@@ -120,6 +120,19 @@ public interface ProxyMapper {
     })
     void updateProxyCacheWithModel(ProxyCacheModel proxyCacheModel);
 
+    @Update({
+        "UPDATE ${tableName}",
+        "SET SELECTED = #{selected}",
+        "WHERE NAME = #{name}"
+    })
+    void updateProxyEntitySelectedByName(@Param("tableName") String tableName, @Param("selected") Boolean selected, @Param("name") String name);
+
+    @Update({
+        "UPDATE ${tableName}",
+        "SET SELECTED = #{selected}"
+    })
+    void updateProxyEntitySelected(@Param("tableName") String tableName, @Param("selected") Boolean selected);
+
     @Delete("DELETE FROM _PROXY_LAYER WHERE ID = #{id}")
     void deleteProxyLayerById(Map<String, Long> map);
 

@@ -68,6 +68,37 @@ function initialize_selected_data(){
     });
 }
 
+function submit_selected_data(){
+    if(confirm('현재 선택한 목록들을 Map Proxy 설정에 저장합니다. 계속 진행 하시겠습니까?')){
+        var form = document.createElement("form");
+        form.setAttribute("charset", "UTF-8");
+        form.setAttribute("method", "POST");
+        form.setAttribute("action", "/admin-view/view/cache/checking-save");
+
+        var hiddenField = document.createElement("input");
+
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "layers");
+        hiddenField.setAttribute("value", selectedLayers);
+        form.appendChild(hiddenField);
+
+        hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "sources");
+        hiddenField.setAttribute("value", selectedSources);
+        form.appendChild(hiddenField);
+
+        hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "caches");
+        hiddenField.setAttribute("value", selectedCaches);
+        form.appendChild(hiddenField);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
+
 function nameValidation(form, field){
     if(jQuery.isEmptyObject(form[field].value)) {
         form[field].focus();

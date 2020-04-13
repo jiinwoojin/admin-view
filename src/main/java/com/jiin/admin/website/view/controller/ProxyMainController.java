@@ -3,6 +3,7 @@ package com.jiin.admin.website.view.controller;
 import com.jiin.admin.website.gis.ProxySettingService;
 import com.jiin.admin.website.model.ProxyCacheModel;
 import com.jiin.admin.website.model.ProxyLayerModel;
+import com.jiin.admin.website.model.ProxySelectModel;
 import com.jiin.admin.website.model.ProxySourceModel;
 import com.jiin.admin.website.util.MapProxyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("cache")
-public class CacheMainController {
+public class ProxyMainController {
     @Autowired
     private ProxySettingService cacheService;
 
@@ -78,6 +79,12 @@ public class CacheMainController {
     @RequestMapping(value = "update-proxy-cache", method = RequestMethod.POST)
     public String updateProxyCache(Model model, ProxyCacheModel proxyCacheModel){
         cacheService.updateProxyCacheEntityWithModel(proxyCacheModel);
+        return "redirect:setting";
+    }
+
+    @RequestMapping(value = "checking-save", method = RequestMethod.POST)
+    public String checkingProxyDataSettings(Model model, ProxySelectModel proxySelectModel){
+        cacheService.checkProxyDataSettingsWithModel(proxySelectModel);
         return "redirect:setting";
     }
 
