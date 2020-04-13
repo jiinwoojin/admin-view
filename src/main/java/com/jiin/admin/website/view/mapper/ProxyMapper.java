@@ -1,8 +1,9 @@
 package com.jiin.admin.website.view.mapper;
 
-import com.jiin.admin.entity.ProxyCacheEntity;
-import com.jiin.admin.entity.ProxyLayerEntity;
-import com.jiin.admin.entity.ProxySourceEntity;
+import com.jiin.admin.dto.ProxyCacheDTO;
+import com.jiin.admin.dto.ProxyLayerDTO;
+import com.jiin.admin.dto.ProxySourceDTO;
+import com.jiin.admin.entity.*;
 import com.jiin.admin.mapper.BaseMapper;
 import com.jiin.admin.website.model.ProxyCacheModel;
 import com.jiin.admin.website.model.ProxyLayerModel;
@@ -22,6 +23,43 @@ public interface ProxyMapper {
 
     @Select("SELECT * FROM _PROXY_SOURCE")
     List<ProxySourceEntity> findAllProxySourceEntities();
+
+    /*
+     * TODO : Layer-Source 및 Cache-Source 관계 재검토 (한 Query 에 모든 관계를 담아야 함)
+     */
+
+    @Select({
+        "SELECT c.id cacheId, c.name cacheName, c.meta_size_x metaSizeX, c.meta_size_y metaSizeY, c.meta_buffer metaBuffer, c.cache_type cacheType, c.cache_directory cacheDirectory, c.selected cacheSelected, s.*, cs.source_id sourceId",
+        "FROM _PROXY_CACHE c LEFT JOIN _PROXY_CACHE_SOURCE_RELATION cs ON cs.cache_id = c.id LEFT JOIN _PROXY_SOURCE s ON cs.source_id = s.id"
+    })
+    @Results(id="ProxyCacheDTO", value = {
+        @Result(property = "id", column = "cacheId"),
+        @Result(property = "name", column = "cacheName"),
+        @Result(property = "metaSizeX", column = "metaSizeX"),
+        @Result(property = "metaSizeY", column = "metaSizeY"),
+        @Result(property = "metaBuffer", column = "metaBuffer"),
+        @Result(property = "cacheType", column = "cacheType"),
+        @Result(property = "cacheDirectory", column = "cacheDirectory"),
+        @Result(property = "selected", column = "cacheSelected"),
+        @Result(property = "sources", javaType = List.class, column = "sourceId", many = @Many(select = "findProxySourceDTOsById"))
+    })
+    List<ProxyCacheDTO> findAllProxyCacheDTOs();
+
+    @Select({
+            "SELECT l.id layerId, l.name layerName, l.title layerTitle, l.selected layerSelected, s.*, ls.source_id sourceId",
+            "FROM _PROXY_LAYER l LEFT JOIN _PROXY_LAYER_SOURCE_RELATION ls ON ls.layer_id = l.id LEFT JOIN _PROXY_SOURCE s ON ls.source_id = s.id"
+    })
+    @Results(id="ProxyLayerDTO", value = {
+            @Result(property = "id", column = "layerId"),
+            @Result(property = "name", column = "layerName"),
+            @Result(property = "title", column = "layerTitle"),
+            @Result(property = "selected", column = "layerSelected"),
+            @Result(property = "sources", javaType = List.class, column = "sourceId", many = @Many(select = "findProxySourceDTOsById"))
+    })
+    List<ProxyLayerDTO> findAllProxyLayerDTOs();
+
+    @Select("SELECT * FROM _PROXY_SOURCE WHERE id = #{id}")
+    ProxySourceDTO findProxySourceDTOsById(long id);
 
     @Select("SELECT * FROM _PROXY_LAYER WHERE SELECTED = true")
     List<ProxyLayerEntity> findProxyLayerSelectedEntities();

@@ -1,5 +1,8 @@
 package com.jiin.admin.website.gis;
 
+import com.jiin.admin.dto.ProxyCacheDTO;
+import com.jiin.admin.dto.ProxyLayerDTO;
+import com.jiin.admin.dto.ProxySourceDTO;
 import com.jiin.admin.entity.ProxyCacheEntity;
 import com.jiin.admin.entity.ProxyLayerEntity;
 import com.jiin.admin.entity.ProxySourceEntity;
@@ -10,7 +13,6 @@ import com.jiin.admin.website.model.ProxySourceModel;
 import com.jiin.admin.website.server.mapper.CheckMapper;
 import com.jiin.admin.website.util.MapProxyUtil;
 import com.jiin.admin.website.view.mapper.ProxyMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,6 +22,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,10 +35,34 @@ public class ProxySettingServiceImpl implements ProxySettingService {
     @Resource
     private CheckMapper checkMapper;
 
-    @Override
+    private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+        Map<Object, Boolean> map = new ConcurrentHashMap<>();
+        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
+
+    @Override // TODO : DB 관계 쿼리 최적화 작업 필요
     public Map<String, Object> getProxyLayerEntities() {
+        Map<Long, List<ProxySourceDTO>> sourceMap = new HashMap<>();
+        List<ProxyLayerDTO> layers = proxyMapper.findAllProxyLayerDTOs();
+
+        for(ProxyLayerDTO layer : layers) {
+            long id = layer.getId();
+            List<ProxySourceDTO> list = sourceMap.getOrDefault(id, new ArrayList<>());
+            for (ProxySourceDTO source : layer.getSources()) {
+                list.add(source);
+            }
+            sourceMap.put(id, list);
+        }
+
+        layers = layers.stream()
+                .filter(distinctByKey(c -> c.getId()))
+                .collect(Collectors.toList());
+
+        layers.stream().forEach(c -> c.setSources(sourceMap.get(c.getId())));
+
         Map<String, Object> result = new HashMap<>();
-        result.put("data", proxyMapper.findAllProxyLayerEntities());
+        result.put("data", layers);
+
         return result;
     }
 
@@ -44,10 +73,29 @@ public class ProxySettingServiceImpl implements ProxySettingService {
         return result;
     }
 
-    @Override
+    @Override // TODO : DB 관계 쿼리 최적화 작업 필요
     public Map<String, Object> getProxyCacheEntities() {
+        Map<Long, List<ProxySourceDTO>> sourceMap = new HashMap<>();
+        List<ProxyCacheDTO> caches = proxyMapper.findAllProxyCacheDTOs();
+
+        for(ProxyCacheDTO cache : caches) {
+            long id = cache.getId();
+            List<ProxySourceDTO> list = sourceMap.getOrDefault(id, new ArrayList<>());
+            for (ProxySourceDTO source : cache.getSources()) {
+                list.add(source);
+            }
+            sourceMap.put(id, list);
+        }
+
+        caches = caches.stream()
+                    .filter(distinctByKey(c -> c.getId()))
+                    .collect(Collectors.toList());
+
+        caches.stream().forEach(c -> c.setSources(sourceMap.get(c.getId())));
+
         Map<String, Object> result = new HashMap<>();
-        result.put("data", proxyMapper.findAllProxyCacheEntities());
+        result.put("data", caches);
+
         return result;
     }
 

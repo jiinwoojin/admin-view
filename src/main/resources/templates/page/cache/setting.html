@@ -45,7 +45,7 @@
                             </button>
                         </div>
 
-                        <!-- Data Inserting Modal -->
+                        <!-- Data Inserting Modal - LAYER START -->
                         <div class="modal fade" id="layerDataInsert" tabindex="-1" role="dialog" aria-labelledby="insertModalCenterTitle1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
@@ -96,14 +96,16 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Data Inserting Modal - LAYER END -->
 
-                        <!-- Data Updating Modal -->
+                        <!-- Data Updating Modal - LAYER START -->
                         <div class="modal fade" id="layerDataUpdate" tabindex="-1" role="dialog" aria-labelledby="updateModalCenterTitle1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
                                     <form id="update-proxy-layer" th:action="@{/view/cache/update-proxy-layer}" method="post" accept-charset="utf-8">
+                                        <input type="hidden" id="proxyLayerId_u" name="proxyLayerId_u" />
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="updateModalCenterTitle1">데이터 추가 - Layer</h5>
+                                            <h5 class="modal-title" id="updateModalCenterTitle1">데이터 수정 - Layer</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -125,7 +127,7 @@
 
                                             <div class="form-group">
                                                 <label for="proxySources_u">레이어 연계 소스</label>
-                                                <select class="form-control" id="proxySources_u" name="proxySources" multiple>
+                                                <select class="form-control" id="proxySources_u" name="proxySources_u" multiple>
                                                     <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
                                                 </select>
                                             </div>
@@ -142,7 +144,9 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Data Updating Modal - LAYER END -->
 
+                        <!-- Data List Table - LAYER START -->
                         <table id="list_table_layer" class="table table-sm table-striped my-1">
                             <thead class="table-info">
                             <tr>
@@ -161,9 +165,9 @@
                                         <i class="fas fa-cog"></i>
                                     </button>
                                     <script th:inline="javascript">
-                                        var json[[${layer.id}]] = /*[[${ layer }]]*/ {};
+                                        var l_json[[${layer.id}]] = /*[[${ layer }]]*/ {};
                                         document.getElementById('layerUpdate' + [[${layer.id}]]).onclick = function() {
-                                            onclick_update_layer(json[[${layer.id}]]);
+                                            onclick_update_layer(l_json[[${layer.id}]]);
                                         };
                                     </script>
                                     <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="${ '/admin-view/view/cache/delete-proxy-layer/' + layer.id }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
@@ -199,11 +203,17 @@
                             });
 
                             function onclick_update_layer(obj){
-                                console.log(obj)
+                                document.getElementById('proxyLayerId_u').value = obj.id;
+                                document.getElementById('proxyLayerName_u').value = obj.name;
+                                document.getElementById('proxyLayerTitle_u').value = obj.title;
+                                $('#proxySources_u').val(obj.sources.map(s => s.name));
                             }
                         </script>
+                        <!-- Data List Table - LAYER END -->
                     </div>
                 </div>
+
+
                 <div class="tab-pane fade" id="source" role="tabpanel" aria-labelledby="source-tab">
                     <div class="py-1">
                         <h3 class="my-1">소스 관리</h3>
@@ -213,13 +223,13 @@
                             </button>
                         </div>
 
-                        <!-- Data Inserting Modal -->
-                        <div class="modal fade" id="sourceDataInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
+                        <!-- Data Inserting Modal - SOURCE START -->
+                        <div class="modal fade" id="sourceDataInsert" tabindex="-1" role="dialog" aria-labelledby="insertModalCenterTitle2" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
                                     <form id="add-proxy-source" th:action="@{/view/cache/add-proxy-source}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" th:object="${addProxySource}">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalCenterTitle2">데이터 추가 - Source</h5>
+                                            <h5 class="modal-title" id="insertModalCenterTitle2">데이터 추가 - Source</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('proxySourceName', 'source')">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -239,7 +249,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
 
                                             <div class="form-group">
                                                 <label for="proxySourceType">리소스 종류</label>
@@ -278,7 +287,66 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Data Inserting Modal - SOURCE END -->
 
+                        <!-- Data Updating Modal - SOURCE START -->
+                        <div class="modal fade" id="sourceDataUpdate" tabindex="-1" role="dialog" aria-labelledby="updateModalCenterTitle2" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <form id="update-proxy-source" th:action="@{/view/cache/update-proxy-source}" method="post" accept-charset="utf-8">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="updateModalCenterTitle2">데이터 수정 - Source</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" id="proxySourceId_u" name="proxySourceId_u" />
+                                            <div class="form-group">
+                                                <label for="proxySourceName_u">리소스 이름</label>
+                                                <input type="text" class="form-control" id="proxySourceName_u" name="proxySourceName_u" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxySourceType_u">리소스 종류</label>
+                                                <input type="text" class="form-control" id="proxySourceType_u" name="proxySourceType_u" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="requestMap_u">요청 Map 파일 주소</label>
+                                                <input type="text" class="form-control" id="requestMap_u" name="requestMap_u" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="requestLayers_u">요청 Layer 이름</label>
+                                                <input type="text" class="form-control" id="requestLayers_u" name="requestLayers_u" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="mapServerBinary_u">MapServer 바이러리 주소</label>
+                                                <input type="text" class="form-control" id="mapServerBinary_u" name="mapServerBinary_u" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="mapServerWorkDir_u">MapServer 작동 주소</label>
+                                                <input type="text" class="form-control" id="mapServerWorkDir_u" name="mapServerWorkDir_u" />
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                <i class="fas fa-times"></i> 취소
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-save"></i> 저장
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Data Updating Modal - SOURCE END -->
+
+                        <!-- Data List Table - SOURCE START -->
                         <table id="list_table_source" class="table table-sm table-striped my-1">
                             <thead class="table-info">
                             <tr>
@@ -293,9 +361,15 @@
                                 <td class="text-center" th:text="${ source.name }"></td>
                                 <td class="text-center" th:text="${ source.type }"></td>
                                 <td class="text-center">
-                                    <button class="btn btn-info btn-circle btn-sm mx-1" type="button">
+                                    <button th:id="${ 'sourceUpdate' + source.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#sourceDataUpdate">
                                         <i class="fas fa-cog"></i>
                                     </button>
+                                    <script th:inline="javascript">
+                                        var s_json[[${source.id}]] = /*[[${ source }]]*/ {};
+                                        document.getElementById('sourceUpdate' + [[${source.id}]]).onclick = function() {
+                                            onclick_update_source(s_json[[${source.id}]]);
+                                        };
+                                    </script>
                                     <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="${ '/admin-view/view/cache/delete-proxy-source/' + source.id }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                                         <i class="fas fa-trash"></i>
                                     </a>
@@ -327,9 +401,21 @@
                                     }
                                 });
                             });
+
+                            function onclick_update_source(obj){
+                                document.getElementById('proxySourceId_u').value = obj.id;
+                                document.getElementById('proxySourceName_u').value = obj.name;
+                                document.getElementById('proxySourceType_u').value = obj.type;
+                                document.getElementById('requestMap_u').value = obj.requestMap;
+                                document.getElementById('requestLayers_u').value = obj.requestLayers;
+                                document.getElementById('mapServerBinary_u').value = obj.mapServerBinary;
+                                document.getElementById('mapServerWorkDir_u').value = obj.mapServerWorkDir;
+                            }
                         </script>
+                        <!-- Data List Table - SOURCE END -->
                     </div>
                 </div>
+
                 <div class="tab-pane fade" id="cache" role="tabpanel" aria-labelledby="cache-tab">
                     <div class="py-1">
                         <h3 class="my-1">캐시 관리</h3>
@@ -339,7 +425,7 @@
                             </button>
                         </div>
 
-                        <!-- Data Inserting Modal -->
+                        <!-- Data Inserting Modal - CACHE START -->
                         <div class="modal fade" id="cacheDataInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle3" aria-hidden="true">
                             <div class="modal-dialog modal-di
                             alog-centered modal-lg" role="document">
@@ -411,7 +497,73 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Data Inserting Modal - CACHE END -->
 
+                        <!-- Data Updating Modal - CACHE START -->
+                        <div class="modal fade" id="cacheDataUpdate" tabindex="-1" role="dialog" aria-labelledby="updateModalCenterTitle3" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <form id="update-proxy-cache" th:action="@{/view/cache/update-proxy-cache}" method="post" accept-charset="utf-8">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="updateModalCenterTitle3">데이터 수정 - Cache</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" id="proxyCacheId_u" name="proxyCacheId_u" />
+                                            <div class="form-group">
+                                                <label for="proxyCacheName_u">캐시 이름</label>
+                                                <input type="text" class="form-control" id="proxyCacheName_u" name="proxyCacheName_u" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxyCacheType_u">캐시 종류</label>
+                                                <input type="text" class="form-control" id="proxyCacheType_u" name="proxyCacheType_u" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxyCacheDirectory_u">캐시 디렉토리</label>
+                                                <input type="text" class="form-control" id="proxyCacheDirectory_u" name="proxyCacheDirectory_u" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="metaSizeX_u">타일 가로 크기</label>
+                                                <input type="number" class="form-control" id="metaSizeX_u" name="metaSizeX_u" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="metaSizeY_u">타일 세로 크기</label>
+                                                <input type="number" class="form-control" id="metaSizeY_u" name="metaSizeY_u" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="metaBuffer_u">타일 버퍼 크기</label>
+                                                <input type="number" class="form-control" id="metaBuffer_u" name="metaBuffer_u" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxySourcesWithCaches_u">캐시 연계 소스</label>
+                                                <select class="form-control" id="proxySourcesWithCaches_u" name="proxySourcesWithCaches_u" multiple>
+                                                    <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                <i class="fas fa-times"></i> 취소
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-save"></i> 저장
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Data Updating Modal - CACHE END -->
+
+                        <!-- Data List Table - CACHE START -->
                         <table id="list_table_cache" class="table table-sm table-striped my-1">
                             <thead class="table-info">
                             <tr>
@@ -426,9 +578,15 @@
                                 <td class="text-center" th:text="${ cache.name }"></td>
                                 <td class="text-center" th:text="${ cache.cacheType }"></td>
                                 <td class="text-center">
-                                    <button class="btn btn-info btn-circle btn-sm mx-1" type="button">
+                                    <button th:id="${ 'cacheUpdate' + cache.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#cacheDataUpdate">
                                         <i class="fas fa-cog"></i>
                                     </button>
+                                    <script th:inline="javascript">
+                                        var c_json[[${cache.id}]] = /*[[${ cache }]]*/ {};
+                                        document.getElementById('cacheUpdate' + [[${cache.id}]]).onclick = function() {
+                                            onclick_update_cache(c_json[[${cache.id}]]);
+                                        };
+                                    </script>
                                     <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="${ '/admin-view/view/cache/delete-proxy-cache/' + cache.id }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                                         <i class="fas fa-trash"></i>
                                     </a>
@@ -460,7 +618,20 @@
                                     }
                                 });
                             });
+
+                            function onclick_update_cache(obj){
+                                console.log(obj)
+                                document.getElementById('proxyCacheId_u').value = obj.id;
+                                document.getElementById('proxyCacheName_u').value = obj.name;
+                                document.getElementById('proxyCacheType_u').value = obj.cacheType;
+                                document.getElementById('proxyCacheDirectory_u').value = obj.cacheDirectory;
+                                document.getElementById('metaSizeX_u').value = obj.metaSizeX;
+                                document.getElementById('metaSizeY_u').value = obj.metaSizeY;
+                                document.getElementById('metaBuffer_u').value = obj.metaBuffer;
+                                $('#proxySourcesWithCaches_u').val(obj.sources.map(s => s.name));
+                            }
                         </script>
+                        <!-- Data List Table - CACHE END -->
                     </div>
                 </div>
             </div>
