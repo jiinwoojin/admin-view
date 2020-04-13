@@ -40,6 +40,34 @@ public class ProxySettingServiceImpl implements ProxySettingService {
         return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
     }
 
+    private void insertLayerAndSourceRelation(long layerId, List<String> sources){
+        for(String sourceKey : sources){
+            Map<String, String> searchSourceMap = new HashMap<String, String>() {{
+                put("name", sourceKey);
+            }};
+            ProxySourceEntity sourceEntity = proxyMapper.findProxySourceEntityWithName(searchSourceMap);
+            Map<String, Long> insertMap = new HashMap<String, Long>() {{
+                put("layerId", layerId);
+                put("sourceId", sourceEntity.getId());
+            }};
+            proxyMapper.insertProxyLayerSourceRelationWithMap(insertMap);
+        }
+    }
+
+    private void insertCacheAndSourceRelation(long cacheId, List<String> sources){
+        for(String sourceKey : sources){
+            Map<String, String> searchSourceMap = new HashMap<String, String>() {{
+                put("name", sourceKey);
+            }};
+            ProxySourceEntity sourceEntity = proxyMapper.findProxySourceEntityWithName(searchSourceMap);
+            Map<String, Long> insertMap = new HashMap<String, Long>() {{
+                put("cacheId", cacheId);
+                put("sourceId", sourceEntity.getId());
+            }};
+            proxyMapper.insertProxyCacheSourceRelationWithMap(insertMap);
+        }
+    }
+
     @Override // TODO : DB 관계 쿼리 최적화 작업 필요
     public Map<String, Object> getProxyLayerEntities() {
         Map<Long, List<ProxySourceDTO>> sourceMap = new HashMap<>();
@@ -150,21 +178,8 @@ public class ProxySettingServiceImpl implements ProxySettingService {
             return false;
         } else {
             proxyMapper.insertProxyLayerWithModel(proxyLayerModel);
-
             ProxyLayerEntity entity = proxyMapper.findRecentlyInsertingProxyLayerEntity();
-            for(String sourceKey : proxyLayerModel.getProxySources()){
-                Map<String, String> searchSourceMap = new HashMap<String, String>() {{
-                    put("name", sourceKey);
-                }};
-                ProxySourceEntity sourceEntity = proxyMapper.findProxySourceEntityWithName(searchSourceMap);
-
-                Map<String, Long> insertMap = new HashMap<String, Long>() {{
-                    put("layerId", entity.getId());
-                    put("sourceId", sourceEntity.getId());
-                }};
-                proxyMapper.insertProxyLayerSourceRelationWithMap(insertMap);
-            }
-
+            insertLayerAndSourceRelation(entity.getId(), proxyLayerModel.getProxySources());
             return true;
         }
     }
@@ -190,22 +205,48 @@ public class ProxySettingServiceImpl implements ProxySettingService {
         } else {
             proxyMapper.insertProxyCacheWithModel(proxyCacheModel);
             ProxyCacheEntity entity = proxyMapper.findRecentlyInsertingProxyCacheEntity();
-
-            for(String sourceKey : proxyCacheModel.getProxySourcesWithCaches()){
-                Map<String, String> searchSourceMap = new HashMap<String, String>() {{
-                    put("name", sourceKey);
-                }};
-                ProxySourceEntity sourceEntity = proxyMapper.findProxySourceEntityWithName(searchSourceMap);
-
-                Map<String, Long> insertMap = new HashMap<String, Long>() {{
-                    put("cacheId", entity.getId());
-                    put("sourceId", sourceEntity.getId());
-                }};
-                proxyMapper.insertProxyCacheSourceRelationWithMap(insertMap);
-            }
-
+            insertCacheAndSourceRelation(entity.getId(), proxyCacheModel.getProxySourcesWithCaches());
             return true;
         }
+    }
+
+    @Override
+    @Transactional
+    public boolean updateProxyLayerEntityWithModel(ProxyLayerModel proxyLayerModel) {
+        int count = checkMapper.countDuplicate(ProxyLayerEntity.class.getAnnotation(Entity.class).name(), proxyLayerModel.getProxyLayerName());
+        if(count > 0){
+            Map<String, Long> deleteMap = new HashMap<String, Long>() {{
+                put("id", proxyLayerModel.getId());
+            }};
+            proxyMapper.deleteProxyLayerSourceRelationByLayerId(deleteMap);
+            proxyMapper.updateProxyLayerWithModel(proxyLayerModel);
+            insertLayerAndSourceRelation(proxyLayerModel.getId(), proxyLayerModel.getProxySources());
+            return true;
+        } else return false;
+    }
+
+    @Override
+    public boolean updateProxySourceEntityWithModel(ProxySourceModel proxySourceModel) {
+        int count = checkMapper.countDuplicate(ProxySourceEntity.class.getAnnotation(Entity.class).name(), proxySourceModel.getProxySourceName());
+        if(count > 0){
+            proxyMapper.updateProxySourceWithModel(proxySourceModel);
+            return true;
+        } else return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean updateProxyCacheEntityWithModel(ProxyCacheModel proxyCacheModel) {
+        int count = checkMapper.countDuplicate(ProxyCacheEntity.class.getAnnotation(Entity.class).name(), proxyCacheModel.getProxyCacheName());
+        if(count > 0){
+            Map<String, Long> deleteMap = new HashMap<String, Long>() {{
+                put("id", proxyCacheModel.getId());
+            }};
+            proxyMapper.deleteProxyCacheSourceRelationByCacheId(deleteMap);
+            proxyMapper.updateProxyCacheWithModel(proxyCacheModel);
+            insertCacheAndSourceRelation(proxyCacheModel.getId(), proxyCacheModel.getProxySourcesWithCaches());
+            return true;
+        } else return false;
     }
 
     @Override

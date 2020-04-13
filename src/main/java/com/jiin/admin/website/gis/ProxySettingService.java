@@ -22,6 +22,10 @@ public interface ProxySettingService {
     boolean createProxySourceEntityWithModel(ProxySourceModel proxySourceModel);
     boolean createProxyCacheEntityWithModel(ProxyCacheModel proxyCacheModel);
 
+    boolean updateProxyLayerEntityWithModel(ProxyLayerModel proxyLayerModel);
+    boolean updateProxySourceEntityWithModel(ProxySourceModel proxySourceModel);
+    boolean updateProxyCacheEntityWithModel(ProxyCacheModel proxyCacheModel);
+
     void deleteProxyLayerEntityById(long id);
     void deleteProxySourceEntityById(long id);
     void deleteProxyCacheEntityById(long id);

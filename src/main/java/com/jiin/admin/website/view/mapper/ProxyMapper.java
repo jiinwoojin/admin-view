@@ -99,6 +99,27 @@ public interface ProxyMapper {
     @SelectKey(statement="SELECT NEXTVAL('PROXY_CACHE_SOURCE_SEQ')", keyProperty="id", before=true, resultType=long.class)
     void insertProxyCacheSourceRelationWithMap(Map<String, Long> map);
 
+    @Update({
+        "UPDATE _PROXY_LAYER",
+        "SET TITLE = #{proxyLayerTitle}",
+        "WHERE id = #{id}"
+    })
+    void updateProxyLayerWithModel(ProxyLayerModel proxyLayerModel);
+
+    @Update({
+        "UPDATE _PROXY_SOURCE",
+        "SET TYPE = #{proxySourceType}, REQUEST_MAP = #{requestMap}, REQUEST_LAYERS = #{requestLayers}, MAP_SERVER_BINARY = #{mapServerBinary}, MAP_SERVER_WORK_DIR = #{mapServerWorkDir}",
+        "WHERE id = #{id}"
+    })
+    void updateProxySourceWithModel(ProxySourceModel proxySourceModel);
+
+    @Update({
+        "UPDATE _PROXY_CACHE",
+        "SET META_SIZE_X = #{metaSizeX}, META_SIZE_Y = #{metaSizeY}, META_BUFFER = #{metaBuffer}, CACHE_TYPE = #{proxyCacheType}, CACHE_DIRECTORY = #{proxyCacheDirectory}",
+        "WHERE id = #{id}"
+    })
+    void updateProxyCacheWithModel(ProxyCacheModel proxyCacheModel);
+
     @Delete("DELETE FROM _PROXY_LAYER WHERE ID = #{id}")
     void deleteProxyLayerById(Map<String, Long> map);
 

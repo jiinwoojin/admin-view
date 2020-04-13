@@ -63,6 +63,24 @@ public class CacheMainController {
         return "redirect:setting";
     }
 
+    @RequestMapping(value = "update-proxy-layer", method = RequestMethod.POST)
+    public String updateProxyLayer(Model model, ProxyLayerModel proxyLayerModel){
+        cacheService.updateProxyLayerEntityWithModel(proxyLayerModel);
+        return "redirect:setting";
+    }
+
+    @RequestMapping(value = "update-proxy-source", method = RequestMethod.POST)
+    public String updateProxySource(Model model, ProxySourceModel proxySourceModel){
+        cacheService.updateProxySourceEntityWithModel(proxySourceModel);
+        return "redirect:setting";
+    }
+
+    @RequestMapping(value = "update-proxy-cache", method = RequestMethod.POST)
+    public String updateProxyCache(Model model, ProxyCacheModel proxyCacheModel){
+        cacheService.updateProxyCacheEntityWithModel(proxyCacheModel);
+        return "redirect:setting";
+    }
+
     @RequestMapping("delete-proxy-layer/{id}")
     public String deleteProxyLayerByName(Model model, @PathVariable String id){
         cacheService.deleteProxyLayerEntityById(Long.parseLong(id));

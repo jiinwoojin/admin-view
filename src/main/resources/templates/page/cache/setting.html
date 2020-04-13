@@ -103,7 +103,7 @@
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
                                     <form id="update-proxy-layer" th:action="@{/view/cache/update-proxy-layer}" method="post" accept-charset="utf-8">
-                                        <input type="hidden" id="proxyLayerId_u" name="proxyLayerId_u" />
+                                        <input type="hidden" id="proxyLayerId_u" name="id" />
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="updateModalCenterTitle1">데이터 수정 - Layer</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -127,7 +127,7 @@
 
                                             <div class="form-group">
                                                 <label for="proxySources_u">레이어 연계 소스</label>
-                                                <select class="form-control" id="proxySources_u" name="proxySources_u" multiple>
+                                                <select class="form-control" id="proxySources_u" name="proxySources" multiple>
                                                     <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
                                                 </select>
                                             </div>
@@ -301,35 +301,35 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <input type="hidden" id="proxySourceId_u" name="proxySourceId_u" />
+                                            <input type="hidden" id="proxySourceId_u" name="id" />
                                             <div class="form-group">
                                                 <label for="proxySourceName_u">리소스 이름</label>
-                                                <input type="text" class="form-control" id="proxySourceName_u" name="proxySourceName_u" readonly />
+                                                <input type="text" class="form-control" id="proxySourceName_u" name="proxySourceName" readonly />
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="proxySourceType_u">리소스 종류</label>
-                                                <input type="text" class="form-control" id="proxySourceType_u" name="proxySourceType_u" readonly />
+                                                <input type="text" class="form-control" id="proxySourceType_u" name="proxySourceType" readonly />
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="requestMap_u">요청 Map 파일 주소</label>
-                                                <input type="text" class="form-control" id="requestMap_u" name="requestMap_u" />
+                                                <input type="text" class="form-control" id="requestMap_u" name="requestMap" />
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="requestLayers_u">요청 Layer 이름</label>
-                                                <input type="text" class="form-control" id="requestLayers_u" name="requestLayers_u" />
+                                                <input type="text" class="form-control" id="requestLayers_u" name="requestLayers" />
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="mapServerBinary_u">MapServer 바이러리 주소</label>
-                                                <input type="text" class="form-control" id="mapServerBinary_u" name="mapServerBinary_u" />
+                                                <input type="text" class="form-control" id="mapServerBinary_u" name="mapServerBinary" />
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="mapServerWorkDir_u">MapServer 작동 주소</label>
-                                                <input type="text" class="form-control" id="mapServerWorkDir_u" name="mapServerWorkDir_u" />
+                                                <input type="text" class="form-control" id="mapServerWorkDir_u" name="mapServerWorkDir" />
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -511,40 +511,40 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <input type="hidden" id="proxyCacheId_u" name="proxyCacheId_u" />
+                                            <input type="hidden" id="proxyCacheId_u" name="id" />
                                             <div class="form-group">
                                                 <label for="proxyCacheName_u">캐시 이름</label>
-                                                <input type="text" class="form-control" id="proxyCacheName_u" name="proxyCacheName_u" readonly />
+                                                <input type="text" class="form-control" id="proxyCacheName_u" name="proxyCacheName" readonly />
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="proxyCacheType_u">캐시 종류</label>
-                                                <input type="text" class="form-control" id="proxyCacheType_u" name="proxyCacheType_u" readonly />
+                                                <input type="text" class="form-control" id="proxyCacheType_u" name="proxyCacheType" readonly />
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="proxyCacheDirectory_u">캐시 디렉토리</label>
-                                                <input type="text" class="form-control" id="proxyCacheDirectory_u" name="proxyCacheDirectory_u" />
+                                                <input type="text" class="form-control" id="proxyCacheDirectory_u" name="proxyCacheDirectory" />
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="metaSizeX_u">타일 가로 크기</label>
-                                                <input type="number" class="form-control" id="metaSizeX_u" name="metaSizeX_u" />
+                                                <input type="number" class="form-control" id="metaSizeX_u" name="metaSizeX" />
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="metaSizeY_u">타일 세로 크기</label>
-                                                <input type="number" class="form-control" id="metaSizeY_u" name="metaSizeY_u" />
+                                                <input type="number" class="form-control" id="metaSizeY_u" name="metaSizeY" />
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="metaBuffer_u">타일 버퍼 크기</label>
-                                                <input type="number" class="form-control" id="metaBuffer_u" name="metaBuffer_u" />
+                                                <input type="number" class="form-control" id="metaBuffer_u" name="metaBuffer" />
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="proxySourcesWithCaches_u">캐시 연계 소스</label>
-                                                <select class="form-control" id="proxySourcesWithCaches_u" name="proxySourcesWithCaches_u" multiple>
+                                                <select class="form-control" id="proxySourcesWithCaches_u" name="proxySourcesWithCaches" multiple>
                                                     <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
                                                 </select>
                                             </div>
@@ -620,7 +620,6 @@
                             });
 
                             function onclick_update_cache(obj){
-                                console.log(obj)
                                 document.getElementById('proxyCacheId_u').value = obj.id;
                                 document.getElementById('proxyCacheName_u').value = obj.name;
                                 document.getElementById('proxyCacheType_u').value = obj.cacheType;
