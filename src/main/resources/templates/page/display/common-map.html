@@ -51,19 +51,41 @@
                     <i class="fas fa-fighter-jet"></i> 군대부호
                 </button>
                 <select class="custom-select custom-select-sm mr-2" onchange="fn_set_graticules(this)">
-                    <option>Grid Select</option>
+                    <option>Grid Type Select</option>
                     <option value="WGS84">WGS84</option>
                     <option value="MGRS">MGRS</option>
                     <option value="UTM">UTM</option>
                     <option value="GARS">Gars</option>
                     <option value="GEOREF">GeoRef</option>
                 </select>
+                <input type="checkbox" id="___GridLine" checked="checked" onchange="fn_set_graticules(this)">
+                &nbsp;
+                <label for="___GridLine">Grid Line</label>
+                &nbsp;&nbsp;
+                <input type="checkbox" id="___GridBackground" checked="checked" onchange="fn_set_graticules(this)">
+                &nbsp;
+                <label for="___GridBackground">Grid Background</label>
+                &nbsp;&nbsp;
+                <input type="checkbox" id="___GridLabel" checked="checked" onchange="fn_set_graticules(this)">
+                &nbsp;
+                <label for="___GridLabel">Grid Label</label>
                 <!-- 이지훈 LOS 버튼 -->
                 <button type="button" class="btn btn-sm btn-info" id="btn_los" data-toggle="modal" data-target="#los_modal" data-backdrop="false" style="display: none;">
                     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spn_los_spinner" style="display: none;"></span>
                     LOS테스트
                 </button>
             </div>
+        </div>
+        <div>
+            <hr/>
+            <h3>그리드 표현방식</h3>
+            <ol>
+                <li>WGS84 > Zoom 0~5 : 1°, Zoom 5~10 : 0.5°, Zoom 10~20 : 0.1°</li>
+                <li>MGRS > 6° x 8°</li>
+                <li>UTM > 6° x 90°</li>
+                <li>GARS > 0.5° x 0.5°</li>
+                <li>GEOREF > Zoom 0~5 : 15°, Zoom 5~10 : 1°, Zoom 10~20 : 1'</li>
+            </ol>
         </div>
     </div>
 
@@ -427,7 +449,7 @@
         function fn_set_layer_visible(elem){
             var layerId = elem.getAttribute("data-layerid")
             var visible = (elem.checked ? 'visible' : 'none')
-            console.log(layerId,"visibility",visible)
+            //console.log(layerId,"visibility",visible)
             stmp.mapObject.map.setLayoutProperty(layerId,"visibility",visible)
         }
 
@@ -517,8 +539,32 @@
             stmp.mapObject.map.resize()
         }
         function fn_set_graticules(elem){
-            var type = elem.value
-            stmp.drawGraticules(type)
+            if(elem.tagName === "SELECT"){
+                var type = elem.value
+                jQuery("#___GridLine,#___GridBackground,#___GridLabel").prop("checked", true)
+                jiCommon.showLoading()
+                setTimeout('stmp.drawGraticules("'+type+'")',100) // 그리기
+            }else if(elem.tagName === "INPUT"){
+                var elemId = elem.id
+                var visible = (elem.checked ? 'visible' : 'none')
+                var layers = stmp.mapObject.map.getStyle().layers
+                jQuery.each(layers, function (idx, layer) {
+                    var layerId = layer.id
+                    if(elemId.indexOf("Line") > -1){
+                        if(layerId.indexOf("graticules-line") > -1){
+                            stmp.mapObject.map.setLayoutProperty(layerId,"visibility",visible)
+                        }
+                    }else if(elemId.indexOf("Background") > -1){
+                        if(layerId.indexOf("graticules-boundry") > -1){
+                            stmp.mapObject.map.setLayoutProperty(layerId,"visibility",visible)
+                        }
+                    }else if(elemId.indexOf("Label") > -1){
+                        if(layerId.indexOf("graticules-label") > -1){
+                            stmp.mapObject.map.setLayoutProperty(layerId,"visibility",visible)
+                        }
+                    }
+                })
+            }
         }
         //이지훈 UUID 생성
         function getUUID() { // UUID v4 generator in JavaScript (RFC4122 compliant)

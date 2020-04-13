@@ -1683,6 +1683,7 @@ var stmp = {
             }
             options.labelDrawn = true
         }
+        jiCommon.hideLoading()
     }
     , drawGraticules : function(type){
         // boundry
