@@ -1619,6 +1619,7 @@ var stmp = {
                     'text-variable-anchor': ['top'],
                     'text-radial-offset': 0.2,
                     "text-size": 10,
+                    "text-font": ["Gosanja"]
                 },
                 "paint": {
                     "text-halo-color": "#fff",
@@ -1635,6 +1636,7 @@ var stmp = {
                     'text-variable-anchor': ['bottom'],
                     'text-radial-offset': 0.2,
                     "text-size": 10,
+                    "text-font": ["Gosanja"]
                 },
                 "paint": {
                     "text-halo-color": "#fff",
@@ -1651,6 +1653,7 @@ var stmp = {
                     'text-variable-anchor': ['left'],
                     'text-radial-offset': 0.2,
                     "text-size": 10,
+                    "text-font": ["Gosanja"]
                 },
                 "paint": {
                     "text-halo-color": "#fff",
@@ -1667,6 +1670,7 @@ var stmp = {
                     'text-variable-anchor': ['right'],
                     'text-radial-offset': 0.2,
                     "text-size": 10,
+                    "text-font": ["Gosanja"]
                 },
                 "paint": {
                     "text-halo-color": "#fff",
@@ -1682,6 +1686,7 @@ var stmp = {
                 'layout': {
                     'text-field': ['get', 'description'],
                     "text-size": insideLabelSize,
+                    "text-font": ["Gosanja"]
                 },
                 "paint": {
                     "text-halo-color": "#fff",
@@ -1783,6 +1788,7 @@ var stmp = {
                 zoomRange : "10-to-20"
             })
         }else{
+            jiCommon.hideLoading()
             console.warn("그리드 타입이 지정되지 않았습니다.")
             return
         }
