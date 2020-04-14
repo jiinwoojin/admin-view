@@ -28,4 +28,11 @@ public class AccountMainController {
         else
             return "redirect:../../list?error";
     }
+
+    @RequestMapping("delete-account/{username}")
+    public String authDeleteLink(Model model, @PathVariable String username){
+        if(accountService.deleteAccountWithUsername(username)) {
+            return "redirect:list";
+        } else return "redirect:list?error";
+    }
 }
