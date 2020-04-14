@@ -10,17 +10,18 @@ import java.util.List;
 
 @BaseMapper
 public interface AccountMapper {
-    @Select("SELECT * FROM _ACCOUNT")
-    List<AccountEntity> findAllAccounts();
-
-    @Select("SELECT a.*, r.* FROM _ACCOUNT a LEFT JOIN _ROLE r ON a.role_id = r.id WHERE USERNAME = #{username}")
-    @Results(id="AccountEntity", value = {
+    @Select("SELECT a.*, r.* FROM _ACCOUNT a LEFT JOIN _ROLE r ON a.role_id = r.id")
+    @Results(id = "AccountEntity", value = {
             @Result(property = "id", column = "id"),
             @Result(property = "username", column = "username"),
             @Result(property = "name", column = "name"),
             @Result(property = "email", column = "email"),
-            @Result(property = "role", javaType = RoleEntity.class, column = "role_id", many = @Many(select = "findRoleById"))
+            @Result(property = "role", javaType = RoleEntity.class, column = "role_id", one = @One(select = "findRoleById"))
     })
+    List<AccountEntity> findAllAccounts();
+
+    @Select("SELECT a.*, r.* FROM _ACCOUNT a LEFT JOIN _ROLE r ON a.role_id = r.id WHERE USERNAME = #{username}")
+    @ResultMap("AccountEntity")
     AccountEntity findAccountByUsername(@Param("username") String username);
 
     @Select("SELECT * FROM _ROLE")
@@ -39,4 +40,10 @@ public interface AccountMapper {
     @Insert("INSERT INTO _ROLE(ID, TITLE, LABEL, ACCOUNT_MANAGE, CACHE_MANAGE, LAYER_MANAGE, MAP_BASIC, MAP_MANAGE) VALUES(#{id}, #{title}, #{label}, #{accountManage}, #{cacheManage}, #{layerManage}, #{mapBasic}, #{mapManage})")
     @SelectKey(statement="SELECT NEXTVAL('ROLE_SEQ')", keyProperty="id", before=true, resultType=long.class)
     void insertRole(RoleEntity roleEntity);
+
+    @Update("UPDATE _ACCOUNT SET PASSWORD = #{password}, NAME = #{name}, EMAIL = #{email} WHERE username = #{username}")
+    void updateAccount(AccountDTO accountDTO);
+
+    @Delete("DELETE FROM _ACCOUNT WHERE USERNAME = #{username}")
+    void deleteAccountByUsername(@Param("username") String username);
 }

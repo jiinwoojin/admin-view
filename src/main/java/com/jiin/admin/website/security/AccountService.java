@@ -14,6 +14,6 @@ public interface AccountService {
     AccountModel createModelWithAuthentication(AccountAuthProvider.AccountAuthentication auth);
     Map<String, Long> countWithAccountType();
     boolean createAccountWithModel(AccountModel accountModel);
-    AccountEntity updateAccountWithModel(AccountModel accountModel);
-    AccountEntity deleteAccountWithModel(String loginId);
+    boolean updateAccountWithModel(AccountModel accountModel);
+    boolean deleteAccountWithUsername(String loginId);
 }

@@ -76,6 +76,13 @@
 </div>
 
 <script th:src="@{/js/page/sign.js}"></script>
+<script>
+    window.onload = function() {
+        if(window.location.search.includes('error')){
+            toastr.error('서버 요청 중 오류가 발생했습니다 : 임의로 스크립트를 사용하여 값 변경하지 마시길 바랍니다.');
+        }
+    }
+</script>
 
 <!-- Top Link -->
 <th:block th:replace="fragments/html-top"></th:block>

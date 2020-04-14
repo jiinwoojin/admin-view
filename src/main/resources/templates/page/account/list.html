@@ -25,6 +25,7 @@
                 <th scope="col" class="text-center">이메일</th>
                 <th scope="col" class="text-center">관리자 여부</th>
                 <th scope="col" class="text-center">관리자 권한 부여</th>
+                <th scope="col" class="text-center">회원 삭제</th>
             </tr>
             </thead>
             <tbody>
@@ -45,16 +46,21 @@
                     </span>
                 </td>
                 <td class="text-center">
-                    <i class="fas fa-check-circle" th:if="${ account.role == 'ADMIN' }"></i>
-                    <i class="fas fa-times" th:unless="${ account.role == 'ADMIN' }"></i>
+                    <i class="fas fa-check-circle" th:if="${ account.role.title == 'ADMIN' }"></i>
+                    <i class="fas fa-times" th:unless="${ account.role.title == 'ADMIN' }"></i>
                 </td>
                 <td class="text-center">
-                    <button class="btn btn-sm btn-secondary" th:if="${ account.role == 'ADMIN' }">
+                    <button class="btn btn-sm btn-secondary" th:if="${ account.role.title == 'ADMIN' }">
                         <i class="fas fa-user"></i>
                     </button>
-                    <button class="btn btn-sm btn-info" th:unless="${ account.role == 'ADMIN' }">
+                    <button class="btn btn-sm btn-info" th:unless="${ account.role.title == 'ADMIN' }">
                         <i class="fas fa-user-cog"></i>
                     </button>
+                </td>
+                <td class="text-center">
+                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/auth/delete-account/' + ${account.username} }" onclick="return confirm('회원 삭제를 진행 하시겠습니까?')">
+                        <i class="fas fa-trash"></i>
+                    </a>
                 </td>
             </tr>
             </tbody>

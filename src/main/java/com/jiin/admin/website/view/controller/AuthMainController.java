@@ -6,6 +6,7 @@ import com.jiin.admin.website.security.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -43,5 +44,23 @@ public class AuthMainController {
     public String authEditPage(Model model, AccountAuthProvider.AccountAuthentication auth) {
         model.addAttribute("account", accountService.createModelWithAuthentication(auth));
         return "page/auth/edit";
+    }
+
+    // 회원 정보 수정 Request
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    public String authEditRedirect(Model model, AccountModel accountModel){
+        if(accountService.updateAccountWithModel(accountModel)) {
+            return "redirect:../home/user";
+        } else {
+            return "redirect:edit?error";
+        }
+    }
+
+    // 회원 삭제 링크
+    @RequestMapping("delete-account/{username}")
+    public String authDeleteLink(Model model, @PathVariable String username){
+        if(accountService.deleteAccountWithUsername(username)) {
+            return "redirect:list";
+        } else return "redirect:list?error";
     }
 }
