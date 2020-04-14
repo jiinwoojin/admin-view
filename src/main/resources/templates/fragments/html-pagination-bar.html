@@ -60,7 +60,7 @@
             if(first > 1){
                 pagination += `
                     <li class="page-item">
-                        <a class="page-link" href="${ '/admin-view/view/manage/' + '[[${pageName}]]' + '?pg=' + (first - 1) + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">&lt;</a>
+                        <a class="page-link" href="${ CONTEXT + '/view/manage/' + '[[${pageName}]]' + '?pg=' + (first - 1) + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">&lt;</a>
                     </li>
                 `;
             }
@@ -68,7 +68,7 @@
             for(var i = first; i <= last && i <= pageCount; i++){
                 pagination += `
                     ${ i == pg ? `<li class="page-item active">` : `<li class="page-item">` }
-                        <a class="page-link" href="${ '/admin-view/view/manage/' + '[[${pageName}]]' + '?pg=' + i + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">${ i }</a>
+                        <a class="page-link" href="${ CONTEXT + '/view/manage/' + '[[${pageName}]]' + '?pg=' + i + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">${ i }</a>
                     </li>
                 `;
             }
@@ -76,7 +76,7 @@
             if(last < pageCount){
                 pagination += `
                     <li class="page-item">
-                        <a class="page-link" href="${ '/admin-view/view/manage/' + '[[${pageName}]]' + '?pg=' + (last + 1) + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">&gt;</a>
+                        <a class="page-link" href="${ CONTEXT + '/view/manage/' + '[[${pageName}]]' + '?pg=' + (last + 1) + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">&gt;</a>
                     </li>
                 `;
             }

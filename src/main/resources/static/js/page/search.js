@@ -61,7 +61,7 @@ function render_pagination_bar(pg, count){
     if(first > 1){
         pagination += `
             <li class="page-item">
-                <a class="page-link" href="${ '/admin-view/view/manage/layer-manage?pg=' + (first - 1) + "&" + convertObjectToQueryStringWithoutPage() }">&lt;</a>
+                <a class="page-link" href="${ CONTEXT + '/view/manage/layer-manage?pg=' + (first - 1) + "&" + convertObjectToQueryStringWithoutPage() }">&lt;</a>
             </li>
         `;
     }
@@ -69,7 +69,7 @@ function render_pagination_bar(pg, count){
     for(var i = first; i <= last && i <= pageCount; i++){
         pagination += `
             ${ i == pg ? `<li class="page-item active">` : `<li class="page-item">` }
-                <a class="page-link" href="${ '/admin-view/view/manage/layer-manage?pg=' + i + "&" + convertObjectToQueryStringWithoutPage() }">${ i }</a>
+                <a class="page-link" href="${ CONTEXT + '/view/manage/layer-manage?pg=' + i + "&" + convertObjectToQueryStringWithoutPage() }">${ i }</a>
             </li>
         `;
     }
@@ -77,7 +77,7 @@ function render_pagination_bar(pg, count){
     if(last < pageCount){
         pagination += `
             <li class="page-item">
-                <a class="page-link" href="${ '/admin-view/view/manage/layer-manage?pg=' + (last + 1) + "&" + convertObjectToQueryStringWithoutPage() }">&gt;</a>
+                <a class="page-link" href="${ CONTEXT + '/view/manage/layer-manage?pg=' + (last + 1) + "&" + convertObjectToQueryStringWithoutPage() }">&gt;</a>
             </li>
         `;
     }
@@ -90,7 +90,7 @@ function render_pagination_bar(pg, count){
 
 function ajax_option_load(name){
     $.ajax({
-        url: '/admin-view/server/api/layer/options/' + name,
+        url: CONTEXT + '/server/api/layer/options/' + name,
         type: 'get',
         success: function(d){
             var select = document.getElementById(name);
@@ -114,7 +114,7 @@ function ajax_option_load(name){
 function ajax_result_load(){
     var qs = getQueryStringObject();
     $.ajax({
-        url: `/admin-view/server/api/layer/list?pg=${ (qs.pg || 1) }&${ convertObjectToQueryStringWithoutPage() }`,
+        url: `${ CONTEXT }/server/api/layer/list?pg=${ (qs.pg || 1) }&${ convertObjectToQueryStringWithoutPage() }`,
         type: 'get',
         success: function(d){
             render_search_layers(d.data);
@@ -207,5 +207,5 @@ function initialize_form_with_query(){
 }
 
 function onsubmit_func(){
-    window.location.href = '/admin-view/view/manage/layer-manage';
+    window.location.href = CONTEXT + '/view/manage/layer-manage';
 }

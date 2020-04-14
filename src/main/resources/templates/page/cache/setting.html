@@ -170,7 +170,7 @@
                                             onclick_update_layer(l_json[[${layer.id}]]);
                                         };
                                     </script>
-                                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="${ '/admin-view/view/cache/delete-proxy-layer/' + layer.id }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/cache/delete-proxy-layer/' + ${layer.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
@@ -370,7 +370,7 @@
                                             onclick_update_source(s_json[[${source.id}]]);
                                         };
                                     </script>
-                                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="${ '/admin-view/view/cache/delete-proxy-source/' + source.id }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/cache/delete-proxy-source/' + ${source.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
@@ -587,7 +587,7 @@
                                             onclick_update_cache(c_json[[${cache.id}]]);
                                         };
                                     </script>
-                                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="${ '/admin-view/view/cache/delete-proxy-cache/' + cache.id }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/cache/delete-proxy-cache/' + ${cache.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>

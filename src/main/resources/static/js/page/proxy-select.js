@@ -73,7 +73,7 @@ function submit_selected_data(){
         var form = document.createElement("form");
         form.setAttribute("charset", "UTF-8");
         form.setAttribute("method", "POST");
-        form.setAttribute("action", "/admin-view/view/cache/checking-save");
+        form.setAttribute("action", CONTEXT + "/view/cache/checking-save");
 
         var hiddenField = document.createElement("input");
 
