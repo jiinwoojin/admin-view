@@ -1,9 +1,13 @@
 package com.jiin.admin.config;
 
 
+import com.jiin.admin.dto.AccountDTO;
 import com.jiin.admin.entity.LayerEntity;
 import com.jiin.admin.entity.MapEntity;
 import com.jiin.admin.entity.MapSymbol;
+import com.jiin.admin.entity.RoleEntity;
+import com.jiin.admin.website.server.mapper.CheckMapper;
+import com.jiin.admin.website.view.mapper.AccountMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +37,12 @@ public class BootingService {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @Resource
+    private CheckMapper checkMapper;
+
+    @Resource
+    private AccountMapper accountMapper;
 
     @Transactional
     public void initializeSymbol() {
@@ -107,6 +117,27 @@ public class BootingService {
         }*/
         // mapproxy write
         dockerService.proxyReloadFromDatabase();
+    }
 
+    @Transactional
+    public void initializeRoles(){
+        if(checkMapper.countDuplicateRole("ADMIN") < 1){
+            accountMapper.insertRole(new RoleEntity(null, "ADMIN", "관리자", true, true, true, true, true));
+        }
+        if(checkMapper.countDuplicateRole("USER") < 1){
+            accountMapper.insertRole(new RoleEntity(null, "USER", "일반 사용자", false, false, false, false, false));
+        }
+    }
+
+    @Transactional
+    public void initializeAccounts(){
+        if(checkMapper.countDuplicateAccount("admin") < 1){
+            RoleEntity adminRole = accountMapper.findRoleByTitle("ADMIN");
+            accountMapper.insertAccount(new AccountDTO(null, "admin", "10e090c7f6089da649cd9649052fcfa9e8bdd1a73734453334cb98fcdde0", "관리자", "admin@ji-in.com", adminRole.getId()));
+        }
+        if(checkMapper.countDuplicateAccount("user") < 1){
+            RoleEntity userRole = accountMapper.findRoleByTitle("USER");
+            accountMapper.insertAccount(new AccountDTO(null, "user", "10e090c7f6089da649cd9649052fcfa9e8bdd1a73734453334cb98fcdde0", "사용자", "user@ji-in.com", userRole.getId()));
+        }
     }
 }

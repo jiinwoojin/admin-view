@@ -32,6 +32,9 @@ public class AdminWebApplication extends SpringBootServletInitializer implements
 
     @Override
     public void run(String... args) {
+        bootingService.initializeRoles();
+        bootingService.initializeAccounts();
+
         /*bootingService.initializeSymbol();
         try {
             bootingService.initializeLayer();

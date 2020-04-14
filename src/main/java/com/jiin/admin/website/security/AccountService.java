@@ -13,7 +13,7 @@ public interface AccountService {
     List<AccountEntity> findAllAccounts();
     AccountModel createModelWithAuthentication(AccountAuthProvider.AccountAuthentication auth);
     Map<String, Long> countWithAccountType();
-    AccountEntity createAccountWithModel(AccountModel accountModel);
+    boolean createAccountWithModel(AccountModel accountModel);
     AccountEntity updateAccountWithModel(AccountModel accountModel);
     AccountEntity deleteAccountWithModel(String loginId);
 }
