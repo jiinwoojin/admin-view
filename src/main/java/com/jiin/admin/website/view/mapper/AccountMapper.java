@@ -44,6 +44,9 @@ public interface AccountMapper {
     @Update("UPDATE _ACCOUNT SET PASSWORD = #{password}, NAME = #{name}, EMAIL = #{email} WHERE username = #{username}")
     void updateAccount(AccountDTO accountDTO);
 
+    @Update("UPDATE _ACCOUNT SET ROLE_ID = #{roleId} WHERE USERNAME = #{username}")
+    void updateAccountRoleWithUsernameAndRoleId(@Param("username") String username, @Param("roleId") long roleId);
+
     @Delete("DELETE FROM _ACCOUNT WHERE USERNAME = #{username}")
     void deleteAccountByUsername(@Param("username") String username);
 }

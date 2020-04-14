@@ -43,6 +43,11 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
     }
 
     @Override
+    public List<RoleEntity> findAllRoles() {
+        return accountMapper.findAllRoles();
+    }
+
+    @Override
     public AccountModel createModelWithAuthentication(AccountAuthProvider.AccountAuthentication auth) {
         AccountModelBuilder builder = AccountModelBuilder.builder();
         if(auth == null) return builder.build();
@@ -84,6 +89,14 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
         if(passwd1.equals(passwd2) && checkMapper.countDuplicateAccount(username) >= 1) {
             // 여기서는 Role 값을 전혀 변경하지 않는다.
             accountMapper.updateAccount(new AccountDTO(null, username, EncryptUtil.encrypt(passwd1, EncryptUtil.SHA256), accountModel.getName(), accountModel.getEmail(), null));
+            return true;
+        } else return false;
+    }
+
+    @Override
+    public boolean updateAccountRole(String username, long roleId) {
+        if(checkMapper.countDuplicateAccount(username) >= 1){
+            accountMapper.updateAccountRoleWithUsernameAndRoleId(username, roleId);
             return true;
         } else return false;
     }
