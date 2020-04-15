@@ -127,8 +127,8 @@
 ## 시연 페이지 주소
     
     Spring Secutiry 적용
-        ID : admin / PW : admin
-        ID : user / PW : user
+        ID : admin / PW : jiin0701
+        ID : user / PW : jiin0701
     
     http://127.0.0.1:8077/view/home/guest
     http://127.0.0.1:8077/view/home/user

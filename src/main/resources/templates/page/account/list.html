@@ -25,6 +25,7 @@
                 <th scope="col" class="text-center">이메일</th>
                 <th scope="col" class="text-center">관리자 여부</th>
                 <th scope="col" class="text-center">관리자 권한 부여</th>
+                <th scope="col" class="text-center">회원 삭제</th>
             </tr>
             </thead>
             <tbody>
@@ -45,16 +46,36 @@
                     </span>
                 </td>
                 <td class="text-center">
-                    <i class="fas fa-check-circle" th:if="${ account.role == 'ADMIN' }"></i>
-                    <i class="fas fa-times" th:unless="${ account.role == 'ADMIN' }"></i>
+                    <i class="fas fa-check-circle" th:if="${ account.role.title == 'ADMIN' }"></i>
+                    <i class="fas fa-times" th:unless="${ account.role.title == 'ADMIN' }"></i>
+                </td>
+                <td class="d-flex justify-content-center">
+                    <span th:if="${ account.username == 'admin' || account.username == 'user' }" th:text="${ account.role.label + '(수정 불가)' }"></span>
+                    <div class="input-group" style="width: 220px;" th:unless="${ account.username == 'admin' || account.username == 'user' }">
+                        <select class="form-control" th:id="${ 'select_role' + account.id }">
+                            <option th:each="role : ${roles}" th:value="${role.id}" th:text="${ role.label + '(' + role.title + ')' }"></option>
+                        </select>
+                        <div class="input-group-append">
+                            <button class="btn btn-info" type="button" th:id="${ 'select_btn' + account.id }">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </div>
+                        <script>
+                            $('#select_role' + [[${account.id}]]).val([[${account.role.id}]]);
+                            document.getElementById('select_btn' + [[${account.id}]]).onclick = function(){
+                                var changeValue = $('#select_role' + [[${account.id}]] + " option:selected").val();
+                                if(confirm('권한을 변경합니다. 계속 진행 하시겠습니까?')) {
+                                    window.location.href = CONTEXT + '/view/account/change-role/' + '[[${account.username}]]' + '/' + changeValue;
+                                }
+                            }
+                        </script>
+                    </div>
                 </td>
                 <td class="text-center">
-                    <button class="btn btn-sm btn-secondary" th:if="${ account.role == 'ADMIN' }">
-                        <i class="fas fa-user"></i>
-                    </button>
-                    <button class="btn btn-sm btn-info" th:unless="${ account.role == 'ADMIN' }">
-                        <i class="fas fa-user-cog"></i>
-                    </button>
+                    <i class="fas fa-times" th:if="${ account.username == 'admin' || account.username == 'user' }"></i>
+                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:unless="${ account.username == 'admin' || account.username == 'user' }" th:href="@{ '/view/auth/delete-account/' + ${account.username} }" onclick="return confirm('회원 삭제를 진행 하시겠습니까?')">
+                        <i class="fas fa-trash"></i>
+                    </a>
                 </td>
             </tr>
             </tbody>
@@ -78,6 +99,12 @@
                     }
                 });
             });
+
+            window.onload = function() {
+                if(window.location.search.includes('error')){
+                    toastr.error('서버 요청 중 오류가 발생했습니다 : 없는 회원 ID 값으로 삭제 및 권한 변경을 진행 했습니다.');
+                }
+            }
         </script>
     </div>
 </th:block>

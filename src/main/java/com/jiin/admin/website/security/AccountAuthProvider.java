@@ -1,6 +1,7 @@
 package com.jiin.admin.website.security;
 
 import com.jiin.admin.entity.AccountEntity;
+import com.jiin.admin.website.util.EncryptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,9 +26,10 @@ public class AccountAuthProvider implements AuthenticationProvider {
 
     public Authentication authenticate(String username, String password){
         AccountEntity account = accountService.findByUsername(username);
+        String passwd = EncryptUtil.encrypt(password, EncryptUtil.SHA256);
         if(account == null) return null;
-        if(!account.getPassword().equals(password)) return null;
-        return new AccountAuthentication(username, password, account.getAuthorities(), account);
+        if(!account.getPassword().equals(passwd)) return null;
+        return new AccountAuthentication(username, passwd, account.getAuthorities(), account);
     }
 
     @Override

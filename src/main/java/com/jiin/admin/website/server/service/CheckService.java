@@ -26,12 +26,23 @@ public class CheckService {
             tableName = ProxySourceEntity.class.getAnnotation(Entity.class).name();
         } else if(type.equalsIgnoreCase("proxycache")){
             tableName = ProxyCacheEntity.class.getAnnotation(Entity.class).name();
+        } else if(type.equalsIgnoreCase("account")){
+            tableName = AccountEntity.class.getAnnotation(Entity.class).name();
+        } else if(type.equalsIgnoreCase("role")){
+            tableName = RoleEntity.class.getAnnotation(Entity.class).name();
         } else {
             tableName = null;
         }
 
         if(tableName != null) {
-            int count = mapper.countDuplicate(tableName, name);
+            int count;
+            if(tableName.equalsIgnoreCase("_ACCOUNT")) {
+                count = mapper.countDuplicateAccount(name);
+            } else if(tableName.equalsIgnoreCase("_ROLE")) {
+                count = mapper.countDuplicateRole(name);
+            } else {
+                count = mapper.countDuplicate(tableName, name);
+            }
             return (count != 0);
         } else return false;
     }
