@@ -2,7 +2,7 @@
 
     [classpath:data/default-map-proxy.yaml]
     파일파싱하여
-    [/data/jiserver/data_dir/proxy/mapproxy.yaml]
+    [/data/jiapp/data_dir/proxy/mapproxy.yaml]
     덮어씁니다.
     [default-map-proxy.yaml] 에 존재하는 레이어 및 소스는 편집이 불가합니다.
 

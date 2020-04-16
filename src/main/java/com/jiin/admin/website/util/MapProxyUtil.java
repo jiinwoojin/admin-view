@@ -15,10 +15,11 @@ import java.util.Map;
 
 public class MapProxyUtil {
     private static final String HOST = "211.172.246.71";
-    private static final String PORT = "12000";
+    private static final String PORT = "11100";
+    private static final String MAPPROXY = "mapproxy";
 
     public static Map<String, Object> getCapabilities(){
-        final String reqURL = String.format("http://%s:%s/service?REQUEST=GetCapabilities", HOST, PORT);
+        final String reqURL = String.format("http://%s:%s/%s/service?REQUEST=GetCapabilities", HOST, PORT, MAPPROXY);
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet getRequest = new HttpGet(reqURL);
@@ -43,6 +44,6 @@ public class MapProxyUtil {
     }
 
     public static String getServiceURL(){
-        return String.format("http://%s:%s", HOST, PORT);
+        return String.format("http://%s:%s/%s", HOST, PORT, MAPPROXY);
     }
 }

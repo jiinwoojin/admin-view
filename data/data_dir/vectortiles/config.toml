@@ -7,7 +7,7 @@ port = ":11000"
 
 [cache]
 type = "file"
-basepath = "/data/jiserver/cache/vecotrtiles"
+basepath = "/data/jiapp/cache/vecotrtiles"
 
 [[providers]]
 name = "mims"
