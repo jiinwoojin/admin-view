@@ -25,7 +25,7 @@ caches:
     sources: [world_k2]
     cache:
       type: file
-      directory: /data/jiserver/data_dir/cache/world_k2/
+      directory: /data/jiapp/data_dir/cache/world_k2/
   world_k2_test_cache:
     grids: ['GLOBAL_GEODETIC']
     meta_size: [1, 1]
@@ -33,22 +33,22 @@ caches:
     sources: [world_k2_test]
     cache:
       type: file
-      directory: /data/jiserver/data_dir/cache/world_k2/
+      directory: /data/jiapp/data_dir/cache/world_k2/
 
 sources:
   world_k2:
     type: mapserver
     req:
-      map: /data/jiserver/data_dir/mapserver/world_k2/world_k2.map
+      map: /data/jiapp/data_dir/mapserver/world_k2/world_k2.map
       layers: world
     mapserver:
       binary: /usr/local/bin/mapserv
-      working_dir: /data/jiserver/data_dir/tmp
+      working_dir: /data/jiapp/data_dir/tmp
   world_k2_test:
     type: mapserver
     req:
-      map: /data/jiserver/data_dir/mapserver/world_k2/world_k2.map
-      layers: world
+      map: /data/jiapp/data_dir/mapserver/world_k2/world_k2.map
+      layers: world_k2
     mapserver:
       binary: /usr/local/bin/mapserv
-      working_dir: /data/jiserver/data_dir/tmp
+      working_dir: /data/jiapp/data_dir/tmp

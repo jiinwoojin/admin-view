@@ -5,6 +5,7 @@ import com.jiin.admin.entity.AccountEntity;
 import com.jiin.admin.entity.RoleEntity;
 import com.jiin.admin.website.model.AccountModel;
 import com.jiin.admin.website.model.AccountModelBuilder;
+import com.jiin.admin.website.model.RoleModel;
 import com.jiin.admin.website.server.mapper.CheckMapper;
 import com.jiin.admin.website.util.EncryptUtil;
 import com.jiin.admin.website.view.mapper.AccountMapper;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -81,6 +83,15 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
     }
 
     @Override
+    public boolean createRoleWithModel(RoleModel roleModel) {
+        if(accountMapper.findRoleByTitle(roleModel.getTitle()) != null) return false;
+        else {
+            accountMapper.insertRole(new RoleEntity(0L, roleModel.getTitle(), roleModel.getLabel(), roleModel.isMapBasic(), roleModel.isMapManage(), roleModel.isLayerManage(), roleModel.isCacheManage(), roleModel.isAccountManage()));
+            return true;
+        }
+    }
+
+    @Override
     public boolean updateAccountWithModel(AccountModel accountModel) {
         String username = accountModel.getUsername();
         String passwd1 = accountModel.getPassword1();
@@ -105,6 +116,19 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
     public boolean deleteAccountWithUsername(String loginId) {
         if(checkMapper.countDuplicateAccount(loginId) > 0){
             accountMapper.deleteAccountByUsername(loginId);
+            return true;
+        } else return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteRoleById(long id) {
+        if(accountMapper.findRoleById(id) != null){
+            // 권한 삭제 시, 기본 권한인 USER 로 격하 시킴.
+            RoleEntity userRole = accountMapper.findRoleByTitle("USER");
+            List<AccountEntity> accounts = accountMapper.findAccountByRoleId(id);
+            accounts.stream().forEach(o -> accountMapper.updateAccountRoleWithUsernameAndRoleId(o.getUsername(), userRole.getId()));
+            accountMapper.deleteRoleById(id);
             return true;
         } else return false;
     }

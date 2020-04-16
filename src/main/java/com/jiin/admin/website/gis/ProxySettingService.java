@@ -13,10 +13,9 @@ public interface ProxySettingService {
     Map<String, Object> getProxyCacheEntities();
 
     ProxySelectModel getCurrentMapProxySettings();
-
-    Map<String, Object> getCachedRequestData();
-    Map<String, Object> getCachedLayerData();
-    Map<String, Object> getBoundingBoxInfoWithCrs();
+    ProxyLayerModel initializeProxyLayerModel();
+    ProxySourceModel initializeProxySourceModel();
+    ProxyCacheModel initializeProxyCacheModel();
 
     boolean createProxyLayerEntityWithModel(ProxyLayerModel proxyLayerModel);
     boolean createProxySourceEntityWithModel(ProxySourceModel proxySourceModel);

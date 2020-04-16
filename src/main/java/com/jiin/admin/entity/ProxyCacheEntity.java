@@ -71,6 +71,12 @@ public class ProxyCacheEntity implements Persistable<Long> {
     @Column(name = "SELECTED")
     private Boolean selected;
 
+    /**
+     * Is Default BOOL
+     */
+    @Column(name = "IS_DEFAULT")
+    private Boolean isDefault;
+
     public ProxyCacheEntity(){
         this.sources = new ArrayList<>();
     }

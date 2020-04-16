@@ -7,6 +7,7 @@ import com.jiin.admin.website.model.LayerSearchModel;
 import com.jiin.admin.website.model.MapSearchModel;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Map;
@@ -79,9 +80,12 @@ public interface ManageMapper {
     })
     List<MapEntity> findMapEntitiesByPaginationModel(MapSearchModel mapSearchModel);
 
-    @Select("SELECT S.* FROM _MAP_SOURCE S INNER JOIN _MAP_LAYER_SOURCE LS ON S.ID = LS.SOURCE_ID WHERE LS.LAYER_ID = #{layerId}")
-    List<Map<String, Object>> getSourceListByLayerId(@Param("layerId") Long layerId);
+    @Select("SELECT L.* FROM _MAP_LAYER_RELATION ML LEFT JOIN _LAYER L ON ML.LAYER_ID = L.ID WHERE ML.MAP_ID = #{mapId}")
+    List<LayerEntity> findLayerEntitiesByMapId(@Param("mapId") Long mapId);
 
-    @Select("SELECT COUNT(1) FROM _MAP_LAYER L INNER JOIN _MAP_LAYER_SOURCE LS ON L.ID = LS.LAYER_ID WHERE LS.SOURCE_ID = #{sourceId}")
-    long getLayerCountBySourceId(@Param("sourceId") Long sourceId);
+    //    @Select("SELECT S.* FROM _MAP_SOURCE S INNER JOIN _MAP_LAYER_SOURCE LS ON S.ID = LS.SOURCE_ID WHERE LS.LAYER_ID = #{layerId}")
+    //    List<Map<String, Object>> getSourceListByLayerId(@Param("layerId") Long layerId);
+    //
+    //    @Select("SELECT COUNT(1) FROM _MAP_LAYER L INNER JOIN _MAP_LAYER_SOURCE LS ON L.ID = LS.LAYER_ID WHERE LS.SOURCE_ID = #{sourceId}")
+    //    long getLayerCountBySourceId(@Param("sourceId") Long sourceId);
 }

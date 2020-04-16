@@ -14,7 +14,7 @@ project:
       password: jiserver
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
       mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
-  data-path: /data/jiserver/data_dir
+  data-path: /data/jiapp/data_dir
   mapserver:
     binary: /usr/local/bin/mapserv
   los:

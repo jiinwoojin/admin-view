@@ -49,6 +49,8 @@ jiMap.prototype.setBaseStyle = function setBaseStyle() {
                 'tileSize' : 256
             }
         },
+        'sprite' : 'http://211.172.246.71:9000/GSymbol/GSSSymbol',
+        'glyphs' : 'http://211.172.246.71:9000/fonts/{fontstack}/{range}.pbf',
         'layers' : [{
             'id' : stmp.BASE_MAP_LAYER_ID,
             'type' : 'raster',
