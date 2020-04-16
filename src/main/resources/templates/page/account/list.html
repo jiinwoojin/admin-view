@@ -73,7 +73,7 @@
                 </td>
                 <td class="text-center">
                     <i class="fas fa-times" th:if="${ account.username == 'admin' || account.username == 'user' }"></i>
-                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:unless="${ account.username == 'admin' || account.username == 'user' }" th:href="@{ '/view/auth/delete-account/' + ${account.username} }" onclick="return confirm('회원 삭제를 진행 하시겠습니까?')">
+                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:unless="${ account.username == 'admin' || account.username == 'user' }" th:href="@{ '/view/account/delete-account/' + ${account.username} }" onclick="return confirm('회원 삭제를 진행 하시겠습니까?')">
                         <i class="fas fa-trash"></i>
                     </a>
                 </td>

@@ -1,10 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">권한 목록</h1>
+</th:block>
 
-</body>
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/view/account/list}">사용자 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">권한 목록</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <div class="text-right my-1">
+        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#roleDataInsert" onclick="">
+            <i class="fas fa-plus"></i> 권한 추가
+        </button>
+    </div>
+
+    <div class="modal fade" id="roleDataInsert" tabindex="-1" role="dialog" aria-labelledby="insertModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <form id="add-proxy-layer" th:action="@{/view/role/add-role}" method="post" accept-charset="utf-8" onsubmit="return preSubmit()" th:object="${roleModel}">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="insertModalCenterTitle">데이터 추가 - Layer</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('proxyLayerName', 'layer')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label for="title">권한 명칭 <span style="color: red;">(*)</span></label>
+                            </div>
+                            <div class="col-12 input-group">
+                                <input type="text" class="form-control" th:field="*{title}">
+                                <div class="input-group-append">
+                                    <span class="input-group-btn btn btn-primary" onclick="jiCommon.duplicateCheck('ROLE','#title','#duplicate-check-title')" style="cursor: pointer;">중복확인</span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <small class="form-text text-muted" id="duplicate-check-title">중복확인을 해주세요.</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="label">권한 이름 <span style="color: red;">(*)</span></label>
+                            <input type="text" class="form-control" th:field="*{label}" />
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" th:field="*{mapBasic}">
+                            <label class="form-check-label" for="mapBasic">
+                                투명도 및 군대부호 사용 가능
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" th:field="*{mapManage}">
+                            <label class="form-check-label" for="mapManage">
+                                MapServer Map 파일 관리 기능
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" th:field="*{layerManage}">
+                            <label class="form-check-label" for="layerManage">
+                                MapServer Layer 파일 관리 기능
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" th:field="*{cacheManage}">
+                            <label class="form-check-label" for="cacheManage">
+                                MapProxy Cache 데이터 관리 기능
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" th:field="*{accountManage}">
+                            <label class="form-check-label" for="accountManage">
+                                사용자 관리 기능
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="onclick_close('title')">
+                            <i class="fas fa-times"></i> 취소
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 저장
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            $('#title').change(function () {
+                $('#title').data("check-duplicate", false);
+                $('#duplicate-check-title').text("중복확인을 해주세요.");
+            });
+        }
+
+        function onclick_close(field){
+            $(`#${field}`).val('');
+            $(`#${field}`).data("check-duplicate",false);
+            $(`#duplicate-check-title`).text("중복확인을 해주세요.");
+        }
+
+        function preSubmit(){
+            if(jQuery.isEmptyObject(form['title'].value)) {
+                form['title'].focus();
+                toastr.warning("명칭이 입력되지 않았습니다.");
+                return false;
+            }else if(jQuery(form['title']).data("check-duplicate") === false) {
+                toastr.warning("명칭 중복확인이 되지 않았습니다.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    <div id="role_list_view">
+        <table id="list_table" class="table table-sm table-striped">
+            <thead class="table-info">
+            <tr>
+                <th scope="col" class="text-center">권한 명칭</th>
+                <th scope="col" class="text-center">권한 이름</th>
+                <th scope="col" class="text-center">군대부호 / 투명도</th>
+                <th scope="col" class="text-center">지도</th>
+                <th scope="col" class="text-center">레이어</th>
+                <th scope="col" class="text-center">캐시</th>
+                <th scope="col" class="text-center">회원</th>
+                <th scope="col" class="text-center">수정 및 삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="role : ${ roles }">
+                <td class="text-center">
+                    <span th:text="${ role.title }">
+                        [회원 권한 명칭]
+                    </span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${ role.label }">
+                        [회원 권한 이름]
+                    </span>
+                </td>
+                <td class="text-center">
+                    <i class="fas fa-check-circle" th:if="${ role.mapBasic }"></i>
+                    <i class="fas fa-times" th:unless="${ role.mapBasic }"></i>
+                </td>
+                <td class="text-center">
+                    <i class="fas fa-check-circle" th:if="${ role.mapManage }"></i>
+                    <i class="fas fa-times" th:unless="${ role.mapManage }"></i>
+                </td>
+                <td class="text-center">
+                    <i class="fas fa-check-circle" th:if="${ role.layerManage }"></i>
+                    <i class="fas fa-times" th:unless="${ role.layerManage }"></i>
+                </td>
+                <td class="text-center">
+                    <i class="fas fa-check-circle" th:if="${ role.cacheManage }"></i>
+                    <i class="fas fa-times" th:unless="${ role.cacheManage }"></i>
+                </td>
+                <td class="text-center">
+                    <i class="fas fa-check-circle" th:if="${ role.accountManage }"></i>
+                    <i class="fas fa-times" th:unless="${ role.accountManage }"></i>
+                </td>
+
+                <td class="text-center" th:if="${ role.title == 'USER' || role.title == 'ADMIN' }">
+                    <i class="fas fa-times"></i>
+                </td>
+                <td class="d-flex justify-content-center" th:unless="${ role.title == 'USER' || role.title == 'ADMIN' }">
+                    <button type="button" class="btn btn-info btn-circle btn-sm mx-1">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/role/delete-role/' + ${role.id} }" onclick="return confirm('권한 삭제를 진행 하시겠습니까?')">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <script>
+            $(document).ready(function() {
+                $('#list_table').DataTable({
+                    "language" : {
+                        "lengthMenu" : "자료 길이 _MENU_",
+                        "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                        "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                        "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                        "infoFiltered" : "(총 _TOTAL_ 건)",
+                        "search" : "검색 키워드",
+                        "paginate": {
+                            "first" : "<<",
+                            "last" : ">>",
+                            "next" : ">",
+                            "previous" : "<"
+                        }
+                    }
+                });
+            });
+
+            window.onload = function() {
+                if(window.location.search.includes('error')){
+                    toastr.error('서버 요청 중 오류가 발생했습니다 : 없는 권한 ID 값으로 수정 및 삭제를 진행 했습니다.');
+                }
+            }
+        </script>
+    </div>
+</th:block>
 </html>

@@ -20,6 +20,9 @@ public interface AccountMapper {
     })
     List<AccountEntity> findAllAccounts();
 
+    @Select("SELECT * FROM _ACCOUNT WHERE ROLE_ID = #{roleId}")
+    List<AccountEntity> findAccountByRoleId(@Param("roleId") long roleId);
+
     @Select("SELECT a.*, r.* FROM _ACCOUNT a LEFT JOIN _ROLE r ON a.role_id = r.id WHERE USERNAME = #{username}")
     @ResultMap("AccountEntity")
     AccountEntity findAccountByUsername(@Param("username") String username);
@@ -49,4 +52,7 @@ public interface AccountMapper {
 
     @Delete("DELETE FROM _ACCOUNT WHERE USERNAME = #{username}")
     void deleteAccountByUsername(@Param("username") String username);
+
+    @Delete("DELETE FROM _ROLE WHERE ID = #{roleId}")
+    void deleteRoleById(@Param("roleId") long roleId);
 }
