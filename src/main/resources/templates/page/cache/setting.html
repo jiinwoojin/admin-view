@@ -40,7 +40,7 @@
                     <div class="py-1">
                         <h3 class="my-1">레이어 관리</h3>
                         <div class="text-right my-1">
-                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#layerDataInsert">
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#layerDataInsert" onclick="">
                                 <i class="fas fa-plus"></i> 데이터 추가
                             </button>
                         </div>
@@ -56,10 +56,11 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body">
+
+                                        <div class="modal-body" th:if="${ #lists.size(sourceMap.data) > 0 }">
                                             <div class="form-group row">
                                                 <div class="col-12">
-                                                    <label for="proxyLayerName">레이어 이름</label>
+                                                    <label for="proxyLayerName">레이어 이름 <span style="color: red;">(*)</span></label>
                                                 </div>
                                                 <div class="col-12 input-group">
                                                     <input type="text" class="form-control" th:field="*{proxyLayerName}">
@@ -73,17 +74,41 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="proxyLayerTitle">레이어 제목</label>
+                                                <label for="proxyLayerTitle">레이어 제목 <span style="color: red;">(*)</span></label>
                                                 <input type="text" class="form-control" th:field="*{proxyLayerTitle}" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="proxySources">레이어 연계 소스</label>
+                                                <label for="proxySources">레이어 연계 소스 <span style="color: red;">(*)</span></label>
                                                 <select class="form-control" th:field="*{proxySources}" multiple>
                                                     <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
                                                 </select>
                                             </div>
+
+                                            <div class="form-group" th:if="${ #lists.size(proxyCaches) > 0}">
+                                                <label for="proxyCaches">레이어 연계 캐시</label>
+                                                <select class="form-control" id="proxyCaches" name="proxyCaches" multiple>
+                                                    <option th:each="cache : ${proxyCaches}" th:text="${ cache.name }" th:value="${ cache.name }"></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="alert alert-warning py-1" th:unless="${ #lists.size(proxyCaches) > 0}">
+                                                <h1 class="display-4">
+                                                    <i class="fas fa-times-circle"></i> No Cache Datas
+                                                </h1>
+                                                <p class="lead">추가 된 캐시 (Cache) 데이터가 없습니다. 캐시 데이터를 추가하고 다시 시도 바랍니다.</p>
+                                            </div>
                                         </div>
+
+                                        <div class="modal-body" th:unless="${ #lists.size(sourceMap.data) > 0 }">
+                                            <div class="jumbotron">
+                                                <h1 class="display-4">
+                                                    <i class="fas fa-times-circle"></i> Error
+                                                </h1>
+                                                <p class="lead">추가 된 리소스 (Source) 데이터가 없습니다. 리소스 데이터를 추가하고 다시 시도 바랍니다.</p>
+                                            </div>
+                                        </div>
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="onclick_close('proxyLayerName', 'layer')">
                                                 <i class="fas fa-times"></i> 취소
@@ -110,10 +135,11 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body">
+
+                                        <div class="modal-body" th:if="${ #lists.size(sourceMap.data) > 0 }">
                                             <div class="form-group row">
                                                 <div class="col-12">
-                                                    <label for="proxyLayerName_u">레이어 이름</label>
+                                                    <label for="proxyLayerName_u">레이어 이름 <span style="color: red;">(*)</span></label>
                                                 </div>
                                                 <div class="col-12 input-group">
                                                     <input type="text" class="form-control" id="proxyLayerName_u" name="proxyLayerName" readonly />
@@ -121,17 +147,41 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="proxyLayerTitle_u">레이어 제목</label>
+                                                <label for="proxyLayerTitle_u">레이어 제목 <span style="color: red;">(*)</span></label>
                                                 <input type="text" class="form-control" id="proxyLayerTitle_u" name="proxyLayerTitle" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="proxySources_u">레이어 연계 소스</label>
+                                                <label for="proxySources_u">레이어 연계 소스 <span style="color: red;">(*)</span></label>
                                                 <select class="form-control" id="proxySources_u" name="proxySources" multiple>
                                                     <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
                                                 </select>
                                             </div>
+
+                                            <div class="form-group" th:if="${ #lists.size(proxyCaches) > 0}">
+                                                <label for="proxyCaches">레이어 연계 캐시</label>
+                                                <select class="form-control" id="proxyCaches" name="proxyCaches" multiple>
+                                                    <option th:each="cache : ${proxyCaches}" th:text="${ cache.name }" th:value="${ cache.name }"></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="alert alert-warning py-1" th:unless="${ #lists.size(proxyCaches) > 0}">
+                                                <h1 class="display-4">
+                                                    <i class="fas fa-times-circle"></i> No Cache Datas
+                                                </h1>
+                                                <p class="lead">추가 된 캐시 (Cache) 데이터가 없습니다. 캐시 데이터를 추가하고 다시 시도 바랍니다.</p>
+                                            </div>
                                         </div>
+
+                                        <div class="modal-body" th:unless="${ #lists.size(sourceMap.data) > 0 }">
+                                            <div class="jumbotron">
+                                                <h1 class="display-4">
+                                                    <i class="fas fa-times-circle"></i> Error
+                                                </h1>
+                                                <p class="lead">추가 된 리소스 (Source) 데이터가 없습니다. 리소스 데이터를 추가하고 다시 시도 바랍니다.</p>
+                                            </div>
+                                        </div>
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                 <i class="fas fa-times"></i> 취소
@@ -206,7 +256,9 @@
                                 document.getElementById('proxyLayerId_u').value = obj.id;
                                 document.getElementById('proxyLayerName_u').value = obj.name;
                                 document.getElementById('proxyLayerTitle_u').value = obj.title;
-                                $('#proxySources_u').val(obj.sources.map(s => s.name));
+                                console.log(obj)
+                                $('#proxySources_u').val(obj.sources.map(s => s.source && s.source.name));
+                                $('#proxyCaches_u').val(obj.caches.map(c => c.cache && c.cache.name));
                             }
                         </script>
                         <!-- Data List Table - LAYER END -->
@@ -237,7 +289,7 @@
                                         <div class="modal-body">
                                             <div class="form-group row">
                                                 <div class="col-12">
-                                                    <label for="proxySourceName">리소스 이름</label>
+                                                    <label for="proxySourceName">리소스 이름 <span style="color: red;">(*)</span></label>
                                                     <div class="col-12 input-group">
                                                         <input type="text" class="form-control" th:field="*{proxySourceName}">
                                                         <div class="input-group-append">
@@ -250,29 +302,33 @@
                                                 </div>
                                             </div>
 
+                                            <button type="button" class="btn btn-info btn-block mb-1" data-toggle="modal" data-target="#searchMap">
+                                                <i class="fas fa-search"></i> MapServer 리소스 : Map 파일 선택
+                                            </button>
+
                                             <div class="form-group">
-                                                <label for="proxySourceType">리소스 종류</label>
-                                                <input type="text" class="form-control" th:field="*{proxySourceType}"  readonly />
+                                                <label for="proxySourceType">리소스 종류 <span style="color: red;">(*)</span></label>
+                                                <input type="text" class="form-control" th:field="*{proxySourceType}" readonly />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="requestMap">요청 Map 파일 주소</label>
-                                                <input type="text" class="form-control" th:field="*{requestMap}" />
+                                                <label for="requestMap">Map 파일 주소 <span style="color: red;">(*)</span></label>
+                                                <input type="text" class="form-control" th:field="*{requestMap}" readonly />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="requestLayers">요청 Layer 이름</label>
-                                                <input type="text" class="form-control" th:field="*{requestLayers}" />
+                                                <label for="requestLayers">요청 Layer <span style="color: red;">(*)</span></label>
+                                                <input type="text" class="form-control" th:field="*{requestLayers}" readonly />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="mapServerBinary">MapServer 바이러리 주소</label>
-                                                <input type="text" class="form-control" th:field="*{mapServerBinary}" />
+                                                <label for="mapServerBinary">MapServer 바이러리 주소 <span style="color: red;">(*)</span></label>
+                                                <input type="text" class="form-control" th:field="*{mapServerBinary}" readonly />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="mapServerWorkDir">MapServer 작동 주소</label>
-                                                <input type="text" class="form-control" th:field="*{mapServerWorkDir}" />
+                                                <label for="mapServerWorkDir">MapServer 작업 주소 <span style="color: red;">(*)</span></label>
+                                                <input type="text" class="form-control" th:field="*{mapServerWorkDir}" readonly />
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -303,33 +359,37 @@
                                         <div class="modal-body">
                                             <input type="hidden" id="proxySourceId_u" name="id" />
                                             <div class="form-group">
-                                                <label for="proxySourceName_u">리소스 이름</label>
+                                                <label for="proxySourceName_u">리소스 이름 <span style="color: red;">(*)</span></label>
                                                 <input type="text" class="form-control" id="proxySourceName_u" name="proxySourceName" readonly />
                                             </div>
 
+                                            <button type="button" class="btn btn-info btn-block mb-1" data-toggle="modal" data-target="#searchMap">
+                                                <i class="fas fa-search"></i> MapServer 리소스 : Map 파일 선택
+                                            </button>
+
                                             <div class="form-group">
-                                                <label for="proxySourceType_u">리소스 종류</label>
+                                                <label for="proxySourceType_u">리소스 종류 <span style="color: red;">(*)</span></label>
                                                 <input type="text" class="form-control" id="proxySourceType_u" name="proxySourceType" readonly />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="requestMap_u">요청 Map 파일 주소</label>
-                                                <input type="text" class="form-control" id="requestMap_u" name="requestMap" />
+                                                <label for="requestMap_u">Map 파일 주소 <span style="color: red;">(*)</span></label>
+                                                <input type="text" class="form-control" id="requestMap_u" name="requestMap" readonly />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="requestLayers_u">요청 Layer 이름</label>
-                                                <input type="text" class="form-control" id="requestLayers_u" name="requestLayers" />
+                                                <label for="requestLayers_u">요청 Layer <span style="color: red;">(*)</span></label>
+                                                <input type="text" class="form-control" id="requestLayers_u" name="requestLayers" readonly />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="mapServerBinary_u">MapServer 바이러리 주소</label>
-                                                <input type="text" class="form-control" id="mapServerBinary_u" name="mapServerBinary" />
+                                                <label for="mapServerBinary_u">MapServer 바이러리 주소 <span style="color: red;">(*)</span></label>
+                                                <input type="text" class="form-control" id="mapServerBinary_u" name="mapServerBinary" readonly />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="mapServerWorkDir_u">MapServer 작동 주소</label>
-                                                <input type="text" class="form-control" id="mapServerWorkDir_u" name="mapServerWorkDir" />
+                                                <label for="mapServerWorkDir_u">MapServer 작동 주소 <span style="color: red;">(*)</span></label>
+                                                <input type="text" class="form-control" id="mapServerWorkDir_u" name="mapServerWorkDir" readonly />
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -345,6 +405,36 @@
                             </div>
                         </div>
                         <!-- Data Updating Modal - SOURCE END -->
+
+                        <!-- Data Search Modal - MAP START -->
+                        <div class="modal fade" id="searchMap" tabindex="-2" role="dialog" aria-labelledby="searchMapLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="searchMapLabel">Map Server : Map 파일 선택</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="mapFile">Map 파일</label>
+                                            <select class="form-control" id="mapFile" onchange="onchange_mapFile_value()">
+                                                <option value='{ "requestMap" : "[none]", "mapId" : -1 }'>-- Map 파일 선택 --</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="mapLayer">레이어 선택</label>
+                                            <select class="form-control" id="mapLayer" onchange="onchange_mapLayer_value()">
+                                                <option value="[none]">-- 레이어 선택 --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Data Search Modal - MAP END -->
 
                         <!-- Data List Table - SOURCE START -->
                         <table id="list_table_source" class="table table-sm table-striped my-1">
@@ -427,8 +517,7 @@
 
                         <!-- Data Inserting Modal - CACHE START -->
                         <div class="modal fade" id="cacheDataInsert" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle3" aria-hidden="true">
-                            <div class="modal-dialog modal-di
-                            alog-centered modal-lg" role="document">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
                                     <form id="add-proxy-cache" th:action="@{/view/cache/add-proxy-cache}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" th:object="${addProxyCache}">
                                         <div class="modal-header">
@@ -437,13 +526,14 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body">
+
+                                        <div class="modal-body" th:if="${ #lists.size(sourceMap.data) > 0 }">
                                             <div class="form-group row">
                                                 <div class="col-12">
-                                                    <label for="proxyCacheName">캐시 이름</label>
+                                                    <label for="proxyCacheName">캐시 이름 <span style="color: red;">(*)</span></label>
                                                 </div>
                                                 <div class="col-12 input-group">
-                                                    <input type="text" class="form-control"  th:field="*{proxyCacheName}">
+                                                    <input type="text" class="form-control" th:field="*{proxyCacheName}">
                                                     <div class="input-group-append">
                                                         <span class="input-group-btn btn btn-primary" style="cursor: pointer;" onclick="jiCommon.duplicateCheck('PROXYCACHE','#proxyCacheName','#duplicate-check-message-proxy-cache')">중복확인</span>
                                                     </div>
@@ -454,37 +544,47 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="proxyCacheType">캐시 종류</label>
+                                                <label for="proxyCacheType">캐시 종류 <span style="color: red;">(*)</span></label>
                                                 <input type="text" class="form-control" th:field="*{proxyCacheType}" readonly />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="proxyCacheDirectory">캐시 디렉토리</label>
-                                                <input type="text" class="form-control" th:field="*{proxyCacheDirectory}" />
+                                                <label for="proxyCacheDirectory">캐시 디렉토리 <span style="color: red;">(*)</span></label>
+                                                <input type="text" class="form-control" th:field="*{proxyCacheDirectory}" readonly />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="metaSizeX">타일 가로 크기</label>
+                                                <label for="metaSizeX">타일 가로 크기 <span style="color: red;">(*)</span></label>
                                                 <input type="number" class="form-control" th:field="*{metaSizeX}" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="metaSizeY">타일 세로 크기</label>
+                                                <label for="metaSizeY">타일 세로 크기 <span style="color: red;">(*)</span></label>
                                                 <input type="number" class="form-control" th:field="*{metaSizeY}" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="metaBuffer">타일 버퍼 크기</label>
+                                                <label for="metaBuffer">타일 버퍼 크기 <span style="color: red;">(*)</span></label>
                                                 <input type="number" class="form-control" th:field="*{metaBuffer}" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="proxySourcesWithCaches">캐시 연계 소스</label>
+                                                <label for="proxySourcesWithCaches">캐시 연계 소스 <span style="color: red;">(*)</span></label>
                                                 <select class="form-control" th:field="*{proxySourcesWithCaches}" multiple>
                                                     <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
                                                 </select>
                                             </div>
                                         </div>
+
+                                        <div class="modal-body" th:unless="${ #lists.size(sourceMap.data) > 0 }">
+                                            <div class="jumbotron">
+                                                <h1 class="display-4">
+                                                    <i class="fas fa-times-circle"></i> Error
+                                                </h1>
+                                                <p class="lead">추가 된 리소스 (Source) 데이터가 없습니다. 리소스 데이터를 추가하고 다시 시도 바랍니다.</p>
+                                            </div>
+                                        </div>
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="onclick_close('proxyCacheName', 'cache')">
                                                 <i class="fas fa-times"></i> 취소
@@ -510,7 +610,8 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body">
+
+                                        <div class="modal-body" th:if="${ #lists.size(sourceMap.data) > 0 }">
                                             <input type="hidden" id="proxyCacheId_u" name="id" />
                                             <div class="form-group">
                                                 <label for="proxyCacheName_u">캐시 이름</label>
@@ -524,7 +625,7 @@
 
                                             <div class="form-group">
                                                 <label for="proxyCacheDirectory_u">캐시 디렉토리</label>
-                                                <input type="text" class="form-control" id="proxyCacheDirectory_u" name="proxyCacheDirectory" />
+                                                <input type="text" class="form-control" id="proxyCacheDirectory_u" name="proxyCacheDirectory" readonly />
                                             </div>
 
                                             <div class="form-group">
@@ -549,6 +650,16 @@
                                                 </select>
                                             </div>
                                         </div>
+
+                                        <div class="modal-body" th:unless="${ #lists.size(sourceMap.data) > 0 }">
+                                            <div class="jumbotron">
+                                                <h1 class="display-4">
+                                                    <i class="fas fa-times-circle"></i> Error
+                                                </h1>
+                                                <p class="lead">추가 된 리소스 (Source) 데이터가 없습니다. 리소스 데이터를 추가하고 다시 시도 바랍니다.</p>
+                                            </div>
+                                        </div>
+
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                                 <i class="fas fa-times"></i> 취소
@@ -627,7 +738,7 @@
                                 document.getElementById('metaSizeX_u').value = obj.metaSizeX;
                                 document.getElementById('metaSizeY_u').value = obj.metaSizeY;
                                 document.getElementById('metaBuffer_u').value = obj.metaBuffer;
-                                $('#proxySourcesWithCaches_u').val(obj.sources.map(s => s.name));
+                                $('#proxySourcesWithCaches_u').val(obj.sources.map(s => s.source && s.source.name));
                             }
                         </script>
                         <!-- Data List Table - CACHE END -->
@@ -638,7 +749,7 @@
 
         <div class="col-xl-6">
             <div id="layer_select" class="my-2">
-                <p>레이어 선택</p>
+                <p>레이어 선택 <span style="color: red;">(*)</span></p>
 
                 <ul class="list-group" id="selectedLayers">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -651,7 +762,7 @@
             </div>
 
             <div id="source_select" class="my-2">
-                <p>소스 선택</p>
+                <p>소스 선택 <span style="color: red;">(*)</span></p>
 
                 <ul class="list-group" id="selectedSources">
                     <li class="list-group-item d-flex justify-content-between align-items-center">

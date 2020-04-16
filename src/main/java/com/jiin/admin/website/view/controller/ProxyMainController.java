@@ -20,109 +20,81 @@ import java.util.Map;
 @RequestMapping("cache")
 public class ProxyMainController {
     @Autowired
-    private ProxySettingService cacheService;
-
-    @RequestMapping("preview")
-    public String cacheDataPreview(Model model){
-        model.addAttribute("layer", cacheService.getCachedLayerData());
-        model.addAttribute("request", cacheService.getCachedRequestData());
-        model.addAttribute("boundingBox", cacheService.getBoundingBoxInfoWithCrs());
-        model.addAttribute("serviceURL", MapProxyUtil.getServiceURL());
-        return "page/cache/preview";
-    }
+    private ProxySettingService proxyService;
 
     @RequestMapping("setting")
     public String cacheDataSetting(Model model){
-        model.addAttribute("layerMap", cacheService.getProxyLayerEntities());
-        model.addAttribute("sourceMap", cacheService.getProxySourceEntities());
-        model.addAttribute("cacheMap", cacheService.getProxyCacheEntities());
+        model.addAttribute("layerMap", proxyService.getProxyLayerEntities());
+        model.addAttribute("sourceMap", proxyService.getProxySourceEntities());
+        model.addAttribute("cacheMap", proxyService.getProxyCacheEntities());
 
-        model.addAttribute("addProxyLayer", new ProxyLayerModel());
-        model.addAttribute("addProxySource", new ProxySourceModel());
-        model.addAttribute("addProxyCache", new ProxyCacheModel());
+        model.addAttribute("addProxyLayer", proxyService.initializeProxyLayerModel());
+        model.addAttribute("addProxySource", proxyService.initializeProxySourceModel());
+        model.addAttribute("addProxyCache", proxyService.initializeProxyCacheModel());
 
-        model.addAttribute("proxySources", cacheService.getProxySourceEntities().get("data"));
+        model.addAttribute("proxySources", proxyService.getProxySourceEntities().get("data"));
+        model.addAttribute("proxyCaches", proxyService.getProxyCacheEntities().get("data"));
 
         return "page/cache/setting";
     }
 
     @RequestMapping(value = "add-proxy-layer", method = RequestMethod.POST)
     public String addProxyLayer(Model model, ProxyLayerModel proxyLayerModel){
-        cacheService.createProxyLayerEntityWithModel(proxyLayerModel);
+        proxyService.createProxyLayerEntityWithModel(proxyLayerModel);
         return "redirect:setting";
     }
 
     @RequestMapping(value = "add-proxy-source", method = RequestMethod.POST)
     public String addProxySource(Model model, ProxySourceModel proxySourceModel){
-        cacheService.createProxySourceEntityWithModel(proxySourceModel);
+        proxyService.createProxySourceEntityWithModel(proxySourceModel);
         return "redirect:setting";
     }
 
     @RequestMapping(value = "add-proxy-cache", method = RequestMethod.POST)
     public String addProxyCache(Model model, ProxyCacheModel proxyCacheModel){
-        cacheService.createProxyCacheEntityWithModel(proxyCacheModel);
+        proxyService.createProxyCacheEntityWithModel(proxyCacheModel);
         return "redirect:setting";
     }
 
     @RequestMapping(value = "update-proxy-layer", method = RequestMethod.POST)
     public String updateProxyLayer(Model model, ProxyLayerModel proxyLayerModel){
-        cacheService.updateProxyLayerEntityWithModel(proxyLayerModel);
+        proxyService.updateProxyLayerEntityWithModel(proxyLayerModel);
         return "redirect:setting";
     }
 
     @RequestMapping(value = "update-proxy-source", method = RequestMethod.POST)
     public String updateProxySource(Model model, ProxySourceModel proxySourceModel){
-        cacheService.updateProxySourceEntityWithModel(proxySourceModel);
+        proxyService.updateProxySourceEntityWithModel(proxySourceModel);
         return "redirect:setting";
     }
 
     @RequestMapping(value = "update-proxy-cache", method = RequestMethod.POST)
     public String updateProxyCache(Model model, ProxyCacheModel proxyCacheModel){
-        cacheService.updateProxyCacheEntityWithModel(proxyCacheModel);
+        proxyService.updateProxyCacheEntityWithModel(proxyCacheModel);
         return "redirect:setting";
     }
 
     @RequestMapping(value = "checking-save", method = RequestMethod.POST)
     public String checkingProxyDataSettings(Model model, ProxySelectModel proxySelectModel){
-        cacheService.checkProxyDataSettingsWithModel(proxySelectModel);
+        proxyService.checkProxyDataSettingsWithModel(proxySelectModel);
         return "redirect:setting";
     }
 
     @RequestMapping("delete-proxy-layer/{id}")
     public String deleteProxyLayerByName(Model model, @PathVariable String id){
-        cacheService.deleteProxyLayerEntityById(Long.parseLong(id));
+        proxyService.deleteProxyLayerEntityById(Long.parseLong(id));
         return "redirect:../setting";
     }
 
     @RequestMapping("delete-proxy-source/{id}")
     public String deleteProxySourceByName(Model model, @PathVariable String id){
-        cacheService.deleteProxySourceEntityById(Long.parseLong(id));
+        proxyService.deleteProxySourceEntityById(Long.parseLong(id));
         return "redirect:../setting";
     }
 
     @RequestMapping("delete-proxy-cache/{id}")
     public String deleteProxyCacheByName(Model model, @PathVariable String id){
-        cacheService.deleteProxyCacheEntityById(Long.parseLong(id));
+        proxyService.deleteProxyCacheEntityById(Long.parseLong(id));
         return "redirect:../setting";
-    }
-
-    @RequestMapping("layers")
-    public String cacheSourcesPage(Model model){
-        model.addAttribute("layer", cacheService.getCachedLayerData());
-        model.addAttribute("request", cacheService.getCachedRequestData());
-        model.addAttribute("boundingBox", cacheService.getBoundingBoxInfoWithCrs());
-        model.addAttribute("serviceURL", MapProxyUtil.getServiceURL());
-        return "page/cache/layers";
-    }
-
-    @RequestMapping("grids")
-    public String cacheGridsPage(Model model){
-        model.addAttribute("boundingBox", cacheService.getBoundingBoxInfoWithCrs());
-        return "page/cache/grids";
-    }
-
-    @RequestMapping("seeds")
-    public String cacheConfigPage(Model model){
-        return "page/cache/seeds";
     }
 }

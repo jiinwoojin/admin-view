@@ -17,10 +17,12 @@ public class ProxyCacheModel {
     private Integer metaSizeY;
     private Integer metaBuffer;
     private List<String> proxySourcesWithCaches;
+    private Boolean isDefault;
 
     public ProxyCacheModel(){
         this.proxyCacheType = "file";
         this.proxySourcesWithCaches = new ArrayList<>();
+        this.isDefault = false;
     }
 
     public ProxyCacheModel(long id, String proxyCacheName, String proxyCacheType, String proxyCacheDirectory, Integer metaSizeX, Integer metaSizeY, Integer metaBuffer, List<String> proxySourcesWithCaches){
@@ -32,5 +34,6 @@ public class ProxyCacheModel {
         this.metaSizeY = metaSizeY;
         this.metaBuffer = metaBuffer;
         this.proxySourcesWithCaches = proxySourcesWithCaches;
+        this.isDefault = false;
     }
 }
