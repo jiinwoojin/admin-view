@@ -77,7 +77,7 @@ ji3DMap.prototype.init = function init(options) {
  */
 ji3DMap.prototype.setBaseTerrain = function setBaseTerrain() {
     var terrainProvider = new Cesium.CesiumTerrainProvider({
-        url : 'http://' + stmp.SERVER_DOMAIN + ':10000/tilesets/navy'
+        url : 'http://' + stmp.SERVER_DOMAIN + ':11100/tilesets/dted'
     });
 
     this.map.terrainProvider = terrainProvider;
@@ -107,7 +107,7 @@ ji3DMap.prototype.setBaseImagery = function setBaseImagery() {
     var imageryLayers = this.map.imageryLayers;
     imageryLayers.removeAll();
     imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-        url : 'http://' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT + '/service',
+        url : 'http://' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT + '/mapproxy/service',
         layers : stmp.getBaseMapSource(),
         parameters : {
             transparent : 'true',
