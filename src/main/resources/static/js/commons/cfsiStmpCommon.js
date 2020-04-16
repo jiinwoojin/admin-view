@@ -1626,7 +1626,7 @@ var stmp = {
                     "text-halo-width": 1
                 },
                 'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'top'], zoomRangeFilter]
-            },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+            });
             stmp.mapObject.map.addLayer({
                 'id': 'graticules-label-bottom',
                 'type': 'symbol',
@@ -1643,7 +1643,7 @@ var stmp = {
                     "text-halo-width": 1
                 },
                 'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'bottom'], zoomRangeFilter]
-            },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+            });
             stmp.mapObject.map.addLayer({
                 'id': 'graticules-label-left',
                 'type': 'symbol',
@@ -1660,7 +1660,7 @@ var stmp = {
                     "text-halo-width": 1
                 },
                 'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'left'], zoomRangeFilter]
-            },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+            });
             stmp.mapObject.map.addLayer({
                 'id': 'graticules-label-right',
                 'type': 'symbol',
@@ -1677,7 +1677,7 @@ var stmp = {
                     "text-halo-width": 1
                 },
                 'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'right'], zoomRangeFilter]
-            },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+            });
         }else{
             stmp.mapObject.map.addLayer({
                 'id': 'graticules-label-inside',
@@ -1693,7 +1693,7 @@ var stmp = {
                     "text-halo-width": 1
                 },
                 'filter': ["all", ['==', '$type', 'Point'], ["==", "position", 'inside'], zoomRangeFilter]
-            },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+            });
         }
         jiCommon.hideLoading()
     }
@@ -1952,7 +1952,7 @@ var stmp = {
                 'fill-opacity': 0.2
             },
             'filter': ["all", ['==', '$type', 'Polygon'], ["==", "zoomRange", 'all']]
-        },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+        });
         // graticules-boundry-zoom-00-to-07
         stmp.mapObject.map.addLayer({
             'id': 'graticules-boundry-zoom-00-to-07',
@@ -1963,7 +1963,7 @@ var stmp = {
                 'fill-opacity': 0.1
             },
             'filter': ["all", ['==', '$type', 'Polygon'], ["==", "zoomRange", '00-to-07']]
-        },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+        });
         stmp.mapObject.map.getLayer("graticules-boundry-zoom-00-to-07").minzoom = 0
         stmp.mapObject.map.getLayer("graticules-boundry-zoom-00-to-07").maxzoom = 5
         // graticules-boundry-zoom-07-to-10
@@ -1976,7 +1976,7 @@ var stmp = {
                 'fill-opacity': 0.1
             },
             'filter': ["all", ['==', '$type', 'Polygon'], ["==", "zoomRange", '07-to-10']]
-        },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+        });
         stmp.mapObject.map.getLayer("graticules-boundry-zoom-07-to-10").minzoom = 5
         stmp.mapObject.map.getLayer("graticules-boundry-zoom-07-to-10").maxzoom = 10
         // graticules-boundry-zoom-10-to-20
@@ -1989,7 +1989,7 @@ var stmp = {
                 'fill-opacity': 0.1
             },
             'filter': ["all", ['==', '$type', 'Polygon'], ["==", "zoomRange", '10-to-20']]
-        },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+        });
         stmp.mapObject.map.getLayer("graticules-boundry-zoom-10-to-20").minzoom = 10
         stmp.mapObject.map.getLayer("graticules-boundry-zoom-10-to-20").maxzoom = 20
         // graticules-line-zoom-all
@@ -2003,7 +2003,7 @@ var stmp = {
                 "line-dasharray": [10, 8]
             },
             'filter': ["all", ['==', '$type', 'LineString'], ["==", "zoomRange", 'all']]
-        },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+        });
         // graticules-line-zoom-00-to-07
         stmp.mapObject.map.addLayer({
             'id': 'graticules-line-zoom-00-to-07',
@@ -2015,7 +2015,7 @@ var stmp = {
                 "line-dasharray": [10, 8]
             },
             'filter': ["all", ['==', '$type', 'LineString'], ["==", "zoomRange", '00-to-07']]
-        },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+        });
         stmp.mapObject.map.getLayer("graticules-line-zoom-00-to-07").minzoom = 0
         stmp.mapObject.map.getLayer("graticules-line-zoom-00-to-07").maxzoom = 7
         // graticules-line-zoom-07-to-10
@@ -2029,7 +2029,7 @@ var stmp = {
                 "line-dasharray": [10, 8]
             },
             'filter': ["all", ['==', '$type', 'LineString'], ["==", "zoomRange", '07-to-10']]
-        },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+        });
         stmp.mapObject.map.getLayer("graticules-line-zoom-07-to-10").minzoom = 7
         stmp.mapObject.map.getLayer("graticules-line-zoom-07-to-10").maxzoom = 10
         // graticules-line-zoom-10-to-20
@@ -2043,7 +2043,7 @@ var stmp = {
                 "line-dasharray": [10, 8]
             },
             'filter': ["all", ['==', '$type', 'LineString'], ["==", "zoomRange", '10-to-20']]
-        },stmp.mapObject.map.getStyle().layers[prevLayerIdx++].id);
+        });
         stmp.mapObject.map.getLayer("graticules-line-zoom-10-to-20").minzoom = 10
         stmp.mapObject.map.getLayer("graticules-line-zoom-10-to-20").maxzoom = 20
         //
