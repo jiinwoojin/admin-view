@@ -22,8 +22,10 @@ var jiMap = function jiMap(options) {
 
             console.log('2DMap 생성 완료.');
         });
+        /* GRID area */
         // 그리드 라벨 redraw
         this.map.on('moveend', stmp.graticulesLabelGenerator)
+        /* GRID area */
         /**
          * callback 함수가 있을 경우 호출
          */
@@ -445,6 +447,7 @@ jiMap.prototype._bindEvents = function _bindEvents() {
 
     this.map.on('zoomend', function(e) {
         console.log(e);
+        console.log(stmp.mapObject.map.getZoom());
         // zoom 레벨에 따라 지도 변환
         // 육도일 경우 육도로만 전환 
         // 14LV : 2.5만

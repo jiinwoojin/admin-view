@@ -1530,6 +1530,7 @@ var stmp = {
         }
         return oStr;
     }
+    /* GRID area */
     , graticulesLabelGenerator : function(evt){
         var options = stmp.mapObject.map._graticules_options
         if(options === undefined || options.graticulesDrawn === true){
@@ -2045,6 +2046,7 @@ var stmp = {
             return label
         }
     }
+    /* GRID area */
 };
 if (window.stmp === undefined) {
     window.stmp = stmp;
