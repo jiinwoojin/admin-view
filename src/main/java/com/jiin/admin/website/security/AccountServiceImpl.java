@@ -113,6 +113,15 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
     }
 
     @Override
+    public boolean updateRoleWithModel(RoleModel roleModel) {
+        RoleEntity role = accountMapper.findRoleByTitle(roleModel.getTitle());
+        if(role != null){
+            accountMapper.updateRole(new RoleEntity(role.getId(), roleModel.getTitle(), roleModel.getLabel(), roleModel.isMapBasic(), roleModel.isMapManage(), roleModel.isLayerManage(), roleModel.isCacheManage(), roleModel.isAccountManage()));
+            return true;
+        } else return false;
+    }
+
+    @Override
     public boolean deleteAccountWithUsername(String loginId) {
         if(checkMapper.countDuplicateAccount(loginId) > 0){
             accountMapper.deleteAccountByUsername(loginId);

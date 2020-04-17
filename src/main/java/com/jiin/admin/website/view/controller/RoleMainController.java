@@ -23,9 +23,17 @@ public class RoleMainController {
     }
 
     @RequestMapping(value = "add-role", method = RequestMethod.POST)
-    public String roleInsertLink(Model model, RoleModel role){
-        accountService.createRoleWithModel(role);
-        return "redirect:list";
+    public String roleInsertRedirect(Model model, RoleModel role){
+        if(accountService.createRoleWithModel(role)) {
+            return "redirect:list";
+        } else return "redirect:list?error";
+    }
+
+    @RequestMapping(value = "update-role", method = RequestMethod.POST)
+    public String roleUpdateRedirect(Model model, RoleModel role){
+        if(accountService.updateRoleWithModel(role)){
+            return "redirect:list";
+        } else return "redirect:list?error";
     }
 
     @RequestMapping("delete-role/{id}")

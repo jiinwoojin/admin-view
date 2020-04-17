@@ -256,7 +256,6 @@
                                 document.getElementById('proxyLayerId_u').value = obj.id;
                                 document.getElementById('proxyLayerName_u').value = obj.name;
                                 document.getElementById('proxyLayerTitle_u').value = obj.title;
-                                console.log(obj)
                                 $('#proxySources_u').val(obj.sources.map(s => s.source && s.source.name));
                                 $('#proxyCaches_u').val(obj.caches.map(c => c.cache && c.cache.name));
                             }
