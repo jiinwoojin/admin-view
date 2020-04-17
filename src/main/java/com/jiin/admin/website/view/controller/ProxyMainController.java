@@ -1,10 +1,12 @@
 package com.jiin.admin.website.view.controller;
 
+import com.jiin.admin.website.gis.MapProxyYamlComponent;
 import com.jiin.admin.website.gis.ProxySettingService;
 import com.jiin.admin.website.model.ProxyCacheModel;
 import com.jiin.admin.website.model.ProxyLayerModel;
 import com.jiin.admin.website.model.ProxySelectModel;
 import com.jiin.admin.website.model.ProxySourceModel;
+import com.jiin.admin.website.util.MapProxyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 
 @Controller
@@ -19,6 +22,9 @@ import java.io.IOException;
 public class ProxyMainController {
     @Autowired
     private ProxySettingService proxyService;
+
+    @Resource
+    private MapProxyYamlComponent mapProxyYamlComponent;
 
     @RequestMapping("setting")
     public String cacheDataSetting(Model model){
@@ -94,5 +100,13 @@ public class ProxyMainController {
     public String deleteProxyCacheByName(Model model, @PathVariable String id){
         proxyService.deleteProxyCacheEntityById(Long.parseLong(id));
         return "redirect:../setting";
+    }
+
+    @RequestMapping("preview")
+    public String proxyLayerPreviewPage(Model model) throws IOException {
+        model.addAttribute("serviceURL", MapProxyUtil.getServiceURL());
+        model.addAttribute("proxyLayers", proxyService.getProxyLayerEntities().get("data"));
+        model.addAttribute("proxyYAML", mapProxyYamlComponent.getMapProxyYamlFileContext());
+        return "page/cache/preview";
     }
 }

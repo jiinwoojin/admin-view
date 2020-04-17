@@ -13,11 +13,8 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.nodes.Tag;
 import org.yaml.snakeyaml.representer.Representer;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -107,5 +104,23 @@ public class MapProxyYamlComponent {
 
         Yaml yaml = new Yaml(representer, options);
         yaml.dump(model, new FileWriter(dataPath + workDir + fileName));
+    }
+
+    public String getMapProxyYamlFileContext() throws IOException {
+        File directory = new File(dataPath + workDir);
+        if(!directory.exists()) directory.mkdirs();
+
+        File file = new File(dataPath + workDir + fileName);
+        if(!file.exists()) file.createNewFile();
+
+        StringBuffer sb = new StringBuffer();
+        FileReader reader = new FileReader(dataPath + workDir + fileName);
+        BufferedReader bufReader = new BufferedReader(reader);
+        String line = "";
+        while((line = bufReader.readLine()) != null){
+            sb.append(line + "\n");
+        }
+
+        return sb.length() == 0 ? "[ NO CONTEXT ]" : sb.toString();
     }
 }
