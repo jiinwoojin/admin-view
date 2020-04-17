@@ -17,18 +17,19 @@
 
 <th:block layout:fragment="content-body-fragment">
     <div class="text-right my-1">
-        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#roleDataInsert" onclick="">
+        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#roleDataInsert">
             <i class="fas fa-plus"></i> 권한 추가
         </button>
     </div>
 
+    <!-- Data Inserting Modal - ROLE START -->
     <div class="modal fade" id="roleDataInsert" tabindex="-1" role="dialog" aria-labelledby="insertModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
-                <form id="add-proxy-layer" th:action="@{/view/role/add-role}" method="post" accept-charset="utf-8" onsubmit="return preSubmit()" th:object="${roleModel}">
+                <form id="add-role" th:action="@{/view/role/add-role}" method="post" accept-charset="utf-8" onsubmit="return preSubmit()" th:object="${roleModel}">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="insertModalCenterTitle">데이터 추가 - Layer</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('proxyLayerName', 'layer')">
+                        <h5 class="modal-title" id="insertModalCenterTitle">데이터 추가 - 권한</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('title')">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -102,33 +103,80 @@
             </div>
         </div>
     </div>
+    <!-- Data Inserting Modal - ROLE END -->
 
-    <script>
-        window.onload = function() {
-            $('#title').change(function () {
-                $('#title').data("check-duplicate", false);
-                $('#duplicate-check-title').text("중복확인을 해주세요.");
-            });
-        }
+    <!-- Data Updating Modal - ROLE START -->
+    <div class="modal fade" id="roleDataUpdate" tabindex="-1" role="dialog" aria-labelledby="updateModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <form id="update-role" th:action="@{/view/role/update-role}" method="post" accept-charset="utf-8">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateModalCenterTitle">데이터 수정 - 권한</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
-        function onclick_close(field){
-            $(`#${field}`).val('');
-            $(`#${field}`).data("check-duplicate",false);
-            $(`#duplicate-check-title`).text("중복확인을 해주세요.");
-        }
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="title_u">권한 명칭 <span style="color: red;">(*)</span></label>
+                            <input type="text" class="form-control" id="title_u" name="title" readonly />
+                        </div>
 
-        function preSubmit(){
-            if(jQuery.isEmptyObject(form['title'].value)) {
-                form['title'].focus();
-                toastr.warning("명칭이 입력되지 않았습니다.");
-                return false;
-            }else if(jQuery(form['title']).data("check-duplicate") === false) {
-                toastr.warning("명칭 중복확인이 되지 않았습니다.");
-                return false;
-            }
-            return true;
-        }
-    </script>
+                        <div class="form-group">
+                            <label for="label_u">권한 이름 <span style="color: red;">(*)</span></label>
+                            <input type="text" class="form-control" id="label_u" name="label" />
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="mapBasic_u" name="mapBasic">
+                            <label class="form-check-label" for="mapBasic_u">
+                                투명도 및 군대부호 사용 가능
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="mapManage_u" name="mapManage">
+                            <label class="form-check-label" for="mapManage_u">
+                                MapServer Map 파일 관리 기능
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="layerManage_u" name="layerManage">
+                            <label class="form-check-label" for="layerManage_u">
+                                MapServer Layer 파일 관리 기능
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="cacheManage_u" name="cacheManage">
+                            <label class="form-check-label" for="cacheManage_u">
+                                MapProxy Cache 데이터 관리 기능
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="accountManage_u" name="accountManage">
+                            <label class="form-check-label" for="accountManage_u">
+                                사용자 관리 기능
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times"></i> 취소
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 저장
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Data Updating Modal - ROLE END -->
 
     <div id="role_list_view">
         <table id="list_table" class="table table-sm table-striped">
@@ -181,9 +229,15 @@
                     <i class="fas fa-times"></i>
                 </td>
                 <td class="d-flex justify-content-center" th:unless="${ role.title == 'USER' || role.title == 'ADMIN' }">
-                    <button type="button" class="btn btn-info btn-circle btn-sm mx-1">
+                    <button th:id="${ 'roleUpdate' + role.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#roleDataUpdate">
                         <i class="fas fa-cog"></i>
                     </button>
+                    <script th:inline="javascript">
+                        var r_json[[${role.id}]] = /*[[${ role }]]*/ {};
+                        document.getElementById('roleUpdate' + [[${role.id}]]).onclick = function() {
+                            onclick_update_role(r_json[[${role.id}]]);
+                        };
+                    </script>
                     <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/role/delete-role/' + ${role.id} }" onclick="return confirm('권한 삭제를 진행 하시겠습니까?')">
                         <i class="fas fa-trash"></i>
                     </a>
@@ -191,6 +245,7 @@
             </tr>
             </tbody>
         </table>
+
         <script>
             $(document).ready(function() {
                 $('#list_table').DataTable({
@@ -209,12 +264,43 @@
                         }
                     }
                 });
-            });
 
-            window.onload = function() {
                 if(window.location.search.includes('error')){
                     toastr.error('서버 요청 중 오류가 발생했습니다 : 없는 권한 ID 값으로 수정 및 삭제를 진행 했습니다.');
                 }
+
+                $('#title').change(function () {
+                    $('#title').data("check-duplicate", false);
+                    $('#duplicate-check-title').text("중복확인을 해주세요.");
+                });
+            });
+
+            function onclick_update_role(obj){
+                document.getElementById('title_u').value = obj.title;
+                document.getElementById('label_u').value = obj.label;
+                document.getElementById('mapManage_u').checked = obj.mapManage;
+                document.getElementById('mapBasic_u').checked = obj.mapBasic;
+                document.getElementById('layerManage_u').checked = obj.layerManage;
+                document.getElementById('accountManage_u').checked = obj.accountManage;
+                document.getElementById('cacheManage_u').checked = obj.cacheManage;
+            }
+
+            function onclick_close(field){
+                $(`#${field}`).val('');
+                $(`#${field}`).data("check-duplicate",false);
+                $(`#duplicate-check-title`).text("중복확인을 해주세요.");
+            }
+
+            function preSubmit(){
+                if(jQuery.isEmptyObject(form['title'].value)) {
+                    form['title'].focus();
+                    toastr.warning("명칭이 입력되지 않았습니다.");
+                    return false;
+                } else if(jQuery(form['title']).data("check-duplicate") === false) {
+                    toastr.warning("명칭 중복확인이 되지 않았습니다.");
+                    return false;
+                }
+                return true;
             }
         </script>
     </div>
