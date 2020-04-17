@@ -66,6 +66,10 @@ public class ManageService {
         return mapper.getLayerList();
     }
 
+    public List<LayerEntity> findLayerEntitiesByMapId(long mapId){
+        return mapper.findLayerEntitiesByMapId(mapId);
+    }
+
     // Get Layer List With Pagination Model
     public Map<String, Object> getLayerListByPaginationModel(LayerSearchModel paginationModel) throws ParseException {
         final Sort[] sorts = {

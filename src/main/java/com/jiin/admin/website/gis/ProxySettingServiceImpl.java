@@ -1,8 +1,5 @@
 package com.jiin.admin.website.gis;
 
-import com.jiin.admin.dto.ProxyCacheDTO;
-import com.jiin.admin.dto.ProxyLayerDTO;
-import com.jiin.admin.dto.ProxySourceDTO;
 import com.jiin.admin.entity.ProxyCacheEntity;
 import com.jiin.admin.entity.ProxyLayerEntity;
 import com.jiin.admin.entity.ProxySourceEntity;
@@ -11,8 +8,10 @@ import com.jiin.admin.website.model.ProxyLayerModel;
 import com.jiin.admin.website.model.ProxySelectModel;
 import com.jiin.admin.website.model.ProxySourceModel;
 import com.jiin.admin.website.server.mapper.CheckMapper;
-import com.jiin.admin.website.util.MapProxyUtil;
 import com.jiin.admin.website.view.mapper.ProxyMapper;
+import com.jiin.admin.website.view.repository.ProxyCacheEntityRepository;
+import com.jiin.admin.website.view.repository.ProxyLayerEntityRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,11 +25,23 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProxySettingServiceImpl implements ProxySettingService {
+    @Value("${project.mapserver.binary}")
+    private String mapServerBinary;
+
+    @Value("${project.data-path}")
+    private String dataPath;
+
     @Resource
     private ProxyMapper proxyMapper;
 
     @Resource
     private CheckMapper checkMapper;
+
+    @Resource
+    private ProxyLayerEntityRepository proxyLayerEntityRepository;
+
+    @Resource
+    private ProxyCacheEntityRepository proxyCacheEntityRepository;
 
     private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
         Map<Object, Boolean> map = new ConcurrentHashMap<>();
@@ -51,6 +62,20 @@ public class ProxySettingServiceImpl implements ProxySettingService {
         }
     }
 
+    private void insertLayerAndCacheRelation(long layerId, List<String> caches){
+        for(String cacheKey : caches){
+            Map<String, String> searchCacheMap = new HashMap<String, String>() {{
+                put("name", cacheKey);
+            }};
+            ProxyCacheEntity cacheEntity = proxyMapper.findProxyCacheEntityWithName(searchCacheMap);
+            Map<String, Long> insertMap = new HashMap<String, Long>() {{
+                put("layerId", layerId);
+                put("cacheId", cacheEntity.getId());
+            }};
+            proxyMapper.insertProxyLayerCacheRelationWithMap(insertMap);
+        }
+    }
+
     private void insertCacheAndSourceRelation(long cacheId, List<String> sources){
         for(String sourceKey : sources){
             Map<String, String> searchSourceMap = new HashMap<String, String>() {{
@@ -67,26 +92,26 @@ public class ProxySettingServiceImpl implements ProxySettingService {
 
     @Override // TODO : DB 관계 쿼리 최적화 작업 필요
     public Map<String, Object> getProxyLayerEntities() {
-        Map<Long, List<ProxySourceDTO>> sourceMap = new HashMap<>();
-        List<ProxyLayerDTO> layers = proxyMapper.findAllProxyLayerDTOs();
-
-        for(ProxyLayerDTO layer : layers) {
-            long id = layer.getId();
-            List<ProxySourceDTO> list = sourceMap.getOrDefault(id, new ArrayList<>());
-            for (ProxySourceDTO source : layer.getSources()) {
-                list.add(source);
-            }
-            sourceMap.put(id, list);
-        }
-
-        layers = layers.stream()
-                .filter(distinctByKey(c -> c.getId()))
-                .collect(Collectors.toList());
-
-        layers.stream().forEach(c -> c.setSources(sourceMap.get(c.getId())));
+//        Map<Long, List<ProxySourceDTO>> sourceMap = new HashMap<>();
+//        List<ProxyLayerDTO> layers = proxyMapper.findAllProxyLayerDTOs();
+//
+//        for(ProxyLayerDTO layer : layers) {
+//            long id = layer.getId();
+//            List<ProxySourceDTO> list = sourceMap.getOrDefault(id, new ArrayList<>());
+//            for (ProxySourceDTO source : layer.getSources()) {
+//                list.add(source);
+//            }
+//            sourceMap.put(id, list);
+//        }
+//
+//        layers = layers.stream()
+//                .filter(distinctByKey(c -> c.getId()))
+//                .collect(Collectors.toList());
+//
+//        layers.stream().forEach(c -> c.setSources(sourceMap.get(c.getId())));
 
         Map<String, Object> result = new HashMap<>();
-        result.put("data", layers);
+        result.put("data", proxyLayerEntityRepository.findAll());
 
         return result;
     }
@@ -100,26 +125,26 @@ public class ProxySettingServiceImpl implements ProxySettingService {
 
     @Override // TODO : DB 관계 쿼리 최적화 작업 필요
     public Map<String, Object> getProxyCacheEntities() {
-        Map<Long, List<ProxySourceDTO>> sourceMap = new HashMap<>();
-        List<ProxyCacheDTO> caches = proxyMapper.findAllProxyCacheDTOs();
-
-        for(ProxyCacheDTO cache : caches) {
-            long id = cache.getId();
-            List<ProxySourceDTO> list = sourceMap.getOrDefault(id, new ArrayList<>());
-            for (ProxySourceDTO source : cache.getSources()) {
-                list.add(source);
-            }
-            sourceMap.put(id, list);
-        }
-
-        caches = caches.stream()
-                    .filter(distinctByKey(c -> c.getId()))
-                    .collect(Collectors.toList());
-
-        caches.stream().forEach(c -> c.setSources(sourceMap.get(c.getId())));
+//        Map<Long, List<ProxySourceDTO>> sourceMap = new HashMap<>();
+//        List<ProxyCacheDTO> caches = proxyMapper.findAllProxyCacheDTOs();
+//
+//        for(ProxyCacheDTO cache : caches) {
+//            long id = cache.getId();
+//            List<ProxySourceDTO> list = sourceMap.getOrDefault(id, new ArrayList<>());
+//            for (ProxySourceDTO source : cache.getSources()) {
+//                list.add(source);
+//            }
+//            sourceMap.put(id, list);
+//        }
+//
+//        caches = caches.stream()
+//                    .filter(distinctByKey(c -> c.getId()))
+//                    .collect(Collectors.toList());
+//
+//        caches.stream().forEach(c -> c.setSources(sourceMap.get(c.getId())));
 
         Map<String, Object> result = new HashMap<>();
-        result.put("data", caches);
+        result.put("data", proxyCacheEntityRepository.findAll());
 
         return result;
     }
@@ -134,37 +159,18 @@ public class ProxySettingServiceImpl implements ProxySettingService {
     }
 
     @Override
-    public Map<String, Object> getCachedRequestData() {
-        Map<String, Object> capability = MapProxyUtil.getCapabilities();
-        Map<String, Object> wmsCapability = (Map<String, Object>) capability.get("WMS_Capabilities");
-        Map<String, Object> mainRequest = (Map<String, Object>) wmsCapability.get("Capability");
-
-        return (Map<String, Object>) mainRequest.get("Request");
+    public ProxyLayerModel initializeProxyLayerModel() {
+        return new ProxyLayerModel(0L, "", "", new ArrayList<>(), new ArrayList<>());
     }
 
     @Override
-    public Map<String, Object> getCachedLayerData() {
-        Map<String, Object> capability = MapProxyUtil.getCapabilities();
-        Map<String, Object> wmsCapability = (Map<String, Object>) capability.get("WMS_Capabilities");
-        Map<String, Object> mainCapability = (Map<String, Object>) wmsCapability.get("Capability");
-
-        return (Map<String, Object>) mainCapability.get("Layer");
+    public ProxySourceModel initializeProxySourceModel() {
+        return new ProxySourceModel(0L, "", "mapserver", "[none]", "[none]", mapServerBinary, dataPath);
     }
 
     @Override
-    public Map<String, Object> getBoundingBoxInfoWithCrs() {
-        Map<String, Object> capability = MapProxyUtil.getCapabilities();
-        Map<String, Object> wmsCapability = (Map<String, Object>) capability.get("WMS_Capabilities");
-        Map<String, Object> mainCapability = (Map<String, Object>) wmsCapability.get("Capability");
-        Map<String, Object> layerData = (Map<String, Object>) mainCapability.get("Layer");
-
-        List<Map<String, Object>> baseBoundingBoxList = (ArrayList<Map<String, Object>>) layerData.get("BoundingBox");
-        Map<String, Object> boundingBoxMap = new HashMap<>();
-        for(Map<String, Object> crs : baseBoundingBoxList){
-            if(crs.keySet().contains("CRS"))
-                boundingBoxMap.put((String) crs.get("CRS"), crs);
-        }
-        return boundingBoxMap;
+    public ProxyCacheModel initializeProxyCacheModel() {
+        return new ProxyCacheModel(0L, "", "file", dataPath, 0, 0, 0, new ArrayList<>());
     }
 
     @Override
@@ -177,6 +183,7 @@ public class ProxySettingServiceImpl implements ProxySettingService {
             proxyMapper.insertProxyLayerWithModel(proxyLayerModel);
             ProxyLayerEntity entity = proxyMapper.findRecentlyInsertingProxyLayerEntity();
             insertLayerAndSourceRelation(entity.getId(), proxyLayerModel.getProxySources());
+            insertLayerAndCacheRelation(entity.getId(), proxyLayerModel.getProxyCaches());
             return true;
         }
     }
@@ -216,8 +223,10 @@ public class ProxySettingServiceImpl implements ProxySettingService {
                 put("id", proxyLayerModel.getId());
             }};
             proxyMapper.deleteProxyLayerSourceRelationByLayerId(deleteMap);
+            proxyMapper.deleteProxyLayerCacheRelationByLayerId(deleteMap);
             proxyMapper.updateProxyLayerWithModel(proxyLayerModel);
             insertLayerAndSourceRelation(proxyLayerModel.getId(), proxyLayerModel.getProxySources());
+            insertLayerAndCacheRelation(proxyLayerModel.getId(), proxyLayerModel.getProxyCaches());
             return true;
         } else return false;
     }
@@ -253,6 +262,7 @@ public class ProxySettingServiceImpl implements ProxySettingService {
             put("id", id);
         }};
         proxyMapper.deleteProxyLayerSourceRelationByLayerId(searchMap);
+        proxyMapper.deleteProxyLayerCacheRelationByLayerId(searchMap);
         proxyMapper.deleteProxyLayerById(searchMap);
     }
 
@@ -274,6 +284,7 @@ public class ProxySettingServiceImpl implements ProxySettingService {
             put("id", id);
         }};
         proxyMapper.deleteProxyCacheSourceRelationByCacheId(searchMap);
+        proxyMapper.deleteProxyLayerCacheRelationByCacheId(searchMap);
         proxyMapper.deleteProxyCacheById(searchMap);
     }
 

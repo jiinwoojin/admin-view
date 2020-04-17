@@ -41,11 +41,20 @@ public class ProxyLayerEntity implements Persistable<Long> {
     @OneToMany(mappedBy = "layer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProxyLayerSourceRelationEntity> sources;
 
+    @OneToMany(mappedBy = "layer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProxyLayerCacheRelationEntity> caches;
+
     /**
      * SELECTED BOOL
      */
     @Column(name = "SELECTED")
     private Boolean selected;
+
+    /**
+     * Is Default BOOL
+     */
+    @Column(name = "IS_DEFAULT")
+    private Boolean isDefault;
 
     public ProxyLayerEntity(){
         this.sources = new ArrayList<>();
