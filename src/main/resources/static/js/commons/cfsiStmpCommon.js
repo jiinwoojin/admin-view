@@ -1834,7 +1834,7 @@ var stmp = {
                 'text-variable-anchor': ['top'],
                 'text-radial-offset': 0.2,
                 "text-size": 10,
-                //"text-font": ["Gosanja"]
+                "text-font": ["Gosanja"]
             },
             paint: {
                 "text-color": "#50f",
@@ -1852,7 +1852,7 @@ var stmp = {
                 'text-variable-anchor': ['bottom'],
                 'text-radial-offset': 0.2,
                 "text-size": 10,
-                //"text-font": ["Gosanja"]
+                "text-font": ["Gosanja"]
             },
             paint: {
                 "text-color": "#50f",
@@ -1870,7 +1870,7 @@ var stmp = {
                 'text-variable-anchor': ['left'],
                 'text-radial-offset': 0.2,
                 "text-size": 10,
-                //"text-font": ["Gosanja"]
+                "text-font": ["Gosanja"]
             },
             paint: {
                 "text-color": "#50f",
@@ -1888,7 +1888,7 @@ var stmp = {
                 'text-variable-anchor': ['right'],
                 'text-radial-offset': 0.2,
                 "text-size": 10,
-                //"text-font": ["Gosanja"]
+                "text-font": ["Gosanja"]
             },
             paint: {
                 "text-color": "#50f",
@@ -1904,7 +1904,7 @@ var stmp = {
             layout: {
                 'text-field': ['get', 'description'],
                 "text-size": 12,
-                //"text-font": ["Gosanja"]
+                "text-font": ["Gosanja"]
             },
             paint: {
                 "text-color": "#05f",
