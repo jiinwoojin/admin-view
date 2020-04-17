@@ -34,13 +34,10 @@ public class ManageController {
 
     @RequestMapping("map-manage")
     public String map(Model model, MapSearchModel mapSearchModel) {
-        /*
-            임시 주석 처리 : 언제 재사용 될지 몰라 우선은 남겨 두겠음.
-            model.addAttribute("mapserverBinary", mapserverBinary);
-            model.addAttribute("mapserverWorkingDir", dataPath + "/tmp");
-            model.addAttribute("cacheType", "map");
-            model.addAttribute("cacheDirectory", dataPath + "/cache");
-        */
+        model.addAttribute("mapserverBinary", mapserverBinary);
+        model.addAttribute("mapserverWorkingDir", dataPath + "/tmp");
+        model.addAttribute("cacheType", "map");
+        model.addAttribute("cacheDirectory", dataPath + "/cache");
 
         model.addAttribute("resMap", service.getMapListByPaginationModel(mapSearchModel));
         model.addAttribute("obList", service.mapOrderByOptions());

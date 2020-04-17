@@ -111,9 +111,9 @@ function nameValidation(form, field){
     return true;
 }
 
-function layerRelationValidation(){
-    var proxySources = $('#proxySources').val();
-    var proxyCaches = $('#proxyCaches').val();
+function layerRelationValidation(method){
+    var proxySources = $(method === 'INSERT' ? '#proxySources' : '#proxySources_u').val();
+    var proxyCaches = $(method === 'INSERT' ? '#proxyCaches' : '#proxyCaches_u').val();
     if(proxySources.length > 0) {
         if(proxySources.filter(o => proxyCaches.includes(o)).length > 0){
             toastr.warning('리소스 이름과 캐시 이름이 같은 값이 있습니다. 각각 다른 이름으로 저장하시길 바랍니다.');
@@ -152,7 +152,7 @@ function preSubmit(form){
     if(action.indexOf('add') > -1){
         switch(form.id){
             case 'add-proxy-layer' :
-                return nameValidation(form, 'proxyLayerName') && layerRelationValidation();
+                return nameValidation(form, 'proxyLayerName') && layerRelationValidation('INSERT');
             case 'add-proxy-source' :
                 return nameValidation(form, 'proxySourceName') && requestValidation();
             case 'add-proxy-cache' :

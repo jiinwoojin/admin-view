@@ -5,16 +5,14 @@ import com.jiin.admin.website.model.ProxyCacheModel;
 import com.jiin.admin.website.model.ProxyLayerModel;
 import com.jiin.admin.website.model.ProxySelectModel;
 import com.jiin.admin.website.model.ProxySourceModel;
-import com.jiin.admin.website.util.MapProxyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Map;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("cache")
@@ -75,7 +73,7 @@ public class ProxyMainController {
     }
 
     @RequestMapping(value = "checking-save", method = RequestMethod.POST)
-    public String checkingProxyDataSettings(Model model, ProxySelectModel proxySelectModel){
+    public String checkingProxyDataSettings(Model model, ProxySelectModel proxySelectModel) throws IOException {
         proxyService.checkProxyDataSettingsWithModel(proxySelectModel);
         return "redirect:setting";
     }

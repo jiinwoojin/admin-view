@@ -127,7 +127,7 @@
                         <div class="modal fade" id="layerDataUpdate" tabindex="-1" role="dialog" aria-labelledby="updateModalCenterTitle1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
-                                    <form id="update-proxy-layer" th:action="@{/view/cache/update-proxy-layer}" method="post" accept-charset="utf-8">
+                                    <form id="update-proxy-layer" th:action="@{/view/cache/update-proxy-layer}" method="post" accept-charset="utf-8" onsubmit="return layerRelationValidation('UPDATE')">
                                         <input type="hidden" id="proxyLayerId_u" name="id" />
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="updateModalCenterTitle1">데이터 수정 - Layer</h5>
@@ -159,8 +159,8 @@
                                             </div>
 
                                             <div class="form-group" th:if="${ #lists.size(proxyCaches) > 0}">
-                                                <label for="proxyCaches">레이어 연계 캐시</label>
-                                                <select class="form-control" id="proxyCaches" name="proxyCaches" multiple>
+                                                <label for="proxyCaches_u">레이어 연계 캐시</label>
+                                                <select class="form-control" id="proxyCaches_u" name="proxyCaches" multiple>
                                                     <option th:each="cache : ${proxyCaches}" th:text="${ cache.name }" th:value="${ cache.name }"></option>
                                                 </select>
                                             </div>

@@ -11,12 +11,14 @@ import com.jiin.admin.website.server.mapper.CheckMapper;
 import com.jiin.admin.website.view.mapper.ProxyMapper;
 import com.jiin.admin.website.view.repository.ProxyCacheEntityRepository;
 import com.jiin.admin.website.view.repository.ProxyLayerEntityRepository;
+import com.jiin.admin.website.view.repository.ProxySourceEntityRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.persistence.Entity;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -41,7 +43,13 @@ public class ProxySettingServiceImpl implements ProxySettingService {
     private ProxyLayerEntityRepository proxyLayerEntityRepository;
 
     @Resource
+    private ProxySourceEntityRepository proxySourceEntityRepository;
+
+    @Resource
     private ProxyCacheEntityRepository proxyCacheEntityRepository;
+
+    @Resource
+    private MapProxyYamlComponent mapProxyYamlComponent;
 
     private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
         Map<Object, Boolean> map = new ConcurrentHashMap<>();
@@ -290,7 +298,7 @@ public class ProxySettingServiceImpl implements ProxySettingService {
 
     @Override
     @Transactional
-    public void checkProxyDataSettingsWithModel(ProxySelectModel proxySelectModel) {
+    public void checkProxyDataSettingsWithModel(ProxySelectModel proxySelectModel) throws IOException {
         List<String> tables = Arrays.asList(
             ProxyLayerEntity.class.getAnnotation(Entity.class).name(),
             ProxySourceEntity.class.getAnnotation(Entity.class).name(),
@@ -312,5 +320,11 @@ public class ProxySettingServiceImpl implements ProxySettingService {
         for(String cache : proxySelectModel.getCaches()){
             proxyMapper.updateProxyEntitySelectedByName(tables.get(2), true, cache);
         }
+
+        mapProxyYamlComponent.writeProxyYamlFileWithSettingData(
+            proxyLayerEntityRepository.findByNameIn(proxySelectModel.getLayers()),
+            proxySourceEntityRepository.findByNameIn(proxySelectModel.getSources()),
+            proxyCacheEntityRepository.findByNameIn(proxySelectModel.getCaches())
+        );
     }
 }
