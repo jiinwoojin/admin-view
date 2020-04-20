@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ProxyLayerEntityRepository extends JpaRepository<ProxyLayerEntity, Long> {
     List<ProxyLayerEntity> findByNameIn(List<String> names);
+    List<ProxyLayerEntity> findBySelectedIsTrue();
 }

@@ -51,10 +51,10 @@ public class ProxySettingServiceImpl implements ProxySettingService {
     @Resource
     private MapProxyYamlComponent mapProxyYamlComponent;
 
-    private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
-        Map<Object, Boolean> map = new ConcurrentHashMap<>();
-        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
-    }
+//    private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+//        Map<Object, Boolean> map = new ConcurrentHashMap<>();
+//        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+//    }
 
     private void insertLayerAndSourceRelation(long layerId, List<String> sources){
         for(String sourceKey : sources){
@@ -98,7 +98,7 @@ public class ProxySettingServiceImpl implements ProxySettingService {
         }
     }
 
-    @Override // TODO : DB 관계 쿼리 최적화 작업 필요
+    @Override // TODO : JPA vs MyBatis Persistence
     public Map<String, Object> getProxyLayerEntities() {
 //        Map<Long, List<ProxySourceDTO>> sourceMap = new HashMap<>();
 //        List<ProxyLayerDTO> layers = proxyMapper.findAllProxyLayerDTOs();
@@ -131,7 +131,7 @@ public class ProxySettingServiceImpl implements ProxySettingService {
         return result;
     }
 
-    @Override // TODO : DB 관계 쿼리 최적화 작업 필요
+    @Override // TODO : JPA vs MyBatis Persistence
     public Map<String, Object> getProxyCacheEntities() {
 //        Map<Long, List<ProxySourceDTO>> sourceMap = new HashMap<>();
 //        List<ProxyCacheDTO> caches = proxyMapper.findAllProxyCacheDTOs();
@@ -153,6 +153,14 @@ public class ProxySettingServiceImpl implements ProxySettingService {
 
         Map<String, Object> result = new HashMap<>();
         result.put("data", proxyCacheEntityRepository.findAll());
+
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> getProxyLayerEntitiesIsSelected() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", proxyLayerEntityRepository.findBySelectedIsTrue());
 
         return result;
     }
