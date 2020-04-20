@@ -1,9 +1,8 @@
 package com.jiin.admin.website.view.mapper;
 
-import com.jiin.admin.dto.ProxyCacheDTO;
-import com.jiin.admin.dto.ProxyLayerDTO;
-import com.jiin.admin.dto.ProxySourceDTO;
-import com.jiin.admin.entity.*;
+import com.jiin.admin.entity.ProxyCacheEntity;
+import com.jiin.admin.entity.ProxyLayerEntity;
+import com.jiin.admin.entity.ProxySourceEntity;
 import com.jiin.admin.mapper.BaseMapper;
 import com.jiin.admin.website.model.ProxyCacheModel;
 import com.jiin.admin.website.model.ProxyLayerModel;
@@ -85,15 +84,22 @@ public interface ProxyMapper {
     @Select("SELECT * FROM _PROXY_CACHE WHERE NAME = #{name} ORDER BY ID DESC LIMIT 1")
     ProxyCacheEntity findProxyCacheEntityWithName(Map<String, String> map);
 
-    @Insert("INSERT INTO _PROXY_LAYER(ID, NAME, TITLE, SELECTED, IS_DEFAULT) VALUES(#{id}, #{proxyLayerName}, #{proxyLayerTitle}, false, #{isDefault})")
+    @Insert("INSERT INTO _PROXY_LAYER(ID, NAME, TITLE, SELECTED, IS_DEFAULT) VALUES(#{id}, #{proxyLayerName}, #{proxyLayerTitle}, false, false)")
     @SelectKey(statement="SELECT NEXTVAL('PROXY_LAYER_SEQ')", keyProperty="id", before=true, resultType=long.class)
     void insertProxyLayerWithModel(ProxyLayerModel proxyLayerModel);
 
-    @Insert("INSERT INTO _PROXY_SOURCE(ID, NAME, TYPE, REQUEST_MAP, REQUEST_LAYERS, MAP_SERVER_BINARY, MAP_SERVER_WORK_DIR, SELECTED, IS_DEFAULT) VALUES(#{id}, #{proxySourceName}, #{proxySourceType}, #{requestMap}, #{requestLayers}, #{mapServerBinary}, #{mapServerWorkDir}, false, #{isDefault})")
+    @Insert("INSERT INTO _PROXY_LAYER(ID, NAME, TITLE, SELECTED, IS_DEFAULT) VALUES(#{id}, #{proxyLayerName}, #{proxyLayerTitle}, true, true)")
+    @SelectKey(statement="SELECT NEXTVAL('PROXY_LAYER_SEQ')", keyProperty="id", before=true, resultType=long.class)
+    void insertProxyLayerInitWithModel(ProxyLayerModel proxyLayerModel);
+
+    @Insert("INSERT INTO _PROXY_SOURCE(ID, NAME, TYPE, REQUEST_MAP, REQUEST_LAYERS, MAP_SERVER_BINARY, MAP_SERVER_WORK_DIR, SELECTED, IS_DEFAULT) VALUES(#{id}, #{proxySourceName}, #{proxySourceType}, #{requestMap}, #{requestLayers}, #{mapServerBinary}, #{mapServerWorkDir}, false, false)")
     @SelectKey(statement="SELECT NEXTVAL('PROXY_SOURCE_SEQ')", keyProperty="id", before=true, resultType=long.class)
     void insertProxySourceWithModel(ProxySourceModel proxySourceModel);
 
-    @Insert("INSERT INTO _PROXY_CACHE(ID, NAME, CACHE_TYPE, CACHE_DIRECTORY, META_SIZE_X, META_SIZE_Y, META_BUFFER, SELECTED, IS_DEFAULT) VALUES(#{id}, #{proxyCacheName}, #{proxyCacheType}, #{proxyCacheDirectory}, #{metaSizeX}, #{metaSizeY}, #{metaBuffer}, false, #{isDefault})")
+    @Insert("INSERT INTO _PROXY_SOURCE(ID, NAME, TYPE, REQUEST_MAP, REQUEST_LAYERS, MAP_SERVER_BINARY, MAP_SERVER_WORK_DIR, SELECTED, IS_DEFAULT) VALUES(#{id}, #{proxySourceName}, #{proxySourceType}, #{requestMap}, #{requestLayers}, #{mapServerBinary}, #{mapServerWorkDir}, true, true)")
+    void insertProxySourceInitWithModel(ProxySourceModel proxySourceModel);
+
+    @Insert("INSERT INTO _PROXY_CACHE(ID, NAME, CACHE_TYPE, CACHE_DIRECTORY, META_SIZE_X, META_SIZE_Y, META_BUFFER, SELECTED, IS_DEFAULT) VALUES(#{id}, #{proxyCacheName}, #{proxyCacheType}, #{proxyCacheDirectory}, #{metaSizeX}, #{metaSizeY}, #{metaBuffer}, false, false)")
     @SelectKey(statement="SELECT NEXTVAL('PROXY_CACHE_SEQ')", keyProperty="id", before=true, resultType=long.class)
     void insertProxyCacheWithModel(ProxyCacheModel proxyCacheModel);
 
@@ -117,11 +123,25 @@ public interface ProxyMapper {
     void updateProxyLayerWithModel(ProxyLayerModel proxyLayerModel);
 
     @Update({
+            "UPDATE _PROXY_LAYER",
+            "SET TITLE = #{proxyLayerTitle}, SELECTED = true, IS_DEFAULT = true",
+            "WHERE id = #{id}"
+    })
+    void updateProxyLayerInitWithModel(ProxyLayerModel proxyLayerModel);
+
+    @Update({
         "UPDATE _PROXY_SOURCE",
         "SET TYPE = #{proxySourceType}, REQUEST_MAP = #{requestMap}, REQUEST_LAYERS = #{requestLayers}, MAP_SERVER_BINARY = #{mapServerBinary}, MAP_SERVER_WORK_DIR = #{mapServerWorkDir}",
         "WHERE id = #{id}"
     })
     void updateProxySourceWithModel(ProxySourceModel proxySourceModel);
+
+    @Update({
+            "UPDATE _PROXY_SOURCE",
+            "SET TYPE = #{proxySourceType}, REQUEST_MAP = #{requestMap}, REQUEST_LAYERS = #{requestLayers}, MAP_SERVER_BINARY = #{mapServerBinary}, MAP_SERVER_WORK_DIR = #{mapServerWorkDir}, SELECTED = true, IS_DEFAULT = true",
+            "WHERE id = #{id}"
+    })
+    void updateProxySourceInitWithModel(ProxySourceModel proxySourceModel);
 
     @Update({
         "UPDATE _PROXY_CACHE",
@@ -144,29 +164,56 @@ public interface ProxyMapper {
     void updateProxyEntitySelected(@Param("tableName") String tableName, @Param("selected") Boolean selected);
 
     @Delete("DELETE FROM _PROXY_LAYER WHERE ID = #{id}")
-    void deleteProxyLayerById(Map<String, Long> map);
+    void deleteProxyLayerById(@Param("id") long id);
 
     @Delete("DELETE FROM _PROXY_SOURCE WHERE ID = #{id}")
-    void deleteProxySourceById(Map<String, Long> map);
+    void deleteProxySourceById(@Param("id") long id);
 
     @Delete("DELETE FROM _PROXY_CACHE WHERE ID = #{id}")
-    void deleteProxyCacheById(Map<String, Long> map);
+    void deleteProxyCacheById(@Param("id") long id);
+
+    @Delete("DELETE FROM _PROXY_LAYER WHERE NAME = #{name}")
+    void deleteProxyLayerByName(@Param("name") String name);
+
+    @Delete("DELETE FROM _PROXY_SOURCE WHERE NAME = #{name}")
+    void deleteProxySourceByName(@Param("name") String name);
+
+    @Delete("DELETE FROM _PROXY_CACHE WHERE NAME = #{name}")
+    void deleteProxyCacheByName(@Param("name") String name);
+
+    @Delete("DELETE FROM _PROXY_LAYER_SOURCE_RELATION")
+    void deleteAllProxyLayerSourceRelations();
 
     @Delete("DELETE FROM _PROXY_LAYER_SOURCE_RELATION WHERE LAYER_ID = #{id}")
-    void deleteProxyLayerSourceRelationByLayerId(Map<String, Long> map);
+    void deleteProxyLayerSourceRelationByLayerId(@Param("id") long id);
 
     @Delete("DELETE FROM _PROXY_LAYER_SOURCE_RELATION WHERE SOURCE_ID = #{id}")
-    void deleteProxyLayerSourceRelationBySourceId(Map<String, Long> map);
+    void deleteProxyLayerSourceRelationBySourceId(@Param("id") long id);
+
+    @Delete("DELETE FROM _PROXY_LAYER_SOURCE_RELATION WHERE LAYER_ID = #{layerId} AND SOURCE_ID = #{sourceId}")
+    void deleteProxyLayerSourceRelationWithBothIds(@Param("layerId") long layerId, @Param("sourceId") long sourceId);
+
+    @Delete("DELETE FROM _PROXY_LAYER_CACHE_RELATION")
+    void deleteAllProxyLayerCacheRelations();
 
     @Delete("DELETE FROM _PROXY_LAYER_CACHE_RELATION WHERE LAYER_ID = #{id}")
-    void deleteProxyLayerCacheRelationByLayerId(Map<String, Long> map);
+    void deleteProxyLayerCacheRelationByLayerId(@Param("id") long id);
 
     @Delete("DELETE FROM _PROXY_LAYER_CACHE_RELATION WHERE CACHE_ID = #{id}")
-    void deleteProxyLayerCacheRelationByCacheId(Map<String, Long> map);
+    void deleteProxyLayerCacheRelationByCacheId(@Param("id") long id);
+
+    @Delete("DELETE FROM _PROXY_LAYER_CACHE_RELATION WHERE LAYER_ID = #{layerId} AND CACHE_ID = #{cacheId}")
+    void deleteProxyLayerCacheRelationWithBothIds(@Param("layerId") long layerId, @Param("cacheId") long cacheId);
+
+    @Delete("DELETE FROM _PROXY_CACHE_SOURCE_RELATION")
+    void deleteAllProxyCacheSourceRelations();
 
     @Delete("DELETE FROM _PROXY_CACHE_SOURCE_RELATION WHERE CACHE_ID = #{id}")
-    void deleteProxyCacheSourceRelationByCacheId(Map<String, Long> map);
+    void deleteProxyCacheSourceRelationByCacheId(@Param("id") long id);
 
     @Delete("DELETE FROM _PROXY_CACHE_SOURCE_RELATION WHERE SOURCE_ID = #{id}")
-    void deleteProxyCacheSourceRelationBySourceId(Map<String, Long> map);
+    void deleteProxyCacheSourceRelationBySourceId(@Param("id") long id);
+
+    @Delete("DELETE FROM _PROXY_CACHE_SOURCE_RELATION WHERE CACHE_ID = #{cacheId} AND SOURCE_ID = #{sourceId}")
+    void deleteProxyCacheSourceRelationWithBothIds(@Param("cacheId") long cacheId, @Param("sourceId") long sourceId);
 }

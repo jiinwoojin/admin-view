@@ -21,6 +21,9 @@ public interface ManageMapper {
     @Select("SELECT * FROM _MAP")
     List<MapEntity> getSourceList();
 
+    @Select("SELECT M.* FROM _MAP M WHERE M.NAME = #{name}")
+    MapEntity findMapEntityByName(@Param("name") String name);
+
     @Select({
         "<script>",
             "SELECT * FROM _LAYER L ",

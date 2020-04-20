@@ -1,11 +1,13 @@
 package com.jiin.admin.website.gis;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.jiin.admin.entity.*;
 import com.jiin.admin.website.model.yaml.*;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.DumperOptions;
@@ -103,7 +105,9 @@ public class MapProxyYamlComponent {
         if(!file.exists()) file.createNewFile();
 
         Yaml yaml = new Yaml(representer, options);
-        yaml.dump(model, new FileWriter(dataPath + workDir + fileName));
+        StringWriter yamlStr = new StringWriter();
+        yaml.dump(model, yamlStr);
+        FileUtils.write(new File(dataPath,workDir + fileName), yamlStr.toString(),"utf-8");
     }
 
     public String getMapProxyYamlFileContext() throws IOException {
@@ -122,5 +126,21 @@ public class MapProxyYamlComponent {
         }
 
         return sb.length() == 0 ? "[ NO CONTEXT ]" : sb.toString();
+    }
+
+    public Map<String, Object> getMapProxyYamlFileMapObject() throws IOException {
+        File directory = new File(dataPath + workDir);
+        if(!directory.exists()) directory.mkdirs();
+
+        File file = new File(dataPath + workDir + fileName);
+        if(!file.exists()) {
+            file.createNewFile();
+            return null;
+        }
+
+        YAMLFactory fac = new YAMLFactory();
+        ObjectMapper mapper = new ObjectMapper(fac);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+        return mapper.readValue(file, Map.class);
     }
 }

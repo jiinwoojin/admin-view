@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.io.IOException;
 
 @Controller
@@ -46,8 +47,8 @@ public class ProxyMainController {
         model.addAttribute("addProxySource", proxyService.initializeProxySourceModel());
         model.addAttribute("addProxyCache", proxyService.initializeProxyCacheModel());
 
-        model.addAttribute("proxySources", proxyService.getProxySourceEntities().get("data"));
-        model.addAttribute("proxyCaches", proxyService.getProxyCacheEntities().get("data"));
+        model.addAttribute("proxySources", proxyService.getProxySourceEntitiesIsSelected().get("data"));
+        model.addAttribute("proxyCaches", proxyService.getProxyCacheEntitiesIsSelected().get("data"));
 
         return "page/cache/setting";
     }
@@ -74,44 +75,60 @@ public class ProxyMainController {
     }
 
     // Proxy Layer 데이터 수정
+    @Transactional
     @RequestMapping(value = "update-proxy-layer", method = RequestMethod.POST)
-    public String updateProxyLayer(Model model, ProxyLayerModel proxyLayerModel){
+    public String updateProxyLayer(Model model, ProxyLayerModel proxyLayerModel) throws IOException {
         proxyService.updateProxyLayerEntityWithModel(proxyLayerModel);
+        ProxySelectModel select = proxyService.getCurrentMapProxySettings();
+        if(select.getLayers().contains(proxyLayerModel.getProxyLayerName()))
+            proxyService.checkProxyDataSettingsWithModel(select);
         return "redirect:setting";
     }
 
     // Proxy Source 데이터 수정
+    @Transactional
     @RequestMapping(value = "update-proxy-source", method = RequestMethod.POST)
-    public String updateProxySource(Model model, ProxySourceModel proxySourceModel){
+    public String updateProxySource(Model model, ProxySourceModel proxySourceModel) throws IOException {
         proxyService.updateProxySourceEntityWithModel(proxySourceModel);
+        ProxySelectModel select = proxyService.getCurrentMapProxySettings();
+        if(select.getSources().contains(proxySourceModel.getProxySourceName()))
+            proxyService.checkProxyDataSettingsWithModel(select);
         return "redirect:setting";
     }
 
     // Proxy Cache 데이터 수정
+    @Transactional
     @RequestMapping(value = "update-proxy-cache", method = RequestMethod.POST)
-    public String updateProxyCache(Model model, ProxyCacheModel proxyCacheModel){
+    public String updateProxyCache(Model model, ProxyCacheModel proxyCacheModel) throws IOException {
         proxyService.updateProxyCacheEntityWithModel(proxyCacheModel);
+        ProxySelectModel select = proxyService.getCurrentMapProxySettings();
+        if(select.getCaches().contains(proxyCacheModel.getProxyCacheName()))
+            proxyService.checkProxyDataSettingsWithModel(select);
         return "redirect:setting";
     }
 
     // Proxy Layer 데이터 삭제
+    @Transactional
     @RequestMapping("delete-proxy-layer/{id}")
-    public String deleteProxyLayerByName(Model model, @PathVariable String id){
+    public String deleteProxyLayerByName(Model model, @PathVariable String id) throws IOException {
         proxyService.deleteProxyLayerEntityById(Long.parseLong(id));
+        proxyService.checkProxyDataSettingsWithModel(proxyService.getCurrentMapProxySettings());
         return "redirect:../setting";
     }
 
     // Proxy Source 데이터 삭제
     @RequestMapping("delete-proxy-source/{id}")
-    public String deleteProxySourceByName(Model model, @PathVariable String id){
+    public String deleteProxySourceByName(Model model, @PathVariable String id) throws IOException {
         proxyService.deleteProxySourceEntityById(Long.parseLong(id));
+        proxyService.checkProxyDataSettingsWithModel(proxyService.getCurrentMapProxySettings());
         return "redirect:../setting";
     }
 
     // Proxy Cache 데이터 삭제
     @RequestMapping("delete-proxy-cache/{id}")
-    public String deleteProxyCacheByName(Model model, @PathVariable String id){
+    public String deleteProxyCacheByName(Model model, @PathVariable String id) throws IOException {
         proxyService.deleteProxyCacheEntityById(Long.parseLong(id));
+        proxyService.checkProxyDataSettingsWithModel(proxyService.getCurrentMapProxySettings());
         return "redirect:../setting";
     }
 

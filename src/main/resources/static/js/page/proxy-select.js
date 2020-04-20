@@ -125,14 +125,14 @@ function layerRelationValidation(method){
     }
 }
 
-function requestValidation(){
+function requestValidation(type){
     var requestMap = $('input[name="requestMap"]').val();
     var requestLayers = $('input[name="requestLayers"]').val();
 
-    if(requestMap === '[none]'){
+    if(requestMap === '[none]' && type === 'INSERT'){
         toastr.warning('Map 파일 주소를 설정하세요.');
         return false;
-    } else if(requestLayers === '[none]'){
+    } else if(requestLayers === '[none]' && type === 'INSERT'){
         toastr.warning('요청 Layer 를 설정하세요.');
         return false;
     } else return true;
@@ -154,7 +154,7 @@ function preSubmit(form){
             case 'add-proxy-layer' :
                 return nameValidation(form, 'proxyLayerName') && layerRelationValidation('INSERT');
             case 'add-proxy-source' :
-                return nameValidation(form, 'proxySourceName') && requestValidation();
+                return nameValidation(form, 'proxySourceName') && requestValidation('INSERT');
             case 'add-proxy-cache' :
                 return nameValidation(form, 'proxyCacheName') && cacheRelationValidation();
         }
@@ -269,6 +269,11 @@ function onchange_mapFile_value(){
 }
 
 function onchange_mapLayer_value() {
-    var mapLayer = document.getElementById("mapLayer").value;
-    $('input[name="requestLayers"]').val(mapLayer);
+    var mapLayer = $('#mapLayer').val();
+    mapLayer = mapLayer.filter(layer => layer != '[none]');
+    if(mapLayer.length > 0) {
+        $('input[name="requestLayers"]').val(mapLayer.join(','));
+    } else {
+        $('input[name="requestLayers"]').val('[none]');
+    }
 }

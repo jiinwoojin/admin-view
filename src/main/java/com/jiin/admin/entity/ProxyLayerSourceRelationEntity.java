@@ -36,4 +36,14 @@ public class ProxyLayerSourceRelationEntity implements Serializable {
     @ManyToOne
     @JoinColumn
     private ProxySourceEntity source;
+
+    public ProxyLayerSourceRelationEntity(){
+
+    }
+
+    public ProxyLayerSourceRelationEntity(long id, ProxyLayerEntity layer, ProxySourceEntity source) {
+        this.id = id;
+        this.layer = layer;
+        this.source = source;
+    }
 }

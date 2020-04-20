@@ -35,4 +35,14 @@ public class ProxyLayerCacheRelationEntity {
     @ManyToOne
     @JoinColumn
     private ProxyCacheEntity cache;
+
+    public ProxyLayerCacheRelationEntity(){
+
+    }
+
+    public ProxyLayerCacheRelationEntity(long id, ProxyLayerEntity layer, ProxyCacheEntity cache) {
+        this.id = id;
+        this.layer = layer;
+        this.cache = cache;
+    }
 }

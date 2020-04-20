@@ -348,7 +348,7 @@
                         <div class="modal fade" id="sourceDataUpdate" tabindex="-1" role="dialog" aria-labelledby="updateModalCenterTitle2" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
-                                    <form id="update-proxy-source" th:action="@{/view/cache/update-proxy-source}" method="post" accept-charset="utf-8">
+                                    <form id="update-proxy-source" th:action="@{/view/cache/update-proxy-source}" method="post" accept-charset="utf-8" onsubmit="return requestValidation('UPDATE')">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="updateModalCenterTitle2">데이터 수정 - Source</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -425,7 +425,7 @@
 
                                         <div class="form-group">
                                             <label for="mapLayer">레이어 선택</label>
-                                            <select class="form-control" id="mapLayer" onchange="onchange_mapLayer_value()">
+                                            <select class="form-control" id="mapLayer" onchange="onchange_mapLayer_value()" multiple>
                                                 <option value="[none]">-- 레이어 선택 --</option>
                                             </select>
                                         </div>

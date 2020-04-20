@@ -13,11 +13,9 @@ public class ProxySourceModel {
     private String requestLayers;
     private String mapServerBinary;
     private String mapServerWorkDir;
-    private Boolean isDefault;
 
     public ProxySourceModel(){
         this.proxySourceType = "mapserver";
-        this.isDefault = false;
     }
 
     public ProxySourceModel(long id, String proxySourceName, String proxySourceType, String requestMap, String requestLayers, String mapServerBinary, String mapServerWorkDir){
@@ -28,6 +26,5 @@ public class ProxySourceModel {
         this.requestLayers = requestLayers;
         this.mapServerBinary = mapServerBinary;
         this.mapServerWorkDir = mapServerWorkDir;
-        this.isDefault = false;
     }
 }

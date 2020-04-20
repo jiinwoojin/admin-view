@@ -36,4 +36,14 @@ public class ProxyCacheSourceRelationEntity implements Serializable {
     @ManyToOne
     @JoinColumn
     private ProxySourceEntity source;
+
+    public ProxyCacheSourceRelationEntity(){
+
+    }
+
+    public ProxyCacheSourceRelationEntity(long id, ProxyCacheEntity cache, ProxySourceEntity source) {
+        this.id = id;
+        this.cache = cache;
+        this.source = source;
+    }
 }

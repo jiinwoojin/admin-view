@@ -12,7 +12,10 @@ public interface ProxySettingService {
     Map<String, Object> getProxyLayerEntities();
     Map<String, Object> getProxySourceEntities();
     Map<String, Object> getProxyCacheEntities();
+
     Map<String, Object> getProxyLayerEntitiesIsSelected();
+    Map<String, Object> getProxySourceEntitiesIsSelected();
+    Map<String, Object> getProxyCacheEntitiesIsSelected();
 
     ProxySelectModel getCurrentMapProxySettings();
     ProxyLayerModel initializeProxyLayerModel();
