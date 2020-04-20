@@ -14,7 +14,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a th:href="@{/view/map/list}">지도 관리</a>
+                <a th:href="@{/view/manage/map-manage?pg=1&sz=9&lType=ALL}">지도 관리</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">캐시 리소스 관리 - 설정</li>
         </ol>
@@ -127,7 +127,7 @@
                         <div class="modal fade" id="layerDataUpdate" tabindex="-1" role="dialog" aria-labelledby="updateModalCenterTitle1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
-                                    <form id="update-proxy-layer" th:action="@{/view/cache/update-proxy-layer}" method="post" accept-charset="utf-8">
+                                    <form id="update-proxy-layer" th:action="@{/view/cache/update-proxy-layer}" method="post" accept-charset="utf-8" onsubmit="return layerRelationValidation('UPDATE')">
                                         <input type="hidden" id="proxyLayerId_u" name="id" />
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="updateModalCenterTitle1">데이터 수정 - Layer</h5>
@@ -159,8 +159,8 @@
                                             </div>
 
                                             <div class="form-group" th:if="${ #lists.size(proxyCaches) > 0}">
-                                                <label for="proxyCaches">레이어 연계 캐시</label>
-                                                <select class="form-control" id="proxyCaches" name="proxyCaches" multiple>
+                                                <label for="proxyCaches_u">레이어 연계 캐시</label>
+                                                <select class="form-control" id="proxyCaches_u" name="proxyCaches" multiple>
                                                     <option th:each="cache : ${proxyCaches}" th:text="${ cache.name }" th:value="${ cache.name }"></option>
                                                 </select>
                                             </div>
@@ -256,7 +256,6 @@
                                 document.getElementById('proxyLayerId_u').value = obj.id;
                                 document.getElementById('proxyLayerName_u').value = obj.name;
                                 document.getElementById('proxyLayerTitle_u').value = obj.title;
-                                console.log(obj)
                                 $('#proxySources_u').val(obj.sources.map(s => s.source && s.source.name));
                                 $('#proxyCaches_u').val(obj.caches.map(c => c.cache && c.cache.name));
                             }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" layout:decorator="layout/page-layout">
 <th:block layout:fragment="content-title-fragment">
     <h1 class="h2 mb-0 text-gray-800">대시보드</h1>
 </th:block>
@@ -7,7 +8,10 @@
 <th:block layout:fragment="content-breadcrumb-fragment">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item">
+            <li class="breadcrumb-item" sec:authorize="isAuthenticated()">
+                <a th:href="@{/view/home/user}">홈</a>
+            </li>
+            <li class="breadcrumb-item" sec:authorize="isAuthenticated() == false">
                 <a th:href="@{/view/home/guest}">홈</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">대시보드</li>

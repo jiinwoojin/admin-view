@@ -80,20 +80,6 @@
         </a>
     </li>
 
-    <!--<li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/map') ? 'active' : '' }">
-        <a class="nav-link" th:href="@{/view/map/list}">
-            <i class="fas fa-fw fa-layer-group"></i>
-            <span>지도 데이터</span>
-        </a>
-    </li>-->
-
-<!--    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/layers') ? 'active' : '' }">-->
-<!--        <a class="nav-link" th:href="@{/view/cache/layers}">-->
-<!--            <i class="fas fa-fw fa-layer-group"></i>-->
-<!--            <span>캐시 데이터 관리 - 레이어</span>-->
-<!--        </a>-->
-<!--    </li>-->
-
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/preview') ? 'active' : '' }">
         <a class="nav-link" th:href="@{/view/cache/preview}">
             <i class="fas fa-fw fa-map-signs"></i>
@@ -107,20 +93,6 @@
             <span>캐시 데이터 관리 - 설정</span>
         </a>
     </li>
-
-    <!--<li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/grids') ? 'active' : '' }">
-        <a class="nav-link" th:href="@{/view/cache/grids}">
-            <i class="fas fa-fw fa-database"></i>
-            <span>캐시 데이터 관리 - 그리드</span>
-        </a>
-    </li>-->
-
-<!--    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/seeds') ? 'active' : '' }">-->
-<!--        <a class="nav-link" th:href="@{/view/cache/seeds}">-->
-<!--            <i class="fas fa-fw fa-memory"></i>-->
-<!--            <span>캐시 SEED 관리</span>-->
-<!--        </a>-->
-<!--    </li>-->
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -136,22 +108,6 @@
             <span>상황도</span>
         </a>
     </li>
-
-    <!--
-    <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/3d-map') ? 'active' : '' }">
-        <a class="nav-link" href="/view/display/3d-map">
-            <i class="fas fa-fw fa-cube"></i>
-            <span>3차원</span>
-        </a>
-    </li>
-    -->
-
-    <!--<li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/los-virtual') ? 'active' : '' }">
-        <a class="nav-link" th:href="@{/view/display/los-virtual}">
-            <i class="fas fa-fw fa-map-pin"></i>
-            <span>LOS 가시화</span>
-        </a>
-    </li>-->
 
     <li class="nav-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/common-map') ? 'active' : '' }">
         <a class="nav-link" th:href="@{/view/display/common-map}">
@@ -210,7 +166,6 @@
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
     </div>
-
 </ul>
 <!-- End of Sidebar -->
 </body>

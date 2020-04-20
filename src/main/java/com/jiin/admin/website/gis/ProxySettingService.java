@@ -5,12 +5,14 @@ import com.jiin.admin.website.model.ProxyLayerModel;
 import com.jiin.admin.website.model.ProxySelectModel;
 import com.jiin.admin.website.model.ProxySourceModel;
 
+import java.io.IOException;
 import java.util.Map;
 
 public interface ProxySettingService {
     Map<String, Object> getProxyLayerEntities();
     Map<String, Object> getProxySourceEntities();
     Map<String, Object> getProxyCacheEntities();
+    Map<String, Object> getProxyLayerEntitiesIsSelected();
 
     ProxySelectModel getCurrentMapProxySettings();
     ProxyLayerModel initializeProxyLayerModel();
@@ -29,5 +31,5 @@ public interface ProxySettingService {
     void deleteProxySourceEntityById(long id);
     void deleteProxyCacheEntityById(long id);
 
-    void checkProxyDataSettingsWithModel(ProxySelectModel proxySelectModel);
+    void checkProxyDataSettingsWithModel(ProxySelectModel proxySelectModel) throws IOException;
 }

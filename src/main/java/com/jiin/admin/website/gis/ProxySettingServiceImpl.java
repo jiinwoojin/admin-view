@@ -11,12 +11,14 @@ import com.jiin.admin.website.server.mapper.CheckMapper;
 import com.jiin.admin.website.view.mapper.ProxyMapper;
 import com.jiin.admin.website.view.repository.ProxyCacheEntityRepository;
 import com.jiin.admin.website.view.repository.ProxyLayerEntityRepository;
+import com.jiin.admin.website.view.repository.ProxySourceEntityRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.persistence.Entity;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -41,12 +43,18 @@ public class ProxySettingServiceImpl implements ProxySettingService {
     private ProxyLayerEntityRepository proxyLayerEntityRepository;
 
     @Resource
+    private ProxySourceEntityRepository proxySourceEntityRepository;
+
+    @Resource
     private ProxyCacheEntityRepository proxyCacheEntityRepository;
 
-    private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
-        Map<Object, Boolean> map = new ConcurrentHashMap<>();
-        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
-    }
+    @Resource
+    private MapProxyYamlComponent mapProxyYamlComponent;
+
+//    private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+//        Map<Object, Boolean> map = new ConcurrentHashMap<>();
+//        return t -> map.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+//    }
 
     private void insertLayerAndSourceRelation(long layerId, List<String> sources){
         for(String sourceKey : sources){
@@ -90,7 +98,7 @@ public class ProxySettingServiceImpl implements ProxySettingService {
         }
     }
 
-    @Override // TODO : DB 관계 쿼리 최적화 작업 필요
+    @Override // TODO : JPA vs MyBatis Persistence
     public Map<String, Object> getProxyLayerEntities() {
 //        Map<Long, List<ProxySourceDTO>> sourceMap = new HashMap<>();
 //        List<ProxyLayerDTO> layers = proxyMapper.findAllProxyLayerDTOs();
@@ -123,7 +131,7 @@ public class ProxySettingServiceImpl implements ProxySettingService {
         return result;
     }
 
-    @Override // TODO : DB 관계 쿼리 최적화 작업 필요
+    @Override // TODO : JPA vs MyBatis Persistence
     public Map<String, Object> getProxyCacheEntities() {
 //        Map<Long, List<ProxySourceDTO>> sourceMap = new HashMap<>();
 //        List<ProxyCacheDTO> caches = proxyMapper.findAllProxyCacheDTOs();
@@ -145,6 +153,14 @@ public class ProxySettingServiceImpl implements ProxySettingService {
 
         Map<String, Object> result = new HashMap<>();
         result.put("data", proxyCacheEntityRepository.findAll());
+
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> getProxyLayerEntitiesIsSelected() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", proxyLayerEntityRepository.findBySelectedIsTrue());
 
         return result;
     }
@@ -290,7 +306,7 @@ public class ProxySettingServiceImpl implements ProxySettingService {
 
     @Override
     @Transactional
-    public void checkProxyDataSettingsWithModel(ProxySelectModel proxySelectModel) {
+    public void checkProxyDataSettingsWithModel(ProxySelectModel proxySelectModel) throws IOException {
         List<String> tables = Arrays.asList(
             ProxyLayerEntity.class.getAnnotation(Entity.class).name(),
             ProxySourceEntity.class.getAnnotation(Entity.class).name(),
@@ -312,5 +328,11 @@ public class ProxySettingServiceImpl implements ProxySettingService {
         for(String cache : proxySelectModel.getCaches()){
             proxyMapper.updateProxyEntitySelectedByName(tables.get(2), true, cache);
         }
+
+        mapProxyYamlComponent.writeProxyYamlFileWithSettingData(
+            proxyLayerEntityRepository.findByNameIn(proxySelectModel.getLayers()),
+            proxySourceEntityRepository.findByNameIn(proxySelectModel.getSources()),
+            proxyCacheEntityRepository.findByNameIn(proxySelectModel.getCaches())
+        );
     }
 }

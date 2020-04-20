@@ -20,6 +20,7 @@ public interface AccountService {
     boolean createRoleWithModel(RoleModel roleModel);
     boolean updateAccountWithModel(AccountModel accountModel);
     boolean updateAccountRole(String username, long roleId);
+    boolean updateRoleWithModel(RoleModel roleModel);
     boolean deleteAccountWithUsername(String loginId);
     boolean deleteRoleById(long id);
 }

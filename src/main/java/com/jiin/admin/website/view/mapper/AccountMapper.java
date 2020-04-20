@@ -47,6 +47,9 @@ public interface AccountMapper {
     @Update("UPDATE _ACCOUNT SET PASSWORD = #{password}, NAME = #{name}, EMAIL = #{email} WHERE username = #{username}")
     void updateAccount(AccountDTO accountDTO);
 
+    @Update("UPDATE _ROLE SET LABEL = #{label}, MAP_BASIC = #{mapBasic}, MAP_MANAGE = #{mapManage}, LAYER_MANAGE = #{layerManage}, ACCOUNT_MANAGE = #{accountManage}, CACHE_MANAGE = #{cacheManage} WHERE TITLE = #{title}")
+    void updateRole(RoleEntity roleEntity);
+
     @Update("UPDATE _ACCOUNT SET ROLE_ID = #{roleId} WHERE USERNAME = #{username}")
     void updateAccountRoleWithUsernameAndRoleId(@Param("username") String username, @Param("roleId") long roleId);
 

@@ -14,7 +14,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a th:href="@{/view/map/list}">지도 관리</a>
+                <a th:href="@{/view/manage/map-manage?pg=1&sz=9&lType=ALL}">지도 관리</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">캐시 리소스 관리 - 조회</li>
         </ol>
@@ -23,23 +23,116 @@
 
 <th:block layout:fragment="content-body-fragment">
     <div id="cache_layer_preview">
-        <div id="map" class="mb-2" style="height: 20vh;">
+        <div id="map" class="mb-2" style="height: 70vh;">
         </div>
+        <div id="buttons">
+            <button class="btn btn-primary mx-0" data-toggle="modal" data-target="#layerSelect">
+                <i class="fas fa-layer-group"></i> Map Proxy 기반 레이어 선택
+            </button>
+            <button class="btn btn-info mx-0" data-toggle="modal" data-target="#yamlPreview">
+                <i class="fas fa-file"></i> Map Proxy YAML 파일 조회
+            </button>
+        </div>
+
+        <div class="modal fade" id="layerSelect" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Map Proxy 기반 레이어 선택</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Data List Table - LAYER START -->
+                        <table id="list_table_layer" class="table table-sm table-striped my-1">
+                            <thead class="table-info">
+                            <tr>
+                                <th scope="col" class="text-center">이름</th>
+                                <th scope="col" class="text-center">제목</th>
+                                <th scope="col" class="text-center">레이어 조회</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="layer : ${ proxyLayers }">
+                                <td class="text-center" th:text="${ layer.name }"></td>
+                                <td class="text-center" th:text="${ layer.title }"></td>
+                                <td class="text-center">
+                                    <button class="btn btn-info btn-sm btn-circle" th:onclick="onclick_preview_layer([[${layer.name}]])" data-dismiss="modal">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times"></i> 닫기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="yamlPreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel2">Map Proxy YAML 파일 조회</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea class="form-control" readonly rows="20">
+[[${proxyYAML}]]
+                        </textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times"></i> 닫기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
-            $(function() {
-                var mapSource = new ol.source.TileWMS({
-                    url: '[[${serviceURL}]]/service',
-                    params: {
-                        'REQUEST' : 'getMap',
-                        'LAYERS' : '[[${layer.Name}]]'
+            var selectLayers = '';
+            var mapSource, layer, map;
+
+            $(document).ready(function() {
+                $('#list_table_layer').DataTable({
+                    "language" : {
+                        "lengthMenu" : "자료 길이 _MENU_",
+                        "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                        "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                        "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                        "infoFiltered" : "(총 _TOTAL_ 건)",
+                        "search" : "검색 키워드",
+                        "paginate": {
+                            "first" : "<<",
+                            "last" : ">>",
+                            "next" : ">",
+                            "previous" : "<"
+                        }
                     }
                 });
 
-                var layer = new ol.layer.Tile({
+                mapSource = new ol.source.TileWMS({
+                    url: '[[${serviceURL}]]/service',
+                    params: {
+                        'REQUEST' : 'getMap',
+                        'LAYERS' : 'world_k2'
+                    }
+                });
+
+                layer = new ol.layer.Tile({
                     source : mapSource
                 });
 
-                var map = new ol.Map({
+                map = new ol.Map({
                     layers: [layer],
                     target: 'map',
                     view: new ol.View({
@@ -48,83 +141,17 @@
                     })
                 });
             });
-        </script>
-    </div>
-    <div class="row">
-        <div class="col-xl-6">
-            <div class="form-group">
-                <label for="layer_name">레이어 이름</label>
-                <input type="text" class="form-control" id="layer_name" th:value="*{layer.Name}" />
-            </div>
-            <div class="form-group">
-                <label for="layer_title">레이어 제목</label>
-                <input type="text" class="form-control" id="layer_title" th:value="*{layer.Title}" />
-            </div>
-            <div class="form-group">
-                <label for="layer_format">출력 체계</label>
-                <select class="form-control" id="layer_format">
-                    <option th:each="format : ${request.GetMap.Format}" th:text="${format}" th:value="${format}"></option>
-                </select>
-            </div>
-            <hr/>
-            <div class="text-right">
-                <button class="btn btn-primary">
-                    <i class="fas fa-save"></i> 저장
-                </button>
-            </div>
-        </div>
 
-        <div class="col-xl-6">
-            <div id="cache_crs_list_view">
-                <h2>좌표 체계 및 설정</h2>
-                <table id="list_table" class="table table-sm table-striped">
-                    <thead class="table-info">
-                    <tr>
-                        <th scope="col" class="text-center">좌표체계</th>
-                        <th scope="col" class="text-center">X 최소 범위</th>
-                        <th scope="col" class="text-center">X 최대 범위</th>
-                        <th scope="col" class="text-center">Y 최소 범위</th>
-                        <th scope="col" class="text-center">Y 최대 범위</th>
-                        <th scope="col" class="text-center">설정</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="crs : ${ boundingBox.keySet() }">
-                        <td class="text-center" th:text="${crs}"></td>
-                        <td class="text-center" th:text="${#numbers.formatInteger(boundingBox.get(crs).minx, 1, 'POINT')}"></td>
-                        <td class="text-center" th:text="${#numbers.formatInteger(boundingBox.get(crs).maxx, 1, 'POINT')}"></td>
-                        <td class="text-center" th:text="${#numbers.formatInteger(boundingBox.get(crs).miny, 1, 'POINT')}"></td>
-                        <td class="text-center" th:text="${#numbers.formatInteger(boundingBox.get(crs).maxy, 1, 'POINT')}"></td>
-                        <td class="text-center">
-                            <button class="btn btn-primary btn-sm" type="button">
-                                <i class="fas fa-cog"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <script>
-                    $(document).ready(function() {
-                        $('#list_table').DataTable({
-                            "language" : {
-                                "lengthMenu" : "자료 길이 _MENU_",
-                                "zeroRecords" : "해당 자료가 존재하지 않습니다.",
-                                "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
-                                "infoEmpty" : "해당 자료가 존재하지 않습니다.",
-                                "infoFiltered" : "(총 _TOTAL_ 건)",
-                                "search" : "검색 키워드",
-                                "paginate": {
-                                    "first" : "<<",
-                                    "last" : ">>",
-                                    "next" : ">",
-                                    "previous" : "<"
-                                }
-                            }
-                        });
-                    });
-                </script>
-            </div>
-        </div>
+            function onclick_preview_layer(name){
+                layer.setSource(new ol.source.TileWMS({
+                    url: '[[${serviceURL}]]/service',
+                    params: {
+                        'REQUEST' : 'getMap',
+                        'LAYERS' : name
+                    }
+                }));
+            }
+        </script>
     </div>
 </th:block>
 </html>

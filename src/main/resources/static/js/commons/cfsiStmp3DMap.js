@@ -61,7 +61,7 @@ ji3DMap.prototype.init = function init(options) {
                 preserveDrawingBuffer : true
             }
         },
-        terrainExaggeration : 10.0,
+        terrainExaggeration : 1.0,
         navigationInstructionsInitiallyVisible : false
     });
 
