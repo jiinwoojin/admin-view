@@ -1537,28 +1537,34 @@ var stmp = {
         }
         var bounds = stmp.mapObject.map.getBounds()
         options.bounds = [bounds.getWest(),bounds.getSouth(),bounds.getEast(),bounds.getNorth()]
-        // boundry
-        if(stmp.mapObject.map.getLayer("graticules-boundry"))      stmp.mapObject.map.removeLayer("graticules-boundry")
-        // line
-        if(stmp.mapObject.map.getLayer("graticules-line"))         stmp.mapObject.map.removeLayer("graticules-line")
-        // label
-        if(stmp.mapObject.map.getLayer("graticules-label-left"))            stmp.mapObject.map.removeLayer("graticules-label-left")
-        if(stmp.mapObject.map.getLayer("graticules-label-right"))           stmp.mapObject.map.removeLayer("graticules-label-right")
-        if(stmp.mapObject.map.getLayer("graticules-label-top"))             stmp.mapObject.map.removeLayer("graticules-label-top")
-        if(stmp.mapObject.map.getLayer("graticules-label-bottom"))          stmp.mapObject.map.removeLayer("graticules-label-bottom")
-        if(stmp.mapObject.map.getLayer("graticules-label-inside"))          stmp.mapObject.map.removeLayer("graticules-label-inside")
-        // source
-        if(stmp.mapObject.map.getSource("graticules-source-feature"))       stmp.mapObject.map.removeSource("graticules-source-feature")
-        if(stmp.mapObject.map.getSource("graticules-source-label"))         stmp.mapObject.map.removeSource("graticules-source-label")
+        // 기존 layer 제거 및 숨김(wms)
+        var layers = stmp.mapObject.map.getStyle().layers
+        jQuery.each(layers, function(idx, layer){
+            if(layer.id.indexOf("graticules-") > -1){
+                if(layer.type === "raster"){
+                    stmp.mapObject.map.setLayoutProperty(layer.id,"visibility","none")
+                }else{
+                    stmp.mapObject.map.removeLayer(layer.id)
+                }
+            }
+        })
+        // 기존 source 제거
+        var sources = stmp.mapObject.map.getStyle().sources
+        jQuery.each(sources, function(key, source){
+            if(key.indexOf("graticules-") > -1){
+                if(source.type === "raster"){
+                    // nothing
+                }else{
+                    stmp.mapObject.map.removeSource(key)
+                }
+            }
+        })
         //
         var xmin = options.bounds[0]
         var ymin = options.bounds[1]
         var xmax = options.bounds[2]
         var ymax = options.bounds[3]
-        var features = []
-        var labelFeatures = []
         var currZoom = stmp.mapObject.map.getZoom()
-        var labelSize = 10
         console.log("ZOOM : " , currZoom)
         jQuery.each(options.graticules,function(idx, item){
             var minZoom = item.minZoom
@@ -1566,6 +1572,74 @@ var stmp = {
             if(minZoom >= currZoom || currZoom > maxZoom){
                 return
             }
+            var type = item.type
+            var prefixLayerId = "graticules-" + type + "-" + minZoom + "-" + maxZoom
+            // get Style
+            var lineWidth = item.lineWidth ? item.lineWidth : 0.3
+            var lineColor = item.lineColor ? item.lineColor : '#333333'
+            var labelSize = item.labelSize ? item.labelSize : 10
+            var labelColor = item.labelColor ? item.labelColor : '#0055ff'
+
+            // use Map Server
+            var mapServer = item.mapServer
+            if(mapServer){
+                var wmsLayers = item.layers
+                var labelField = item.labelField
+                if(!(wmsLayers instanceof Array)){
+                    wmsLayers = [item.layers]
+                }
+                jQuery.each(wmsLayers,function(idx, wmsLayer){
+                    var labelStyle = null
+                    if(labelField){
+                        labelStyle = "<Rule><TextSymbolizer><Label><ogc:PropertyName>"+labelField+"</ogc:PropertyName></Label><Font>" +
+                            "<CssParameter name='font-size'>[LABEL_SIZE]</CssParameter>" +
+                            "<CssParameter name='font-weight'>bold</CssParameter></Font>" +
+                            "<Halo><Radius>2</Radius><Fill><CssParameter name='fill'>#FFFFFF</CssParameter></Fill></Halo>" +
+                            "<Fill><CssParameter name='fill'>[LABEL_COLOR]</CssParameter></Fill><VendorOption name='followLine'>true</VendorOption></TextSymbolizer></Rule>"
+                    }
+                    var sldBody = "<StyledLayerDescriptor version = '1.0.0' xsi:schemaLocation='http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd' xmlns='http://www.opengis.net/sld' xmlns:ogc='http://www.opengis.net/ogc' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>"
+                    sldBody += "<NamedLayer>" +
+                        "<Name>[LAYER_NAME]</Name>" +
+                        "<UserStyle><FeatureTypeStyle><Rule><LineSymbolizer>" +
+                        "<Stroke>" +
+                        "<CssParameter name='stroke'>[LINE_COLOR]</CssParameter>" +
+                        "<CssParameter name='stroke-width'>[LINE_WIDTH]</CssParameter>" +
+                        "<CssParameter name='stroke-dasharray'>10 8</CssParameter>" +
+                        "</Stroke>" +
+                        "</LineSymbolizer></Rule>"+(labelStyle ? labelStyle : "")+"</FeatureTypeStyle></UserStyle></NamedLayer>";
+                    sldBody += "</StyledLayerDescriptor>"
+                    sldBody = sldBody.replace(/\[LAYER_NAME\]/gi,wmsLayer);
+                    sldBody = sldBody.replace(/\[LINE_WIDTH\]/gi,lineWidth);
+                    sldBody = sldBody.replace(/\[LINE_COLOR\]/gi,lineColor);
+                    sldBody = sldBody.replace(/\[LABEL_SIZE\]/gi,labelSize);
+                    sldBody = sldBody.replace(/\[LABEL_COLOR\]/gi,labelColor);
+                    var tileUrl = mapServer + '?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&' +
+                        'LAYERS=' + wmsLayer + "&SLD_BODY=" + encodeURIComponent(sldBody) +
+                        '&exceptions=application%2Fvnd.ogc.se_inimage&SRS=EPSG:3857&WIDTH=256&HEIGHT=256&BBOX={bbox-epsg-3857}'
+                    if(stmp.mapObject.map.getLayer(prefixLayerId + "-wms-" + wmsLayer) === undefined
+                    || stmp.mapObject.map.getSource(prefixLayerId + "-wms-" + wmsLayer).tiles[0] !== tileUrl
+                        ){
+                        if(stmp.mapObject.map.getSource(prefixLayerId + "-wms-" + wmsLayer)) {
+                            stmp.mapObject.map.removeLayer(prefixLayerId + "-wms-" + wmsLayer)
+                            stmp.mapObject.map.removeSource(prefixLayerId + "-wms-" + wmsLayer)
+                        }
+                        stmp.mapObject.map.addLayer({
+                            'id': prefixLayerId + "-wms-" + wmsLayer,
+                            'type': 'raster',
+                            'source': {
+                                'type': 'raster',
+                                'tiles': [tileUrl],
+                                'tileSize': 256
+                            }
+                        });
+                    }
+                    stmp.mapObject.map.setLayoutProperty(prefixLayerId + "-wms-" + wmsLayer,"visibility",'visible')
+                })
+                return
+            }
+            // use Generate
+            var features = []
+            var labelFeatures = []
             if(xmin >= 0){
                 xmin = xmin - (xmin % item.coordStepX)
             }else{
@@ -1578,7 +1652,6 @@ var stmp = {
             }
             var startpoint = [xmin, ymin] //좌하단
             labelSize = item.labelSize ? item.labelSize : labelSize
-            var type = item.type
             var labelType = item.labelType
             var horizonPoints = [startpoint.slice(0)]
             var verticalPoints = [startpoint.slice(0)]
@@ -1727,196 +1800,194 @@ var stmp = {
                     }
                 })
             })
-        })
-        stmp.mapObject.map.addSource('graticules-source-feature', {
-            type: 'geojson',
-            data: {
-                type: 'FeatureCollection',
-                features: features
-            }
-        })
-        stmp.mapObject.map.addSource('graticules-source-label', {
-            type: 'geojson',
-            data: {
-                type: 'FeatureCollection',
-                features: labelFeatures
-            }
-        })
-        // graticules-line
-        stmp.mapObject.map.addLayer({
-            'id': 'graticules-line',
-            'type': 'line',
-            'source': 'graticules-source-feature',
-            'paint': {
-                'line-color': '#333333',
-                'line-width': 0.3,
-                "line-dasharray": [10, 8]
-            },
-            'filter': ['==', '$type', 'LineString']
-        });
-        var source = stmp.mapObject.map.getSource("graticules-source-label")
-        var data = source._data
-        var features = data.features
-        var e = stmp.mapObject.map.getBounds().getEast()
-        var w = stmp.mapObject.map.getBounds().getWest()
-        var n = stmp.mapObject.map.getBounds().getNorth()
-        var s = stmp.mapObject.map.getBounds().getSouth()
-        var newfeatures = []
-        jQuery.each(features, function (idx, feature) {
-            var coordinates = feature.properties.origin
-            var labelType = feature.properties.labelType
-            if(labelType == "inside"){
-                var lon = coordinates[0]
-                var lat = coordinates[1]
-                var newcoordinates = [lon, lat]
-                if (w > lon) {
-                    newcoordinates[0] = w
-                    feature.properties.position = "left"
-                }else if (lon > e) {
-                    newcoordinates[0] = e
-                    feature.properties.position = "right"
-                }else if (s > lat) {
-                    newcoordinates[1] = s
-                    feature.properties.position = "bottom"
-                }else if (lat > n) {
-                    newcoordinates[1] = n
-                    feature.properties.position = "top"
+            // draw grid line
+            stmp.mapObject.map.addSource(prefixLayerId + '-source-feature', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: features
+                }
+            })
+            stmp.mapObject.map.addLayer({
+                'id': prefixLayerId + '-line',
+                'type': 'line',
+                'source': prefixLayerId + '-source-feature',
+                'paint': {
+                    'line-color': lineColor,
+                    'line-width': lineWidth,
+                    "line-dasharray": [10, 8]
+                },
+                'filter': ['==', '$type', 'LineString']
+            })
+            // draw grid label
+            var e = stmp.mapObject.map.getBounds().getEast()
+            var w = stmp.mapObject.map.getBounds().getWest()
+            var n = stmp.mapObject.map.getBounds().getNorth()
+            var s = stmp.mapObject.map.getBounds().getSouth()
+            var newLabelfeatures = []
+            jQuery.each(labelFeatures, function (idx, feature) {
+                var coordinates = feature.properties.origin
+                var labelType = feature.properties.labelType
+                if(labelType == "inside"){
+                    var lon = coordinates[0]
+                    var lat = coordinates[1]
+                    var newcoordinates = [lon, lat]
+                    if (w > lon) {
+                        newcoordinates[0] = w
+                        feature.properties.position = "left"
+                    }else if (lon > e) {
+                        newcoordinates[0] = e
+                        feature.properties.position = "right"
+                    }else if (s > lat) {
+                        newcoordinates[1] = s
+                        feature.properties.position = "bottom"
+                    }else if (lat > n) {
+                        newcoordinates[1] = n
+                        feature.properties.position = "top"
+                    }else{
+                        feature.properties.position = "inside"
+                    }
+                    feature.geometry.coordinates = newcoordinates
+                    newLabelfeatures.push(feature)
                 }else{
-                    feature.properties.position = "inside"
+                    var lat = coordinates[0]
+                    var lon = coordinates[1]
+                    var newcoordinates = [lat, lon]
+                    if (w > lat) {
+                        newcoordinates[0] = w
+                    }
+                    if (lat > e) {
+                        newcoordinates[0] = e
+                    }
+                    if (s > lon) {
+                        newcoordinates[1] = s
+                    }
+                    if (lon > n) {
+                        newcoordinates[1] = n
+                    }
+                    feature.geometry.coordinates = newcoordinates
+                    newLabelfeatures.push(feature)
                 }
-                feature.geometry.coordinates = newcoordinates
-                newfeatures.push(feature)
-            }else{
-                var lat = coordinates[0]
-                var lon = coordinates[1]
-                var newcoordinates = [lat, lon]
-                if (w > lat) {
-                    newcoordinates[0] = w
+            })
+            stmp.mapObject.map.addSource(prefixLayerId + '-source-label', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: newLabelfeatures
                 }
-                if (lat > e) {
-                    newcoordinates[0] = e
-                }
-                if (s > lon) {
-                    newcoordinates[1] = s
-                }
-                if (lon > n) {
-                    newcoordinates[1] = n
-                }
-                feature.geometry.coordinates = newcoordinates
-                newfeatures.push(feature)
-            }
-        })
-        if (stmp.mapObject.map.getLayer("graticules-label-left")) stmp.mapObject.map.removeLayer("graticules-label-left")
-        if (stmp.mapObject.map.getLayer("graticules-label-right")) stmp.mapObject.map.removeLayer("graticules-label-right")
-        if (stmp.mapObject.map.getLayer("graticules-label-top")) stmp.mapObject.map.removeLayer("graticules-label-top")
-        if (stmp.mapObject.map.getLayer("graticules-label-bottom")) stmp.mapObject.map.removeLayer("graticules-label-bottom")
-        if (stmp.mapObject.map.getLayer("graticules-label-inside")) stmp.mapObject.map.removeLayer("graticules-label-inside")
-        if (stmp.mapObject.map.getSource("graticules-source-label")) stmp.mapObject.map.removeSource("graticules-source-label")
-        stmp.mapObject.map.addSource('graticules-source-label', {
-            type: 'geojson',
-            data: {
-                type: 'FeatureCollection',
-                features: newfeatures
-            }
-        })
-        var insideLabelSize = labelSize
-        if(stmp.mapObject.map.getLayer("graticules-label-left")) stmp.mapObject.map.removeLayer("graticules-label-left")
-        if(stmp.mapObject.map.getLayer("graticules-label-right")) stmp.mapObject.map.removeLayer("graticules-label-right")
-        if(stmp.mapObject.map.getLayer("graticules-label-top")) stmp.mapObject.map.removeLayer("graticules-label-top")
-        if(stmp.mapObject.map.getLayer("graticules-label-bottom")) stmp.mapObject.map.removeLayer("graticules-label-bottom")
-        if(stmp.mapObject.map.getLayer("graticules-label-inside")) stmp.mapObject.map.removeLayer("graticules-label-inside")
-        stmp.mapObject.map.addLayer({
-            id: 'graticules-label-top',
-            type: 'symbol',
-            source: 'graticules-source-label',
-            layout: {
-                'text-field': ['get', 'description'],
-                'text-variable-anchor': ['top'],
-                'text-radial-offset': 0.2,
-                "text-size": 10,
-                "text-font": ["Gosanja"]
-            },
-            paint: {
-                "text-color": "#50f",
-                "text-halo-color": "#fff",
-                "text-halo-width": 1
-            },
-            filter: ["all", ['==', '$type', 'Point'], ["==", "position", 'top']]
-        });
-        stmp.mapObject.map.addLayer({
-            id: 'graticules-label-bottom',
-            type: 'symbol',
-            source: 'graticules-source-label',
-            layout: {
-                'text-field': ['get', 'description'],
-                'text-variable-anchor': ['bottom'],
-                'text-radial-offset': 0.2,
-                "text-size": 10,
-                "text-font": ["Gosanja"]
-            },
-            paint: {
-                "text-color": "#50f",
-                "text-halo-color": "#fff",
-                "text-halo-width": 1
-            },
-            filter: ["all", ['==', '$type', 'Point'], ["==", "position", 'bottom']]
-        });
-        stmp.mapObject.map.addLayer({
-            id: 'graticules-label-left',
-            type: 'symbol',
-            source: 'graticules-source-label',
-            layout: {
-                'text-field': ['get', 'description'],
-                'text-variable-anchor': ['left'],
-                'text-radial-offset': 0.2,
-                "text-size": 10,
-                "text-font": ["Gosanja"]
-            },
-            paint: {
-                "text-color": "#50f",
-                "text-halo-color": "#fff",
-                "text-halo-width": 1
-            },
-            filter: ["all", ['==', '$type', 'Point'], ["==", "position", 'left']]
-        });
-        stmp.mapObject.map.addLayer({
-            id: 'graticules-label-right',
-            type: 'symbol',
-            source: 'graticules-source-label',
-            layout: {
-                'text-field': ['get', 'description'],
-                'text-variable-anchor': ['right'],
-                'text-radial-offset': 0.2,
-                "text-size": 10,
-                "text-font": ["Gosanja"]
-            },
-            paint: {
-                "text-color": "#50f",
-                "text-halo-color": "#fff",
-                "text-halo-width": 1
-            },
-            filter: ["all", ['==', '$type', 'Point'], ["==", "position", 'right']]
-        })
-        stmp.mapObject.map.addLayer({
-            id: 'graticules-label-inside',
-            type: 'symbol',
-            source: 'graticules-source-label',
-            layout: {
-                'text-field': ['get', 'description'],
-                "text-size": 12,
-                "text-font": ["Gosanja"]
-            },
-            paint: {
-                "text-color": "#05f",
-                "text-halo-color": "#fff",
-                "text-halo-width": 1
-            },
-            filter: ["all", ['==', '$type', 'Point'], ["==", "position", 'inside']]
+            })
+            stmp.mapObject.map.addLayer({
+                id: prefixLayerId + '-label-top',
+                type: 'symbol',
+                source: prefixLayerId + '-source-label',
+                layout: {
+                    'text-field': ['get', 'description'],
+                    'text-variable-anchor': ['top'],
+                    'text-radial-offset': 0.2,
+                    "text-size": labelSize,
+                    //"text-font": ["Gosanja"]
+                },
+                paint: {
+                    "text-color": labelColor,
+                    "text-halo-color": "#fff",
+                    "text-halo-width": 1
+                },
+                filter: ["all", ['==', '$type', 'Point'], ["==", "position", 'top']]
+            });
+            stmp.mapObject.map.addLayer({
+                id: prefixLayerId + '-label-bottom',
+                type: 'symbol',
+                source: prefixLayerId + '-source-label',
+                layout: {
+                    'text-field': ['get', 'description'],
+                    'text-variable-anchor': ['bottom'],
+                    'text-radial-offset': 0.2,
+                    "text-size": labelSize,
+                    //"text-font": ["Gosanja"]
+                },
+                paint: {
+                    "text-color": labelColor,
+                    "text-halo-color": "#fff",
+                    "text-halo-width": 1
+                },
+                filter: ["all", ['==', '$type', 'Point'], ["==", "position", 'bottom']]
+            });
+            stmp.mapObject.map.addLayer({
+                id: prefixLayerId + '-label-left',
+                type: 'symbol',
+                source: prefixLayerId + '-source-label',
+                layout: {
+                    'text-field': ['get', 'description'],
+                    'text-variable-anchor': ['left'],
+                    'text-radial-offset': 0.2,
+                    "text-size": labelSize,
+                    //"text-font": ["Gosanja"]
+                },
+                paint: {
+                    "text-color": labelColor,
+                    "text-halo-color": "#fff",
+                    "text-halo-width": 1
+                },
+                filter: ["all", ['==', '$type', 'Point'], ["==", "position", 'left']]
+            });
+            stmp.mapObject.map.addLayer({
+                id: prefixLayerId + '-label-right',
+                type: 'symbol',
+                source: prefixLayerId + '-source-label',
+                layout: {
+                    'text-field': ['get', 'description'],
+                    'text-variable-anchor': ['right'],
+                    'text-radial-offset': 0.2,
+                    "text-size": labelSize,
+                    //"text-font": ["Gosanja"]
+                },
+                paint: {
+                    "text-color": labelColor,
+                    "text-halo-color": "#fff",
+                    "text-halo-width": 1
+                },
+                filter: ["all", ['==', '$type', 'Point'], ["==", "position", 'right']]
+            })
+            stmp.mapObject.map.addLayer({
+                id: prefixLayerId + '-source-label',
+                type: 'symbol',
+                source: prefixLayerId + '-source-label',
+                layout: {
+                    'text-field': ['get', 'description'],
+                    "text-size": labelSize,
+                    //"text-font": ["Gosanja"]
+                },
+                paint: {
+                    "text-color": labelColor,
+                    "text-halo-color": "#fff",
+                    "text-halo-width": 1
+                },
+                filter: ["all", ['==', '$type', 'Point'], ["==", "position", 'inside']]
+            })
         })
     }
-    /**
-     * "WGS84" or ["WGS84"] or ["WGS84","MGRS"]
-     * @param types
+    /** graticules option
+      {
+          type : <WGS84,MGRS,UTM,GARS,GEOREF>,
+          // 자동생성
+          minZoom : <최소축척 / 초과>,
+          maxZoom : <최소축척 / 이하>,
+          coordStepX : <자동생성 그리드 간격>,
+          coordStepX : <자동생성 그리드 간격>,
+          labelType : <자동생성 라벨 위치>,
+          labelStepX : <자동생성 라벨 단계>,
+          labelStepY : <자동생성 라벨 단계>,
+          // 맵서버로부터
+          mapServer : <맵서버>,
+          layers : <맵서버-레이어>,
+          labelField : <맵서버-라벨필드명>,
+          // 스타일옵션 / stmp.setGraticulesStyle(...) 사용가능
+          lineWidth : <그리드 굵기>,
+          lineColor : <그리드 색상>,
+          labelSize : <라벨 크기>,
+          labelColor : <라벨 색상>,
+      }
+     * @param types - "WGS84" or ["WGS84"] or ["WGS84","MGRS"]
      */
     , drawGraticules : function(types){
         if(types === undefined || types === null){
@@ -1932,32 +2003,60 @@ var stmp = {
             labelGenerator : stmp.graticulesLabelGenerator
         }
         if(types.indexOf("WGS84") > -1){
-            options.graticules.push({type: "WGS84", coordStepX: 10,     coordStepY: 10,     minZoom : 0,  maxZoom : 5,  labelType:"outside"}) //10도
-            options.graticules.push({type: "WGS84", coordStepX: 1,      coordStepY: 1,      minZoom : 5,  maxZoom : 8,  labelType:"outside"}) //1도
-            options.graticules.push({type: "WGS84", coordStepX: 0.5,    coordStepY: 0.5,    minZoom : 8,  maxZoom : 10, labelType:"outside"}) //0.5도
-            options.graticules.push({type: "WGS84", coordStepX: 1/60,   coordStepY: 1/60,   minZoom : 10, maxZoom : 17, labelType:"outside"}) //1분
-            options.graticules.push({type: "WGS84", coordStepX: 1/60/60,coordStepY: 1/60/60,minZoom : 17, maxZoom : 20, labelType:"outside"}) //1초
+            options.graticules.push({type: "WGS84", minZoom : 0,  maxZoom : 5,  coordStepX: 10,     coordStepY: 10,     labelType:"outside"}) //10도
+            options.graticules.push({type: "WGS84", minZoom : 5,  maxZoom : 8,  coordStepX: 1,      coordStepY: 1,      labelType:"outside"}) //1도
+            options.graticules.push({type: "WGS84", minZoom : 8,  maxZoom : 10, coordStepX: 0.5,    coordStepY: 0.5,    labelType:"outside"}) //0.5도
+            options.graticules.push({type: "WGS84", minZoom : 10, maxZoom : 17, coordStepX: 1/60,   coordStepY: 1/60,   labelType:"outside"}) //1분
+            options.graticules.push({type: "WGS84", minZoom : 17, maxZoom : 20, coordStepX: 1/60/60,coordStepY: 1/60/60,labelType:"outside"}) //1초
         }
         if(types.indexOf("MGRS") > -1){
-            options.graticules.push({type: "MGRS", coordStepX: 6, coordStepY: 8, minZoom : 0, maxZoom : 20,  labelType: "inside", labelStepX : 1, labelStepY : 'B'})  //6*8도
+            options.graticules.push({type: "MGRS", minZoom : 0,  maxZoom : 5,  coordStepX: 6, coordStepY: 8, labelType: "inside", labelStepX : 1, labelStepY : 'B'})  //6*8도
+            options.graticules.push({type: "MGRS", minZoom : 5,  maxZoom : 10, mapServer: 'http://116.121.199.25:8080/geoserver/jimap/wms', layers: 'jimap:mgrs_100km', labelField: 'GRID100K'})  // from Mapserver(Geoserver)
+            options.graticules.push({type: "MGRS", minZoom : 10, maxZoom : 20, mapServer: 'http://116.121.199.25:8080/geoserver/jimap/wms', layers: 'jimap:mgrs_10km', labelField: 'UTM_LABEL'})  // from Mapserver(Geoserver)
         }
         if(types.indexOf("UTM") > -1){
-            options.graticules.push({type: "UTM", coordStepX: 6, coordStepY: 90, minZoom : 0, maxZoom : 5,  labelType: "inside", labelStepX : 1})  //6*180도
+            options.graticules.push({type: "UTM", minZoom : 0,  maxZoom : 3,  coordStepX: 6, coordStepY: 90, labelType: "inside", labelStepX : 1})  //6*180도
+            options.graticules.push({type: "UTM", minZoom : 3,  maxZoom : 12, coordStepX: 6, coordStepY: 8,  labelType: "inside", labelStepX : 1, labelStepY : 'B'})  //6*8도
+            options.graticules.push({type: "UTM", minZoom : 12, maxZoom : 20, mapServer: 'http://116.121.199.25:8080/geoserver/jimap/wms', layers: ['jimap:UTM_1km_51n_S','jimap:UTM_1km_51n_T','jimap:UTM_1km_52n_S','jimap:UTM_1km_52n_T'], labelField: 'UTM'})  // from Mapserver(Geoserver)
         }
         if(types.indexOf("GARS") > -1){
-            options.graticules.push({type: "GARS", coordStepX: 20,   coordStepY: 20,   minZoom : 0,  maxZoom : 6,  labelType: "inside", labelStepX : 20, labelStepY : 20})  //20도
-            options.graticules.push({type: "GARS", coordStepX: 0.5,  coordStepY: 0.5,  minZoom : 6,  maxZoom : 9,  labelType: "inside", labelStepX : 1,  labelStepY : 'AA'})  //30분
-            options.graticules.push({type: "GARS", coordStepX: 0.25, coordStepY: 0.25, minZoom : 9,  maxZoom : 11, labelType: "inside", labelStepX : 1,  labelStepY : 'AA'})  //15분 / Custom Label
-            options.graticules.push({type: "GARS", coordStepX: 5/60, coordStepY: 5/60, minZoom : 11, maxZoom : 20, labelType: "inside", labelStepX : 1,  labelStepY : 'AA'})  //5분 / Custom Label
+            options.graticules.push({type: "GARS", minZoom : 0,  maxZoom : 6,  coordStepX: 20,   coordStepY: 20,   labelType: "inside", labelStepX : 20, labelStepY : 20})  //20도
+            options.graticules.push({type: "GARS", minZoom : 6,  maxZoom : 9,  coordStepX: 0.5,  coordStepY: 0.5,  labelType: "inside", labelStepX : 1,  labelStepY : 'AA'})  //30분
+            options.graticules.push({type: "GARS", minZoom : 9,  maxZoom : 11, coordStepX: 0.25, coordStepY: 0.25, labelType: "inside", labelStepX : 1,  labelStepY : 'AA'})  //15분 / Custom Label
+            options.graticules.push({type: "GARS", minZoom : 11, maxZoom : 20, coordStepX: 5/60, coordStepY: 5/60, labelType: "inside", labelStepX : 1,  labelStepY : 'AA'})  //5분 / Custom Label
         }
         if(types.indexOf("GEOREF") > -1){
-            options.graticules.push({type: "GEOREF", coordStepX: 15,   coordStepY: 15,   minZoom : 0,  maxZoom : 5,  labelType: "inside", labelStepX : 'A', labelStepY : 'A'})  //15도
-            options.graticules.push({type: "GEOREF", coordStepX: 1,    coordStepY: 1,    minZoom : 5,  maxZoom : 11, labelType: "inside", labelStepX : 'A', labelStepY : 'A'})  //1도 / Custom Label
-            options.graticules.push({type: "GEOREF", coordStepX: 1/60, coordStepY: 1/60, minZoom : 11, maxZoom : 20, labelType: "inside", labelStepX : 'A', labelStepY : 'A'})  //1분 / Custom Label
+            options.graticules.push({type: "GEOREF", minZoom : 0,  maxZoom : 5,  coordStepX: 15,   coordStepY: 15,   labelType: "inside", labelStepX : 'A', labelStepY : 'A'})  //15도
+            options.graticules.push({type: "GEOREF", minZoom : 5,  maxZoom : 11, coordStepX: 1,    coordStepY: 1,    labelType: "inside", labelStepX : 'A', labelStepY : 'A'})  //1도 / Custom Label
+            options.graticules.push({type: "GEOREF", minZoom : 11, maxZoom : 20, coordStepX: 1/60, coordStepY: 1/60, labelType: "inside", labelStepX : 'A', labelStepY : 'A'})  //1분 / Custom Label
         }
         options.graticulesDrawn = false
         stmp.mapObject.map._graticules_options = options
-        stmp.mapObject.map.resize() // call label generator
+        stmp.mapObject.map.resize() // call grid generator
+    }
+    /**
+     * stmp.setGraticulesStyle("MGRS","labelColor","#ff0000")
+     * stmp.setGraticulesStyle("MGRS","labelSize",20)
+     * stmp.setGraticulesStyle("GARS","lineColor","#ffff00")
+     * @param types
+     * @param styleName
+     * @param styleValue
+     */
+    , setGraticulesStyle : function(types,styleName,styleValue){
+        var options = stmp.mapObject.map._graticules_options
+        if(options === undefined){
+            console.error("생성된 그리드가 없습니다.")
+            return
+        }
+        if(!(types instanceof Array)){
+            types = [types]
+        }
+        jQuery.each(options.graticules,function(idx, item){
+            if(types.indexOf(item.type) > -1){
+                item[styleName] = styleValue
+            }
+        })
+        stmp.mapObject.map.resize() // call grid generator
     }
     , getDMS : function(dd, longOrLat){
         let hemisphere = /^[WE]|(?:lon)/i.test(longOrLat)? dd < 0 ? "W" : "E" : dd < 0 ? "S" : "N";
@@ -2028,7 +2127,7 @@ var stmp = {
                 }
             }else{
                 // number
-                var calcLabel = (parseInt(firstLabel) * stepIndex)
+                var calcLabel = (parseInt(firstLabel) + stepIndex)
                 var maxIndex = 360 / coordStep
                 if(type === "MGRS"){
                     if(calcLabel <= 0){
