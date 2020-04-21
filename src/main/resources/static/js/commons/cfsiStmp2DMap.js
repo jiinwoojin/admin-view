@@ -67,13 +67,15 @@ jiMap.prototype.setBaseStyle = function setBaseStyle() {
  * 맵 객체를 초기화 한다.
  */
 jiMap.prototype.init = function init(options) {
+    mapboxgl.accessToken = 'pk.eyJ1IjoibmV1dHRpIiwiYSI6ImNqeG8xZTI0ejAyN2MzZ3IycmprMGozMTgifQ.COExEgQEp4_q926PX_Qu2w';
     return new mapboxgl.Map({
         container : options.container,
-        style : this.setBaseStyle(),
+        style: 'mapbox://styles/mapbox/light-v9',
+        //style : this.setBaseStyle(),
         //style : CONTEXT + '/style/g25k_style.json',
         center : options.center || [0, 0],
         bounds : options.bounds || undefined,
-        zoom : options.zoom || 10,
+        zoom : 12,
         maxZoom : options.maxZoom || 20,
         minZoom : options.minZoom || 0,
         preserveDrawingBuffer : true,
@@ -87,32 +89,32 @@ jiMap.prototype.init = function init(options) {
 
 jiMap.prototype.changeBaseMap = function changeBaseMap() {
     if(stmp.mapObject.map.getLayer('selectMap')) {
-                    stmp.mapObject.map.removeLayer('selectMap');
-                    stmp.mapObject.map.removeSource('selectMap');
-                }
+        stmp.mapObject.map.removeLayer('selectMap');
+        stmp.mapObject.map.removeSource('selectMap');
+    }
 
-                stmp.mapObject.map.addLayer(
-                    {
-                        'id' : 'selectMap',
-                        'type' : 'raster',
-                        'source' : {
-                            'type' : 'raster',
-                            'tiles' : [
-                                'http://' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT+
-                                '/geoserver/gwc/service/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=256&height=256&layers=' + stmp.getMapSource()],
-                            'tileSize' : 256
-                        }
-                    }
-                );
+    stmp.mapObject.map.addLayer(
+        {
+            'id' : 'selectMap',
+            'type' : 'raster',
+            'source' : {
+                'type' : 'raster',
+                'tiles' : [
+                    'http://' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT+
+                    '/geoserver/gwc/service/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=256&height=256&layers=' + stmp.getMapSource()],
+                'tileSize' : 256
+            }
+        }
+    );
 
 };
 
 jiMap.prototype.removeMap = function removeMap() {
 
     if(stmp.mapObject.map.getLayer('selectMap')) {
-                    stmp.mapObject.map.removeLayer('selectMap');
-                    stmp.mapObject.map.removeSource('selectMap');
-                }
+        stmp.mapObject.map.removeLayer('selectMap');
+        stmp.mapObject.map.removeSource('selectMap');
+    }
 };
 
 /**
