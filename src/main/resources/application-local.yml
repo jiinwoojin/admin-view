@@ -3,14 +3,14 @@ project:
     base:
       driver-class-name: org.postgresql.Driver
       url: jdbc:postgresql://211.172.246.71:5000/mims
-      userName: jiserver
+      username: jiserver
       password: jiserver
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
       mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
     map:
       driver-class-name: org.postgresql.Driver
       url: jdbc:postgresql://211.172.246.71:5000/mims
-      userName: jiserver
+      username: jiserver
       password: jiserver
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
       mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
