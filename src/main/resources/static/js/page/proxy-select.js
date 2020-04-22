@@ -2,6 +2,74 @@ var selectedLayers = [];
 var selectedCaches = [];
 var selectedSources = [];
 
+window.onload = function() {
+    initialize_selected_data();
+
+    $('#proxyLayerName').change(function() {
+        $('#proxyLayerName').data("check-duplicate",false);
+        $('#duplicate-check-message-proxy-layer').text("중복확인을 해주세요.");
+    });
+
+    $('#proxySourceName').change(function() {
+        $('#proxySourceName').data("check-duplicate",false);
+        $('#duplicate-check-message-proxy-source').text("중복확인을 해주세요.");
+    });
+
+    $('#proxyCacheName').change(function() {
+        $('#proxyCacheName').data("check-duplicate",false);
+        $('#duplicate-check-message-proxy-cache').text("중복확인을 해주세요.");
+    });
+
+    $('#searchMap').on('show.bs.modal', function (event) {
+        var mapFile = document.getElementById('mapFile');
+
+        if(mapFile.options.length === 1) {
+            $.ajax({
+                url: CONTEXT + '/server/api/map/list',
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var option = document.createElement('option');
+                        option.value = JSON.stringify( { requestMap : data[i].mapFilePath, mapId : data[i].id });
+                        option.text = data[i].name + `(${data[i].mapFilePath})`;
+
+                        mapFile.options.add(option);
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+    });
+
+    $('#sourceDataInsert,#sourceDataUpdate').each(function(){
+        $('#' + this.id).on('hide.bs.modal', function (event) {
+            $("select#mapFile option").remove();
+            $("select#mapLayer option").remove();
+
+            $('input[name="requestMap"]').val('[none]');
+            $('input[name="requestLayers"]').val('[none]');
+
+            var mapFile = document.getElementById('mapFile');
+            var option = document.createElement('option');
+            option.value = JSON.stringify( { requestMap : "[none]", mapId : -1 });
+            option.text = '-- Map 파일 선택 --';
+            mapFile.options.add(option);
+
+            var mapLayer = document.getElementById('mapLayer');
+            option = document.createElement('option');
+            option.value = '[none]';
+            option.text = '-- 레이어 선택 --';
+            mapLayer.options.add(option);
+        });
+    });
+
+    document.getElementById('proxyCacheName').onchange = function(e){
+        var cacheDirectory = document.getElementById('proxyCacheDirectory');
+        cacheDirectory.value = cacheDirectoryPath + e.target.value + '/';
+    }
+}
+
 function onclick_remove_button(id, data){
     var arr = window[id];
     var idx = arr.indexOf(data);
@@ -166,73 +234,13 @@ function onclick_close(field, context){
     $(`#${field}`).val('');
     $(`#${field}`).data("check-duplicate",false);
     $(`#duplicate-check-message-proxy-${context}`).text("중복확인을 해주세요.");
-}
-
-window.onload = function() {
-    initialize_selected_data();
-
-    $('#proxyLayerName').change(function() {
-        $('#proxyLayerName').data("check-duplicate",false);
-        $('#duplicate-check-message-proxy-layer').text("중복확인을 해주세요.");
-    });
-
-    $('#proxySourceName').change(function() {
-        $('#proxySourceName').data("check-duplicate",false);
-        $('#duplicate-check-message-proxy-source').text("중복확인을 해주세요.");
-    });
-
-    $('#proxyCacheName').change(function() {
-        $('#proxyCacheName').data("check-duplicate",false);
-        $('#duplicate-check-message-proxy-cache').text("중복확인을 해주세요.");
-    });
-
-    $('#searchMap').on('show.bs.modal', function (event) {
-        var mapFile = document.getElementById('mapFile');
-
-        if(mapFile.options.length === 1) {
-            $.ajax({
-                url: CONTEXT + '/server/api/map/list',
-                success: function (data) {
-                    for (var i = 0; i < data.length; i++) {
-                        var option = document.createElement('option');
-                        option.value = JSON.stringify( { requestMap : data[i].mapFilePath, mapId : data[i].id });
-                        option.text = data[i].name + `(${data[i].mapFilePath})`;
-
-                        mapFile.options.add(option);
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
-        }
-    });
-
-    $('#sourceDataInsert,#sourceDataUpdate').each(function(){
-        $('#' + this.id).on('hide.bs.modal', function (event) {
-            $("select#mapFile option").remove();
-            $("select#mapLayer option").remove();
-
-            $('input[name="requestMap"]').val('[none]');
-            $('input[name="requestLayers"]').val('[none]');
-
-            var mapFile = document.getElementById('mapFile');
-            var option = document.createElement('option');
-            option.value = JSON.stringify( { requestMap : "[none]", mapId : -1 });
-            option.text = '-- Map 파일 선택 --';
-            mapFile.options.add(option);
-
-            var mapLayer = document.getElementById('mapLayer');
-            option = document.createElement('option');
-            option.value = '[none]';
-            option.text = '-- 레이어 선택 --';
-            mapLayer.options.add(option);
-        });
-    });
+    if(context === 'cache'){
+        var cacheDirectory = document.getElementById("proxyCacheDirectory");
+        cacheDirectory.value = cacheDirectoryPath;
+    }
 }
 
 function onchange_mapFile_value(){
-    var workDir = $('input[name="mapServerWorkDir"]').val();
     var requestObj = document.getElementById("mapFile").value;
     var json = JSON.parse(requestObj);
 
@@ -245,7 +253,7 @@ function onchange_mapFile_value(){
     mapLayer.options.add(option);
 
     if(json.requestMap !== '[none]' && json.mapId != -1) {
-        $('input[name="requestMap"]').val(workDir + json.requestMap);
+        $('input[name="requestMap"]').val(dataDirPath + json.requestMap);
 
         $.ajax({
             url: CONTEXT + '/server/api/layer/search-by-map-id/' + json.mapId,

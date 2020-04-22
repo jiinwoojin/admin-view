@@ -95,6 +95,16 @@ public class ProxySettingServiceImpl implements ProxySettingService {
         }
     }
 
+    @Override
+    public String getDataDirectoryPath() {
+        return dataPath;
+    }
+
+    @Override
+    public String getProxyCacheDirectoryPath() {
+        return dataPath + "/cache/";
+    }
+
     @Override // TODO : JPA vs MyBatis Persistence
     public Map<String, Object> getProxyLayerEntities() {
 //        Map<Long, List<ProxySourceDTO>> sourceMap = new HashMap<>();
@@ -194,12 +204,12 @@ public class ProxySettingServiceImpl implements ProxySettingService {
 
     @Override
     public ProxySourceModel initializeProxySourceModel() {
-        return new ProxySourceModel(0L, "", "mapserver", "[none]", "[none]", mapServerBinary, dataPath);
+        return new ProxySourceModel(0L, "", "mapserver", "[none]", "[none]", mapServerBinary, dataPath + "/tmp");
     }
 
     @Override
     public ProxyCacheModel initializeProxyCacheModel() {
-        return new ProxyCacheModel(0L, "", "file", dataPath, 0, 0, 0, new ArrayList<>());
+        return new ProxyCacheModel(0L, "", "file", this.getProxyCacheDirectoryPath(), 0, 0, 0, new ArrayList<>());
     }
 
     @Override

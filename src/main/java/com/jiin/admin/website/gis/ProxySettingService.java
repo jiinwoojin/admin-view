@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.Map;
 
 public interface ProxySettingService {
+    String getDataDirectoryPath();
+    String getProxyCacheDirectoryPath();
+
     Map<String, Object> getProxyLayerEntities();
     Map<String, Object> getProxySourceEntities();
     Map<String, Object> getProxyCacheEntities();

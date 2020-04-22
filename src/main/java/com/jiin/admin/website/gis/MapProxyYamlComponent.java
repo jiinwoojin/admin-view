@@ -19,6 +19,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 public class MapProxyYamlComponent {
@@ -107,7 +109,24 @@ public class MapProxyYamlComponent {
         Yaml yaml = new Yaml(representer, options);
         StringWriter yamlStr = new StringWriter();
         yaml.dump(model, yamlStr);
-        FileUtils.write(new File(dataPath,workDir + fileName), yamlStr.toString(),"utf-8");
+
+        String context = yamlStr.toString();
+        context = context.replace("demo: null", "demo:");
+        context = context.replace("grids: [GLOBAL_GEODETIC]", "grids: [\'GLOBAL_GEODETIC\']");
+        context = context.replace("versions: [1.1.1, 1.3.0]", "versions: [\'1.1.1\', \'1.3.0\']");
+        context = context.replace("image_formats: [image/jpeg, image/png]", "image_formats: [\'image/jpeg\', \'image/png\']");
+
+        Pattern mapPattern = Pattern.compile("(\\s\\{).*?(,\\s).*?(\\})");
+        Matcher m = mapPattern.matcher(context);
+        while(m.find()){
+            String mapText = m.group(0);
+            mapText = mapText.replace(m.group(1), "\n\t\t\t");
+            mapText = mapText.replace(m.group(2), "\n\t\t\t");
+            mapText = mapText.replace(m.group(3), "");
+            context = context.replace(m.group(0), mapText);
+        }
+
+        FileUtils.write(new File(dataPath,workDir + fileName), context,"utf-8");
     }
 
     public String getMapProxyYamlFileContext() throws IOException {

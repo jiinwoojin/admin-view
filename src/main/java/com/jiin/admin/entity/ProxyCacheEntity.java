@@ -56,13 +56,13 @@ public class ProxyCacheEntity implements Persistable<Long> {
     /**
      * CACHE TYPE
      */
-    @Column(name = "CACHE_TYPE", length = 20, nullable = false)
+    @Column(name = "CACHE_TYPE", nullable = false)
     private String cacheType;
 
     /**
      * CACHE DIRECTORY
      */
-    @Column(name = "CACHE_DIRECTORY", length = 20, nullable = false)
+    @Column(name = "CACHE_DIRECTORY", nullable = false)
     private String cacheDirectory;
 
     /**

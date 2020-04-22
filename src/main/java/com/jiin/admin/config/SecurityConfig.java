@@ -61,14 +61,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/view/auth/edit").authenticated()
                 .antMatchers("/view/auth/**").permitAll()
                 .antMatchers("/view/home/guest").anonymous()
-                .antMatchers("/view/los/**").anonymous()	//이지훈 LOS가시화 예외추가
-                .antMatchers("/server/api/los/**").anonymous()	//이지훈 LOS가시화 예외추가
+                .antMatchers("/view/los/**").permitAll()	//이지훈 LOS가시화 예외추가
+                .antMatchers("/server/api/los/**").permitAll()	//이지훈 LOS가시화 예외추가
                 .antMatchers("/server/server-state").permitAll()
                 .antMatchers("/server/api/status/**").permitAll()
                 .antMatchers("/server/api/layer/**").permitAll()
                 .antMatchers("/server/api/map/**").permitAll()
                 .antMatchers("/server/api/proxy/**").permitAll()
                 .antMatchers("/server/api/check/**").permitAll()
+                .antMatchers("/server/api/system/**").permitAll()
                 .antMatchers("/server/api/account/**").hasRole("ADMIN")
                 .antMatchers("/**").authenticated();
 

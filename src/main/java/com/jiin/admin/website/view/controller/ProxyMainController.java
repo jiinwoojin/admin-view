@@ -50,6 +50,9 @@ public class ProxyMainController {
         model.addAttribute("proxySources", proxyService.getProxySourceEntitiesIsSelected().get("data"));
         model.addAttribute("proxyCaches", proxyService.getProxyCacheEntitiesIsSelected().get("data"));
 
+        model.addAttribute("proxyCacheDirectory", proxyService.getProxyCacheDirectoryPath());
+        model.addAttribute("dataDirectory", proxyService.getDataDirectoryPath());
+
         return "page/cache/setting";
     }
 
