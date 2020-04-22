@@ -18,7 +18,7 @@ project:
   mapserver:
     binary: /usr/local/bin/mapserv
   los:
-    host: http://192.168.99.100
+    host: http://211.172.246.71
     port: 9000
     accessKey: minioadmin
     secretKey: minioadmin
