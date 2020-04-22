@@ -4,6 +4,10 @@
 <head>
     <link rel="stylesheet" th:href="@{/gis/openlayers-4.6.4/ol.css}">
     <script th:src="@{/gis/openlayers-4.6.4/ol.js}"></script>
+    <link rel="stylesheet" th:src="@{/vendor/bootstrap-tagsinput/bootstrap-tagsinput.css}">
+    <script th:src="@{/vendor/bootstrap-tagsinput/bootstrap-tagsinput.js}"></script>
+    <link rel="stylesheet" th:src="@{/vendor/bootstrap-tagsinput/tagsinput.css}">
+    <script th:src="@{/vendor/bootstrap-tagsinput/tagsinput.js}"></script>
 </head>
 
 <th:block layout:fragment="content-title-fragment">
@@ -425,7 +429,8 @@
 
                                         <div class="form-group">
                                             <label for="mapLayer">레이어 선택</label>
-                                            <select class="form-control" id="mapLayer" onchange="onchange_mapLayer_value()" multiple>
+                                            <input type="text" data-role="tagsinput" id="mapLayer_multiple" onchange="onchange_mapLayer_multiple_value()" />
+                                            <select class="form-control" id="mapLayer" onchange="onchange_mapLayer_value()">
                                                 <option value="[none]">-- 레이어 선택 --</option>
                                             </select>
                                         </div>
@@ -499,6 +504,8 @@
                                 document.getElementById('requestLayers_u').value = obj.requestLayers;
                                 document.getElementById('mapServerBinary_u').value = obj.mapServerBinary;
                                 document.getElementById('mapServerWorkDir_u').value = obj.mapServerWorkDir;
+
+                                $('#mapLayer_multiple').tagsinput('add', obj.requestLayers);
                             }
                         </script>
                         <!-- Data List Table - SOURCE END -->

@@ -22,17 +22,23 @@ window.onload = function() {
 
     $('#searchMap').on('show.bs.modal', function (event) {
         var mapFile = document.getElementById('mapFile');
+        var mapLayer = document.getElementById('mapLayer');
 
         if(mapFile.options.length === 1) {
             $.ajax({
                 url: CONTEXT + '/server/api/map/list',
                 success: function (data) {
                     for (var i = 0; i < data.length; i++) {
-                        var option = document.createElement('option');
-                        option.value = JSON.stringify( { requestMap : data[i].mapFilePath, mapId : data[i].id });
-                        option.text = data[i].name + `(${data[i].mapFilePath})`;
+                        var option1 = document.createElement('option');
+                        option1.value = JSON.stringify( { requestMap : data[i].mapFilePath, mapId : data[i].id });
+                        option1.text = data[i].name + `(${data[i].mapFilePath})`;
 
-                        mapFile.options.add(option);
+                        var option2 = document.createElement('option');
+                        option2.value = data[i].name;
+                        option2.text = data[i].name;
+
+                        mapFile.options.add(option1);
+                        mapLayer.options.add(option2);
                     }
                 },
                 error: function (e) {
@@ -48,7 +54,6 @@ window.onload = function() {
             $("select#mapLayer option").remove();
 
             $('input[name="requestMap"]').val('[none]');
-            $('input[name="requestLayers"]').val('[none]');
 
             var mapFile = document.getElementById('mapFile');
             var option = document.createElement('option');
@@ -61,6 +66,9 @@ window.onload = function() {
             option.value = '[none]';
             option.text = '-- 레이어 선택 --';
             mapLayer.options.add(option);
+
+            $('#mapLayer_multiple').tagsinput('removeAll');
+            $('input[name="requestLayers"]').val('[none]');
         });
     });
 
@@ -241,47 +249,25 @@ function onclick_close(field, context){
 }
 
 function onchange_mapFile_value(){
-    var requestObj = document.getElementById("mapFile").value;
-    var json = JSON.parse(requestObj);
-
-    var mapLayer = document.getElementById('mapLayer');
-    $("select#mapLayer option").remove();
-
-    var option = document.createElement('option');
-    option.value = '[none]';
-    option.text = '-- 레이어 선택 --';
-    mapLayer.options.add(option);
-
-    if(json.requestMap !== '[none]' && json.mapId != -1) {
-        $('input[name="requestMap"]').val(dataDirPath + json.requestMap);
-
-        $.ajax({
-            url: CONTEXT + '/server/api/layer/search-by-map-id/' + json.mapId,
-            success: function (data) {
-                for (var i = 0; i < data.length; i++) {
-                    var option = document.createElement('option');
-                    option.value = data[i].name;
-                    option.text = data[i].name;
-                    mapLayer.options.add(option);
-                }
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        });
-    } else {
-        alert('선택하신 값은 초기 값으로 원상 복귀 됩니다.');
+    var mapFile = document.getElementById("mapFile").value;
+    var obj = JSON.parse(mapFile);
+    if(obj.requestMap === '[none]'){
+        alert('MAP 파일을 선택하세요.')
         $('input[name="requestMap"]').val('[none]');
-        $('input[name="requestLayers"]').val('[none]');
+    } else {
+        $('input[name="requestMap"]').val(dataDirPath + obj.requestMap);
     }
 }
 
 function onchange_mapLayer_value() {
-    var mapLayer = $('#mapLayer').val();
-    mapLayer = mapLayer.filter(layer => layer != '[none]');
-    if(mapLayer.length > 0) {
-        $('input[name="requestLayers"]').val(mapLayer.join(','));
-    } else {
-        $('input[name="requestLayers"]').val('[none]');
+    var mapLayer = $('#mapLayer_multiple').tagsinput('items');
+    var selectData = document.getElementById("mapLayer").value;
+    if(selectData !== '[none]' && !mapLayer.includes(selectData)) {
+        $('#mapLayer_multiple').tagsinput('add', selectData);
+        $('input[name="requestLayers"]').val($('#mapLayer_multiple').val());
     }
+}
+
+function onchange_mapLayer_multiple_value(){
+    $('input[name="requestLayers"]').val($('#mapLayer_multiple').val());
 }
