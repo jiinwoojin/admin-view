@@ -19,14 +19,14 @@ caches:
     sources: [world_k2]
     cache:
       type: file
-      directory: /data/jiserver/data_dir/cache/world_k2/
+      directory: /data/jiapp/data_dir/cache/world_k2/
 
 sources:
   world_k2:
     type: mapserver
     req:
-      map: /data/jiserver/data_dir/mapserver/world_k2/world_k2.map
+      map: /data/jiapp/data_dir/mapserver/world_k2/world_k2.map
       layers: world
     mapserver:
       binary: /usr/local/bin/mapserv
-      working_dir: /data/jiserver/data_dir/tmp
+      working_dir: /data/jiapp/data_dir/tmp
