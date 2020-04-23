@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout" lang="ko">
 <th:block layout:fragment="content-title-fragment">
-    <h1 class="h2 mb-0 text-gray-800">Layer 관리</h1>
+    <h1 class="h2 mb-0 text-gray-800">LAYER 관리</h1>
 
-    <!-- Layer 추가 버튼 -->
+    <!-- LAYER 추가 버튼 -->
     <div id="map_config_button">
         <button data-toggle="modal" data-target="#layer-create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus fa-sm text-white-50"></i> Layer 추가
+            <i class="fas fa-plus fa-sm text-white-50"></i> LAYER 추가
         </button>
     </div>
 
-    <!-- Layer 추가 Modal -->
+    <!-- LAYER 추가 Modal -->
     <div class="modal fade" id="layer-create" tabindex="-1" role="dialog" aria-labelledby="insert-layer" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <form th:action="@{/view/manage/add-layer}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" enctype="multipart/form-data">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="insert-layer">Layer 추가</h5>
+                        <h5 class="modal-title" id="insert-layer">LAYER 추가</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -24,7 +24,7 @@
                     <div class="modal-body">
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="layer-name">Layer Name</label>
+                                <label for="layer-name">LAYER 이름</label>
                             </div>
                             <div class="col-12 input-group">
                                 <input type="text" class="form-control" name="name" id="layer-name">
@@ -100,9 +100,9 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a th:href="@{/view/manage/map-manage?pg=1&sz=9&lType=ALL}">지도 관리</a>
+                <a th:href="@{/view/manage/map-manage?pg=1&sz=9&lType=ALL&units=ALL}">지도 관리</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Layer 관리</li>
+            <li class="breadcrumb-item active" aria-current="page">LAYER 관리</li>
         </ol>
     </nav>
 </th:block>

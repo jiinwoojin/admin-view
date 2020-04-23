@@ -38,7 +38,7 @@ public class ProxyMainController {
 
     // Proxy 데이터 설정
     @RequestMapping("setting")
-    public String cacheDataSetting(Model model){
+    public String proxyDataSetting(Model model){
         model.addAttribute("layerMap", proxyService.getProxyLayerEntities());
         model.addAttribute("sourceMap", proxyService.getProxySourceEntities());
         model.addAttribute("cacheMap", proxyService.getProxyCacheEntities());
@@ -140,5 +140,10 @@ public class ProxyMainController {
     public String checkingProxyDataSettings(Model model, ProxySelectModel proxySelectModel) throws IOException {
         proxyService.checkProxyDataSettingsWithModel(proxySelectModel);
         return "redirect:setting";
+    }
+
+    @RequestMapping("seeding")
+    public String proxyCacheSeedDataSetting(Model model){
+        return "page/cache/seeding";
     }
 }

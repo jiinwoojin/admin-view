@@ -16,6 +16,108 @@
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
-    <p>파일을 동기화 합니다.</p>
+    <div class="text-right">
+        <button id="sync-btn" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="onclick_sync()">
+            <i class="fas fa-sync fa-sm text-white-50"></i> 동기화
+        </button>
+    </div>
+    <div class="row">
+        <div class="col-xl-6">
+            <h3 class="text-center">A 서버</h3>
+            <table id="list_table1" class="table table-sm table-striped text-center">
+                <thead class="table-info">
+                <tr>
+                    <th scope="col" class="text-center">파일 이름</th>
+                    <th scope="col" class="text-center">파일 크기</th>
+                    <th scope="col" class="text-center">업로드 일자</th>
+                    <th scope="col" class="text-center">관리자</th>
+                </tr>
+                </thead>
+                <tbody id="list_table1_body">
+                </tbody>
+            </table>
+        </div>
+        <div class="col-xl-6">
+            <h3 class="text-center">B 서버</h3>
+            <table id="list_table2" class="table table-sm table-striped text-center">
+                <thead class="table-info">
+                <tr>
+                    <th scope="col" class="text-center">파일 이름</th>
+                    <th scope="col" class="text-center">파일 크기</th>
+                    <th scope="col" class="text-center">업로드 일자</th>
+                    <th scope="col" class="text-center">관리자</th>
+                </tr>
+                </thead>
+                <tbody id="list_table2_body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        var si_center = [
+            { fileName : 'A_SI_Shape.shp', fileSize : 123345667, uploadDate : new Date(), admin : 'Admin1' },
+            { fileName : 'B_SI_Shape.shp', fileSize : 234567890, uploadDate : new Date(), admin : 'Admin2' },
+            { fileName : 'C_SI_Shape.shp', fileSize : 345678912, uploadDate : new Date(), admin : 'Admin3' },
+            { fileName : 'D_SI_Shape.shp', fileSize : 456789012, uploadDate : new Date(), admin : 'Admin1' },
+            { fileName : 'E_SI_Shape.shp', fileSize : 567890123, uploadDate : new Date(), admin : 'Admin2' }
+        ];
+
+        var n_si_center = [
+            { fileName : 'A_N_SI_Shape.shp', fileSize : 456789012, uploadDate : new Date(), admin : 'Admin0' },
+            { fileName : 'B_N_SI_Shape.shp', fileSize : 567890123, uploadDate : new Date(), admin : 'Admin0' },
+            { fileName : 'C_N_SI_Shape.shp', fileSize : 678901234, uploadDate : new Date(), admin : 'Admin0' }
+        ];
+
+        var synced = false;
+
+        function tableDraw(id, data) {
+            var table = $(id).DataTable({
+                "language" : {
+                    "lengthMenu" : "자료 길이 _MENU_",
+                    "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                    "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                    "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                    "infoFiltered" : "(총 _TOTAL_ 건)",
+                    "search" : "검색 키워드",
+                    "paginate": {
+                        "first" : "<<",
+                        "last" : ">>",
+                        "next" : ">",
+                        "previous" : "<"
+                    }
+                }
+            });
+
+            for(var i = 0; i < data.length; i++){
+                table.row.add([
+                    data[i].fileName, data[i].fileSize, data[i].uploadDate, data[i].admin
+                ]).draw(false);
+            }
+        }
+
+        function tableClear(id){
+            $(id).DataTable().clear().draw();
+        }
+
+        $(document).ready(function() {
+            tableDraw('#list_table1', si_center);
+            tableDraw('#list_table2', n_si_center);
+        });
+
+        function onclick_sync(){
+            synced = !synced;
+            tableClear('#list_table1');
+            tableClear('#list_table2');
+
+            if(synced){
+                var total = si_center.concat(n_si_center);
+                tableDraw('#list_table1', total);
+                tableDraw('#list_table2', total);
+            } else {
+                tableDraw('#list_table1', si_center);
+                tableDraw('#list_table2', n_si_center);
+            }
+        }
+    </script>
 </th:block>
 </html>

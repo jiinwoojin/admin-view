@@ -20,7 +20,8 @@ function onmouseenter_server_status(center){
                 Mapnik 상태 : <i class="fas fa-check"></i> <br/>
                 Tegola 상태 : <i class="fas fa-check"></i> <br/>
                 PostgreSQL 상태 : <i class="fas fa-check"></i> <br/>
-                H2 Database 상태 : <i class="fas fa-times"></i>
+                Syncthing 상태 : <i class="fas fa-times"></i> <br/>
+                Docker 상태 : <i class="fas fa-times"></i>
             </p>
         `)
         .tooltip('show');
