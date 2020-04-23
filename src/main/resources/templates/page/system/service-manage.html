@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">서버 관리 - 서비스 관리</h1>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/view/server/service-info}">서버 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">서비스 관리</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <div class="row">
+
+    </div>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="shutdown-tab" data-toggle="tab" href="#shutdown" role="tab" aria-controls="shutdown" aria-selected="true">
+                서비스 종료
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="restart-tab" data-toggle="tab" href="#restart" role="tab" aria-controls="restart" aria-selected="false">
+                서비스 재부팅
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="shutdown" role="tabpanel" aria-labelledby="shutdown-tab">
+            <p>서비스 종료</p>
+        </div>
+        <div class="tab-pane fade" id="restart" role="tabpanel" aria-labelledby="restart-tab">
+            <p>서비스 재부팅</p>
+        </div>
+    </div>
+</th:block>
+</html>

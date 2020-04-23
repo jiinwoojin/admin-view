@@ -137,8 +137,7 @@
         </a>
         <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service') ? 'show' : '' }">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-shutdown') ? 'active' : '' }" th:href="@{/view/server/service-shutdown}">서비스 종료</a>
-                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-restart') ? 'active' : '' }" th:href="@{/view/server/service-restart}">서비스 재가동</a>
+                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-manage') ? 'active' : '' }" th:href="@{/view/server/service-manage}">서비스 관리</a>
                 <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-info') ? 'active' : '' }" th:href="@{/view/server/service-info}">서비스 정보</a>
             </div>
         </div>
