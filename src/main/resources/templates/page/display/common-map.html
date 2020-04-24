@@ -579,7 +579,7 @@
                 ,"observer_height" : 2
                 ,"target_height" : 10
                 ,"semi_dimension" : 100
-                ,"input_dem_level" : 3
+                ,"input_dem_level" : 2
                 ,"output_bucket_name" : "data"
                 ,"output_destination" :getUUID()
                 ,"output_file_format" : "png"
@@ -589,21 +589,21 @@
 
             //요청
             $.ajax({
-                url: CONTEXT + '/view/los/test'
+                url: CONTEXT + '/view/los/get'
                 ,type:'post'
                 ,contentType:'application/json'
                 ,data : JSON.stringify(json)
-                ,success:function(result){
+                ,success : function(result) {
                     console.log("######## return /los/get-los");
                     console.log(result);
-                    interval = setInterval(function(){
+                    interval = setInterval(function() {
                         $.ajax({
                             url: CONTEXT + '/view/los/get'
                             ,type:'post'
                             ,contentType:'application/json'
                             ,data : JSON.stringify(result)
-                            ,success:function(urlResult){
-                                if(urlResult.url !== ""){
+                            ,success : function(urlResult) {
+                                if (urlResult.url !== "") {
                                     isRun = false;
                                     clearInterval(interval);
                                     $('#spn_los_spinner').toggle();
