@@ -16,6 +16,187 @@
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
-    <p>캐시 SEED 관리 페이지</p>
+    <div id="seeding_main" class="row">
+        <div class="col-xl-6">
+            <h2 class="mb-2">캐시 - 맵 데이터 목록</h2>
+            <table id="list_table" class="table table-sm table-striped">
+                <thead class="table-info">
+                <tr>
+                    <th scope="col" class="text-center">맵 이름</th>
+                    <th scope="col" class="text-center">제목</th>
+                    <th scope="col" class="text-center">지원 포맷</th>
+                    <th scope="col" class="text-center">Grid 셋</th>
+                    <th scope="col" class="text-center">최근 SEED 기간</th>
+                    <th scope="col" class="text-center">설정</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="layer : ${ proxyLayers }">
+                    <td class="text-center align-middle" th:text="${ layer.name }"></td>
+                    <td class="text-center align-middle" th:text="${ layer.title }"></td>
+                    <td class="text-center align-middle">
+                        image/png<br/>
+                        image/jpeg
+                    </td>
+                    <td class="text-center align-middle">
+                        EPSG:4326<br/>
+                        EPSG:900913<br/>
+                        EPSG:3857
+                    </td>
+                    <td class="text-center align-middle">
+                        <span>2020-04-24 12:00:00</span> <br/>
+                        <span>2020-04-24 12:00:00</span> <br/>
+                        <span><i class="fas fa-times"></i></span>
+                    </td>
+                    <td class="text-center align-middle">
+                        <button class="btn btn-info btn-sm btn-circle mx-1" type="button" data-toggle="modal" data-target="#seed_setting">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm btn-circle mx-1" type="button" onclick="alert('진행 내역 조회')">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button class="btn btn-success btn-sm btn-circle mx-1" type="button" onclick="alert('SEEDING 진행')">
+                            <i class="fas fa-sync"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-xl-6">
+            <h2 class="my-2">SEED 진행 내역</h2>
+            <div id="seed_history">
+                <div class="form-group">
+                    <label for="layer_name">맵 이름</label>
+                    <input class="form-control form-control-sm" id="layer_name" name="layer_name" value="world_k2_lay" readonly />
+                </div>
+                <div class="form-group">
+                    <label for="layer_name">캐시 Dir</label>
+                    <input class="form-control form-control-sm" id="cache_dir" name="cache_dir" value="/data/jiapp/data_dir/cache/world_k2_cache/" readonly />
+                </div>
+                <table id="list_table_history" class="table table-sm table-striped">
+                    <thead class="table-info">
+                    <tr>
+                        <th scope="col" class="text-center">포맷 종류</th>
+                        <th scope="col" class="text-center">Grid 셋</th>
+                        <th scope="col" class="text-center">진행 시간</th>
+                        <th scope="col" class="text-center">저장 폴더</th>
+                        <th scope="col" class="text-center">삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody id="history_context">
+                    <tr>
+                        <td class="text-center align-middle">image/png</td>
+                        <td class="text-center align-middle">EPSG:4326</td>
+                        <td class="text-center align-middle">2020/04/23 11:11:11</td>
+                        <td class="text-center align-middle">20200423_111111_png_4326</td>
+                        <td class="text-center align-middle">
+                            <button class="btn btn-danger btn-circle btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle">image/png</td>
+                        <td class="text-center align-middle">EPSG:3857</td>
+                        <td class="text-center align-middle">2020/04/23 10:10:10</td>
+                        <td class="text-center align-middle">20200423_101010_png_3857</td>
+                        <td class="text-center align-middle">
+                            <button class="btn btn-danger btn-circle btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr/>
+        </div>
+    </div>
+
+    <div class="modal fade" id="seed_setting" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">SEED 설정 - world_k2_lay</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="seeding_interval">SEED 진행 주기</label>
+                            <input class="form-control form-control-sm" id="seeding_interval" value="3600" readonly />
+                        </div>
+                        <h6 class="mt-2">지원 포맷</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="support_png">
+                            <label class="form-check-label" for="support_png">
+                                image/png
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="support_jpeg">
+                            <label class="form-check-label" for="support_jpeg">
+                                image/jpeg
+                            </label>
+                        </div>
+                        <h6 class="mt-2">지원 Grid 셋</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="support_epsg_1">
+                            <label class="form-check-label" for="support_epsg_1">
+                                EPSG:4326
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="support_epsg_2">
+                            <label class="form-check-label" for="support_epsg_2">
+                                EPSG:900913
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="support_epsg_3">
+                            <label class="form-check-label" for="support_epsg_3">
+                                EPSG:3857
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 저장
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times"></i> 닫기
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#list_table,#list_table_history').each(function () {
+                $("#" + this.id).DataTable({
+                    "language": {
+                        "lengthMenu": "자료 길이 _MENU_",
+                        "zeroRecords": "해당 자료가 존재하지 않습니다.",
+                        "info": "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                        "infoEmpty": "해당 자료가 존재하지 않습니다.",
+                        "infoFiltered": "(총 _TOTAL_ 건)",
+                        "search": "검색 키워드",
+                        "paginate": {
+                            "first": "<<",
+                            "last": ">>",
+                            "next": ">",
+                            "previous": "<"
+                        }
+                    }
+                });
+            })
+        });
+    </script>
 </th:block>
 </html>

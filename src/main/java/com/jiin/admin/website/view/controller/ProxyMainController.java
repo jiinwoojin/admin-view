@@ -144,6 +144,7 @@ public class ProxyMainController {
 
     @RequestMapping("seeding")
     public String proxyCacheSeedDataSetting(Model model){
+        model.addAttribute("proxyLayers", proxyService.getProxyLayerEntitiesIsSelected().get("data"));
         return "page/cache/seeding";
     }
 }
