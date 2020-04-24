@@ -17,6 +17,131 @@
 
 <th:block layout:fragment="content-body-fragment">
     <div class="row">
+        <div class="col-xl-2 mb-4">
+            <div class="card border-bottom-success shadow h-100 py-2">
+                <div class="card-body text-center">
+                    <div class="text-sm font-weight-bold mb-1 text-success">
+                        <h1 class="fas fa-check-circle"></h1>
+                    </div>
+                    <div class="text-sm font-weight-bold mb-1 text-success">
+                        <span>Map Server</span>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-danger btn-sm mx-1">
+                            <i class="fas fa-power-off"></i>
+                        </button>
+                        <button class="btn btn-success btn-sm mx-1">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-2 mb-4">
+            <div class="card border-bottom-success shadow h-100 py-2">
+                <div class="card-body text-center">
+                    <div class="text-sm font-weight-bold mb-1 text-success">
+                        <h1 class="fas fa-check-circle"></h1>
+                    </div>
+                    <div class="text-sm font-weight-bold mb-1 text-success">
+                        <span>Map Proxy</span>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-danger btn-sm mx-1">
+                            <i class="fas fa-power-off"></i>
+                        </button>
+                        <button class="btn btn-success btn-sm mx-1">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-2 mb-4">
+            <div class="card border-bottom-success shadow h-100 py-2">
+                <div class="card-body text-center">
+                    <div class="text-sm font-weight-bold mb-1 text-success">
+                        <h1 class="fas fa-check-circle"></h1>
+                    </div>
+                    <div class="text-sm font-weight-bold mb-1 text-success">
+                        <span>Terrain Builder</span>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-danger btn-sm mx-1">
+                            <i class="fas fa-power-off"></i>
+                        </button>
+                        <button class="btn btn-success btn-sm mx-1">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-2 mb-4">
+            <div class="card border-bottom-success shadow h-100 py-2">
+                <div class="card-body text-center">
+                    <div class="text-sm font-weight-bold mb-1 text-success">
+                        <h1 class="fas fa-check-circle"></h1>
+                    </div>
+                    <div class="text-sm font-weight-bold mb-1 text-success">
+                        <span>Mapnik</span>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-danger btn-sm mx-1">
+                            <i class="fas fa-power-off"></i>
+                        </button>
+                        <button class="btn btn-success btn-sm mx-1">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-2 mb-4">
+            <div class="card border-bottom-success shadow h-100 py-2">
+                <div class="card-body text-center">
+                    <div class="text-sm font-weight-bold mb-1 text-success">
+                        <h1 class="fas fa-check-circle"></h1>
+                    </div>
+                    <div class="text-sm font-weight-bold mb-1 text-success">
+                        <span>Tegola</span>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-danger btn-sm mx-1">
+                            <i class="fas fa-power-off"></i>
+                        </button>
+                        <button class="btn btn-success btn-sm mx-1">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-2 mb-4">
+            <div class="card border-bottom-success shadow h-100 py-2">
+                <div class="card-body text-center">
+                    <div class="text-sm font-weight-bold mb-1 text-success">
+                        <h1 class="fas fa-check-circle"></h1>
+                    </div>
+                    <div class="text-sm font-weight-bold mb-1 text-success">
+                        <span>Docker</span>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-danger btn-sm mx-1">
+                            <i class="fas fa-power-off"></i>
+                        </button>
+                        <button class="btn btn-success btn-sm mx-1">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -35,11 +160,94 @@
 
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="shutdown" role="tabpanel" aria-labelledby="shutdown-tab">
-            <p>서비스 종료</p>
+            <div class="py-1">
+                <h2 class="my-2">서비스 종료 기록</h2>
+                <table id="list_table_shutdown" class="table table-sm table-striped">
+                    <thead class="table-info">
+                    <tr>
+                        <th scope="col" class="text-center">서비스</th>
+                        <th scope="col" class="text-center">종료 시간</th>
+                        <th scope="col" class="text-center">진행자</th>
+                        <th scope="col" class="text-center">진행 결과</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-center">Map Server</td>
+                        <td class="text-center">2020-04-24 11:00:00</td>
+                        <td class="text-center">ADMIN</td>
+                        <td class="text-center">
+                            <i class="fas fa-check-circle"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Map Proxy</td>
+                        <td class="text-center">2020-04-23 11:00:00</td>
+                        <td class="text-center">ADMIN</td>
+                        <td class="text-center">
+                            <i class="fas fa-times-circle"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="tab-pane fade" id="restart" role="tabpanel" aria-labelledby="restart-tab">
-            <p>서비스 재부팅</p>
+            <div class="py-1">
+                <h2 class="my-2">서비스 재시작 기록</h2>
+                <table id="list_table_restart" class="table table-sm table-striped">
+                    <thead class="table-info">
+                    <tr>
+                        <th scope="col" class="text-center">서비스</th>
+                        <th scope="col" class="text-center">종료 시간</th>
+                        <th scope="col" class="text-center">진행자</th>
+                        <th scope="col" class="text-center">진행 결과</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-center">Map Server</td>
+                        <td class="text-center">2020-04-24 11:00:00</td>
+                        <td class="text-center">ADMIN</td>
+                        <td class="text-center">
+                            <i class="fas fa-check-circle"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">Map Proxy</td>
+                        <td class="text-center">2020-04-23 11:00:00</td>
+                        <td class="text-center">ADMIN</td>
+                        <td class="text-center">
+                            <i class="fas fa-times-circle"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+        <script>
+            $(document).ready(function() {
+                $('#list_table_shutdown,#list_table_restart').each(function () {
+                    $("#" + this.id).DataTable({
+                        "language": {
+                            "lengthMenu": "자료 길이 _MENU_",
+                            "zeroRecords": "해당 자료가 존재하지 않습니다.",
+                            "info": "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                            "infoEmpty": "해당 자료가 존재하지 않습니다.",
+                            "infoFiltered": "(총 _TOTAL_ 건)",
+                            "search": "검색 키워드",
+                            "paginate": {
+                                "first": "<<",
+                                "last": ">>",
+                                "next": ">",
+                                "previous": "<"
+                            }
+                        }
+                    });
+                })
+            });
+        </script>
     </div>
 </th:block>
 </html>
