@@ -104,6 +104,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/preview') ? 'active' : '' }" th:href="@{/view/cache/preview}">조회</a>
                 <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/setting') ? 'active' : '' }" th:href="@{/view/cache/setting}">설정</a>
+                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/seeding') ? 'active' : '' }" th:href="@{/view/cache/seeding}">SEED 설정</a>
             </div>
         </div>
     </li>
@@ -117,17 +118,17 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync') ? '' : 'collapsed' }">
-            <i class="fas fa-fw fa-sync"></i>
-            <span>동기화</span>
-        </a>
-        <div id="collapse1" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync') ? 'show' : '' }">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync/database') ? 'active' : '' }" th:href="@{/view/sync/database}">데이터베이스</a>
-                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync/file') ? 'active' : '' }" th:href="@{/view/sync/file}">파일</a>
-            </div>
+    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync') ? '' : 'collapsed' }">
+        <i class="fas fa-fw fa-sync"></i>
+        <span>동기화</span>
+    </a>
+    <div id="collapse1" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync') ? 'show' : '' }">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync/database') ? 'active' : '' }" th:href="@{/view/sync/database}">데이터베이스</a>
+            <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync/file') ? 'active' : '' }" th:href="@{/view/sync/file}">파일</a>
         </div>
-    </li>
+    </div>
+</li>
 
     <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapse2" aria-expanded="true" aria-controls="collapse2" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service') ? '' : 'collapsed' }">
@@ -136,9 +137,8 @@
         </a>
         <div id="collapse2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service') ? 'show' : '' }">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-shutdown') ? 'active' : '' }" th:href="@{/view/server/service-shutdown}">서비스 종료</a>
-                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-restart') ? 'active' : '' }" th:href="@{/view/server/service-restart}">서비스 재가동</a>
-                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-info') ? 'active' : '' }" th:href="@{/view/server/service-info}">서비스 상세 정보</a>
+                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-manage') ? 'active' : '' }" th:href="@{/view/server/service-manage}">서비스 관리</a>
+                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-info') ? 'active' : '' }" th:href="@{/view/server/service-info}">서비스 정보</a>
             </div>
         </div>
     </li>

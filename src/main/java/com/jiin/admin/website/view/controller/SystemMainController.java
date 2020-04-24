@@ -7,18 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("server")
 public class SystemMainController {
-    @RequestMapping("service-shutdown")
-    public String serviceShutdownPage(Model model){
-        return "page/system/service-shutdown";
-    }
-
-    @RequestMapping("service-restart")
-    public String serviceRestartPage(Model model){
-        return "page/system/service-restart";
-    }
-
     @RequestMapping("service-info")
     public String serviceInfoPage(Model model){
         return "page/system/service-info";
+    }
+
+    @RequestMapping("service-manage")
+    public String serviceManagePage(Model model){
+        return "page/system/service-manage";
     }
 }

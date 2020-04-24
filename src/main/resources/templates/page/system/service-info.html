@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+
 <th:block layout:fragment="content-title-fragment">
     <h1 class="h3 mb-0 text-gray-800">서버 관리 - 서비스 정보</h1>
 </th:block>
@@ -16,6 +17,292 @@
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
-    <p>서비스 정보 기능</p>
+    <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+
+    <!-- 데이터 그래프 -->
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">MAP 데이터 정보</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <canvas id="graph_MAP"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">LAYER 데이터 정보</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <canvas id="graph_LAYER"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">CACHE 데이터 정보</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <canvas id="graph_CACHE"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 동기화 그래프 -->
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">동기화 진행 정보</h6>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                    <canvas id="graph_SYNC"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">서비스 등록 정보</h6>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body">
+                    <div class="text-left">
+                        <p>
+                            서비스 버전 정보 : <span>3.4</span><br/>
+                            연동 센터 : OOO 센터<br/>
+                            연동된 SI 센터 IP : <span>192.168.X.Y / 192.168.X.Z / 192.168.Y.Z</span><br/>
+                            연동된 N-SI 센터 IP : <span>192.168.X.Y / 192.168.X.Z / 192.168.Y.Z</span><br/>
+                        </p>
+                        <hr/>
+                        <p>
+                            Map Server 서비스 정보 : <span>WMS (1.0.X)</span><br/>
+                            Map Proxy 서비스 정보 : <span>WMS (1.0.X), TMS (1.0.X)</span><br/>
+                            Tegola 버전 정보 : <span>X.X.X</span><br/>
+                            Mapnik 버전 정보 : <span>X.X.X</span><br/>
+                            Terrain Builder 버전 정보 : <span>X.X.X</span><br/>
+                            PostgreSQL 버전 정보 : <span>X.X.X</span><br/>
+                            Syncthing 버전 정보 : <span>X.X.X</span><br/>
+                            Docker 연동 정보 : <span>A Container -> OK (자세히)</span><br/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var chartColors = {
+            red: 'rgb(255, 99, 132)',
+            pink: 'rgb(255, 194, 218)',
+            orange: 'rgb(255, 159, 64)',
+            yellow: 'rgb(255, 205, 86)',
+            green: 'rgb(75, 192, 192)',
+            blue: 'rgb(54, 162, 235)',
+            skyblue: 'rgb(122, 213, 235)',
+            purple: 'rgb(153, 102, 255)',
+            grey: 'rgb(201, 203, 207)'
+        };
+
+        var color = Chart.helpers.color;
+        var barChartData_MAP = {
+            labels: ['카테고리 A', '카테고리 B', '카테고리 C', '카테고리 D'],
+            datasets: [{
+                label: 'BO 센터',
+                backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
+                borderColor: chartColors.red,
+                borderWidth: 1,
+                data: [
+                    10, 20, 30, 20
+                ]
+            }, {
+                label: 'O3 센터',
+                backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
+                borderColor: chartColors.blue,
+                borderWidth: 1,
+                data: [
+                    10, 8, 23, 12
+                ]
+            }, {
+                label: 'OO사 센터',
+                backgroundColor: color(chartColors.green).alpha(0.5).rgbString(),
+                borderColor: chartColors.green,
+                borderWidth: 1,
+                data: [
+                    50, 46, 40, 20
+                ]
+            }]
+        };
+
+        var barChartData_LAYER = {
+            labels: ['VECTOR', 'RASTER'],
+            datasets: [{
+                label: 'BO 센터',
+                backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
+                borderColor: chartColors.red,
+                borderWidth: 1,
+                data: [
+                    10, 20
+                ]
+            }, {
+                label: 'O3 센터',
+                backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
+                borderColor: chartColors.blue,
+                borderWidth: 1,
+                data: [
+                    10, 8
+                ]
+            }, {
+                label: 'OO사 센터',
+                backgroundColor: color(chartColors.green).alpha(0.5).rgbString(),
+                borderColor: chartColors.green,
+                borderWidth: 1,
+                data: [
+                    50, 46
+                ]
+            }]
+        };
+
+        var barChartData_CACHE = {
+            labels: ['LAYERS', 'SEEDS'],
+            datasets: [{
+                label: 'BO 센터',
+                backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
+                borderColor: chartColors.red,
+                borderWidth: 1,
+                data: [
+                    5, 9
+                ]
+            }, {
+                label: 'O3 센터',
+                backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
+                borderColor: chartColors.blue,
+                borderWidth: 1,
+                data: [
+                    6, 7
+                ]
+            }, {
+                label: 'OO사 센터',
+                backgroundColor: color(chartColors.green).alpha(0.5).rgbString(),
+                borderColor: chartColors.green,
+                borderWidth: 1,
+                data: [
+                    5, 8
+                ]
+            }]
+        };
+
+        var barChartData_SYNC = {
+            labels: ['BO 센터', 'O3 센터', 'OO사 센터'],
+            datasets: [{
+                label: '데이터베이스 - 업로드',
+                backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
+                borderColor: chartColors.red,
+                borderWidth: 1,
+                data: [
+                    5, 4, 3
+                ]
+            }, {
+                label: '데이터베이스 - 다운로드',
+                backgroundColor: color(chartColors.pink).alpha(0.5).rgbString(),
+                borderColor: chartColors.pink,
+                borderWidth: 1,
+                data: [
+                    -7, -3, -4
+                ]
+            }, {
+                label: '파일 - 업로드',
+                backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
+                borderColor: chartColors.blue,
+                borderWidth: 1,
+                data: [
+                    9, 5, 8
+                ]
+            }, {
+                label: '파일 - 다운로드',
+                backgroundColor: color(chartColors.skyblue).alpha(0.5).rgbString(),
+                borderColor: chartColors.skyblue,
+                borderWidth: 1,
+                data: [
+                    -9, -5, -8
+                ]
+            }]
+        };
+
+        window.onload = function() {
+            new Chart(document.getElementById('graph_MAP').getContext('2d'), {
+                type: 'bar',
+                data: barChartData_MAP,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'MAP 파일 보유 현황'
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('graph_LAYER').getContext('2d'), {
+                type: 'bar',
+                data: barChartData_LAYER,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'LAYER 파일 보유 현황'
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('graph_CACHE').getContext('2d'), {
+                type: 'bar',
+                data: barChartData_CACHE,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'CACHE 데이터 보유 현황'
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('graph_SYNC').getContext('2d'), {
+                type: 'horizontalBar',
+                data: barChartData_SYNC,
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'right',
+                    },
+                    title: {
+                        display: true,
+                        text: '동기화 파일 진행 현황'
+                    }
+                }
+            });
+        };
+    </script>
 </th:block>
 </html>
