@@ -174,8 +174,10 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">사용자</div>
-                                <div class="h6 mb-0 font-weight-bold text-gray-800" th:each="name : ${ counter.getUserCount().keySet() }">
-                                    <span th:text="${ name }"></span> : <span th:text="${ counter.getUserCount().get(name) }"></span> 명
+                                <div class="h6 mb-0 font-weight-bold text-gray-800" th:each="map : ${ counter.userCount }">
+                                    <div th:each="key : ${ map.keySet() }">
+                                        <span th:text="${ key }"></span> : <span th:text="${ map.get(key) }"></span> 명
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-auto">
