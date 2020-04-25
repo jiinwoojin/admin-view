@@ -67,15 +67,13 @@ jiMap.prototype.setBaseStyle = function setBaseStyle() {
  * 맵 객체를 초기화 한다.
  */
 jiMap.prototype.init = function init(options) {
-    mapboxgl.accessToken = 'pk.eyJ1IjoibmV1dHRpIiwiYSI6ImNqeG8xZTI0ejAyN2MzZ3IycmprMGozMTgifQ.COExEgQEp4_q926PX_Qu2w';
     return new mapboxgl.Map({
         container : options.container,
-        style: 'mapbox://styles/mapbox/light-v9',
-        //style : this.setBaseStyle(),
+        style : this.setBaseStyle(),
         //style : CONTEXT + '/style/g25k_style.json',
         center : options.center || [0, 0],
         bounds : options.bounds || undefined,
-        zoom : 12,
+        zoom : options.zoom || 10,
         maxZoom : options.maxZoom || 20,
         minZoom : options.minZoom || 0,
         preserveDrawingBuffer : true,

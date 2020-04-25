@@ -142,8 +142,8 @@ ji3DMap.prototype.changeBaseMap = function changeBaseMap() {
  */
 ji3DMap.prototype.moveBounds = function moveBounds(extents) {
     this.map.camera.flyTo({
-        destination : Cesium.Rectangle.fromDegrees(extents.west,
-            extents.south, extents.east, extents.north)
+        destination : Cesium.Rectangle.fromDegrees(extents.west, extents.south, extents.east, extents.north),
+        duration : 0
     });
 };
 
@@ -473,12 +473,12 @@ ji3DMap.prototype._leftClickEvent = function _leftClickEvent(movement) {
     var pickedFeature =  stmp.mapObject.map.scene.pick(movement.position);
     if(pickedFeature == null){
         //20200131 jmk 추가
-        if(_moveYn){    //적부대위치이동
+        if(window._moveYn){    //적부대위치이동
             var cartesian = stmp.mapObject.map.camera.pickEllipsoid(movement.position, stmp.mapObject.map.scene.globe.ellipsoid);
             _featureObj.id._position._value.x = cartesian.x;
             _featureObj.id._position._value.y = cartesian.y;
             _featureObj.id._position._value.z = cartesian.z;
-            _moveYn = false;
+            window._moveYn = false;
             var movePos = stmp.mapObject.project(movement.position);
             _scwin3DMap.updateDitemPos(movePos.lon,movePos.lat);
         } else {

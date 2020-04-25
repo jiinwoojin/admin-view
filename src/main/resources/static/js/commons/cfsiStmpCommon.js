@@ -1051,7 +1051,7 @@ var stmp = {
 
                         var canvas = stmp.mapObject.map.getCanvasContainer();
                         canvas.style.cursor = "";
-                        _moveYn = false;
+                        window._moveYn = false;
                         var layerId = feature.getLayerId();
                         var features = stmp.mapObject.map.queryRenderedFeatures(e.point);
                         var jsonArr = new Array();
@@ -2040,7 +2040,7 @@ var stmp = {
      * stmp.setGraticulesStyle("MGRS","labelSize",20)
      * stmp.setGraticulesStyle("GARS","lineColor","#ffff00")
      * @param types
-     * @param styleName
+     * @param styleName - lineWidth, lineColor, labelSize, labelColor
      * @param styleValue
      */
     , setGraticulesStyle : function(types,styleName,styleValue){
