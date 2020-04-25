@@ -12,6 +12,11 @@ var jiMap = function jiMap(options) {
 
     this.map = this.init(options);
 
+    //TODO : 변경예정
+    window.__draw = new MapboxDraw({displayControlsDefault: false});
+    this.map.addControl(__draw);
+    __draw.changeMode("draw_line_string")
+
     if (!stmp.MINI_MAP) {
         // 지도 로드 완료 시
         this.map.on('load', function() {
