@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.persistence.Entity;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,10 +34,12 @@ public class DashboardService {
         dataCounter.setSourcesSelectedProxyCount(countMapper.countByProxyDataSelectedName(ProxySourceEntity.class.getAnnotation(Entity.class).name()));
         dataCounter.setCachesSelectedProxyCount(countMapper.countByProxyDataSelectedName(ProxyCacheEntity.class.getAnnotation(Entity.class).name()));
 
-        Map<String, Long> accountMap = new HashMap<>();
+        List<Map<String, Long>> accountCountList = new ArrayList<>();
         List<RoleEntity> roles = accountMapper.findAllRoles();
-        roles.stream().forEach(r -> accountMap.put(r.getLabel(), countMapper.countAccountsByRoleId(r.getId())));
-        dataCounter.setUserCount(accountMap);
+        roles.stream().forEach(r -> accountCountList.add(new HashMap<String, Long>() {{
+            put(String.format("%s [%s]", r.getLabel(), r.getTitle()), countMapper.countAccountsByRoleId(r.getId()));
+        }}));
+        dataCounter.setUserCount(accountCountList);
 
         return dataCounter;
     }

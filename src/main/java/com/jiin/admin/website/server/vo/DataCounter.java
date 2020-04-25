@@ -3,7 +3,9 @@ package com.jiin.admin.website.server.vo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -19,13 +21,13 @@ public class DataCounter {
     private long sourcesSelectedProxyCount;
     private long cachesProxyCount;
     private long cachesSelectedProxyCount;
-    private Map<String, Long> userCount;
+    private List<Map<String, Long>> userCount;
 
     public DataCounter(){
-        this.userCount = new HashMap<>();
+        this.userCount = new ArrayList<>();
     }
 
-    public DataCounter(long mapCount, long symbolCount, long rasterLayerCount, long vectorLayerCount, long layersProxyCount, long layersSelectedProxyCount, long sourcesProxyCount, long sourcesSelectedProxyCount, long cachesProxyCount, long cachesSelectedProxyCount, Map<String, Long> userCount) {
+    public DataCounter(long mapCount, long symbolCount, long rasterLayerCount, long vectorLayerCount, long layersProxyCount, long layersSelectedProxyCount, long sourcesProxyCount, long sourcesSelectedProxyCount, long cachesProxyCount, long cachesSelectedProxyCount, List<Map<String, Long>> userCount) {
         this.mapCount = mapCount;
         this.symbolCount = symbolCount;
         this.rasterLayerCount = rasterLayerCount;
