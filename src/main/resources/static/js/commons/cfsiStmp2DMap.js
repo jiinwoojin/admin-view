@@ -15,7 +15,7 @@ var jiMap = function jiMap(options) {
     //TODO : 변경예정
     window.__draw = new MapboxDraw({displayControlsDefault: false});
     this.map.addControl(__draw);
-    __draw.changeMode("draw_line_string")
+    //__draw.changeMode("draw_line_string")
 
     if (!stmp.MINI_MAP) {
         // 지도 로드 완료 시
