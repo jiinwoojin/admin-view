@@ -20,7 +20,11 @@
 ## 기본세팅
 
 	1. Main Class : com.jiin.admin.starter.AdminWebApplication
-	2. 환경설정 : resources/application.yml
+	2. 환경설정 
+	    - resources/application.yml
+	    - resources/application-local.yml
+	    - resources/application-prod.yml
+	    - resources/application-outside.yml
 	3. 포트 : 8077
 
 ## 기본실행
