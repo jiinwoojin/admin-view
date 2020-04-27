@@ -6,7 +6,8 @@
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
-    <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2>대시보드</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item" sec:authorize="isAuthenticated()">
                 <a th:href="@{/view/home/user}">홈</a>

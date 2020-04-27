@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <th:block th:replace="fragments/design/html-head" />
+    <title>JIMap GIS Solution Ver 3.4</title>
+</head>
+<body>
+    <!-- loading -->
+    <div id="loader-wrapper">
+        <div class="loading"></div>
+    </div>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+        <!-- Side Bar : INSPINIA 에 맞게 수정 필요. -->
+        <th:block th:replace="fragments/design/html-side" />
+
+        <!-- Page Wrapper -->
+        <div id="page-wrapper" class="gray-bg">
+
+            <!-- Top Bar : INSPINIA 에 맞게 수정 필요. -->
+            <div class="row border-bottom">
+                <th:block th:replace="fragments/design/html-header-bar" />
+            </div>
+            <!-- End of Top Bar -->
+
+            <!-- Breadcrumb Content : INSPINIA 에 맞게 수정 필요. -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <th:block layout:fragment="content-breadcrumb-fragment" />
+            </div>
+            <!-- End of Breadcrumb -->
+
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <!-- Page Content -->
+                <th:block layout:fragment="content-body-fragment" />
+                <!-- End of Page Content -->
+            </div>
+
+            <!-- Footer : INSPINIA 에 맞게 수정 필요. -->
+            <div class="footer">
+                <th:block th:replace="fragments/design/html-footer" />
+            </div>
+            <!-- End of Footer -->
+        </div>
+        <!-- End Of Page Wrapper -->
+    </div>
+    <!-- End of Wrapper -->
+
+    <!-- JavaScript Importing -->
+    <th:block th:replace="fragments/design/html-js-import" />
+</body>
+</html>

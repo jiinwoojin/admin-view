@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body th:fragment="html-js-import">
+    <script th:src="@{/design/js/popper.min.js}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script th:src="@{/design/js/bootstrap.min.js}"></script>
+
+    <script th:src="@{/design/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script th:src="@{/design/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+
+    <!-- Custom Scripts For All Pages-->
+    <script th:src="@{/design/js/inspinia.js}"></script>
+
+    <!-- Chart JS : Graph 기능 -->
+    <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+
+    <!-- Data Tables : Grid 기능 -->
+    <script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"></script>
+    <script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/vendor/datatables/dataTables.rowReorder.js}"></script>
+
+    <script type="text/javascript">
+        // datatables default settings
+        $.extend( true, $.fn.dataTable.defaults, {
+            "language" : {
+                "lengthMenu" : "자료 길이 _MENU_",
+                "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                "infoFiltered" : "(총 _TOTAL_ 건)",
+                "search" : "검색 키워드",
+                "paginate": {
+                    "first" : "<<",
+                    "last" : ">>",
+                    "next" : ">",
+                    "previous" : "<"
+                }
+            }
+        });
+    </script>
+
+    <!-- toastr JS : Toast 알림 기능 -->
+    <script th:src="@{/vendor/toastr-lib/toastr.min.js}"></script>
+
+    <!-- JavaScript : jiCommon 공통함수 / 프로젝트 진행 이후 정리 필요 -->
+    <script th:src="@{/js/commons/common.js}"></script>
+</body>
+</html>

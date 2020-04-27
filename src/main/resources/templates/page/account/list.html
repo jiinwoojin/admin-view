@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
 <th:block layout:fragment="content-title-fragment">
-    <h1 class="h3 mb-0 text-gray-800">사용자 목록</h1>
+    <h1 class="h3 mb-0 text-gray-800">사용자 관리</h1>
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
-    <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2>사용자 관리</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a th:href="@{/view/account/list}">사용자 관리</a>
+                <a th:href="@{/view/account/list}">사용자</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">사용자 목록</li>
+            <li class="breadcrumb-item active" aria-current="page">사용자 관리</li>
         </ol>
     </nav>
 </th:block>
