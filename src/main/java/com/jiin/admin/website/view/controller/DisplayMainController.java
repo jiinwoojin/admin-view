@@ -32,8 +32,27 @@ public class DisplayMainController {
         return "page/display/cs-display";
     }
 
+    // 상황도 도시 (Openlayers)
+    @RequestMapping("symbol-map")
+    public String symbolizeDisplayView(Model model){
+        return "page/display/ext-map";
+    }
+
+    // 공통 지도 : 2 차원 (Mapbox GL JS)
     @RequestMapping("common-map")
     public String commonMapDisplayView(Model model) {
         return "page/display/common-map";
+    }
+
+    // 입체 지도 : 3 차원 (Cesium)
+    @RequestMapping("three-dim-map")
+    public String threeDimensionMapDisplayView(Model model) {
+        return "page/display/three-dim_map";
+    }
+
+    // 가시화 지도 (ol-ext or Mapbox JS)
+    @RequestMapping("ext-map")
+    public String extensionVisualizeDisplayView(Model model){
+        return "page/display/ext-map";
     }
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <th:block th:replace="fragments/html-head" />
+    <title>JIMap GIS Solution Ver 3.4</title>
+</head>
+<body id="page-top">
+    <!-- loading -->
+    <div id="loader-wrapper"><div class="loading"></div></div>
+    <div id="wrapper">
+        <!-- Side Bar -->
+        <div id="leftSide">
+            <th:block th:replace="fragments/html-side" />
+        </div>
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Top Bar -->
+                <th:block th:replace="fragments/html-header-bar" />
+                <!-- End of Top Bar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- 군대부호 DIV 맞추기 위한 태그 추가 -->
+                    <div class="content-header">
+                        <!-- Page Title -->
+                        <th:block th:replace="fragments/html-content-title" />
+                        <!-- End of Page Title -->
+
+                        <!-- Breadcrumb Content -->
+                        <div id="breadcrumb" class="mt-1 mb-1">
+                            <th:block layout:fragment="content-breadcrumb-fragment" />
+                        </div>
+                        <!-- End of Breadcrumb -->
+                    </div>
+
+                    <!-- Page Content -->
+                    <th:block layout:fragment="content-body-fragment" />
+                    <!-- End of Page Content -->
+
+                </div>
+                <!-- End of Begin Page -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <div id="bottomMenu">
+                <th:block th:replace="fragments/html-footer" />
+            </div>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+
+    <!-- Top Link -->
+    <th:block th:replace="fragments/html-top" />
+
+    <!-- Modal Box -->
+
+
+    <!-- JavaScript Importing -->
+    <th:block th:replace="fragments/html-js-import" />
+</body>
+</html>

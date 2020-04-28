@@ -20,54 +20,59 @@ window.onload = function() {
         $('#duplicate-check-message-proxy-cache').text("중복확인을 해주세요.");
     });
 
-    $('#searchMap').on('show.bs.modal', function (event) {
-        var mapFile = document.getElementById('mapFile');
-        var mapLayer = document.getElementById('mapLayer');
-
-        if(mapFile.options.length === 1) {
-            $.ajax({
-                url: CONTEXT + '/server/api/map/list',
-                success: function (data) {
-                    for (var i = 0; i < data.length; i++) {
-                        var option1 = document.createElement('option');
-                        option1.value = JSON.stringify( { requestMap : data[i].mapFilePath, mapId : data[i].id });
-                        option1.text = data[i].name + `(${data[i].mapFilePath})`;
-
-                        var option2 = document.createElement('option');
-                        option2.value = data[i].name;
-                        option2.text = data[i].name;
-
-                        mapFile.options.add(option1);
-                        mapLayer.options.add(option2);
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
-                }
-            });
-        }
-    });
-
     $('#sourceDataInsert,#sourceDataUpdate').each(function(){
+        $('#' + this.id).on('show.bs.modal', function (event) {
+            var mapFile = document.getElementById(this.id === 'sourceDataInsert' ? 'mapFile' : 'mapFile_u');
+            var mapLayer = document.getElementById(this.id === 'sourceDataInsert' ? 'mapLayer' : 'mapLayer_u');
+
+            if(mapFile.options.length === 1) {
+                $.ajax({
+                    url: CONTEXT + '/server/api/map/list',
+                    success: function (data) {
+                        for (var i = 0; i < data.length; i++) {
+                            var option1 = document.createElement('option');
+                            option1.value = JSON.stringify( { requestMap : data[i].mapFilePath, mapId : data[i].id });
+                            option1.text = data[i].name + `(${data[i].mapFilePath})`;
+
+                            var option2 = document.createElement('option');
+                            option2.value = data[i].name;
+                            option2.text = data[i].name;
+
+                            mapFile.options.add(option1);
+                            mapLayer.options.add(option2);
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            }
+        });
+
         $('#' + this.id).on('hide.bs.modal', function (event) {
-            $("select#mapFile option").remove();
-            $("select#mapLayer option").remove();
+            if(this.id === 'sourceDataInsert') {
+                $("select#mapFile option").remove();
+                $("select#mapLayer option").remove();
+            } else {
+                $("select#mapFile_u option").remove();
+                $("select#mapLayer_u option").remove();
+            }
 
             $('input[name="requestMap"]').val('[none]');
 
-            var mapFile = document.getElementById('mapFile');
+            var mapFile = document.getElementById(this.id === 'sourceDataInsert' ? 'mapFile' : 'mapFile_u');
             var option = document.createElement('option');
             option.value = JSON.stringify( { requestMap : "[none]", mapId : -1 });
             option.text = '-- Map 파일 선택 --';
             mapFile.options.add(option);
 
-            var mapLayer = document.getElementById('mapLayer');
+            var mapLayer = document.getElementById(this.id === 'sourceDataInsert' ? 'mapLayer' : 'mapLayer_u');
             option = document.createElement('option');
             option.value = '[none]';
             option.text = '-- 레이어 선택 --';
             mapLayer.options.add(option);
 
-            $('#mapLayer_multiple').tagsinput('removeAll');
+            $(this.id === 'sourceDataInsert' ? '#mapLayer_multiple' : '#mapLayer_multiple_u').tagsinput('removeAll');
             $('input[name="requestLayers"]').val('[none]');
         });
     });
@@ -248,8 +253,8 @@ function onclick_close(field, context){
     }
 }
 
-function onchange_mapFile_value(){
-    var mapFile = document.getElementById("mapFile").value;
+function onchange_mapFile_value(method){
+    var mapFile = document.getElementById(method === 'INSERT' ? "mapFile" : "mapFile_u").value;
     var obj = JSON.parse(mapFile);
     if(obj.requestMap === '[none]'){
         alert('MAP 파일을 선택하세요.')
@@ -259,15 +264,15 @@ function onchange_mapFile_value(){
     }
 }
 
-function onchange_mapLayer_value() {
-    var mapLayer = $('#mapLayer_multiple').tagsinput('items');
-    var selectData = document.getElementById("mapLayer").value;
+function onchange_mapLayer_value(method) {
+    var mapLayer = $(method === 'INSERT' ? '#mapLayer_multiple' : '#mapLayer_multiple_u').tagsinput('items');
+    var selectData = document.getElementById(method === 'INSERT' ? "mapLayer" : "mapLayer_u").value;
     if(selectData !== '[none]' && !mapLayer.includes(selectData)) {
-        $('#mapLayer_multiple').tagsinput('add', selectData);
-        $('input[name="requestLayers"]').val($('#mapLayer_multiple').val());
+        $(method === 'INSERT' ? '#mapLayer_multiple' : '#mapLayer_multiple_u').tagsinput('add', selectData);
+        $('input[name="requestLayers"]').val($(method === 'INSERT' ? '#mapLayer_multiple' : '#mapLayer_multiple_u').val());
     }
 }
 
-function onchange_mapLayer_multiple_value(){
-    $('input[name="requestLayers"]').val($('#mapLayer_multiple').val());
+function onchange_mapLayer_multiple_value(method){
+    $('input[name="requestLayers"]').val($(method === 'INSERT' ? '#mapLayer_multiple' : '#mapLayer_multiple_u').val());
 }
