@@ -25,13 +25,15 @@
             </div>
             <!-- End of Top Bar -->
 
-            <!-- Breadcrumb Content : INSPINIA 에 맞게 수정 필요. -->
-            <div class="row wrapper border-bottom white-bg page-heading">
-                <th:block layout:fragment="content-breadcrumb-fragment" />
+            <div class="content-header">
+                <!-- Breadcrumb Content : INSPINIA 에 맞게 수정 필요. -->
+                <div class="row border-bottom white-bg page-heading">
+                    <th:block layout:fragment="content-breadcrumb-fragment" />
+                </div>
+                <!-- End of Breadcrumb -->
             </div>
-            <!-- End of Breadcrumb -->
 
-            <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="wrapper wrapper-content" style="min-height: 85vh;">
                 <!-- Page Content -->
                 <th:block layout:fragment="content-body-fragment" />
                 <!-- End of Page Content -->

@@ -35,19 +35,13 @@ public class DisplayMainController {
     // 상황도 도시 (Openlayers)
     @RequestMapping("symbol-map")
     public String symbolizeDisplayView(Model model){
-        return "page/display/ext-map";
+        return "page/display/symbol-map";
     }
 
-    // 공통 지도 : 2 차원 (Mapbox GL JS)
+    // 공통 지도 : 2 차원 + 3 차원 (Mapbox GL JS, Cesium)
     @RequestMapping("common-map")
     public String commonMapDisplayView(Model model) {
         return "page/display/common-map";
-    }
-
-    // 입체 지도 : 3 차원 (Cesium)
-    @RequestMapping("three-dim-map")
-    public String threeDimensionMapDisplayView(Model model) {
-        return "page/display/three-dim_map";
     }
 
     // 가시화 지도 (ol-ext or Mapbox JS)

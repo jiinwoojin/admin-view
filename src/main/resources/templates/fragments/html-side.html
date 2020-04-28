@@ -89,8 +89,9 @@
         </a>
         <div id="collapse0_1" class="collapse" aria-labelledby="headingZeroOne" data-parent="#accordionSidebar" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display') ? 'show' : '' }">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/2d-map') ? 'active' : '' }" th:href="@{/view/display/2d-map}">상황도</a>
+                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/symbol-map') ? 'active' : '' }" th:href="@{/view/display/symbol-map}">상황도</a>
                 <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/common-map') ? 'active' : '' }" th:href="@{/view/display/common-map}">공통 지도</a>
+                <a class="collapse-item" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/ext-map') ? 'active' : '' }" th:href="@{/view/display/ext-map}">가시화 지도</a>
             </div>
         </div>
     </li>
