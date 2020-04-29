@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
 
 <head>
@@ -10,9 +11,6 @@
 
     <link rel="stylesheet" th:href="@{/gis/ol-ext-3.1.9/ol-ext.min.css}">
     <script th:src="@{/gis/ol-ext-3.1.9/ol-ext.min.js}"></script>
-
-    <link rel="stylesheet" th:href="@{/gis/cesium-1.65/Widgets/widgets.css}">
-    <script th:src="@{/gis/cesium-1.65/Cesium.js}"></script>
 </head>
 
 <th:block layout:fragment="content-title-fragment">
@@ -24,7 +22,7 @@
         <h2>도시 - 상황도</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a th:href="@{/view/display/2d-map}">지도 서비스</a>
+                <a th:href="@{/view/display/symbol-map}">지도 서비스</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">도시 - 상황도</li>
         </ol>
@@ -33,61 +31,39 @@
 
 <th:block layout:fragment="content-body-fragment">
     <script th:src="@{/jquery/jquery-ui.min.js}"></script>
-    <script th:src="@{/js/page/2d-map.js}"></script>
+    <script th:src="@{/js/page/symbol-map.js}"></script>
 
     <div id="map_block">
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="pills-display2d" data-toggle="pill" href="#display2d" role="tab" aria-controls="display2d" aria-selected="true">
-                    <i class="fas fa-vector-square"></i> 2차원
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="pills-display3d" data-toggle="pill" href="#display3d" role="tab" aria-controls="display3d" aria-selected="false">
-                    <i class="fas fa-cube"></i> 3차원
-                </a>
-            </li>
-        </ul>
+        <div id="map" class="map2d" style="width: 100%; height: 75vh;">
+            <!-- Right CLICK EVENT DIV -->
+            <div id="click_coord" style="position: absolute; z-index: 999; display: none; background-color: white; border: 1px solid #aaa; ">
+                <ul class="list-unstyled">
+                    <!-- <li id="click_coord_btn" class="rightClickBtn milSymEvent">군대 부호 적용</li> -->
+                    <!-- <li id="general_shape_btn" class="rightClickBtn milSymEvent">일반 도형 적용</li> -->
+                    <!-- <li class="rightClickBtn hidden" onclick="removeAllMarker();">레이어 전체 도형 삭제</li> -->
 
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="display2d" role="tabpanel" aria-labelledby="pills-home-tab">
-                <div id="map" class="map2d" style="width: 100%; height : calc(100vh - 340px);">
-                    <!-- Right CLICK EVENT DIV -->
-                    <div id="click_coord" style="position: absolute; z-index: 999; display: none; background-color: white; border: 1px solid #aaa; ">
-                        <ul class="list-unstyled">
-                            <!-- <li id="click_coord_btn" class="rightClickBtn milSymEvent">군대 부호 적용</li> -->
-                            <!-- <li id="general_shape_btn" class="rightClickBtn milSymEvent">일반 도형 적용</li> -->
-                            <!-- <li class="rightClickBtn hidden" onclick="removeAllMarker();">레이어 전체 도형 삭제</li> -->
-
-                            <li id="click_coord_btn_mod" class="rightClickBtn milSymEvent">부호 수정</li>
-                            <li id="click_coord_btn_del" class="rightClickBtn milSymEvent">부호 삭제</li>
-                            <li id="click_cancel_modify" class="rightClickBtn hidden" onclick="modifyCancel();">수정 중단</li>
-                        </ul>
-                    </div>
-
-                    <div id="mouse-position" style="position: absolute; padding: 3px; font-weight: bold; left: 0; bottom: 0; background-color: white; z-index: 999;">
-
-                    </div>
-                </div>
+                    <li id="click_coord_btn_mod" class="rightClickBtn milSymEvent">부호 수정</li>
+                    <li id="click_coord_btn_del" class="rightClickBtn milSymEvent">부호 삭제</li>
+                    <li id="click_cancel_modify" class="rightClickBtn hidden" onclick="modifyCancel();">수정 중단</li>
+                </ul>
             </div>
-            <div class="tab-pane fade" id="display3d" role="tabpanel" aria-labelledby="pills-profile-tab">
-                <div id="map3d" class="map3D" style="height : calc(100vh - 340px);"></div>
+
+            <div id="mouse-position" style="position: absolute; padding: 3px; font-weight: bold; left: 0; bottom: 0; background-color: white; z-index: 999;">
+
             </div>
         </div>
 
-        <div class="d-flex justify-content-between my-1">
-            <div id="military-position">
-                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#layer_modal" data-backdrop="false">
-                    <i class="fas fa-layer-group"></i> 레이어
+        <div id="military-position" class="mt-2">
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#layer_modal" data-backdrop="false">
+                <i class="fas fa-layer-group"></i> 레이어
+            </button>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-sm btn-info" id="general_shape_btn">
+                    <i class="fas fa-vector-square"></i> 투명도
                 </button>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-sm btn-info" id="general_shape_btn">
-                        <i class="fas fa-vector-square"></i> 투명도
-                    </button>
-                    <button type="button" class="btn btn-sm btn-info" id="click_coord_btn">
-                        <i class="fas fa-fighter-jet"></i> 군대부호
-                    </button>
-                </div>
+                <button type="button" class="btn btn-sm btn-info" id="click_coord_btn">
+                    <i class="fas fa-fighter-jet"></i> 군대부호
+                </button>
             </div>
         </div>
     </div>

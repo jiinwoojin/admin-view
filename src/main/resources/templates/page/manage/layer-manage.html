@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout" lang="ko">
 <th:block layout:fragment="content-title-fragment">
-    <h1 class="h2 mb-0 text-gray-800">LAYER 관리</h1>
+</th:block>
 
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2>LAYER 관리</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/view/manage/map-manage?pg=1&sz=9&lType=ALL&units=ALL}">지도 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">LAYER 관리</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
     <!-- LAYER 추가 버튼 -->
-    <div id="map_config_button">
+    <div id="layer_config_button" class="text-right my-1">
         <button data-toggle="modal" data-target="#layer-create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-plus fa-sm text-white-50"></i> LAYER 추가
         </button>
@@ -94,20 +107,7 @@
             </div>
         </div>
     </div>
-</th:block>
 
-<th:block layout:fragment="content-breadcrumb-fragment">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a th:href="@{/view/manage/map-manage?pg=1&sz=9&lType=ALL&units=ALL}">지도 관리</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">LAYER 관리</li>
-        </ol>
-    </nav>
-</th:block>
-
-<th:block layout:fragment="content-body-fragment">
     <!-- 레이어 검색 필드 -->
     <div class="row">
         <!-- 검색 방식 선택 -->

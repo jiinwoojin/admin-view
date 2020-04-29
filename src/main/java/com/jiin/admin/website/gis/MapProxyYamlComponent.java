@@ -133,8 +133,9 @@ public class MapProxyYamlComponent {
             }};
             yaml.dump(serviceMap, yamlStr);
 
-            String context = yamlStr.toString();
-
+            String temp = null, context = yamlStr.toString();
+            Pattern p;
+            Matcher m;
             switch(key) {
                 case "services" :
                     context = context.replace("demo: null", "demo:");
@@ -145,14 +146,14 @@ public class MapProxyYamlComponent {
 
                 case "sources" :
                 case "caches" :
-                    Pattern mapPattern = Pattern.compile("(\\s\\{).*?(,\\s).*?(\\})");
-                    Matcher m = mapPattern.matcher(context);
+                    p = Pattern.compile("(\\s\\{).*?(,\\s).*?(\\})");
+                    m = p.matcher(context);
                     while(m.find()){
-                        String mapText = m.group(0);
-                        mapText = mapText.replace(m.group(1), "\n\t\t\t");
-                        mapText = mapText.replace(m.group(2), "\n\t\t\t");
-                        mapText = mapText.replace(m.group(3), "");
-                        context = context.replace(m.group(0), mapText);
+                        temp = m.group(0);
+                        temp = temp.replace(m.group(1), "\n      ");
+                        temp = temp.replace(m.group(2), "\n      ");
+                        temp = temp.replace(m.group(3), "");
+                        context = context.replace(m.group(0), temp);
                     }
 
                     if(key.equals("sources")){
@@ -160,6 +161,15 @@ public class MapProxyYamlComponent {
                     } else {
                         context = context.replace("grids: [GLOBAL_GEODETIC]", "grids: [\'GLOBAL_GEODETIC\']");
                     }
+                    break;
+
+                case "layers" :
+                    String[] sp = context.split("\\n");
+                    StringBuffer tmp = new StringBuffer();
+                    for(String s : sp){
+                        tmp.append(String.format("%s%s\n", s.equals("layers:") ? "" : "  ", s));
+                    }
+                    context = tmp.toString();
                     break;
             }
 

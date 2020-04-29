@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body th:fragment="html-header-bar">
-    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow" id="topMenu">
-
-        <!-- Sidebar Toggle (Topbar) -->
-        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-        </button>
+    <nav class="navbar navbar-static-top" role="navigation" id="topMenu">
+        <div class="navbar-header">
+            <!-- Sidebar Toggle (Topbar) -->
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="#">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
 
         <!-- Topbar Navbar -->
-        <ul class="navbar-nav ml-auto">
+        <ul class="nav navbar-top-links navbar-right">
             <!-- Nav Item - Login Button -->
-            <li class="nav-item no-arrow mx-1">
-                <a class="nav-link" th:href="@{/view/auth/login}" sec:authorize="isAuthenticated() == false">
+            <li>
+                <a th:href="@{/view/auth/login}" sec:authorize="isAuthenticated() == false">
                     <i class="fas fa-key fa-fw"></i>
                 </a>
             </li>
 
             <!-- Nav Item - Sign Up Button -->
-            <li class="nav-item no-arrow mx-1">
-                <a class="nav-link" th:href="@{/view/auth/sign}" sec:authorize="isAuthenticated() == false">
+            <li>
+                <a th:href="@{/view/auth/sign}" sec:authorize="isAuthenticated() == false">
                     <i class="fas fa-user-plus fa-fw"></i>
                 </a>
             </li>
 
             <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow" sec:authorize="isAuthenticated()">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <li class="dropdown" sec:authorize="isAuthenticated()">
+                <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                         <strong sec:authentication="account.name">[User Name]</strong> 님
                     </span>
-                    <img class="img-profile rounded-circle" th:src="@{/img/earth.jpeg}">
+                    <img class="rounded-circle" th:src="@{/img/earth.jpeg}" width="24" />
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

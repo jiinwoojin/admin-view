@@ -5,12 +5,13 @@
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
-    <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2>동기화 - 파일</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a th:href="@{/view/sync/file}">동기화</a>
+                <a th:href="@{/view/sync/file}">시스템</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">파일</li>
+            <li class="breadcrumb-item active" aria-current="page">동기화 - 파일</li>
         </ol>
     </nav>
 </th:block>

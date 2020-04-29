@@ -15,7 +15,8 @@
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
-    <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2>캐시 관리 - 설정</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/cache/setting}">지도 서비스</a>
@@ -305,18 +306,29 @@
                                                 </div>
                                             </div>
 
-                                            <button type="button" class="btn btn-info btn-block mb-1" data-toggle="modal" data-target="#searchMap">
-                                                <i class="fas fa-search"></i> MapServer 리소스 : Map 파일 선택
-                                            </button>
-
                                             <div class="form-group">
                                                 <label for="proxySourceType">리소스 종류 <span style="color: red;">(*)</span></label>
                                                 <input type="text" class="form-control" th:field="*{proxySourceType}" readonly />
                                             </div>
 
                                             <div class="form-group">
+                                                <label for="mapFile">MapServer 리소스 : Map 파일 선택</label>
+                                                <select class="form-control" id="mapFile" onchange="onchange_mapFile_value('INSERT')">
+                                                    <option value='{ "requestMap" : "[none]", "mapId" : -1 }'>-- Map 파일 선택 --</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
                                                 <label for="requestMap">Map 파일 주소 <span style="color: red;">(*)</span></label>
                                                 <input type="text" class="form-control" th:field="*{requestMap}" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="mapLayer">MapServer 리소스 : 레이어 선택</label>
+                                                <input type="text" data-role="tagsinput" id="mapLayer_multiple" onchange="onchange_mapLayer_multiple_value('INSERT')" />
+                                                <select class="form-control" id="mapLayer" onchange="onchange_mapLayer_value('INSERT')">
+                                                    <option value="[none]">-- 레이어 선택 --</option>
+                                                </select>
                                             </div>
 
                                             <div class="form-group">
@@ -366,18 +378,30 @@
                                                 <input type="text" class="form-control" id="proxySourceName_u" name="proxySourceName" readonly />
                                             </div>
 
-                                            <button type="button" class="btn btn-info btn-block mb-1" data-toggle="modal" data-target="#searchMap">
-                                                <i class="fas fa-search"></i> MapServer 리소스 : Map 파일 선택
-                                            </button>
-
                                             <div class="form-group">
                                                 <label for="proxySourceType_u">리소스 종류 <span style="color: red;">(*)</span></label>
                                                 <input type="text" class="form-control" id="proxySourceType_u" name="proxySourceType" readonly />
                                             </div>
 
                                             <div class="form-group">
+                                                <label for="mapFile">MapServer 리소스 : Map 파일 선택</label>
+                                                <select class="form-control" id="mapFile_u" onchange="onchange_mapFile_value('UPDATE')">
+                                                    <option value='{ "requestMap" : "[none]", "mapId" : -1 }'>-- Map 파일 선택 --</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
                                                 <label for="requestMap_u">Map 파일 주소 <span style="color: red;">(*)</span></label>
                                                 <input type="text" class="form-control" id="requestMap_u" name="requestMap" readonly />
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="mapLayer">MapServer 리소스 : 레이어 선택</label>
+                                                <input type="text" data-role="tagsinput" id="mapLayer_multiple_u" onchange="onchange_mapLayer_multiple_value('UPDATE')" />
+                                                <select class="form-control" id="mapLayer_u" onchange="onchange_mapLayer_value('UPDATE')">
+                                                    <option value="[none]">-- 레이어 선택 --</option>
+                                                </select>
                                             </div>
 
                                             <div class="form-group">
@@ -407,38 +431,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Data Updating Modal - SOURCE END -->
-
-                        <!-- Data Search Modal - MAP START -->
-                        <div class="modal fade" id="searchMap" tabindex="-2" role="dialog" aria-labelledby="searchMapLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="searchMapLabel">Map Server : Map 파일 선택</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="mapFile">Map 파일</label>
-                                            <select class="form-control" id="mapFile" onchange="onchange_mapFile_value()">
-                                                <option value='{ "requestMap" : "[none]", "mapId" : -1 }'>-- Map 파일 선택 --</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="mapLayer">레이어 선택</label>
-                                            <input type="text" data-role="tagsinput" id="mapLayer_multiple" onchange="onchange_mapLayer_multiple_value()" />
-                                            <select class="form-control" id="mapLayer" onchange="onchange_mapLayer_value()">
-                                                <option value="[none]">-- 레이어 선택 --</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Data Search Modal - MAP END -->
 
                         <!-- Data List Table - SOURCE START -->
                         <table id="list_table_source" class="table table-sm table-striped my-1">
@@ -505,7 +497,7 @@
                                 document.getElementById('mapServerBinary_u').value = obj.mapServerBinary;
                                 document.getElementById('mapServerWorkDir_u').value = obj.mapServerWorkDir;
 
-                                $('#mapLayer_multiple').tagsinput('add', obj.requestLayers);
+                                $('#mapLayer_multiple_u').tagsinput('add', obj.requestLayers);
                             }
                         </script>
                         <!-- Data List Table - SOURCE END -->

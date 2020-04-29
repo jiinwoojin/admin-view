@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
 <th:block layout:fragment="content-title-fragment">
-    <h1 class="h3 mb-0 text-gray-800">지도 생성</h1>
+    <h1 class="h3 mb-0 text-gray-800">MAP 생성</h1>
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
-    <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2>MAP 생성</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/manage/map-manage?pg=1&sz=9&lType=ALL}">지도 관리</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">지도 생성</li>
+            <li class="breadcrumb-item active" aria-current="page">MAP 생성</li>
         </ol>
     </nav>
 </th:block>
