@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <th:block th:replace="fragments/design/html-head"></th:block>
+    <title>JIMap GIS Solution Ver 3.4</title>
+</head>
+
+<body class="bg-gray-500">
+
+<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div>
+        <div>
+            <h1 class="logo-name">
+                <i class="fas fa-globe"></i>
+            </h1>
+        </div>
+        <h3 class="text-white">JiMap GIS Solution 회원 정보 수정</h3>
+        <p class="text-white">
+            회원 정보를 수정할 수 있는 기능입니다.
+        </p>
+
+        <form class="m-t" th:object="${account}" onsubmit="return preSubmit()" action="edit" method="post" accept-charset="utf-8">
+            <div class="form-group">
+                <input type="text" class="form-control form-control-user" placeholder="회원 아이디" th:field="*{username}" readonly />
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="password" class="form-control form-control-user" th:field="*{password1}" placeholder="변경할 비밀번호" />
+                </div>
+                <div class="col-sm-6">
+                    <input type="password" class="form-control form-control-user" th:field="*{password2}" placeholder="변경할 비밀번호 확인" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control form-control-user" th:field="*{name}" placeholder="회원 이름" />
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control form-control-user" th:field="*{email}" placeholder="변경할 이메일" />
+            </div>
+
+            <button type="submit" class="btn btn-primary block full-width m-b">
+                <i class="fas fa-check"></i> 수정 완료
+            </button>
+
+            <a class="btn btn-sm btn-success btn-block my-1" th:href="@{/view/home/user}">
+                <i class="fas fa-home"></i> 메인 화면
+            </a>
+        </form>
+        <p class="m-t text-white"> <small>&copy; 2020 Ji-in System</small> </p>
+    </div>
+</div>
+
+<script th:src="@{/js/page/editAccount.js}"></script>
+<script>
+    window.onload = function() {
+        if(window.location.search.includes('error')){
+            toastr.error('서버 요청 중 오류가 발생했습니다 : 임의로 스크립트를 사용하여 값 변경하지 마시길 바랍니다.');
+        }
+    }
+</script>
+
+<!-- JavaScript Importing -->
+<th:block th:replace="fragments/design/html-js-import"></th:block>
+
+</body>
+
+</html>
