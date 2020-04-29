@@ -16,4 +16,10 @@ public class SystemMainController {
     public String serviceManagePage(Model model){
         return "page/system/service-manage";
     }
+
+
+    @RequestMapping("service-address")
+    public String addressConfigPage(Model model){
+        return "page/system/service-address";
+    }
 }

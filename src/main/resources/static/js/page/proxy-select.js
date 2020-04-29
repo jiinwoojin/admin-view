@@ -195,13 +195,13 @@ function nameValidation(form, field){
 function layerRelationValidation(method){
     var proxySources = $(method === 'INSERT' ? '#proxySources' : '#proxySources_u').val();
     var proxyCaches = $(method === 'INSERT' ? '#proxyCaches' : '#proxyCaches_u').val();
-    if(proxySources.length > 0) {
+    if(proxySources.length > 0 || proxyCaches.length > 0) {
         if(proxySources.filter(o => proxyCaches.includes(o)).length > 0){
             toastr.warning('리소스 이름과 캐시 이름이 같은 값이 있습니다. 각각 다른 이름으로 저장하시길 바랍니다.');
             return false;
         } else return true;
     } else {
-        toastr.warning('레이어 연계 소스의 값을 최소한 1개 선택 하시길 바랍니다.');
+        toastr.warning('레이어 연계 소스 및 캐시의 값을 최소한 1개 선택 하시길 바랍니다.');
         return false;
     }
 }
@@ -275,4 +275,14 @@ function onchange_mapLayer_value(method) {
 
 function onchange_mapLayer_multiple_value(method){
     $('input[name="requestLayers"]').val($(method === 'INSERT' ? '#mapLayer_multiple' : '#mapLayer_multiple_u').val());
+}
+
+function onchange_cache_directory_checkbox(){
+    var checkbox = document.getElementById('directoryEdit');
+    var directory = document.getElementById('proxyCacheDirectory');
+    directory.readOnly = !checkbox.checked;
+    if(directory.readOnly){
+        if(name.value.trim() !== '')
+        directory.value = cacheDirectoryPath + name.value + '/';
+    }
 }

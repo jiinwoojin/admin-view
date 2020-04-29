@@ -84,14 +84,14 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="proxySources">레이어 연계 소스 <span style="color: red;">(*)</span></label>
+                                                <label for="proxySources">레이어 연계 소스 <span style="color: blue;">(*)</span></label>
                                                 <select class="form-control" th:field="*{proxySources}" multiple>
                                                     <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
                                                 </select>
                                             </div>
 
                                             <div class="form-group" th:if="${ #lists.size(proxyCaches) > 0}">
-                                                <label for="proxyCaches">레이어 연계 캐시</label>
+                                                <label for="proxyCaches">레이어 연계 캐시 <span style="color: blue;">(*)</span></label>
                                                 <select class="form-control" id="proxyCaches" name="proxyCaches" multiple>
                                                     <option th:each="cache : ${proxyCaches}" th:text="${ cache.name }" th:value="${ cache.name }"></option>
                                                 </select>
@@ -103,6 +103,8 @@
                                                 </h1>
                                                 <p class="lead">추가 된 캐시 (Cache) 데이터가 없습니다. 캐시 데이터를 추가하고 다시 시도 바랍니다.</p>
                                             </div>
+
+                                            <p><span style="color: blue;">(*)</span> : 해당 데이터들 중에 최소한 하나는 선택되어 있어야 합니다.</p>
                                         </div>
 
                                         <div class="modal-body" th:unless="${ #lists.size(sourceMap.data) > 0 }">
@@ -152,12 +154,12 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="proxyLayerTitle_u">레이어 제목 <span style="color: red;">(*)</span></label>
+                                                <label for="proxyLayerTitle_u">레이어 제목 <span style="color: blue;">(*)</span></label>
                                                 <input type="text" class="form-control" id="proxyLayerTitle_u" name="proxyLayerTitle" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="proxySources_u">레이어 연계 소스 <span style="color: red;">(*)</span></label>
+                                                <label for="proxySources_u">레이어 연계 소스 <span style="color: blue;">(*)</span></label>
                                                 <select class="form-control" id="proxySources_u" name="proxySources" multiple>
                                                     <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
                                                 </select>
@@ -176,6 +178,8 @@
                                                 </h1>
                                                 <p class="lead">추가 된 캐시 (Cache) 데이터가 없습니다. 캐시 데이터를 추가하고 다시 시도 바랍니다.</p>
                                             </div>
+
+                                            <p><span style="color: blue;">(*)</span> : 해당 데이터들 중에 최소한 하나는 선택되어 있어야 합니다.</p>
                                         </div>
 
                                         <div class="modal-body" th:unless="${ #lists.size(sourceMap.data) > 0 }">
@@ -546,9 +550,18 @@
                                                 <input type="text" class="form-control" th:field="*{proxyCacheType}" readonly />
                                             </div>
 
-                                            <div class="form-group">
-                                                <label for="proxyCacheDirectory">캐시 디렉토리 <span style="color: red;">(*)</span></label>
+                                            <label for="proxyCacheDirectory">캐시 디렉토리 <span style="color: red;">(*)</span></label>
+                                            <small>캐시 디렉토리는 설정한 이후 값 변경이 불가능합니다.</small>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        직접 설정 <input id="directoryEdit" type="checkbox" onchange="onchange_cache_directory_checkbox()" />
+                                                    </div>
+                                                </div>
                                                 <input type="text" class="form-control" th:field="*{proxyCacheDirectory}" readonly />
+                                            </div>
+
+                                            <div class="form-group">
                                             </div>
 
                                             <div class="form-group">

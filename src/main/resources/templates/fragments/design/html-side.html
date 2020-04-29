@@ -165,6 +165,9 @@
                     <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-info') ? 'active' : '' }">
                         <a th:href="@{/view/server/service-info}">서비스 정보</a>
                     </li>
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-address') ? 'active' : '' }">
+                        <a th:href="@{/view/server/service-address}">서비스 주소 관리</a>
+                    </li>
                 </ul>
             </li>
 

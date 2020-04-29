@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+
+<!-- https://www.pgpool.net/docs/pgpoolAdmin/en/config.html : PGPool 2 설정 파일 Ref. -->
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">동기화 - 데이터베이스</h1>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2>서버 - 서비스 주소 관리</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/view/server/service-info}">시스템</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">서버 - 서비스 주소 관리</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="my-1">서버 주소 선택</h3>
+            <!-- Data List Table - LAYER START -->
+            <table id="list_table" class="table table-sm table-striped my-1">
+                <thead class="table-info">
+                <tr>
+                    <th scope="col" class="text-center">IP 주소</th>
+                    <th scope="col" class="text-center">서비스 이름</th>
+                    <th scope="col" class="text-center">포트 번호</th>
+                    <th scope="col" class="text-center">수정 및 삭제</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-center">192.168.X.X</td>
+                    <td class="text-center">GIS 서비스</td>
+                    <td class="text-center">9000</td>
+                    <td class="text-center">
+                        <button th:id="${ 'addressUpdate' + 1 }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#addressDataUpdate">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/server/address-delete/' + 1 }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <script>
+                $(document).ready(function() {
+                    $('#list_table').DataTable({
+                        "language" : {
+                            "lengthMenu" : "자료 길이 _MENU_",
+                            "zeroRecords" : "해당 자료가 존재하지 않습니다.",
+                            "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+                            "infoEmpty" : "해당 자료가 존재하지 않습니다.",
+                            "infoFiltered" : "(총 _TOTAL_ 건)",
+                            "search" : "검색 키워드",
+                            "paginate": {
+                                "first" : "<<",
+                                "last" : ">>",
+                                "next" : ">",
+                                "previous" : "<"
+                            }
+                        }
+                    });
+                });
+            </script>
+        </div>
+        <div class="col-md-6">
+
+        </div>
+    </div>
+</th:block>
+</html>
