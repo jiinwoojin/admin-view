@@ -335,7 +335,7 @@
                 }
             });
             // load tegola config
-            jiCommon.showLoading()
+            /*jiCommon.showLoading()
             jQuery.post({
                 url: CONTEXT + "/server/api/layer/load-tegola-config"
             }).done(function(result) {
@@ -348,7 +348,7 @@
                 toastr.error('서버 로드 오류입니다.');
             }).always(function() {
                 jiCommon.hideLoading()
-            });
+            });*/
         });
 
         function getMap(content) {
@@ -575,21 +575,40 @@
 
             var coord = [127, 37];
             var json = {
-                "observer_lon" : coord[0]
-                ,"observer_lat" : coord[1]
-                ,"observer_height" : 2
-                ,"target_height" : 10
-                ,"semi_dimension" : 100
-                ,"input_dem_level" : 2
-                ,"output_bucket_name" : "data"
-                ,"output_destination" :getUUID()
-                ,"output_file_format" : "png"
+                "observer_lon": 127.70,
+                "observer_lat": 40.95,
+                "observer_height": 2,
+                "target_height": 10,
+                "semi_dimension": 100,
+                "visible_color": "#0000FF",
+                "invisible_color": "#FF0000",
+                "image_alpha": 32,
+                "input_dem_level": 2,
+                "output_directory": "jiin/mims",
+                "output_file_format": ".png",
+                "run_async": 1
             };
 
             console.log(JSON.stringify(json));
 
-            //요청
             $.ajax({
+                //url : CONTEXT + '/view/los/requestLos'
+                url : 'http://localhost:5000/viewshed'
+                , type : 'post'
+                , contentType : 'application/json'
+                , data : JSON.stringify(json)
+                , success : function(result) {
+                    debugger;
+                    console.log(result);
+                }
+                ,error : function(result) {
+                    debugger;
+                    console.log(result);
+                }
+            });
+
+            //요청
+            /*$.ajax({
                 url: CONTEXT + '/view/los/get'
                 ,type:'post'
                 ,contentType:'application/json'
@@ -623,7 +642,7 @@
                         });
                     }, 5000);
                 }
-            });
+            });*/
 
             /*
             var interval;
