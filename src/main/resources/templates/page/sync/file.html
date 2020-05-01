@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
 <th:block layout:fragment="content-title-fragment">
-    <h1 class="h3 mb-0 text-gray-800">동기화 - 파일</h1>
+    <h1 class="h3 mb-0 text-gray-800">동기화 모니터링 - 파일</h1>
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>동기화 - 파일</h2>
+        <h2>동기화 모니터링 - 파일</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/sync/file}">시스템</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">동기화 - 파일</li>
+            <li class="breadcrumb-item active" aria-current="page">동기화 모니터링 - 파일</li>
         </ol>
     </nav>
 </th:block>
@@ -24,7 +24,7 @@
                     <div class="text-sm font-weight-bold text-uppercase mb-1 text-success">
                         <h1 class="fas fa-check-circle"></h1>
                         <p>
-                            192.168.XX.YY<br/>
+                            192.168.0.1<br/>
                             STATUS - <span>OK</span>
                         </p>
                     </div>
@@ -36,23 +36,29 @@
             <h3 class="text-center">
                 <i class="fas fa-arrow-right"></i>
             </h3>
-            <select id="center_list" class="form-control my-1">
+            <select id="center_list1" class="form-control my-1">
                 <option value="UO_center">UO 센터</option>
                 <option value="O3_center">O3 센터</option>
                 <option value="OOO_center">OO사 센터</option>
             </select>
-            <button id="sync-btn" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="onclick_sync()">
-                <i class="fas fa-sync fa-sm text-white-50"></i> 동기화
-            </button>
+
+            <select id="center_list2" class="form-control my-1">
+                <option value="si_1">SI 서버 (1)</option>
+                <option value="si_2">SI 서버 (2)</option>
+                <option value="n_si_1">N-SI 서버 (1)</option>
+                <option value="n_si_2">N-SI 서버 (2)</option>
+            </select>
+
+            <input type="checkbox" id="sync_confirm" onchange="onchange_sync()" /><label class="mx-1" for="sync_confirm">동기화 기록 포함</label>
         </div>
 
         <div class="col-xl-5 mb-4">
-            <div class="card border-bottom-success shadow h-100 py-2">
+            <div class="card border-bottom-danger shadow h-100 py-2">
                 <div class="card-body text-center">
-                    <div class="text-sm font-weight-bold text-uppercase mb-1 text-success">
-                        <h1 class="fas fa-check-circle"></h1>
+                    <div class="text-sm font-weight-bold text-uppercase mb-1 text-danger">
+                        <h1 class="fas fa-times-circle"></h1>
                         <p>
-                            192.168.XX.ZZ<br/>
+                            192.168.0.2<br/>
                             STATUS - <span>OK</span>
                         </p>
                     </div>
@@ -63,7 +69,7 @@
 
     <div class="row">
         <div class="col-xl-6">
-            <h3 class="text-center">A 서버</h3>
+            <h3 class="text-center">UO 센터 - SI 서버 (1)</h3>
             <table id="list_table1" class="table table-sm table-striped text-center">
                 <thead class="table-info">
                 <tr>
@@ -78,7 +84,9 @@
             </table>
         </div>
         <div class="col-xl-6">
-            <h3 class="text-center">B 서버</h3>
+            <h3 class="text-center">
+                <span>O3 센터</span> - <span>SI 서버 (1)</span>
+            </h3>
             <table id="list_table2" class="table table-sm table-striped text-center">
                 <thead class="table-info">
                 <tr>
@@ -107,8 +115,6 @@
             { fileName : 'B_N_SI_Shape.shp', fileSize : 567890123, uploadDate : new Date(), admin : 'Admin0' },
             { fileName : 'C_N_SI_Shape.shp', fileSize : 678901234, uploadDate : new Date(), admin : 'Admin0' }
         ];
-
-        var synced = false;
 
         function tableDraw(id, data) {
             var table = $(id).DataTable({
@@ -144,12 +150,12 @@
             tableDraw('#list_table2', n_si_center);
         });
 
-        function onclick_sync(){
-            synced = !synced;
+        function onchange_sync(){
+            var checked = document.getElementById('sync_confirm').checked;
             tableClear('#list_table1');
             tableClear('#list_table2');
 
-            if(synced){
+            if(checked){
                 var total = si_center.concat(n_si_center);
                 tableDraw('#list_table1', total);
                 tableDraw('#list_table2', total);
