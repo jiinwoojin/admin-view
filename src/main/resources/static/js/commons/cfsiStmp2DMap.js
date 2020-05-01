@@ -30,6 +30,7 @@ var jiMap = function jiMap(options) {
         stmp.drawControl = new MapboxDraw({
             displayControlsDefault: false,
             userProperties: true,
+            // 그리기 완료 후 inactive 심볼의 경우 투명 스타일 적용 위함.
             styles: [
                 // default themes provided by MB Draw
                 {
@@ -40,8 +41,8 @@ var jiMap = function jiMap(options) {
                         ['!=', 'mode', 'static']
                     ],
                     'paint': {
-                        'fill-color': '#3bb2d0',
-                        'fill-outline-color': '#3bb2d0',
+                        'fill-color': 'rgba(0, 0, 0, 0)', /* 투명적용 */
+                        'fill-outline-color': 'rgba(0, 0, 0, 0)', /* 투명적용 */
                         'fill-opacity': 0.1
                     }
                 },
@@ -112,7 +113,7 @@ var jiMap = function jiMap(options) {
                         'line-join': 'round'
                     },
                     'paint': {
-                        'line-color': 'rgba(0, 0, 0, 0)',
+                        'line-color': 'rgba(0, 0, 0, 0)', /* 투명적용 */
                         'line-width': 2
                     }
                 },
