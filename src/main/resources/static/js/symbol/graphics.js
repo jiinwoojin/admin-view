@@ -109,7 +109,7 @@ function drawMsymbol(id, format, sidc){
 		var coordData = setCoordinates(G_coordinates);
 		controlPoints = coordData.controlPoints;
 		
-		scale = mapScale(96);
+		scale = stmp.mapObject.map.transform.scale
 	}
 	
 //    myGSymbolIcon = armyc2.c2sd.renderer.MilStdIconRenderer.Render(symbolCode,modifiers);

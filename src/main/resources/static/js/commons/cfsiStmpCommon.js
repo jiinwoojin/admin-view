@@ -2146,6 +2146,133 @@ var stmp = {
         }
     }
     /* GRID area */
+    /* 군대부호 area start */
+    /**
+     * 그리기 중간 이미지
+     * @param evt
+     */
+    , milsymbolsPreview : function(evt){
+        //TODO : 작업예정
+    }
+    , milsymbolsGenerator : function(evt){
+        var option = stmp.mapObject.map._milsymbols_options
+        var prefixLayerId = "milsymbols-" + option.symbol_serial
+        G_coordinates = new Array(); // 좌표값 초기화
+        var features = evt.features
+        var geometryType = features[0].geometry.type
+        var coord = features[0].geometry.coordinates
+        console.log(evt)
+        var data = {}
+        if(geometryType === "Point"){
+            var imageData = mySymbol.asCanvas().toDataURL()
+            stmp.mapObject.map.loadImage(imageData,function(e,image){
+                stmp.mapObject.map.addImage(prefixLayerId + "-image", image)
+            })
+            data = {
+                type: 'Feature',
+                properties: {type: 'Image'},
+                geometry: {
+                    type: 'Point',
+                    coordinates: coord
+                }
+            }
+        }else if(geometryType === "LineString"){
+            jQuery.each(coord, function(idx, point){
+                G_coordinates.push({x:point[0],y:point[1]})
+            })
+            drawMsymbol(option.symbol_serial, 'geoJSON')
+            data = JSON.parse(mygeoJSON)
+        }
+        // draw milsymbol
+        stmp.mapObject.map.addSource(prefixLayerId + '-source-feature', {
+            type: 'geojson',
+            data: data
+        })
+        var features = []
+        if(data.features instanceof Array){
+            features = data.features
+        }else{
+            features.push(data)
+        }
+        jQuery.each(features, function(idx, feature){
+            var sourceId = prefixLayerId + '-source-feature'
+            var prop = feature.properties
+            if(prop.type === "Image"){
+                // 단일심볼
+                console.log(feature)
+                stmp.mapObject.map.addLayer({
+                    id: prefixLayerId + '-layer-image-' + idx,
+                    type: 'symbol',
+                    source: sourceId,
+                    layout: {
+                        'icon-image': prefixLayerId + "-image"
+                    },
+                    filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Image']]
+                })
+            }else if(prop.label != ""){
+                // 라벨
+                stmp.mapObject.map.addLayer({
+                    id: prefixLayerId + '-layer-label-' + idx,
+                    type: 'symbol',
+                    source: sourceId,
+                    filter: ['==', '$type', 'Point']
+                })
+            }else{
+                if(prop.fillColor){
+                    // 폴리곤
+                    stmp.mapObject.map.addLayer({
+                        id: prefixLayerId + '-layer-polygon-' + idx,
+                        type: 'fill',
+                        source: sourceId,
+                        paint: {
+                            "fill-color": prop.fillColor ? prop.fillColor : '#000000'
+                        },
+                        filter: ['==', '$type', 'Polygon']
+                    })
+                }else{
+                    // 라인
+                    stmp.mapObject.map.addLayer({
+                        id: prefixLayerId + '-layer-line-' + idx,
+                        type: 'line',
+                        source: sourceId,
+                        paint: {
+                            "line-color": prop.strokeColor ? prop.strokeColor : 1,
+                            "line-width": prop.strokeWidth ? prop.strokeWidth : 1
+                        },
+                        filter: ['==', '$type', 'LineString']
+                    })
+                }
+            }
+        })
+    }
+    , drawMilsymbol : function(){
+        if(stmp.mapObject.map._milsymbols_options === undefined || stmp.mapObject.map._milsymbols_options === null){
+            stmp.mapObject.map._milsymbols_options = {symbol_serial : 0}
+        }
+        stmp.mapObject.map._milsymbols_options.symbol_serial++
+        var options = stmp.mapObject.map._milsymbols_options
+        var sidc = document.getElementById('SIDC').value
+        if (sidc.charAt(0) === 'W' || sidc.charAt(0) === 'G') {
+            var drawInfo = getDrawGraphicsInfo(sidc);
+            if (drawInfo === undefined || drawInfo.draw_type === '') {
+                toastr.warning("군대부호["+sidc+"] 의 정보를 가져올 수 없습니다.")
+                return;
+            }
+            options.min_point = drawInfo.min_point
+            options.max_point = drawInfo.max_point
+            options.draw_type = drawInfo.draw_type
+            options.constraint = drawInfo.constraint
+            stmp.drawControl.changeMode("draw_line_string")
+        } else {
+            options.min_point = 1
+            options.max_point = 1
+            options.draw_type = "Point"
+            options.constraint = "milSym"
+            stmp.drawControl.changeMode("draw_point")
+        }
+        $('#symbol_info').hide();
+    }
+    /* 군대부호 area end */
 };
 if (window.stmp === undefined) {
     window.stmp = stmp;
