@@ -2236,7 +2236,7 @@ var stmp = {
                         type: 'line',
                         source: sourceId,
                         paint: {
-                            "line-color": prop.strokeColor ? prop.strokeColor : 1,
+                            "line-color": prop.strokeColor ? prop.strokeColor : '#000000',
                             "line-width": prop.strokeWidth ? prop.strokeWidth : 1
                         },
                         filter: ['==', '$type', 'LineString']
