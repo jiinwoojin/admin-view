@@ -115,6 +115,7 @@ var battle_sidc = ''; // battle dimension sidc
 		options.infoSize = document.getElementById("infoSize").value;
 		options.frame =  document.getElementById("Frame").checked;
 		options.fill = document.getElementById("Fill").checked;
+		options.fillPercent = document.getElementById("FillPercent").value;
 		options.fillOpacity = document.getElementById("FillOpacity").value;
 		options.icon = document.getElementById("DisplayIcon").checked;
 		options.civilianColor = document.getElementById("CivilianColors").checked;
@@ -324,7 +325,6 @@ var battle_sidc = ''; // battle dimension sidc
 		document.getElementById("SIDC").value = sidc;
 		window.location.hash = sidc;	
 		options.SIDC = sidc;
-		
 		mySymbol.setOptions(options);
 		
 		/*document.getElementById("SvgSymbol").innerHTML = mySymbol.asSVG();*/

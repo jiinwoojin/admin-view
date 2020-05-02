@@ -27,6 +27,66 @@ var jiMap = function jiMap(options) {
         this.map.on('moveend', stmp.graticulesLabelGenerator)
         /* GRID area */
         /* 군대부호 area */
+        // basegeometry 재선언
+        if(ms.___original_basegeometry === undefined){
+            ms.___original_basegeometry = ms.getSymbolParts()[0]
+            var symbolParts = ms.getSymbolParts();
+            symbolParts.splice(0, 1, function(){
+                var obj = ms.___original_basegeometry.call(this,ms)
+                var percent = parseFloat(this.options.fillPercent)
+                if(!isNaN(percent) && percent < 1){
+                    var drawArray2 = obj.post
+                    var newDrawArray2 = []
+                    var exec = false
+                    jQuery.each(drawArray2, function(idx, draw){
+                        if(draw.type === 'path' && exec === false){
+                            exec = true
+                            var override = Object.assign({}, draw);
+                            var background = Object.assign({}, draw);
+                            var fillcolor = Object.assign({}, draw);
+                            var boundry = Object.assign({}, draw);
+                            boundry.fillopacity = 0
+                            var path = fillcolor.d
+                            var xmin = 99999
+                            var ymin = 99999
+                            var xmax = 0
+                            var ymax = 0
+                            var pathcoords = path.split(" ")
+                            jQuery.each(pathcoords, function(idx, pathcoord){
+                                var xy = pathcoord.split(",")
+                                var x = parseInt(xy[0].replace(/[LCMVH]/,""))
+                                var y = parseInt(xy[1])
+                                if(x < xmin) xmin = x
+                                if(y < ymin) ymin = y
+                                if(x > xmax) xmax = x
+                                if(y > ymax) ymax = y
+                            })
+                            override.d = "M "+xmin+","+ymin+" H "+xmax+" V "+ymax+" H "+xmin+" V "+ymin+" Z"
+                            override.fill = "rgb(255,255,255)"
+                            override.stroke = "rgb(255,255,255)"
+                            override.strokewidth = 0
+                            ymax = Math.round(ymax * (1 - percent))
+                            fillcolor.d = "M "+xmin+","+ymin+" H "+xmax+" V "+ymax+" H "+xmin+" V "+ymin+" Z"
+                            console.log(percent, fillcolor.d)
+                            fillcolor.fill = "rgb(255,255,255)"
+                            fillcolor.stroke = "rgb(255,255,255)"
+                            fillcolor.strokewidth = 0
+                            newDrawArray2.push(override);
+                            newDrawArray2.push(background);
+                            newDrawArray2.push(fillcolor);
+                            newDrawArray2.push(boundry);
+                        }else{
+                            newDrawArray2.push(draw)
+                        }
+                    })
+                    obj.post = newDrawArray2
+                    return obj
+                }else{
+                    return obj
+                }
+            })
+            ms.setSymbolParts(symbolParts);
+        }
         stmp.drawControl = new MapboxDraw({
             displayControlsDefault: false,
             userProperties: true,

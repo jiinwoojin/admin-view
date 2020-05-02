@@ -40,12 +40,16 @@
                                                     <input id="Size" type="range" min="1" max="250" step="1" value="60" onchange="drawSymbol();this.nextSibling.innerHTML = this.value;"/><span>60</span>
                                                 </div>
                                             </div>
-
+                                            <div class="form-group row">
+                                                <label for="FillPercent" class="col-sm-4 control-label">채우기비율</label> <!-- 크기 -->
+                                                <div class="col-sm-8">
+                                                    <input id="FillPercent" type="range" min="0" max="1" step="0.01" value="1" onchange="drawSymbol();this.nextSibling.innerHTML = this.value;"/><span>1</span>
+                                                </div>
+                                            </div>
                                             <div class="form-group row">
                                                 <label for="FillOpacity" class="col-sm-4 control-label">투명</label> <!-- 색 채움 투명도 -->
                                                 <div class="col-sm-8">
-                                                    <input id="FillOpacity" type="range" min="0" max="1" step="0.1" value="1"
-                                                           onchange="drawSymbol();this.nextSibling.innerHTML = this.value;"/><span>1</span>
+                                                    <input id="FillOpacity" type="range" min="0" max="1" step="0.1" value="1" onchange="drawSymbol();this.nextSibling.innerHTML = this.value;"/><span>1</span>
                                                 </div>
                                             </div>
 
