@@ -52,25 +52,46 @@ var jiMap = function jiMap(options) {
                             var xmax = 0
                             var ymax = 0
                             var pathcoords = path.split(" ")
+                            var prevx, prevy
+                            var startLine = false
+                            var percentRate = 1
                             jQuery.each(pathcoords, function(idx, pathcoord){
                                 var xy = pathcoord.split(",")
-                                var x = parseInt(xy[0].replace(/[LCMVH]/,""))
+                                if(/[Llc]/.test(xy[0])){
+                                    startLine = true
+                                }
+                                if(/[c]/.test(xy[0])){
+                                    percentRate = 0.43
+                                }
+                                var x = parseInt(xy[0].replace(/[LCMVHl]/,""))
                                 var y = parseInt(xy[1])
+                                if(startLine){
+                                    x = prevx + x
+                                    y = prevy + y
+                                }
+                                console.log(xy, x, y)
                                 if(x < xmin) xmin = x
                                 if(y < ymin) ymin = y
                                 if(x > xmax) xmax = x
                                 if(y > ymax) ymax = y
+                                if(!isNaN(x) && !isNaN(y)){
+                                    prevx = x
+                                    prevy = y
+                                }
                             })
                             override.d = "M "+xmin+","+ymin+" H "+xmax+" V "+ymax+" H "+xmin+" V "+ymin+" Z"
                             override.fill = "rgb(255,255,255)"
                             override.stroke = "rgb(255,255,255)"
                             override.strokewidth = 0
-                            ymax = Math.round(ymax * (1 - percent))
+                            override.fillopacity = 1
+                            ymax = Math.round(ymin + (((ymax * percentRate) - ymin) * (1 - percent)))
                             fillcolor.d = "M "+xmin+","+ymin+" H "+xmax+" V "+ymax+" H "+xmin+" V "+ymin+" Z"
-                            console.log(percent, fillcolor.d)
+                            console.log(xmin,ymin,xmax,ymax)
+                            console.log(percent, background.d, fillcolor.d)
                             fillcolor.fill = "rgb(255,255,255)"
                             fillcolor.stroke = "rgb(255,255,255)"
                             fillcolor.strokewidth = 0
+                            fillcolor.fillopacity = 1
                             newDrawArray2.push(override);
                             newDrawArray2.push(background);
                             newDrawArray2.push(fillcolor);
