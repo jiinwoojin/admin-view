@@ -198,6 +198,9 @@ public class ManageService {
         );
     }
 
+    /**
+     * MAP 정렬 조건 옵션 목록
+     */
     public MapEntity findMapEntityById(Long id){
         return entityManager.find(MapEntity.class, id);
     }
@@ -296,6 +299,95 @@ public class ManageService {
     /* LAYER 관련 함수 (LayerManageService 분류 예상) */
 
     /**
+     * LayerEntity 내용 보충
+     * @param name          이름
+     * @param description   설명
+     * @param projection    투영법
+     * @param middle_folder 중간 폴더 구조
+     * @param type          종류 (raster / vector)
+     * @param data_file     지도 파일
+     * @return              성공 여부
+     * @exception JsonProcessingException Exception
+     */
+    private LayerEntity layerEntitySupplement(Long id, String name, String description, String projection, String middle_folder, String type, MultipartFile data_file) throws IOException {
+        String filePath = null;
+        File dataFile;
+        if(data_file != null && data_file.getSize() > 0){
+            String dirPath = dataPath + Constants.DATA_PATH + "/" + middle_folder;
+            File dir = new File(dirPath);
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+
+            filePath = dirPath + "/" + data_file.getOriginalFilename();
+            dataFile = new File(filePath);
+            data_file.transferTo(dataFile);
+
+            if(!System.getProperty("os.name").toLowerCase().contains("win")) setPermission(dataFile.toPath());
+        }
+
+        String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        LayerEntity layer = entityManager.find(LayerEntity.class, id);
+        if(layer == null) {
+            layer = new LayerEntity();
+        }
+
+        layer.setDefault(false);
+        layer.setName(name);
+        layer.setDescription(description);
+        layer.setProjection(projection);
+        layer.setType(type.toUpperCase());
+        layer.setMiddleFolder(middle_folder);
+        layer.setDataFilePath(Objects.requireNonNull(filePath).replaceAll(dataPath, ""));
+        layer.setRegistorId(loginUser);
+        layer.setRegistorName(loginUser);
+        layer.setRegistTime(new Date());
+
+        String layFilePath = dataPath + Constants.LAY_FILE_PATH + "/" + layer.getName() + Constants.LAY_SUFFIX;
+        layer.setLayerFilePath(Objects.requireNonNull(layFilePath).replaceAll(dataPath, ""));
+
+        return layer;
+    }
+
+    /**
+     * abc.lay 파일 생성
+     * @param layer LayerEntity
+     * @exception IOException Exception
+     */
+    private void writeLayFileContext(LayerEntity layer) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(defaultLayer))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.contains("NAME_VALUE")) {
+                    line = line.replaceAll("NAME_VALUE", layer.getName());
+                } else if (line.contains("TYPE_VALUE")) {
+                    line = line.replaceAll("TYPE_VALUE", layer.getType());
+                } else if (line.contains("PROJECT_VALUE")) {
+                    line = line.replaceAll("PROJECT_VALUE", layer.getProjection());
+                } else if (line.contains("DATA_VALUE")) {
+                    line = line.replaceAll("DATA_VALUE", dataPath + layer.getDataFilePath());
+                }
+
+                stringBuilder.append(line);
+                stringBuilder.append(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+
+        // lay 파일 생성
+        String layFilePath = dataPath + Constants.LAY_FILE_PATH + "/" + layer.getName() + Constants.LAY_SUFFIX;
+        if (FileUtils.getFile(layFilePath).isFile()) {
+            FileUtils.forceDelete(FileUtils.getFile(layFilePath));
+        }
+        File layFile = new File(layFilePath);
+        FileUtils.write(layFile, stringBuilder.toString(), "utf-8");
+        if(!System.getProperty("os.name").toLowerCase().contains("win")) setPermission(layFile.toPath());
+    }
+
+    /**
      * LAYER 데이터 일반 목록
      */
     public List<LayerEntity> getLayerList() {
@@ -365,6 +457,109 @@ public class ManageService {
         return map;
     }
 
+    /**
+     * Layer 등록
+     * @param name          이름
+     * @param description   설명
+     * @param projection    투영법
+     * @param middle_folder 중간 폴더 구조
+     * @param type          종류 (raster / vector)
+     * @param data_file     지도 파일
+     * @return              성공 여부
+     * @throws IOException
+     */
+    @Transactional
+    public boolean addLayer(String name, String description, String projection, String middle_folder, String type, MultipartFile data_file) throws IOException {
+        log.info("Folder : " + middle_folder);
+        log.info("Data Folder : " + dataPath + Constants.DATA_PATH + "/" + middle_folder);
+
+        LayerEntity l = mapper.findLayerEntityByName(name);
+        if(l == null){
+            LayerEntity layer = this.layerEntitySupplement(0L, name, description, projection, middle_folder, type, data_file);
+            entityManager.persist(layer);
+            this.writeLayFileContext(layer);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Layer 등록
+     * @param name          이름
+     * @param description   설명
+     * @param projection    투영법
+     * @param middle_folder 중간 폴더 구조
+     * @param type          종류 (raster / vector)
+     * @param data_file     지도 파일
+     * @return              성공 여부
+     * @throws IOException
+     */
+    @Transactional
+    public boolean updateLayer(long id, String name, String description, String projection, String middle_folder, String type, MultipartFile data_file) throws IOException {
+        log.info("Folder : " + middle_folder);
+        log.info("Data Folder : " + dataPath + Constants.DATA_PATH + "/" + middle_folder);
+
+        LayerEntity l = mapper.findLayerEntityByName(name);
+        if(l != null){
+            LayerEntity layer = this.layerEntitySupplement(id, name, description, projection, middle_folder, type, data_file);
+            entityManager.merge(layer);
+            this.writeLayFileContext(layer);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * LAYER 데이터 삭제 (MapServer abc.lay 파일)
+     * @Param layerId Long
+     */
+    @Transactional
+    public boolean delLayer(Long layerId) {
+        LayerEntity layer = entityManager.find(LayerEntity.class, layerId);
+
+        // DATA 파일 삭제
+        String dataFilePath = dataPath + layer.getDataFilePath();
+        String layFilePath = dataPath + layer.getLayerFilePath();
+        try {
+            if (FileUtils.getFile(dataFilePath).isFile()) {
+                FileUtils.forceDelete(FileUtils.getFile(dataFilePath));
+            }
+        } catch (IOException e) {
+            log.error(layer.getName() + " DATA 파일 삭제 실패했습니다.");
+        }
+
+        // lay 파일 삭제
+        try {
+            if (FileUtils.getFile(layFilePath).isFile()) {
+                FileUtils.forceDelete(FileUtils.getFile(layFilePath));
+            }
+        } catch (IOException e) {
+            log.error(layer.getName() + " LAY 파일 삭제 실패했습니다.");
+        }
+
+        entityManager.remove(layer);
+        return true;
+    }
+
+    // 사용 가능성이 미비하여 아래에 기재.
+    private File findMapFile(File destDir) {
+        File[] files = destDir.listFiles();
+        for(File file : files){
+            if(file.getName().lastIndexOf(".map") > -1){
+                return file;
+            }else if(file.isDirectory()){
+                File f = findMapFile(file);
+                if(f != null){
+                    return f;
+                }
+            }
+        }
+        return null;
+    }
+
+    // 아래 코드는 추후 필요 가능함이 있을까봐 주석 처리 진행.
     /*@Transactional
     public boolean addSource(String name, String type, String desc, MultipartFile file) {
         Path destDir;
@@ -440,134 +635,4 @@ public class ManageService {
         entityManager.persist(entity);
         return true;
     }*/
-
-    private File findMapFile(File destDir) {
-        File[] files = destDir.listFiles();
-        for(File file : files){
-            if(file.getName().lastIndexOf(".map") > -1){
-                return file;
-            }else if(file.isDirectory()){
-                File f = findMapFile(file);
-                if(f != null){
-                    return f;
-                }
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Layer 등록
-     * @param name          이름
-     * @param description   설명
-     * @param projection    투영법
-     * @param middle_folder 중간 폴더 구조
-     * @param type          종류 (raster / vector)
-     * @param data_file     지도 파일
-     * @return              성공 여부
-     * @throws IOException
-     */
-    @Transactional
-    public boolean addLayer(String name, String description, String projection, String middle_folder, String type, MultipartFile data_file) throws IOException {
-        log.info("Folder : " + middle_folder);
-        log.info("Data Folder : " + dataPath + Constants.DATA_PATH + "/" + middle_folder);
-
-        String filePath = null;
-        File dataFile;
-        if(data_file != null && data_file.getSize() > 0){
-            String dirPath = dataPath + Constants.DATA_PATH + "/" + middle_folder;
-            File dir = new File(dirPath);
-            if (!dir.exists()) {
-                dir.mkdir();
-            }
-
-            filePath = dirPath + "/" + data_file.getOriginalFilename();
-            dataFile = new File(filePath);
-            data_file.transferTo(dataFile);
-
-            setPermission(dataFile.toPath());
-        }
-
-        String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        LayerEntity layer = new LayerEntity();
-        layer.setDefault(false);
-        layer.setName(name);
-        layer.setDescription(description);
-        layer.setProjection(projection);
-        layer.setType(type.toUpperCase());
-        layer.setMiddleFolder(middle_folder);
-        layer.setDataFilePath(Objects.requireNonNull(filePath).replaceAll(dataPath, ""));
-        layer.setRegistorId(loginUser);
-        layer.setRegistorName(loginUser);
-        layer.setRegistTime(new Date());
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(defaultLayer))) {
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                if (line.contains("NAME_VALUE")) {
-                    line = line.replaceAll("NAME_VALUE", layer.getName());
-                } else if (line.contains("TYPE_VALUE")) {
-                    line = line.replaceAll("TYPE_VALUE", layer.getType());
-                } else if (line.contains("PROJECT_VALUE")) {
-                    line = line.replaceAll("PROJECT_VALUE", layer.getProjection());
-                } else if (line.contains("DATA_VALUE")) {
-                    line = line.replaceAll("DATA_VALUE", dataPath + layer.getDataFilePath());
-                }
-
-                stringBuilder.append(line);
-                stringBuilder.append(System.lineSeparator());
-            }
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
-
-        // lay 파일 생성
-        String layFilePath = dataPath + Constants.LAY_FILE_PATH + "/" + name + Constants.LAY_SUFFIX;
-
-        if (FileUtils.getFile(layFilePath).isFile()) {
-            FileUtils.forceDelete(FileUtils.getFile(layFilePath));
-        }
-
-        File layFile = new File(layFilePath);
-
-        FileUtils.write(layFile, stringBuilder.toString(), "utf-8");
-
-        setPermission(layFile.toPath());
-
-        layer.setLayerFilePath(Objects.requireNonNull(layFilePath).replaceAll(dataPath, ""));
-
-        entityManager.persist(layer);
-
-        return true;
-    }
-
-    @Transactional
-    public boolean delLayer(Long layerId) {
-        LayerEntity layer = entityManager.find(LayerEntity.class, layerId);
-
-        // DATA 파일 삭제
-        String dataFilePath = dataPath + layer.getDataFilePath();
-        String layFilePath = dataPath + layer.getLayerFilePath();
-        try {
-            if (FileUtils.getFile(dataFilePath).isFile()) {
-                FileUtils.forceDelete(FileUtils.getFile(dataFilePath));
-            }
-        } catch (IOException e) {
-            log.error(layer.getName() + " DATA 파일 삭제 실패했습니다.");
-        }
-
-        // lay 파일 삭제
-        try {
-            if (FileUtils.getFile(layFilePath).isFile()) {
-                FileUtils.forceDelete(FileUtils.getFile(layFilePath));
-            }
-        } catch (IOException e) {
-            log.error(layer.getName() + " LAY 파일 삭제 실패했습니다.");
-        }
-
-        entityManager.remove(layer);
-        return true;
-    }
 }

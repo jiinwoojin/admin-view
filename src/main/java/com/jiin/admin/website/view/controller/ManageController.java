@@ -32,13 +32,9 @@ public class ManageController {
     @Resource
     private ManageService service;
 
+    // MAP 파일 목록
     @RequestMapping("map-manage")
     public String map(Model model, MapSearchModel mapSearchModel) {
-        model.addAttribute("mapserverBinary", mapserverBinary);
-        model.addAttribute("mapserverWorkingDir", dataPath + "/tmp");
-        model.addAttribute("cacheType", "map");
-        model.addAttribute("cacheDirectory", dataPath + "/cache");
-
         model.addAttribute("resMap", service.getMapListByPaginationModel(mapSearchModel));
         model.addAttribute("obList", service.mapOrderByOptions());
         model.addAttribute("sbList", service.mapSearchByOptions());
@@ -48,6 +44,7 @@ public class ManageController {
         return "page/manage/map-manage";
     }
 
+    // MAP 파일 추가 페이지
     @RequestMapping("map-form")
     public String mapForm(Model model, @ModelAttribute MapEntity map, MapSearchModel mapSearchModel) {
         model.addAttribute("layers", service.getLayerList());
@@ -55,6 +52,7 @@ public class ManageController {
         return "page/manage/map-form";
     }
 
+    // MAP 파일 추가 POST 동작
     @PostMapping("add-map")
     public String addMap(@Valid MapEntity map, @RequestParam("layerList") String layerList) throws IOException {
         boolean result = service.addMap(map, layerList);
@@ -62,6 +60,7 @@ public class ManageController {
         return "redirect:map-manage?pg=1&sz=9&iType=ALL&units=ALL";
     }
 
+    // MAP 파일 수정 페이지
     @RequestMapping("map-edit")
     public String mapEditPage(Model model, @RequestParam long id, MapSearchModel mapSearchModel){
         model.addAttribute("mapEntity", service.findMapEntityById(id));
@@ -71,11 +70,19 @@ public class ManageController {
         return "page/manage/map-edit";
     }
 
+    // MAP 파일 수정 POST 동작
     @PostMapping("update-map")
     public String updateMap(@Valid MapEntity map, @RequestParam("layerList") String layerList) throws IOException {
         boolean result = service.updateMap(map, layerList);
         session.message(String.format("MAP [%s] 수정 %s하였습니다.", map.getName(), (result ? "성공" : "실패")));
         return "redirect:map-manage?pg=1&sz=9&iType=ALL&units=ALL";
+    }
+
+    // MAP 파일 삭제 REST API
+    @ResponseBody
+    @PostMapping("del-map")
+    public boolean delMap(@RequestParam("mapId") Long mapId){
+        return service.delMap(mapId);
     }
 
     /*@PostMapping("add-source")
@@ -88,12 +95,7 @@ public class ManageController {
         return "redirect:map-manage";
     }*/
 
-    @ResponseBody
-    @PostMapping("del-map")
-    public boolean delMap(@RequestParam("mapId") Long mapId){
-        return service.delMap(mapId);
-    }
-
+    // LAYER 파일 목록
     @RequestMapping("layer-manage")
     public String layer(Model model, LayerSearchModel layerSearchModel) throws ParseException {
         model.addAttribute("resMap", service.getLayerListByPaginationModel(layerSearchModel));
@@ -103,6 +105,7 @@ public class ManageController {
         return "page/manage/layer-manage";
     }
 
+    // LAYER 파일 추가 POST 동작
     @PostMapping("add-layer")
     public String addLayer(@RequestParam("name") String name,
                            @RequestParam("description") String description,
@@ -115,6 +118,21 @@ public class ManageController {
         return "redirect:layer-manage?pg=1&sz=9&lType=ALL";
     }
 
+    // LAYER 파일 수정 POST 동작
+    @PostMapping("update-layer")
+    public String updateLayer(@RequestParam("id") long id,
+                              @RequestParam("name") String name,
+                              @RequestParam("description") String description,
+                              @RequestParam(value = "projection", defaultValue = "epsg:4326") String projection,
+                              @RequestParam("middle_folder") String middle_folder,
+                              @RequestParam("type") String type,
+                              @RequestParam("data_file") MultipartFile data_file, LayerSearchModel layerSearchModel) throws IOException {
+        boolean result = service.updateLayer(id, name, description, projection, middle_folder, type, data_file);
+        session.message(String.format("LAYER [%s] 수정 %s하였습니다.",name,(result ? "성공" : "실패")));
+        return "redirect:layer-manage?" + layerSearchModel.getQueryString();
+    }
+
+    // LAYER 파일 삭제 REST API
     @ResponseBody
     @PostMapping("del-layer")
     public boolean delLayer(@RequestParam("layerId") Long layerId) {

@@ -84,6 +84,9 @@ public interface ManageMapper {
     })
     List<MapEntity> findMapEntitiesByPaginationModel(MapSearchModel mapSearchModel);
 
+    @Select("SELECT L.* FROM _LAYER L WHERE NAME = #{name}")
+    LayerEntity findLayerEntityByName(@Param("name") String name);
+
     @Select("SELECT L.* FROM _MAP_LAYER_RELATION ML LEFT JOIN _LAYER L ON ML.LAYER_ID = L.ID WHERE ML.MAP_ID = #{mapId}")
     List<LayerEntity> findLayerEntitiesByMapId(@Param("mapId") Long mapId);
 

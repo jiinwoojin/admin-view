@@ -67,7 +67,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-4">
-                                <label class="col-form-label" for="layer-type">Layer Type</label>
+                                <label class="col-form-label" for="layer-type">레이어 종류</label>
                                 <select class="form-control" name="type" id="layer-type">
                                     <option value="Raster">Raster</option>
                                     <option value="Vector">Vector</option>
@@ -77,21 +77,92 @@
                                 <label class="col-form-label" for="___customFile">지도 파일</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="___customFileAddon">Upload</span>
+                                        <span class="input-group-text" id="___customFileAddon" style="height: 33.5px;">
+                                            TIFF (RASTER) / SHP (VECTOR)
+                                        </span>
                                     </div>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="___customFile"
                                                aria-describedby="___customFileAddon" name="data_file">
-                                        <label class="custom-file-label" for="___customFile">Choose file</label>
+                                        <label class="custom-file-label" for="___customFile">파일 선택</label>
                                     </div>
                                 </div>
-                                <script>
-                                    // Add the following code if you want the name of the file appear on select
-                                    $(".custom-file-input").on("change", function() {
-                                        var fileName = $(this).val().split("\\").pop();
-                                        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-                                    });
-                                </script>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times"></i> 취소
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 저장
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- LAYER 수정 Modal -->
+    <div class="modal fade" id="layer-update" tabindex="-1" role="dialog" aria-labelledby="update-layer" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form th:action="@{/view/manage/update-layer}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this);" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="update-layer">LAYER 수정</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" />
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label for="layer-name-u">LAYER 이름</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="text" class="form-control" name="name" id="layer-name-u" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="layer-description">설명</label>
+                            <input type="text" class="form-control" name="description" id="layer-description-u">
+                        </div>
+                        <!-- TODO select 로 수정 필요함 -->
+                        <div class="form-group">
+                            <label for="layer-projection">투영</label>
+                            <select class="form-control" id="layer-projection-u" name="projection">
+                                <option value="epsg:3857">EPSG:3857</option>
+                                <option value="epsg:4326">EPSG:4326</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="layer-middle_folder">폴더명</label>
+                            <input type="text" class="form-control" name="middle_folder" id="layer-middle_folder-u">
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label class="col-form-label" for="layer-type">레이어 종류</label>
+                                <select class="form-control" name="type" id="layer-type-u">
+                                    <option value="Raster">Raster</option>
+                                    <option value="Vector">Vector</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-8">
+                                <label class="col-form-label" for="___customFile">지도 파일</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="___customFileAddon_u" style="height: 33.5px;">
+                                            TIFF (RASTER) / SHP (VECTOR)
+                                        </span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="___customFile_u"
+                                               aria-describedby="___customFileAddon" name="data_file">
+                                        <label class="custom-file-label" for="___customFile">파일 선택</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -192,12 +263,13 @@
                                 </th:block>
                             </p>
                             <div class="text-right">
-                                <button data-toggle="modal" data-target="#layer-create" class="btn btn-primary"
+                                <button th:if="${ !layer.isDefault() }" data-toggle="modal" data-target="#layer-update" class="btn btn-primary"
                                         th:data-id="${ layer.id }"
                                         th:data-name="${ layer.name }"
                                         th:data-description="${ layer.description }"
                                         th:data-projection="${ layer.projection }"
                                         th:data-middleFolder="${ layer.middleFolder }"
+                                        th:data-layertype="${ layer.type }"
                                 >
                                     <i class="fas fa-cog"></i>
                                 </button>
@@ -230,9 +302,15 @@
                 if (!jQuery.isEmptyObject(message)) {
                     toastr.info(message);
                 }
+
                 $('#layer-name').change(function() {
                     $('#layer-name').data("check-duplicate",false);
                     $('#duplicate-check-message').text("중복확인을 해주세요.");
+                });
+
+                $(".custom-file-input").on("change", function() {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
                 });
             });
 
@@ -240,6 +318,8 @@
                 var action = form.action;
                 if (action.indexOf("add-layer") > -1) {
                     addLayer(form);
+                } else if(action.indexOf("update-layer") > -1) {
+                    return true;
                 }
                 return false;
             }
@@ -248,10 +328,10 @@
                 if (jQuery.isEmptyObject(form['name'].value)) {
                     form['name'].focus();
                     toastr.warning("이름이 입력되지 않았습니다.");
-                    return
+                    return;
                 }else if(jQuery(form['name']).data("check-duplicate") === false) {
                     toastr.warning("이름 중복확인이 되지 않았습니다.");
-                    return
+                    return;
                 }
                 form.submit();
             }
@@ -314,29 +394,40 @@
             }
 
             jQuery("#layer-create").on("shown.bs.modal", function(e) {
+                popup.find("[name='name']").val('');
+                popup.find("[name='description']").val('');
+                popup.find("[name='projection'] > option").first().attr('selected', 'true');
+                popup.find("[name='middle_folder']").val('');
+            });
+
+            jQuery("#layer-update").on("shown.bs.modal", function(e) {
                 var btn = e.relatedTarget;
+
                 var layerId = jQuery(btn).data('id');
                 var layerName = jQuery(btn).data("name");
                 var layerDescription = jQuery(btn).data("description");
                 var layerProjection = jQuery(btn).data('projection');
                 var layerMiddleFolder = $(btn).data('middlefolder');
-                console.log(layerMiddleFolder);
+                var type = $(btn).data('layertype');
+
                 var target = jQuery(btn).data("target");
                 /*var area = jQuery("#parent-buttons");
                 area.empty();*/
                 var popup = jQuery(target);
                 if (layerId) {
-                    //view
+                    popup.find("[name='id']").val(layerId);
                     popup.find("[name='name']").val(layerName);
                     popup.find("[name='description']").val(layerDescription);
                     popup.find("[name='projection']").val(layerProjection);
                     popup.find("[name='middle_folder']").val(layerMiddleFolder);
+                    popup.find("[name='type']").val(type === 'RASTER' ? 'Raster' : 'Vector');
                 } else {
-                    //new
+                    popup.find("[name='id']").val(0);
                     popup.find("[name='name']").val('');
                     popup.find("[name='description']").val('');
                     popup.find("[name='projection'] > option").first().attr('selected', 'true');
                     popup.find("[name='middle_folder']").val('');
+                    popup.find("[name='type']").val('Raster');
                 }
             });
 
