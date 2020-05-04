@@ -42,8 +42,7 @@ function activateTab(id){
 	
 	activeStandard = "letter";
 	standardVersion = "US";
-	
-	//var check_sidc = mySymbol.getOptions().sidc;
+
 	if(function_sidc == ''){
 		ms.setStandard("2525");
 		//Make Select Options  

@@ -2155,16 +2155,17 @@ var stmp = {
         //TODO : 작업예정
     }
     , milsymbolsGenerator : function(evt){
-        var option = stmp.mapObject.map._milsymbols_options
-        var prefixLayerId = "milsymbols-" + option.symbol_serial
-        G_coordinates = new Array(); // 좌표값 초기화
         var features = evt.features
         var geometryType = features[0].geometry.type
         var coord = features[0].geometry.coordinates
-        console.log(evt)
+        //
+        var options = stmp.mapObject.map._drawing_milsymbol.options
+        var coordinates = stmp.mapObject.map._drawing_milsymbol_coordinates
+        var prefixLayerId = "milsymbols-" + options.sidc + "-" + options._symbol_serial
+        console.log(evt, options)
         var data = {}
         if(geometryType === "Point"){
-            var imageData = mySymbol.asCanvas().toDataURL()
+            var imageData = stmp.mapObject.map._drawing_milsymbol.asCanvas().toDataURL()
             stmp.mapObject.map.loadImage(imageData,function(e,image){
                 stmp.mapObject.map.addImage(prefixLayerId + "-image", image)
             })
@@ -2178,10 +2179,11 @@ var stmp = {
             }
         }else if(geometryType === "LineString"){
             jQuery.each(coord, function(idx, point){
-                G_coordinates.push({x:point[0],y:point[1]})
+                coordinates.push({x:point[0],y:point[1]})
             })
-            drawMsymbol(option.symbol_serial, 'geoJSON')
-            data = JSON.parse(mygeoJSON)
+            console.log(coordinates, options._coordinates)
+            drawMsymbol(options._symbol_serial, 'geoJSON')
+            data = JSON.parse(stmp.mapObject.map._drawing_milsymbol._geojson)
         }
         // draw milsymbol
         stmp.mapObject.map.addSource(prefixLayerId + '-source-feature', {
@@ -2199,7 +2201,6 @@ var stmp = {
             var prop = feature.properties
             if(prop.type === "Image"){
                 // 단일심볼
-                console.log(feature)
                 stmp.mapObject.map.addLayer({
                     id: prefixLayerId + '-layer-image-' + idx,
                     type: 'symbol',
@@ -2245,32 +2246,109 @@ var stmp = {
             }
         })
     }
-    , drawMilsymbol : function(){
-        if(stmp.mapObject.map._milsymbols_options === undefined || stmp.mapObject.map._milsymbols_options === null){
-            stmp.mapObject.map._milsymbols_options = {symbol_serial : 0}
+    /**
+     * @param options
+     */
+    , drawMilsymbol : function(options){
+        if(options === null || options === undefined){
+            toastr.error("MilSymbol options 값이 없습니다.")
+            return
         }
-        stmp.mapObject.map._milsymbols_options.symbol_serial++
-        var options = stmp.mapObject.map._milsymbols_options
-        var sidc = document.getElementById('SIDC').value
+        var symbol = new ms.Symbol(options) // 심볼생성
+        var sidc = options.SIDC
         if (sidc.charAt(0) === 'W' || sidc.charAt(0) === 'G') {
             var drawInfo = getDrawGraphicsInfo(sidc);
             if (drawInfo === undefined || drawInfo.draw_type === '') {
                 toastr.warning("군대부호["+sidc+"] 의 정보를 가져올 수 없습니다.")
                 return;
             }
-            options.min_point = drawInfo.min_point
-            options.max_point = drawInfo.max_point
-            options.draw_type = drawInfo.draw_type
-            options.constraint = drawInfo.constraint
+            options._min_point = drawInfo.min_point
+            options._max_point = drawInfo.max_point
+            options._draw_type = drawInfo.draw_type
+            options._constraint = drawInfo.constraint
             stmp.drawControl.changeMode("draw_line_string")
         } else {
-            options.min_point = 1
-            options.max_point = 1
-            options.draw_type = "Point"
-            options.constraint = "milSym"
+            options._min_point = 1
+            options._max_point = 1
+            options._draw_type = "Point"
+            options._constraint = "milSym"
             stmp.drawControl.changeMode("draw_point")
         }
-        $('#symbol_info').hide();
+        options._symbol_serial = (stmp.mapObject.map._drawing_milsymbol ? stmp.mapObject.map._drawing_milsymbol.options._symbol_serial + 1 : 0)
+        // 심볼생성
+        stmp.mapObject.map._drawing_milsymbol = symbol
+        stmp.mapObject.map._drawing_milsymbol_coordinates = []
+    }
+    /**
+     *
+     * @returns {{strokeWidth, sidcsymbolModifier12, civilianColor, evaluationRating, fillOpacity, hqStafLength, combatEffectiveness, uniqueDesignation, signatureEquipment, hostile, icon, staffComments, infoColor, type, speed, R, infoSize, dtg, monoColor1: *, iffSif, fillPercent, direction, additionalInformation, quantity, AG, colorMode: *, fill, outlineWidth, size, reinforcedReduced, outlineColor, altitudeDepth, specialHeadquarters, infoFields, location, higherFormation, frame}}
+     */
+    , getMilsymbolOptions : function(){
+        if ( bChangeID ) { // 20200305 부호 변경 시 기존 수식정보 모두 초기화. 초기화가 되지 않을 경우 변경하지 않아야 할 정보도 자동으로 변경되어 버림.
+            // A:기본부호지정, B:부대단위, C:장비수량, D:기동부대식별,
+            // F:부대증감, G:군 및 국가 구분, H:추가사항, H1:추가사항, H2:추가사항,
+            // J:평가등급, K:전투효과, L:신호정보장비, M:상급부대, N:적군표시,
+            // P:피아식별모드/코드, Q:이동방향, R:이동수단, R2:신호정보 장비 이동성,
+            // S:지휘소표시/실제위치표시, T:고유명칭, T1:고유명칭1, V:장비명, W:활동시각, W1:활동시각1,
+            // X:고도/심도, X1:고도/심도1, XN:고도/심도[], Y:위치, Z:속도, AA:지휘통제소, AB:가장/가상식별부호,
+            // AD:기반형태, AE:장비분해시간, AF:공통명칭, AG:보조장비 식별부호,
+            // AH:불확정영역, AI:선위의 추측선, AJ:속도선, AM:거리(미터), AN:각도(도)
+            var propNm = ['B', 'C', 'D', 'F', 'G', 'H', 'H1', 'H2', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'R2', 'S', 'T', 'T1', 'V', 'W', 'W1', 'X', 'X1', 'XN', 'Y', 'Z', 'AA', 'AB', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AM', 'AN'];
+            for (var j = 0; j < propNm.length; j++) {
+                if (propNm[j] === 'B') {
+                    $('#SIDCSYMBOLMODIFIER12').find("option:eq(0)").prop("selected", true);
+                }else if (propNm[j] === 'J' || propNm[j] === 'R' || propNm[j] === 'R2' || propNm[j] === 'AD' || propNm[j] === 'AG') {
+                    if ($('#'+propNm[j]) !== undefined) {
+                        $('#'+propNm[j]).find("option:eq(0)").prop("selected", true);
+                    }
+                }else{
+                    if ( propNm[j] !== '' && $('#'+propNm[j]) !== undefined) {
+                        $('#'+propNm[j]).val("");
+                    }
+                }
+            }
+        }
+        var options = {
+            colorMode: document.getElementById("ColorMode").value,
+            monoColor1: jQuery("input:checkbox[id='MonoColorChk']").is(":checked") ? jQuery('#MonoColor1').val() : '',
+            hqStafLength: document.getElementById("hqStafLength").value,
+            infoColor: document.getElementById("InfoColor").value,
+            infoSize: document.getElementById("infoSize").value,
+            frame:  document.getElementById("Frame").checked,
+            fill: document.getElementById("Fill").checked,
+            fillPercent: document.getElementById("FillPercent").value,
+            fillOpacity: document.getElementById("FillOpacity").value,
+            icon: document.getElementById("DisplayIcon").checked,
+            civilianColor: document.getElementById("CivilianColors").checked,
+            infoFields: document.getElementById("infoFields").checked,
+            outlineColor: document.getElementById("outlineColor").value,
+            outlineWidth: document.getElementById("outlineWidth").value,
+            size: document.getElementById("Size").value,
+            strokeWidth: document.getElementById("StrokeWidth").value,
+            sidcsymbolModifier12: document.getElementById("SIDCSYMBOLMODIFIER12").value,
+            quantity: document.getElementById("C").value,
+            reinforcedReduced: document.getElementById("F").value,
+            staffComments: document.getElementById("G").value,
+            additionalInformation: document.getElementById("H").value,
+            evaluationRating: document.getElementById("J").value,
+            combatEffectiveness: document.getElementById("K").value,
+            signatureEquipment: document.getElementById("L").value,
+            higherFormation: document.getElementById("M").value,
+            hostile: document.getElementById("N").value,
+            iffSif: document.getElementById("P").value,
+            direction: document.getElementById("Q").value,
+            R: document.getElementById("R").value,
+            uniqueDesignation: document.getElementById("T").value,
+            type: document.getElementById("V").value,
+            dtg: document.getElementById("W").value,
+            altitudeDepth: document.getElementById("X").value,
+            location: document.getElementById("Y").value,
+            speed: document.getElementById("Z").value,
+            specialHeadquarters: document.getElementById("AA").value,
+            AG: document.getElementById("AG").value,
+        }
+        options.SIDC = buildSymbolID(function_sidc, options);
+        return options
     }
     /* 군대부호 area end */
 };

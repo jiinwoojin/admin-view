@@ -23,63 +23,7 @@ function Draw_Symbol() {
 
 // modify Symbol
 function Mod_Symbol() {
-    var id = document.getElementById('mod_id'); // 수정할 ID
 
-    if (id.value != '') {
-        var format = 'geoJSON';
-        // Single(symbol) or Multiple(Graphics)
-        var SorG = $('#SIDCCODINGSCHEME').val();
-        if (SorG.charAt(0) == 'W' || SorG.charAt(0) == 'G') {
-            //multiple
-            if (id.value.split('_')[1] != '0') {
-                var ops = id.value.split('_');
-                for (var i = 0; i < Number(ops[1]); i++) {
-                    if (id.value.length < 4) {
-                        deleteMarker(ops[0] + '_' + (i + 1));
-                        format = 'SVG';
-                    } else
-                        deleteMarker(ops[0] + '_' + ops[1] + '_' + i);
-                }
-            } else {
-                deleteMarker(id);
-            }
-
-            drawMsymbol(id.value.split('_')[0], format);
-            if (format == 'SVG') {
-                addMarker(myGSymbol, id.value.split('_')[0], G_coordinates[0].x, G_coordinates[0].y, 'Msymbol');
-            } else
-                addMarker(mygeoJSON, id.value.split('_')[0], '', '', 'Msymbol');
-
-        } else {
-            //single
-            var changeFeature = selectLayer.getSource().getFeatureById(id.value);
-            var mapProperties = getMapProperties();//20200304
-            var mysvg = new Image();
-            mysvg.src = 'data:image/svg+xml,' + encodeURIComponent(mySymbol.asSVG());
-
-            var style = new ol.style.Style({
-                image: new ol.style.Icon(({
-                    anchor: [mySymbol.getAnchor().x, mySymbol.getAnchor().y],
-                    anchorXUnits: 'pixels',
-                    anchorYUnits: 'pixels',
-                    imgSize: [Math.floor(mySymbol.getSize().width), Math.floor(mySymbol.getSize().height)],
-//                             img: (mysvg)
-                    //20200228 - ol.js SCRIPT5022: IndexSizeError
-                    img: (mySymbol.asCanvas())
-                }))
-            });
-            changeFeature.setStyle(style);
-            changeFeature.setProperties({
-                'options': mySymbol.getOptions(),
-                'mapProperties' : mapProperties//20200304
-            });
-        }
-        id.value = '';
-    }
-
-    selectClick.getFeatures().clear();
-    $('#symbol_info').hide();
-    $('#mod').addClass('hidden');
 }
 
 // Only Input Number
@@ -298,53 +242,6 @@ function drawGraphis(datum_point, over_point, draw_type, constraint){
 
     var draw_id = 'P' + symbol_serial;
     draw.on('drawend', function(e) {
-        // 그린 좌표에 ID 입력
-        e.feature.setId(draw_id);
-        G_coordinates = new Array(); // 좌표값 초기화
-        var coordinate;
-        if(FigureType == 'Polygon'){
-            coordinate = draw.a[0];
-        } else {
-            coordinate = draw.a;
-        }
-        var id = symbol_serial;
-        symbol_serial ++;
-
-        if(FigureType == 'Point' && constraint == 'milSym'){
-            getCoordinates(coordinate[0], coordinate[1]);
-
-            if(mySymbol != undefined) {
-                addMarker(mySymbol, id, draw.a[0], draw.a[1], 'Ssymbol'); // Make Marker
-            }
-        }else if(FigureType == 'Point' && constraint == ''){
-            getCoordinates(coordinate[0], coordinate[1]);
-            drawMsymbol(id, 'SVG');
-            addMarker(myGSymbol, id, draw.a[0], draw.a[1], 'Msymbol');
-        } else {
-            if(constraint != ''){
-                if(FigureType == 'Point'){
-                    getCoordinates(coordinate[0], coordinate[1]);
-                } else {
-                    for(var i = 0; i < coordinate.length; i++){
-                        getCoordinates(coordinate[i][0], coordinate[i][1]);
-                    }
-                }
-                setAM_AN(constraint);
-            } else {
-                for(var i = 0; i < coordinate.length; i++){
-                    getCoordinates(coordinate[i][0], coordinate[i][1]);
-                }
-            }
-
-            drawMsymbol(id, 'geoJSON');
-            addMarker(mygeoJSON, id, '', '', 'Msymbol');
-        }
-
-        var draw_style = new ol.style.Style({
-            visibility: 'hidden'
-        });
-        e.feature.setStyle(draw_style);
-
         map.removeInteraction(draw);
     });
 

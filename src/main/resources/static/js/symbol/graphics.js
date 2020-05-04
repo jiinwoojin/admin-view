@@ -54,8 +54,11 @@ function drawMsymbol(id, format, sidc){
 	symbolCode = sidc;
 	
 	var code = SymbolUtilities.getBasicSymbolID(sidc);
-	
-	if(G_coordinates.length > 0) {
+	var coordinates = []
+	if(stmp.mapObject && stmp.mapObject.map && stmp.mapObject.map._drawing_milsymbol_coordinates){
+		coordinates = stmp.mapObject.map._drawing_milsymbol_coordinates
+	}
+	if(coordinates.length > 0) {
 		if(SymbolDefTable.getSymbolDef(code, symStd)){
 			var mtgs = SymbolDefTable.getSymbolDef(code, symStd);
 			var mtgs_split = mtgs.modifiers.split('.');
@@ -106,26 +109,22 @@ function drawMsymbol(id, format, sidc){
 				modifiers.LINECOLOR = lineColor;
 			}
 		}
-		var coordData = setCoordinates(G_coordinates);
+		var coordData = setCoordinates(coordinates);
 		controlPoints = coordData.controlPoints;
 		
 		scale = stmp.mapObject.map.transform.scale
 	}
-	
-//    myGSymbolIcon = armyc2.c2sd.renderer.MilStdIconRenderer.Render(symbolCode,modifiers);
-//    var center = ii.getCenterPoint();
-    
-	var json = '';
-	mygeoJSON = null;
-	G_modifiers = null;
-	
+
 	if(format != undefined){
+		stmp.mapObject.map._drawing_milsymbol._line_symbol = null
+		stmp.mapObject.map._drawing_milsymbol._geojson = null
+		stmp.mapObject.map._drawing_milsymbol._modifiers = null
 		if(format == 'SVG'){
-			myGSymbol = armyc2.c2sd.renderer.MilStdSVGRenderer.Render(symbolCode,modifiers); // Save Graphics symbol
-			mygeoJSON = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);
+			stmp.mapObject.map._drawing_milsymbol._line_symbol = armyc2.c2sd.renderer.MilStdSVGRenderer.Render(symbolCode,modifiers); // Save Graphics symbol
+			stmp.mapObject.map._drawing_milsymbol._geojson = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);
 		} else {
-			mygeoJSON = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);
-			G_modifiers = modifiers;
+			stmp.mapObject.map._drawing_milsymbol._geojson = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);
+			stmp.mapObject.map._drawing_milsymbol._modifiers = modifiers;
 		}
 	} else {
 		// 작전활동부호 미리보기 이미지
@@ -134,7 +133,6 @@ function drawMsymbol(id, format, sidc){
 			if(symbolDef['minPoints'] > 0){
 				modifiers.SIZE = document.getElementById("Size").value;
 				var si = armyc2.c2sd.renderer.MilStdSVGRenderer.Render(symbolCode,modifiers);
-				
 				document.getElementById("ImageSymbol").style.width = si.getSVGBounds().getWidth()*(3/2) +'px';
 				document.getElementById("ImageSymbol").style.height = si.getSVGBounds().getHeight()*(3/2) +'px';
 				document.getElementById("ImageSymbol").src = si.getSVGDataURI();
