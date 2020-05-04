@@ -15,6 +15,8 @@ public class LayerSearchModel extends PaginationModel {
 
     public LayerSearchModel(){
         super();
+        this.sDate = "";
+        this.eDate = "";
         this.lType = "ALL"; // Default Value
     }
 

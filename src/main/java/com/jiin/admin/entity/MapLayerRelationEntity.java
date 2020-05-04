@@ -13,6 +13,9 @@ import java.io.Serializable;
         initialValue = 1,
         allocationSize = 1
 )
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = { "MAP_ID", "LAYER_ID" })
+})
 @Getter
 @Setter
 public class MapLayerRelationEntity implements Serializable{

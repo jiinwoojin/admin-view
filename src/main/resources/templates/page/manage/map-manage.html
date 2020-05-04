@@ -18,7 +18,7 @@
 <th:block layout:fragment="content-body-fragment">
     <!-- LAYER 추가 버튼 -->
     <div id="map_config_button" class="text-right my-1">
-        <a th:href="@{/view/manage/map-form}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <a th:href="@{'/view/manage/map-form?' + ${qs}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
             <i class="fas fa-plus fa-sm text-white-50"></i> MAP 추가
         </a>
         <a th:href="@{/view/manage/layer-manage?pg=1&sz=9&lType=ALL}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
@@ -82,7 +82,7 @@
 
             <div class="form-group">
                 <label>지도 측정 단위</label>
-                <select class="form-control" name="units">
+                <select class="form-control" name="units" id="units">
                     <option value="ALL" th:selected="${ #strings.equals(param.units, 'ALL') }">-- 모두 --</option>
                     <option value="DD" th:selected="${ #strings.equals(param.units, 'DD') }">DD</option>
                     <option value="FEET" th:selected="${ #strings.equals(param.units, 'FEET') }">FEET</option>
@@ -95,8 +95,11 @@
             </div>
 
             <div class="form-group">
-                <button class="btn btn-block btn-primary" type="submit">
+                <button class="btn btn-block btn-primary my-1" type="submit">
                     <i class="fas fa-search"></i> 검색
+                </button>
+                <button class="btn btn-block btn-warning my-1" type="button" onclick="onclick_refresh_search()">
+                    <i class="fas fa-sync"></i> 초기화
                 </button>
             </div>
         </form>
@@ -122,7 +125,9 @@
                                 </th:block>
                             </p>
                             <div class="text-right">
-                                <button class="btn btn-primary"><i class="fas fa-cog"></i></button>
+                                <a th:if="${!map.isDefault()}" class="btn btn-primary" th:href="@{ '/view/manage/map-edit?id=' + ${map.id} + '&' + ${qs} }">
+                                    <i class="fas fa-cog"></i>
+                                </a>
                                 <span th:if="${!map.isDefault()}" class="btn btn-danger" th:onclick="delMap(this,[[${map.name}]],[[${map.id}]])" >
                                     <i class="fas fa-trash"></i>
                                 </span>
@@ -215,6 +220,18 @@
                     } else return true;
                 }
             }
+        }
+
+        function onclick_refresh_search(){
+            $("#ob option:eq(0)").prop("selected", true);
+            $("#sb option:eq(0)").prop("selected", true);
+            document.getElementById('st').value = '';
+            document.getElementById('sDate').value = '';
+            document.getElementById('eDate').value = '';
+            $("input:radio[name='iType'][value='ALL']").prop('checked', true);
+            $("input:radio[name='iType'][value='jpeg']").prop('checked', false);
+            $("input:radio[name='iType'][value='png']").prop('checked', false);
+            $("#units option:eq(0)").prop("selected", true);
         }
     </script>
 </th:block>

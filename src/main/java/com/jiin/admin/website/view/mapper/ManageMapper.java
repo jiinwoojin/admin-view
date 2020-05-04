@@ -5,6 +5,7 @@ import com.jiin.admin.entity.MapEntity;
 import com.jiin.admin.mapper.BaseMapper;
 import com.jiin.admin.website.model.LayerSearchModel;
 import com.jiin.admin.website.model.MapSearchModel;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,11 +35,11 @@ public interface ManageMapper {
                     "<when test='sb == 3'> LOWER(L.PROJECTION) LIKE CONCAT('%', #{st}, '%') </when>",
                     "<otherwise> 1=1 </otherwise>",
                 "</choose>",
-                "<if test=\" sDate != null and eDate != null and sDate != '' and eDate != '' \">",
-                    " AND L.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD') ",
-                "</if>",
                 "<if test=\" lType != 'ALL' \">",
                     " AND L.TYPE = #{lType} ",
+                "</if>",
+                "<if test=\" sDate != null and !sDate.equals('') and eDate != null and !eDate.equals('') \">",
+                    " AND M.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD')",
                 "</if>",
             "</where>",
             "ORDER BY ",
@@ -62,14 +63,14 @@ public interface ManageMapper {
                     "<when test='sb == 3'> LOWER(M.PROJECTION) LIKE CONCAT('%', #{st}, '%') </when>",
                     "<otherwise> 1=1 </otherwise>",
                 "</choose>",
-                "<if test=\" sDate != null and eDate != null and sDate != '' and eDate != '' \">",
-                    " AND M.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD')",
-                "</if>",
                 "<if test=\" iType != 'ALL' \">",
                     " AND M.IMAGE_TYPE = #{iType}",
                 "</if>",
                 "<if test=\" units != 'ALL' \">",
                     " AND M.UNITS = #{units}",
+                "</if>",
+                "<if test=\" sDate != null and !sDate.equals('') and eDate != null and !eDate.equals('') \">",
+                    " AND M.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD')",
                 "</if>",
             "</where>",
             "ORDER BY ",
@@ -91,4 +92,7 @@ public interface ManageMapper {
     //
     //    @Select("SELECT COUNT(1) FROM _MAP_LAYER L INNER JOIN _MAP_LAYER_SOURCE LS ON L.ID = LS.LAYER_ID WHERE LS.SOURCE_ID = #{sourceId}")
     //    long getLayerCountBySourceId(@Param("sourceId") Long sourceId);
+
+    @Delete("DELETE FROM _MAP_LAYER_RELATION WHERE MAP_ID = #{mapId}")
+    void deleteLayerRelationsByMapId(@Param("mapId") Long mapId);
 }

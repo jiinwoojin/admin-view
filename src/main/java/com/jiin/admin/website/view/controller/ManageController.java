@@ -44,13 +44,14 @@ public class ManageController {
         model.addAttribute("sbList", service.mapSearchByOptions());
         model.addAttribute("message", session.message());
 
+        model.addAttribute("qs", mapSearchModel.getQueryString());
         return "page/manage/map-manage";
     }
 
     @RequestMapping("map-form")
-    public String mapForm(Model model, @ModelAttribute MapEntity map) {
+    public String mapForm(Model model, @ModelAttribute MapEntity map, MapSearchModel mapSearchModel) {
         model.addAttribute("layers", service.getLayerList());
-
+        model.addAttribute("qs", mapSearchModel.getQueryString());
         return "page/manage/map-form";
     }
 
@@ -58,6 +59,22 @@ public class ManageController {
     public String addMap(@Valid MapEntity map, @RequestParam("layerList") String layerList) throws IOException {
         boolean result = service.addMap(map, layerList);
         session.message(String.format("MAP [%s] 추가 %s하였습니다.", map.getName(), (result ? "성공" : "실패")));
+        return "redirect:map-manage?pg=1&sz=9&iType=ALL&units=ALL";
+    }
+
+    @RequestMapping("map-edit")
+    public String mapEditPage(Model model, @RequestParam long id, MapSearchModel mapSearchModel){
+        model.addAttribute("mapEntity", service.findMapEntityById(id));
+        model.addAttribute("selectLayers", service.findLayerEntitiesByMapId(id));
+        model.addAttribute("layers", service.getLayerList());
+        model.addAttribute("qs", mapSearchModel.getQueryString());
+        return "page/manage/map-edit";
+    }
+
+    @PostMapping("update-map")
+    public String updateMap(@Valid MapEntity map, @RequestParam("layerList") String layerList) throws IOException {
+        boolean result = service.updateMap(map, layerList);
+        session.message(String.format("MAP [%s] 수정 %s하였습니다.", map.getName(), (result ? "성공" : "실패")));
         return "redirect:map-manage?pg=1&sz=9&iType=ALL&units=ALL";
     }
 

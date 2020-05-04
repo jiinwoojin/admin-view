@@ -1,5 +1,6 @@
 package com.jiin.admin.website.view.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.Constants;
@@ -36,7 +37,6 @@ import java.util.*;
 @Slf4j
 @Service
 public class ManageService {
-
     @Value("${project.data-path}")
     private String dataPath;
 
@@ -52,142 +52,70 @@ public class ManageService {
     @PersistenceContext
     EntityManager entityManager;
 
-    public List<MapEntity> getSourceList() {
-        return mapper.getSourceList();
+    /**
+     * 파일 권한 설정 (LINUX, MAC)
+     * @param file Path
+     * @throws IOException Exception
+     */
+    private void setPermission(Path file) throws IOException{
+        Set<PosixFilePermission> permissionSet = Files.readAttributes(file, PosixFileAttributes.class).permissions();
+
+        permissionSet.add(PosixFilePermission.OWNER_WRITE);
+        permissionSet.add(PosixFilePermission.OWNER_READ);
+        permissionSet.add(PosixFilePermission.OWNER_EXECUTE);
+        permissionSet.add(PosixFilePermission.GROUP_WRITE);
+        permissionSet.add(PosixFilePermission.GROUP_READ);
+        permissionSet.add(PosixFilePermission.GROUP_EXECUTE);
+        permissionSet.add(PosixFilePermission.OTHERS_WRITE);
+        permissionSet.add(PosixFilePermission.OTHERS_READ);
+        permissionSet.add(PosixFilePermission.OTHERS_EXECUTE);
+
+        Files.setPosixFilePermissions(file, permissionSet);
     }
 
-    public List<LayerEntity> getLayerList() {
-        //List<Map<String, Object>> layers = mapper.getLayerList();
-        /*for(Map<String, Object> layer : layers){
-            List<Map<String, Object>> sources = mapper.getSourceListByLayerId((Long) layer.get("id"));
-            List<Object> sourceIds = sources.stream().map(s -> s.get("id")).collect(toList());
-            layer.put("source_ids", StringUtil.join(",",sourceIds));
-        }*/
-        return mapper.getLayerList();
-    }
-
-    public List<LayerEntity> findLayerEntitiesByMapId(long mapId){
-        return mapper.findLayerEntitiesByMapId(mapId);
-    }
-
-    // Get Layer List With Pagination Model
-    public Map<String, Object> getLayerListByPaginationModel(LayerSearchModel paginationModel) throws ParseException {
-        final Sort[] sorts = {
-                Sort.by("id").descending(),
-                Sort.by("id"),
-                Sort.by("name"),
-                Sort.by("regist_time").descending(),
-        };
-
-        if(paginationModel.getSb() == 3)
-            paginationModel.setSt(paginationModel.getSt() != null ? paginationModel.getSt().toLowerCase() : "");
-
-        List<LayerEntity> sbRes = mapper.findLayerEntitiesByPaginationModel(paginationModel);
-        Pageable pageable = PageRequest.of(paginationModel.getPg() - 1, paginationModel.getSz(), sorts[paginationModel.getOb()]);
-
-        int pageSize = pageable.getPageSize();
-        long pageOffset = pageable.getOffset();
-        long pageEnd = (pageOffset + pageSize) > sbRes.size() ? sbRes.size() : pageOffset + pageSize;
-
-        Page<LayerEntity> page = new PageImpl<>(sbRes.subList((int) pageOffset, (int) pageEnd), pageable, sbRes.size());
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("count", page.getTotalElements());
-        map.put("data", page.getContent());
-
-        return map;
-    }
-
-    public List<OptionModel> layerSearchByOptions(){
-        return Arrays.asList(
-            new OptionModel("-- 검색 키워드 선택 --", 0),
-            new OptionModel("레이어 이름", 1),
-            new OptionModel("레이어 등록자", 2),
-            new OptionModel("레이어 좌표 체계", 3)
-        );
-    }
-
-    public List<OptionModel> layerOrderByOptions(){
-        return Arrays.asList(
-            new OptionModel("-- 정렬 방식 선택 --", 0),
-            new OptionModel("ID 순서 정렬", 1),
-            new OptionModel("이름 순서 정렬", 2),
-            new OptionModel("등록 기간 역순 정렬", 3)
-        );
-    }
-
-    public Map<String, Object> getMapListByPaginationModel(MapSearchModel paginationModel) {
-        final Sort[] sorts = {
-                Sort.by("id").descending(),
-                Sort.by("id"),
-                Sort.by("name"),
-                Sort.by("regist_time").descending(),
-        };
-
-        if(paginationModel.getSb() == 3)
-            paginationModel.setSt(paginationModel.getSt() != null ? paginationModel.getSt().toLowerCase() : "");
-
-        List<MapEntity> sbRes = mapper.findMapEntitiesByPaginationModel(paginationModel);
-        Pageable pageable = PageRequest.of(paginationModel.getPg() - 1, paginationModel.getSz(), sorts[paginationModel.getOb()]);
-
-        int pageSize = pageable.getPageSize();
-        long pageOffset = pageable.getOffset();
-        long pageEnd = (pageOffset + pageSize) > sbRes.size() ? sbRes.size() : pageOffset + pageSize;
-
-        Page<MapEntity> page = new PageImpl<>(sbRes.subList((int) pageOffset, (int) pageEnd), pageable, sbRes.size());
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("count", page.getTotalElements());
-        map.put("data", page.getContent());
-
-        return map;
-    }
-
-    public List<OptionModel> mapSearchByOptions(){
-        return Arrays.asList(
-            new OptionModel("-- 검색 키워드 선택 --", 0),
-            new OptionModel("MAP 이름", 1),
-            new OptionModel("MAP 등록자", 2),
-            new OptionModel("MAP 좌표 체계", 3)
-        );
-    }
-
-    public List<OptionModel> mapOrderByOptions(){
-        return Arrays.asList(
-            new OptionModel("-- 정렬 방식 선택 --", 0),
-            new OptionModel("ID 순서 정렬", 1),
-            new OptionModel("이름 순서 정렬", 2),
-            new OptionModel("등록 기간 역순 정렬", 3)
-        );
-    }
-
-    @Transactional
-    public boolean addMap(MapEntity map, String layerList) throws IOException {
+    /**
+     * MapEntity 내용 보충
+     * @param map MapEntity, layerList String
+     * @exception JsonProcessingException Exception
+     */
+    private void mapEntitySupplement(MapEntity map, String layerList) throws JsonProcessingException {
         String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         map.setDefault(false);
         map.setRegistorId(loginUser);
         map.setRegistorName(loginUser);
         map.setRegistTime(new Date());
 
-        List<java.util.Map<String, Object>> orderLayerList = new ObjectMapper().readValue(layerList, new TypeReference<LinkedList<java.util.Map<String, Object>>>(){});
-
-        StringBuilder layerBuilder = new StringBuilder();
-
+        List<Map<String, Object>> orderLayerList = new ObjectMapper().readValue(layerList, new TypeReference<LinkedList<Map<String, Object>>>(){});
         for (java.util.Map<String, Object> orderLayer : orderLayerList) {
             LayerEntity layer = entityManager.find(LayerEntity.class, Long.parseLong(String.valueOf(orderLayer.get("layerId"))));
             MapLayerRelationEntity mapLayerRelation = new MapLayerRelationEntity();
             mapLayerRelation.setMap(map);
             mapLayerRelation.setLayer(layer);
             mapLayerRelation.setLayerOrder(Integer.parseInt(String.valueOf(orderLayer.get("order"))));
-
             map.getMapLayerRelations().add(mapLayerRelation);
+        }
 
-            layerBuilder.append("  INCLUDE \"./layer/").append(layer.getName()).append(Constants.LAY_SUFFIX).append("\"");
-            layerBuilder.append(System.lineSeparator());
+        String mapFilePath = dataPath + Constants.MAP_FILE_PATH + "/" + map.getName() + Constants.MAP_SUFFIX;
+        map.setMapFilePath(Objects.requireNonNull(mapFilePath).replaceAll(dataPath, ""));
+    }
+
+    /**
+     * abc.map 파일 생성
+     * @param map MapEntity, layerList String
+     * @exception IOException Exception
+     */
+    private void writeMapFileContext(MapEntity map, String layerList) throws IOException {
+        StringBuilder layerBuilder = new StringBuilder();
+        List<Map<String, Object>> orderLayerList = new ObjectMapper().readValue(layerList, new TypeReference<LinkedList<Map<String, Object>>>(){});
+        for (java.util.Map<String, Object> orderLayer : orderLayerList) {
+            LayerEntity layer = entityManager.find(LayerEntity.class, Long.parseLong(String.valueOf(orderLayer.get("layerId"))));
+            if(layer != null) {
+                layerBuilder.append("  INCLUDE \"./layer/").append(layer.getName()).append(Constants.LAY_SUFFIX).append("\"");
+                layerBuilder.append(System.lineSeparator());
+            }
         }
 
         StringBuilder stringBuilder = new StringBuilder();
-
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(defaultMap))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
@@ -233,36 +161,208 @@ public class ManageService {
         }
 
         File mapFile = new File(mapFilePath);
-
         FileUtils.write(mapFile, stringBuilder.toString(), "utf-8");
+        if(!System.getProperty("os.name").toLowerCase().contains("win")) setPermission(mapFile.toPath());
+    }
 
-        setPermission(mapFile.toPath());
+    /* MAP 관련 메소드 (MapManageService 분류 예상) */
 
-        map.setMapFilePath(Objects.requireNonNull(mapFilePath).replaceAll(dataPath, ""));
-
-        entityManager.persist(map);
-        return true;
+    /**
+     * MAP 데이터 일반 목록
+     */
+    public List<MapEntity> getSourceList() {
+        return mapper.getSourceList();
     }
 
     /**
-     * 파일 권한 설정
-     * @param file Path
+     * MAP 검색 조건 옵션 목록
+     */
+    public List<OptionModel> mapSearchByOptions(){
+        return Arrays.asList(
+            new OptionModel("-- 검색 키워드 선택 --", 0),
+            new OptionModel("MAP 이름", 1),
+            new OptionModel("MAP 등록자", 2),
+            new OptionModel("MAP 좌표 체계", 3)
+        );
+    }
+
+    /**
+     * MAP 정렬 조건 옵션 목록
+     */
+    public List<OptionModel> mapOrderByOptions(){
+        return Arrays.asList(
+            new OptionModel("-- 정렬 방식 선택 --", 0),
+            new OptionModel("ID 순서 정렬", 1),
+            new OptionModel("이름 순서 정렬", 2),
+            new OptionModel("등록 기간 역순 정렬", 3)
+        );
+    }
+
+    public MapEntity findMapEntityById(Long id){
+        return entityManager.find(MapEntity.class, id);
+    }
+
+    /**
+     * MAP 데이터 목록 조회 with Pagination Model
+     * @param mapSearchModel MapSearchModel
+     */
+    public Map<String, Object> getMapListByPaginationModel(MapSearchModel mapSearchModel) {
+        final Sort[] sorts = {
+            Sort.by("id").descending(),
+            Sort.by("id"),
+            Sort.by("name"),
+            Sort.by("regist_time").descending()
+        };
+
+        if(mapSearchModel.getSb() == 3)
+            mapSearchModel.setSt(mapSearchModel.getSt() != null ? mapSearchModel.getSt().toLowerCase() : "");
+
+        List<MapEntity> sbRes = mapper.findMapEntitiesByPaginationModel(mapSearchModel);
+        Pageable pageable = PageRequest.of(mapSearchModel.getPg() - 1, mapSearchModel.getSz(), sorts[mapSearchModel.getOb()]);
+
+        int pageSize = pageable.getPageSize();
+        long pageOffset = pageable.getOffset();
+        long pageEnd = (pageOffset + pageSize) > sbRes.size() ? sbRes.size() : pageOffset + pageSize;
+
+        Page<MapEntity> page = new PageImpl<>(sbRes.subList((int) pageOffset, (int) pageEnd), pageable, sbRes.size());
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("count", page.getTotalElements());
+        map.put("data", page.getContent());
+
+        return map;
+    }
+
+    /**
+     * MAP 데이터 추가 (MapServer abc.map 파일)
+     * @Param map MapEntity, layerList String
      * @throws IOException Exception
      */
-    private void setPermission(Path file) throws IOException{
-        Set<PosixFilePermission> permissionSet = Files.readAttributes(file, PosixFileAttributes.class).permissions();
+    @Transactional
+    public boolean addMap(MapEntity map, String layerList) throws IOException {
+        MapEntity entity = mapper.findMapEntityByName(map.getName());
+        if(entity != null) {
+            return false;
+        } else {
+            this.mapEntitySupplement(map, layerList);
+            entityManager.persist(map);
+            this.writeMapFileContext(map, layerList);
+            return true;
+        }
+    }
 
-        permissionSet.add(PosixFilePermission.OWNER_WRITE);
-        permissionSet.add(PosixFilePermission.OWNER_READ);
-        permissionSet.add(PosixFilePermission.OWNER_EXECUTE);
-        permissionSet.add(PosixFilePermission.GROUP_WRITE);
-        permissionSet.add(PosixFilePermission.GROUP_READ);
-        permissionSet.add(PosixFilePermission.GROUP_EXECUTE);
-        permissionSet.add(PosixFilePermission.OTHERS_WRITE);
-        permissionSet.add(PosixFilePermission.OTHERS_READ);
-        permissionSet.add(PosixFilePermission.OTHERS_EXECUTE);
+    /**
+     * MAP 데이터 수정 (MapServer abc.map 파일)
+     * @Param map MapEntity, layerList String
+     * @throws IOException Exception
+     */
+    @Transactional
+    public boolean updateMap(MapEntity map, String layerList) throws IOException {
+        MapEntity entity = mapper.findMapEntityByName(map.getName());
+        if(entity == null) {
+            return false;
+        } else {
+            mapper.deleteLayerRelationsByMapId(map.getId());
+            System.out.println(layerList);
+            this.mapEntitySupplement(map, layerList);
+            entityManager.merge(map);
+            this.writeMapFileContext(map, layerList);
+            return true;
+        }
+    }
 
-        Files.setPosixFilePermissions(file, permissionSet);
+    /**
+     * MAP 데이터 삭제 (MapServer abc.map 파일)
+     * @Param mapId Long
+     */
+    @Transactional
+    public boolean delMap(Long mapId) {
+        MapEntity map = entityManager.find(MapEntity.class, mapId);
+        String mapFilePath = dataPath + map.getMapFilePath();
+
+        // lay 파일 삭제
+        try {
+            if (FileUtils.getFile(mapFilePath).isFile()) {
+                FileUtils.forceDelete(FileUtils.getFile(mapFilePath));
+            }
+        } catch (IOException e) {
+            log.error(map.getName() + " LAY 파일 삭제 실패했습니다.");
+        }
+
+        entityManager.remove(map);
+        return true;
+    }
+
+    /* LAYER 관련 함수 (LayerManageService 분류 예상) */
+
+    /**
+     * LAYER 데이터 일반 목록
+     */
+    public List<LayerEntity> getLayerList() {
+        return mapper.getLayerList();
+    }
+
+    /**
+     * MAP 레이어가 가진 LAYER 데이터 목록 조회
+     * @param mapId long
+     */
+    public List<LayerEntity> findLayerEntitiesByMapId(long mapId){
+        return mapper.findLayerEntitiesByMapId(mapId);
+    }
+
+    /**
+     * LAYER 검색 조건 옵션 목록
+     */
+    public List<OptionModel> layerSearchByOptions(){
+        return Arrays.asList(
+            new OptionModel("-- 검색 키워드 선택 --", 0),
+            new OptionModel("레이어 이름", 1),
+            new OptionModel("레이어 등록자", 2),
+            new OptionModel("레이어 좌표 체계", 3)
+        );
+    }
+
+    /**
+     * LAYER 정렬 조건 옵션 목록
+     */
+    public List<OptionModel> layerOrderByOptions(){
+        return Arrays.asList(
+            new OptionModel("-- 정렬 방식 선택 --", 0),
+            new OptionModel("ID 순서 정렬", 1),
+            new OptionModel("이름 순서 정렬", 2),
+            new OptionModel("등록 기간 역순 정렬", 3)
+        );
+    }
+
+    /**
+     * LAYER 데이터 목록 조회 with Pagination Model
+     * @param layerSearchModel LayerSearchModel
+     */
+    public Map<String, Object> getLayerListByPaginationModel(LayerSearchModel layerSearchModel) throws ParseException {
+        final Sort[] sorts = {
+                Sort.by("id").descending(),
+                Sort.by("id"),
+                Sort.by("name"),
+                Sort.by("regist_time").descending(),
+        };
+
+        if(layerSearchModel.getSb() == 3)
+            layerSearchModel.setSt(layerSearchModel.getSt() != null ? layerSearchModel.getSt().toLowerCase() : "");
+
+        List<LayerEntity> sbRes = mapper.findLayerEntitiesByPaginationModel(layerSearchModel);
+        Pageable pageable = PageRequest.of(layerSearchModel.getPg() - 1, layerSearchModel.getSz(), sorts[layerSearchModel.getOb()]);
+
+        int pageSize = pageable.getPageSize();
+        long pageOffset = pageable.getOffset();
+        long pageEnd = (pageOffset + pageSize) > sbRes.size() ? sbRes.size() : pageOffset + pageSize;
+
+        Page<LayerEntity> page = new PageImpl<>(sbRes.subList((int) pageOffset, (int) pageEnd), pageable, sbRes.size());
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("count", page.getTotalElements());
+        map.put("data", page.getContent());
+
+        return map;
     }
 
     /*@Transactional
@@ -354,29 +454,6 @@ public class ManageService {
             }
         }
         return null;
-    }
-
-    @Transactional
-    public boolean delMap(Long mapId) {
-        /*long cnt = mapper.getLayerCountBySourceId(sourceId);
-        if(cnt > 0){
-            return false;
-        }*/
-        MapEntity map = entityManager.find(MapEntity.class, mapId);
-
-        String mapFilePath = dataPath + map.getMapFilePath();
-
-        // lay 파일 삭제
-        try {
-            if (FileUtils.getFile(mapFilePath).isFile()) {
-                FileUtils.forceDelete(FileUtils.getFile(mapFilePath));
-            }
-        } catch (IOException e) {
-            log.error(map.getName() + " LAY 파일 삭제 실패했습니다.");
-        }
-
-        entityManager.remove(map);
-        return true;
     }
 
     /**

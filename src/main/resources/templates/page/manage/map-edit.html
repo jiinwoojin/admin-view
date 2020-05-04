@@ -6,18 +6,18 @@
 
 <th:block layout:fragment="content-breadcrumb-fragment">
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>MAP 생성</h2>
+        <h2>MAP 수정</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/manage/map-manage?pg=1&sz=9&lType=ALL}">지도 관리</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">MAP 생성</li>
+            <li class="breadcrumb-item active" aria-current="page">MAP 수정</li>
         </ol>
     </nav>
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
-    <form th:action="@{/view/manage/add-map}" th:object="${mapEntity}" method="post" onsubmit="return preSubmit(this)">
+    <form th:action="@{/view/manage/update-map}" th:object="${mapEntity}" method="post" onsubmit="return preSubmit(this)">
         <input type="hidden" id="layerList" name="layerList">
         <div class="text-right">
             <button type="submit" class="btn btn-primary mx-1">
@@ -28,17 +28,12 @@
             </a>
         </div>
         <div class="form-group row">
+            <input type="hidden" th:field="*{id}" />
             <div class="col-12">
                 <label for="map-name">지도 이름</label>
             </div>
-            <div class="col-6 input-group">
-                <input type="text" class="form-control" th:field="*{name}" id="map-name">
-                <div class="input-group-append">
-                    <span class="input-group-btn btn btn-primary" onclick="jiCommon.duplicateCheck('MAP','#map-name','#duplicate-check-message')">중복확인</span>
-                </div>
-            </div>
-            <div class="col-12">
-                <small class="form-text text-muted" id="duplicate-check-message">중복확인을 해주세요.</small>
+            <div class="col-6">
+                <input type="text" class="form-control" id="map-name" th:field="*{name}" readonly />
             </div>
         </div>
         <div class="row">
@@ -212,6 +207,31 @@
 
         var drawLayer = {};
 
+        function layerInitialize() {
+            var layers = /*[[ ${selectLayers} ]]*/ null;
+            $('#layer_list').DataTable().destroy();
+            for (var [key, value] of Object.entries(layers)) {
+                var id = value.id;
+
+                if (drawLayer[id] === undefined) {
+                    createTableData(key, value);
+                }
+            }
+
+            tableReroad();
+
+            var layerTable = document.querySelector('#layer_list').tBodies;
+            var layers = [];
+            for (var value of layerTable[0].rows) {
+                var layer = {};
+                layer.layerId = value.querySelector('input').value;
+                layer.order = Number(value.children[0].innerHTML);
+                layers.push(layer);
+            }
+            document.querySelector('#layerList').value = JSON.stringify(layers);
+            console.log(JSON.stringify(layers))
+        }
+
         $(document).ready(function() {
             if (!jQuery.isEmptyObject(message)) {
                 toastr.info(message);
@@ -228,17 +248,19 @@
                 rowReorder: true,
                 stateSave: true
             });
+
+            layerInitialize();
         });
 
         function preSubmit(form) {
             var action = form.action;
-            if (action.indexOf("add-map") > -1) {
-                addMap(form);
+            if (action.indexOf("update-map") > -1) {
+                updateMap(form);
             }
             return false;
         }
 
-        function addMap(form) {
+        function updateMap(form) {
             if (jQuery.isEmptyObject(form['name'].value)) {
                 form['name'].focus();
                 toastr.warning("이름이 입력되지 않았습니다.");
@@ -255,7 +277,7 @@
                 setLayer();
             }
 
-            if (confirm("[ " + form['name'].value + " ] Map 을 등록 하시겠습니까?")) {
+            if (confirm("[ " + form['name'].value + " ] Map 을 수정 하시겠습니까?")) {
                 form.submit();
             }
         }

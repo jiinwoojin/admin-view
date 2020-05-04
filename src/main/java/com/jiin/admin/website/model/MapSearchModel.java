@@ -16,6 +16,8 @@ public class MapSearchModel extends PaginationModel {
 
     public MapSearchModel(){
         super();
+        this.sDate = "";
+        this.eDate = "";
         this.units = "ALL"; // Default Value
     }
 
