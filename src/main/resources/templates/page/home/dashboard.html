@@ -31,15 +31,36 @@
         </div>
 
         <div class="row">
-            <div class="col-xl-4 mb-4" th:each="key : ${ status_server.keySet() }" th:id="${ key + '_SERVER_STATUS' }" data-toggle="tooltip" data-placement="top" data-html="true" onmouseenter="onmouseenter_server_status()" title="서버 상태가 나옵니다.">
+            <div class="col-xl-4 mb-4" th:each="key : ${ status_server.keySet() }" th:id="${ key + '_SERVER_STATUS' }">
                 <div class="card border-bottom-success shadow h-100 py-2" th:classappend="${ status_server.get(key) == 'ON' } ? 'border-bottom-success' : 'border-bottom-danger'">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2 text-center">
+                            <div class="col mr-2 text-center" th:id="${ key + '_SERVER_SI' }" data-toggle="tooltip" data-placement="top" data-html="true" onmouseenter="onmouseenter_server_status()" title="서버 상태가 나옵니다.">
                                 <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ key }" th:classappend="${ status_server.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
-                                    <span th:case="CENTER_A" th:text="${ 'BO 센터' }"></span>
-                                    <span th:case="CENTER_B" th:text="${ 'O3 센터' }"></span>
-                                    <span th:case="CENTER_C" th:text="${ 'OO사 센터' }"></span>
+                                    <span th:case="CENTER_A" th:text="${ 'BO 센터 - SI' }"></span>
+                                    <span th:case="CENTER_B" th:text="${ 'O3 센터 - SI' }"></span>
+                                    <span th:case="CENTER_C" th:text="${ 'OO사 센터 - SI' }"></span>
+                                </div>
+                                <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ status_server.get(key) }" th:classappend="${ status_server.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
+                                    <h1 class="fas fa-check-circle" th:case="ON"></h1>
+                                    <h1 class="fas fa-times-circle" th:case="OFF"></h1>
+                                    <h1 class="fas fa-exclamation-triangle" th:case="ERROR"></h1>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-info btn-sm mx-1">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button class="btn btn-primary btn-sm mx-1">
+                                        <i class="fas fa-sync"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col mr-2 text-center" th:id="${ key + '_SERVER_N_SI' }" data-toggle="tooltip" data-placement="top" data-html="true" onmouseenter="onmouseenter_server_status()" title="서버 상태가 나옵니다.">
+                                <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ key }" th:classappend="${ status_server.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
+                                    <span th:case="CENTER_A" th:text="${ 'BO 센터 - N-SI' }"></span>
+                                    <span th:case="CENTER_B" th:text="${ 'O3 센터 - N-SI' }"></span>
+                                    <span th:case="CENTER_C" th:text="${ 'OO사 센터 - N-SI' }"></span>
                                 </div>
                                 <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ status_server.get(key) }" th:classappend="${ status_server.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
                                     <h1 class="fas fa-check-circle" th:case="ON"></h1>
@@ -72,15 +93,36 @@
         </div>
 
         <div class="row">
-            <div class="col-xl-4 mb-4" th:each="key : ${ status_synchronize.keySet() }" th:id="${ key + '_SYNC_STATUS' }" data-toggle="tooltip" data-placement="bottom" data-html="true" onmouseenter="onmouseenter_sync_status()" title="서버 상태가 나옵니다.">
+            <div class="col-xl-4 mb-4" th:each="key : ${ status_synchronize.keySet() }" th:id="${ key + '_SYNC_STATUS' }">
                 <div class="card border-bottom-success shadow h-100 py-2" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'border-bottom-success' : 'border-bottom-danger'">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2 text-center">
+                            <div class="col mr-2 text-center" th:id="${ key + '_SYNC_SI' }" data-toggle="tooltip" data-placement="bottom" data-html="true" onmouseenter="onmouseenter_sync_status()" title="동기화 상태가 나옵니다.">
                                 <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ key }" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
-                                    <span th:case="CENTER_A" th:text="${ 'BO 센터' }"></span>
-                                    <span th:case="CENTER_B" th:text="${ 'O3 센터' }"></span>
-                                    <span th:case="CENTER_C" th:text="${ 'OO사 센터' }"></span>
+                                    <span th:case="CENTER_A" th:text="${ 'BO 센터 - SI' }"></span>
+                                    <span th:case="CENTER_B" th:text="${ 'O3 센터 - SI' }"></span>
+                                    <span th:case="CENTER_C" th:text="${ 'OO사 센터 - SI' }"></span>
+                                </div>
+                                <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ status_synchronize.get(key) }" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
+                                    <h1 class="fas fa-check-circle" th:case="ON"></h1>
+                                    <h1 class="fas fa-times-circle" th:case="OFF"></h1>
+                                    <h1 class="fas fa-exclamation-triangle" th:case="ERROR"></h1>
+                                </div>
+                                <div class="text-center">
+                                    <button class="btn btn-info btn-sm mx-1">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button class="btn btn-primary btn-sm mx-1">
+                                        <i class="fas fa-sync"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="col mr-2 text-center" th:id="${ key + '_SYNC_N_SI' }" data-toggle="tooltip" data-placement="bottom" data-html="true" onmouseenter="onmouseenter_sync_status()" title="동기화 상태가 나옵니다.">
+                                <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ key }" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
+                                    <span th:case="CENTER_A" th:text="${ 'BO 센터 - N-SI' }"></span>
+                                    <span th:case="CENTER_B" th:text="${ 'O3 센터 - N-SI' }"></span>
+                                    <span th:case="CENTER_C" th:text="${ 'OO사 센터 - N-SI' }"></span>
                                 </div>
                                 <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ status_synchronize.get(key) }" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
                                     <h1 class="fas fa-check-circle" th:case="ON"></h1>
