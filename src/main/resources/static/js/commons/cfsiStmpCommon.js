@@ -2162,7 +2162,7 @@ var stmp = {
         var options = stmp.mapObject.map._drawing_milsymbol.options
         var coordinates = stmp.mapObject.map._drawing_milsymbol_coordinates
         var prefixLayerId = "milsymbols-" + options.sidc + "-" + options._symbol_serial
-        console.log(evt, options)
+        console.log(prefixLayerId)
         var data = {}
         if(geometryType === "Point"){
             var imageData = stmp.mapObject.map._drawing_milsymbol.asCanvas().toDataURL()
@@ -2262,19 +2262,19 @@ var stmp = {
                 toastr.warning("군대부호["+sidc+"] 의 정보를 가져올 수 없습니다.")
                 return;
             }
-            options._min_point = drawInfo.min_point
-            options._max_point = drawInfo.max_point
-            options._draw_type = drawInfo.draw_type
-            options._constraint = drawInfo.constraint
+            symbol.options._min_point = drawInfo.min_point
+            symbol.options._max_point = drawInfo.max_point
+            symbol.options._draw_type = drawInfo.draw_type
+            symbol.options._constraint = drawInfo.constraint
             stmp.drawControl.changeMode("draw_line_string")
         } else {
-            options._min_point = 1
-            options._max_point = 1
-            options._draw_type = "Point"
-            options._constraint = "milSym"
+            symbol.options._min_point = 1
+            symbol.options._max_point = 1
+            symbol.options._draw_type = "Point"
+            symbol.options._constraint = "milSym"
             stmp.drawControl.changeMode("draw_point")
         }
-        options._symbol_serial = (stmp.mapObject.map._drawing_milsymbol ? stmp.mapObject.map._drawing_milsymbol.options._symbol_serial + 1 : 0)
+        symbol.options._symbol_serial = (stmp.mapObject.map._drawing_milsymbol ? stmp.mapObject.map._drawing_milsymbol.options._symbol_serial + 1 : 0)
         // 심볼생성
         stmp.mapObject.map._drawing_milsymbol = symbol
         stmp.mapObject.map._drawing_milsymbol_coordinates = []
