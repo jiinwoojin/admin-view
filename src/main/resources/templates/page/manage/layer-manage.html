@@ -150,7 +150,7 @@
                                 </select>
                             </div>
                             <div class="col-sm-8">
-                                <label class="col-form-label" for="___customFile">지도 파일</label>
+                                <label class="col-form-label" for="___customFile">지도 파일 <span style="color: blue;">(*)</span></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="___customFileAddon_u" style="height: 33.5px;">
@@ -165,6 +165,9 @@
                                 </div>
                             </div>
                         </div>
+
+                        <p><span style="color: blue;">(*)</span> : 데이터 수정을 진행할 때, 이를 올리지 않으면 아래 파일은 그대로 저장됩니다.</p>
+                        <p id="data_file_path"></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -235,8 +238,11 @@
             </div>
 
             <div class="form-group">
-                <button class="btn btn-block btn-primary" type="submit">
+                <button class="btn btn-block btn-primary my-1" type="submit">
                     <i class="fas fa-search"></i> 검색
+                </button>
+                <button class="btn btn-block btn-warning my-1" type="button" onclick="onclick_refresh_search()">
+                    <i class="fas fa-sync"></i> 초기화
                 </button>
             </div>
         </form>
@@ -270,6 +276,7 @@
                                         th:data-projection="${ layer.projection }"
                                         th:data-middleFolder="${ layer.middleFolder }"
                                         th:data-layertype="${ layer.type }"
+                                        th:data-filepath="${ layer.dataFilePath }"
                                 >
                                     <i class="fas fa-cog"></i>
                                 </button>
@@ -331,6 +338,9 @@
                     return;
                 }else if(jQuery(form['name']).data("check-duplicate") === false) {
                     toastr.warning("이름 중복확인이 되지 않았습니다.");
+                    return;
+                }else if(form['data_file'].value == ''){
+                    toastr.warning("레이어 파일을 업로드 하시길 바랍니다. Raster 파일은 *.tiff, Vector 파일은 *.shp 이 포함된 *.zip 입니다.");
                     return;
                 }
                 form.submit();
@@ -394,6 +404,10 @@
             }
 
             jQuery("#layer-create").on("shown.bs.modal", function(e) {
+                var btn = e.relatedTarget;
+                var target = jQuery(btn).data("target");
+                var popup = jQuery(target);
+
                 popup.find("[name='name']").val('');
                 popup.find("[name='description']").val('');
                 popup.find("[name='projection'] > option").first().attr('selected', 'true');
@@ -409,10 +423,9 @@
                 var layerProjection = jQuery(btn).data('projection');
                 var layerMiddleFolder = $(btn).data('middlefolder');
                 var type = $(btn).data('layertype');
+                var filePath = $(btn).data('filepath');
 
                 var target = jQuery(btn).data("target");
-                /*var area = jQuery("#parent-buttons");
-                area.empty();*/
                 var popup = jQuery(target);
                 if (layerId) {
                     popup.find("[name='id']").val(layerId);
@@ -421,6 +434,7 @@
                     popup.find("[name='projection']").val(layerProjection);
                     popup.find("[name='middle_folder']").val(layerMiddleFolder);
                     popup.find("[name='type']").val(type === 'RASTER' ? 'Raster' : 'Vector');
+                    document.getElementById('data_file_path').innerText = filePath;
                 } else {
                     popup.find("[name='id']").val(0);
                     popup.find("[name='name']").val('');
@@ -428,6 +442,7 @@
                     popup.find("[name='projection'] > option").first().attr('selected', 'true');
                     popup.find("[name='middle_folder']").val('');
                     popup.find("[name='type']").val('Raster');
+                    document.getElementById('data_file_path').innerText = 'HAS NO DATA.';
                 }
             });
 
@@ -464,6 +479,17 @@
                         } else return true;
                     }
                 }
+            }
+
+            function onclick_refresh_search(){
+                $("#ob option:eq(0)").prop("selected", true);
+                $("#sb option:eq(0)").prop("selected", true);
+                document.getElementById('st').value = '';
+                document.getElementById('sDate').value = '';
+                document.getElementById('eDate').value = '';
+                $("input:radio[name='lType'][value='ALL']").prop('checked', true);
+                $("input:radio[name='lType'][value='RASTER']").prop('checked', false);
+                $("input:radio[name='lType'][value='VECTOR']").prop('checked', false);
             }
         </script>
     </div>

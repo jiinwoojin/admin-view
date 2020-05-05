@@ -35,7 +35,7 @@
                 <div class="card border-bottom-success shadow h-100 py-2" th:classappend="${ status_server.get(key) == 'ON' } ? 'border-bottom-success' : 'border-bottom-danger'">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2 text-center" th:id="${ key + '_SERVER_SI' }" data-toggle="tooltip" data-placement="top" data-html="true" onmouseenter="onmouseenter_server_status()" title="서버 상태가 나옵니다.">
+                            <div class="col mr-2 text-center" th:id="${ key + '_SERVER' }">
                                 <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ key }" th:classappend="${ status_server.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
                                     <span th:case="CENTER_A" th:text="${ 'BO 센터 - SI' }"></span>
                                     <span th:case="CENTER_B" th:text="${ 'O3 센터 - SI' }"></span>
@@ -56,24 +56,34 @@
                                 </div>
                             </div>
 
-                            <div class="col mr-2 text-center" th:id="${ key + '_SERVER_N_SI' }" data-toggle="tooltip" data-placement="top" data-html="true" onmouseenter="onmouseenter_server_status()" title="서버 상태가 나옵니다.">
-                                <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ key }" th:classappend="${ status_server.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
-                                    <span th:case="CENTER_A" th:text="${ 'BO 센터 - N-SI' }"></span>
-                                    <span th:case="CENTER_B" th:text="${ 'O3 센터 - N-SI' }"></span>
-                                    <span th:case="CENTER_C" th:text="${ 'OO사 센터 - N-SI' }"></span>
-                                </div>
-                                <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ status_server.get(key) }" th:classappend="${ status_server.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
-                                    <h1 class="fas fa-check-circle" th:case="ON"></h1>
-                                    <h1 class="fas fa-times-circle" th:case="OFF"></h1>
-                                    <h1 class="fas fa-exclamation-triangle" th:case="ERROR"></h1>
-                                </div>
-                                <div class="text-center">
-                                    <button class="btn btn-info btn-sm mx-1">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="btn btn-primary btn-sm mx-1">
-                                        <i class="fas fa-sync"></i>
-                                    </button>
+                            <div class="col mr-2 text-center" th:id="${ key + '_SERVER_DETAIL' }">
+                                <ul class="nav nav-pills flex-column flex-sm-row mb-3" th:id="${ key + '_SERVER_TAB' }" role="tablist">
+                                    <li class="flex-sm-fill text-sm-center nav-item">
+                                        <a class="nav-link active" th:id="${ '#' + key + '_SERVER_PILL1' }" data-toggle="pill" th:href="${ '#' + key + '_SERVER_TAB1' }" role="tab">기본 사양</a>
+                                    </li>
+                                    <li class="flex-sm-fill text-sm-center nav-item">
+                                        <a class="nav-link" th:id="${ '#' + key + '_SERVER_PILL2' }" data-toggle="pill" th:href="${ '#' + key + '_SERVER_TAB2' }" role="tab">서비스 상태</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" th:id="${ key + '_SERVER_TAB_CONTENT' }" style="border: 1.5px solid #017bff; border-radius: 3px; padding: 3px;">
+                                    <div class="tab-pane fade show active" th:id="${ key + '_SERVER_TAB1' }" role="tabpanel">
+                                        <p id="server_basic" class="text-left">
+                                            - 전체 용량 : <span>1.00</span> / <span>9876.54</span> GB <br/>
+                                            - 메모리 용량 : <span>4.11</span> / <span>80.32</span> GB <br/>
+                                            - CPU 점유율 : <span>76</span> % <br/>
+                                            - GPU 점유율 : <span>25</span> % <br/>
+                                            - 서버 커넥션 Pool : <span>5</span>
+                                        </p>
+                                    </div>
+                                    <div class="tab-pane fade" th:id="${ key + '_SERVER_TAB2' }" role="tabpanel">
+                                        <p id="server_services" class="text-left">
+                                            - MapServer 상태 : <i class="fas fa-check"></i> <br/>
+                                            - MapProxy 상태 : <i class="fas fa-check"></i> <br/>
+                                            - Terrain Builder 상태 : <i class="fas fa-times"></i> <br/>
+                                            - Mapnik 상태 : <i class="fas fa-check"></i> <br/>
+                                            - Tegola 상태 : <i class="fas fa-times"></i>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -97,7 +107,7 @@
                 <div class="card border-bottom-success shadow h-100 py-2" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'border-bottom-success' : 'border-bottom-danger'">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
-                            <div class="col mr-2 text-center" th:id="${ key + '_SYNC_SI' }" data-toggle="tooltip" data-placement="bottom" data-html="true" onmouseenter="onmouseenter_sync_status()" title="동기화 상태가 나옵니다.">
+                            <div class="col mr-2 text-center" th:id="${ key + '_SYNC' }">
                                 <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ key }" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
                                     <span th:case="CENTER_A" th:text="${ 'BO 센터 - SI' }"></span>
                                     <span th:case="CENTER_B" th:text="${ 'O3 센터 - SI' }"></span>
@@ -118,24 +128,37 @@
                                 </div>
                             </div>
 
-                            <div class="col mr-2 text-center" th:id="${ key + '_SYNC_N_SI' }" data-toggle="tooltip" data-placement="bottom" data-html="true" onmouseenter="onmouseenter_sync_status()" title="동기화 상태가 나옵니다.">
-                                <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ key }" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
-                                    <span th:case="CENTER_A" th:text="${ 'BO 센터 - N-SI' }"></span>
-                                    <span th:case="CENTER_B" th:text="${ 'O3 센터 - N-SI' }"></span>
-                                    <span th:case="CENTER_C" th:text="${ 'OO사 센터 - N-SI' }"></span>
-                                </div>
-                                <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ status_synchronize.get(key) }" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
-                                    <h1 class="fas fa-check-circle" th:case="ON"></h1>
-                                    <h1 class="fas fa-times-circle" th:case="OFF"></h1>
-                                    <h1 class="fas fa-exclamation-triangle" th:case="ERROR"></h1>
-                                </div>
-                                <div class="text-center">
-                                    <button class="btn btn-info btn-sm mx-1">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="btn btn-primary btn-sm mx-1">
-                                        <i class="fas fa-sync"></i>
-                                    </button>
+
+                            <div class="col mr-2 text-center" th:id="${ key + '_SYNC_DETAIL' }">
+                                <ul class="nav nav-pills flex-column flex-sm-row mb-3" th:id="${ key + '_SYNC_TAB' }" role="tablist">
+                                    <li class="flex-sm-fill text-sm-center nav-item">
+                                        <a class="nav-link active" th:id="${ '#' + key + '_SYNC_PILL1' }" data-toggle="pill" th:href="${ '#' + key + '_SYNC_TAB1' }" role="tab">최근 진행</a>
+                                    </li>
+                                    <li class="flex-sm-fill text-sm-center nav-item">
+                                        <a class="nav-link" th:id="${ '#' + key + '_SYNC_PILL2' }" data-toggle="pill" th:href="${ '#' + key + '_SYNC_TAB2' }" role="tab">동기화 상태</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" th:id="${ key + '_SYNC_TAB_CONTENT' }" style="border: 1.5px solid #017bff; border-radius: 3px; padding: 3px;">
+                                    <div class="tab-pane fade show active" th:id="${ key + '_SYNC_TAB1' }" role="tabpanel">
+                                        <p id="sync_basic" class="text-left">
+                                            - 최근 진행 일자<br/>
+                                              * <span>2020-04-22 10:00:00</span><br/>
+                                            - 최근 동기화 파일<br/>
+                                              * <span>A.tif 이외 10 개</span><br/>
+                                            - 동기화 기본 디렉토리<br/>
+                                              * <span>/data/center/sync</span>
+                                        </p>
+                                    </div>
+                                    <div class="tab-pane fade" th:id="${ key + '_SYNC_TAB2' }" role="tabpanel">
+                                        <p id="sync_services" class="text-left">
+                                            - Syncthing 상태 : <i class="fas fa-check"></i> <br/>
+                                            - PGPool 2 상태 : <i class="fas fa-check"></i> <br/>
+                                            - O3 센터 파일 동기화 준비 : <i class="fas fa-check"></i> <br/>
+                                            - O3 센터 DB 동기화 준비 : <i class="fas fa-check"></i> <br/>
+                                            - OO사 센터 파일 동기화 준비 : <i class="fas fa-check"></i> <br/>
+                                            - OO사 센터 DB 동기화 준비 : <i class="fas fa-check"></i>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +179,7 @@
 
         <div class="row">
             <!-- MAP 데이터 카운트 -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
                 <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -174,7 +197,7 @@
             </div>
 
             <!-- LAYER 데이터 카운트 -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -192,7 +215,7 @@
             </div>
 
             <!-- CACHE 데이터 카운트 -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
                 <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -210,26 +233,26 @@
                 </div>
             </div>
 
-            <!-- 사용자 카운트 -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">사용자</div>
-                                <div class="h6 mb-0 font-weight-bold text-gray-800" th:each="map : ${ counter.userCount }">
-                                    <div th:each="key : ${ map.keySet() }">
-                                        <span th:text="${ key }"></span> : <span th:text="${ map.get(key) }"></span> 명
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-users fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--            &lt;!&ndash; 사용자 카운트 &ndash;&gt;-->
+<!--            <div class="col-xl-3 col-md-6 mb-4">-->
+<!--                <div class="card border-left-warning shadow h-100 py-2">-->
+<!--                    <div class="card-body">-->
+<!--                        <div class="row no-gutters align-items-center">-->
+<!--                            <div class="col mr-2">-->
+<!--                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">사용자</div>-->
+<!--                                <div class="h6 mb-0 font-weight-bold text-gray-800" th:each="map : ${ counter.userCount }">-->
+<!--                                    <div th:each="key : ${ map.keySet() }">-->
+<!--                                        <span th:text="${ key }"></span> : <span th:text="${ map.get(key) }"></span> 명-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-auto">-->
+<!--                                <i class="fas fa-users fa-2x text-gray-300"></i>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 
