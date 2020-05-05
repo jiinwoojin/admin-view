@@ -1,73 +1,55 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <th:block th:replace="fragments/html-head" />
-    <title>JIMap GIS Solution Ver 3.4</title>
-</head>
-<body id="page-top">
-    <!-- loading -->
-    <div id="loader-wrapper"><div class="loading"></div></div>
-    <div id="wrapper">
-        <!-- Side Bar -->
-        <div id="leftSide">
-            <th:block th:replace="fragments/html-side" />
+    <head>
+        <meta charset="utf-8">
+        <th:block th:replace="fragments/design/html-head" />
+        <title>JIMap GIS Solution Ver 3.4</title>
+    </head>
+    <body>
+        <!-- loading -->
+        <div id="loader-wrapper">
+            <div class="loading"></div>
         </div>
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Wrapper -->
+        <div id="wrapper">
+            <!-- Side Bar : INSPINIA 에 맞게 수정 필요. -->
+            <th:block th:replace="fragments/design/html-side" />
 
-            <!-- Main Content -->
-            <div id="content">
+            <!-- Page Wrapper -->
+            <div id="page-wrapper" class="gray-bg">
 
-                <!-- Top Bar -->
-                <th:block th:replace="fragments/html-header-bar" />
+                <!-- Top Bar : INSPINIA 에 맞게 수정 필요. -->
+                <div class="row border-bottom">
+                    <th:block th:replace="fragments/design/html-header-bar" />
+                </div>
                 <!-- End of Top Bar -->
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- 군대부호 DIV 맞추기 위한 태그 추가 -->
-                    <div class="content-header">
-                        <!-- Page Title -->
-                        <th:block th:replace="fragments/html-content-title" />
-                        <!-- End of Page Title -->
-
-                        <!-- Breadcrumb Content -->
-                        <div id="breadcrumb" class="mt-1 mb-1">
-                            <th:block layout:fragment="content-breadcrumb-fragment" />
-                        </div>
-                        <!-- End of Breadcrumb -->
+                <div class="content-header">
+                    <!-- Breadcrumb Content : INSPINIA 에 맞게 수정 필요. -->
+                    <div class="row border-bottom white-bg page-heading">
+                        <th:block layout:fragment="content-breadcrumb-fragment" />
                     </div>
+                    <!-- End of Breadcrumb -->
+                </div>
 
+                <div class="wrapper wrapper-content animated fadeInDown" style="min-height: 90vh;">
                     <!-- Page Content -->
                     <th:block layout:fragment="content-body-fragment" />
                     <!-- End of Page Content -->
-
                 </div>
-                <!-- End of Begin Page -->
 
+                <!-- Footer : INSPINIA 에 맞게 수정 필요. -->
+                <div class="footer">
+                    <th:block th:replace="fragments/design/html-footer" />
+                </div>
+                <!-- End of Footer -->
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <div id="bottomMenu">
-                <th:block th:replace="fragments/html-footer" />
-            </div>
-            <!-- End of Footer -->
-
+            <!-- End Of Page Wrapper -->
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Wrapper -->
 
-    </div>
-
-    <!-- Top Link -->
-    <th:block th:replace="fragments/html-top" />
-
-    <!-- Modal Box -->
-
-
-    <!-- JavaScript Importing -->
-    <th:block th:replace="fragments/html-js-import" />
-</body>
+        <!-- JavaScript Importing -->
+        <th:block th:replace="fragments/design/html-js-import" />
+    </body>
 </html>
