@@ -309,10 +309,28 @@ public class ManageService {
      * @return              성공 여부
      * @exception JsonProcessingException Exception
      */
-    private LayerEntity layerEntitySupplement(Long id, String name, String description, String projection, String middle_folder, String type, MultipartFile data_file) throws IOException {
+    private LayerEntity layerEntitySupplement(String method, Long id, String name, String description, String projection, String middle_folder, String type, MultipartFile data_file) throws IOException {
         String filePath = null;
         File dataFile;
+        String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        LayerEntity layer = entityManager.find(LayerEntity.class, id);
+        if(layer == null) {
+            layer = new LayerEntity();
+        }
+
         if(data_file != null && data_file.getSize() > 0){
+            if(method.equalsIgnoreCase("UPDATE")){
+                String dataFilePath = dataPath + layer.getDataFilePath();
+                try {
+                    if (FileUtils.getFile(dataFilePath).isFile()) {
+                        FileUtils.forceDelete(FileUtils.getFile(dataFilePath));
+                    }
+                } catch (IOException e) {
+                    log.error(layer.getName() + " DATA 파일 삭제 실패했습니다.");
+                }
+            }
+
             String dirPath = dataPath + Constants.DATA_PATH + "/" + middle_folder;
             File dir = new File(dirPath);
             if (!dir.exists()) {
@@ -324,13 +342,6 @@ public class ManageService {
             data_file.transferTo(dataFile);
 
             if(!System.getProperty("os.name").toLowerCase().contains("win")) setPermission(dataFile.toPath());
-        }
-
-        String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        LayerEntity layer = entityManager.find(LayerEntity.class, id);
-        if(layer == null) {
-            layer = new LayerEntity();
         }
 
         layer.setDefault(false);
@@ -475,7 +486,7 @@ public class ManageService {
 
         LayerEntity l = mapper.findLayerEntityByName(name);
         if(l == null){
-            LayerEntity layer = this.layerEntitySupplement(0L, name, description, projection, middle_folder, type, data_file);
+            LayerEntity layer = this.layerEntitySupplement("INSERT", 0L, name, description, projection, middle_folder, type, data_file);
             entityManager.persist(layer);
             this.writeLayFileContext(layer);
             return true;
@@ -502,7 +513,7 @@ public class ManageService {
 
         LayerEntity l = mapper.findLayerEntityByName(name);
         if(l != null){
-            LayerEntity layer = this.layerEntitySupplement(id, name, description, projection, middle_folder, type, data_file);
+            LayerEntity layer = this.layerEntitySupplement("UPDATE", id, name, description, projection, middle_folder, type, data_file);
             entityManager.merge(layer);
             this.writeLayFileContext(layer);
             return true;

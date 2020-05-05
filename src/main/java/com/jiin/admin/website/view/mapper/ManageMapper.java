@@ -39,7 +39,7 @@ public interface ManageMapper {
                     " AND L.TYPE = #{lType} ",
                 "</if>",
                 "<if test=\" sDate != null and !sDate.equals('') and eDate != null and !eDate.equals('') \">",
-                    " AND M.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD')",
+                    " AND L.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD')",
                 "</if>",
             "</where>",
             "ORDER BY ",
