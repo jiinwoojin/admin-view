@@ -1,55 +1,77 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8">
-        <th:block th:replace="fragments/design/html-head" />
-        <title>JIMap GIS Solution Ver 3.4</title>
-    </head>
-    <body>
-        <!-- loading -->
-        <div id="loader-wrapper">
-            <div class="loading"></div>
-        </div>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- Wrapper -->
-        <div id="wrapper">
-            <!-- Side Bar : INSPINIA 에 맞게 수정 필요. -->
-            <th:block th:replace="fragments/design/html-side" />
+    <!-- Based CSS Importing 시작 -->
+    <th:block th:replace="fragments/html-page-link" />
+    <!-- // Based CSS Importing 끝 -->
 
-            <!-- Page Wrapper -->
-            <div id="page-wrapper" class="gray-bg">
+    <!-- Custom CSS Importing 시작 -->
+    <th:block layout:fragment="custom-html-link" />
+    <!-- // Custom CSS Importing 끝 -->
 
-                <!-- Top Bar : INSPINIA 에 맞게 수정 필요. -->
-                <div class="row border-bottom">
-                    <th:block th:replace="fragments/design/html-header-bar" />
-                </div>
-                <!-- End of Top Bar -->
+    <!-- Based JS Importing 시작 -->
+    <th:block th:replace="fragments/html-page-script" />
+    <!-- Based JS Importing 끝 -->
 
-                <div class="content-header">
-                    <!-- Breadcrumb Content : INSPINIA 에 맞게 수정 필요. -->
-                    <div class="row border-bottom white-bg page-heading">
-                        <th:block layout:fragment="content-breadcrumb-fragment" />
-                    </div>
-                    <!-- End of Breadcrumb -->
-                </div>
+    <!-- Custom JS Importing 시작 -->
+    <th:block layout:fragment="custom-html-script" />
+    <!-- Custom JS Importing 끝 -->
 
-                <div class="wrapper wrapper-content animated fadeInDown" style="min-height: 90vh;">
-                    <!-- Page Content -->
-                    <th:block layout:fragment="content-body-fragment" />
-                    <!-- End of Page Content -->
-                </div>
+    <title>JIMap GIS Solution Ver 3.4</title>
+</head>
+<body>
 
-                <!-- Footer : INSPINIA 에 맞게 수정 필요. -->
-                <div class="footer">
-                    <th:block th:replace="fragments/design/html-footer" />
-                </div>
-                <!-- End of Footer -->
+    <!-- Loading Modal 시작 -->
+    <div id="loader-wrapper">
+        <div class="loading"></div>
+    </div>
+    <!-- // Loading Modal 종료 -->
+
+    <!-- Wrapper 시작 -->
+    <div id="wrapper">
+
+        <!-- Side Bar 시작 -->
+        <th:block th:replace="fragments/html-side" />
+        <!-- // Side Bar 종료 -->
+
+        <!-- Page Wrapper 시작 -->
+        <div id="page-wrapper" class="gray-bg">
+
+            <!-- Top Bar 시작 -->
+            <div class="row border-bottom">
+                <th:block th:replace="fragments/html-header-bar" />
             </div>
-            <!-- End Of Page Wrapper -->
-        </div>
-        <!-- End of Wrapper -->
+            <!-- // Top Bar 종료 -->
 
-        <!-- JavaScript Importing -->
-        <th:block th:replace="fragments/design/html-js-import" />
-    </body>
+            <!-- Breadcrumb 시작 -->
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <th:block layout:fragment="content-breadcrumb-fragment" />
+            </div>
+            <!-- // Breadcrumb 종료 -->
+
+            <!-- // Content 상단 종료 -->
+
+            <!-- Content 내용 시작 -->
+            <div class="wrapper wrapper-content animated fadeInDown">
+                <!-- Page Content -->
+                <th:block layout:fragment="content-body-fragment" />
+                <!-- End of Page Content -->
+            </div>
+            <!-- // Content 내용 종료 -->
+
+            <!-- Footer 시작 -->
+            <div class="footer">
+                <th:block th:replace="fragments/html-footer" />
+            </div>
+            <!-- // Footer 종료 -->
+
+        </div>
+        <!-- // Page Wrapper 종료 -->
+
+    </div>
+    <!-- // Wrapper 종료 -->
+</body>
 </html>

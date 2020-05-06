@@ -2,9 +2,30 @@ var selectedLayers = [];
 var selectedCaches = [];
 var selectedSources = [];
 
+function initialize_selected_data(){
+    $.ajax({
+        url: CONTEXT + '/server/api/proxy/form',
+        type: 'get',
+        success: function(data){
+            window['selectedLayers'] = data.layers;
+            window['selectedCaches'] = data.caches;
+            window['selectedSources'] = data.sources;
+
+            rendering_selected_data("selectedLayers",  window['selectedLayers']);
+            rendering_selected_data("selectedSources",  window['selectedSources']);
+            rendering_selected_data("selectedCaches",  window['selectedCaches']);
+        },
+        error: function(e){
+            console.log(e);
+        }
+    });
+}
+
 window.onload = function() {
+    // 선택 데이터 초기화 (서버에서 받음)
     initialize_selected_data();
 
+    // 입력 Form 초기화
     $('#proxyLayerName').change(function() {
         $('#proxyLayerName').data("check-duplicate",false);
         $('#duplicate-check-message-proxy-layer').text("중복확인을 해주세요.");
@@ -20,6 +41,7 @@ window.onload = function() {
         $('#duplicate-check-message-proxy-cache').text("중복확인을 해주세요.");
     });
 
+    // Source 데이터 중 MAP 데이터 채취 및 해제 관련 이벤트.
     $('#sourceDataInsert,#sourceDataUpdate').each(function(){
         $('#' + this.id).on('show.bs.modal', function (event) {
             var mapFile = document.getElementById(this.id === 'sourceDataInsert' ? 'mapFile' : 'mapFile_u');
@@ -77,10 +99,16 @@ window.onload = function() {
         });
     });
 
+    // CACHE 이름이 바뀔 때 마다 경로 설정을 위한 이벤트
     document.getElementById('proxyCacheName').onchange = function(e){
         var cacheDirectory = document.getElementById('proxyCacheDirectory');
         cacheDirectory.value = cacheDirectoryPath + e.target.value + '/';
     }
+
+    // 각 데이터 별로 DataTables 초기화
+    $('#list_table_source,#list_table_layer,#list_table_cache').each(function(){
+        initialize_dataTable(this.id);
+    });
 }
 
 function onclick_remove_button(id, data){
@@ -128,25 +156,6 @@ function rendering_selected_data(id, data){
     }
 
     document.getElementById(id).innerHTML = dom;
-}
-
-function initialize_selected_data(){
-    $.ajax({
-        url: CONTEXT + '/server/api/proxy/form',
-        type: 'get',
-        success: function(data){
-            window['selectedLayers'] = data.layers;
-            window['selectedCaches'] = data.caches;
-            window['selectedSources'] = data.sources;
-
-            rendering_selected_data("selectedLayers",  window['selectedLayers']);
-            rendering_selected_data("selectedSources",  window['selectedSources']);
-            rendering_selected_data("selectedCaches",  window['selectedCaches']);
-        },
-        error: function(e){
-            console.log(e);
-        }
-    });
 }
 
 function submit_selected_data(){
@@ -280,9 +289,42 @@ function onchange_mapLayer_multiple_value(method){
 function onchange_cache_directory_checkbox(){
     var checkbox = document.getElementById('directoryEdit');
     var directory = document.getElementById('proxyCacheDirectory');
+    var name = document.getElementById('proxyCacheName');
     directory.readOnly = !checkbox.checked;
     if(directory.readOnly){
         if(name.value.trim() !== '')
-        directory.value = cacheDirectoryPath + name.value + '/';
+            directory.value = cacheDirectoryPath + name.value + '/';
     }
+}
+
+function onclick_update_layer(obj){
+    document.getElementById('proxyLayerId_u').value = obj.id;
+    document.getElementById('proxyLayerName_u').value = obj.name;
+    document.getElementById('proxyLayerTitle_u').value = obj.title;
+    $('#proxySources_u').val(obj.sources.map(s => s.source && s.source.name));
+    $('#proxyCaches_u').val(obj.caches.map(c => c.cache && c.cache.name));
+}
+
+function onclick_update_source(obj){
+    document.getElementById('proxySourceId_u').value = obj.id;
+    document.getElementById('proxySourceName_u').value = obj.name;
+    document.getElementById('proxySourceType_u').value = obj.type;
+    document.getElementById('requestMap_u').value = obj.requestMap;
+    document.getElementById('requestLayers_u').value = obj.requestLayers;
+    document.getElementById('mapServerBinary_u').value = obj.mapServerBinary;
+    document.getElementById('mapServerWorkDir_u').value = obj.mapServerWorkDir;
+
+    $('#mapLayer_multiple_u').tagsinput('add', obj.requestLayers);
+}
+
+
+function onclick_update_cache(obj){
+    document.getElementById('proxyCacheId_u').value = obj.id;
+    document.getElementById('proxyCacheName_u').value = obj.name;
+    document.getElementById('proxyCacheType_u').value = obj.cacheType;
+    document.getElementById('proxyCacheDirectory_u').value = obj.cacheDirectory;
+    document.getElementById('metaSizeX_u').value = obj.metaSizeX;
+    document.getElementById('metaSizeY_u').value = obj.metaSizeY;
+    document.getElementById('metaBuffer_u').value = obj.metaBuffer;
+    $('#proxySourcesWithCaches_u').val(obj.sources.map(s => s.source && s.source.name));
 }

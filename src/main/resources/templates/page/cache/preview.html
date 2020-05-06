@@ -2,8 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
 
 <head>
-    <link rel="stylesheet" th:href="@{/gis/openlayers-4.6.4/ol.css}">
-    <script th:src="@{/gis/openlayers-4.6.4/ol.js}"></script>
+
 </head>
 
 <th:block layout:fragment="content-title-fragment">
@@ -11,8 +10,9 @@
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
+    <!-- Breadcrumb 시작 -->
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>캐시 관리 - 조회</h2>
+        <h2 class="page_tit">캐시 관리 - 조회</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/cache/setting}">지도 서비스</a>
@@ -20,12 +20,17 @@
             <li class="breadcrumb-item active" aria-current="page">캐시 관리 - 조회</li>
         </ol>
     </nav>
+    <!-- // Breadcrumb 종료 -->
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
     <div id="cache_layer_preview">
+        <!-- Openlayers 시작 -->
         <div id="map" class="mb-2" style="height: 70vh;">
         </div>
+        <!-- // Openlayers 종료 -->
+
+        <!-- 기능 확장 버튼 시작 -->
         <div id="buttons">
             <button class="btn btn-primary mx-0" data-toggle="modal" data-target="#layerSelect">
                 <i class="fas fa-layer-group"></i> Map Proxy 기반 레이어 선택
@@ -34,91 +39,13 @@
                 <i class="fas fa-file"></i> Map Proxy YAML 파일 조회
             </button>
         </div>
-
-        <div class="modal fade" id="layerSelect" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Map Proxy 기반 레이어 선택</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Data List Table - LAYER START -->
-                        <table id="list_table_layer" class="table table-sm table-striped my-1">
-                            <thead class="table-info">
-                            <tr>
-                                <th scope="col" class="text-center">이름</th>
-                                <th scope="col" class="text-center">제목</th>
-                                <th scope="col" class="text-center">레이어 조회</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="layer : ${ proxyLayers }">
-                                <td class="text-center" th:text="${ layer.name }"></td>
-                                <td class="text-center" th:text="${ layer.title }"></td>
-                                <td class="text-center">
-                                    <button class="btn btn-info btn-sm btn-circle" th:onclick="onclick_preview_layer([[${layer.name}]])" data-dismiss="modal">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fas fa-times"></i> 닫기
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="yamlPreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel2">Map Proxy YAML 파일 조회</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <textarea class="form-control" readonly rows="20">
-[[${proxyYAML}]]
-                        </textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fas fa-times"></i> 닫기
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- // 기능 확장 버튼 종료 -->
 
         <script>
             var mapSource, layer, map;
 
             $(document).ready(function() {
-                $('#list_table_layer').DataTable({
-                    "language" : {
-                        "lengthMenu" : "자료 길이 _MENU_",
-                        "zeroRecords" : "해당 자료가 존재하지 않습니다.",
-                        "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
-                        "infoEmpty" : "해당 자료가 존재하지 않습니다.",
-                        "infoFiltered" : "(총 _TOTAL_ 건)",
-                        "search" : "검색 키워드",
-                        "paginate": {
-                            "first" : "<<",
-                            "last" : ">>",
-                            "next" : ">",
-                            "previous" : "<"
-                        }
-                    }
-                });
+                initialize_dataTable('list_table_layer');
 
                 mapSource = new ol.source.TileWMS({
                     url: '[[${serviceURL}]]/service',
@@ -153,5 +80,85 @@
             }
         </script>
     </div>
+
+    <!-- Modal (1) 시작 -->
+    <div class="modal fade" id="layerSelect" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Map Proxy 기반 레이어 선택</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Data List Table - LAYER START -->
+                    <table id="list_table_layer" class="table basic my-1">
+                        <thead class="table-info">
+                        <tr>
+                            <th scope="col" class="text-center">이름</th>
+                            <th scope="col" class="text-center">제목</th>
+                            <th scope="col" class="text-center">레이어 조회</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="layer : ${ proxyLayers }">
+                            <td class="text-center" th:text="${ layer.name }"></td>
+                            <td class="text-center" th:text="${ layer.title }"></td>
+                            <td class="text-center">
+                                <button class="btn btn-info btn-sm btn-circle" th:onclick="onclick_preview_layer([[${layer.name}]])" data-dismiss="modal">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> 닫기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- // Modal (1) 종료 -->
+
+    <!-- Modal (2) 시작 -->
+    <div class="modal fade" id="yamlPreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel2">Map Proxy YAML 파일 조회</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <textarea class="form-control" readonly rows="20">
+[[${proxyYAML}]]
+                        </textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <i class="fas fa-times"></i> 닫기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- // Modal (2) 종료 -->
+
+</th:block>
+
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+    <link rel="stylesheet" th:href="@{/gis/openlayers-4.6.4/ol.css}">
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/gis/openlayers-4.6.4/ol.js}"></script>
 </th:block>
 </html>

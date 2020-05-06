@@ -6,7 +6,7 @@
 
 <th:block layout:fragment="content-breadcrumb-fragment">
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>캐시 관리 - SEED 설정</h2>
+        <h2 class="page_tit">캐시 관리 - SEED 설정</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/cache/setting}">지도 서비스</a>
@@ -19,7 +19,7 @@
 <th:block layout:fragment="content-body-fragment">
     <div id="seeding_main" class="row">
         <div class="col-xl-6">
-            <h2 class="mb-2">캐시 - 맵 데이터 목록</h2>
+            <h3 class="section_tit">캐시 - 맵 데이터 목록</h3>
             <table id="list_table" class="table table-sm table-striped">
                 <thead class="table-info">
                 <tr>
@@ -66,7 +66,7 @@
         </div>
 
         <div class="col-xl-6">
-            <h2 class="my-2">SEED 진행 내역</h2>
+            <h3 class="section_tit">SEED 진행 내역</h3>
             <div id="seed_history">
                 <div class="form-group">
                     <label for="layer_name">맵 이름</label>
@@ -180,24 +180,18 @@
     <script>
         $(document).ready(function() {
             $('#list_table,#list_table_history').each(function () {
-                $("#" + this.id).DataTable({
-                    "language": {
-                        "lengthMenu": "자료 길이 _MENU_",
-                        "zeroRecords": "해당 자료가 존재하지 않습니다.",
-                        "info": "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
-                        "infoEmpty": "해당 자료가 존재하지 않습니다.",
-                        "infoFiltered": "(총 _TOTAL_ 건)",
-                        "search": "검색 키워드",
-                        "paginate": {
-                            "first": "<<",
-                            "last": ">>",
-                            "next": ">",
-                            "previous": "<"
-                        }
-                    }
-                });
+                initialize_dataTable(this.id);
             })
         });
     </script>
+</th:block>
+
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
 </th:block>
 </html>
