@@ -2,7 +2,16 @@
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <th:block th:replace="fragments/design/html-head"></th:block>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Based CSS Importing 시작 -->
+    <th:block th:replace="fragments/html-page-link" />
+    <!-- // Based CSS Importing 끝 -->
+
+    <!-- Based JS Importing 시작 -->
+    <th:block th:replace="fragments/html-page-script" />
+    <!-- Based JS Importing 끝 -->
+
     <title>JIMap GIS Solution Ver 3.4</title>
 </head>
 
