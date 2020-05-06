@@ -166,4 +166,13 @@
         }
     </script>
 </th:block>
+
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+</th:block>
 </html>
