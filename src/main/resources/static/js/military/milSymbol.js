@@ -389,7 +389,6 @@ $(window).ready(function() {
 
 // '군대 부호 적용' button click EVENT
 	$('#click_coord_btn').on('click', function(event) {
-		debugger;
 		drawSymbol();
 
 		// 수정 버튼 감추기
