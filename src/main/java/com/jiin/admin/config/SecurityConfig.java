@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/vendor/**",
             "/vue/**",
             "/design/**",
+            "/design-park/**",
             "/favicon.ico"
         );
     }

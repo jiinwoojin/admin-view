@@ -103,22 +103,7 @@
             </table>
             <script>
                 $(document).ready(function() {
-                    $('#list_table').DataTable({
-                        "language" : {
-                            "lengthMenu" : "자료 길이 _MENU_",
-                            "zeroRecords" : "해당 자료가 존재하지 않습니다.",
-                            "info" : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
-                            "infoEmpty" : "해당 자료가 존재하지 않습니다.",
-                            "infoFiltered" : "(총 _TOTAL_ 건)",
-                            "search" : "검색 키워드",
-                            "paginate": {
-                                "first" : "<<",
-                                "last" : ">>",
-                                "next" : ">",
-                                "previous" : "<"
-                            }
-                        }
-                    });
+                    initialize_dataTable('list_table');
                 });
             </script>
         </div>
@@ -160,5 +145,14 @@
             </form>
         </div>
     </div>
+</th:block>
+
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
 </th:block>
 </html>

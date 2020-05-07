@@ -1,0 +1,35 @@
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/font-awesome/css/font-awesome.css}">
+
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/iCheck/custom.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/animate.css}">
+
+    <!-- JIMAP Style -->
+    <link rel="stylesheet" th:href="@{/design-park/resource/css/JIMAP_style.css}">
+
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css">
+
+    <!-- Font Awesome CSS Importing -->
+    <link rel="stylesheet" th:href="@{/vendor/fontawesome-free/css/all.min.css}">
+
+    <!-- Font Awesome CSS Importing -->
+    <link rel="stylesheet" th:href="@{/vendor/datatables/dataTables.bootstrap4.css}">
+    <link rel="stylesheet" th:href="@{/vendor/datatables/rowReorder.bootstrap4.css}">
+
+    <!-- Common Using CSS Importing -->
+    <link rel="stylesheet" th:href="@{/css/jiin-custom.css}">
+
+    <!-- toastr CSS Importing -->
+    <link rel="stylesheet" th:href="@{/vendor/toastr-lib/toastr.css}">
+
+    <link rel="stylesheet" th:href="@{/vendor/bootstrap-colorpicker/bootstrap-colorpicker.css}" />
+
+    <link id="ContextPath" th:data-contextPath="${#httpServletRequest.getContextPath()}" />
+
+    <!-- jQuery Importing -->
+    <script th:src="@{/jquery/jquery-3.4.1.min.js}"></script>
+
+    <script th:inline="javascript">
+        let ContextPath = '#ContextPath';
+        const CONTEXT = $(ContextPath).attr('data-contextPath') ? $(ContextPath).attr('data-contextPath') : '';
+    </script>

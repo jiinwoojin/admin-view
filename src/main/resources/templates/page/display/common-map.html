@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
 
-<head>
-    <link rel="stylesheet" th:href="@{/css/symbol/symbol-bootstrap.css}">
-    <link rel="stylesheet" th:href="@{/css/symbol/symbol.css}">
-</head>
-
 <th:block layout:fragment="content-title-fragment">
     <h1 class="h3 mb-0 text-gray-800">도시 - 공통 지도</h1>
 </th:block>
@@ -709,6 +704,17 @@
             */
         });
     </script>
+</th:block>
+
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/css/symbol/symbol-bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/symbol/symbol.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/jquery.dataTables.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
 
     <script th:src="@{/jquery/jquery-ui.min.js}"></script>
     <script th:src="@{/js/commons/jsHashMap.js}"></script>
