@@ -79,7 +79,7 @@
             </div>
             <div class="col-6">
                 <div class="form-group">
-                    <label for="map-extent">위도 / 경도 범위</label>
+                    <label>위도 / 경도 범위</label>
                     <div class="row no-gutters" id="map-extent">
                         <div class="col-3">
                             <input type="text" class="form-control text-right" id="map-minx" th:field="*{minX}">
@@ -120,13 +120,13 @@
     </form>
 
     <div id="layer-list">
-        <h3>레이어 목록</h3>
+        <h3 class="section-tit">선택된 레이어 목록</h3>
         <div class="text-right mb-1">
             <button data-toggle="modal" data-target="#layer-add" class="btn btn-sm btn-success mr-1">
                 <i class="fas fa-plus"></i>
             </button>
         </div>
-        <table class="table table-striped text-center" id="layer_list">
+        <table class="table basic text-center" id="layer_list">
             <thead>
             <tr>
                 <th>순서</th>
@@ -153,7 +153,7 @@
                     </div>
 
                     <div class="modal-body">
-                        <table id="list_table" class="table table-sm table-striped">
+                        <table id="list_table" class="table table-sm basic">
                             <thead class="table-info">
                             <tr>
                                 <th>체크</th>
@@ -170,10 +170,10 @@
                                         <input type="checkbox" class="form-check-input" th:value="${index.index}" onchange="checkLayer(this);">
                                     </div>
                                 </td>
-                                <td class="text-center" th:text="${ layer.name }"></td>
-                                <td class="text-center" th:text="${ layer.type }"></td>
-                                <td class="text-center" th:text="${ layer.projection }"></td>
-                                <td class="text-center" th:text="${ layer.description }"></td>
+                                <td class="text-center align-middle" th:text="${ layer.name }"></td>
+                                <td class="text-center align-middle" th:text="${ layer.type }"></td>
+                                <td class="text-center align-middle" th:text="${ layer.projection }"></td>
+                                <td class="text-center align-middle" th:text="${ layer.description }"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -340,6 +340,7 @@
             var tr = document.createElement('tr');
 
             var orderTd = document.createElement('td');
+            orderTd.className = 'text-center align-middle';
             orderTd.innerHTML = ++layerCount;
             tr.appendChild(orderTd);
 
@@ -361,30 +362,36 @@
 
             // 이름 name
             var nameTd = document.createElement('td');
+            nameTd.className = 'text-center align-middle';
             nameTd.innerHTML = layer.name;
 
             tr.appendChild(nameTd);
 
             // 종류 type
             var typeTd = document.createElement('td');
+            typeTd.className = 'text-center align-middle';
             typeTd.innerHTML = layer.type;
 
             tr.appendChild(typeTd);
 
             // 투영 projection
             var projectionTd = document.createElement('td');
+            projectionTd.className = 'text-center align-middle';
             projectionTd.innerHTML = layer.projection;
 
             tr.appendChild(projectionTd);
 
             // 설명 description
             var descriptionTd = document.createElement('td');
+            descriptionTd.className = 'text-center align-middle';
             descriptionTd.innerHTML = layer.description;
 
             tr.appendChild(descriptionTd);
 
             var deleteTd = document.createElement('td');
             deleteTd.onclick = deleteLayer;
+            deleteTd.className = 'text-center align-middle';
+
             var deleteSpan = document.createElement('span');
             deleteSpan.className = 'btn btn-danger';
             deleteSpan.innerHTML = '<i class="fas fa-trash"></i>';
@@ -417,5 +424,16 @@
             tableReroad();
         }
     </script>
+</th:block>
+
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/rowReorder.bootstrap4.css}">
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/jquery.dataTables.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.rowReorder.js}"></script>
 </th:block>
 </html>

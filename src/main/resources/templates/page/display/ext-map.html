@@ -6,7 +6,7 @@
 
 <th:block layout:fragment="content-breadcrumb-fragment">
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>도시 - 가시화 지도</h2>
+        <h2 class="page_tit">도시 - 가시화 지도</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/display/ext-map}">지도 서비스</a>
@@ -23,7 +23,7 @@
     <link rel="stylesheet" th:href="@{/gis/ol-ext-3.1.9/ol-ext.min.css}">
     <script th:src="@{/gis/ol-ext-3.1.9/ol-ext.min.js}"></script>
 
-    <div id="map" style="height : 70vh;"></div>
+    <div id="map" style="height : calc(100vh - 85px);"></div>
     <script type="text/javascript">
         // Layers
         var layers = [ new ol.layer.Tile({

@@ -7,8 +7,9 @@
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
+    <!-- Breadcrumb 시작 -->
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>동기화 - 데이터베이스</h2>
+        <h2 class="page_tit">동기화 - 데이터베이스</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/sync/file}">시스템</a>
@@ -16,16 +17,20 @@
             <li class="breadcrumb-item active" aria-current="page">동기화 - 데이터베이스</li>
         </ol>
     </nav>
+    <!-- // Breadcrumb 종료 -->
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
+
+    <!-- 동기화 진행 현황 View 시작 -->
     <div class="row">
-        <!-- PGPool 2 설정 : https://www.pgpool.net/docs/pgpoolAdmin/en/nodeServerStatus.html | https://www.pgpool.net/docs/pgpoolAdmin/en/status.html 참고 -->
+
+        <!-- A 서버 진행 현황 시작 -->
         <div class="col-xl-5 mb-4">
             <div class="card border-bottom-success shadow h-100 py-2">
                 <div class="card-body text-center">
                     <div class="text-sm font-weight-bold text-uppercase mb-1 text-success">
-                        <h1 class="fas fa-check-circle"></h1>
+                        <i class="h1 fas fa-check-circle"></i>
                         <p>
                             192.168.0.3<br/>
                             STATUS - <span>UP</span>
@@ -34,11 +39,12 @@
                 </div>
             </div>
         </div>
+        <!-- // A 서버 진행 현황 종료 -->
 
+        <!-- 동기화 진행 현황 표기 시작 -->
         <div class="col-xl-2 my-auto text-center">
-            <h3 class="text-center">
-                <i class="fas fa-arrow-right"></i>
-            </h3>
+            <i class="h3 fas fa-arrow-right"></i>
+
             <select id="center_list1" class="form-control my-1">
                 <option value="UO_center">UO 센터</option>
                 <option value="O3_center">O3 센터</option>
@@ -54,12 +60,14 @@
 
             <input type="checkbox" id="sync_confirm" onchange="onchange_sync()" /><label class="mx-1" for="sync_confirm">동기화 기록 포함</label>
         </div>
+        <!-- // 동기화 진행 현황 표기 종료 -->
 
+        <!-- B 서버 진행 현황 시작 -->
         <div class="col-xl-5 mb-4">
             <div class="card border-bottom-success shadow h-100 py-2">
                 <div class="card-body text-center">
                     <div class="text-sm font-weight-bold text-uppercase mb-1 text-success">
-                        <h1 class="fas fa-check-circle"></h1>
+                        <i class="h1 fas fa-check-circle"></i>
                         <p>
                             192.168.0.4<br/>
                             STATUS - <span>UP</span>
@@ -68,12 +76,16 @@
                 </div>
             </div>
         </div>
+        <!-- B 서버 진행 현황 종료 -->
+
     </div>
 
     <div class="row">
+
+        <!-- A 서버 진행 내역 시작 -->
         <div class="col-xl-6">
-            <h3 class="text-center">UO 센터 - SI 서버 (1)</h3>
-            <table id="list_table1" class="table table-sm table-striped text-center">
+            <h3 class="section-tit text-center">UO 센터 - SI 서버 (1)</h3>
+            <table id="list_table1" class="table table-sm basic text-center">
                 <thead class="table-info">
                 <tr>
                     <th scope="col" class="text-center">스키마</th>
@@ -86,12 +98,14 @@
                 </tbody>
             </table>
         </div>
+        <!-- // A 서버 진행 내역 종료 -->
 
+        <!-- B 서버 진행 내역 시작 -->
         <div class="col-xl-6">
-            <h3 class="text-center">
+            <h3 class="section-tit text-center">
                 <span>O3 센터</span> - <span>SI 서버 (1)</span>
             </h3>
-            <table id="list_table2" class="table table-sm table-striped text-center">
+            <table id="list_table2" class="table table-sm basic text-center">
                 <thead class="table-info">
                 <tr>
                     <th scope="col" class="text-center">스키마</th>
@@ -104,9 +118,13 @@
                 </tbody>
             </table>
         </div>
+        <!-- // B 서버 진행 내역 종료 -->
+
     </div>
 
     <hr/>
+
+    <!-- 데이터베이스 동기화 관련 확인 기능 : DB 접속 여부 및 PGPool2 설정 조회 (오로지 조회만 할 수 있도록) -->
     <div class="text-right">
         <button class="btn btn-info mx-1">
             <i class="fas fa-file"></i> PGPool2 설정 조회
@@ -115,6 +133,8 @@
             <i class="fas fa-sync"></i> PostgreSQL 접속 확인
         </button>
     </div>
+    <!-- // 데이터베이스 동기화 관련 확인 기능 종료 -->
+
     <script>
         var si_center = [
             { schema : 'mims_schema', database : 'gis', uploadDate : new Date(), admin : 'Admin1' },
@@ -178,6 +198,7 @@
         }
     </script>
 
+<!-- PGPool 2 설정 : https://www.pgpool.net/docs/pgpoolAdmin/en/nodeServerStatus.html | https://www.pgpool.net/docs/pgpoolAdmin/en/status.html 참고 -->
 <!--    <div class="row">-->
 <!--        &lt;!&ndash; PGPool 2 설정 : https://www.pgpool.net/docs/pgpoolAdmin/en/config.html 참고 &ndash;&gt;-->
 <!--        <div class="col-xl-6">-->
@@ -298,6 +319,7 @@
 <!--            </form>-->
 <!--        </div>-->
 <!--    </div>-->
+
 </th:block>
 
 <th:block layout:fragment="custom-html-link">

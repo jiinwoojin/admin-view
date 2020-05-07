@@ -7,8 +7,9 @@
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
+    <!-- Breadcrumb 시작 -->
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>서버 - 서비스 주소 관리</h2>
+        <h2 class="page_tit">서버 - 서비스 주소 관리</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/server/service-info}">시스템</a>
@@ -16,15 +17,15 @@
             <li class="breadcrumb-item active" aria-current="page">서버 - 서비스 주소 관리</li>
         </ol>
     </nav>
+    <!-- // Breadcrumb 종료 -->
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
     <div class="row">
-        <!-- 서버 주소 선택 -->
+        <!-- 서버 주소 선택 시작 -->
         <div class="col-md-6">
-            <h3 class="my-1">서버 주소 선택</h3>
-            <!-- Data List Table - SERVER ADDRESS LIST -->
-            <table id="list_table" class="table table-sm table-striped my-1">
+            <h3 class="section-tit my-1">서버 주소 선택</h3>
+            <table id="list_table" class="table table-sm basic my-1">
                 <thead class="table-info">
                 <tr>
                     <th scope="col" class="text-center">IP 주소</th>
@@ -35,10 +36,10 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="text-center">192.168.1.1</td>
-                    <td class="text-center">SI BO 서버 1</td>
-                    <td class="text-center">22</td>
-                    <td class="text-center">
+                    <td class="text-center align-middle">192.168.1.1</td>
+                    <td class="text-center align-middle">SI BO 서버 1</td>
+                    <td class="text-center align-middle">22</td>
+                    <td class="text-center align-middle">
                         <button th:id="${ 'addressUpdate' + 1 }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#addressDataUpdate">
                             <i class="fas fa-cog"></i>
                         </button>
@@ -48,10 +49,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center">192.168.1.2</td>
-                    <td class="text-center">SI BO 서버 2</td>
-                    <td class="text-center">22</td>
-                    <td class="text-center">
+                    <td class="text-center align-middle">192.168.1.2</td>
+                    <td class="text-center align-middle">SI BO 서버 2</td>
+                    <td class="text-center align-middle">22</td>
+                    <td class="text-center align-middle">
                         <button th:id="${ 'addressUpdate' + 2 }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#addressDataUpdate">
                             <i class="fas fa-cog"></i>
                         </button>
@@ -61,10 +62,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center">192.168.1.3</td>
-                    <td class="text-center">N-SI BO 서버 1</td>
-                    <td class="text-center">22</td>
-                    <td class="text-center">
+                    <td class="text-center align-middle">192.168.1.3</td>
+                    <td class="text-center align-middle">N-SI BO 서버 1</td>
+                    <td class="text-center align-middle">22</td>
+                    <td class="text-center align-middle">
                         <button th:id="${ 'addressUpdate' + 3 }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#addressDataUpdate">
                             <i class="fas fa-cog"></i>
                         </button>
@@ -74,10 +75,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center">192.168.1.4</td>
-                    <td class="text-center">N-SI BO 서버 2</td>
-                    <td class="text-center">22</td>
-                    <td class="text-center">
+                    <td class="text-center align-middle">192.168.1.4</td>
+                    <td class="text-center align-middle">N-SI BO 서버 2</td>
+                    <td class="text-center align-middle">22</td>
+                    <td class="text-center align-middle">
                         <button th:id="${ 'addressUpdate' + 4 }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#addressDataUpdate">
                             <i class="fas fa-cog"></i>
                         </button>
@@ -87,10 +88,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="text-center">192.168.1.5</td>
-                    <td class="text-center">SI O3 서버 1</td>
-                    <td class="text-center">22</td>
-                    <td class="text-center">
+                    <td class="text-center align-middle">192.168.1.5</td>
+                    <td class="text-center align-middle">SI O3 서버 1</td>
+                    <td class="text-center align-middle">22</td>
+                    <td class="text-center align-middle">
                         <button th:id="${ 'addressUpdate' + 5 }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#addressDataUpdate">
                             <i class="fas fa-cog"></i>
                         </button>
@@ -107,10 +108,11 @@
                 });
             </script>
         </div>
+        <!-- // 서버 주소 선택 종료 -->
 
-        <!-- 서버 주소 편집 -->
+        <!-- 서버 주소 편집 시작 -->
         <div class="col-md-6">
-            <h3 class="my-1">서버 주소 편집</h3>
+            <h3 class="section-tit my-1">서버 주소 편집</h3>
 
             <form id="update-role" th:action="@{/view/role/update-role}" method="post" accept-charset="utf-8">
                 <div class="form-group">
@@ -144,6 +146,8 @@
                 </button>
             </form>
         </div>
+        <!-- // 서버 주소 편집 종료 -->
+
     </div>
 </th:block>
 

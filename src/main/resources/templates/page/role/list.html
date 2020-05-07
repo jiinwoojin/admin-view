@@ -5,8 +5,9 @@
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
+    <!-- Breadcrumb 시작 -->
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>권한 관리</h2>
+        <h2 class="page_tit">권한 관리</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/account/list}">사용자</a>
@@ -14,6 +15,7 @@
             <li class="breadcrumb-item active" aria-current="page">권한 관리</li>
         </ol>
     </nav>
+    <!-- // Breadcrumb 종료 -->
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
@@ -23,7 +25,7 @@
         </button>
     </div>
 
-    <!-- Data Inserting Modal - ROLE START -->
+    <!-- Data Inserting Modal - ROLE 시작 -->
     <div class="modal fade" id="roleDataInsert" tabindex="-1" role="dialog" aria-labelledby="insertModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -104,9 +106,9 @@
             </div>
         </div>
     </div>
-    <!-- Data Inserting Modal - ROLE END -->
+    <!-- Data Inserting Modal - ROLE 끝 -->
 
-    <!-- Data Updating Modal - ROLE START -->
+    <!-- Data Updating Modal - ROLE 시작 -->
     <div class="modal fade" id="roleDataUpdate" tabindex="-1" role="dialog" aria-labelledby="updateModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -177,10 +179,11 @@
             </div>
         </div>
     </div>
-    <!-- Data Updating Modal - ROLE END -->
+    <!-- Data Updating Modal - ROLE 끝 -->
 
+    <!-- ROLE 데이터 GRID 시작 -->
     <div id="role_list_view">
-        <table id="list_table" class="table table-sm table-striped">
+        <table id="list_table" class="table table-sm basic">
             <thead class="table-info">
             <tr>
                 <th scope="col" class="text-center">권한 명칭</th>
@@ -195,38 +198,38 @@
             </thead>
             <tbody>
             <tr th:each="role : ${ roles }">
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <span th:text="${ role.title }">
                         [회원 권한 명칭]
                     </span>
                 </td>
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <span th:text="${ role.label }">
                         [회원 권한 이름]
                     </span>
                 </td>
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <i class="fas fa-check-circle" th:if="${ role.mapBasic }"></i>
                     <i class="fas fa-times" th:unless="${ role.mapBasic }"></i>
                 </td>
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <i class="fas fa-check-circle" th:if="${ role.mapManage }"></i>
                     <i class="fas fa-times" th:unless="${ role.mapManage }"></i>
                 </td>
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <i class="fas fa-check-circle" th:if="${ role.layerManage }"></i>
                     <i class="fas fa-times" th:unless="${ role.layerManage }"></i>
                 </td>
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <i class="fas fa-check-circle" th:if="${ role.cacheManage }"></i>
                     <i class="fas fa-times" th:unless="${ role.cacheManage }"></i>
                 </td>
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <i class="fas fa-check-circle" th:if="${ role.accountManage }"></i>
                     <i class="fas fa-times" th:unless="${ role.accountManage }"></i>
                 </td>
 
-                <td class="text-center" th:if="${ role.title == 'USER' || role.title == 'ADMIN' }">
+                <td class="text-center align-middle" th:if="${ role.title == 'USER' || role.title == 'ADMIN' }">
                     <i class="fas fa-times"></i>
                 </td>
                 <td class="d-flex justify-content-center" th:unless="${ role.title == 'USER' || role.title == 'ADMIN' }">
@@ -290,6 +293,7 @@
             }
         </script>
     </div>
+    <!-- // ROLE 데이터 GRID 끝 -->
 </th:block>
 
 <th:block layout:fragment="custom-html-link">

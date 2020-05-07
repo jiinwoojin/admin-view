@@ -6,8 +6,9 @@
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
+    <!-- Breadcrumb 시작 -->
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>서버 - 서비스 정보</h2>
+        <h2 class="page_tit">서버 - 서비스 정보</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/server/service-info}">시스템</a>
@@ -15,12 +16,12 @@
             <li class="breadcrumb-item active" aria-current="page">서버 - 서비스 정보</li>
         </ol>
     </nav>
+    <!-- // Breadcrumb 종료 -->
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
-    <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
 
-    <!-- 데이터 그래프 -->
+    <!-- 데이터 그래프 시작 -->
     <div class="row">
         <div class="col-xl-4">
             <div class="card shadow mb-4">
@@ -58,6 +59,7 @@
             </div>
         </div>
     </div>
+    <!-- // 데이터 그래프 종료 -->
 
     <!-- 동기화 그래프 -->
 <!--    <div class="row">-->
@@ -305,5 +307,9 @@
             });
         };
     </script>
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
 </th:block>
 </html>

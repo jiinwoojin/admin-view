@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <!-- Based CSS Importing 시작 -->
     <th:block th:replace="fragments/html-page-link" />
     <!-- // Based CSS Importing 끝 -->
@@ -18,14 +17,10 @@
 
 <body class="bg-gray-500">
 
-<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div class="middle-box text-center loginscreen animated fadeInDown">
     <div>
-        <div>
-            <h1 class="logo-name">
-                <i class="fas fa-globe"></i>
-            </h1>
-        </div>
-        <h3 class="text-white">JiMap GIS Solution 회원 정보 수정</h3>
+        <i class="logo-name h1 fas fa-globe"></i>
+        <h2 class="text-white page_tit">JiMap GIS Solution <br/> 회원 정보 수정</h2>
         <p class="text-white">
             회원 정보를 수정할 수 있는 기능입니다.
         </p>
@@ -64,18 +59,14 @@
     </div>
 </div>
 
-<script th:src="@{/js/page/editAccount.js}"></script>
-<script>
-    window.onload = function() {
-        if(window.location.search.includes('error')){
-            toastr.error('서버 요청 중 오류가 발생했습니다 : 임의로 스크립트를 사용하여 값 변경하지 마시길 바랍니다.');
+    <script th:src="@{/js/page/editAccount.js}"></script>
+    <script>
+        window.onload = function() {
+            if(window.location.search.includes('error')){
+                toastr.error('서버 요청 중 오류가 발생했습니다 : 임의로 스크립트를 사용하여 값 변경하지 마시길 바랍니다.');
+            }
         }
-    }
-</script>
-
-<!-- JavaScript Importing -->
-<th:block th:replace="fragments/design/html-js-import"></th:block>
-
+    </script>
 </body>
 
 </html>

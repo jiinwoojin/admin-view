@@ -7,7 +7,7 @@
 
 <th:block layout:fragment="content-breadcrumb-fragment">
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>도시 - 공통 지도</h2>
+        <h2 class="page_tit">도시 - 공통 지도</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/display/common-map}">지도 서비스</a>
@@ -19,57 +19,61 @@
 
 <th:block layout:fragment="content-body-fragment">
     <div id="map_block">
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link map-item" id="pills-display2d" style="cursor: pointer;">
-                    <i class="fas fa-vector-square"></i> 2차원
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link  map-item" id="pills-display3d" style="cursor: pointer;">
-                    <i class="fas fa-cube"></i> 3차원
-                </a>
-            </li>
-        </ul>
+        <div class="d-flex justify-content-between my-2">
+            <div id="tab_btn">
+                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link map-item" id="pills-display2d" style="cursor: pointer;">
+                            <i class="fas fa-vector-square"></i> 2차원
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link map-item" id="pills-display3d" style="cursor: pointer;">
+                            <i class="fas fa-cube"></i> 3차원
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="sample-div" style="position: absolute;"></div>
-        <div class="tab-content" id="mapContent" style="width: 100%; height: 65vh;"></div>
-
-        <div class="d-flex justify-content-between my-1">
-            <div id="military-position" class="form-inline">
-                <button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal" data-target="#layer_modal" data-backdrop="false">
-                    <i class="fas fa-layer-group"></i> 레이어
-                </button>
-                <button type="button" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#shape_modal" data-backdrop="false">
-                    <i class="fas fa-vector-square"></i> 투명도
-                </button>
-                <button type="button" class="btn btn-sm btn-info mr-2" id="click_coord_btn">
-                    <i class="fas fa-fighter-jet"></i> 군대부호
-                </button>
-                <!--GRID area-->
-                <select class="custom-select custom-select-sm mr-2" onchange="fn_set_graticules(this)">
-                    <option>Grid Type Select</option>
-                    <option value="WGS84">WGS84 (5 Depth)</option>
-                    <option value="MGRS">MGRS (3 Depth, with Geoserver)</option>
-                    <option value="UTM">UTM (3 Depth, with Geoserver)</option>
-                    <option value="GARS">Gars (4 Depth)</option>
-                    <option value="GEOREF">GeoRef (3 Depth)</option>
-                </select>
-                <input type="checkbox" id="___GridLine" checked="checked" onchange="fn_set_graticules(this)">
-                &nbsp;
-                <label for="___GridLine">Grid Line</label>
-                &nbsp;&nbsp;
-                <input type="checkbox" id="___GridLabel" checked="checked" onchange="fn_set_graticules(this)">
-                &nbsp;
-                <label for="___GridLabel">Grid Label</label>
-                <!--GRID area-->
-                <!-- 이지훈 LOS 버튼 -->
-                <button type="button" class="btn btn-sm btn-info mx-1" id="btn_los" data-toggle="modal" data-target="#los_modal" data-backdrop="false" style="display: none;">
-                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spn_los_spinner" style="display: none;"></span>
-                    <i class="fas fa-eye"></i> LOS 도시
-                </button>
+            <div id="extend_functions">
+                <div id="military-position" class="form-inline">
+                    <button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal" data-target="#layer_modal" data-backdrop="false">
+                        <i class="fas fa-layer-group"></i> 레이어
+                    </button>
+                    <button type="button" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#shape_modal" data-backdrop="false">
+                        <i class="fas fa-vector-square"></i> 투명도
+                    </button>
+                    <button type="button" class="btn btn-sm btn-info mr-2" id="click_coord_btn">
+                        <i class="fas fa-fighter-jet"></i> 군대부호
+                    </button>
+                    <!-- 이지훈 LOS 버튼 -->
+                    <button type="button" class="btn btn-sm btn-info mr-2" id="btn_los" data-toggle="modal" data-target="#los_modal" data-backdrop="false" style="display: none;">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spn_los_spinner" style="display: none;"></span>
+                        <i class="fas fa-eye"></i> LOS 도시
+                    </button>
+                    <!--GRID area-->
+                    <select class="custom-select custom-select-sm mr-2" onchange="fn_set_graticules(this)">
+                        <option>Grid Type Select</option>
+                        <option value="WGS84">WGS84 (5 Depth)</option>
+                        <option value="MGRS">MGRS (3 Depth, with Geoserver)</option>
+                        <option value="UTM">UTM (3 Depth, with Geoserver)</option>
+                        <option value="GARS">Gars (4 Depth)</option>
+                        <option value="GEOREF">GeoRef (3 Depth)</option>
+                    </select>
+                    <input type="checkbox" id="___GridLine" checked="checked" onchange="fn_set_graticules(this)">
+                    &nbsp;
+                    <label for="___GridLine">Grid Line</label>
+                    &nbsp;&nbsp;
+                    <input type="checkbox" id="___GridLabel" checked="checked" onchange="fn_set_graticules(this)">
+                    &nbsp;
+                    <label for="___GridLabel">Grid Label</label>
+                    <!--GRID area-->
+                </div>
             </div>
         </div>
+
+        <div class="sample-div" style="position: absolute;"></div>
+        <div class="tab-content" id="mapContent" style="width: 100%; height: calc(100vh - 80px);"></div>
     </div>
 
     <div class="modal fade" id="layer_modal">
@@ -80,7 +84,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="pt-1 pb-1">
-                        <table id="list_table" class="table table-sm table-striped w-100">
+                        <table id="list_table" class="table table-sm basic w-100">
                             <thead class="table-info">
                             <tr>
                                 <th scope="col" class="text-center text-nowrap">레이어 순서</th>
@@ -704,6 +708,13 @@
             */
         });
     </script>
+
+    <script th:src="@{/js/commons/jsHashMap.js}"></script>
+    <script th:src="@{/js/commons/geoTrans.js}"></script>
+    <script th:src="@{/js/commons/feature.js}"></script>
+    <script th:src="@{/js/military/mb-milSymbol.js}"></script>
+    <script th:src="@{/js/military/milSymbol.js}"></script>
+    <script th:src="@{/js/commons/cfsiStmpCommon.js}"></script>
 </th:block>
 
 <th:block layout:fragment="custom-html-link">
@@ -715,13 +726,6 @@
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/jquery.dataTables.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
-
     <script th:src="@{/jquery/jquery-ui.min.js}"></script>
-    <script th:src="@{/js/commons/jsHashMap.js}"></script>
-    <script th:src="@{/js/commons/geoTrans.js}"></script>
-    <script th:src="@{/js/commons/feature.js}"></script>
-    <script th:src="@{/js/military/mb-milSymbol.js}"></script>
-    <script th:src="@{/js/military/milSymbol.js}"></script>
-    <script th:src="@{/js/commons/cfsiStmpCommon.js}"></script>
 </th:block>
 </html>

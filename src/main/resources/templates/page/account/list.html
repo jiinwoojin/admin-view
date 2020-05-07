@@ -5,8 +5,9 @@
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
+    <!-- Breadcrumb 시작 -->
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>사용자 관리</h2>
+        <h2 class="page_tit">사용자 관리</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/account/list}">사용자</a>
@@ -14,11 +15,13 @@
             <li class="breadcrumb-item active" aria-current="page">사용자 관리</li>
         </ol>
     </nav>
+    <!-- // Breadcrumb 종료 -->
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
+    <!-- 사용자 목록 Grid 시작 -->
     <div id="user_list_view">
-        <table id="list_table" class="table table-sm table-striped">
+        <table id="list_table" class="table table-sm basic">
             <thead class="table-info">
             <tr>
                 <th scope="col" class="text-center">사용자 ID</th>
@@ -31,22 +34,22 @@
             </thead>
             <tbody>
             <tr th:each="account : ${ accounts }">
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <span th:text="${ account.username }">
                         [회원 아이디]
                     </span>
                 </td>
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <span th:text="${ account.name }">
                         [회원 이름]
                     </span>
                 </td>
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <span th:text="${ account.email }">
                         [회원 E-Mail]
                     </span>
                 </td>
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <i class="fas fa-check-circle" th:if="${ account.role.title == 'ADMIN' }"></i>
                     <i class="fas fa-times" th:unless="${ account.role.title == 'ADMIN' }"></i>
                 </td>
@@ -72,7 +75,7 @@
                         </script>
                     </div>
                 </td>
-                <td class="text-center">
+                <td class="text-center align-middle">
                     <i class="fas fa-times" th:if="${ account.username == 'admin' || account.username == 'user' }"></i>
                     <a class="btn btn-danger btn-circle btn-sm mx-1" th:unless="${ account.username == 'admin' || account.username == 'user' }" th:href="@{ '/view/account/delete-account/' + ${account.username} }" onclick="return confirm('회원 삭제를 진행 하시겠습니까?')">
                         <i class="fas fa-trash"></i>
@@ -84,15 +87,14 @@
         <script>
             $(document).ready(function() {
                 initialize_dataTable('list_table');
-            });
 
-            window.onload = function() {
                 if(window.location.search.includes('error')){
                     toastr.error('서버 요청 중 오류가 발생했습니다 : 없는 회원 ID 값으로 삭제 및 권한 변경을 진행 했습니다.');
                 }
-            }
+            });
         </script>
     </div>
+    <!-- // 사용자 목록 Grid 종료 -->
 </th:block>
 
 <th:block layout:fragment="custom-html-link">

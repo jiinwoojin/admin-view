@@ -7,7 +7,7 @@
 
 <th:block layout:fragment="content-breadcrumb-fragment">
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>대시보드</h2>
+        <h2 class="page_tit">대시보드</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item" sec:authorize="isAuthenticated()">
                 <a th:href="@{/view/home/user}">홈</a>
@@ -42,9 +42,9 @@
                                     <span th:case="CENTER_C" th:text="${ 'OO사 센터 - SI' }"></span>
                                 </div>
                                 <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ status_server.get(key) }" th:classappend="${ status_server.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
-                                    <h1 class="fas fa-check-circle" th:case="ON"></h1>
-                                    <h1 class="fas fa-times-circle" th:case="OFF"></h1>
-                                    <h1 class="fas fa-exclamation-triangle" th:case="ERROR"></h1>
+                                    <i class="h1 fas fa-check-circle" th:case="ON"></i>
+                                    <i class="h1 fas fa-times-circle" th:case="OFF"></i>
+                                    <i class="h1 fas fa-exclamation-triangle" th:case="ERROR"></i>
                                 </div>
                                 <div class="text-center">
                                     <button class="btn btn-info btn-sm mx-1">
@@ -67,7 +67,7 @@
                                 </ul>
                                 <div class="tab-content" th:id="${ key + '_SERVER_TAB_CONTENT' }" style="border: 1.5px solid #017bff; border-radius: 3px; padding: 3px;">
                                     <div class="tab-pane fade show active" th:id="${ key + '_SERVER_TAB1' }" role="tabpanel">
-                                        <p id="server_basic" class="text-left">
+                                        <p th:id="${ key + '_server_basics' }" class="text-left">
                                             - 전체 용량 : <span>1.00</span> / <span>9876.54</span> GB <br/>
                                             - 메모리 용량 : <span>4.11</span> / <span>80.32</span> GB <br/>
                                             - CPU 점유율 : <span>76</span> % <br/>
@@ -76,7 +76,7 @@
                                         </p>
                                     </div>
                                     <div class="tab-pane fade" th:id="${ key + '_SERVER_TAB2' }" role="tabpanel">
-                                        <p id="server_services" class="text-left">
+                                        <p th:id="${ key + '_server_services' }" class="text-left">
                                             - MapServer 상태 : <i class="fas fa-check"></i> <br/>
                                             - MapProxy 상태 : <i class="fas fa-check"></i> <br/>
                                             - Terrain Builder 상태 : <i class="fas fa-times"></i> <br/>
@@ -114,9 +114,9 @@
                                     <span th:case="CENTER_C" th:text="${ 'OO사 센터 - SI' }"></span>
                                 </div>
                                 <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ status_synchronize.get(key) }" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
-                                    <h1 class="fas fa-check-circle" th:case="ON"></h1>
-                                    <h1 class="fas fa-times-circle" th:case="OFF"></h1>
-                                    <h1 class="fas fa-exclamation-triangle" th:case="ERROR"></h1>
+                                    <i class="h1 fas fa-check-circle" th:case="ON"></i>
+                                    <i class="h1 fas fa-times-circle" th:case="OFF"></i>
+                                    <i class="h1 fas fa-exclamation-triangle" th:case="ERROR"></i>
                                 </div>
                                 <div class="text-center">
                                     <button class="btn btn-info btn-sm mx-1">
@@ -140,7 +140,7 @@
                                 </ul>
                                 <div class="tab-content" th:id="${ key + '_SYNC_TAB_CONTENT' }" style="border: 1.5px solid #017bff; border-radius: 3px; padding: 3px;">
                                     <div class="tab-pane fade show active" th:id="${ key + '_SYNC_TAB1' }" role="tabpanel">
-                                        <p id="sync_basic" class="text-left">
+                                        <p th:id="${ key + '_sync_basics' }" class="text-left">
                                             - 최근 진행 일자<br/>
                                               * <span>2020-04-22 10:00:00</span><br/>
                                             - 최근 동기화 파일<br/>
@@ -150,7 +150,7 @@
                                         </p>
                                     </div>
                                     <div class="tab-pane fade" th:id="${ key + '_SYNC_TAB2' }" role="tabpanel">
-                                        <p id="sync_services" class="text-left">
+                                        <p th:id="${ key + '_sync_status' }" class="text-left">
                                             - Syncthing 상태 : <i class="fas fa-check"></i> <br/>
                                             - PGPool 2 상태 : <i class="fas fa-check"></i> <br/>
                                             - O3 센터 파일 동기화 준비 : <i class="fas fa-check"></i> <br/>
