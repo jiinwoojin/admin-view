@@ -378,82 +378,85 @@ function milViewer(){
 	}
 }
 
-$('#closer_x').on('click', function(){
-	$('#symbol_info').hide();
-});
+$(window).ready(function() {
+	$('#closer_x').on('click', function(){
+		$('#symbol_info').hide();
+	});
 
-/** 
- * Military Symbol Button click Event
- * */
+	/**
+	 * Military Symbol Button click Event
+	 * */
 
 // '군대 부호 적용' button click EVENT
-$('#click_coord_btn').on('click', function(event) {
-	drawSymbol();
+	$('#click_coord_btn').on('click', function(event) {
+		debugger;
+		drawSymbol();
 
-	// 수정 버튼 감추기
-	if($('#mod').hasClass('hidden') === false){
-		$('#mod').addClass('hidden');
-	}
-	
-	$('#disabled_p').hide();
-	$('#SIDCCODINGSCHEME').removeAttr('disabled');
-	$('input[name=search_sidc_text]').removeAttr('readonly');
-	
-	if($('#add').hasClass('hidden') === true){
-		$('#add').removeClass('hidden');
-	}
-	
-	milViewer(); // military symbol viewer open
-});
+		// 수정 버튼 감추기
+		if($('#mod').hasClass('hidden') === false){
+			$('#mod').addClass('hidden');
+		}
 
-// '군대 부호 삭제' button click EVENT 
-$('#click_coord_btn_del').on('click', function(evnet){
-	var pixelArray = new Array;
-	pixelArray.push(layerX);
-	pixelArray.push(layerY);
-	
-	var feature = map.forEachFeatureAtPixel(pixelArray, function(feature, layer) {
-		return feature;
+		$('#disabled_p').hide();
+		$('#SIDCCODINGSCHEME').removeAttr('disabled');
+		$('input[name=search_sidc_text]').removeAttr('readonly');
+
+		if($('#add').hasClass('hidden') === true){
+			$('#add').removeClass('hidden');
+		}
+
+		milViewer(); // military symbol viewer open
 	});
-	
-	if(feature){ 
-		var id = feature.getId();
-		
-		modifyCancel();
-		select_sp_id = undefined;
-		
-		if(id == undefined){
-			if(interaction.getFeatureAtPixel_(pixelArray)){
-				id = interaction.getFeatureAtPixel_(pixelArray).feature.getId();
-			} else {
-				return;
-			}
-		}
-		
-		if(id.charAt(0) == 'S'){
-			map.removeInteraction(interaction);
-			interaction = undefined;
 
-			deleteMarker(id);
-			selectClick.getFeatures().clear();
-		} else {
-			if(id.split('_')[1] != '0'){
-				var ops = id.split('_');
-				for(var i = 0; i < Number(ops[1]); i++){
-					if(id.length < 4)
-						deleteMarker(ops[0]+'_'+(i+1));
-					else
-						deleteMarker(ops[0]+'_'+ops[1]+'_'+i);
+// '군대 부호 삭제' button click EVENT
+	$('#click_coord_btn_del').on('click', function(evnet){
+		var pixelArray = new Array;
+		pixelArray.push(layerX);
+		pixelArray.push(layerY);
+
+		var feature = map.forEachFeatureAtPixel(pixelArray, function(feature, layer) {
+			return feature;
+		});
+
+		if(feature){
+			var id = feature.getId();
+
+			modifyCancel();
+			select_sp_id = undefined;
+
+			if(id == undefined){
+				if(interaction.getFeatureAtPixel_(pixelArray)){
+					id = interaction.getFeatureAtPixel_(pixelArray).feature.getId();
+				} else {
+					return;
 				}
-				var mod_feature = 'P' + ops[0];
-				deleteMarker(mod_feature);
-			} else {
-				deleteMarker(id);
 			}
-			
-			selectClick.getFeatures().clear();
+
+			if(id.charAt(0) == 'S'){
+				map.removeInteraction(interaction);
+				interaction = undefined;
+
+				deleteMarker(id);
+				selectClick.getFeatures().clear();
+			} else {
+				if(id.split('_')[1] != '0'){
+					var ops = id.split('_');
+					for(var i = 0; i < Number(ops[1]); i++){
+						if(id.length < 4)
+							deleteMarker(ops[0]+'_'+(i+1));
+						else
+							deleteMarker(ops[0]+'_'+ops[1]+'_'+i);
+					}
+					var mod_feature = 'P' + ops[0];
+					deleteMarker(mod_feature);
+				} else {
+					deleteMarker(id);
+				}
+
+				selectClick.getFeatures().clear();
+			}
 		}
-	}
+	});
 });
 
 function modifyCancel(){
