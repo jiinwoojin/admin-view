@@ -576,7 +576,7 @@
             var coord = [127, 37];
             var json = {
                 "observer_lon": 127.70,
-                "observer_lat": 40.95,
+                "observer_lat": 36.95,
                 "observer_height": 2,
                 "target_height": 10,
                 "semi_dimension": 100,
@@ -591,15 +591,40 @@
 
             console.log(JSON.stringify(json));
 
+            var interval;
             $.ajax({
                 //url : CONTEXT + '/view/los/requestLos'
-                url : 'http://192.168.1.142:11160/viewshed'
+                url : 'http://211.172.246.71:11100/height/viewshed'
                 , type : 'post'
                 , contentType : 'application/json'
                 , data : JSON.stringify(json)
                 , success : function(result) {
-                    debugger;
                     console.log(result);
+                    interval = setInterval(function() {
+                        $.ajax({
+                            url: CONTEXT + '/view/los/get'
+                            ,type:'post'
+                            ,contentType:'application/json'
+                            ,data : JSON.stringify(result)
+                            ,success : function(urlResult) {
+                                if (urlResult.url !== "") {
+                                    isRun = false;
+                                    clearInterval(interval);
+                                    $('#spn_los_spinner').toggle();
+                                    console.log(urlResult);
+
+                                    //Cesium Clamp to Terrain - Draw Textured Polygon
+                                    stmp.mapObject.map.entities.add({
+                                        rectangle : {
+                                            coordinates : Cesium.Rectangle.fromDegrees(urlResult.west, urlResult.south, urlResult.east, urlResult.north)
+                                            ,material : urlResult.url
+                                            ,classificationType : Cesium.ClassificationType.TERRAIN
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }, 5000);
                 }
                 ,error : function(result) {
                     debugger;

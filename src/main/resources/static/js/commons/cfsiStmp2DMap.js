@@ -398,8 +398,8 @@ jiMap.prototype.setBaseStyle = function setBaseStyle() {
             'world' : {
                 'type' : 'raster',
                 'tiles' : [
-                    "http://211.172.246.71:11100/mapproxy/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=world_k2",
-                    //"http://211.172.246.71:11100/mapserver/cgi-bin/mapserv?map=/data/jiapp/data_dir/mapserver/world_k2.map&bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=WORLD_K2"
+                    //"http://211.172.246.71:11100/mapproxy/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=world_k2",
+                    "http://211.172.246.71:11130/mapserver/cgi-bin/mapserv?map=/data/jiapp/data_dir/style/basemaps/osm-google.map&bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=default"
                 ],
                 'tileSize' : 256
             }
@@ -422,8 +422,8 @@ jiMap.prototype.setBaseStyle = function setBaseStyle() {
 jiMap.prototype.init = function init(options) {
     return new mapboxgl.Map({
         container : options.container,
-        //style : this.setBaseStyle(),
-        style : CONTEXT + '/style/g25k_style.json',
+        style : this.setBaseStyle(),
+        //style : CONTEXT + '/style/g25k_style.json',
         center : options.center || [0, 0],
         bounds : options.bounds || undefined,
         zoom : options.zoom || 10,

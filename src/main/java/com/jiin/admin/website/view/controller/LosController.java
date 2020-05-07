@@ -127,7 +127,7 @@ public class LosController {
             MinioClient minioClient = new MinioClient(minioUrl, accessKey, secretKey);
 
             //minio 파일 검색
-            Iterable<Result<Item>> myObjects = minioClient.listObjects(param.get("buckets").toString(), param.get("fileNm").toString());
+            Iterable<Result<Item>> myObjects = minioClient.listObjects(param.get("output_group").toString(), param.get("job_id").toString());
 
             //이미지 없을 경우 "" 리턴
             int cnt = -1;
