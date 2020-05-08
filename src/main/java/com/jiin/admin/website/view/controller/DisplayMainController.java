@@ -27,9 +27,9 @@ public class DisplayMainController {
         return "page/display/mapbox-display";
     }
 
-    @RequestMapping("cs-display")
+    @RequestMapping("cesium-display")
     public String cesiumDisplayView(Model model){
-        return "page/display/cs-display";
+        return "page/display/cesium-display";
     }
 
     // 상황도 도시 (Openlayers)
