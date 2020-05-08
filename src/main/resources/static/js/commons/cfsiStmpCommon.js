@@ -2160,20 +2160,41 @@ var stmp = {
         }
         var sourceData = source._data
         var features = sourceData.features
-        var targetFeature = null
+        var targetFeatures = []
         jQuery.each(features, function(idx, feature){
             if(feature.properties.drawId === drawId){
-                targetFeature = feature
-                return true
+                feature.position = idx
+                targetFeatures.push(feature)
             }
         })
-        if(targetFeature === null){
+        if(targetFeatures.length === 0){
             return
         }
-        if(targetFeature.geometry.type === "Point"){
-            targetFeature.geometry = drawGeometry
-            source.setData(sourceData)
-        }
+        jQuery.each(targetFeatures, function(idx, targetFeature){
+            if(targetFeature.geometry.type === "Point") {
+                targetFeature.geometry = drawGeometry
+            }else if(targetFeature.geometry.type === "LineString"
+                || targetFeature.geometry.type === "MultiLineString"
+                || targetFeature.geometry.type === "Polygon"){
+                var coord = drawGeometry.coordinates
+                stmp.mapObject.map._drawing_milsymbol_coordinates = []
+                var coordinates = stmp.mapObject.map._drawing_milsymbol_coordinates
+                jQuery.each(coord, function(idx, point){
+                    coordinates.push({x:point[0],y:point[1]})
+                })
+                drawMsymbol(-1, 'geoJSON')
+                var data = JSON.parse(stmp.mapObject.map._drawing_milsymbol._geojson)
+                jQuery.each(data.features, function(idx, feature){
+                    feature.properties.drawId = drawId
+                    if(feature.type === "Point"){
+                        feature.properties.type = "Label"
+                    }
+                })
+                sourceData.features.splice(targetFeature.position, 1)
+                sourceData.features = sourceData.features.concat(data.features)
+            }
+        })
+        source.setData(sourceData)
     }
     , milsymbolsGenerator : function(evt){
         var features = evt.features
