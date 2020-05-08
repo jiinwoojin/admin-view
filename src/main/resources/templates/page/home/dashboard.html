@@ -31,28 +31,33 @@
         </div>
 
         <div class="row">
-            <div class="col-xl-4 mb-4" th:each="key : ${ status_server.keySet() }" th:id="${ key + '_SERVER_STATUS' }">
-                <div class="card border-bottom-success shadow h-100 py-2" th:classappend="${ status_server.get(key) == 'ON' } ? 'border-bottom-success' : 'border-bottom-danger'">
+            <div class="col mb-4" th:each="key : ${ performanceMap.keySet() }" th:id="${ key + '_SERVER_STATUS' }">
+                <div class="card shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2 text-center" th:id="${ key + '_SERVER' }">
-                                <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ key }" th:classappend="${ status_server.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
-                                    <span th:case="CENTER_A" th:text="${ 'BO 센터 - SI' }"></span>
-                                    <span th:case="CENTER_B" th:text="${ 'O3 센터 - SI' }"></span>
-                                    <span th:case="CENTER_C" th:text="${ 'OO사 센터 - SI' }"></span>
+                                <div th:id="${ key + '_serverTitle' }" class="text-sm font-weight-bold text-uppercase mb-1" th:classappend="${ performanceMap.get(key).status == 'ON' } ? 'text-success' : 'text-danger'">
+                                    <span th:id="${ key + '_serverName' }" th:text="${ performanceMap.get(key).serverName }"></span>
                                 </div>
-                                <div class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ status_server.get(key) }" th:classappend="${ status_server.get(key) == 'ON' } ? 'text-success' : 'text-danger'">
+                                <div th:id="${ key + '_serverStatus' }" class="text-sm font-weight-bold text-uppercase mb-1" th:switch="${ performanceMap.get(key).status }" th:classappend="${ performanceMap.get(key).status == 'ON' } ? 'text-success' : 'text-danger'">
                                     <i class="h1 fas fa-check-circle" th:case="ON"></i>
                                     <i class="h1 fas fa-times-circle" th:case="OFF"></i>
                                     <i class="h1 fas fa-exclamation-triangle" th:case="ERROR"></i>
                                 </div>
-                                <div class="text-center">
-                                    <button class="btn btn-info btn-sm mx-1">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="btn btn-primary btn-sm mx-1">
-                                        <i class="fas fa-sync"></i>
-                                    </button>
+                                <div class="input-group">
+                                    <select class="form-control" th:id="${ key + '_change_server' }" onchange="event_refresh_server(this)">
+                                        <block th:each="select_key : ${serverRelation.get(key)}" th:remove="tag">
+                                            <option th:text="${ #strings.arraySplit(select_key, ':')[1] }" th:value="${ #strings.arraySplit(select_key, ':')[0] }"></option>
+                                        </block>
+                                    </select>
+                                    <div class="input-group-append" id="button-addon4">
+                                        <button class="btn btn-primary" type="button" th:id="${ key + '_refresh_server' }" onclick="event_refresh_server(this)">
+                                            <i class="fas fa-sync"></i>
+                                        </button>
+                                        <button class="btn btn-info" type="button">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -68,11 +73,11 @@
                                 <div class="tab-content" th:id="${ key + '_SERVER_TAB_CONTENT' }" style="border: 1.5px solid #017bff; border-radius: 3px; padding: 3px;">
                                     <div class="tab-pane fade show active" th:id="${ key + '_SERVER_TAB1' }" role="tabpanel">
                                         <p th:id="${ key + '_server_basics' }" class="text-left">
-                                            - 전체 용량 : <span>1.00</span> / <span>9876.54</span> GB <br/>
-                                            - 메모리 용량 : <span>4.11</span> / <span>80.32</span> GB <br/>
-                                            - CPU 점유율 : <span>76</span> % <br/>
-                                            - GPU 점유율 : <span>25</span> % <br/>
-                                            - 서버 커넥션 Pool : <span>5</span>
+                                            - 디스크 : <span th:id="${ key + '_usedCapacity' }" th:text="${ performanceMap.get(key).usedCapacity }"></span> / <span th:id="${ key + '_totalCapacity' }" th:text="${ performanceMap.get(key).totalCapacity }"></span> GB <br/>
+                                            - 메모리 : <span th:id="${ key + '_usedMemory' }" th:text="${ performanceMap.get(key).usedMemory }"></span> / <span th:id="${ key + '_totalMemory' }" th:text="${ performanceMap.get(key).totalMemory }"></span> MB <br/>
+                                            - 사용 가능한 메모리 : <span th:id="${ key + '_availableMemory' }" th:text="${ performanceMap.get(key).availableMemory }"></span> MB <br/>
+                                            - CPU 점유율 : <span th:id="${ key + '_cpuUsage' }" th:text="${ performanceMap.get(key).cpuUsage }"></span> % <br/>
+                                            - 서버 접속자 수 : <span th:id="${ key + '_connections' }" th:text="${ performanceMap.get(key).connections }"></span>
                                         </p>
                                     </div>
                                     <div class="tab-pane fade" th:id="${ key + '_SERVER_TAB2' }" role="tabpanel">
@@ -104,7 +109,7 @@
 
         <div class="row">
             <div class="col-xl-4 mb-4" th:each="key : ${ status_synchronize.keySet() }" th:id="${ key + '_SYNC_STATUS' }">
-                <div class="card border-bottom-success shadow h-100 py-2" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'border-bottom-success' : 'border-bottom-danger'">
+                <div class="card shadow h-100 py-2" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'border-bottom-success' : 'border-bottom-danger'">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2 text-center" th:id="${ key + '_SYNC' }">

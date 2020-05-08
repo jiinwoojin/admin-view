@@ -22,7 +22,9 @@ public class HomeMainController {
 
     @RequestMapping(value = { "guest", "user" })
     public String homeMainPageForGuest(Model model){
-        model.addAttribute("status_server", statusService.centerStatusCheck());
+        model.addAttribute("serverRelation", dashboardService.getConnectRelations("SI"));
+        model.addAttribute("performanceMap", dashboardService.getFirstServerBasicPerformance("SI"));
+
         model.addAttribute("status_synchronize", statusService.centerSynchronizeCheck());
         model.addAttribute("counter", dashboardService.getDataCounter());
         return "page/home/dashboard";

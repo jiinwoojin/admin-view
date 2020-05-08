@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/view/los/**").permitAll()	//이지훈 LOS가시화 예외추가
                 .antMatchers("/server/api/los/**").permitAll()	//이지훈 LOS가시화 예외추가
                 .antMatchers("/server/server-state").permitAll()
-                .antMatchers("/server/api/status/**").permitAll()
+                .antMatchers("/server/api/dashboard/**").permitAll()
                 .antMatchers("/server/api/layer/**").permitAll()
                 .antMatchers("/server/api/map/**").permitAll()
                 .antMatchers("/server/api/proxy/**").permitAll()
