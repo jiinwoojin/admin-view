@@ -46,7 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/vue/**",
             "/design/**",
             "/design-park/**",
-            "/favicon.ico"
+            "/favicon.ico",
+            "/error"
         );
     }
 
@@ -81,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/view/auth/login")
                 .loginProcessingUrl("/view/auth/login_process")
                 .failureUrl("/view/auth/login?error")
-                .defaultSuccessUrl("/view/home/user")
+                .defaultSuccessUrl("/view/home/user", true)
                 .usernameParameter("username")
                 .passwordParameter("password");
 

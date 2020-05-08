@@ -6,7 +6,7 @@
 
 <th:block layout:fragment="content-breadcrumb-fragment">
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>서버 - 서비스 관리</h2>
+        <h2 class="page_tit">서버 - 서비스 관리</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/server/service-info}">시스템</a>
@@ -17,12 +17,13 @@
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
+    <!-- 서버 상태 조회 시작 -->
     <div class="row">
         <div class="col-xl-2 mb-4">
             <div class="card border-bottom-success shadow h-100 py-2">
                 <div class="card-body text-center">
                     <div class="text-sm font-weight-bold mb-1 text-success">
-                        <h1 class="fas fa-check-circle"></h1>
+                        <i class="h1 fas fa-check-circle"></i>
                     </div>
                     <div class="text-sm font-weight-bold mb-1 text-success">
                         <span>Map Server</span>
@@ -43,7 +44,7 @@
             <div class="card border-bottom-success shadow h-100 py-2">
                 <div class="card-body text-center">
                     <div class="text-sm font-weight-bold mb-1 text-success">
-                        <h1 class="fas fa-check-circle"></h1>
+                        <i class="h1 fas fa-check-circle"></i>
                     </div>
                     <div class="text-sm font-weight-bold mb-1 text-success">
                         <span>Map Proxy</span>
@@ -64,7 +65,7 @@
             <div class="card border-bottom-success shadow h-100 py-2">
                 <div class="card-body text-center">
                     <div class="text-sm font-weight-bold mb-1 text-success">
-                        <h1 class="fas fa-check-circle"></h1>
+                        <i class="h1 fas fa-check-circle"></i>
                     </div>
                     <div class="text-sm font-weight-bold mb-1 text-success">
                         <span>Terrain Builder</span>
@@ -85,7 +86,7 @@
             <div class="card border-bottom-success shadow h-100 py-2">
                 <div class="card-body text-center">
                     <div class="text-sm font-weight-bold mb-1 text-success">
-                        <h1 class="fas fa-check-circle"></h1>
+                        <i class="h1 fas fa-check-circle"></i>
                     </div>
                     <div class="text-sm font-weight-bold mb-1 text-success">
                         <span>Mapnik</span>
@@ -106,7 +107,7 @@
             <div class="card border-bottom-success shadow h-100 py-2">
                 <div class="card-body text-center">
                     <div class="text-sm font-weight-bold mb-1 text-success">
-                        <h1 class="fas fa-check-circle"></h1>
+                        <i class="h1 fas fa-check-circle"></i>
                     </div>
                     <div class="text-sm font-weight-bold mb-1 text-success">
                         <span>Tegola</span>
@@ -127,7 +128,7 @@
             <div class="card border-bottom-success shadow h-100 py-2">
                 <div class="card-body text-center">
                     <div class="text-sm font-weight-bold mb-1 text-success">
-                        <h1 class="fas fa-check-circle"></h1>
+                        <i class="h1 fas fa-check-circle"></i>
                     </div>
                     <div class="text-sm font-weight-bold mb-1 text-success">
                         <span>Docker</span>
@@ -145,7 +146,9 @@
         </div>
 
     </div>
+    <!-- // 서버 상태 조회 종료 -->
 
+    <!-- 서버 작동 내역 조회 시작 -->
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="shutdown-tab" data-toggle="tab" href="#shutdown" role="tab" aria-controls="shutdown" aria-selected="true">
@@ -163,40 +166,7 @@
         <div class="tab-pane fade show active" id="shutdown" role="tabpanel" aria-labelledby="shutdown-tab">
             <div class="py-1">
                 <h2 class="my-2">서비스 종료 기록</h2>
-                <table id="list_table_shutdown" class="table table-sm table-striped">
-                    <thead class="table-info">
-                    <tr>
-                        <th scope="col" class="text-center">서비스</th>
-                        <th scope="col" class="text-center">종료 시간</th>
-                        <th scope="col" class="text-center">진행자</th>
-                        <th scope="col" class="text-center">진행 결과</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="text-center">Map Server</td>
-                        <td class="text-center">2020-04-24 11:00:00</td>
-                        <td class="text-center">ADMIN</td>
-                        <td class="text-center">
-                            <i class="fas fa-check-circle"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Map Proxy</td>
-                        <td class="text-center">2020-04-23 11:00:00</td>
-                        <td class="text-center">ADMIN</td>
-                        <td class="text-center">
-                            <i class="fas fa-times-circle"></i>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="tab-pane fade" id="restart" role="tabpanel" aria-labelledby="restart-tab">
-            <div class="py-1">
-                <h2 class="my-2">서비스 재시작 기록</h2>
-                <table id="list_table_restart" class="table table-sm table-striped">
+                <table id="list_table_shutdown" class="table table-sm basic">
                     <thead class="table-info">
                     <tr>
                         <th scope="col" class="text-center">서비스</th>
@@ -227,6 +197,40 @@
             </div>
         </div>
 
+        <div class="tab-pane fade" id="restart" role="tabpanel" aria-labelledby="restart-tab">
+            <div class="py-1">
+                <h2 class="my-2">서비스 재시작 기록</h2>
+                <table id="list_table_restart" class="table table-sm basic">
+                    <thead class="table-info">
+                    <tr>
+                        <th scope="col" class="text-center">서비스</th>
+                        <th scope="col" class="text-center">종료 시간</th>
+                        <th scope="col" class="text-center">진행자</th>
+                        <th scope="col" class="text-center">진행 결과</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-center align-middle">Map Server</td>
+                        <td class="text-center align-middle">2020-04-24 11:00:00</td>
+                        <td class="text-center align-middle">ADMIN</td>
+                        <td class="text-center align-middle">
+                            <i class="fas fa-check-circle"></i>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center align-middle">Map Proxy</td>
+                        <td class="text-center align-middle">2020-04-23 11:00:00</td>
+                        <td class="text-center align-middle">ADMIN</td>
+                        <td class="text-center align-middle">
+                            <i class="fas fa-times-circle"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <script>
             $(document).ready(function() {
                 $('#list_table_shutdown,#list_table_restart').each(function () {
@@ -235,6 +239,7 @@
             });
         </script>
     </div>
+    <!-- // 서버 작동 내역 조회 종료 -->
 </th:block>
 
 <th:block layout:fragment="custom-html-link">

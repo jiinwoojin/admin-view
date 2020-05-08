@@ -14,6 +14,7 @@
             </li>
             <li class="breadcrumb-item active" aria-current="page">캐시 관리 - 설정</li>
         </ol>
+    </nav>
 </th:block>
 </nav>
 
@@ -209,9 +210,9 @@
                             </thead>
                             <tbody>
                             <tr th:each="layer : ${ layerMap.data }">
-                                <td class="text-center" th:text="${ layer.name }"></td>
-                                <td class="text-center" th:text="${ layer.title }"></td>
-                                <td class="text-center">
+                                <td class="text-center align-middle" th:text="${ layer.name }"></td>
+                                <td class="text-center align-middle" th:text="${ layer.title }"></td>
+                                <td class="text-center align-middle">
                                     <button th:id="${ 'layerUpdate' + layer.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#layerDataUpdate">
                                         <i class="fas fa-cog"></i>
                                     </button>
@@ -225,7 +226,7 @@
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center align-middle">
                                     <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedLayers', [[${layer.name}]])">
                                         <i class="fas fa-plus"></i>
                                     </button>
@@ -350,7 +351,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="proxySourceType_u">리소스 종류 <span class="text-danger"(*)</span></label>
+                                                <label for="proxySourceType_u">리소스 종류 <span class="text-danger">(*)</span></label>
                                                 <input type="text" class="form-control" id="proxySourceType_u" name="proxySourceType" readonly />
                                             </div>
 
@@ -419,9 +420,9 @@
                             </thead>
                             <tbody>
                             <tr th:each="source : ${ sourceMap.data }">
-                                <td class="text-center" th:text="${ source.name }"></td>
-                                <td class="text-center" th:text="${ source.type }"></td>
-                                <td class="text-center">
+                                <td class="text-center align-middle" th:text="${ source.name }"></td>
+                                <td class="text-center align-middle" th:text="${ source.type }"></td>
+                                <td class="text-center align-middle">
                                     <button th:id="${ 'sourceUpdate' + source.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#sourceDataUpdate">
                                         <i class="fas fa-cog"></i>
                                     </button>
@@ -435,7 +436,7 @@
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center align-middle">
                                     <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedSources', [[${source.name}]])">
                                         <i class="fas fa-plus"></i>
                                     </button>
@@ -640,9 +641,9 @@
                             </thead>
                             <tbody>
                             <tr th:each="cache : ${ cacheMap.data }">
-                                <td class="text-center" th:text="${ cache.name }"></td>
-                                <td class="text-center" th:text="${ cache.cacheType }"></td>
-                                <td class="text-center">
+                                <td class="text-center align-middle" th:text="${ cache.name }"></td>
+                                <td class="text-center align-middle" th:text="${ cache.cacheType }"></td>
+                                <td class="text-center align-middle">
                                     <button th:id="${ 'cacheUpdate' + cache.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#cacheDataUpdate">
                                         <i class="fas fa-cog"></i>
                                     </button>
@@ -656,7 +657,7 @@
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center align-middle">
                                     <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedCaches', [[${cache.name}]])">
                                         <i class="fas fa-plus"></i>
                                     </button>

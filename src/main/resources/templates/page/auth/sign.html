@@ -16,17 +16,12 @@
 </head>
 
 <body class="bg-gray-500">
-
-<div class="middle-box text-center loginscreen animated fadeInDown">
+    <div class="middle-box text-center loginscreen animated fadeInDown">
     <div>
-        <div>
-            <h1 class="logo-name">
-                <i class="fas fa-globe"></i>
-            </h1>
-        </div>
-        <h3 class="text-white">JiMap GIS Solution 로그인</h3>
+        <i class="logo-name h1 fas fa-globe"></i>
+        <h2 class="text-white page_tit">JiMap GIS Solution 가입</h2>
         <p class="text-white">
-            JiMap GIS Solution 을 사용하기 위해 로그인을 진행하세요.
+            JiMap GIS Solution 을 사용하기 위해 <br/>회원 가입을 진행하세요.
         </p>
 
         <form class="m-t" th:object="${account}" onsubmit="return preSubmit(this)" action="sign" method="post" accept-charset="utf-8">
@@ -39,7 +34,7 @@
                         </button>
                     </div>
                 </div>
-                <small class="form-text text-muted" id="duplicate-check-username">중복확인을 해주세요.</small>
+                <small class="form-text text-white" id="duplicate-check-username">중복확인을 해주세요.</small>
             </div>
 
             <div class="form-group row">
@@ -63,7 +58,7 @@
                 <i class="fas fa-check"></i> 회원 가입
             </button>
 
-            <a class="btn btn-sm btn-secondary btn-block my-1" th:href="@{/view/auth/sign}">
+            <a class="btn btn-sm btn-secondary btn-block my-1" th:href="@{/view/auth/login}">
                 <i class="fas fa-key"></i> 로그인
             </a>
             <a class="btn btn-sm btn-success btn-block my-1" th:href="@{/view/home/guest}">
@@ -74,18 +69,14 @@
     </div>
 </div>
 
-<script th:src="@{/js/page/sign.js}"></script>
-<script>
-    window.onload = function() {
-        if(window.location.search.includes('error')){
-            toastr.error('서버 요청 중 오류가 발생했습니다 : 임의로 스크립트를 사용하여 값 변경하지 마시길 바랍니다.');
+    <script th:src="@{/js/page/sign.js}"></script>
+    <script>
+        window.onload = function() {
+            if(window.location.search.includes('error')){
+                toastr.error('서버 요청 중 오류가 발생했습니다 : 임의로 스크립트를 사용하여 값 변경하지 마시길 바랍니다.');
+            }
         }
-    }
-</script>
-
-<!-- JavaScript Importing -->
-<th:block th:replace="fragments/design/html-js-import"></th:block>
-
+    </script>
 </body>
 
 </html>

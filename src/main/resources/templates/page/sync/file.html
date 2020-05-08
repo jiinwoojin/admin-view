@@ -5,8 +5,9 @@
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
+    <!-- Breadcrumb 시작 -->
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2>동기화 모니터링 - 파일</h2>
+        <h2 class="page_tit">동기화 모니터링 - 파일</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/sync/file}">시스템</a>
@@ -14,15 +15,20 @@
             <li class="breadcrumb-item active" aria-current="page">동기화 모니터링 - 파일</li>
         </ol>
     </nav>
+    <!-- // Breadcrumb 종료 -->
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
+
+    <!-- 동기화 진행 현황 View 시작 -->
     <div class="row">
+
+        <!-- A 서버 진행 현황 시작 -->
         <div class="col-xl-5 mb-4">
             <div class="card border-bottom-success shadow h-100 py-2">
                 <div class="card-body text-center">
                     <div class="text-sm font-weight-bold text-uppercase mb-1 text-success">
-                        <h1 class="fas fa-check-circle"></h1>
+                        <i class="h1 fas fa-check-circle"></i>
                         <p>
                             192.168.0.1<br/>
                             STATUS - <span>OK</span>
@@ -31,11 +37,12 @@
                 </div>
             </div>
         </div>
+        <!-- // A 서버 진행 현황 종료 -->
 
+        <!-- 동기화 진행 현황 표기 시작 -->
         <div class="col-xl-2 my-auto text-center">
-            <h3 class="text-center">
-                <i class="fas fa-arrow-right"></i>
-            </h3>
+            <i class="h3 fas fa-arrow-right"></i>
+
             <select id="center_list1" class="form-control my-1">
                 <option value="UO_center">UO 센터</option>
                 <option value="O3_center">O3 센터</option>
@@ -51,12 +58,14 @@
 
             <input type="checkbox" id="sync_confirm" onchange="onchange_sync()" /><label class="mx-1" for="sync_confirm">동기화 기록 포함</label>
         </div>
+        <!-- // 동기화 진행 현황 표기 종료 -->
 
+        <!-- B 서버 진행 현황 시작 -->
         <div class="col-xl-5 mb-4">
             <div class="card border-bottom-danger shadow h-100 py-2">
                 <div class="card-body text-center">
                     <div class="text-sm font-weight-bold text-uppercase mb-1 text-danger">
-                        <h1 class="fas fa-times-circle"></h1>
+                        <i class="h1 fas fa-times-circle"></i>
                         <p>
                             192.168.0.2<br/>
                             STATUS - <span>OK</span>
@@ -65,12 +74,16 @@
                 </div>
             </div>
         </div>
+        <!-- B 서버 진행 현황 종료 -->
+
     </div>
 
     <div class="row">
+
+        <!-- A 서버 진행 내역 시작 -->
         <div class="col-xl-6">
             <h3 class="text-center">UO 센터 - SI 서버 (1)</h3>
-            <table id="list_table1" class="table table-sm table-striped text-center">
+            <table id="list_table1" class="table table-sm basic text-center">
                 <thead class="table-info">
                 <tr>
                     <th scope="col" class="text-center">파일 이름</th>
@@ -83,11 +96,14 @@
                 </tbody>
             </table>
         </div>
+        <!-- // A 서버 진행 내역 종료 -->
+
+        <!-- B 서버 진행 내역 시작 -->
         <div class="col-xl-6">
             <h3 class="text-center">
                 <span>O3 센터</span> - <span>SI 서버 (1)</span>
             </h3>
-            <table id="list_table2" class="table table-sm table-striped text-center">
+            <table id="list_table2" class="table table-sm basic text-center">
                 <thead class="table-info">
                 <tr>
                     <th scope="col" class="text-center">파일 이름</th>
@@ -100,6 +116,8 @@
                 </tbody>
             </table>
         </div>
+        <!-- // B 서버 진행 내역 종료 -->
+
     </div>
     <script>
         var si_center = [
