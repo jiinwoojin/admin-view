@@ -51,17 +51,22 @@ var jiMap = function jiMap(options) {
                             var ymin = 99999
                             var xmax = 0
                             var ymax = 0
+                            // 쉼표구분안됨...
+                            if(path === "M 45,150 L 45,30,155,30,155,150"){
+                                path = "M 45,150 L 45,30 155,30 155,150"
+                            }
                             var pathcoords = path.split(" ")
                             var prevx, prevy
                             var startLine = false
                             var percentRate = 1
+                            // 수중학적 밑으로 꺼짐 현상
+                            if(path === "m 45,50 c 0,100 40,120 55,120 15,0 55,-20 55,-120"){
+                                percentRate = 0.43
+                            }
                             jQuery.each(pathcoords, function (idx, pathcoord) {
                                 var xy = pathcoord.split(",")
-                                if (/[Llc]/.test(xy[0])) {
+                                if (/[lc]/.test(xy[0])) {
                                     startLine = true
-                                }
-                                if (/[c]/.test(xy[0])) {
-                                    percentRate = 0.43
                                 }
                                 var x = parseInt(xy[0].replace(/[LCMVHl]/, ""))
                                 var y = parseInt(xy[1])
@@ -83,6 +88,9 @@ var jiMap = function jiMap(options) {
                             override.stroke = "rgb(255,255,255)"
                             override.strokewidth = 0
                             override.fillopacity = 1
+                            if(ymin < 0){
+                                ymin = 0
+                            }
                             ymax = Math.round(ymin + (((ymax * percentRate) - ymin) * (1 - percent)))
                             fillcolor.d = "M " + xmin + "," + ymin + " H " + xmax + " V " + ymax + " H " + xmin + " V " + ymin + " Z"
                             fillcolor.fill = "rgb(255,255,255)"
@@ -93,7 +101,9 @@ var jiMap = function jiMap(options) {
                             newDrawArray2.push(background);
                             newDrawArray2.push(fillcolor);
                             newDrawArray2.push(boundry);
-                            console.log(fillcolor)
+                            //console.log(background.d)
+                            //console.log(override.d)
+                            //console.log(fillcolor.d)
                         }else if(draw.type === 'circle' && exec === false){
                             exec = true
                             var centerx = draw.cx

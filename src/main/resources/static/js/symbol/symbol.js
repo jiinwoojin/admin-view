@@ -108,7 +108,7 @@ var battle_sidc = ''; // battle dimension sidc
 		document.getElementById("SIDC").value = sidc;
 		window.location.hash = sidc
 		var symbol = new ms.Symbol(options)
-		console.log(symbol, options)
+		// console.log(symbol, options)
 		document.getElementById("ImageSymbol").style.width = symbol.getSize().width +'px';
 		document.getElementById("ImageSymbol").style.height = symbol.getSize().height +'px';
 		document.getElementById("ImageSymbol").src = symbol.asCanvas(window.devicePixelRatio).toDataURL();
