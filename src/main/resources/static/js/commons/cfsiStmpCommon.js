@@ -2156,95 +2156,110 @@ var stmp = {
     }
     , milsymbolsGenerator : function(evt){
         var features = evt.features
+        var id = features[0].id
         var geometryType = features[0].geometry.type
         var coord = features[0].geometry.coordinates
         //
         var options = stmp.mapObject.map._drawing_milsymbol.options
         var coordinates = stmp.mapObject.map._drawing_milsymbol_coordinates
-        var prefixLayerId = "milsymbols-" + options.sidc + "-" + options._symbol_serial
-        console.log(prefixLayerId)
-        var data = {}
+        var prefixFeatureId = "milsymbols-" + options.sidc + "-" + options._symbol_serial
+        var datas = []
         if(geometryType === "Point"){
             var imageData = stmp.mapObject.map._drawing_milsymbol.asCanvas().toDataURL()
             stmp.mapObject.map.loadImage(imageData,function(e,image){
-                stmp.mapObject.map.addImage(prefixLayerId + "-image", image)
+                stmp.mapObject.map.addImage(prefixFeatureId + "-image", image)
             })
-            data = {
+            datas.push({
                 type: 'Feature',
-                properties: {type: 'Image'},
+                properties: {type: 'Image', imageId: prefixFeatureId + "-image"},
                 geometry: {
                     type: 'Point',
                     coordinates: coord
                 }
-            }
+            })
         }else if(geometryType === "LineString"){
             jQuery.each(coord, function(idx, point){
                 coordinates.push({x:point[0],y:point[1]})
             })
-            console.log(coordinates, options._coordinates)
+            //console.log(coordinates, options._coordinates)
             drawMsymbol(options._symbol_serial, 'geoJSON')
-            data = JSON.parse(stmp.mapObject.map._drawing_milsymbol._geojson)
+            var data = JSON.parse(stmp.mapObject.map._drawing_milsymbol._geojson)
+            jQuery.each(data.features, function(idx, feature){
+                if(feature.type == "Point"){
+                    feature.properties.type = "Label"
+                }
+            })
+            datas = datas.concat(data.features);
         }
         // draw milsymbol
-        stmp.mapObject.map.addSource(prefixLayerId + '-source-feature', {
-            type: 'geojson',
-            data: data
-        })
-        var features = []
-        if(data.features instanceof Array){
-            features = data.features
-        }else{
-            features.push(data)
-        }
-        jQuery.each(features, function(idx, feature){
-            var sourceId = prefixLayerId + '-source-feature'
-            var prop = feature.properties
-            if(prop.type === "Image"){
-                // 단일심볼
-                stmp.mapObject.map.addLayer({
-                    id: prefixLayerId + '-layer-image-' + idx,
-                    type: 'symbol',
-                    source: sourceId,
-                    layout: {
-                        'icon-image': prefixLayerId + "-image"
-                    },
-                    filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Image']]
-                })
-            }else if(prop.label != ""){
-                // 라벨
-                stmp.mapObject.map.addLayer({
-                    id: prefixLayerId + '-layer-label-' + idx,
-                    type: 'symbol',
-                    source: sourceId,
-                    filter: ['==', '$type', 'Point']
-                })
-            }else{
-                if(prop.fillColor){
-                    // 폴리곤
-                    stmp.mapObject.map.addLayer({
-                        id: prefixLayerId + '-layer-polygon-' + idx,
-                        type: 'fill',
-                        source: sourceId,
-                        paint: {
-                            "fill-color": prop.fillColor ? prop.fillColor : '#000000'
-                        },
-                        filter: ['==', '$type', 'Polygon']
-                    })
-                }else{
-                    // 라인
-                    stmp.mapObject.map.addLayer({
-                        id: prefixLayerId + '-layer-line-' + idx,
-                        type: 'line',
-                        source: sourceId,
-                        paint: {
-                            "line-color": prop.strokeColor ? prop.strokeColor : '#000000',
-                            "line-width": prop.strokeWidth ? prop.strokeWidth : 1
-                        },
-                        filter: ['==', '$type', 'LineString']
-                    })
+        var source = stmp.mapObject.map.getSource('milsymbols-source-feature')
+        if(source === undefined){
+            stmp.mapObject.map.addSource('milsymbols-source-feature', {
+                type: stmp.SOURCE_TYPE.GEOJSON,
+                data: {
+                    type: 'FeatureCollection',
+                    features: datas
                 }
-            }
-        })
+            })
+            source = stmp.mapObject.map.getSource('milsymbols-source-feature')
+        }else{
+            var sourceData = source._data
+            sourceData.features = sourceData.features.concat(datas)
+            source.setData(sourceData)
+        }
+        // 단일심볼 레이어
+        var imageLayer = stmp.mapObject.map.getLayer('milsymbols-layer-image')
+        if(imageLayer === undefined){
+            stmp.mapObject.map.addLayer({
+                id: 'milsymbols-layer-image',
+                type: 'symbol',
+                source: source.id,
+                layout: {
+                    'icon-image': ['get', 'imageId']
+                },
+                filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Image']]
+            },"gl-draw-polygon-fill-inactive.cold")
+        }
+        // 라벨 레이어
+        var labelLayer = stmp.mapObject.map.getLayer('milsymbols-layer-label')
+        if(labelLayer === undefined){
+            stmp.mapObject.map.addLayer({
+                id: 'milsymbols-layer-label',
+                type: 'symbol',
+                source: source.id,
+                layout: {
+                    'icon-image': ['get', 'imageId']
+                },
+                filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Label']]
+            },"gl-draw-polygon-fill-inactive.cold")
+        }
+        // 라인 레이어
+        var lineLayer = stmp.mapObject.map.getLayer('milsymbols-layer-line')
+        if(lineLayer === undefined){
+            stmp.mapObject.map.addLayer({
+                id: 'milsymbols-layer-line',
+                type: 'line',
+                source: source.id,
+                paint: {
+                    "line-color": ['get', 'strokeColor'],
+                    "line-width": ['get', 'strokeWidth']
+                },
+                filter: ['==', '$type', 'LineString']
+            },"gl-draw-polygon-fill-inactive.cold")
+        }
+        // 면 레이어
+        var fillLayer = stmp.mapObject.map.getLayer('milsymbols-layer-fill')
+        if(fillLayer === undefined){
+            stmp.mapObject.map.addLayer({
+                id: 'milsymbols-layer-fill',
+                type: 'fill',
+                source: source.id,
+                paint: {
+                    "fill-color": ['get', 'fillColor']
+                },
+                filter: ['==', '$type', 'Polygon']
+            },"gl-draw-polygon-fill-inactive.cold")
+        }
     }
     /**
      * @param options

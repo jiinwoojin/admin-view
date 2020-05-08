@@ -289,7 +289,7 @@ var jiMap = function jiMap(options) {
                     'paint': {
                         'circle-radius': 5,
                         'circle-opacity': 1,
-                        'circle-color': '#fff'
+                        'circle-color': 'rgba(0, 0, 0, 0)', /* 투명적용 */
                     }
                 },
                 {
@@ -302,7 +302,7 @@ var jiMap = function jiMap(options) {
                     ],
                     'paint': {
                         'circle-radius': 3,
-                        'circle-color': '#3bb2d0'
+                        'circle-color': 'rgba(0, 0, 0, 0)', /* 투명적용 */
                     }
                 },
                 {
