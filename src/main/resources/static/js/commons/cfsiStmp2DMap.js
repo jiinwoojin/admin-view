@@ -398,8 +398,9 @@ jiMap.prototype.setBaseStyle = function setBaseStyle() {
             'world' : {
                 'type' : 'raster',
                 'tiles' : [
-                    "http://211.172.246.71:11100/mapproxy/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=world_k2",
+                    "http://211.172.246.71:11100/mapproxy/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=osm",
                     //"http://211.172.246.71:11130/mapserver/cgi-bin/mapserv?map=/data/jiapp/data_dir/style/basemaps/osm-google.map&bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=default"
+                    //"http://211.172.246.71:11190/osm_tiles/{z}/{x}/{y}.png"
                 ],
                 'tileSize' : 256
             }
