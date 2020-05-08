@@ -2152,11 +2152,32 @@ var stmp = {
      * @param evt
      */
     , milsymbolsPreview : function(evt){
-        //TODO : 작업예정
+        var drawId = evt.features[0].id
+        var drawGeometry = evt.features[0].geometry
+        var source = stmp.mapObject.map.getSource('milsymbols-source-feature')
+        if(source === undefined){
+            return
+        }
+        var sourceData = source._data
+        var features = sourceData.features
+        var targetFeature = null
+        jQuery.each(features, function(idx, feature){
+            if(feature.properties.drawId === drawId){
+                targetFeature = feature
+                return true
+            }
+        })
+        if(targetFeature === null){
+            return
+        }
+        if(targetFeature.geometry.type === "Point"){
+            targetFeature.geometry = drawGeometry
+            source.setData(sourceData)
+        }
     }
     , milsymbolsGenerator : function(evt){
         var features = evt.features
-        var id = features[0].id
+        var drawId = features[0].id
         var geometryType = features[0].geometry.type
         var coord = features[0].geometry.coordinates
         //
@@ -2171,7 +2192,11 @@ var stmp = {
             })
             datas.push({
                 type: 'Feature',
-                properties: {type: 'Image', imageId: prefixFeatureId + "-image"},
+                properties: {
+                    type: 'Image',
+                    imageId: prefixFeatureId + "-image",
+                    drawId : drawId
+                },
                 geometry: {
                     type: 'Point',
                     coordinates: coord
@@ -2181,11 +2206,11 @@ var stmp = {
             jQuery.each(coord, function(idx, point){
                 coordinates.push({x:point[0],y:point[1]})
             })
-            //console.log(coordinates, options._coordinates)
             drawMsymbol(options._symbol_serial, 'geoJSON')
             var data = JSON.parse(stmp.mapObject.map._drawing_milsymbol._geojson)
             jQuery.each(data.features, function(idx, feature){
-                if(feature.type == "Point"){
+                feature.properties.drawId = drawId
+                if(feature.type === "Point"){
                     feature.properties.type = "Label"
                 }
             })
