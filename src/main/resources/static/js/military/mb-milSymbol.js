@@ -8,6 +8,23 @@ function Draw_Symbol() {
     $('#symbol_info').hide();
 }
 
+function Mod_Symbol() {
+    if(stmp.drawControl.getSelectedIds().length === 0){
+        toastr.warning("군대부호가 선택되지 않았습니다.")
+    }
+    var source = stmp.mapObject.map.getSource('milsymbols-source-feature')
+    var features = stmp.drawControl.getSelected().features
+    var sourceData = source._data
+    jQuery.each(features, function(idx, feature){
+        var drawId = feature.id
+        var drawGeometry = feature.geometry
+        sourceData = stmp.milsymbolsChangeSourceData(sourceData,drawId,drawGeometry,"draw")
+    })
+    if(sourceData !== null){
+        source.setData(sourceData)
+    }
+}
+
 function drawBaseSymbol() {
     stmp.addEvent('click', baseSymbolCallBack);
 }

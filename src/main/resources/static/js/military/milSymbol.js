@@ -393,7 +393,7 @@ $(window).ready(function() {
 
 		// 수정 버튼 감추기
 		if($('#mod').hasClass('hidden') === false){
-			$('#mod').addClass('hidden');
+			//$('#mod').addClass('hidden');
 		}
 
 		$('#disabled_p').hide();

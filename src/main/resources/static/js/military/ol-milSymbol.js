@@ -1,31 +1,3 @@
-// draw Symbol
-function Draw_Symbol() {
-    var mil_symbol; // military symbol Object
-
-    // Single(symbol) or Multiple(Graphics)
-    var SorG = $('#SIDCCODINGSCHEME').val();
-    if (SorG.charAt(0) == 'W' || SorG.charAt(0) == 'G') {
-        // max, min, constraint 가져오는 방식 변경
-        var sidc = document.getElementById('SIDC').value;
-        var drawInfo = getDrawGraphicsInfo(sidc);
-        if (drawInfo === undefined || drawInfo.draw_type == '') {
-            $('#symbol_info').hide();
-            return;
-        }
-
-        drawGraphis(drawInfo.min_point, drawInfo.max_point, drawInfo.draw_type, drawInfo.constraint);
-    } else {
-        drawGraphis(1, 1, 'Point', 'milSym');
-
-    }
-    $('#symbol_info').hide();
-}
-
-// modify Symbol
-function Mod_Symbol() {
-
-}
-
 // Only Input Number
 function InputNum(obj) {
     var keyValue = event.keyCode;

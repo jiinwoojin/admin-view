@@ -2148,17 +2148,34 @@ var stmp = {
     /* GRID area */
     /* 군대부호 area start */
     /**
-     * 그리기 중간 이미지
+     * 군대부호 변경
      * @param evt
      */
     , milsymbolsPreview : function(evt){
-        var drawId = evt.features[0].id
-        var drawGeometry = evt.features[0].geometry
         var source = stmp.mapObject.map.getSource('milsymbols-source-feature')
         if(source === undefined){
             return
         }
+        var features = evt.features
         var sourceData = source._data
+        jQuery.each(features, function(idx, feature){
+            var drawId = feature.id
+            var drawGeometry = feature.geometry
+            sourceData = stmp.milsymbolsChangeSourceData(sourceData,drawId,drawGeometry,"move")
+        })
+        if(sourceData !== null){
+            source.setData(sourceData)
+        }
+    }
+    /**
+     * 군대부호 소스 데이터 변경
+     * @param sourceData
+     * @param drawId
+     * @param drawGeometry
+     * @param type
+     * @returns {null|*}
+     */
+    , milsymbolsChangeSourceData : function(sourceData, drawId, drawGeometry, type){
         var features = sourceData.features
         var targetFeatures = []
         jQuery.each(features, function(idx, feature){
@@ -2168,11 +2185,24 @@ var stmp = {
             }
         })
         if(targetFeatures.length === 0){
-            return
+            return null
         }
         jQuery.each(targetFeatures, function(idx, targetFeature){
             if(targetFeature.geometry.type === "Point") {
-                targetFeature.geometry = drawGeometry
+                if(type === "move"){
+                    targetFeature.geometry = drawGeometry
+                }else if(type === "draw"){
+                    var options = stmp.getMilsymbolOptions()
+                    var symbol = new ms.Symbol(options) // 심볼생성
+                    var imageData = symbol.asCanvas().toDataURL()
+                    stmp.mapObject.map.loadImage(imageData,function(e,image){
+                        if(stmp.mapObject.map.hasImage(drawId + "-image")){
+                            stmp.mapObject.map.removeImage(drawId + "-image")
+                        }
+                        stmp.mapObject.map.addImage(drawId + "-image",image)
+                    })
+                    targetFeature.properties.imageId = drawId + "-image"
+                }
             }else if(targetFeature.geometry.type === "LineString"
                 || targetFeature.geometry.type === "MultiLineString"
                 || targetFeature.geometry.type === "Polygon"){
@@ -2194,7 +2224,7 @@ var stmp = {
                 sourceData.features = sourceData.features.concat(data.features)
             }
         })
-        source.setData(sourceData)
+        return sourceData
     }
     , milsymbolsGenerator : function(evt){
         var features = evt.features
@@ -2209,13 +2239,13 @@ var stmp = {
         if(geometryType === "Point"){
             var imageData = stmp.mapObject.map._drawing_milsymbol.asCanvas().toDataURL()
             stmp.mapObject.map.loadImage(imageData,function(e,image){
-                stmp.mapObject.map.addImage(prefixFeatureId + "-image", image)
+                stmp.mapObject.map.addImage(drawId + "-image", image)
             })
             datas.push({
                 type: 'Feature',
                 properties: {
                     type: 'Image',
-                    imageId: prefixFeatureId + "-image",
+                    imageId: drawId + "-image",
                     drawId : drawId
                 },
                 geometry: {
