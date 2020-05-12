@@ -32,5 +32,6 @@ public class ServerBasicPerformance {
         this.totalCapacity = -1L;
         this.usedCapacity = -1L;
         this.cpuUsage = -1.0f;
+        this.connections = -1L;
     }
 }

@@ -33,6 +33,7 @@ public class AdminWebApplication extends SpringBootServletInitializer implements
     public void run(String... args) {
         bootingService.initializeRoles();
         bootingService.initializeAccounts();
+        bootingService.initializeServerConnections();
 
 //        try {
 //            bootingService.initializeCache();

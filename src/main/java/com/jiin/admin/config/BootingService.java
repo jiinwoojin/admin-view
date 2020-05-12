@@ -2,11 +2,15 @@ package com.jiin.admin.config;
 
 import com.jiin.admin.dto.AccountDTO;
 import com.jiin.admin.entity.*;
+import com.jiin.admin.entity.enumeration.ServerType;
 import com.jiin.admin.website.gis.MapProxyYamlComponent;
+import com.jiin.admin.website.model.ServerConnectionModel;
+import com.jiin.admin.website.model.ServerRelationModel;
 import com.jiin.admin.website.server.mapper.CheckMapper;
 import com.jiin.admin.website.view.mapper.AccountMapper;
 import com.jiin.admin.website.view.mapper.ProxyMapper;
 import com.jiin.admin.website.view.mapper.ManageMapper;
+import com.jiin.admin.website.view.mapper.ServiceMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
@@ -18,7 +22,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
+import java.util.*;
 
 
 @Service
@@ -53,6 +57,9 @@ public class BootingService {
 
     @Resource
     private AccountMapper accountMapper;
+
+    @Resource
+    private ServiceMapper serviceMapper;
 
     @Transactional
     public void initializeSymbol() {
@@ -212,6 +219,291 @@ public class BootingService {
         }
         if(checkMapper.countDuplicateRole("USER") < 1){
             accountMapper.insertRole(new RoleEntity(null, "USER", "일반 사용자", false, false, false, false, false));
+        }
+    }
+
+    @Transactional
+    public void initializeServerConnections(){
+        final List<String> KEY_LIST = Arrays.asList("B1-Svr1", "B1-Svr2", "NB1-Svr1", "NB1-Svr2", "U3-Svr1", "U3-Svr2", "NU3-Svr1", "NU3-Svr2", "GOC-Svr1", "GOC-Svr2", "B1-CDS", "U3-CDS");
+        for(String key : KEY_LIST){
+            if(serviceMapper.findServerConnectionByName(key) == null){
+                ServerConnectionModel model = null;
+                switch(key){
+                    case "B1-Svr1" :
+                        model = new ServerConnectionModel(0L, "B1-Svr1", "B1 SI Server 1", ServerType.SI.name(), "192.168.1.141", "jiapp", "jiin0701!");
+                        break;
+                    case "B1-Svr2" :
+                        model = new ServerConnectionModel(0L, "B1-Svr2", "B1 SI Server 2", ServerType.SI.name(), "192.168.1.142", "jiapp", "jiin0701!");
+                        break;
+                    case "NB1-Svr1" :
+                        model = new ServerConnectionModel(0L, "NB1-Svr1", "B1 N-SI Server 1", ServerType.N_SI.name(), "192.168.1.152", "jiapp", "jiin0701!");
+                        break;
+                    case "NB1-Svr2" :
+                        model = new ServerConnectionModel(0L, "NB1-Svr2", "B1 N-SI Server 2", ServerType.N_SI.name(), "192.168.1.153", "jiapp", "jiin0701!");
+                        break;
+                    case "U3-Svr1" :
+                        model = new ServerConnectionModel(0L, "U3-Svr1", "U3 SI Server 1", ServerType.SI.name(), "192.168.1.155", "jiapp", "jiin0701!");
+                        break;
+                    case "U3-Svr2" :
+                        model = new ServerConnectionModel(0L, "U3-Svr2", "U3 SI Server 2", ServerType.SI.name(), "192.168.1.156", "jiapp", "jiin0701!");
+                        break;
+                    case "NU3-Svr1" :
+                        model = new ServerConnectionModel(0L, "NU3-Svr1", "U3 N-SI Server 1", ServerType.N_SI.name(), "192.168.1.158", "jiapp", "jiin0701!");
+                        break;
+                    case "NU3-Svr2" :
+                        model = new ServerConnectionModel(0L, "NU3-Svr2", "U3 N-SI Server 2", ServerType.N_SI.name(), "192.168.1.159", "jiapp", "jiin0701!");
+                        break;
+                    case "GOC-Svr1" :
+                        model = new ServerConnectionModel(0L, "GOC-Svr1", "GOC SI Server 1", ServerType.SI.name(), "192.168.1.161", "jiapp", "jiin0701!");
+                        break;
+                    case "GOC-Svr2" :
+                        model = new ServerConnectionModel(0L, "GOC-Svr2", "GOC SI Server 2", ServerType.SI.name(), "192.168.1.162", "jiapp", "jiin0701!");
+                        break;
+                    case "B1-CDS" :
+                        model = new ServerConnectionModel(0L, "B1-CDS", "B1 CDS", ServerType.CDS.name(), "192.168.1.164", "jiapp", "jiin0701!");
+                        break;
+                    case "U3-CDS" :
+                        model = new ServerConnectionModel(0L, "U3-CDS", "U3 CDS", ServerType.CDS.name(), "192.168.1.165", "jiapp", "jiin0701!");
+                        break;
+                }
+                if(model != null) serviceMapper.insertServerConnectionWithModel(model);
+            }
+        }
+
+        if(serviceMapper.findAllServerRelations().size() == 0) {
+            Map<String, ServerConnectionEntity> map = new HashMap<>();
+            for (String key : KEY_LIST) {
+                ServerConnectionEntity entity = serviceMapper.findServerConnectionByName(key);
+                map.put(key, entity);
+            }
+
+            // B1-Svr1
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr1").getId(), map.get("B1-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr1").getId(), map.get("B1-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr1").getId(), map.get("U3-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr1").getId(), map.get("U3-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr1").getId(), map.get("GOC-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr1").getId(), map.get("GOC-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr1").getId(), map.get("B1-CDS").getId())
+            );
+
+            // B2-Svr1
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr2").getId(), map.get("B1-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr2").getId(), map.get("B1-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr2").getId(), map.get("U3-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr2").getId(), map.get("U3-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr2").getId(), map.get("GOC-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr2").getId(), map.get("GOC-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-Svr2").getId(), map.get("B1-CDS").getId())
+            );
+
+            // NB1-Svr1
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NB1-Svr1").getId(), map.get("NB1-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NB1-Svr1").getId(), map.get("NB1-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NB1-Svr1").getId(), map.get("NU3-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NB1-Svr1").getId(), map.get("NU3-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NB1-Svr1").getId(), map.get("B1-CDS").getId())
+            );
+
+            // NB1-Svr2
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NB1-Svr2").getId(), map.get("NB1-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NB1-Svr2").getId(), map.get("NB1-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NB1-Svr2").getId(), map.get("NU3-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NB1-Svr2").getId(), map.get("NU3-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NB1-Svr2").getId(), map.get("B1-CDS").getId())
+            );
+
+            // U3-Svr1
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr1").getId(), map.get("B1-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr1").getId(), map.get("B1-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr1").getId(), map.get("U3-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr1").getId(), map.get("U3-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr1").getId(), map.get("GOC-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr1").getId(), map.get("GOC-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr1").getId(), map.get("B1-CDS").getId())
+            );
+
+            // U3-Svr2
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr2").getId(), map.get("B1-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr2").getId(), map.get("B1-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr2").getId(), map.get("U3-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr2").getId(), map.get("U3-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr2").getId(), map.get("GOC-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr2").getId(), map.get("GOC-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-Svr2").getId(), map.get("U3-CDS").getId())
+            );
+
+            // NU3-Svr1
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NU3-Svr1").getId(), map.get("NB1-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NU3-Svr1").getId(), map.get("NB1-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NU3-Svr1").getId(), map.get("NU3-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NU3-Svr1").getId(), map.get("NU3-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NU3-Svr1").getId(), map.get("U3-CDS").getId())
+            );
+
+            // NU3-Svr2
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NU3-Svr2").getId(), map.get("NB1-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NU3-Svr2").getId(), map.get("NB1-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NU3-Svr2").getId(), map.get("NU3-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NU3-Svr2").getId(), map.get("NU3-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("NU3-Svr2").getId(), map.get("U3-CDS").getId())
+            );
+
+            // GOC-Svr1
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("GOC-Svr1").getId(), map.get("B1-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("GOC-Svr1").getId(), map.get("B1-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("GOC-Svr1").getId(), map.get("U3-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("GOC-Svr1").getId(), map.get("U3-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("GOC-Svr1").getId(), map.get("GOC-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("GOC-Svr1").getId(), map.get("GOC-Svr2").getId())
+            );
+
+            // GOC-Svr2
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("GOC-Svr2").getId(), map.get("B1-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("GOC-Svr2").getId(), map.get("B1-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("GOC-Svr2").getId(), map.get("U3-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("GOC-Svr2").getId(), map.get("U3-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("GOC-Svr2").getId(), map.get("GOC-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("GOC-Svr2").getId(), map.get("GOC-Svr2").getId())
+            );
+
+            // B1-CDS
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-CDS").getId(), map.get("B1-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-CDS").getId(), map.get("B1-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-CDS").getId(), map.get("NB1-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("B1-CDS").getId(), map.get("NB1-Svr2").getId())
+            );
+
+            // U3-CDS
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-CDS").getId(), map.get("U3-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-CDS").getId(), map.get("U3-Svr2").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-CDS").getId(), map.get("NU3-Svr1").getId())
+            );
+            serviceMapper.insertServerRelationWithModel(
+                    new ServerRelationModel(0L, map.get("U3-CDS").getId(), map.get("NU3-Svr2").getId())
+            );
         }
     }
 }
