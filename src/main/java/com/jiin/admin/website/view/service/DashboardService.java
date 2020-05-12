@@ -201,8 +201,8 @@ public class DashboardService {
     }
 
     // 자신의 서버와 연결이 되는 목록을 가져온다. (지금은 리눅스만 가능)
-    public Map<String, ServerBasicPerformance> getEachFirstConnectionsMap() {
-        Map<String, ServerBasicPerformance> map = new LinkedHashMap<>();
+    public Map<String, String> getEachFirstConnectionsMap() {
+        Map<String, String> map = new LinkedHashMap<>();
         String ipAddr = this.getOwnIpAddressInLinux();
 
         // 제공하는 서버가 윈도우가 아닌 경우에만 실행한다. (윈도우일 때, 제공 방안은 추후 개발 필요.)
@@ -218,12 +218,11 @@ public class DashboardService {
                 String name = key.split("-")[1];
 
                 if(ownName.equals(name)) {
-                    map.put(center.startsWith("N") ? center.substring(1) : center, this.getServerBasicPerformance(connection));
+                    map.put(center.startsWith("N") ? center.substring(1) : center, key);
                 }
             }
             return map;
         }
-
         return map;
     }
 

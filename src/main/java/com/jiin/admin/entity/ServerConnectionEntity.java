@@ -62,6 +62,12 @@ public class ServerConnectionEntity implements Persistable<Long> {
     @Column(name = "PASSWORD", nullable = false, length = 512)
     private String password;
 
+    /**
+     * Connection 정보 포트
+     */
+    @Column(name = "PORT", length = 10, nullable = false)
+    private String port;
+
     @Override
     public boolean isNew() {
         return false;
