@@ -30,74 +30,23 @@
                 <tr>
                     <th scope="col" class="text-center">IP 주소</th>
                     <th scope="col" class="text-center">서비스 이름</th>
-                    <th scope="col" class="text-center">포트 번호</th>
-                    <th scope="col" class="text-center">수정 및 삭제</th>
+                    <th scope="col" class="text-center">서버 타입</th>
+                    <th scope="col" class="text-center">수정</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="text-center align-middle">192.168.1.1</td>
-                    <td class="text-center align-middle">SI BO 서버 1</td>
-                    <td class="text-center align-middle">22</td>
-                    <td class="text-center align-middle">
-                        <button th:id="${ 'addressUpdate' + 1 }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#addressDataUpdate">
-                            <i class="fas fa-cog"></i>
-                        </button>
-                        <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/server/address-delete/' + 1 }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
-                            <i class="fas fa-trash"></i>
-                        </a>
+                <tr th:each="connection : ${ connections }">
+                    <td class="text-center align-middle" th:text="${connection.ipAddress}">[IP 주소]</td>
+                    <td class="text-center align-middle" th:text="${connection.title}">[서비스 제목]</td>
+                    <td class="text-center align-middle" th:switch="${connection.type.name()}">
+                        <span th:text="${'SI'}" th:case="SI"></span>
+                        <span th:text="${'N-SI'}" th:case="N_SI"></span>
+                        <span th:text="${'CDS'}" th:case="CDS"></span>
                     </td>
-                </tr>
-                <tr>
-                    <td class="text-center align-middle">192.168.1.2</td>
-                    <td class="text-center align-middle">SI BO 서버 2</td>
-                    <td class="text-center align-middle">22</td>
                     <td class="text-center align-middle">
-                        <button th:id="${ 'addressUpdate' + 2 }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#addressDataUpdate">
+                        <button id="connectUpdate" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#addressDataUpdate">
                             <i class="fas fa-cog"></i>
                         </button>
-                        <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/server/address-delete/' + 2 }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center align-middle">192.168.1.3</td>
-                    <td class="text-center align-middle">N-SI BO 서버 1</td>
-                    <td class="text-center align-middle">22</td>
-                    <td class="text-center align-middle">
-                        <button th:id="${ 'addressUpdate' + 3 }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#addressDataUpdate">
-                            <i class="fas fa-cog"></i>
-                        </button>
-                        <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/server/address-delete/' + 3 }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center align-middle">192.168.1.4</td>
-                    <td class="text-center align-middle">N-SI BO 서버 2</td>
-                    <td class="text-center align-middle">22</td>
-                    <td class="text-center align-middle">
-                        <button th:id="${ 'addressUpdate' + 4 }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#addressDataUpdate">
-                            <i class="fas fa-cog"></i>
-                        </button>
-                        <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/server/address-delete/' + 4 }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="text-center align-middle">192.168.1.5</td>
-                    <td class="text-center align-middle">SI O3 서버 1</td>
-                    <td class="text-center align-middle">22</td>
-                    <td class="text-center align-middle">
-                        <button th:id="${ 'addressUpdate' + 5 }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#addressDataUpdate">
-                            <i class="fas fa-cog"></i>
-                        </button>
-                        <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/server/address-delete/' + 5 }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
-                            <i class="fas fa-trash"></i>
-                        </a>
                     </td>
                 </tr>
                 </tbody>
@@ -156,7 +105,7 @@
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
-    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
 </th:block>
 </html>

@@ -1,5 +1,6 @@
 package com.jiin.admin.website.server.controller;
 
+import com.jiin.admin.entity.ServerConnectionEntity;
 import com.jiin.admin.website.gis.StatusService;
 import com.jiin.admin.website.server.vo.ServerBasicPerformance;
 import com.jiin.admin.website.server.vo.SynchronizeBasicInfo;
@@ -23,9 +24,14 @@ public class DashboardRestController {
     @Autowired
     private StatusService statusService;
 
-    @GetMapping("performance/own")
+    @GetMapping("performance")
     public ServerBasicPerformance getOwnBasicServerPerformanceJSON(){
         return dashboardService.getOwnServerBasicPerformance();
+    }
+
+    @GetMapping("connection/{key}")
+    public ServerConnectionEntity getAnotherConnectionJSON(@PathVariable String key){
+        return dashboardService.getAnotherConnection(key);
     }
 
     @GetMapping("sync-brief/{serverName}")
