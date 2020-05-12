@@ -578,14 +578,15 @@
                 "observer_lat": 36.95,
                 "observer_height": 2,
                 "target_height": 10,
-                "semi_dimension": 100,
+                "semi_dimension": 400,
                 "visible_color": "#0000FF",
                 "invisible_color": "#FF0000",
                 "image_alpha": 32,
+                "image_shape": 1,
                 "input_dem_level": 2,
                 "output_directory": "jiin/mims",
                 "output_file_format": ".png",
-                "run_async": 1
+                "run_async": 0
             };
 
             console.log(JSON.stringify(json));
@@ -594,6 +595,7 @@
             $.ajax({
                 //url : CONTEXT + '/view/los/requestLos'
                 url : 'http://211.172.246.71:11100/height/viewshed'
+                //url : 'http://localhost:5000/viewshed'
                 , type : 'post'
                 , contentType : 'application/json'
                 , data : JSON.stringify(json)
