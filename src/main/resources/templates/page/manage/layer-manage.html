@@ -8,7 +8,7 @@
         <h2 class="page_tit">LAYER 관리</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a th:href="@{/view/manage/map-manage?pg=1&sz=9&lType=ALL&units=ALL}">지도 관리</a>
+                <a th:href="@{/view/manage/map-manage?pg=1&sz=8&lType=ALL&units=ALL}">지도 관리</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">LAYER 관리</li>
         </ol>
@@ -16,11 +16,186 @@
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
-    <!-- LAYER 추가 버튼 -->
-    <div id="layer_config_button" class="text-right my-1">
-        <button data-toggle="modal" data-target="#layer-create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-plus fa-sm text-white-50"></i> LAYER 추가
-        </button>
+    <div class="button_area">
+        <div id="layer_config_button" class="text-right mb-2">
+            <!-- LAYER 추가 버튼 -->
+            <button data-toggle="modal" data-target="#layer-create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <i class="fas fa-plus fa-sm text-white-50"></i> LAYER 추가
+            </button>
+        </div>
+    </div>
+
+    <!-- search area #START -->
+    <div class="search_area">
+        <div class="ibox">
+            <div class="ibox-content">
+                <form onsubmit="return onsubmit_check()">
+                    <div class="input-group">
+                        <input type="hidden" name="pg" value="1" />
+                        <input type="hidden" name="sz" value="9" />
+                        <input placeholder="검색어를 입력하세요." id="st" name="st" type="text" th:value="${param.st}" class="form-control form-control-sm" />
+                        <span class="input-group-append">
+                            <button type="submit" class="btn btn-sm btn-primary" title="검색">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </span>
+                        <button type="button" class="btn btn-sm btn-info m-l-xs" title="검색 조건" data-toggle="collapse" data-target="#searchFilter">
+                            <i class="fas fa-filter"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-warning m-l-xs" onclick="onclick_refresh_search()">
+                            <i class="fas fa-sync"></i>
+                        </button>
+                    </div>
+
+                    <div class="collapse" id="searchFilter">
+                        <div class="form-row my-1">
+                            <!-- 검색 방식 선택 -->
+                            <div class="col-md-6 mb-1">
+                                <label for="ob">정렬 방식</label>
+                                <select id="ob" name="ob" class="form-control form-control-sm">
+                                    <option th:each="ob : ${ obList }" th:text="${ ob.label }" th:value="${ ob.value }" th:selected="${ #strings.equals(param.ob, #strings.toString(ob.value)) }"></option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-1">
+                                <label for="sb">검색 종류</label>
+                                <select id="sb" name="sb" class="form-control form-control-sm">
+                                    <option th:each="sb : ${ sbList }" th:text="${ sb.label }" th:value="${ sb.value }" th:selected="${ #strings.equals(param.sb, #strings.toString(sb.value)) }"></option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>업로드 시작</label>
+                                <input id="sDate" name="sDate" type="date" class="form-control" th:value="${param.sDate}" />
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>업로드 종료</label>
+                                <input id="eDate" name="eDate" type="date" class="form-control" th:value="${param.eDate}" />
+                            </div>
+
+                            <div class="col-md-4 mt-1">
+                                <div id="iType_box">
+                                    <label class="mr-1">데이터 유형</label>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" id="all" name="lType" value="ALL" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'ALL') }" />
+                                        <label class="form-check-label" for="vector">모두</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" id="raster" name="lType" value="RASTER" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'RASTER') }" />
+                                        <label class="form-check-label" for="raster">레스터</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input type="radio" id="vector" name="lType" value="VECTOR" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'VECTOR') }" />
+                                        <label class="form-check-label" for="vector">벡터</label>
+                                    </div>
+                                </div>
+
+                                <div id="date_box">
+                                    <label class="mr-1">일정 구간</label>
+                                    <div class="btn-group my-1">
+                                        <button type="button" class="btn btn-secondary" onclick="onclick_day_button(1)">1 일</button>
+                                        <button type="button" class="btn btn-secondary" onclick="onclick_day_button(3)">3 일</button>
+                                        <button type="button" class="btn btn-secondary" onclick="onclick_day_button(7)">7 일</button>
+                                        <button type="button" class="btn btn-secondary" onclick="onclick_day_button(30)">30 일</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- pannal List #START -->
+    <div class="result_area">
+
+        <div class="search_count">
+            <h3 class="session_tit">검색 결과 : 총 <span th:text="${ resMap.count }" id="total"></span> 건</h3>
+        </div>
+
+        <ul class="col_list col_xxl_3" th:if="${ resMap.count > 0 }">
+            <li th:each="layer : ${ resMap.data }">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h3 class="section_tit" th:text="${layer.name}">[LAYER 제목]</h3>
+                        <div class="ibox-tools">
+                            <a th:if="${layer.isDefault()}" href="#" data-toggle="tooltip" data-placement="top" title="수정 및 삭제 불가.">
+                                <i class="fas fa-map-pin"></i>
+                            </a>
+                            <a th:if="${!layer.isDefault()}" data-toggle="modal" href="#layer-update" data-target="#layer-update"
+                                   th:data-id="${ layer.id }"
+                                   th:data-name="${ layer.name }"
+                                   th:data-description="${ layer.description }"
+                                   th:data-projection="${ layer.projection }"
+                                   th:data-middleFolder="${ layer.middleFolder }"
+                                   th:data-layertype="${ layer.type }"
+                                   th:data-filepath="${ layer.dataFilePath }"
+                            >
+                                <i class="fas fa-cog"></i>
+                            </a>
+                            <a th:if="${!layer.isDefault()}" th:onclick="delLayer(this,[[${layer.name}]],[[${layer.id}]])" title="삭제">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-stripped small m-t-md">
+                            <tbody>
+                            <tr>
+                                <th class="no-borders">
+                                    <i class="fas fa-calendar"></i> 등록일
+                                </th>
+                                <td class="no-borders">
+                                    <span th:text="${layer.registTime}">[LAYER 등록일]</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <i class="fas fa-user"></i> 등록자
+                                </th>
+                                <td>
+                                    <span th:text="${layer.registorName}">[LAYER 등록자]</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <i class="fas fa-book"></i> 내용 설명
+                                </th>
+                                <td>
+                                    <span th:text="${layer.description}">[LAYER 내용 설명]</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <i class="fas fa-binoculars"></i> 투영
+                                </th>
+                                <td>
+                                    <span th:text="${layer.projection}">[LAYER 투영]</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="jumbotron jumbotron-fluid" th:unless="${ resMap.count > 0 }">
+            <div class="container">
+                <h1 class="display-4">
+                    <i class="fas fa-times-circle"></i> No Results.
+                </h1>
+                <p class="lead">해당하는 데이터가 존재하지 않습니다. 다른 방법으로 검색 시도 바랍니다.</p>
+            </div>
+        </div>
+        <!-- pannal List #END -->
+
+        <!-- pageNavigation #START -->
+        <th:block th:replace="fragments/html-pagination-bar :: html-pagination-bar('layer-manage')" />
+        <!-- pageNavigation #END -->
+
     </div>
 
     <!-- LAYER 추가 Modal -->
@@ -182,316 +357,195 @@
         </div>
     </div>
 
-    <!-- 레이어 검색 필드 -->
-    <div class="row">
-        <!-- 검색 방식 선택 -->
-        <form class="col-lg-3 col-md-4" onsubmit="return onsubmit_check()">
-            <input type="hidden" name="pg" value="1" />
-            <input type="hidden" name="sz" value="9" />
+    <script th:inline="javascript">
+        var message = /*[[ ${message} ]]*/ null;
+        var table = null;
+        $(document).ready(function() {
+            if (!jQuery.isEmptyObject(message)) {
+                toastr.info(message);
+            }
 
-            <div class="form-group">
-                <label for="ob">정렬 방식</label>
-                <select id="ob" name="ob" class="form-control">
-                    <option th:each="ob : ${ obList }" th:text="${ ob.label }" th:value="${ ob.value }" th:selected="${ #strings.equals(param.ob, #strings.toString(ob.value)) }"></option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="sb">검색 종류</label>
-                <select id="sb" name="sb" class="form-control" th:selected="${param.sb}">
-                    <option th:each="sb : ${ sbList }" th:text="${ sb.label }" th:value="${ sb.value }" th:selected="${ #strings.equals(param.sb, #strings.toString(sb.value)) }"></option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="st">키워드 검색</label>
-                <input id="st" name="st" type="text" class="form-control" placeholder="검색어" th:value="${param.st}" />
-            </div>
-
-            <div class="form-group">
-                <label>업로드 일자</label>
-                <input id="sDate" name="sDate" type="date" class="form-control mb-1" th:value="${param.sDate}" />
-                <input id="eDate" name="eDate" type="date" class="form-control mt-1" th:value="${param.eDate}" />
-
-                <div class="btn-group d-flex my-1">
-                    <button type="button" class="btn btn-secondary" onclick="onclick_day_button(1)">1 일</button>
-                    <button type="button" class="btn btn-secondary" onclick="onclick_day_button(3)">3 일</button>
-                    <button type="button" class="btn btn-secondary" onclick="onclick_day_button(7)">7 일</button>
-                    <button type="button" class="btn btn-secondary" onclick="onclick_day_button(30)">30 일</button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>데이터 유형</label>
-                <div class="form-check">
-                    <input type="radio" id="all" name="lType" value="ALL" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'ALL') }" />
-                    <label class="form-check-label" for="vector">모두</label>
-                </div>
-                <div class="form-check">
-                    <input type="radio" id="raster" name="lType" value="RASTER" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'RASTER') }" />
-                    <label class="form-check-label" for="raster">레스터</label>
-                </div>
-                <div class="form-check">
-                    <input type="radio" id="vector" name="lType" value="VECTOR" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'VECTOR') }" />
-                    <label class="form-check-label" for="vector">벡터</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <button class="btn btn-block btn-primary my-1" type="submit">
-                    <i class="fas fa-search"></i> 검색
-                </button>
-                <button class="btn btn-block btn-warning my-1" type="button" onclick="onclick_refresh_search()">
-                    <i class="fas fa-sync"></i> 초기화
-                </button>
-            </div>
-        </form>
-
-        <!-- Layer List View -->
-        <!-- Data Exists -->
-        <div class="col-lg-9 col-md-8" th:if="${ resMap.count > 0 }">
-            <h4 class="mt-1">검색 결과 : 총 <span th:text="${ resMap.count }" id="total"></span> 건</h4>
-
-            <th:block th:replace="fragments/html-pagination-bar :: html-pagination-bar('layer-manage')" />
-
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-12 mb-2 layer-item" th:each="layer : ${ resMap.data }">
-                    <div class="card">
-                        <!--<img class="card-img-top p-2" th:src="'../image/' + ${layer['thumbnail'] + '.thumbnail.img'}" alt="Card image cap">-->
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${ layer.name }"></h5>
-                            <p class="card-text">
-                                <i class="fas fa-calendar"></i> <span th:text="${ layer.registTime }"></span><br/>
-                                <i class="fas fa-user"></i> <span th:text="${ layer.registorName }"></span><br/>
-                                <i class="fas fa-atlas"></i> <span th:text="${ layer.description }"></span><br/>
-                                <th:block th:if="${layer.isDefault()}">
-                                    <i class="fas fa-layer-group" ></i> <span>기본레이어(편집불가)</span>
-                                </th:block>
-                            </p>
-                            <div class="text-right">
-                                <button th:if="${ !layer.isDefault() }" data-toggle="modal" data-target="#layer-update" class="btn btn-primary"
-                                        th:data-id="${ layer.id }"
-                                        th:data-name="${ layer.name }"
-                                        th:data-description="${ layer.description }"
-                                        th:data-projection="${ layer.projection }"
-                                        th:data-middleFolder="${ layer.middleFolder }"
-                                        th:data-layertype="${ layer.type }"
-                                        th:data-filepath="${ layer.dataFilePath }"
-                                >
-                                    <i class="fas fa-cog"></i>
-                                </button>
-                                <span th:if="${ !layer.isDefault() }" class="btn btn-danger" th:onclick="delLayer(this, [[${layer.name}]], [[${layer.id}]])" >
-                                    <i class="fas fa-trash"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Data Not Exists -->
-        <div class="col-lg-9 col-md-8" th:unless="${ resMap.count > 0 }">
-            <div class="jumbotron jumbotron-fluid">
-                <div class="container">
-                    <h1 class="display-4">
-                        <i class="fas fa-times-circle"></i> No Results.
-                    </h1>
-                    <p class="lead">해당하는 데이터가 존재하지 않습니다. 다른 방법으로 검색 시도 바랍니다.</p>
-                </div>
-            </div>
-        </div>
-
-        <script th:inline="javascript">
-            var message = /*[[ ${message} ]]*/ null;
-            var table = null;
-            $(document).ready(function() {
-                if (!jQuery.isEmptyObject(message)) {
-                    toastr.info(message);
-                }
-
-                $('#layer-name').change(function() {
-                    $('#layer-name').data("check-duplicate",false);
-                    $('#duplicate-check-message').text("중복확인을 해주세요.");
-                });
-
-                $(".custom-file-input").on("change", function() {
-                    var fileName = $(this).val().split("\\").pop();
-                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-                });
+            $('#layer-name').change(function() {
+                $('#layer-name').data("check-duplicate",false);
+                $('#duplicate-check-message').text("중복확인을 해주세요.");
             });
 
-            function preSubmit(form) {
-                var action = form.action;
-                if (action.indexOf("add-layer") > -1) {
-                    addLayer(form);
-                } else if(action.indexOf("update-layer") > -1) {
-                    return true;
-                }
-                return false;
+            $(".custom-file-input").on("change", function() {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        });
+
+        function preSubmit(form) {
+            var action = form.action;
+            if (action.indexOf("add-layer") > -1) {
+                addLayer(form);
+            } else if(action.indexOf("update-layer") > -1) {
+                return true;
             }
+            return false;
+        }
 
-            function addLayer(form) {
-                if (jQuery.isEmptyObject(form['name'].value)) {
-                    form['name'].focus();
-                    toastr.warning("이름이 입력되지 않았습니다.");
-                    return;
-                }else if(jQuery(form['name']).data("check-duplicate") === false) {
-                    toastr.warning("이름 중복확인이 되지 않았습니다.");
-                    return;
-                }else if(form['data_file'].value == ''){
-                    toastr.warning("레이어 파일을 업로드 하시길 바랍니다. Raster 파일은 *.tiff, Vector 파일은 *.shp 이 포함된 *.zip 입니다.");
-                    return;
-                }
-                form.submit();
+        function addLayer(form) {
+            if (jQuery.isEmptyObject(form['name'].value)) {
+                form['name'].focus();
+                toastr.warning("이름이 입력되지 않았습니다.");
+                return;
+            }else if(jQuery(form['name']).data("check-duplicate") === false) {
+                toastr.warning("이름 중복확인이 되지 않았습니다.");
+                return;
+            }else if(form['data_file'].value == ''){
+                toastr.warning("레이어 파일을 업로드 하시길 바랍니다. Raster 파일은 *.tiff, Vector 파일은 *.shp 이 포함된 *.zip 입니다.");
+                return;
             }
+            form.submit();
+        }
 
-            function delLayer(ths, layerName, layerId) {
-                if (confirm("[ " + layerName + " ] Layer 를 제거 하시겠습니까?")) {
-                    jQuery.post({
-                        url: CONTEXT + "/view/manage/del-layer",
-                        data: {layerId : layerId}
-                    }).done(function(result) {
-                        if (result) {
-                            toastr.success("Layer [ " + layerName + " ] 가 제거 되었습니다.");
-                            jQuery(ths).parents('.layer-item').remove();
-                            var total = $('#total');
-                            total.html((Number(total.html()) - 1));
-                        } else {
-                            toastr.error('Layer 제거 중 오류가 발생하였습니다.');
-                        }
-                    }).fail(function() {
-                        toastr.error('Layer 제거에 실패하였습니다.');
-                    }).always(function() {
-                        jQuery("#loader-wrapper").hide();
-                    });
-                }
+        function delLayer(ths, layerName, layerId) {
+            if (confirm("[ " + layerName + " ] Layer 를 제거 하시겠습니까?")) {
+                jQuery.post({
+                    url: CONTEXT + "/view/manage/del-layer",
+                    data: {layerId : layerId}
+                }).done(function(result) {
+                    if (result) {
+                        toastr.success("Layer [ " + layerName + " ] 가 제거 되었습니다.");
+                        jQuery(ths).parents('.layer-item').remove();
+                        var total = $('#total');
+                        total.html((Number(total.html()) - 1));
+                    } else {
+                        toastr.error('Layer 제거 중 오류가 발생하였습니다.');
+                    }
+                }).fail(function() {
+                    toastr.error('Layer 제거에 실패하였습니다.');
+                }).always(function() {
+                    jQuery("#loader-wrapper").hide();
+                });
             }
+        }
 
-            function addSource(id) {
-                var option;
-                if (id) {
-                    option = jQuery("#___customSelect").find("option[value='"+id+"']");
-                } else {
-                    option = jQuery("#___customSelect").find("option:checked")
-                }
-                var area = jQuery("#parent-buttons");
-                var sources = area.find("[data-source-id]");
-                if (sources.length === 0) {
-                    area.empty();
-                }
-                area.append("<button data-source-id='"+option.val()+"' type=\"button\" class=\"btn btn-outline-warning mb-1 ml-1 p-1 hidden\" " +
-                    "               style=\"padding-top: 3px !important;padding-bottom: 3px !important;\"><span>"+option.text()+"</span>\n" +
-                    "           <i class=\"fa fa-fw fa-times\" onclick=\"removeSource('"+option.val()+"')\"></i>\n" +
-                    "               <input type=\"hidden\" name=\"sources\" value=\""+option.val()+"\">\n" +
-                    "       </button>");
-                if (id) {
-                    // nothing
-                } else {
-                    toastr.success("Source[" + option.text() + "]가 연결되었습니다.");
-                }
+        function addSource(id) {
+            var option;
+            if (id) {
+                option = jQuery("#___customSelect").find("option[value='"+id+"']");
+            } else {
+                option = jQuery("#___customSelect").find("option:checked")
             }
-
-            function removeSource(sourceId) {
-                var area = jQuery("#parent-buttons");
-                var source = area.find("[data-source-id='"+sourceId+"']");
-                source.remove();
-                //
-                var sources = area.find("[data-source-id]");
-                if (sources.length === 0) {
-                    area.append("<button type=\"button\" class=\"btn btn-warning text-white mb-1 p-1\" style=\"padding-top: 3px !important;padding-bottom: 3px !important;\" id=\"btn-parent-all\">연결된 Source 가 없습니다.</button>");
-                }
+            var area = jQuery("#parent-buttons");
+            var sources = area.find("[data-source-id]");
+            if (sources.length === 0) {
+                area.empty();
             }
+            area.append("<button data-source-id='"+option.val()+"' type=\"button\" class=\"btn btn-outline-warning mb-1 ml-1 p-1 hidden\" " +
+                "               style=\"padding-top: 3px !important;padding-bottom: 3px !important;\"><span>"+option.text()+"</span>\n" +
+                "           <i class=\"fa fa-fw fa-times\" onclick=\"removeSource('"+option.val()+"')\"></i>\n" +
+                "               <input type=\"hidden\" name=\"sources\" value=\""+option.val()+"\">\n" +
+                "       </button>");
+            if (id) {
+                // nothing
+            } else {
+                toastr.success("Source[" + option.text() + "]가 연결되었습니다.");
+            }
+        }
 
-            jQuery("#layer-create").on("shown.bs.modal", function(e) {
-                var btn = e.relatedTarget;
-                var target = jQuery(btn).data("target");
-                var popup = jQuery(target);
+        function removeSource(sourceId) {
+            var area = jQuery("#parent-buttons");
+            var source = area.find("[data-source-id='"+sourceId+"']");
+            source.remove();
+            //
+            var sources = area.find("[data-source-id]");
+            if (sources.length === 0) {
+                area.append("<button type=\"button\" class=\"btn btn-warning text-white mb-1 p-1\" style=\"padding-top: 3px !important;padding-bottom: 3px !important;\" id=\"btn-parent-all\">연결된 Source 가 없습니다.</button>");
+            }
+        }
 
+        jQuery("#layer-create").on("shown.bs.modal", function(e) {
+            var btn = e.relatedTarget;
+            var target = jQuery(btn).data("target");
+            var popup = jQuery(target);
+
+            popup.find("[name='name']").val('');
+            popup.find("[name='description']").val('');
+            popup.find("[name='projection'] > option").first().attr('selected', 'true');
+            popup.find("[name='middle_folder']").val('');
+        });
+
+        jQuery("#layer-update").on("shown.bs.modal", function(e) {
+            var btn = e.relatedTarget;
+
+            var layerId = jQuery(btn).data('id');
+            var layerName = jQuery(btn).data("name");
+            var layerDescription = jQuery(btn).data("description");
+            var layerProjection = jQuery(btn).data('projection');
+            var layerMiddleFolder = $(btn).data('middlefolder');
+            var type = $(btn).data('layertype');
+            var filePath = $(btn).data('filepath');
+
+            var target = jQuery(btn).data("target");
+            var popup = jQuery(target);
+            if (layerId) {
+                popup.find("[name='id']").val(layerId);
+                popup.find("[name='name']").val(layerName);
+                popup.find("[name='description']").val(layerDescription);
+                popup.find("[name='projection']").val(layerProjection);
+                popup.find("[name='middle_folder']").val(layerMiddleFolder);
+                popup.find("[name='type']").val(type === 'RASTER' ? 'Raster' : 'Vector');
+                document.getElementById('data_file_path').innerText = filePath;
+            } else {
+                popup.find("[name='id']").val(0);
                 popup.find("[name='name']").val('');
                 popup.find("[name='description']").val('');
                 popup.find("[name='projection'] > option").first().attr('selected', 'true');
                 popup.find("[name='middle_folder']").val('');
-            });
-
-            jQuery("#layer-update").on("shown.bs.modal", function(e) {
-                var btn = e.relatedTarget;
-
-                var layerId = jQuery(btn).data('id');
-                var layerName = jQuery(btn).data("name");
-                var layerDescription = jQuery(btn).data("description");
-                var layerProjection = jQuery(btn).data('projection');
-                var layerMiddleFolder = $(btn).data('middlefolder');
-                var type = $(btn).data('layertype');
-                var filePath = $(btn).data('filepath');
-
-                var target = jQuery(btn).data("target");
-                var popup = jQuery(target);
-                if (layerId) {
-                    popup.find("[name='id']").val(layerId);
-                    popup.find("[name='name']").val(layerName);
-                    popup.find("[name='description']").val(layerDescription);
-                    popup.find("[name='projection']").val(layerProjection);
-                    popup.find("[name='middle_folder']").val(layerMiddleFolder);
-                    popup.find("[name='type']").val(type === 'RASTER' ? 'Raster' : 'Vector');
-                    document.getElementById('data_file_path').innerText = filePath;
-                } else {
-                    popup.find("[name='id']").val(0);
-                    popup.find("[name='name']").val('');
-                    popup.find("[name='description']").val('');
-                    popup.find("[name='projection'] > option").first().attr('selected', 'true');
-                    popup.find("[name='middle_folder']").val('');
-                    popup.find("[name='type']").val('Raster');
-                    document.getElementById('data_file_path').innerText = 'HAS NO DATA.';
-                }
-            });
-
-            function onclick_day_button(day) {
-                var sDate = document.getElementById("sDate");
-                var eDate = document.getElementById("eDate");
-                var minus;
-                if (eDate.value === "") {
-                    minus = new Date();
-                    minus.setDate(minus.getDate() - day);
-                    sDate.value = minus.toISOString().slice(0, 10);
-                    eDate.value = new Date().toISOString().slice(0, 10);
-                } else {
-                    minus = new Date(eDate.value);
-                    minus.setDate(minus.getDate() - day);
-                    sDate.value = minus.toISOString().slice(0, 10);
-                }
+                popup.find("[name='type']").val('Raster');
+                document.getElementById('data_file_path').innerText = 'HAS NO DATA.';
             }
+        });
 
-            function onsubmit_check() {
-                var sDate = document.getElementById("sDate");
-                var eDate = document.getElementById("eDate");
+        function onclick_day_button(day) {
+            var sDate = document.getElementById("sDate");
+            var eDate = document.getElementById("eDate");
+            var minus;
+            if (eDate.value === "") {
+                minus = new Date();
+                minus.setDate(minus.getDate() - day);
+                sDate.value = minus.toISOString().slice(0, 10);
+                eDate.value = new Date().toISOString().slice(0, 10);
+            } else {
+                minus = new Date(eDate.value);
+                minus.setDate(minus.getDate() - day);
+                sDate.value = minus.toISOString().slice(0, 10);
+            }
+        }
 
-                if (sDate.value === '' && eDate.value === '') {
-                    return true;
+        function onsubmit_check() {
+            var sDate = document.getElementById("sDate");
+            var eDate = document.getElementById("eDate");
+
+            if (sDate.value === '' && eDate.value === '') {
+                return true;
+            } else {
+                if (sDate.value === '' || eDate.value === '') {
+                    alert('날짜는 둘 다 기입이 되거나 아무 것도 기입이 안 되어 있어야 합니다.');
+                    return false;
                 } else {
-                    if (sDate.value === '' || eDate.value === '') {
-                        alert('날짜는 둘 다 기입이 되거나 아무 것도 기입이 안 되어 있어야 합니다.');
+                    if(sDate.value.localeCompare(eDate.value) > 0) {
+                        alert('날짜 순서에 오류가 있습니다.');
                         return false;
-                    } else {
-                        if(sDate.value.localeCompare(eDate.value) > 0) {
-                            alert('날짜 순서에 오류가 있습니다.');
-                            return false;
-                        } else return true;
-                    }
+                    } else return true;
                 }
             }
+        }
 
-            function onclick_refresh_search(){
-                $("#ob option:eq(0)").prop("selected", true);
-                $("#sb option:eq(0)").prop("selected", true);
-                document.getElementById('st').value = '';
-                document.getElementById('sDate').value = '';
-                document.getElementById('eDate').value = '';
-                $("input:radio[name='lType'][value='ALL']").prop('checked', true);
-                $("input:radio[name='lType'][value='RASTER']").prop('checked', false);
-                $("input:radio[name='lType'][value='VECTOR']").prop('checked', false);
-            }
-        </script>
-    </div>
+        function onclick_refresh_search(){
+            $("#ob option:eq(0)").prop("selected", true);
+            $("#sb option:eq(0)").prop("selected", true);
+            document.getElementById('st').value = '';
+            document.getElementById('sDate').value = '';
+            document.getElementById('eDate').value = '';
+            $("input:radio[name='lType'][value='ALL']").prop('checked', true);
+            $("input:radio[name='lType'][value='RASTER']").prop('checked', false);
+            $("input:radio[name='lType'][value='VECTOR']").prop('checked', false);
+        }
+    </script>
 </th:block>
 </html>
