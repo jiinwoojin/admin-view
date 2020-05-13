@@ -43,12 +43,12 @@ $(document).ready(function () {
 // [공통] 지도 크기 자동 조절
 var mapSizeControl = function(){
     var	topBar_H 	= $('.navbar.navbar-static-top').outerHeight(),
-        titleBar_H 	= $('.white-bg.page-heading').outerHeight(),
+        titleBar_H 	= $('.wrapper.page-heading').outerHeight(),
         footer_H	= $('.footer').outerHeight(),
-        map_H		= $(document).outerHeight() - topBar_H - titleBar_H - footer_H;
+        map_H		= $(document).outerHeight() - topBar_H - titleBar_H - footer_H
 
-    $('#wrapper-context').outerHeight(map_H+5);
-    // $('.map_area').outerHeight(map_H+5);
+    console.log(map_H);
+    $('.map_area').outerHeight(map_H+5);
 }
 
 // [공통] 지도 기능 RESIZE

@@ -23,7 +23,23 @@
     <link rel="stylesheet" th:href="@{/gis/ol-ext-3.1.9/ol-ext.min.css}">
     <script th:src="@{/gis/ol-ext-3.1.9/ol-ext.min.js}"></script>
 
-    <div id="map" style="height : calc(100vh - 85px);"></div>
+    <div id="map_block" class="map_top">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <select class="custom-select custom-select-sm">
+                    <option>-- 그래프 종류 선택 --</option>
+                    <option value="BAR">BAR</option>
+                    <option value="PIE">PIE</option>
+                    <option value="LINE">LINE</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="map_area">
+        <div id="map" style="width: 100%; height: calc(100vh - 188px);"></div>
+    </div>
+
     <script type="text/javascript">
         // Layers
         var layers = [ new ol.layer.Tile({

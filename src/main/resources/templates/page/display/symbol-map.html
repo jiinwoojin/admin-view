@@ -20,27 +20,23 @@
 
 <th:block layout:fragment="content-body-fragment">
     <div class="map_top">
-        <div class="row">
-            <div class="col-10 col-xl-5 col-lg-7 col-md-9">
-                <div class="input-group">
-                    <div data-toggle="buttons-checkbox" class="btn-group">
-                        <button class="btn btn-primary active" type="button" title="레이어"><i class="fas fa-layer-group"></i></button>
-                        <button class="btn btn-primary" type="button" title="투명도"><i class="fas fa-vector-square"></i></button>
-                        <button class="btn btn-primary" type="button" title="군대부호"><i class="fas fa-fighter-jet"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="map_stlye">
-            <div data-toggle="buttons-checkbox" class="btn-group">
-                <button class="btn btn-primary active" type="button" title="2차원"><i class="fa fa-stop"></i></button>
-                <button class="btn btn-primary" type="button" title="3차원"><i class="fa fa-cube"></i></button>
+            <div class="btn-group">
+                <button class="btn btn-info" type="button" title="레이어" data-toggle="modal" data-target="#layer_modal" data-backdrop="false">
+                    <i class="fas fa-layer-group"></i>
+                </button>
+                <button class="btn btn-info" type="button" title="투명도" id="general_shape_btn">
+                    <i class="fas fa-vector-square"></i>
+                </button>
+                <button class="btn btn-info" type="button" title="군대부호" id="click_coord_btn">
+                    <i class="fas fa-fighter-jet"></i>
+                </button>
             </div>
         </div>
     </div>
 
-    <div id="map_block">
-        <div id="map" class="map2d">
+    <div class="map_area">
+        <div id="map" class="map2d" style="width: 100%; height: calc(100vh - 188px);">
             <!-- Right CLICK EVENT DIV -->
             <div id="click_coord" style="position: absolute; z-index: 999; display: none; background-color: white; border: 1px solid #aaa; ">
                 <ul class="list-unstyled">
@@ -56,20 +52,6 @@
 
             <div id="mouse-position" style="position: absolute; padding: 3px; font-weight: bold; left: 0; bottom: 0; background-color: white; z-index: 999;">
 
-            </div>
-        </div>
-
-        <div id="military-position" class="mt-2">
-            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#layer_modal" data-backdrop="false">
-                <i class="fas fa-layer-group"></i> 레이어
-            </button>
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-sm btn-info" id="general_shape_btn">
-                    <i class="fas fa-vector-square"></i> 투명도
-                </button>
-                <button type="button" class="btn btn-sm btn-info" id="click_coord_btn">
-                    <i class="fas fa-fighter-jet"></i> 군대부호
-                </button>
             </div>
         </div>
     </div>

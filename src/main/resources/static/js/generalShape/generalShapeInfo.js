@@ -7,10 +7,10 @@ function shapeInfoViewer(){
 	
 	viewer.fadeIn();
 	
-	var divTop = $('#topMenu').outerHeight() + $('.content-header').outerHeight() + $('#shape_info').outerHeight() + $('#text_box').innerHeight();
+	var divTop = 75; //$('#topMenu').outerHeight() + $('.content-header').outerHeight() + $('#shape_info').outerHeight() + $('#text_box').innerHeight();
 	
 	viewer.css({
-		'top': divTop,
+		'top': divTop + 'px',
 		'right': '10px',
 		'position': 'absolute',
 		'padding' : '3px 7px',

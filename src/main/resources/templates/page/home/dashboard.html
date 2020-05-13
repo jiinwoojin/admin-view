@@ -31,7 +31,7 @@
         </div>
 
         <div class="row">
-            <div class="col mb-4" th:each="center : ${ performanceMap.keySet() }" th:id="${ center + '_SERVER_STATUS' }">
+            <div class="col mb-4" th:if="${ performanceMap.keySet().size() > 0 }" th:each="center : ${ performanceMap.keySet() }" th:id="${ center + '_SERVER_STATUS' }">
                 <div class="card shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -93,6 +93,19 @@
                     </div>
                 </div>
             </div>
+            <div class="col mb-4" th:unless="${ performanceMap.keySet().size() > 0 }">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body text-center">
+                        <div id="serverError_ICON1" class="text-sm font-weight-bold text-uppercase mb-1 text-danger">
+                            <i class="h1 fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div id="serverError_STATUS1" class="text-sm font-weight-bold text-uppercase mb-1 text-danger">
+                            <h2>실행하는 서버의 연결 관계가 확실하지 않습니다.</h2>
+                            <p>윈도우 측에서는 서버를 연동하기 위한 검토를 하는 중으로 리눅스 환경에서 실행하시길 바랍니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -106,7 +119,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xl-4 mb-4" th:each="key : ${ status_synchronize.keySet() }" th:id="${ key + '_SYNC_STATUS' }">
+            <div class="col-xl-4 mb-4" th:each="key : ${ status_synchronize.keySet() }" th:id="${ key + '_SYNC_STATUS' }" th:if="${ performanceMap.keySet().size() > 0 }">
                 <div class="card shadow h-100 py-2" th:classappend="${ status_synchronize.get(key) == 'ON' } ? 'border-bottom-success' : 'border-bottom-danger'">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -164,6 +177,20 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col mb-4" th:unless="${ performanceMap.keySet().size() > 0 }">
+                <div class="card shadow h-100 py-2">
+                    <div class="card-body text-center">
+                        <div id="serverError_ICON2" class="text-sm font-weight-bold text-uppercase mb-1 text-danger">
+                            <i class="h1 fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div id="serverError_STATUS2" class="text-sm font-weight-bold text-uppercase mb-1 text-danger">
+                            <h2>실행하는 서버의 연결 관계가 확실하지 않습니다.</h2>
+                            <p>윈도우 측에서는 서버를 연동하기 위한 검토를 하는 중으로 리눅스 환경에서 실행하시길 바랍니다.</p>
                         </div>
                     </div>
                 </div>

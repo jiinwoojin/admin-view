@@ -20,14 +20,10 @@
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
-    <div id="cache_layer_preview">
-        <!-- Openlayers 시작 -->
-        <div id="map" class="mb-2" style="width: 100%; height: calc(100vh - 90px);">
-        </div>
-        <!-- // Openlayers 종료 -->
 
+    <div id="map_block" class="map_top">
         <!-- 기능 확장 버튼 시작 -->
-        <div id="buttons">
+        <div id="buttons" class="d-flex justify-content-between">
             <button class="btn btn-primary mx-0" data-toggle="modal" data-target="#layerSelect">
                 <i class="fas fa-layer-group"></i> Map Proxy 기반 레이어 선택
             </button>
@@ -36,6 +32,13 @@
             </button>
         </div>
         <!-- // 기능 확장 버튼 종료 -->
+    </div>
+
+    <div class="map_area">
+        <!-- Openlayers 시작 -->
+        <div id="map" class="mb-2" style="width: 100%; height: calc(100vh - 188px);">
+        </div>
+        <!-- // Openlayers 종료 -->
 
         <script>
             var mapSource, layer, map;

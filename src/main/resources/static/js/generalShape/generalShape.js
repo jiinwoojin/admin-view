@@ -8,10 +8,10 @@ function shapeViewer(){
 	
 	viewer.fadeIn();
 	
-	var divTop = $('#topMenu').outerHeight() + $('.content-header').outerHeight();
+	var divTop = 75; //$('#topMenu').outerHeight() + $('.content-header').outerHeight();
 	
 	viewer.css({
-		'top': divTop,
+		'top': divTop + 'px',
 		'right': '10px',
 		'position': 'absolute',
 		'padding' : '3px',

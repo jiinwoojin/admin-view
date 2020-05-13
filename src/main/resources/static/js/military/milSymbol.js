@@ -361,10 +361,10 @@ function milViewer(){
 	
 	viewer.fadeIn();
 	
-	var divTop = $('#topMenu').outerHeight() + $('.content-header').outerHeight();
+	var divTop = 55 // $('#topMenu').outerHeight() + $('.content-header').outerHeight();
 	
 	viewer.css({
-		'top': divTop,
+		'top': divTop + 'px',
 		'right': '10px',
 		'position': 'absolute',
 		'padding': '5px',
@@ -374,7 +374,7 @@ function milViewer(){
 	
 	var check = $('#shape_info').css('display');
 	if(check != 'none'){
-		$('#symbol_info').css('top', divTop + 39);
+		$('#symbol_info').css('top', divTop + 'px');
 	}
 }
 

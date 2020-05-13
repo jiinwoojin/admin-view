@@ -86,32 +86,34 @@ var battle_sidc = ''; // battle dimension sidc
 				document.getElementById(id).className = 'textError';
 			}
 		}
-		var options = stmp.getMilsymbolOptions()
-		validateTexts("C",(!isNaN(options.quantity) && options.quantity.length <= 9));
-		validateTexts("F",(options.reinforcedReduced.length <= 3));
-		validateTexts("G",(options.staffComments.length <= 20));
-		validateTexts("H",(options.additionalInformation.length <= 20));
-		validateTexts("K",(options.combatEffectiveness.length <= 5));
-		validateTexts("L",(options.signatureEquipment.length <= 1));
-		validateTexts("M",(options.higherFormation.length <= 21));
-		validateTexts("N",(options.hostile.length <= 3));
-		validateTexts("P",(options.iffSif.length <= 5));
-		validateTexts("Q",(!isNaN(options.direction) && options.direction.length <= 4));
-		validateTexts("T",(options.uniqueDesignation.length <= 21));
-		validateTexts("V",(options.type.length <= 24));
-		validateTexts("W",(options.dtg.length <= 16));
-		validateTexts("X",(options.altitudeDepth.length <= 14));
-		validateTexts("Y",(options.location.length <= 19));
-		validateTexts("Z",(options.speed.length <= 8));
-		validateTexts("AA",(options.specialHeadquarters.length <= 9));
-		var sidc = options.SIDC
-		document.getElementById("SIDC").value = sidc;
-		window.location.hash = sidc
-		var symbol = new ms.Symbol(options)
-		// console.log(symbol, options)
-		document.getElementById("ImageSymbol").style.width = symbol.getSize().width +'px';
-		document.getElementById("ImageSymbol").style.height = symbol.getSize().height +'px';
-		document.getElementById("ImageSymbol").src = symbol.asCanvas(window.devicePixelRatio).toDataURL();
+		if(stmp){
+			var options = stmp.getMilsymbolOptions()
+			validateTexts("C",(!isNaN(options.quantity) && options.quantity.length <= 9));
+			validateTexts("F",(options.reinforcedReduced.length <= 3));
+			validateTexts("G",(options.staffComments.length <= 20));
+			validateTexts("H",(options.additionalInformation.length <= 20));
+			validateTexts("K",(options.combatEffectiveness.length <= 5));
+			validateTexts("L",(options.signatureEquipment.length <= 1));
+			validateTexts("M",(options.higherFormation.length <= 21));
+			validateTexts("N",(options.hostile.length <= 3));
+			validateTexts("P",(options.iffSif.length <= 5));
+			validateTexts("Q",(!isNaN(options.direction) && options.direction.length <= 4));
+			validateTexts("T",(options.uniqueDesignation.length <= 21));
+			validateTexts("V",(options.type.length <= 24));
+			validateTexts("W",(options.dtg.length <= 16));
+			validateTexts("X",(options.altitudeDepth.length <= 14));
+			validateTexts("Y",(options.location.length <= 19));
+			validateTexts("Z",(options.speed.length <= 8));
+			validateTexts("AA",(options.specialHeadquarters.length <= 9));
+			var sidc = options.SIDC
+			document.getElementById("SIDC").value = sidc;
+			window.location.hash = sidc
+			var symbol = new ms.Symbol(options)
+			// console.log(symbol, options)
+			document.getElementById("ImageSymbol").style.width = symbol.getSize().width +'px';
+			document.getElementById("ImageSymbol").style.height = symbol.getSize().height +'px';
+			document.getElementById("ImageSymbol").src = symbol.asCanvas(window.devicePixelRatio).toDataURL();
+		}
 	}
 	
 	var letterSIDC = {

@@ -38,7 +38,7 @@
         <!-- // Side Bar 종료 -->
 
         <!-- Page Wrapper 시작 -->
-        <div id="page-wrapper" class="gray-bg">
+        <div id="page-wrapper" class="gray-bg" style="overflow: hidden;">
 
             <!-- Top Bar 시작 -->
             <div class="row border-bottom">
@@ -46,18 +46,18 @@
             </div>
             <!-- // Top Bar 종료 -->
 
+            <!-- Breadcrumb 시작 -->
             <div class="content-header">
-                <!-- Breadcrumb 시작 -->
-                <div class="row border-bottom white-bg page-heading">
+                <div class="row wrapper border-bottom white-bg page-heading">
                     <th:block layout:fragment="content-breadcrumb-fragment" />
                 </div>
-                <!-- // Breadcrumb 종료 -->
             </div>
+            <!-- // Breadcrumb 종료 -->
 
             <!-- // Content 상단 종료 -->
 
             <!-- Content 내용 시작 -->
-            <div class="wrapper wrapper-content animated fadeInDown" id="wrapper-context">
+            <div class="wrapper wrapper-content animated fadeInRight">
                 <!-- Page Content -->
                 <th:block layout:fragment="content-body-fragment" />
                 <!-- End of Page Content -->
