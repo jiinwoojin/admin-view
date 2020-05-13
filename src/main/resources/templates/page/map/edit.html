@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
 <th:block layout:fragment="content-title-fragment">
     <h1 class="h3 mb-0 text-gray-800">지도 생성</h1>
-    <a href="/view/manage/layer-manage?pg=1&sz=9&lType=ALL" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-save fa-sm text-white-50"></i> 저장하기</a>
+    <a href="/view/manage/layer-manage?pg=1&sz=8&lType=ALL" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-save fa-sm text-white-50"></i> 저장하기</a>
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a th:href="@{/view/manage/layer-manage?pg=1&sz=9&lType=ALL}">지도 데이터</a>
+                <a th:href="@{/view/manage/layer-manage?pg=1&sz=8&lType=ALL}">지도 데이터</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">지도 편집</li>
         </ol>

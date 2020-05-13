@@ -1,7 +1,9 @@
 package com.jiin.admin.website.server.controller;
 
+import com.jiin.admin.entity.ServerConnectionEntity;
 import com.jiin.admin.website.gis.StatusService;
 import com.jiin.admin.website.server.vo.ServerBasicPerformance;
+import com.jiin.admin.website.server.vo.SynchronizeBasicInfo;
 import com.jiin.admin.website.view.service.DashboardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -21,9 +24,20 @@ public class DashboardRestController {
     @Autowired
     private StatusService statusService;
 
-    @GetMapping("performance/{serverName}")
-    public ServerBasicPerformance serverBasicPerformanceJSON(@PathVariable String serverName){
-        return dashboardService.getServerBasicPerformance(serverName);
+    @GetMapping("performance")
+    public ServerBasicPerformance getOwnBasicServerPerformanceJSON(){
+        return dashboardService.getOwnServerBasicPerformance();
+    }
+
+    @GetMapping("connection/{key}")
+    public ServerConnectionEntity getAnotherConnectionJSON(@PathVariable String key){
+        return dashboardService.getAnotherConnection(key);
+    }
+
+    @GetMapping("sync-brief/{serverName}")
+    public SynchronizeBasicInfo synchronizeBasicInfoJSON(@PathVariable String serverName) throws IOException {
+        return null;
+        // return dashboardService.getSyncBasicInfo(serverName);
     }
 
     @GetMapping("memory/{center}")

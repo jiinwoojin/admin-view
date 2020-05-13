@@ -1,17 +1,21 @@
-<nav class="navbar-default navbar-static-side">
+<nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
-                    <i class="h1 fas fa-globe-asia text-white"></i>
-                    <a class="dropdown-toggle" th:href="@{/view/home/user}" sec:authorize="isAuthenticated()">
-                        <span class="block m-t-xs font-bold">JIMap GIS Solution</span>
+                    <a title="홈으로" th:href="@{/view/home/guest}" sec:authorize="!isAuthenticated()">
+                        <h1>
+                            <i class="h1 fas fa-globe-asia text-white"></i> JIMAP
+                        </h1>
                         <span class="text-muted text-xs block">
                             Release Version : <span>3.4</span>
                         </span>
                     </a>
-                    <a class="dropdown-toggle" th:href="@{/view/home/guest}" sec:authorize="isAuthenticated() == false">
-                        <span class="block m-t-xs font-bold">JIMap GIS Solution</span>
+
+                    <a title="홈으로" th:href="@{/view/home/user}" sec:authorize="isAuthenticated()">
+                        <h1>
+                            <i class="h1 fas fa-globe-asia text-white"></i> JIMAP
+                        </h1>
                         <span class="text-muted text-xs block">
                             Release Version : <span>3.4</span>
                         </span>
@@ -19,175 +23,117 @@
                 </div>
 
                 <div class="logo-element">
-                    Ji-in
+                    JIMAP
                 </div>
             </li>
 
-            <!-- Home -->
-            <li>
-                <h5 class="text-white my-3">
-                    <i class="fas fa-caret-right mx-2"></i> 홈
-                </h5>
-            </li>
-
-            <!-- Home - Dashboard -->
-            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/home') ? 'active' : '' }" sec:authorize="isAuthenticated() == false">
-                <a th:href="@{/view/home/guest}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span class="nav-label">대시보드</span>
-                </a>
-            </li>
-
-            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/home') ? 'active' : '' }" sec:authorize="isAuthenticated()">
-                <a class="nav-link" th:href="@{/view/home/user}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span class="nav-label">대시보드</span>
-                </a>
-            </li>
-
-            <!-- Map Management -->
-            <li>
-                <h5 class="text-white my-3">
-                    <i class="fas fa-caret-right mx-2"></i> 지도 관리
-                </h5>
-            </li>
-
-            <!-- Map Management : MAP 관리 -->
-            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/manage/map') ? 'active' : '' }">
-                <a class="nav-link" th:href="@{/view/manage/map-manage?pg=1&sz=9&iType=ALL&units=ALL}">
-                    <i class="fas fa-fw fa-map"></i>
-                    <span class="nav-label">MAP 관리</span>
-                </a>
-            </li>
-
-            <!-- Map Management : LAYER 관리 -->
-            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/manage/layer') ? 'active' : '' }">
-                <a class="nav-link" th:href="@{/view/manage/layer-manage?pg=1&sz=9&lType=ALL}">
-                    <i class="fas fa-fw fa-layer-group"></i>
-                    <span class="nav-label">LAYER 관리</span>
-                </a>
-            </li>
-
-            <!-- Map Management : SYMBOL 관리 (/view/manage/symbol-manage 로 교체 필요) -->
-            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/symbol/list') ? 'active' : '' }">
-                <a class="nav-link" th:href="@{/view/symbol/list}">
-                    <i class="fas fa-fw fa-map-pin"></i>
-                    <span class="nav-label">SYMBOL 관리</span>
-                </a>
-            </li>
-
-            <!-- Map Service -->
-            <li>
-                <h5 class="text-white my-3">
-                    <i class="fas fa-caret-right mx-2"></i> 지도 서비스
-                </h5>
-            </li>
-
-            <!-- Map Service : 지도 도시 (시각화 지도 추가 ol-ext or mapbox-js-ext) -->
-            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display') ? 'active' : '' }">
-                <a href="#">
-                    <i class="fas fa-fw fa-map-marked"></i>
-                    <span class="nav-label">도시</span>
-                    <span class="fa arrow"></span>
-                </a>
-                <ul class="nav nav-second-level collapse" aria-expanded="true">
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/symbol-map') ? 'active' : '' }">
-                        <a th:href="@{/view/display/symbol-map}">상황도</a>
+            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/manage') or #httpServletRequest.getRequestURI().contains('/view/symbol') ? 'active' : '' }">
+                <a href="#" aria-expanded="true"><i class="fa fa-caret-right"></i> <span class="nav-label">지도관리</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" aria-expanded="false">
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/manage/map') ? 'active' : '' }">
+                        <a class="nav-link" th:href="@{/view/manage/map-manage?pg=1&sz=8&iType=ALL&units=ALL}">
+                            <i class="fas fa-fw fa-map"></i>
+                            <span class="nav-label">MAP 관리</span>
+                        </a>
                     </li>
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/common-map') ? 'active' : '' }">
-                        <a th:href="@{/view/display/common-map}">공통 지도</a>
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/manage/layer') ? 'active' : '' }">
+                        <a class="nav-link" th:href="@{/view/manage/layer-manage?pg=1&sz=8&lType=ALL}">
+                            <i class="fas fa-fw fa-layer-group"></i>
+                            <span class="nav-label">LAYER 관리</span>
+                        </a>
                     </li>
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/ext-map') ? 'active' : '' }">
-                        <a th:href="@{/view/display/ext-map}">가시화 지도</a>
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/symbol/list') ? 'active' : '' }">
+                        <a class="nav-link" th:href="@{/view/symbol/list}">
+                            <i class="fas fa-fw fa-map-pin"></i>
+                            <span class="nav-label">SYMBOL 관리</span>
+                        </a>
                     </li>
                 </ul>
             </li>
 
-            <!-- Map Service : 캐시 관리 -->
-            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache') ? 'active' : '' }">
-                <a href="#">
-                    <i class="fas fa-fw fa-database"></i>
-                    <span class="nav-label">캐시 관리</span>
-                    <span class="fa arrow"></span>
-                </a>
-                <ul class="nav nav-second-level collapse" aria-expanded="true">
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/preview') ? 'active' : '' }">
-                        <a th:href="@{/view/cache/preview}">조회</a>
+            <li th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display') or #httpServletRequest.getRequestURI().contains('/view/cache') ? 'active' : '' }">
+                <a href="#" aria-expanded="false"><i class="fa fa-caret-right"></i> <span class="nav-label">지도 서비스</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" aria-expanded="false">
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display') ? 'active' : '' }">
+                        <a href="#"><i class="fas fa-map-marked"></i> <span class="nav-label">도시</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" aria-expanded="false">
+                            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/symbol-map') ? 'active' : '' }">
+                                <a th:href="@{/view/display/symbol-map}">상황도</a>
+                            </li>
+                            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/common-map') ? 'active' : '' }">
+                                <a th:href="@{/view/display/common-map}">공통 지도</a>
+                            </li>
+                            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/ext-map') ? 'active' : '' }">
+                                <a th:href="@{/view/display/ext-map}">가시화 지도</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/setting') ? 'active' : '' }">
-                        <a th:href="@{/view/cache/setting}">설정</a>
-                    </li>
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/seeding') ? 'active' : '' }">
-                        <a th:href="@{/view/cache/seeding}">SEED 설정</a>
-                    </li>
-                </ul>
-            </li>
-
-            <!-- System -->
-            <li>
-                <h5 class="text-white my-3">
-                    <i class="fas fa-caret-right mx-2"></i> 시스템
-                </h5>
-            </li>
-
-            <!-- System : 동기화 -->
-            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync') ? 'active' : '' }">
-                <a href="#">
-                    <i class="fas fa-fw fa-database"></i>
-                    <span class="nav-label">동기화 모니터링</span>
-                    <span class="fa arrow"></span>
-                </a>
-                <ul class="nav nav-second-level collapse" aria-expanded="true">
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync/database') ? 'active' : '' }">
-                        <a th:href="@{/view/sync/database}">데이터베이스</a>
-                    </li>
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync/file') ? 'active' : '' }">
-                        <a th:href="@{/view/sync/file}">파일</a>
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache') ? 'active' : '' }">
+                        <a href="#"><i class="fa fa-database"></i> <span class="nav-label">캐시 관리</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" aria-expanded="false">
+                            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/preview') ? 'active' : '' }">
+                                <a th:href="@{/view/cache/preview}">조회</a>
+                            </li>
+                            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/setting') ? 'active' : '' }">
+                                <a th:href="@{/view/cache/setting}">설정</a>
+                            </li>
+                            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/seeding') ? 'active' : '' }">
+                                <a th:href="@{/view/cache/seeding}">SEED 설정</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>
 
-            <!-- System : 서버 -->
-            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service') ? 'active' : '' }">
-                <a href="#">
-                    <i class="fas fa-fw fa-power-off"></i>
-                    <span class="nav-label">서버</span>
-                    <span class="fa arrow"></span>
-                </a>
-                <ul class="nav nav-second-level collapse" aria-expanded="true">
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-manage') ? 'active' : '' }">
-                        <a th:href="@{/view/server/service-manage}">서비스 관리</a>
+            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync') or #httpServletRequest.getRequestURI().contains('/view/server') ? 'active' : '' }">
+                <a href="#" aria-expanded="false"><i class="fa fa-caret-right"></i> <span class="nav-label">시스템</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync') ? 'active' : '' }">
+                        <a href="#"><i class="fas fa-sync-alt"></i> <span class="nav-label">동기화 모니터링</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" aria-expanded="false">
+                            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync/database') ? 'active' : '' }">
+                                <a th:href="@{/view/sync/database}">데이터베이스</a>
+                            </li>
+                            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/sync/file') ? 'active' : '' }">
+                                <a th:href="@{/view/sync/file}">파일</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-info') ? 'active' : '' }">
-                        <a th:href="@{/view/server/service-info}">서비스 정보</a>
-                    </li>
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-address') ? 'active' : '' }">
-                        <a th:href="@{/view/server/service-address}">서비스 주소 관리</a>
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server') ? 'active' : '' }">
+                        <a href="#"><i class="fa fa-database"></i> <span class="nav-label">서버</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" aria-expanded="false">
+                            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-manage') ? 'active' : '' }">
+                                <a th:href="@{/view/server/service-manage}">서비스 관리</a>
+                            </li>
+                            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-info') ? 'active' : '' }">
+                            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-info') ? 'active' : '' }">
+                                <a th:href="@{/view/server/service-info}">서비스 정보</a>
+                            </li>
+                            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/service-address') ? 'active' : '' }">
+                                <a th:href="@{/view/server/service-address}">서비스 주소 관리</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>
 
-            <!-- Account -->
-            <li>
-                <h5 class="text-white my-3">
-                    <i class="fas fa-caret-right mx-2"></i> 사용자
-                </h5>
-            </li>
+            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/account') or #httpServletRequest.getRequestURI().contains('/view/role') ? 'active' : '' }">
+                <a href="#" aria-expanded="false"><i class="fa fa-caret-right"></i> <span class="nav-label">사용자</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/account') ? 'active' : '' }">
+                        <a class="nav-link" th:href="@{/view/account/list}">
+                            <i class="fas fa-fw fa-users"></i>
+                            <span class="nav-label">계정</span>
+                        </a>
+                    </li>
 
-            <!-- Account : 계정 -->
-            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/account') ? 'active' : '' }">
-                <a class="nav-link" th:href="@{/view/account/list}">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span class="nav-label">계정</span>
-                </a>
-            </li>
-
-            <!-- Account : 권한 -->
-            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/role') ? 'active' : '' }">
-                <a class="nav-link" th:href="@{/view/role/list}">
-                    <i class="fas fa-fw fa-users-cog"></i>
-                    <span class="nav-label">권한</span>
-                </a>
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/role') ? 'active' : '' }">
+                        <a class="nav-link" th:href="@{/view/role/list}">
+                            <i class="fas fa-fw fa-users-cog"></i>
+                            <span class="nav-label">권한</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>

@@ -57,7 +57,7 @@ public class ManageController {
     public String addMap(@Valid MapEntity map, @RequestParam("layerList") String layerList) throws IOException {
         boolean result = service.addMap(map, layerList);
         session.message(String.format("MAP [%s] 추가 %s하였습니다.", map.getName(), (result ? "성공" : "실패")));
-        return "redirect:map-manage?pg=1&sz=9&iType=ALL&units=ALL";
+        return "redirect:map-manage?pg=1&sz=8&iType=ALL&units=ALL";
     }
 
     // MAP 파일 수정 페이지
@@ -75,7 +75,7 @@ public class ManageController {
     public String updateMap(@Valid MapEntity map, @RequestParam("layerList") String layerList) throws IOException {
         boolean result = service.updateMap(map, layerList);
         session.message(String.format("MAP [%s] 수정 %s하였습니다.", map.getName(), (result ? "성공" : "실패")));
-        return "redirect:map-manage?pg=1&sz=9&iType=ALL&units=ALL";
+        return "redirect:map-manage?pg=1&sz=8&iType=ALL&units=ALL";
     }
 
     // MAP 파일 삭제 REST API
@@ -115,7 +115,7 @@ public class ManageController {
                            @RequestParam("data_file") MultipartFile data_file) throws IOException {
         boolean result = service.addLayer(name, description, projection, middle_folder, type, data_file);
         session.message(String.format("LAYER [%s] 추가 %s하였습니다.",name,(result ? "성공" : "실패")));
-        return "redirect:layer-manage?pg=1&sz=9&lType=ALL";
+        return "redirect:layer-manage?pg=1&sz=8&lType=ALL";
     }
 
     // LAYER 파일 수정 POST 동작

@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">도시 - 공통 지도</h1>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2 class="page_tit">도시 - 공통 지도</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/view/display/common-map}">지도 서비스</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">도시 - 공통 지도</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <div id="map_block">
+        <div class="d-flex justify-content-between my-2">
+            <div id="tab_btn">
+                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link map-item" id="pills-display2d" style="cursor: pointer;">
+                            <i class="fas fa-vector-square"></i> 2차원
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link map-item" id="pills-display3d" style="cursor: pointer;">
+                            <i class="fas fa-cube"></i> 3차원
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="extend_functions">
+                <div id="military-position" class="form-inline">
+                    <button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal" data-target="#layer_modal" data-backdrop="false">
+                        <i class="fas fa-layer-group"></i> 레이어
+                    </button>
+                    <button type="button" class="btn btn-sm btn-info mr-2" data-toggle="modal" data-target="#shape_modal" data-backdrop="false">
+                        <i class="fas fa-vector-square"></i> 투명도
+                    </button>
+                    <button type="button" class="btn btn-sm btn-info mr-2" id="click_coord_btn">
+                        <i class="fas fa-fighter-jet"></i> 군대부호
+                    </button>
+                    <!-- 이지훈 LOS 버튼 -->
+                    <button type="button" class="btn btn-sm btn-info mr-2" id="btn_los" data-toggle="modal" data-target="#los_modal" data-backdrop="false" style="display: none;">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spn_los_spinner" style="display: none;"></span>
+                        <i class="fas fa-eye"></i> LOS 도시
+                    </button>
+                    <!--GRID area-->
+                    <select class="custom-select custom-select-sm mr-2" onchange="fn_set_graticules(this)">
+                        <option>Grid Type Select</option>
+                        <option value="WGS84">WGS84 (5 Depth)</option>
+                        <option value="MGRS">MGRS (3 Depth, with Geoserver)</option>
+                        <option value="UTM">UTM (3 Depth, with Geoserver)</option>
+                        <option value="GARS">Gars (4 Depth)</option>
+                        <option value="GEOREF">GeoRef (3 Depth)</option>
+                    </select>
+                    <input type="checkbox" id="___GridLine" checked="checked" onchange="fn_set_graticules(this)">
+                    &nbsp;
+                    <label for="___GridLine">Grid Line</label>
+                    &nbsp;&nbsp;
+                    <input type="checkbox" id="___GridLabel" checked="checked" onchange="fn_set_graticules(this)">
+                    &nbsp;
+                    <label for="___GridLabel">Grid Label</label>
+                    <!--GRID area-->
+                </div>
+            </div>
+        </div>
+
+        <div class="sample-div" style="position: absolute;"></div>
+        <div class="tab-content" id="mapContent" style="width: 100%; height: calc(100vh - 80px);"></div>
+    </div>
+
+    <div class="modal fade" id="layer_modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">레이어 목록</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="pt-1 pb-1">
+                        <table id="list_table" class="table table-sm basic w-100">
+                            <thead class="table-info">
+                            <tr>
+                                <th scope="col" class="text-center text-nowrap">레이어 순서</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 이름</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 타입</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 보임</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 투명도</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 순서</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 축적</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-success hidden" data-dismiss="modal">
+                        <i class="fas fa-server"></i> 레이어 상태 서버저장
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+                        <i class="fas fa-times"></i> 닫기
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+
+    <div class="modal fade" id="shape_modal" style="width: 60%; height: auto;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">투명도 추가</h4>
+                </div>
+                <div class="modal-body">
+                    <th:block th:replace="fragments/overlay/html-overlay-main" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="overlay_start" class="btn btn-sm btn-primary">
+                        <i class="fas fa-save"></i> 편집 시작
+                    </button>
+                    <button type="button" id="overlay_move" class="btn btn-sm btn-primary">
+                        <i class="fas fa-save"></i> 지도 이동
+                    </button>
+                    <button type="button" id="overlay_save" class="btn btn-sm btn-primary">
+                        <i class="fas fa-save"></i> 저장
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+                        <i class="fas fa-times"></i> 닫기
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+
+    <!-- 이지훈 LOS 호출값 입력
+    <div class="modal fade" id="los_modal" style="width: 60%; height: auto;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">LOS 테스트</h4>
+                </div>
+                <div class="modal-body">
+					<form action="" class="form-horizontal">
+                        <div class="box-body">
+                            <div class="form-group row">
+                                <label for="observer_lon" class="col-sm-4 control-label">observer_lon</label>
+                                <div class="col-sm-8">
+                                    <input id="observer_lon"  value="127"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="observer_lat" class="col-sm-4 control-label">observer_lat</label>
+                                <div class="col-sm-8">
+                                    <input id="observer_lat" value="37"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="observer_height" class="col-sm-4 control-label">observer_height</label>
+                                <div class="col-sm-8">
+                                    <input id="observer_height" value="2"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="semi_dimension" class="col-sm-4 control-label">semi_dimension</label>
+                                <div class="col-sm-8">
+                                    <input id="semi_dimension" value="100"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input_dem_level" class="col-sm-4 control-label">input_dem_level</label>
+                                <div class="col-sm-8">
+                                    <input id="input_dem_level" value="3"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input_dem_level" class="col-sm-4 control-label">output_bucket_name</label>
+                                <div class="col-sm-8">
+                                    <input id="output_bucket_name" value="data"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="input_dem_level" class="col-sm-4 control-label">output_destination</label>
+                                <div class="col-sm-8">
+                                    <input id="output_destination" />
+                                </div>
+                            </div>
+                              <div class="form-group row">
+                                <label for="output_file_format" class="col-sm-4 control-label">output_file_format</label>
+                                <div class="col-sm-8">
+                                    <select id="output_file_format" class="form-control">
+                                        <option value="png">png</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-primary" id="btn_los_start" data-dismiss="modal">
+                        <i class="fas fa-save"></i> 전송
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+                        <i class="fas fa-times"></i> 닫기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <th:block th:replace="fragments/military/html-military-prop"/>
+    <th:block th:replace="fragments/military/html-military-main"/>
+
+    <script>
+        function modal_draggable(id){
+            $(id).draggable({
+                handle: ".modal-header"
+            });
+        }
+
+        var _TEGOLA_CONFIG = {}
+
+        let overlayModal = '#shape_modal';
+        let layerModal = '#layer_modal';
+
+        var sampleDiv = document.querySelector('.sample-div');
+        var mapContent = document.querySelector('#mapContent');
+
+        let d3Canvas = null;
+        let comAttr = type_common;
+        let options = {
+            h: '100%',
+            w: '100%',
+            addTo: '.sample-div',
+            addBorderRect: true
+        };
+
+        $(window).ready(function() {
+            modal_draggable('#layer_modal');
+            modal_draggable('#shape_modal');
+            modal_draggable('#military_modal');
+            modal_draggable('#los_modal'); //이지훈 LOS 입력창
+
+            $('.btn-overlay').tooltip();
+
+            // 군대부호 잠깐 가리기 위해서 이 로직을 주석 처리 진행할 것.
+            if (stmp.getMilsym() === undefined) {
+                stmp.setMilSym(ms);
+            }
+
+            getMap('mapbox-display');
+            $('#pills-display2d').addClass('active');
+            stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
+
+            $(overlayModal).on('hide.bs.modal', function() {
+                if (stmp.drawMode) {
+                    stmp.drawMode = false;
+
+                    sampleDiv.style.setProperty('pointer-events', 'none');
+                    mapContent.style.removeProperty('pointer-events');
+
+                    stmp.d3Canvas.closeCanvas();
+                }
+            });
+
+            $('.map-item').click(function(e) {
+                if (this.id) {
+                    let _id = this.id;
+
+                    let contentName;
+
+                    stmp.mapObject.getExtents();
+
+                    if (_id === 'pills-display2d') {
+                        contentName = 'mapbox-display';
+                        $('#pills-display3d').removeClass('active');
+                        $('#pills-display2d').addClass('active');
+                        $('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
+                        stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
+                    } else if (_id === 'pills-display3d') {
+                        contentName = 'cesium-display';
+                        $('#pills-display2d').removeClass('active');
+                        $('#pills-display3d').addClass('active');
+                        $('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
+                        stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_3D;
+                    }
+
+                    if (stmp.mapObject !== null) {
+                        stmp.mapObject = null;
+                    }
+
+                    getMap(contentName);
+                }
+            });
+
+            $('#overlay_save').click(function() {
+                console.log('save');
+                debugger;
+                saveCanvasData(stmp.d3Canvas);
+            });
+
+            $('#overlay_move').click(function() {
+                stmp.drawMode = false;
+
+                sampleDiv.style.setProperty('pointer-events', 'none');
+                mapContent.style.removeProperty('pointer-events');
+
+                editingMoveMap(d3Canvas);
+            });
+
+            $('#overlay_start').click(function() {
+                sampleDiv.style.setProperty('z-index', 999);
+                sampleDiv.style.setProperty('width', document.querySelector('#mapContent').clientWidth + 'px');
+                sampleDiv.style.setProperty('height', document.querySelector('#mapContent').clientHeight + 'px');
+                mapContent.style.setProperty('pointer-events', 'none');
+
+                stmp.drawMode = true;
+
+                if (d3Canvas === null) {    // 새로운 시작
+                    d3Canvas = new SVGCanvas(options);
+                    stmp.d3Canvas = d3Canvas;
+                } else {                    // 편집 재시작
+                    if (stmp.editingToMoveMapYn) {
+                        mapMoveToEditing(stmp.d3Canvas);
+                    }
+                }
+            });
+            // load tegola config
+            /*jiCommon.showLoading()
+            jQuery.post({
+                url: CONTEXT + "/server/api/layer/load-tegola-config"
+            }).done(function(result) {
+                if (result instanceof Object) {
+                    window._TEGOLA_CONFIG = result
+                } else {
+                    toastr.error('서버 로드 오류입니다.');
+                }
+            }).fail(function() {
+                toastr.error('서버 로드 오류입니다.');
+            }).always(function() {
+                jiCommon.hideLoading()
+            });*/
+        });
+
+        function getMap(content) {
+            let url = CONTEXT + '/view/display/' + content;
+
+            $('#mapContent').load(url);
+        }
+        $(layerModal).on('show.bs.modal', function(e) {
+            jiCommon.showLoading()
+            $('#list_table').DataTable().destroy()
+            var layers = stmp.mapObject.map.getStyle().layers
+            var maxzoom = stmp.mapObject.map.getMaxZoom()
+            var minzoom = stmp.mapObject.map.getMinZoom()
+            var optionHtml = "<option value=''>선택</option>"
+            for(var i=minzoom; i <= maxzoom; i++){
+                optionHtml += "<option value='"+i+"'>"+i+"</option>"
+            }
+            var layerTable = jQuery('#list_table').DataTable({
+                data : layers,
+                columns: [
+                    { title: "NO" , className: "text-center", orderable : false, render: function (data, type, row, meta) {
+                            return parseInt(meta.row) + 1;
+                        }},
+                    { title: "이름" , data:'id', className: "text-center", orderable : false },
+                    { title: "타입" , data:'type', className: "text-center" },
+                    { title: "보임", className: "text-center", render: function(data,type,row,meta) {
+                            var layer = stmp.mapObject.map.getLayer(row.id)
+                            var visible = (layer.visibility === "visible")
+                            var html = "<input type=\"checkbox\" class=\"visible align-middle\" onclick=\"fn_set_layer_visible(this)\" data-layerid='"+row.id+"' " + (visible ? "checked='checked'" : "") + ">"
+                            return html
+                        }},
+                    { title: "투명도", className: "text-center align-middle", render: function(data,type,row,meta) {
+                            var type = row.type
+                            var opacity
+                            if(type === "background"){
+                                opacity = stmp.mapObject.map.getPaintProperty(row.id,"background-opacity")
+                            }else if(type === "fill"){
+                                opacity = stmp.mapObject.map.getPaintProperty(row.id,"fill-opacity")
+                            }else if(type === "line"){
+                                opacity = stmp.mapObject.map.getPaintProperty(row.id,"line-opacity")
+                            }else if(type === "symbol"){
+                                opacity = stmp.mapObject.map.getPaintProperty(row.id,"icon-opacity")
+                                //stmp.mapObject.map.getPaintProperty(row.id,"text-opacity") // TODO : icon / text 분리 필요
+                            }
+                            if(opacity === undefined){
+                                opacity = 1
+                            }
+                            var html = "<input class=\"opacity form-control-range align-middle\" type=\"range\" min='0' max='1' step='0.01' value='"+opacity+"' onchange='fn_set_layer_opacity(this)' data-layerid='"+row.id+"'/>"
+                            return html
+                        }},
+                    { title: "순서", className: "text-center text-nowrap", render: function(data,type,row,meta) {
+                            var html =  "<button type=\"button\" class=\"btn btn-sm small btn-primary p-0 mr-1\" onclick='fn_set_layer_order_up(this)' data-layerid='"+row.id+"'>&#8593;</button>" +
+                                        "<button type=\"button\" class=\"btn btn-sm small btn-primary p-0\" onclick='fn_set_layer_order_down(this)' data-layerid='"+row.id+"'>&#8595;</button>"
+                            return html
+                        }},
+                    { title: "축적(최소-최대)", className: "text-center text-nowrap", render: function(data,type,row,meta) {
+                            var sourceLayer = row['source-layer']
+                            var maxzoom = row.maxzoom
+                            var minzoom = row.minzoom
+                            //console.log(sourceLayer, _TEGOLA_CONFIG[sourceLayer])
+                            if(_TEGOLA_CONFIG[sourceLayer]){
+                                maxzoom = _TEGOLA_CONFIG[sourceLayer].maxzoom
+                                minzoom = _TEGOLA_CONFIG[sourceLayer].minzoom
+                            }
+                            var maxzoomOptionHtml = optionHtml.replace("value='"+maxzoom+"'","value='"+maxzoom+"' selected='selected'")
+                            var minzoomOptionHtml = optionHtml.replace("value='"+minzoom+"'","value='"+minzoom+"' selected='selected'")
+                            var html =  "<select class='custom-select custom-select-sm' style='width: 65px;' onchange='fn_set_layer_min_zoom(this)' data-layerid='"+row.id+"'>"+minzoomOptionHtml+"</select>" +
+                                        " - " +
+                                        "<select class='custom-select custom-select-sm' style='width: 65px;' onchange='fn_set_layer_max_zoom(this)' data-layerid='"+row.id+"'>"+maxzoomOptionHtml+"</select>"
+                            return html
+                        }}
+                ],
+                language : {
+                    "info" : "총 _MAX_ 건"
+                },
+                paging: false,
+                scrollY: '50vh',
+                scrollCollapse: true,
+                ordering: false
+            });
+            setTimeout(function(){
+                layerTable.columns.adjust().draw()
+                jiCommon.hideLoading()
+                },0);
+        });
+        function fn_set_layer_visible(elem){
+            var layerId = elem.getAttribute("data-layerid")
+            var visible = (elem.checked ? 'visible' : 'none')
+            //console.log(layerId,"visibility",visible)
+            stmp.mapObject.map.setLayoutProperty(layerId,"visibility",visible)
+        }
+
+        /**
+         * background / background-opacity
+         * fill / fill-opacity
+         * line / line-opacity
+         * symbol / icon-opacity & text-opacity
+         * @param elem
+         */
+        function fn_set_layer_opacity(elem){
+            var layerId = elem.getAttribute("data-layerid")
+            var layer = stmp.mapObject.map.getLayer(layerId)
+            var type = layer.type
+            var value = parseFloat(elem.value)
+            if(type === "background"){
+                stmp.mapObject.map.setPaintProperty(layerId,"background-opacity",value)
+            }else if(type === "fill"){
+                stmp.mapObject.map.setPaintProperty(layerId,"fill-opacity",value)
+            }else if(type === "line"){
+                stmp.mapObject.map.setPaintProperty(layerId,"line-opacity",value)
+            }else if(type === "symbol"){
+                stmp.mapObject.map.setPaintProperty(layerId,"icon-opacity",value)
+                stmp.mapObject.map.setPaintProperty(layerId,"text-opacity",value)
+            }
+        }
+        function fn_set_layer_order_up(elem){
+            var layers = stmp.mapObject.map.getStyle().layers
+            var layerId = elem.getAttribute("data-layerid")
+            var prevLayerIdx = -1
+            var currLayerIdx = -1
+            jQuery.each(layers, function(idx, layer){
+                if(layer.id === layerId){
+                    prevLayerIdx = idx - 1
+                    currLayerIdx = idx
+                    return
+                }
+            })
+            if(prevLayerIdx > -1){
+                var targetItem = layers[prevLayerIdx]
+                var currentItem = layers[currLayerIdx]
+                stmp.mapObject.map.moveLayer(layerId,targetItem.id)
+                jQuery('#list_table').DataTable().row(prevLayerIdx).data(currentItem).draw(false);
+                jQuery('#list_table').DataTable().row(currLayerIdx).data(targetItem).draw(false);
+            }else{
+                toastr.warning("레이어 순서조정이 불가능합니다.")
+            }
+        }
+        function fn_set_layer_order_down(elem){
+            var layers = stmp.mapObject.map.getStyle().layers
+            var layerId = elem.getAttribute("data-layerid")
+            var nextLayerIdx = -1
+            var currLayerIdx = -1
+            jQuery.each(layers, function(idx, layer){
+                if(layer.id === layerId){
+                    nextLayerIdx = idx + 1
+                    currLayerIdx = idx
+                    return
+                }
+            })
+            if(nextLayerIdx < layers.length){
+                var targetItem = layers[nextLayerIdx + 1]
+                var moveTargetItem = layers[nextLayerIdx]
+                var currentItem = layers[currLayerIdx]
+                if(nextLayerIdx === layers.length - 1) {
+                    targetItem = layers[nextLayerIdx]
+                    stmp.mapObject.map.moveLayer(targetItem.id,layerId)
+                }else {
+                    stmp.mapObject.map.moveLayer(layerId, targetItem.id)
+                }
+                jQuery('#list_table').DataTable().row(nextLayerIdx).data(currentItem).draw(false);
+                jQuery('#list_table').DataTable().row(currLayerIdx).data(moveTargetItem).draw(false);
+            }else{
+                toastr.warning("레이어 순서조정이 불가능합니다.")
+            }
+        }
+        function fn_set_layer_min_zoom(elem){
+            var layerId = elem.getAttribute("data-layerid")
+            var layer = stmp.mapObject.map.getLayer(layerId)
+            layer.minzoom = elem.value
+            stmp.mapObject.map.resize()
+        }
+        function fn_set_layer_max_zoom(elem){
+            var layerId = elem.getAttribute("data-layerid")
+            var layer = stmp.mapObject.map.getLayer(layerId)
+            layer.maxzoom = elem.value
+            stmp.mapObject.map.resize()
+        }
+        /* GRID area */
+        function fn_set_graticules(elem){
+            if(elem.tagName === "SELECT"){
+                var type = elem.value
+                jQuery("#___GridLine,#___GridBackground,#___GridLabel").prop("checked", true)
+                stmp.drawGraticules(type) // 그리기
+            }else if(elem.tagName === "INPUT"){
+                var elemId = elem.id
+                var visible = (elem.checked ? 'visible' : 'none')
+                var layers = stmp.mapObject.map.getStyle().layers
+                jQuery.each(layers, function (idx, layer) {
+                    var layerId = layer.id
+                    if(elemId.indexOf("Line") > -1){
+                        if(layerId.indexOf("graticules-line") > -1){
+                            stmp.mapObject.map.setLayoutProperty(layerId,"visibility",visible)
+                        }
+                    }else if(elemId.indexOf("Label") > -1){
+                        if(layerId.indexOf("graticules-label") > -1){
+                            stmp.mapObject.map.setLayoutProperty(layerId,"visibility",visible)
+                        }
+                    }
+                })
+            }
+        }
+        /* GRID area */
+
+        //이지훈 UUID 생성
+        function getUUID() { // UUID v4 generator in JavaScript (RFC4122 compliant)
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 3 | 8);
+                return v.toString(16);
+            });
+        }
+
+        //이지훈 LOS 버튼 클릭
+        $('#btn_los').click(function() {
+            console.log('#############btn_los click');
+            //debugger;
+
+            //버튼 중복 방지
+            var isRun = false;
+            if(isRun){
+                return;
+            }
+
+            $('#spn_los_spinner').toggle();
+
+            var coord = [127, 37];
+            var json = {
+                "observer_lon": 127.70,
+                "observer_lat": 36.95,
+                "observer_height": 2,
+                "target_height": 10,
+                "semi_dimension": 400,
+                "visible_color": "#0000FF",
+                "invisible_color": "#FF0000",
+                "image_alpha": 32,
+                "image_shape": 1,
+                "input_dem_level": 2,
+                "output_directory": "jiin/mims",
+                "output_file_format": ".png",
+                "run_async": 0
+            };
+
+            console.log(JSON.stringify(json));
+
+            var interval;
+            $.ajax({
+                //url : CONTEXT + '/view/los/requestLos'
+                url : 'http://211.172.246.71:11100/height/viewshed'
+                //url : 'http://localhost:5000/viewshed'
+                , type : 'post'
+                , contentType : 'application/json'
+                , data : JSON.stringify(json)
+                , success : function(result) {
+                    console.log(result);
+                    interval = setInterval(function() {
+                        $.ajax({
+                            url: CONTEXT + '/view/los/get'
+                            ,type:'post'
+                            ,contentType:'application/json'
+                            ,data : JSON.stringify(result)
+                            ,success : function(urlResult) {
+                                if (urlResult.url !== "") {
+                                    isRun = false;
+                                    clearInterval(interval);
+                                    $('#spn_los_spinner').toggle();
+                                    console.log(urlResult);
+
+                                    //Cesium Clamp to Terrain - Draw Textured Polygon
+                                    stmp.mapObject.map.entities.add({
+                                        rectangle : {
+                                            coordinates : Cesium.Rectangle.fromDegrees(urlResult.west, urlResult.south, urlResult.east, urlResult.north)
+                                            ,material : urlResult.url
+                                            ,classificationType : Cesium.ClassificationType.TERRAIN
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }, 5000);
+                }
+                ,error : function(result) {
+                    debugger;
+                    console.log(result);
+                }
+            });
+
+            //요청
+            /*$.ajax({
+                url: CONTEXT + '/view/los/get'
+                ,type:'post'
+                ,contentType:'application/json'
+                ,data : JSON.stringify(json)
+                ,success : function(result) {
+                    console.log("######## return /los/get-los");
+                    console.log(result);
+                    interval = setInterval(function() {
+                        $.ajax({
+                            url: CONTEXT + '/view/los/get'
+                            ,type:'post'
+                            ,contentType:'application/json'
+                            ,data : JSON.stringify(result)
+                            ,success : function(urlResult) {
+                                if (urlResult.url !== "") {
+                                    isRun = false;
+                                    clearInterval(interval);
+                                    $('#spn_los_spinner').toggle();
+                                    console.log(urlResult);
+
+                                    //Cesium Clamp to Terrain - Draw Textured Polygon
+                                    stmp.mapObject.map.entities.add({
+                                        rectangle : {
+                                            coordinates : Cesium.Rectangle.fromDegrees(urlResult.west, urlResult.south, urlResult.east, urlResult.north)
+                                            ,material : urlResult.url
+                                            ,classificationType : Cesium.ClassificationType.TERRAIN
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }, 5000);
+                }
+            });*/
+
+            /*
+            var interval;
+            var chk;
+            //키값(uuid, 좌표) 전송
+            $.ajax({
+                url:''
+               	,type:'post'
+                ,dataType:'json'
+                ,data : json
+                ,success:function(json){
+                	isRun = true;
+                	interval = setInterval(function(){
+                        $.ajax({
+                            url:''
+                           	,type:'post'
+                            ,dataType:'json'
+                            ,data : json
+                            ,success:function(json){
+                            	isRun = false;
+                            	clearInterval(interval);
+                            	$('#spn_los_spinner').toggle();
+                            }
+                        });
+                	},5000);
+                }
+            });
+            */
+
+            /*
+              //Cesium Clamp to Terrain - Draw Textured Polygon
+            stmp.mapObject.map.entities.add({
+                rectangle : {
+                    coordinates : Cesium.Rectangle.fromDegrees(coord[0], coord[1], coord[0]+0.01, coord[1]+0.01)
+                    ,material : "/img/logo.png"
+                    ,classificationType : Cesium.ClassificationType.TERRAIN
+                }
+            });
+            */
+        });
+    </script>
+
+    <script th:src="@{/js/commons/jsHashMap.js}"></script>
+    <script th:src="@{/js/commons/geoTrans.js}"></script>
+    <script th:src="@{/js/commons/feature.js}"></script>
+    <script th:src="@{/js/military/mb-milSymbol.js}"></script>
+    <script th:src="@{/js/military/milSymbol.js}"></script>
+    <script th:src="@{/js/commons/cfsiStmpCommon.js}"></script>
+</th:block>
+
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/css/symbol/symbol-bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/symbol/symbol.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/jquery.dataTables.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/jquery/jquery-ui.min.js}"></script>
+</th:block>
+</html>
