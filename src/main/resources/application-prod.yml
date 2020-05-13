@@ -2,16 +2,16 @@ project:
   datasource:
     base:
       driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://211.172.246.71:5000/mims
-      username: jiserver
-      password: jiserver
+      url: jdbc:postgresql://211.172.246.71:9999/mims
+      username: jiapp
+      password: jiapp
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
       mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
     map:
       driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://211.172.246.71:5000/mims
-      username: jiserver
-      password: jiserver
+      url: jdbc:postgresql://211.172.246.71:9999/mims
+      username: jiapp
+      password: jiapp
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
       mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
   data-path: /data/jiapp/data_dir
@@ -23,7 +23,9 @@ project:
     minio-port: 11170
     accessKey: minioadmin
     secretKey: minioadmin
+
 logging:
   level:
     org.springframework : INFO
     org.springframework.web : INFO
+    com.jiin.admin : INFO

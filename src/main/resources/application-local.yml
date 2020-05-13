@@ -23,7 +23,9 @@ project:
     minioPort: 11170
     accessKey: minioadmin
     secretKey: minioadmin
+
 logging:
   level:
-    org.springframework : INFO
-    org.springframework.web : INFO
+    org.springframework: DEBUG
+    org.springframework.web: DEBUG
+    com.jiin.admin: DEBUG
