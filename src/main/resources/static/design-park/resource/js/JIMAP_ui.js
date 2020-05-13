@@ -111,5 +111,9 @@ var jiCommon = {
     }
 };
 
+// [공통] Tooltip 이 모두 가능하게끔.
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
 
 
