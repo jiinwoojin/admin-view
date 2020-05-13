@@ -59,10 +59,17 @@ var jiMap = function jiMap(options) {
                             var prevx, prevy
                             var startLine = false
                             var percentRate = 1
+                            var clipPath = boundry.d
                             // 수중학적 밑으로 꺼짐 현상
+                            // 상단 라인 잔상 현상
                             if(path === "m 45,50 c 0,100 40,120 55,120 15,0 55,-20 55,-120"){
                                 percentRate = 0.43
+                                clipPath = "m 45,49 c 0,100 40,120 55,120 15,0 55,-20 55,-120"
                             }
+                            if(path === "M45,50 L45,130 100,180 155,130 155,50"){
+                                clipPath = "M45,49 L45,130 100,180 155,130 155,49"
+                            }
+
                             jQuery.each(pathcoords, function (idx, pathcoord) {
                                 var xy = pathcoord.split(",")
                                 if (/[lc]/.test(xy[0])) {
@@ -84,26 +91,25 @@ var jiMap = function jiMap(options) {
                                 }
                             })
                             override.d = "M " + xmin + "," + ymin + " H " + xmax + " V " + ymax + " H " + xmin + " V " + ymin + " Z"
+                            override.clipPath = clipPath
                             override.fill = "rgb(255,255,255)"
-                            override.stroke = "rgb(255,255,255)"
-                            override.strokewidth = 0
+                            override.stroke = "rgba(0,0,0,0)"
                             override.fillopacity = 1
                             if(ymin < 0){
                                 ymin = 0
                             }
+                            ymin = ymin - 3
                             ymax = Math.round(ymin + (((ymax * percentRate) - ymin) * (1 - percent)))
                             fillcolor.d = "M " + xmin + "," + ymin + " H " + xmax + " V " + ymax + " H " + xmin + " V " + ymin + " Z"
+                            fillcolor.clipPath = clipPath
                             fillcolor.fill = "rgb(255,255,255)"
-                            fillcolor.stroke = "rgb(255,255,255)"
-                            fillcolor.strokewidth = 0
+                            fillcolor.stroke = "rgba(0,0,0,0)"
                             fillcolor.fillopacity = 1
                             newDrawArray2.push(override);
                             newDrawArray2.push(background);
                             newDrawArray2.push(fillcolor);
                             newDrawArray2.push(boundry);
-                            //console.log(background.d)
-                            //console.log(override.d)
-                            //console.log(fillcolor.d)
+                            console.log(boundry)
                         }else if(draw.type === 'circle' && exec === false){
                             exec = true
                             var centerx = draw.cx
@@ -131,7 +137,6 @@ var jiMap = function jiMap(options) {
                             fillcolor.strokewidth = 0
                             ymax = Math.round(ymin + ((ymax - ymin) * (1 - percent)))
                             fillcolor.d = "M " + xmin + "," + ymin + " H " + xmax + " V " + ymax + " H " + xmin + " V " + ymin + " Z"
-                            console.log(fillcolor, draw)
                             newDrawArray2.push(override);
                             newDrawArray2.push(background);
                             newDrawArray2.push(fillcolor);
