@@ -1,16 +1,17 @@
 package com.jiin.admin.config;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.dto.AccountDTO;
 import com.jiin.admin.entity.*;
 import com.jiin.admin.entity.enumeration.ServerType;
-import com.jiin.admin.website.gis.MapProxyYamlComponent;
 import com.jiin.admin.website.model.ServerConnectionModel;
 import com.jiin.admin.website.model.ServerRelationModel;
+import com.jiin.admin.website.model.SymbolPositionModel;
 import com.jiin.admin.website.server.mapper.CheckMapper;
 import com.jiin.admin.website.view.mapper.AccountMapper;
-import com.jiin.admin.website.view.mapper.ProxyMapper;
-import com.jiin.admin.website.view.mapper.ManageMapper;
 import com.jiin.admin.website.view.mapper.ServiceMapper;
+import com.jiin.admin.website.view.mapper.SymbolMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
@@ -44,16 +45,10 @@ public class BootingService {
     EntityManager entityManager;
 
     @Resource
+    private SymbolMapper symbolMapper;
+
+    @Resource
     private CheckMapper checkMapper;
-
-    @Resource
-    private ManageMapper manageMapper;
-
-    @Resource
-    private ProxyMapper cacheMapper;
-
-    @Resource
-    private MapProxyYamlComponent mapProxyYamlComponent;
 
     @Resource
     private AccountMapper accountMapper;
@@ -61,18 +56,57 @@ public class BootingService {
     @Resource
     private ServiceMapper serviceMapper;
 
+//    @Resource
+//    private ManageMapper manageMapper;
+//
+//    @Resource
+//    private ProxyMapper cacheMapper;
+//
+//    @Resource
+//    private MapProxyYamlComponent mapProxyYamlComponent;
+
     @Transactional
-    public void initializeSymbol() {
+    public void initializeSymbol() throws IOException {
         System.out.println(">>> initializeSymbol Start");
-        entityManager.createQuery("DELETE FROM " + MapSymbol.class.getAnnotation(Entity.class).name()).executeUpdate();
-        int i = 0;
-        while(i++ < 10){
-            MapSymbol symbol = new MapSymbol();
-            symbol.setName("테스트");
-            symbol.setCode("SYMBOL" + i);
-            symbol.setType("POLYGON");
-            entityManager.persist(symbol);
+
+        String path = dataPath + "/html/GSymbol";
+        String jsonDir = path + "/GSSSymbol.json";
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        File file = new File(jsonDir);
+
+        if(!file.exists()) return;
+
+        Map<String, Object> data = mapper.readValue(file, new TypeReference<Map<String, Object>>() {});
+        for(String key : data.keySet()){
+            Map<String, Integer> map = (Map<String, Integer>) data.get(key);
+
+            Integer height = map.getOrDefault("height", -1);
+            Integer width = map.getOrDefault("width", -1);
+            Integer pixelRatio = map.getOrDefault("pixelRatio", -1);
+            Integer xPos = map.getOrDefault("x", -1);
+            Integer yPos = map.getOrDefault("y", -1);
+
+            if(height < 0 || width < 0 || pixelRatio < 0 || xPos < 0 || yPos < 0) continue;
+
+            SymbolPositionEntity entity = symbolMapper.findPositionBySymbolName(key);
+            if(entity == null) {
+                symbolMapper.insertWithSymbolPositionModel(
+                    new SymbolPositionModel(0L, key, height, width, pixelRatio, xPos, yPos)
+                );
+            }
         }
+
+//        entityManager.createQuery("DELETE FROM " + MapSymbol.class.getAnnotation(Entity.class).name()).executeUpdate();
+//        int i = 0;
+//        while(i++ < 10){
+//            MapSymbol symbol = new MapSymbol();
+//            symbol.setName("테스트");
+//            symbol.setCode("SYMBOL" + i);
+//            symbol.setType("POLYGON");
+//            entityManager.persist(symbol);
+//        }
     }
 
     @Transactional

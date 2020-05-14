@@ -20,7 +20,7 @@
 
 <th:block layout:fragment="content-body-fragment">
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-6">
 
             <!-- 데이터 그리드 시작 -->
             <table id="symbol_list_table" class="table basic">
@@ -28,20 +28,23 @@
                 <!-- 데이터 칼럼 시작 -->
                 <thead class="table-info">
                 <tr>
-                    <th scope="col" class="text-center">SYMBOL ID</th>
-                    <th scope="col" class="text-center">SYMBOL 코드</th>
-                    <th scope="col" class="text-center">SYMBOL 타입</th>
+                    <th scope="col" class="text-center">SYMBOL 이름</th>
+                    <th scope="col" class="text-center">X 좌표</th>
+                    <th scope="col" class="text-center">Y 좌표</th>
+                    <th scope="col" class="text-center">이미지</th>
                 </tr>
                 </thead>
                 <!-- // 데이터 칼럼 종료 -->
 
-
                 <!-- 데이터 목록 시작 -->
                 <tbody>
-                <tr th:each="symbol : ${ RESULTS }">
-                    <td class="text-center"><span th:text="${ symbol.id }">[SYMBOL 아이디]</span></td>
-                    <td class="text-center"><span th:text="${ symbol.name }">[SYMBOL 명]</span></td>
-                    <td class="text-center"><span th:text="${ symbol.type }">[SYMBOL 타입]</span></td>
+                <tr th:each="symbol : ${ resMap.get('data') }">
+                    <td class="text-center align-middle"><span th:text="${ symbol.name }">[SYMBOL 아이디]</span></td>
+                    <td class="text-center align-middle"><span th:text="${ (symbol.xPos * 2 + symbol.width) / 2 }">[SYMBOL X 좌표]</span></td>
+                    <td class="text-center align-middle"><span th:text="${ (symbol.yPos * 2 + symbol.height) / 2 }">[SYMBOL Y 좌표]</span></td>
+                    <td class="text-center align-middle">
+                        <img th:src="${ T(java.lang.String).format('./image?xPos=%d&yPos=%d&width=%d&height=%d', symbol.xPos, symbol.yPos, symbol.width, symbol.height) }" th:alt="${ 'symbol_' + symbol.name }" />
+                    </td>
                 </tr>
                 </tbody>
                 <!-- // 데이터 목록 종료 -->
@@ -49,17 +52,17 @@
             </table>
             <!-- // 데이터 그리드 종료 -->
 
+            <!-- pageNavigation #START -->
+            <th:block th:replace="fragments/html-pagination-bar :: html-pagination-bar('/symbol/list')" />
+            <!-- pageNavigation #END -->
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-sm-6">
 
             <!-- 탭 시작 -->
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#_symbol-image">이미지</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#_symbol-xml">XML</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#_symbol-json">JSON</a>
@@ -70,13 +73,11 @@
             <!-- 탭 뷰 시작 -->
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="_symbol-image">
-                    <h3 class="section_tit">SYMBOL 이미지 뷰어</h3>
-                </div>
-                <div class="tab-pane fade" id="_symbol-xml">
-                    <h3 class="section_tit">SYMBOL XML</h3>
+                    <img src="./set-image" alt="symbol_set_image" style="width: 100%;" />
                 </div>
                 <div class="tab-pane fade" id="_symbol-json">
-                    <h3 class="section_tit">SYMBOL JSON</h3>
+                    <textarea rows="25" readonly th:text="${jsonContext}" class="form-control">
+                    </textarea>
                 </div>
             </div>
             <!-- // 탭 뷰 종료 -->
@@ -84,19 +85,19 @@
         </div>
     </div>
 
-    <script>
-        $(document).ready(function () {
-            initialize_dataTable('symbol_list_table');
-        });
-    </script>
+<!--    <script>-->
+<!--        $(document).ready(function () {-->
+<!--            initialize_dataTable('symbol_list_table');-->
+<!--        });-->
+<!--    </script>-->
 </th:block>
 
-<th:block layout:fragment="custom-html-link">
-    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
-</th:block>
+<!--<th:block layout:fragment="custom-html-link">-->
+<!--    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">-->
+<!--</th:block>-->
 
-<th:block layout:fragment="custom-html-script">
-    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/jquery.dataTables.js}"></script>
-    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
-</th:block>
+<!--<th:block layout:fragment="custom-html-script">-->
+<!--    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/jquery.dataTables.js}"></script>-->
+<!--    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>-->
+<!--</th:block>-->
 </html>

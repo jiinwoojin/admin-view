@@ -3,7 +3,7 @@
 <div id="pg_bar_frag" th:fragment="html-pagination-bar(pageName)">
     <div id="pagination_bar"></div>
     <script>
-        render_pagination_bar([[${param.pg}]], [[${param.sz}]], [[${resMap.count}]]);
+        render_pagination_bar([[${param.pg == null ? 1 : param.pg}]], [[${param.sz == null ? 8 : param.sz}]], [[${resMap.count}]]);
 
         function getQueryStringObject() {
             var a = window.location.search.substr(1).split('&');
@@ -25,19 +25,23 @@
 
             obj.ob = qs.ob || 0;
             obj.sb = qs.sb || 0;
-            obj.sz = qs.sz || 6;
+            obj.sz = qs.sz || 8;
             obj.st = qs.st || '';
 
             obj.sDate = qs.sDate || '';
             obj.eDate = qs.eDate || '';
 
-            if(pageName == 'layer-manage') {
+            if(pageName == '/manage/layer-manage') {
                 obj.lType = qs.lType || 'ALL';
             }
 
-            if(pageName == 'map-manage') {
+            if(pageName == '/manage/map-manage') {
                 obj.iType = qs.iType || 'ALL';
                 obj.units = qs.units || 'ALL';
+            }
+
+            if(pageName == '/symbol/list') {
+                delete obj['sb'];
             }
 
             var str = '';
@@ -60,7 +64,7 @@
             if(first > 1){
                 pagination += `
                     <li class="page-item">
-                        <a class="page-link" href="${ CONTEXT + '/view/manage/' + '[[${pageName}]]' + '?pg=' + (first - 1) + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">&lt;</a>
+                        <a class="page-link" href="${ CONTEXT + '/view' + '[[${pageName}]]' + '?pg=' + (first - 1) + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">&lt;</a>
                     </li>
                 `;
             }
@@ -68,7 +72,7 @@
             for(var i = first; i <= last && i <= pageCount; i++){
                 pagination += `
                     ${ i == pg ? `<li class="page-item active">` : `<li class="page-item">` }
-                        <a class="page-link" href="${ CONTEXT + '/view/manage/' + '[[${pageName}]]' + '?pg=' + i + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">${ i }</a>
+                        <a class="page-link" href="${ CONTEXT + '/view' + '[[${pageName}]]' + '?pg=' + i + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">${ i }</a>
                     </li>
                 `;
             }
@@ -76,7 +80,7 @@
             if(last < pageCount){
                 pagination += `
                     <li class="page-item">
-                        <a class="page-link" href="${ CONTEXT + '/view/manage/' + '[[${pageName}]]' + '?pg=' + (last + 1) + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">&gt;</a>
+                        <a class="page-link" href="${ CONTEXT + '/view' + '[[${pageName}]]' + '?pg=' + (last + 1) + "&" + convertObjectToQueryStringWithoutPage('[[${pageName}]]') }">&gt;</a>
                     </li>
                 `;
             }
