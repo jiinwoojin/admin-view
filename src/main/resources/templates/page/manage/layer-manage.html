@@ -16,15 +16,6 @@
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
-    <div class="button_area">
-        <div id="layer_config_button" class="text-right mb-2">
-            <!-- LAYER 추가 버튼 -->
-            <button data-toggle="modal" data-target="#layer-create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                <i class="fas fa-plus fa-sm text-white-50"></i> LAYER 추가
-            </button>
-        </div>
-    </div>
-
     <!-- search area #START -->
     <div class="search_area">
         <div class="ibox">
@@ -108,12 +99,22 @@
         </div>
     </div>
 
+    <div class="button_area mb-3">
+        <div class="d-flex justify-content-between">
+            <!-- 총 결과 카운트 -->
+            <h3 class="session_tit">검색 결과 : 총 <span th:text="${ resMap.count }" id="total"></span> 건</h3>
+
+            <div id="map_config_button">
+                <!-- LAYER 추가 버튼 -->
+                <button data-toggle="modal" data-target="#layer-create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-plus fa-sm text-white-50"></i> LAYER 추가
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- pannal List #START -->
     <div class="result_area">
-
-        <div class="search_count">
-            <h3 class="session_tit">검색 결과 : 총 <span th:text="${ resMap.count }" id="total"></span> 건</h3>
-        </div>
 
         <ul class="col_list col_xxl_3" th:if="${ resMap.count > 0 }">
             <li th:each="layer : ${ resMap.data }">

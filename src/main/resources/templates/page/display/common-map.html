@@ -21,15 +21,15 @@
     <div id="map_block" class="map_top">
         <div class="d-flex justify-content-between">
             <div id="tab_btn">
-                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                <ul class="nav nav-pills" id="pills-tab" role="tablist" style="background-color: white; border-radius: .25rem;">
                     <li class="nav-item">
                         <a class="nav-link map-item" id="pills-display2d" style="cursor: pointer;">
-                            <i class="fas fa-vector-square"></i>
+                            <i class="fas fa-vector-square text-center"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link map-item" id="pills-display3d" style="cursor: pointer;">
-                            <i class="fas fa-cube"></i>
+                            <i class="fas fa-cube text-center"></i>
                         </a>
                     </li>
                 </ul>
@@ -63,13 +63,13 @@
                         <option value="GARS">Gars (4 Depth)</option>
                         <option value="GEOREF">GeoRef (3 Depth)</option>
                     </select>
-                    <input type="checkbox" id="___GridLine" checked="checked" onchange="fn_set_graticules(this)">
-                    &nbsp;
-                    <label for="___GridLine">Grid Line</label>
-                    &nbsp;&nbsp;
-                    <input type="checkbox" id="___GridLabel" checked="checked" onchange="fn_set_graticules(this)">
-                    &nbsp;
-                    <label for="___GridLabel">Grid Label</label>
+
+                    <label for="___GridLine" class="checkbox-inline i-checks mr-2">
+                        <input type="checkbox" id="___GridLine" checked="checked" onchange="fn_set_graticules(this)"> Grid Line
+                    </label>
+                    <label for="___GridLabel" class="checkbox-inline i-checks mr-2">
+                        <input type="checkbox" id="___GridLabel" checked="checked" onchange="fn_set_graticules(this)"> Grid Label
+                    </label>
                     <!--GRID area-->
                 </div>
             </div>
