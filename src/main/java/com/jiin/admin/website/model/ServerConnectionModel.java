@@ -11,6 +11,7 @@ public class ServerConnectionModel {
     private String title; // Server 이름
     private String type; // SI vs N-SI
     private String ipAddress; // 접속 IP 주소
+    private String port; // 포트
     private String username; // 사용자 이름
     private String password; // 비밀번호
 
@@ -18,12 +19,13 @@ public class ServerConnectionModel {
 
     }
 
-    public ServerConnectionModel(Long id, String key, String title, String type, String ipAddress, String username, String password) {
+    public ServerConnectionModel(Long id, String key, String title, String type, String ipAddress, String port, String username, String password) {
         this.id = id;
         this.key = key;
         this.title = title;
         this.type = type;
         this.ipAddress = ipAddress;
+        this.port = port;
         this.username = username;
         this.password = password;
     }

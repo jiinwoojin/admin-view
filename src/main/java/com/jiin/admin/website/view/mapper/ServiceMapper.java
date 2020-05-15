@@ -11,7 +11,7 @@ import java.util.List;
 
 @BaseMapper
 public interface ServiceMapper {
-    @Insert("INSERT INTO _SERVER_CONNECTION(ID, KEY, TITLE, TYPE, IP_ADDRESS, USERNAME, PASSWORD) VALUES(#{id}, #{key}, #{title}, #{type}, #{ipAddress}, #{username}, #{password})")
+    @Insert("INSERT INTO _SERVER_CONNECTION(ID, KEY, TITLE, TYPE, IP_ADDRESS, PORT, USERNAME, PASSWORD) VALUES(#{id}, #{key}, #{title}, #{type}, #{ipAddress}, #{port}, #{username}, #{password})")
     @SelectKey(statement="SELECT NEXTVAL('SERVER_CONNECTION_SEQ')", keyProperty="id", before=true, resultType=long.class)
     void insertServerConnectionWithModel(ServerConnectionModel serverConnectionModel);
 
