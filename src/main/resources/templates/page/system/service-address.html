@@ -44,7 +44,16 @@
                         <span th:text="${'CDS'}" th:case="CDS"></span>
                     </td>
                     <td class="text-center align-middle">
-                        <button id="connectUpdate" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#addressDataUpdate">
+                        <button th:id="${ 'connectUpdate' + connection.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button"
+                                th:onclick="onclick_server_address_edit([[${connection.id}]])"
+                                th:data-key="${connection.key}"
+                                th:data-title="${connection.title}"
+                                th:data-dtype="${connection.type}"
+                                th:data-address="${connection.ipAddress}"
+                                th:data-username="${connection.username}"
+                                th:data-password="${connection.password}"
+                                th:data-port="${connection.port}"
+                        >
                             <i class="fas fa-cog"></i>
                         </button>
                     </td>
@@ -61,30 +70,49 @@
 
         <!-- 서버 주소 편집 시작 -->
         <div class="col-md-6">
-            <h3 class="section-tit my-1">서버 주소 편집</h3>
+            <h3 class="section-tit my-1">서버 주소 열람</h3>
 
-            <form id="update-role" th:action="@{/view/role/update-role}" method="post" accept-charset="utf-8">
+            <form id="update-server-info" method="post" accept-charset="utf-8">
                 <div class="form-group">
-                    <label for="serviceName">서비스 이름 <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="serviceName" name="serviceName" readonly />
+                    <label for="title">서버 종류 <span style="color: red;">(*)</span></label>
+                    <input type="text" class="form-control" id="type" name="type" readonly />
                 </div>
 
                 <div class="form-group">
-                    <label for="serviceIP">서버 IP <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="serviceIP" name="serviceIP" readonly />
+                    <label for="key">서버 코드 <span style="color: red;">(*)</span></label>
+                    <input type="text" class="form-control" id="key" name="key" readonly />
                 </div>
 
                 <div class="form-group">
-                    <label for="serviceIP">서버 포트 <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="servicePort" name="servicePort" readonly />
+                    <label for="title">서버 이름 <span style="color: red;">(*)</span></label>
+                    <input type="text" class="form-control" id="title" name="title" readonly />
                 </div>
 
                 <div class="form-group">
-                    <label for="serviceDir">접속 주소 <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="serviceDir" name="serviceDir" readonly />
+                    <label for="ipAddress">서버 IP <span style="color: red;">(*)</span></label>
+                    <input type="text" class="form-control" id="ipAddress" name="ipAddress" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label for="port">Admin Server 포트 <span style="color: red;">(*)</span></label>
+                    <input type="text" class="form-control" id="port" name="port" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label for="username">사용자 이름 <span style="color: red;">(*)</span></label>
+                    <input type="text" class="form-control" id="username" name="username" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">사용자 비밀번호 <span style="color: red;">(*)</span></label>
+                    <input type="text" class="form-control" id="password" name="password" readonly />
                 </div>
 
                 <hr/>
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    <i class="fas fa-sync"></i> 연결 확인
+                </button>
 
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                     <i class="fas fa-times"></i> 취소
@@ -98,6 +126,24 @@
         <!-- // 서버 주소 편집 종료 -->
 
     </div>
+
+    <script>
+        function onclick_server_address_edit(id){
+            var btn = jQuery("#connectUpdate" + id);
+
+            document.getElementById('key').value = btn.data('key');
+            document.getElementById('title').value = btn.data('title');
+            document.getElementById('ipAddress').value = btn.data('address');
+            document.getElementById('port').value = btn.data('port');
+            document.getElementById('type').value = btn.data('dtype');
+            document.getElementById('username').value = btn.data('username');
+            document.getElementById('password').value = btn.data('password');
+        }
+
+        function onclick_edit_cancel(){
+
+        }
+    </script>
 </th:block>
 
 <th:block layout:fragment="custom-html-link">

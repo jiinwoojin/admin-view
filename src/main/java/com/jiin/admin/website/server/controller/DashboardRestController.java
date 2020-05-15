@@ -4,7 +4,7 @@ import com.jiin.admin.entity.ServerConnectionEntity;
 import com.jiin.admin.website.gis.StatusService;
 import com.jiin.admin.website.server.vo.ServerBasicPerformance;
 import com.jiin.admin.website.server.vo.SynchronizeBasicInfo;
-import com.jiin.admin.website.view.service.DashboardService;
+import com.jiin.admin.website.view.service.ServerInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,19 +19,19 @@ import java.util.Map;
 @RequestMapping("api/dashboard")
 public class DashboardRestController {
     @Resource
-    private DashboardService dashboardService;
+    private ServerInfoService serverInfoService;
 
     @Autowired
     private StatusService statusService;
 
     @GetMapping("performance")
     public ServerBasicPerformance getOwnBasicServerPerformanceJSON(){
-        return dashboardService.getOwnServerBasicPerformance();
+        return serverInfoService.getOwnServerBasicPerformance();
     }
 
     @GetMapping("connection/{key}")
     public ServerConnectionEntity getAnotherConnectionJSON(@PathVariable String key){
-        return dashboardService.getAnotherConnection(key);
+        return serverInfoService.getAnotherConnection(key);
     }
 
     @GetMapping("sync-brief/{serverName}")

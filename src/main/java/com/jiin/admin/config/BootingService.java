@@ -7,6 +7,7 @@ import com.jiin.admin.entity.*;
 import com.jiin.admin.entity.enumeration.ServerType;
 import com.jiin.admin.website.model.ServerConnectionModel;
 import com.jiin.admin.website.model.ServerRelationModel;
+import com.jiin.admin.website.model.ServicePortModel;
 import com.jiin.admin.website.model.SymbolPositionModel;
 import com.jiin.admin.website.server.mapper.CheckMapper;
 import com.jiin.admin.website.view.mapper.AccountMapper;
@@ -258,7 +259,11 @@ public class BootingService {
 
     @Transactional
     public void initializeServerConnections(){
-        final List<String> KEY_LIST = Arrays.asList("B1-Svr1", "B1-Svr2", "NB1-Svr1", "NB1-Svr2", "U3-Svr1", "U3-Svr2", "NU3-Svr1", "NU3-Svr2", "GOC-Svr1", "GOC-Svr2", "B1-CDS", "U3-CDS");
+        //serviceMapper.truncateTableWithName("_SERVICE_PORT");
+        //serviceMapper.truncateTableWithName("_SERVER_RELATION");
+        //serviceMapper.truncateTableWithName("_SERVER_CONNECTION");
+
+        final List<String> KEY_LIST = Arrays.asList("B1-Svr1", "B1-Svr2", "NB1-Svr1", "NB1-Svr2", "U3-Svr1", "U3-Svr2", "NU3-Svr1", "NU3-Svr2", "GOC-Svr1", "GOC-Svr2", "B1-CDS", "U3-CDS", "B1-Test1", "B1-Test2");
         for(String key : KEY_LIST){
             if(serviceMapper.findServerConnectionByName(key) == null){
                 ServerConnectionModel model = null;
@@ -309,6 +314,13 @@ public class BootingService {
             for (String key : KEY_LIST) {
                 ServerConnectionEntity entity = serviceMapper.findServerConnectionByName(key);
                 map.put(key, entity);
+
+                ServicePortEntity portEntity = serviceMapper.findPortConfigBySvrId(entity.getId());
+                if(portEntity == null) {
+                    ServicePortModel port = new ServicePortModel();
+                    port.setSvrId(entity.getId());
+                    serviceMapper.insertServicePortWithModel(port);
+                }
             }
 
             // B1-Svr1

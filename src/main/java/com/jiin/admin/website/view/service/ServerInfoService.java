@@ -16,7 +16,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 @Service
-public class DashboardService {
+public class ServerInfoService {
     @Resource
     private CountMapper countMapper;
 
@@ -247,6 +247,19 @@ public class DashboardService {
         }
 
         return map;
+    }
+
+    // 자신의 포트 정보를 가져오는 메소드 (지금은 리눅스만 가능)
+    public ServicePortEntity getServicePortInfo(){
+        String ipAddr = this.getOwnIpAddressInLinux();
+
+        // 제공하는 서버가 윈도우가 아닌 경우에만 실행한다. (윈도우일 때, 제공 방안은 추후 개발 필요.)
+        if(!System.getProperty("os.name").toLowerCase().contains("win") && ipAddr != null){
+            ServerConnectionEntity entity = serviceMapper.findServerConnectionsByIpAddress(ipAddr);
+            return entity != null ? serviceMapper.findPortConfigBySvrId(entity.getId()) : new ServicePortEntity();
+        }
+
+        return new ServicePortEntity();
     }
 
     // 진행 예정 (동기화 모니터링)

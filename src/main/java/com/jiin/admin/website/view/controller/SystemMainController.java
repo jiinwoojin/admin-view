@@ -1,6 +1,6 @@
 package com.jiin.admin.website.view.controller;
 
-import com.jiin.admin.website.view.service.DashboardService;
+import com.jiin.admin.website.view.service.ServerInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("server")
 public class SystemMainController {
     @Autowired
-    private DashboardService dashboardService;
+    private ServerInfoService serverInfoService;
 
     @RequestMapping("service-info")
     public String serviceInfoPage(Model model){
@@ -24,7 +24,8 @@ public class SystemMainController {
 
     @RequestMapping("service-address")
     public String addressConfigPage(Model model){
-        model.addAttribute("connections", dashboardService.getOwnRelateConnectionsList());
+        model.addAttribute("connections", serverInfoService.getOwnRelateConnectionsList());
+        model.addAttribute("ports", serverInfoService.getServicePortInfo());
         return "page/system/service-address";
     }
 }

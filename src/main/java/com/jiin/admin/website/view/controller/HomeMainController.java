@@ -2,7 +2,7 @@ package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.website.gis.StatusService;
 import com.jiin.admin.website.security.AccountService;
-import com.jiin.admin.website.view.service.DashboardService;
+import com.jiin.admin.website.view.service.ServerInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,14 +18,14 @@ public class HomeMainController {
     private StatusService statusService;
 
     @Autowired
-    private DashboardService dashboardService;
+    private ServerInfoService serverInfoService;
 
     @RequestMapping(value = { "guest", "user" })
     public String homeMainPageForGuest(Model model){
-        model.addAttribute("serverRelation", dashboardService.getConnectRelations());
-        model.addAttribute("performanceMap", dashboardService.getEachFirstConnectionsMap());
+        model.addAttribute("serverRelation", serverInfoService.getConnectRelations());
+        model.addAttribute("performanceMap", serverInfoService.getEachFirstConnectionsMap());
         model.addAttribute("status_synchronize", statusService.centerSynchronizeCheck());
-        model.addAttribute("counter", dashboardService.getDataCounter());
+        model.addAttribute("counter", serverInfoService.getDataCounter());
         return "page/home/dashboard";
     }
 }
