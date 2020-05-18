@@ -28,26 +28,26 @@
         </rollingPolicy>
     </appender>
 
-    <root level="${log.level.root}">
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
 
-    <logger name="com.jiin.admin" level="${log.level.admin}" additivity="false">
+    <logger name="com.jiin.admin" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </logger>
 
-    <logger name="org.springframework" level="${log.level.spring}" additivity="false">
+    <logger name="org.springframework" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </logger>
 
-    <logger name="org.hibernate" level="${log.level.hibernate}" additivity="false">
+    <logger name="org.hibernate" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </logger>
 
-    <logger name="org.thymeleaf" level="${log.level.thymeleaf}" additivity="false">
+    <logger name="org.thymeleaf" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </logger>

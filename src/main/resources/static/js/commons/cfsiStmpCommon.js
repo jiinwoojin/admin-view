@@ -3,6 +3,7 @@
  * 상황도 공통
  */
 var stmp = {
+    PROTOCOL : window.location.protocol,
     // 상황도 서버 도메인 서버 IP
     SERVER_DOMAIN : '211.172.246.71',
     // 상황도 서버 지도 PORT
