@@ -51,9 +51,3 @@ server:
     uri-encoding: UTF-8
   servlet:
     context-path: /admin-view
-
-logging:
-  level:
-    org.springframework : INFO
-    org.springframework.web : INFO
-    com.jiin.admin : INFO

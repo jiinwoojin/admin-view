@@ -23,9 +23,13 @@ project:
     minioPort: 11170
     accessKey: minioadmin
     secretKey: minioadmin
-
-logging:
-  level:
-    org.springframework: DEBUG
-    org.springframework.web: DEBUG
-    com.jiin.admin: DEBUG
+  log:
+    config:
+      path: /data/jiapp/data_dir/logs
+      filename: admin_log
+    level:
+      root: DEBUG
+      spring: DEBUG
+      admin: DEBUG
+      hibernate: DEBUG
+      thymeleaf: DEBUG
