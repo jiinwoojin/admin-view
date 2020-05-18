@@ -20,21 +20,6 @@
 <th:block layout:fragment="content-body-fragment">
     <div id="map_block" class="map_top">
         <div class="d-flex justify-content-between">
-            <div id="tab_btn">
-                <ul class="nav nav-pills" id="pills-tab" role="tablist" style="background-color: white; border-radius: .25rem;">
-                    <li class="nav-item">
-                        <a class="nav-link map-item" id="pills-display2d" style="cursor: pointer;">
-                            <i class="fas fa-vector-square text-center"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link map-item" id="pills-display3d" style="cursor: pointer;">
-                            <i class="fas fa-cube text-center"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
             <div id="extend_functions">
                 <div id="military-position" class="form-inline">
                     <div class="btn-group mr-2">
@@ -64,13 +49,24 @@
                         <option value="GEOREF">GeoRef (3 Depth)</option>
                     </select>
 
-                    <label for="___GridLine" class="checkbox-inline i-checks mr-2">
-                        <input type="checkbox" id="___GridLine" checked="checked" onchange="fn_set_graticules(this)"> Grid Line
+                    <label for="___GridLine" class="checkbox-inline i-checks">
+                        <input type="checkbox" id="___GridLine" checked="checked" onchange="fn_set_graticules(this)">&nbsp;&nbsp;Grid Line
                     </label>
-                    <label for="___GridLabel" class="checkbox-inline i-checks mr-2">
-                        <input type="checkbox" id="___GridLabel" checked="checked" onchange="fn_set_graticules(this)"> Grid Label
+                    <label for="___GridLabel" class="checkbox-inline i-checks">
+                        <input type="checkbox" id="___GridLabel" checked="checked" onchange="fn_set_graticules(this)">&nbsp;&nbsp;Grid Label
                     </label>
                     <!--GRID area-->
+                </div>
+            </div>
+
+            <div id="tab_btn">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-sm btn-info map-item" id="display-display2d">
+                        <i class="fas fa-square text-center"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-secondary map-item" id="display-display3d">
+                        <i class="fas fa-cube text-center"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -265,7 +261,7 @@
             }
 
             getMap('mapbox-display');
-            $('#pills-display2d').addClass('active');
+            // $('#display-display2d').addClass('active');
             stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
 
             $(overlayModal).on('hide.bs.modal', function() {
@@ -287,16 +283,21 @@
 
                     stmp.mapObject.getExtents();
 
-                    if (_id === 'pills-display2d') {
+                    if (_id === 'display-display2d') {
                         contentName = 'mapbox-display';
-                        $('#pills-display3d').removeClass('active');
-                        $('#pills-display2d').addClass('active');
+                        $('#display-display2d').addClass('btn-info');
+
+                        $('#display-display3d').removeClass('btn-info');
+                        $('#display-display3d').addClass('btn-secondary');
                         $('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
                         stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
-                    } else if (_id === 'pills-display3d') {
+                    } else if (_id === 'display-display3d') {
                         contentName = 'cesium-display';
-                        $('#pills-display2d').removeClass('active');
-                        $('#pills-display3d').addClass('active');
+
+                        $('#display-display3d').addClass('btn-info');
+
+                        $('#display-display2d').removeClass('btn-info');
+                        $('#display-display2d').addClass('btn-secondary');
                         $('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
                         stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_3D;
                     }
@@ -728,7 +729,7 @@
 </th:block>
 
 <th:block layout:fragment="custom-html-link">
-    <link rel="stylesheet" th:href="@{/css/symbol/symbol-bootstrap.css}">
+    <!-- <link rel="stylesheet" th:href="@{/css/symbol/symbol-bootstrap.css}"> -->
     <link rel="stylesheet" th:href="@{/css/symbol/symbol.css}">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
 </th:block>

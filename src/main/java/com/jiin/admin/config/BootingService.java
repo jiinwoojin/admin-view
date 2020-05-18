@@ -265,48 +265,47 @@ public class BootingService {
 
         final List<String> KEY_LIST = Arrays.asList("B1-Svr1", "B1-Svr2", "NB1-Svr1", "NB1-Svr2", "U3-Svr1", "U3-Svr2", "NU3-Svr1", "NU3-Svr2", "GOC-Svr1", "GOC-Svr2", "B1-CDS", "U3-CDS", "B1-Test1", "B1-Test2");
         for(String key : KEY_LIST){
-            if(serviceMapper.findServerConnectionByName(key) == null){
-                ServerConnectionModel model = null;
-                switch(key){
-                    case "B1-Svr1" :
-                        model = new ServerConnectionModel(0L, "B1-Svr1", "B1 SI Server 1", ServerType.SI.name(), "192.168.1.141", "11110", "jiapp", "jiin0701!");
-                        break;
-                    case "B1-Svr2" :
-                        model = new ServerConnectionModel(0L, "B1-Svr2", "B1 SI Server 2", ServerType.SI.name(), "192.168.1.142", "11110", "jiapp", "jiin0701!");
-                        break;
-                    case "NB1-Svr1" :
-                        model = new ServerConnectionModel(0L, "NB1-Svr1", "B1 N-SI Server 1", ServerType.N_SI.name(), "192.168.1.152", "11110", "jiapp", "jiin0701!");
-                        break;
-                    case "NB1-Svr2" :
-                        model = new ServerConnectionModel(0L, "NB1-Svr2", "B1 N-SI Server 2", ServerType.N_SI.name(), "192.168.1.153", "11110", "jiapp", "jiin0701!");
-                        break;
-                    case "U3-Svr1" :
-                        model = new ServerConnectionModel(0L, "U3-Svr1", "U3 SI Server 1", ServerType.SI.name(), "192.168.1.155", "11110", "jiapp", "jiin0701!");
-                        break;
-                    case "U3-Svr2" :
-                        model = new ServerConnectionModel(0L, "U3-Svr2", "U3 SI Server 2", ServerType.SI.name(), "192.168.1.156", "11110", "jiapp", "jiin0701!");
-                        break;
-                    case "NU3-Svr1" :
-                        model = new ServerConnectionModel(0L, "NU3-Svr1", "U3 N-SI Server 1", ServerType.N_SI.name(), "192.168.1.158", "11110", "jiapp", "jiin0701!");
-                        break;
-                    case "NU3-Svr2" :
-                        model = new ServerConnectionModel(0L, "NU3-Svr2", "U3 N-SI Server 2", ServerType.N_SI.name(), "192.168.1.159", "11110", "jiapp", "jiin0701!");
-                        break;
-                    case "GOC-Svr1" :
-                        model = new ServerConnectionModel(0L, "GOC-Svr1", "GOC SI Server 1", ServerType.SI.name(), "192.168.1.161", "11110", "jiapp", "jiin0701!");
-                        break;
-                    case "GOC-Svr2" :
-                        model = new ServerConnectionModel(0L, "GOC-Svr2", "GOC SI Server 2", ServerType.SI.name(), "192.168.1.162", "11110", "jiapp", "jiin0701!");
-                        break;
-                    case "B1-CDS" :
-                        model = new ServerConnectionModel(0L, "B1-CDS", "B1 CDS", ServerType.CDS.name(), "192.168.1.164", "11110", "jiapp", "jiin0701!");
-                        break;
-                    case "U3-CDS" :
-                        model = new ServerConnectionModel(0L, "U3-CDS", "U3 CDS", ServerType.CDS.name(), "192.168.1.165", "11110", "jiapp", "jiin0701!");
-                        break;
-                }
-                if(model != null) serviceMapper.insertServerConnectionWithModel(model);
+            ServerConnectionModel model = null;
+            switch(key){
+                case "B1-Svr1" :
+                    model = new ServerConnectionModel(0L, "B1-Svr1", "B1 SI Server 1", ServerType.SI.name(), "192.168.1.141", "11110", "jiapp", "jiin0701!");
+                    break;
+                case "B1-Svr2" :
+                    model = new ServerConnectionModel(0L, "B1-Svr2", "B1 SI Server 2", ServerType.SI.name(), "192.168.1.142", "11110", "jiapp", "jiin0701!");
+                    break;
+                case "NB1-Svr1" :
+                    model = new ServerConnectionModel(0L, "NB1-Svr1", "B1 N-SI Server 1", ServerType.N_SI.name(), "192.168.1.152", "11110", "jiapp", "jiin0701!");
+                    break;
+                case "NB1-Svr2" :
+                    model = new ServerConnectionModel(0L, "NB1-Svr2", "B1 N-SI Server 2", ServerType.N_SI.name(), "192.168.1.153", "11110", "jiapp", "jiin0701!");
+                    break;
+                case "U3-Svr1" :
+                    model = new ServerConnectionModel(0L, "U3-Svr1", "U3 SI Server 1", ServerType.SI.name(), "192.168.1.155", "11110", "jiapp", "jiin0701!");
+                    break;
+                case "U3-Svr2" :
+                    model = new ServerConnectionModel(0L, "U3-Svr2", "U3 SI Server 2", ServerType.SI.name(), "192.168.1.156", "11110", "jiapp", "jiin0701!");
+                    break;
+                case "NU3-Svr1" :
+                    model = new ServerConnectionModel(0L, "NU3-Svr1", "U3 N-SI Server 1", ServerType.N_SI.name(), "192.168.1.158", "11110", "jiapp", "jiin0701!");
+                    break;
+                case "NU3-Svr2" :
+                    model = new ServerConnectionModel(0L, "NU3-Svr2", "U3 N-SI Server 2", ServerType.N_SI.name(), "192.168.1.159", "11110", "jiapp", "jiin0701!");
+                    break;
+                case "GOC-Svr1" :
+                    model = new ServerConnectionModel(0L, "GOC-Svr1", "GOC SI Server 1", ServerType.SI.name(), "192.168.1.161", "11110", "jiapp", "jiin0701!");
+                    break;
+                case "GOC-Svr2" :
+                    model = new ServerConnectionModel(0L, "GOC-Svr2", "GOC SI Server 2", ServerType.SI.name(), "192.168.1.162", "11110", "jiapp", "jiin0701!");
+                    break;
+                case "B1-CDS" :
+                    model = new ServerConnectionModel(0L, "B1-CDS", "B1 CDS", ServerType.CDS.name(), "192.168.1.164", "11110", "jiapp", "jiin0701!");
+                    break;
+                case "U3-CDS" :
+                    model = new ServerConnectionModel(0L, "U3-CDS", "U3 CDS", ServerType.CDS.name(), "192.168.1.165", "11110", "jiapp", "jiin0701!");
+                    break;
             }
+            if(serviceMapper.findServerConnectionByName(key) == null) serviceMapper.insertServerConnectionWithModel(model);
+            else serviceMapper.updateServerConnectionWithModel(model);
         }
 
         if(serviceMapper.findAllServerRelations().size() == 0) {
