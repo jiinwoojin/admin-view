@@ -26,6 +26,9 @@ public interface ServiceMapper {
     @SelectKey(statement="SELECT NEXTVAL('SERVICE_PORT_SEQ')", keyProperty="id", before=true, resultType=long.class)
     void insertServicePortWithModel(ServicePortModel servicePortModel);
 
+    @Update("UPDATE _SERVER_CONNECTION SET TITLE = #{title}, TYPE = #{type}, IP_ADDRESS = #{ipAddress}, PORT = #{port}, USERNAME = #{username}, PASSWORD = #{password} WHERE KEY = #{key}")
+    void updateServerConnectionWithModel(ServerConnectionModel serverConnectionModel);
+
     @Select("SELECT * FROM _SERVER_CONNECTION WHERE KEY = #{key}")
     ServerConnectionEntity findServerConnectionByName(@Param("key") String key);
 

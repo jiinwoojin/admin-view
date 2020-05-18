@@ -1,6 +1,7 @@
 package com.jiin.admin.website.view.service;
 
 import com.jiin.admin.entity.*;
+import com.jiin.admin.website.model.ServicePortModel;
 import com.jiin.admin.website.server.mapper.CountMapper;
 import com.jiin.admin.website.server.vo.DataCounter;
 import com.jiin.admin.website.server.vo.ServerBasicPerformance;
@@ -260,6 +261,17 @@ public class ServerInfoService {
         }
 
         return new ServicePortEntity();
+    }
+
+    // 연동 가능한 서버의 포트 정보를 가져오는 메소드
+    public ServicePortModel getServicePortInfoWithId(long id){
+        // 제공하는 서버가 윈도우가 아닌 경우에만 실행한다. (윈도우일 때, 제공 방안은 추후 개발 필요.)
+        if(!System.getProperty("os.name").toLowerCase().contains("win")){
+            ServicePortEntity entity = serviceMapper.findPortConfigBySvrId(id);
+            return entity != null ? ServicePortModel.convertToModel(entity): new ServicePortModel();
+        }
+
+        return new ServicePortModel();
     }
 
     // 진행 예정 (동기화 모니터링)

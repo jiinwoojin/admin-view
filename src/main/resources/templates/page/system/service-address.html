@@ -24,7 +24,17 @@
     <div class="row">
         <!-- 서버 주소 선택 시작 -->
         <div class="col-md-6">
-            <h3 class="section-tit my-1">서버 주소 선택</h3>
+            <h3 class="section-tit my-2">서버 주소 선택</h3>
+            <div class="text-right mb-2">
+                <button type="button" class="btn btn-info">
+                    <i class="fas fa-network-wired"></i> 연동 관리
+                </button>
+
+                <button type="button" class="btn btn-primary" onclick="onclick_initialize_button('insert')">
+                    <i class="fas fa-plus"></i> 서버 추가
+                </button>
+            </div>
+
             <table id="list_table" class="table table-sm basic my-1">
                 <thead class="table-info">
                 <tr>
@@ -49,7 +59,7 @@
                                 th:data-key="${connection.key}"
                                 th:data-title="${connection.title}"
                                 th:data-dtype="${connection.type}"
-                                th:data-address="${connection.ipAddress}"
+                                th:data-ip="${connection.ipAddress}"
                                 th:data-username="${connection.username}"
                                 th:data-password="${connection.password}"
                                 th:data-port="${connection.port}"
@@ -70,55 +80,150 @@
 
         <!-- 서버 주소 편집 시작 -->
         <div class="col-md-6">
-            <h3 class="section-tit my-1">서버 주소 열람</h3>
-
             <form id="update-server-info" method="post" accept-charset="utf-8">
-                <div class="form-group">
-                    <label for="title">서버 종류 <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="type" name="type" readonly />
+                <h3 class="section-tit my-2">서버 관리</h3>
+
+                <div class="form-row mb-1">
+                    <div class="col">
+                        <label for="server-key">서버 코드</label>
+                        <input type="text" class="form-control" id="server-key" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="server-center">서버 센터</label>
+                        <select class="form-control" id="server-center" disabled>
+                            <option value="ALL">전체</option> <!-- L4 스위치 대비 -->
+                            <option value="B1">B1</option>
+                            <option value="U3">U3</option>
+                            <option value="GOC">GOC</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="server-name">서버 이름</label>
+                        <input type="text" class="form-control" id="server-name" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="server-type">서버 종류</label>
+                        <select class="form-control" id="server-type" disabled>
+                            <option value="SI">SI</option>
+                            <option value="N_SI">N-SI</option>
+                            <option value="CDS">CDS</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="key">서버 코드 <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="key" name="key" readonly />
+                <div class="form-row mb-1">
+                    <div class="col">
+                        <label for="server-title">서버 특징</label>
+                        <input type="text" class="form-control" id="server-title" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="server-port">포트</label>
+                        <input type="number" class="form-control" id="server-port" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="server-ip">서버 IP</label>
+                        <input type="text" class="form-control" id="server-ip" readonly />
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="title">서버 이름 <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="title" name="title" readonly />
-                </div>
-
-                <div class="form-group">
-                    <label for="ipAddress">서버 IP <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="ipAddress" name="ipAddress" readonly />
-                </div>
-
-                <div class="form-group">
-                    <label for="port">Admin Server 포트 <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="port" name="port" readonly />
-                </div>
-
-                <div class="form-group">
-                    <label for="username">사용자 이름 <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="username" name="username" readonly />
-                </div>
-
-                <div class="form-group">
-                    <label for="password">사용자 비밀번호 <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="password" name="password" readonly />
+                <div class="form-row mb-1">
+                    <div class="col">
+                        <label for="server-username">사용자 이름</label>
+                        <input type="text" class="form-control" id="server-username" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="server-password">사용자 비밀번호</label>
+                        <input type="text" class="form-control" id="server-password" name="server-password" readonly />
+                    </div>
                 </div>
 
                 <hr/>
 
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                <h3 class="section-tit my-2">포트 설정</h3>
+
+                <div class="form-row mb-1">
+                    <div class="col">
+                        <label for="port-postgresql">PostgreSQL</label>
+                        <input type="number" class="form-control" id="port-postgresql" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="port-watchdog">Watchdog</label>
+                        <input type="number" class="form-control" id="port-watchdog" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="port-watchdog-hb">Watchdog HB</label>
+                        <input type="number" class="form-control" id="port-watchdog-hb" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="port-pcp-process">PCP Process</label>
+                        <input type="number" class="form-control" id="port-pcp-process" readonly />
+                    </div>
+                </div>
+
+                <div class="form-row mb-1">
+                    <div class="col">
+                        <label for="port-pgpool2">PGPool 2</label>
+                        <input type="number" class="form-control" id="port-pgpool2" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="port-admin">Admin Server</label>
+                        <input type="number" class="form-control" id="port-admin" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="port-mapproxy">Map Proxy</label>
+                        <input type="number" class="form-control" id="port-mapproxy" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="port-mapserver">Map Server</label>
+                        <input type="number" class="form-control" id="port-mapserver" readonly />
+                    </div>
+                </div>
+
+                <div class="form-row mb-1">
+                    <div class="col">
+                        <label for="port-vector">Vector Tile</label>
+                        <input type="number" class="form-control" id="port-vector" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="port-jiin">Ji-in Height</label>
+                        <input type="number" class="form-control" id="port-jiin" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="port-los">LOS</label>
+                        <input type="number" class="form-control" id="port-los" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="port-minio">MINIO</label>
+                        <input type="number" class="form-control" id="port-minio" readonly />
+                    </div>
+                </div>
+
+                <div class="form-row mb-1">
+                    <div class="col">
+                        <label for="port-mapnik">Mapnik</label>
+                        <input type="number" class="form-control" id="port-mapnik" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="port-syncthing-tcp">Syncthing TCP</label>
+                        <input type="number" class="form-control" id="port-syncthing-tcp" readonly />
+                    </div>
+                    <div class="col">
+                        <label for="port-syncthing-udp">Syncthing UDP</label>
+                        <input type="number" class="form-control" id="port-syncthing-udp" readonly />
+                    </div>
+                </div>
+
+                <hr/>
+
+                <button id="connection-btn" type="button" class="btn btn-success" disabled>
                     <i class="fas fa-sync"></i> 연결 확인
                 </button>
 
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                <button id="cancel-btn" type="button" class="btn btn-secondary" onclick="onclick_initialize_button('cancel')" disabled>
                     <i class="fas fa-times"></i> 취소
                 </button>
 
-                <button type="submit" class="btn btn-primary">
+                <button id="save-btn" type="submit" class="btn btn-primary" disabled>
                     <i class="fas fa-save"></i> 저장
                 </button>
             </form>
@@ -129,19 +234,112 @@
 
     <script>
         function onclick_server_address_edit(id){
-            var btn = jQuery("#connectUpdate" + id);
+            document.getElementById('connection-btn').disabled = false;
+            document.getElementById('cancel-btn').disabled = false;
+            document.getElementById('save-btn').disabled = false;
 
-            document.getElementById('key').value = btn.data('key');
-            document.getElementById('title').value = btn.data('title');
-            document.getElementById('ipAddress').value = btn.data('address');
-            document.getElementById('port').value = btn.data('port');
-            document.getElementById('type').value = btn.data('dtype');
-            document.getElementById('username').value = btn.data('username');
-            document.getElementById('password').value = btn.data('password');
+            var serverCenter = document.getElementById('server-center');
+            serverCenter.disabled = false;
+            serverCenter.onfocus = function(){
+                this.initialSelect = this.selectedIndex;
+            }
+            serverCenter.onchange = function(){
+                this.selectedIndex = this.initialSelect;
+            }
+
+            var serverType = document.getElementById('server-type');
+            serverType.disabled = false;
+            serverType.onfocus = function(){
+                this.initialSelect = this.selectedIndex;
+            }
+            serverType.onchange = function(){
+                this.selectedIndex = this.initialSelect;
+            }
+
+            var btn = jQuery("#connectUpdate" + id);
+            var key = btn.data('key');
+            var center = key.split('-')[0].includes('ALL') ? 'ALL' : (key.split('-')[0].includes('B1') ? 'B1' : (key.split('-')[0].includes('U3') ? 'U3' : 'GOC'));
+            var name = key.split('-')[1];
+
+            document.getElementById('server-key').value = btn.data('key');
+            document.getElementById('server-center').value = center;
+            document.getElementById('server-name').value = name;
+            document.getElementById('server-type').value = btn.data('dtype');
+            document.getElementById('server-title').value = btn.data('title');
+            document.getElementById('server-port').value = btn.data('port');
+            document.getElementById('server-ip').value = btn.data('ip');
+            document.getElementById('server-username').value = btn.data('username');
+            document.getElementById('server-password').value = btn.data('password');
+
+            // 서버 관련 Field Read Only 해제
+            for(var dom of $('[id^=server]')){
+                var i = dom.id;
+                if(!i.endsWith('key') && !i.endsWith('center') && !i.endsWith('type')){
+                    dom.readOnly = false;
+                }
+            }
+
+            $.ajax({
+                url: CONTEXT + '/server/api/server/port/' + id,
+                type: 'GET',
+                success: function(res){
+                    document.getElementById('port-postgresql').value = res && res.postgreSQLPort;
+                    document.getElementById('port-watchdog').value = res && res.watchdogPort;
+                    document.getElementById('port-watchdog-hb').value = res && res.watchdogHbPort;
+                    document.getElementById('port-pcp-process').value = res && res.pcpProcessPort;
+                    document.getElementById('port-pgpool2').value = res && res.pgPool2Port;
+                    document.getElementById('port-admin').value = res && res.adminServerPort;
+                    document.getElementById('port-mapproxy').value = res && res.mapProxyPort;
+                    document.getElementById('port-mapserver').value = res && res.mapServerPort;
+                    document.getElementById('port-vector').value = res && res.vectorTilePort;
+                    document.getElementById('port-jiin').value = res && res.jiinHeightPort;
+                    document.getElementById('port-los').value = res && res.losPort;
+                    document.getElementById('port-minio').value = res && res.minioPort;
+                    document.getElementById('port-mapnik').value = res && res.mapnikPort;
+                    document.getElementById('port-syncthing-tcp').value = res && res.syncthingTcpPort;
+                    document.getElementById('port-syncthing-udp').value = res && res.syncthingUdpPort;
+
+                    // 포트 관련 Field Read Only 해제
+                    for(var dom of $('[id^=port]')) {
+                        dom.readOnly = false;
+                    }
+                },
+                error: function(e){
+                    console.log(e)
+                }
+            });
         }
 
-        function onclick_edit_cancel(){
+        function onclick_initialize_button(type){
+            document.getElementById('connection-btn').disabled = (type === 'cancel');
+            document.getElementById('cancel-btn').disabled = (type === 'cancel');
+            document.getElementById('save-btn').disabled = (type === 'cancel');
 
+            document.getElementById('server-center').value = 'B1';
+            document.getElementById('server-type').value = 'SI';
+
+            var serverCenter = document.getElementById('server-center');
+            serverCenter.disabled = (type === 'cancel');
+            serverCenter.onfocus = function(){}
+            serverCenter.onchange = function(){}
+
+            var serverType = document.getElementById('server-type');
+            serverType.disabled = (type === 'cancel');
+            serverType.onfocus = function(){}
+            serverType.onchange = function(){}
+
+            for(var dom of $('[id^=server]')){
+                var i = dom.id;
+                if(!i.endsWith('center') && !i.endsWith('type')){
+                    dom.value = '';
+                    dom.readOnly = (type === 'cancel');
+                }
+            }
+
+            for(var dom of $('[id^=port]')){
+                dom.value = '';
+                dom.readOnly = (type === 'cancel');
+            }
         }
     </script>
 </th:block>

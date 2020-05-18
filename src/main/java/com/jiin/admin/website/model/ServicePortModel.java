@@ -1,12 +1,12 @@
 package com.jiin.admin.website.model;
 
+import com.jiin.admin.entity.ServicePortEntity;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class ServicePortModel {
-    private Long id;
     private Long svrId;
     private String postgreSQLPort = "5432";
     private String watchdogPort = "9000";
@@ -28,8 +28,7 @@ public class ServicePortModel {
 
     }
 
-    public ServicePortModel(Long id, Long svrId, String postgreSQLPort, String watchdogPort, String watchdogHbPort, String pcpProcessPort, String pgPool2Port, String adminServerPort, String mapProxyPort, String mapServerPort, String vectorTilePort, String jiinHeightPort, String losPort, String minioPort, String mapnikPort, String syncthingTcpPort, String syncthingUdpPort) {
-        this.id = id;
+    public ServicePortModel(Long svrId, String postgreSQLPort, String watchdogPort, String watchdogHbPort, String pcpProcessPort, String pgPool2Port, String adminServerPort, String mapProxyPort, String mapServerPort, String vectorTilePort, String jiinHeightPort, String losPort, String minioPort, String mapnikPort, String syncthingTcpPort, String syncthingUdpPort) {
         this.svrId = svrId;
         this.postgreSQLPort = postgreSQLPort;
         this.watchdogPort = watchdogPort;
@@ -46,5 +45,28 @@ public class ServicePortModel {
         this.mapnikPort = mapnikPort;
         this.syncthingTcpPort = syncthingTcpPort;
         this.syncthingUdpPort = syncthingUdpPort;
+    }
+
+    public static ServicePortModel convertToModel(ServicePortEntity entity){
+        ServicePortModel model = new ServicePortModel();
+        if(entity != null) {
+            model.setSvrId(entity.getId());
+            model.setPostgreSQLPort(entity.getPostgreSQLPort());
+            model.setWatchdogPort(entity.getWatchdogPort());
+            model.setWatchdogHbPort(entity.getWatchdogHbPort());
+            model.setPcpProcessPort(entity.getPcpProcessPort());
+            model.setPgPool2Port(entity.getPgPool2Port());
+            model.setAdminServerPort(entity.getAdminServerPort());
+            model.setMapProxyPort(entity.getMapProxyPort());
+            model.setMapServerPort(entity.getMapServerPort());
+            model.setVectorTilePort(entity.getVectorTilePort());
+            model.setJiinHeightPort(entity.getJiinHeightPort());
+            model.setLosPort(entity.getLosPort());
+            model.setMinioPort(entity.getMinioPort());
+            model.setMapnikPort(entity.getMapnikPort());
+            model.setSyncthingTcpPort(entity.getSyncthingTcpPort());
+            model.setSyncthingUdpPort(entity.getSyncthingUdpPort());
+            return model;
+        } else return null;
     }
 }

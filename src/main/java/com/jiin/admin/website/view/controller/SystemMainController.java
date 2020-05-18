@@ -25,7 +25,6 @@ public class SystemMainController {
     @RequestMapping("service-address")
     public String addressConfigPage(Model model){
         model.addAttribute("connections", serverInfoService.getOwnRelateConnectionsList());
-        model.addAttribute("ports", serverInfoService.getServicePortInfo());
         return "page/system/service-address";
     }
 }
