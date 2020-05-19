@@ -34,6 +34,7 @@ logging:
     org.hibernate: INFO
     org.thymeleaf: INFO
     org.mybatis: INFO
+    com.zaxxer: INFO
   file:
     name: /data/jiapp/data_dir/logs/admin_log.log
     max-size: 50MB
