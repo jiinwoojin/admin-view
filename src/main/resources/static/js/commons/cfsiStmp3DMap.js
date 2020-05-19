@@ -107,7 +107,7 @@ ji3DMap.prototype.setBaseImagery = function setBaseImagery() {
     var imageryLayers = this.map.imageryLayers;
     imageryLayers.removeAll();
     imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-        url : 'http://' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT + '/mapproxy/service',
+        url : stmp.PROTOCOL + '//' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT + '/mapproxy/service',
         layers : stmp.getBaseMapSource(),
         parameters : {
             transparent : 'true',
@@ -123,7 +123,7 @@ ji3DMap.prototype.changeBaseMap = function changeBaseMap() {
     var mapLayer = this.map.imageryLayers.get(1);
     this.map.imageryLayers.remove(mapLayer);
     this.map.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-        url : 'http://' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT + '/geoserver/wms',
+        url : stmp.PROTOCOL + '//' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT + '/geoserver/wms',
         layers : stmp.getMapSource(),
         rectangle : Cesium.Rectangle.fromDegrees(105.522, 17.034, 140.487, 51.449),
         style : 'default',

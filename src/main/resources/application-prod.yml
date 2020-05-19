@@ -2,14 +2,14 @@ project:
   datasource:
     base:
       driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://211.172.246.71:9999/mims
+      url: jdbc:postgresql://192.168.1.171:9999/mims
       username: jiapp
       password: jiapp
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
       mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
     map:
       driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://211.172.246.71:9999/mims
+      url: jdbc:postgresql://192.168.1.171:9999/mims
       username: jiapp
       password: jiapp
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
@@ -23,13 +23,18 @@ project:
     minio-port: 11170
     accessKey: minioadmin
     secretKey: minioadmin
-  log:
-    config:
-      path: /data/jiapp/data_dir/logs
-      filename: admin_log
-    level:
-      root: INFO
-      spring: INFO
-      admin: INFO
-      hibernate: INFO
-      thymeleaf: INFO
+
+logging:
+  pattern:
+    console: "%blue(%-5level) %yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %clr([%t]){green} %cyan(%logger[%method:%line]) - %magenta(%msg%n)"
+    file: "%blue(%-5level) %yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %clr([%t]){green} %cyan(%logger[%method:%line]) - %magenta(%msg%n)"
+  level:
+    com.jiin.admin: INFO
+    org.springframework: INFO
+    org.hibernate: INFO
+    org.thymeleaf: INFO
+    org.mybatis: INFO
+    com.zaxxer: INFO
+  file:
+    name: /data/jiapp/data_dir/logs/admin_log.log
+    max-size: 50MB
