@@ -42,7 +42,7 @@ public class ServerConnectionEntity implements Persistable<Long> {
      */
     @Column(name = "TYPE", nullable = false)
     @Enumerated(EnumType.STRING)
-    private ServerType type;
+    private ServerType type = ServerType.CDS;
 
     /**
      * Connection 정보 IP 주소

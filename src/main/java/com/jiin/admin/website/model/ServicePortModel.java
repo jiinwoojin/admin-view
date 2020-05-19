@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ServicePortModel {
+    private Long id;
     private Long svrId;
     private String postgreSQLPort = "5432";
     private String watchdogPort = "9000";
@@ -28,7 +29,8 @@ public class ServicePortModel {
 
     }
 
-    public ServicePortModel(Long svrId, String postgreSQLPort, String watchdogPort, String watchdogHbPort, String pcpProcessPort, String pgPool2Port, String adminServerPort, String mapProxyPort, String mapServerPort, String vectorTilePort, String jiinHeightPort, String losPort, String minioPort, String mapnikPort, String syncthingTcpPort, String syncthingUdpPort) {
+    public ServicePortModel(Long id, Long svrId, String postgreSQLPort, String watchdogPort, String watchdogHbPort, String pcpProcessPort, String pgPool2Port, String adminServerPort, String mapProxyPort, String mapServerPort, String vectorTilePort, String jiinHeightPort, String losPort, String minioPort, String mapnikPort, String syncthingTcpPort, String syncthingUdpPort) {
+        this.id = id;
         this.svrId = svrId;
         this.postgreSQLPort = postgreSQLPort;
         this.watchdogPort = watchdogPort;
@@ -50,6 +52,7 @@ public class ServicePortModel {
     public static ServicePortModel convertToModel(ServicePortEntity entity){
         ServicePortModel model = new ServicePortModel();
         if(entity != null) {
+            model.setId(0L);
             model.setSvrId(entity.getId());
             model.setPostgreSQLPort(entity.getPostgreSQLPort());
             model.setWatchdogPort(entity.getWatchdogPort());

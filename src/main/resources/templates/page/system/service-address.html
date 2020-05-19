@@ -26,7 +26,7 @@
         <div class="col-md-6">
             <h3 class="section-tit my-2">서버 주소 선택</h3>
             <div class="text-right mb-2">
-                <button type="button" class="btn btn-info">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#connections">
                     <i class="fas fa-network-wired"></i> 연동 관리
                 </button>
 
@@ -41,7 +41,7 @@
                     <th scope="col" class="text-center">IP 주소</th>
                     <th scope="col" class="text-center">서비스 이름</th>
                     <th scope="col" class="text-center">서버 타입</th>
-                    <th scope="col" class="text-center">수정</th>
+                    <th scope="col" class="text-center">수정 및 삭제</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -62,31 +62,31 @@
                                 th:data-ip="${connection.ipAddress}"
                                 th:data-username="${connection.username}"
                                 th:data-password="${connection.password}"
-                                th:data-port="${connection.port}"
                         >
                             <i class="fas fa-cog"></i>
+                        </button>
+                        <button class="btn btn-danger btn-circle btn-sm mx-1" type="button" th:href="@{ '/view/server/remove-server/' + ${connection.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                            <i class="fas fa-trash"></i>
                         </button>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <script>
-                $(document).ready(function() {
-                    initialize_dataTable('list_table');
-                });
-            </script>
         </div>
         <!-- // 서버 주소 선택 종료 -->
 
         <!-- 서버 주소 편집 시작 -->
         <div class="col-md-6">
-            <form id="update-server-info" method="post" accept-charset="utf-8">
+            <form id="connection-form" method="post" accept-charset="utf-8" action="connection-save">
                 <h3 class="section-tit my-2">서버 관리</h3>
+
+                <input type="hidden" id="svr-id" name="id" />
+                <input type="hidden" id="svr-save-type" name="saveType" />
 
                 <div class="form-row mb-1">
                     <div class="col">
                         <label for="server-key">서버 코드</label>
-                        <input type="text" class="form-control" id="server-key" readonly />
+                        <input type="text" class="form-control" id="server-key" name="key" readonly />
                     </div>
                     <div class="col">
                         <label for="server-center">서버 센터</label>
@@ -102,38 +102,40 @@
                         <input type="text" class="form-control" id="server-name" readonly />
                     </div>
                     <div class="col">
-                        <label for="server-type">서버 종류</label>
-                        <select class="form-control" id="server-type" disabled>
-                            <option value="SI">SI</option>
-                            <option value="N_SI">N-SI</option>
-                            <option value="CDS">CDS</option>
-                        </select>
+                        <label for="server-type-cds">서버 종류</label>
+                        <div th:if="${ ownConnection != null }">
+                            <select class="form-control" id="server-type-cds" name="serverType" disabled th:if="${ ownConnection.type.name() == 'CDS' }">
+                                <option value="SI">SI</option>
+                                <option value="N_SI">N-SI</option>
+                                <option value="CDS">CDS</option>
+                            </select>
+                            <input type="text" class="form-control" id="server-type-another" name="serverType" th:value="${ ownConnection.type.name() }" readonly th:unless="${ ownConnection.type.name() == 'CDS' }" />
+                        </div>
+                        <div th:unless="${ ownConnection != null }">
+                            <input type="text" class="form-control" id="server-type-another" name="serverType" th:value="${ 'SI' }" readonly />
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-row mb-1">
                     <div class="col">
                         <label for="server-title">서버 특징</label>
-                        <input type="text" class="form-control" id="server-title" readonly />
-                    </div>
-                    <div class="col">
-                        <label for="server-port">포트</label>
-                        <input type="number" class="form-control" id="server-port" readonly />
+                        <input type="text" class="form-control" id="server-title" name="title" readonly />
                     </div>
                     <div class="col">
                         <label for="server-ip">서버 IP</label>
-                        <input type="text" class="form-control" id="server-ip" readonly />
+                        <input type="text" class="form-control" id="server-ip" name="ipAddress" readonly />
                     </div>
                 </div>
 
                 <div class="form-row mb-1">
                     <div class="col">
                         <label for="server-username">사용자 이름</label>
-                        <input type="text" class="form-control" id="server-username" readonly />
+                        <input type="text" class="form-control" id="server-username" name="username" readonly />
                     </div>
                     <div class="col">
                         <label for="server-password">사용자 비밀번호</label>
-                        <input type="text" class="form-control" id="server-password" name="server-password" readonly />
+                        <input type="text" class="form-control" id="server-password" name="password" readonly />
                     </div>
                 </div>
 
@@ -144,72 +146,72 @@
                 <div class="form-row mb-1">
                     <div class="col">
                         <label for="port-postgresql">PostgreSQL</label>
-                        <input type="number" class="form-control" id="port-postgresql" readonly />
+                        <input type="number" class="form-control" id="port-postgresql" name="postgreSQLPort" readonly />
                     </div>
                     <div class="col">
                         <label for="port-watchdog">Watchdog</label>
-                        <input type="number" class="form-control" id="port-watchdog" readonly />
+                        <input type="number" class="form-control" id="port-watchdog" name="watchdogPort" readonly />
                     </div>
                     <div class="col">
                         <label for="port-watchdog-hb">Watchdog HB</label>
-                        <input type="number" class="form-control" id="port-watchdog-hb" readonly />
+                        <input type="number" class="form-control" id="port-watchdog-hb" name="watchdogHbPort" readonly />
                     </div>
                     <div class="col">
                         <label for="port-pcp-process">PCP Process</label>
-                        <input type="number" class="form-control" id="port-pcp-process" readonly />
+                        <input type="number" class="form-control" id="port-pcp-process" name="pcpProcessPort" readonly />
                     </div>
                 </div>
 
                 <div class="form-row mb-1">
                     <div class="col">
                         <label for="port-pgpool2">PGPool 2</label>
-                        <input type="number" class="form-control" id="port-pgpool2" readonly />
+                        <input type="number" class="form-control" id="port-pgpool2" name="pgPool2Port" readonly />
                     </div>
                     <div class="col">
                         <label for="port-admin">Admin Server</label>
-                        <input type="number" class="form-control" id="port-admin" readonly />
+                        <input type="number" class="form-control" id="port-admin" name="adminServerPort" readonly />
                     </div>
                     <div class="col">
                         <label for="port-mapproxy">Map Proxy</label>
-                        <input type="number" class="form-control" id="port-mapproxy" readonly />
+                        <input type="number" class="form-control" id="port-mapproxy" name="mapProxyPort" readonly />
                     </div>
                     <div class="col">
                         <label for="port-mapserver">Map Server</label>
-                        <input type="number" class="form-control" id="port-mapserver" readonly />
+                        <input type="number" class="form-control" id="port-mapserver" name="mapServerPort" readonly />
                     </div>
                 </div>
 
                 <div class="form-row mb-1">
                     <div class="col">
                         <label for="port-vector">Vector Tile</label>
-                        <input type="number" class="form-control" id="port-vector" readonly />
+                        <input type="number" class="form-control" id="port-vector" name="vectorTilePort" readonly />
                     </div>
                     <div class="col">
                         <label for="port-jiin">Ji-in Height</label>
-                        <input type="number" class="form-control" id="port-jiin" readonly />
+                        <input type="number" class="form-control" id="port-jiin" name="jiinHeightPort" readonly />
                     </div>
                     <div class="col">
                         <label for="port-los">LOS</label>
-                        <input type="number" class="form-control" id="port-los" readonly />
+                        <input type="number" class="form-control" id="port-los" name="losPort" readonly />
                     </div>
                     <div class="col">
                         <label for="port-minio">MINIO</label>
-                        <input type="number" class="form-control" id="port-minio" readonly />
+                        <input type="number" class="form-control" id="port-minio" name="minioPort" readonly />
                     </div>
                 </div>
 
                 <div class="form-row mb-1">
                     <div class="col">
                         <label for="port-mapnik">Mapnik</label>
-                        <input type="number" class="form-control" id="port-mapnik" readonly />
+                        <input type="number" class="form-control" id="port-mapnik" name="mapnikPort" readonly />
                     </div>
                     <div class="col">
                         <label for="port-syncthing-tcp">Syncthing TCP</label>
-                        <input type="number" class="form-control" id="port-syncthing-tcp" readonly />
+                        <input type="number" class="form-control" id="port-syncthing-tcp" name="syncthingTcpPort" readonly />
                     </div>
                     <div class="col">
                         <label for="port-syncthing-udp">Syncthing UDP</label>
-                        <input type="number" class="form-control" id="port-syncthing-udp" readonly />
+                        <input type="number" class="form-control" id="port-syncthing-udp" name="syncthingUdpPort" readonly />
                     </div>
                 </div>
 
@@ -232,8 +234,83 @@
 
     </div>
 
+    <div class="modal fade" id="connections" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">서버 연동 관리</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" accept-charset="utf-8" action="change-relation">
+                    <input type="hidden" id="mainSvrId" name="mainSvrId" th:value="${ownConnection.id}" />
+                    <div class="modal-body">
+                        <table id="connections_table" class="table table-sm basic my-1">
+                            <thead class="table-info">
+                            <tr>
+                                <th scope="col" class="text-center">IP 주소</th>
+                                <th scope="col" class="text-center">서비스 이름</th>
+                                <th scope="col" class="text-center">서버 타입</th>
+                                <th scope="col" class="text-center">선택</th>
+                                <th scope="col" class="text-center">삭제</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="connection : ${ typeConnections }">
+                                    <td class="text-center align-middle" th:text="${connection.ipAddress}">[IP 주소]</td>
+                                    <td class="text-center align-middle" th:text="${connection.title}">[서비스 제목]</td>
+                                    <td class="text-center align-middle" th:switch="${connection.type.name()}">
+                                        <span th:text="${'SI'}" th:case="SI"></span>
+                                        <span th:text="${'N-SI'}" th:case="N_SI"></span>
+                                        <span th:text="${'CDS'}" th:case="CDS"></span>
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <label class="i-checks" th:for="${ 'relation_select_' + connection.id }">
+                                            <input type="checkbox" th:checked="${ connectionIds.contains(connection.id) }" th:id="${ 'relation_select_' + connection.id }" th:value="${connection.id}" name="subSvrIds">
+                                        </label>
+                                    </td>
+                                    <td class="text-center align-middle">
+                                        <button class="btn btn-danger btn-circle btn-sm" type="button" th:href="@{ '/view/server/remove-server/' + ${connection.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 저장
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times"></i> 닫기
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        var initIds = /*[[${connectionIds}]]*/ {};
+        var initTypeCons = /*[[${typeConnections}]]*/ {};
+    </script>
     <script>
+        $(document).ready(function() {
+            initialize_dataTable('list_table');
+            initialize_dataTable('connections_table');
+            $('#connections').on('hide.bs.modal', function (event) {
+                for(var con of initTypeCons){
+                    $('#relation_select_' + (con && con.id)).iCheck(initIds.includes(con && con.id) ? 'check' : 'uncheck');
+                }
+            });
+        });
+
+        // 서버 주소 편집 버튼 클릭 시 실행되는 함수
         function onclick_server_address_edit(id){
+            $('#svr-id').val(id);
+            $('#svr-save-type').val('UPDATE');
+
             document.getElementById('connection-btn').disabled = false;
             document.getElementById('cancel-btn').disabled = false;
             document.getElementById('save-btn').disabled = false;
@@ -247,15 +324,6 @@
                 this.selectedIndex = this.initialSelect;
             }
 
-            var serverType = document.getElementById('server-type');
-            serverType.disabled = false;
-            serverType.onfocus = function(){
-                this.initialSelect = this.selectedIndex;
-            }
-            serverType.onchange = function(){
-                this.selectedIndex = this.initialSelect;
-            }
-
             var btn = jQuery("#connectUpdate" + id);
             var key = btn.data('key');
             var center = key.split('-')[0].includes('ALL') ? 'ALL' : (key.split('-')[0].includes('B1') ? 'B1' : (key.split('-')[0].includes('U3') ? 'U3' : 'GOC'));
@@ -264,17 +332,20 @@
             document.getElementById('server-key').value = btn.data('key');
             document.getElementById('server-center').value = center;
             document.getElementById('server-name').value = name;
-            document.getElementById('server-type').value = btn.data('dtype');
             document.getElementById('server-title').value = btn.data('title');
-            document.getElementById('server-port').value = btn.data('port');
             document.getElementById('server-ip').value = btn.data('ip');
             document.getElementById('server-username').value = btn.data('username');
             document.getElementById('server-password').value = btn.data('password');
+            var serverTypeCds = document.getElementById('server-type-cds');
+            if(serverTypeCds) {
+                serverTypeCds.disabled = false;
+                serverTypeCds.value = btn.data('dtype');
+            }
 
             // 서버 관련 Field Read Only 해제
             for(var dom of $('[id^=server]')){
                 var i = dom.id;
-                if(!i.endsWith('key') && !i.endsWith('center') && !i.endsWith('type')){
+                if(!i.endsWith('key') && !i.endsWith('name') && !i.endsWith('center') && !i.endsWith('type-another') && !i.endsWith('type-cds')){
                     dom.readOnly = false;
                 }
             }
@@ -310,27 +381,32 @@
             });
         }
 
+        // 상황에 따른 버튼 상태 초기화
         function onclick_initialize_button(type){
+            $('#svr-id').val(0);
+            $('#svr-save-type').val((type === 'cancel') ? 'NONE' : 'INSERT');
+
             document.getElementById('connection-btn').disabled = (type === 'cancel');
             document.getElementById('cancel-btn').disabled = (type === 'cancel');
             document.getElementById('save-btn').disabled = (type === 'cancel');
 
             document.getElementById('server-center').value = 'B1';
-            document.getElementById('server-type').value = 'SI';
 
             var serverCenter = document.getElementById('server-center');
             serverCenter.disabled = (type === 'cancel');
             serverCenter.onfocus = function(){}
             serverCenter.onchange = function(){}
 
-            var serverType = document.getElementById('server-type');
-            serverType.disabled = (type === 'cancel');
-            serverType.onfocus = function(){}
-            serverType.onchange = function(){}
+            // 서버 종류는 변경할 수 없다. (CDS 제외)
+            var serverTypeCds = document.getElementById('server-type-cds');
+            if(serverTypeCds) {
+                serverTypeCds.disabled = (type === 'cancel');
+                serverTypeCds.value = 'SI';
+            }
 
             for(var dom of $('[id^=server]')){
                 var i = dom.id;
-                if(!i.endsWith('center') && !i.endsWith('type')){
+                if(!i.endsWith('center') && !i.endsWith('type-another') && !i.endsWith('type-cds') && !i.endsWith('key')){
                     dom.value = '';
                     dom.readOnly = (type === 'cancel');
                 }

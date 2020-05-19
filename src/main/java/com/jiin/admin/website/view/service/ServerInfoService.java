@@ -1,6 +1,8 @@
 package com.jiin.admin.website.view.service;
 
 import com.jiin.admin.entity.*;
+import com.jiin.admin.website.model.ServerConnectionModel;
+import com.jiin.admin.website.model.ServerFormModel;
 import com.jiin.admin.website.model.ServicePortModel;
 import com.jiin.admin.website.server.mapper.CountMapper;
 import com.jiin.admin.website.server.vo.DataCounter;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.persistence.Entity;
+import javax.transaction.Transactional;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -188,6 +191,14 @@ public class ServerInfoService {
         return new ServerBasicPerformance();
     }
 
+    public ServerConnectionEntity getOwnServerConnection(){
+        String ipAddr = this.getOwnIpAddressInLinux();
+        if(ipAddr != null){
+            return serviceMapper.findServerConnectionsByIpAddress(ipAddr);
+        }
+        return new ServerConnectionEntity();
+    }
+
     // 다른 서버에 대한 기본 정보를 가져온다.
     public ServerConnectionEntity getAnotherConnection(String key){
         return serviceMapper.findServerConnectionByName(key);
@@ -199,6 +210,16 @@ public class ServerInfoService {
         if(ipAddr != null){
             return serviceMapper.findOwnRelateConnectionsByIpAddress(ipAddr);
         } else return new ArrayList<>();
+    }
+
+    // 현재 서버에 해당하는 타입의 모든 정보들을 가져온다. (지금은 리눅스만 가능)
+    public List<ServerConnectionEntity> getOwnAllConnectionsListSameType(){
+        String ipAddr = this.getOwnIpAddressInLinux();
+        if(ipAddr != null){
+            ServerConnectionEntity own = serviceMapper.findServerConnectionsByIpAddress(ipAddr);
+            if(own != null) return serviceMapper.findServerConnectionByType(own.getType().name());
+        }
+        return new ArrayList<>();
     }
 
     // 자신의 서버와 연결이 되는 목록을 가져온다. (지금은 리눅스만 가능)
@@ -272,6 +293,43 @@ public class ServerInfoService {
         }
 
         return new ServicePortModel();
+    }
+
+    // 서버 및 포트 번호를 수정하기 위한 메소드
+    @Transactional
+    public boolean serverInfoSave(ServerFormModel serverFormModel){
+        ServerConnectionEntity connectionEntity = serviceMapper.findServerConnectionByName(serverFormModel.getKey());
+        ServicePortEntity portEntity = serviceMapper.findPortConfigBySvrId(serverFormModel.getId());
+
+        ServerConnectionModel connectionModel = new ServerConnectionModel(serverFormModel.getId(), serverFormModel.getKey(), serverFormModel.getTitle(), serverFormModel.getServerType(), serverFormModel.getIpAddress(), serverFormModel.getAdminServerPort(), serverFormModel.getUsername(), serverFormModel.getPassword());
+        ServicePortModel portModel = new ServicePortModel(0L, serverFormModel.getId(), serverFormModel.getPostgreSQLPort(), serverFormModel.getWatchdogPort(), serverFormModel.getWatchdogHbPort(), serverFormModel.getPcpProcessPort(), serverFormModel.getPgPool2Port(), serverFormModel.getAdminServerPort(), serverFormModel.getMapProxyPort(), serverFormModel.getMapServerPort(), serverFormModel.getVectorTilePort(), serverFormModel.getJiinHeightPort(), serverFormModel.getLosPort(), serverFormModel.getMinioPort(), serverFormModel.getMapnikPort(), serverFormModel.getSyncthingTcpPort(), serverFormModel.getSyncthingUdpPort());
+
+        if(serverFormModel.getSaveType().equals("UPDATE")){
+            if(portEntity != null && connectionEntity != null){
+                serviceMapper.updateServerConnectionWithModel(connectionModel);
+                serviceMapper.updateServicePortWithModel(portModel);
+                return true;
+            } else return false;
+        } else if(serverFormModel.getSaveType().equals("INSERT")){
+            if(portEntity == null && connectionEntity == null){
+                serviceMapper.insertServerConnectionWithModel(connectionModel);
+                ServerConnectionEntity entity = serviceMapper.findRecentlyInsertConnectionEntity();
+                if(entity != null) portModel.setSvrId(entity.getId());
+                serviceMapper.insertServicePortWithModel(portModel);
+                return true;
+            } else return false;
+        } else return false;
+    }
+
+    // 서버와 포트 번호 설정을 삭제하기 위한 메소드
+    public boolean serverInfoDelete(long svrId){
+        ServicePortEntity portEntity = serviceMapper.findPortConfigBySvrId(svrId);
+        if(portEntity != null){
+            serviceMapper.deleteServerRelationBySvrId(svrId);
+            serviceMapper.deleteServicePortBySvrId(svrId);
+            serviceMapper.deleteServerConnection(svrId);
+            return true;
+        } else return false;
     }
 
     // 진행 예정 (동기화 모니터링)
