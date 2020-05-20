@@ -2,8 +2,8 @@ package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.config.SessionService;
 import com.jiin.admin.entity.MapEntity;
-import com.jiin.admin.website.model.LayerSearchModel;
-import com.jiin.admin.website.model.MapSearchModel;
+import com.jiin.admin.website.model.LayerPageModel;
+import com.jiin.admin.website.model.MapPageModel;
 import com.jiin.admin.website.view.service.ManageService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -34,21 +34,21 @@ public class ManageController {
 
     // MAP 파일 목록
     @RequestMapping("map-manage")
-    public String map(Model model, MapSearchModel mapSearchModel) {
-        model.addAttribute("resMap", service.getMapListByPaginationModel(mapSearchModel));
+    public String map(Model model, MapPageModel mapPageModel) {
+        model.addAttribute("resMap", service.getMapListByPaginationModel(mapPageModel));
         model.addAttribute("obList", service.mapOrderByOptions());
         model.addAttribute("sbList", service.mapSearchByOptions());
         model.addAttribute("message", session.message());
 
-        model.addAttribute("qs", mapSearchModel.getQueryString());
+        model.addAttribute("qs", mapPageModel.getQueryString());
         return "page/manage/map-manage";
     }
 
     // MAP 파일 추가 페이지
     @RequestMapping("map-form")
-    public String mapForm(Model model, @ModelAttribute MapEntity map, MapSearchModel mapSearchModel) {
+    public String mapForm(Model model, @ModelAttribute MapEntity map, MapPageModel mapPageModel) {
         model.addAttribute("layers", service.getLayerList());
-        model.addAttribute("qs", mapSearchModel.getQueryString());
+        model.addAttribute("qs", mapPageModel.getQueryString());
         return "page/manage/map-form";
     }
 
@@ -62,11 +62,11 @@ public class ManageController {
 
     // MAP 파일 수정 페이지
     @RequestMapping("map-edit")
-    public String mapEditPage(Model model, @RequestParam long id, MapSearchModel mapSearchModel){
+    public String mapEditPage(Model model, @RequestParam long id, MapPageModel mapPageModel){
         model.addAttribute("mapEntity", service.findMapEntityById(id));
         model.addAttribute("selectLayers", service.findLayerEntitiesByMapId(id));
         model.addAttribute("layers", service.getLayerList());
-        model.addAttribute("qs", mapSearchModel.getQueryString());
+        model.addAttribute("qs", mapPageModel.getQueryString());
         return "page/manage/map-edit";
     }
 
@@ -97,8 +97,8 @@ public class ManageController {
 
     // LAYER 파일 목록
     @RequestMapping("layer-manage")
-    public String layer(Model model, LayerSearchModel layerSearchModel) throws ParseException {
-        model.addAttribute("resMap", service.getLayerListByPaginationModel(layerSearchModel));
+    public String layer(Model model, LayerPageModel layerPageModel) throws ParseException {
+        model.addAttribute("resMap", service.getLayerListByPaginationModel(layerPageModel));
         model.addAttribute("obList", service.layerOrderByOptions());
         model.addAttribute("sbList", service.layerSearchByOptions());
         model.addAttribute("message", session.message());
@@ -126,10 +126,10 @@ public class ManageController {
                               @RequestParam(value = "projection", defaultValue = "epsg:4326") String projection,
                               @RequestParam("middle_folder") String middle_folder,
                               @RequestParam("type") String type,
-                              @RequestParam("data_file") MultipartFile data_file, LayerSearchModel layerSearchModel) throws IOException {
+                              @RequestParam("data_file") MultipartFile data_file, LayerPageModel layerPageModel) throws IOException {
         boolean result = service.updateLayer(id, name, description, projection, middle_folder, type, data_file);
         session.message(String.format("LAYER [%s] 수정 %s하였습니다.",name,(result ? "성공" : "실패")));
-        return "redirect:layer-manage?" + layerSearchModel.getQueryString();
+        return "redirect:layer-manage?" + layerPageModel.getQueryString();
     }
 
     // LAYER 파일 삭제 REST API

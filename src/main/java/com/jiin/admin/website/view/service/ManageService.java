@@ -7,8 +7,8 @@ import com.jiin.admin.Constants;
 import com.jiin.admin.entity.LayerEntity;
 import com.jiin.admin.entity.MapEntity;
 import com.jiin.admin.entity.MapLayerRelationEntity;
-import com.jiin.admin.website.model.LayerSearchModel;
-import com.jiin.admin.website.model.MapSearchModel;
+import com.jiin.admin.website.model.LayerPageModel;
+import com.jiin.admin.website.model.MapPageModel;
 import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.view.mapper.ManageMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -207,9 +207,9 @@ public class ManageService {
 
     /**
      * MAP 데이터 목록 조회 with Pagination Model
-     * @param mapSearchModel MapSearchModel
+     * @param mapPageModel MapSearchModel
      */
-    public Map<String, Object> getMapListByPaginationModel(MapSearchModel mapSearchModel) {
+    public Map<String, Object> getMapListByPaginationModel(MapPageModel mapPageModel) {
         final Sort[] sorts = {
             Sort.by("id").descending(),
             Sort.by("id"),
@@ -217,11 +217,11 @@ public class ManageService {
             Sort.by("regist_time").descending()
         };
 
-        if(mapSearchModel.getSb() == 3)
-            mapSearchModel.setSt(mapSearchModel.getSt() != null ? mapSearchModel.getSt().toLowerCase() : "");
+        if(mapPageModel.getSb() == 3)
+            mapPageModel.setSt(mapPageModel.getSt() != null ? mapPageModel.getSt().toLowerCase() : "");
 
-        List<MapEntity> sbRes = mapper.findMapEntitiesByPaginationModel(mapSearchModel);
-        Pageable pageable = PageRequest.of(mapSearchModel.getPg() - 1, mapSearchModel.getSz(), sorts[mapSearchModel.getOb()]);
+        List<MapEntity> sbRes = mapper.findMapEntitiesByPaginationModel(mapPageModel);
+        Pageable pageable = PageRequest.of(mapPageModel.getPg() - 1, mapPageModel.getSz(), sorts[mapPageModel.getOb()]);
 
         int pageSize = pageable.getPageSize();
         long pageOffset = pageable.getOffset();
@@ -439,9 +439,9 @@ public class ManageService {
 
     /**
      * LAYER 데이터 목록 조회 with Pagination Model
-     * @param layerSearchModel LayerSearchModel
+     * @param layerPageModel LayerSearchModel
      */
-    public Map<String, Object> getLayerListByPaginationModel(LayerSearchModel layerSearchModel) throws ParseException {
+    public Map<String, Object> getLayerListByPaginationModel(LayerPageModel layerPageModel) throws ParseException {
         final Sort[] sorts = {
                 Sort.by("id").descending(),
                 Sort.by("id"),
@@ -449,11 +449,11 @@ public class ManageService {
                 Sort.by("regist_time").descending(),
         };
 
-        if(layerSearchModel.getSb() == 3)
-            layerSearchModel.setSt(layerSearchModel.getSt() != null ? layerSearchModel.getSt().toLowerCase() : "");
+        if(layerPageModel.getSb() == 3)
+            layerPageModel.setSt(layerPageModel.getSt() != null ? layerPageModel.getSt().toLowerCase() : "");
 
-        List<LayerEntity> sbRes = mapper.findLayerEntitiesByPaginationModel(layerSearchModel);
-        Pageable pageable = PageRequest.of(layerSearchModel.getPg() - 1, layerSearchModel.getSz(), sorts[layerSearchModel.getOb()]);
+        List<LayerEntity> sbRes = mapper.findLayerEntitiesByPaginationModel(layerPageModel);
+        Pageable pageable = PageRequest.of(layerPageModel.getPg() - 1, layerPageModel.getSz(), sorts[layerPageModel.getOb()]);
 
         int pageSize = pageable.getPageSize();
         long pageOffset = pageable.getOffset();

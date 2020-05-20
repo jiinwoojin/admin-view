@@ -8,19 +8,19 @@ import java.net.URLEncoder;
 
 @Getter
 @Setter
-public class LayerSearchModel extends PaginationModel {
+public class LayerPageModel extends PageModel {
     private String sDate; // Upload Start Date
     private String eDate; // Upload End Date
     private String lType; // Raster / Vector Type
 
-    public LayerSearchModel(){
+    public LayerPageModel(){
         super();
         this.sDate = "";
         this.eDate = "";
         this.lType = "ALL"; // Default Value
     }
 
-    public LayerSearchModel(int pg, int sz, int ob, int sb, String st, String sDate, String eDate, String lType){
+    public LayerPageModel(int pg, int sz, int ob, int sb, String st, String sDate, String eDate, String lType){
         super(pg, sz, ob, sb, st);
         this.sDate = sDate;
         this.eDate = eDate;

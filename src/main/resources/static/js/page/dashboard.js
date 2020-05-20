@@ -16,10 +16,10 @@ function msg_initialize(center, msg){
     document.getElementById(center + '_cpuUsage').innerHTML = msg == 'LOADING' ? '<i class="fas fa-spin fa-spinner"></i>' : '<i class="fas fa-question"></i>';
     document.getElementById(center + '_connections').innerHTML = msg == 'LOADING' ? '<i class="fas fa-spin fa-spinner"></i>' : '<i class="fas fa-question"></i>';
 
-    document.getElementById(center + '_serverTitle').className = `text-sm font-weight-bold text-uppercase mb-1 ${(msg === 'ERROR') ? 'text-danger' : 'text-warning'}`;
+    document.getElementById(center + '_serverName').className = (msg === 'ERROR') ? 'text-danger' : 'text-warning';
     document.getElementById(center + '_serverName').innerText = msg == 'LOADING' ? 'LOADING...' : 'LOAD ERROR!';
-    document.getElementById(center + '_serverStatus').className = `text-sm font-weight-bold text-uppercase mb-1 ${(msg === 'ERROR') ? 'text-danger' : 'text-warning'}`;
-    document.getElementById(center + '_serverStatus').innerHTML = msg == 'LOADING' ? '<i class="h1 fas fa-spin fa-spinner"></i>' : '<i class="h1 fas fa-times-circle"></i>';
+    document.getElementById(center + '_serverStatus').className = (msg === 'ERROR') ? 'text-danger' : 'text-warning';
+    document.getElementById(center + '_serverStatus').innerHTML = msg == 'LOADING' ? '<i class="fas fa-spin fa-spinner"></i>' : '<i class="fas fa-times-circle"></i>';
 }
 
 // 공통으로 부를 ajax
@@ -43,19 +43,19 @@ function ajax_request(key, center){
                             } else {
                                 switch(connection[k]){
                                     case "ON" :
-                                        document.getElementById(center + '_serverTitle').className = 'text-sm font-weight-bold text-uppercase mb-1 text-success';
-                                        document.getElementById(center + '_serverStatus').className = 'text-sm font-weight-bold text-uppercase mb-1 text-success';
-                                        document.getElementById(center + '_serverStatus').innerHTML = '<i class="h1 fas fa-check-circle"></i>';
+                                        document.getElementById(center + '_serverName').className = 'text-info';
+                                        document.getElementById(center + '_serverStatus').className = 'text-info';
+                                        document.getElementById(center + '_serverStatus').innerHTML = '<i class="fas fa-check-circle"></i>';
                                         break;
                                     case "OFF" :
-                                        document.getElementById(center + '_serverTitle').className = 'text-sm font-weight-bold text-uppercase mb-1 text-danger';
-                                        document.getElementById(center + '_serverStatus').className = 'text-sm font-weight-bold text-uppercase mb-1 text-danger';
-                                        document.getElementById(center + '_serverStatus').innerHTML = '<i class="h1 fas fa-check-times"></i>';
+                                        document.getElementById(center + '_serverName').className = 'text-danger';
+                                        document.getElementById(center + '_serverStatus').className = 'text-danger';
+                                        document.getElementById(center + '_serverStatus').innerHTML = '<i class="fas fa-check-times"></i>';
                                         break;
                                     case "ERROR" :
-                                        document.getElementById(center + '_serverTitle').className = 'text-sm font-weight-bold text-uppercase mb-1 text-danger';
-                                        document.getElementById(center + '_serverStatus').className = 'text-sm font-weight-bold text-uppercase mb-1 text-danger';
-                                        document.getElementById(center + '_serverStatus').innerHTML = '<i class="h1 fas fa-exclamation-triangle"></i>';
+                                        document.getElementById(center + '_serverName').className = 'text-danger';
+                                        document.getElementById(center + '_serverStatus').className = 'text-danger';
+                                        document.getElementById(center + '_serverStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
                                         break;
                                 }
                             }

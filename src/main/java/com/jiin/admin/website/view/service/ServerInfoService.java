@@ -322,6 +322,7 @@ public class ServerInfoService {
     }
 
     // 서버와 포트 번호 설정을 삭제하기 위한 메소드
+    @Transactional
     public boolean serverInfoDelete(long svrId){
         ServicePortEntity portEntity = serviceMapper.findPortConfigBySvrId(svrId);
         if(portEntity != null){
@@ -330,6 +331,11 @@ public class ServerInfoService {
             serviceMapper.deleteServerConnection(svrId);
             return true;
         } else return false;
+    }
+
+    @Transactional
+    public boolean settingServerRelation(long mainSvrId, List<Long> subSvrIds){
+        return true;
     }
 
     // 진행 예정 (동기화 모니터링)

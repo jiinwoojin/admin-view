@@ -8,7 +8,7 @@ import java.net.URLEncoder;
 
 @Getter
 @Setter
-public abstract class PaginationModel {
+public abstract class PageModel {
     private int pg; // Page
     private int sz; // Size
     private int ob; // Order By
@@ -17,15 +17,15 @@ public abstract class PaginationModel {
 
     private int recordCount;
 
-    public PaginationModel(){
+    public PageModel(){
         this.sz = 8;
     }
 
-    public PaginationModel(int sz){
+    public PageModel(int sz){
         this.sz = sz;
     }
 
-    public PaginationModel(int pg, int sz, int ob, int sb, String st){
+    public PageModel(int pg, int sz, int ob, int sb, String st){
         this.pg = pg;
         this.sz = sz;
         this.ob = ob;

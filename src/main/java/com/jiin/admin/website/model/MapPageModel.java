@@ -8,20 +8,21 @@ import java.net.URLEncoder;
 
 @Getter
 @Setter
-public class MapSearchModel extends PaginationModel {
+public class MapPageModel extends PageModel {
     private String sDate; // Upload Start Date
     private String eDate; // Upload End Date
     private String iType; // Image Type (png, jpeg)
     private String units; // Unit (KM, MILEs, FEETs etc)
 
-    public MapSearchModel(){
+    public MapPageModel(){
         super();
         this.sDate = "";
         this.eDate = "";
         this.units = "ALL"; // Default Value
+        this.iType = "ALL"; // Default Value
     }
 
-    public MapSearchModel(int pg, int sz, int ob, int sb, String st, String sDate, String eDate, String iType, String units){
+    public MapPageModel(int pg, int sz, int ob, int sb, String st, String sDate, String eDate, String iType, String units){
         super(pg, sz, ob, sb, st);
         this.sDate = sDate;
         this.eDate = eDate;

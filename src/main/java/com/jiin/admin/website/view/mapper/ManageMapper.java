@@ -3,15 +3,13 @@ package com.jiin.admin.website.view.mapper;
 import com.jiin.admin.entity.LayerEntity;
 import com.jiin.admin.entity.MapEntity;
 import com.jiin.admin.mapper.BaseMapper;
-import com.jiin.admin.website.model.LayerSearchModel;
-import com.jiin.admin.website.model.MapSearchModel;
+import com.jiin.admin.website.model.LayerPageModel;
+import com.jiin.admin.website.model.MapPageModel;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Map;
 
 @BaseMapper
 public interface ManageMapper {
@@ -51,7 +49,7 @@ public interface ManageMapper {
             "</choose>",
         "</script>"
     })
-    List<LayerEntity> findLayerEntitiesByPaginationModel(LayerSearchModel layerSearchModel);
+    List<LayerEntity> findLayerEntitiesByPaginationModel(LayerPageModel layerPageModel);
 
     @Select({
         "<script>",
@@ -82,7 +80,7 @@ public interface ManageMapper {
             "</choose>",
         "</script>"
     })
-    List<MapEntity> findMapEntitiesByPaginationModel(MapSearchModel mapSearchModel);
+    List<MapEntity> findMapEntitiesByPaginationModel(MapPageModel mapPageModel);
 
     @Select("SELECT L.* FROM _LAYER L WHERE NAME = #{name}")
     LayerEntity findLayerEntityByName(@Param("name") String name);

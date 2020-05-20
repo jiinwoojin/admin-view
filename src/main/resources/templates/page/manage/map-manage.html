@@ -21,41 +21,44 @@
         <div class="ibox">
             <div class="ibox-content">
                 <form onsubmit="return onsubmit_check()">
-                    <div class="input-group">
-                        <input type="hidden" name="pg" value="1" />
-                        <input type="hidden" name="sz" value="8" />
-                        <input placeholder="검색어를 입력하세요." id="st" name="st" type="text" th:value="${param.st}" class="form-control form-control-sm" />
-                        <span class="input-group-append">
-                            <button type="submit" class="btn btn-sm btn-primary" title="검색">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </span>
-                        <button type="button" class="btn btn-sm btn-info m-l-xs" title="검색 조건" data-toggle="collapse" data-target="#searchFilter">
-                            <i class="fas fa-filter"></i>
-                        </button>
-                        <button type="button" class="btn btn-sm btn-warning m-l-xs" onclick="onclick_refresh_search()">
-                            <i class="fas fa-sync"></i>
-                        </button>
+                    <input type="hidden" name="pg" value="1" />
+                    <input type="hidden" name="sz" value="8" />
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-3 col-sm-12 mb-sm-1">
+                            <select id="sb" name="sb" class="form-control form-control-sm">
+                                <option th:each="sb : ${ sbList }" th:text="${ sb.label }" th:value="${ sb.value }" th:selected="${ #strings.equals(param.sb, #strings.toString(sb.value)) }"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 col-sm-12">
+                            <div class="input-group">
+                                <input placeholder="검색어를 입력하세요." id="st" name="st" type="text" th:value="${param.st}" class="form-control form-control-sm" />
+                                <span class="input-group-append">
+                                    <button type="submit" class="btn btn-sm btn-primary" title="검색">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </span>
+                                <button type="button" class="btn btn-sm btn-info m-l-xs" title="검색 조건" data-toggle="collapse" data-target="#searchFilter">
+                                    <i class="fas fa-filter"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-warning m-l-xs" onclick="onclick_refresh_search()">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="collapse" id="searchFilter">
                         <div class="form-row my-1">
                             <!-- 검색 방식 선택 -->
-                            <div class="col-md-4 mb-1">
+                            <div class="col-md-6 mb-1">
                                 <label for="ob">정렬 방식</label>
                                 <select id="ob" name="ob" class="form-control form-control-sm">
                                     <option th:each="ob : ${ obList }" th:text="${ ob.label }" th:value="${ ob.value }" th:selected="${ #strings.equals(param.ob, #strings.toString(ob.value)) }"></option>
                                 </select>
                             </div>
 
-                            <div class="col-md-4 mb-1">
-                                <label for="sb">검색 종류</label>
-                                <select id="sb" name="sb" class="form-control form-control-sm">
-                                    <option th:each="sb : ${ sbList }" th:text="${ sb.label }" th:value="${ sb.value }" th:selected="${ #strings.equals(param.sb, #strings.toString(sb.value)) }"></option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-4 mb-1">
+                            <div class="col-md-6 mb-1">
                                 <label for="units">지도 측정 단위</label>
                                 <select class="form-control" name="units" id="units">
                                     <option value="ALL" th:selected="${ #strings.equals(param.units, 'ALL') }">-- 모두 --</option>

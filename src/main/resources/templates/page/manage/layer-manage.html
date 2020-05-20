@@ -21,26 +21,44 @@
         <div class="ibox">
             <div class="ibox-content">
                 <form onsubmit="return onsubmit_check()">
-                    <div class="input-group">
-                        <input type="hidden" name="pg" value="1" />
-                        <input type="hidden" name="sz" value="8" />
-                        <input placeholder="검색어를 입력하세요." id="st" name="st" type="text" th:value="${param.st}" class="form-control form-control-sm" />
-                        <span class="input-group-append">
-                            <button type="submit" class="btn btn-sm btn-primary" title="검색">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </span>
-                        <button type="button" class="btn btn-sm btn-info m-l-xs" title="검색 조건" data-toggle="collapse" data-target="#searchFilter">
-                            <i class="fas fa-filter"></i>
-                        </button>
-                        <button type="button" class="btn btn-sm btn-warning m-l-xs" onclick="onclick_refresh_search()">
-                            <i class="fas fa-sync"></i>
-                        </button>
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-3 col-sm-12 mb-sm-1">
+                            <select id="sb" name="sb" class="form-control form-control-sm">
+                                <option th:each="sb : ${ sbList }" th:text="${ sb.label }" th:value="${ sb.value }" th:selected="${ #strings.equals(param.sb, #strings.toString(sb.value)) }"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 col-sm-12">
+                            <div class="input-group">
+                                <input placeholder="검색어를 입력하세요." id="st" name="st" type="text" th:value="${param.st}" class="form-control form-control-sm" />
+                                <span class="input-group-append">
+                                    <button type="submit" class="btn btn-sm btn-primary" title="검색">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </span>
+                                <button type="button" class="btn btn-sm btn-info m-l-xs" title="검색 조건" data-toggle="collapse" data-target="#searchFilter">
+                                    <i class="fas fa-filter"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-warning m-l-xs" onclick="onclick_refresh_search()">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="collapse" id="searchFilter">
                         <div class="form-row my-1">
                             <!-- 검색 방식 선택 -->
+                            <div class="col-md-6 mb-1">
+                                <label>업로드 시작</label>
+                                <input id="sDate" name="sDate" type="date" class="form-control" th:value="${param.sDate}" />
+                            </div>
+
+                            <div class="col-md-6 mb-1">
+                                <label>업로드 종료</label>
+                                <input id="eDate" name="eDate" type="date" class="form-control" th:value="${param.eDate}" />
+                            </div>
+
                             <div class="col-md-6 mb-1">
                                 <label for="ob">정렬 방식</label>
                                 <select id="ob" name="ob" class="form-control form-control-sm">
@@ -48,24 +66,7 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6 mb-1">
-                                <label for="sb">검색 종류</label>
-                                <select id="sb" name="sb" class="form-control form-control-sm">
-                                    <option th:each="sb : ${ sbList }" th:text="${ sb.label }" th:value="${ sb.value }" th:selected="${ #strings.equals(param.sb, #strings.toString(sb.value)) }"></option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-4">
-                                <label>업로드 시작</label>
-                                <input id="sDate" name="sDate" type="date" class="form-control" th:value="${param.sDate}" />
-                            </div>
-
-                            <div class="col-md-4">
-                                <label>업로드 종료</label>
-                                <input id="eDate" name="eDate" type="date" class="form-control" th:value="${param.eDate}" />
-                            </div>
-
-                            <div class="col-md-4 mt-1">
+                            <div class="col-md-6 mt-1">
                                 <div id="iType_box">
                                     <label class="mr-1">데이터 유형</label>
                                     <div class="form-check form-check-inline">

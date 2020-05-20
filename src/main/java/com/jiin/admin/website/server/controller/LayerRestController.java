@@ -1,7 +1,7 @@
 package com.jiin.admin.website.server.controller;
 
 import com.jiin.admin.entity.LayerEntity;
-import com.jiin.admin.website.model.LayerSearchModel;
+import com.jiin.admin.website.model.LayerPageModel;
 import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.server.service.TegolaService;
 import com.jiin.admin.website.view.service.ManageService;
@@ -28,7 +28,7 @@ public class LayerRestController {
     }
 
     @GetMapping("list")
-    public Map<String, Object> layerList(LayerSearchModel pagination) throws ParseException {
+    public Map<String, Object> layerList(LayerPageModel pagination) throws ParseException {
         return manageService.getLayerListByPaginationModel(pagination);
     }
 
