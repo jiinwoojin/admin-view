@@ -100,7 +100,7 @@ window.onload = function() {
     });
 
     // CACHE 이름이 바뀔 때 마다 경로 설정을 위한 이벤트
-    document.getElementById('proxyCacheName').onchange = function(e){
+    $('#proxyCacheName').onchange = function(e){
         var cacheDirectory = document.getElementById('proxyCacheDirectory');
         cacheDirectory.value = cacheDirectoryPath + e.target.value + '/';
     }

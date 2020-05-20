@@ -65,9 +65,9 @@
                         >
                             <i class="fas fa-cog"></i>
                         </button>
-                        <button class="btn btn-danger btn-circle btn-sm mx-1" type="button" th:href="@{ '/view/server/remove-server/' + ${connection.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                        <a class="btn btn-danger btn-circle btn-sm mx-1" type="button" th:href="@{ '/view/server/remove-server/' + ${connection.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                             <i class="fas fa-trash"></i>
-                        </button>
+                        </a>
                     </td>
                 </tr>
                 </tbody>
@@ -271,9 +271,9 @@
                                         </label>
                                     </td>
                                     <td class="text-center align-middle">
-                                        <button class="btn btn-danger btn-circle btn-sm" type="button" th:href="@{ '/view/server/remove-server/' + ${connection.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                                        <a class="btn btn-danger btn-circle btn-sm" type="button" th:href="@{ '/view/server/remove-server/' + ${connection.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                                             <i class="fas fa-trash"></i>
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                             </tbody>

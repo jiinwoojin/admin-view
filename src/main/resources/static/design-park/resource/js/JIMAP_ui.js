@@ -38,6 +38,9 @@ $(document).ready(function () {
         checkboxClass: 'icheckbox_square-green',
         radioClass: 'iradio_square-green',
     });
+
+    mapSizeControl();
+    searchControl();
 });
 
 // [공통] 지도 크기 자동 조절
@@ -47,9 +50,16 @@ var mapSizeControl = function(){
         footer_H	= $('.footer').outerHeight(),
         map_H		= $(document).outerHeight() - topBar_H - titleBar_H - footer_H
 
-    console.log(map_H);
     $('.map_area').outerHeight(map_H+5);
 }
+
+// [공통] 검색 확장 버튼 기능
+var searchControl = function(){
+    $('.btn.searchMore').on('kepress, click', function(){
+        $('#searchDetail').toggleClass("active")
+    });
+}
+
 
 // [공통] 지도 기능 RESIZE
 $(window).on('resize', function() {
