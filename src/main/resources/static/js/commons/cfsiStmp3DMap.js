@@ -78,7 +78,7 @@ ji3DMap.prototype.init = function init(options) {
  */
 ji3DMap.prototype.setBaseTerrain = function setBaseTerrain() {
     var terrainProvider = new Cesium.CesiumTerrainProvider({
-        url : 'http://' + stmp.SERVER_DOMAIN + ':11100/tilesets/dted'
+        url : stmp.PROTOCOL + '//' + stmp.SERVER_DOMAIN + ':11100/tilesets/dted'
     });
 
     this.map.terrainProvider = terrainProvider;
@@ -90,9 +90,9 @@ ji3DMap.prototype._updateMaterial = function _updateMaterial() {
     this.shadingUniforms = material.uniforms;
     this.shadingUniforms.minimumHeight = this.minHeight;
     this.shadingUniforms.maximumHeight = this.maxHeight;
-    this.shadingUniforms.image = this._getColorRamp('sixteenColor');*/
+    this.shadingUniforms.image = this._getColorRamp('eightColor');    // eightColor, sixteenColor
 
-    //this.map.scene.globe.material = material;
+    this.map.scene.globe.material = material;*/
 };
 
 ji3DMap.prototype.changeTerrain = function changeTerrain() {
