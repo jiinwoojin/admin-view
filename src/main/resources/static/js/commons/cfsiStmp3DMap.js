@@ -62,7 +62,8 @@ ji3DMap.prototype.init = function init(options) {
             }
         },
         terrainExaggeration : 1.0,
-        navigationInstructionsInitiallyVisible : false
+        navigationInstructionsInitiallyVisible : false,
+        mapProjection : new Cesium.WebMercatorProjection()
     });
 
     if(stmp.mapSource!==''&& stmp.mapSource!=='world:truemarble')

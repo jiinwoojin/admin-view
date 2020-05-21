@@ -33,7 +33,7 @@
                             <i class="fas fa-fighter-jet"></i>
                         </button>
                         <!-- 이지훈 LOS 버튼 -->
-                        <button type="button" class="btn btn-sm btn-success mr-2" id="btn_los" data-toggle="modal" data-target="#los_modal" data-backdrop="false" style="display: none;">
+                        <button type="button" class="btn btn-sm btn-success mr-2" id="btn_los" data-toggle="modal" data-target="#los_modal" data-backdrop="false">
                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spn_los_spinner" style="display: none;"></span>
                             <i class="fas fa-eye"></i> LOS
                         </button>
@@ -289,7 +289,7 @@
 
                         $('#display-display3d').removeClass('btn-info');
                         $('#display-display3d').addClass('btn-secondary');
-                        $('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
+                        //$('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
                         stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
                     } else if (_id === 'display-display3d') {
                         contentName = 'cesium-display';
@@ -298,7 +298,7 @@
 
                         $('#display-display2d').removeClass('btn-info');
                         $('#display-display2d').addClass('btn-secondary');
-                        $('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
+                        //$('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
                         stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_3D;
                     }
 
@@ -581,13 +581,12 @@
 
             $('#spn_los_spinner').toggle();
 
-            var coord = [127, 37];
             var json = {
-                "observer_lon": 127.70,
-                "observer_lat": 36.95,
+                "observer_lon": 14215498.972322224,
+                "observer_lat": 4432139.721076026,
                 "observer_height": 2,
                 "target_height": 10,
-                "semi_dimension": 400,
+                "semi_dimension": 600,
                 "visible_color": "#0000FF",
                 "invisible_color": "#FF0000",
                 "image_alpha": 32,
@@ -595,22 +594,75 @@
                 "input_dem_level": 2,
                 "output_directory": "jiin/mims",
                 "output_file_format": ".png",
-                "run_async": 0
+                "run_async": 0,
+                "storage_type": 1
             };
-
-            console.log(JSON.stringify(json));
 
             var interval;
             $.ajax({
                 //url : CONTEXT + '/view/los/requestLos'
-                url : 'http://211.172.246.71:11100/height/viewshed'
+                url : stmp.PROTOCOL + '//211.172.246.71:11100/height/viewshed'
                 //url : 'http://localhost:5000/viewshed'
                 , type : 'post'
                 , contentType : 'application/json'
                 , data : JSON.stringify(json)
                 , success : function(result) {
                     console.log(result);
-                    interval = setInterval(function() {
+                    var infoUrl = stmp.PROTOCOL + '//211.172.246.71:11100/' + result['output_image_info_destination'];
+                    var imgUrl = stmp.PROTOCOL + '//211.172.246.71:11100/' + result['output_image_destination'];
+                    $.ajax({
+                        url : infoUrl
+                        , type : 'get'
+                        , success : function(info) {
+                            console.log(info);
+                            var infoSplit = info.replace(/\s/g,'').replace('(', '').replace(')', '').split(',');
+                            console.log(infoSplit);
+                            var minX = parseFloat(infoSplit[0]);
+                            var minY = parseFloat(infoSplit[1]);
+                            var maxX = parseFloat(infoSplit[2]);
+                            var maxY = parseFloat(infoSplit[3]);
+
+                            var minXmaxYDegrees = stmp.convert.metersToDegrees(minX, maxY);
+                            var maxXmaxYDegrees = stmp.convert.metersToDegrees(maxX, maxY);
+                            var maxXminYDegrees = stmp.convert.metersToDegrees(maxX, minY);
+                            var minXminYDegrees = stmp.convert.metersToDegrees(minX, minY);
+
+                            if (stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_2D) {
+                                stmp.mapObject.map.addSource('losSource', {
+                                    'type': 'image',
+                                    'url': imgUrl,
+                                    'coordinates': [
+                                        [minXmaxYDegrees.lon, minXmaxYDegrees.lat],
+                                        [maxXmaxYDegrees.lon, maxXmaxYDegrees.lat],
+                                        [maxXminYDegrees.lon, maxXminYDegrees.lat],
+                                        [minXminYDegrees.lon, minXminYDegrees.lat]
+                                    ]
+                                });
+
+                                stmp.mapObject.map.addLayer({
+                                    'id': 'losLayer',
+                                    'source': 'losSource',
+                                    'type': 'raster',
+                                    'paint': {
+                                        'raster-opacity': 1
+                                    }
+                                });
+                            } else {
+                                // 3D LOS
+                                stmp.mapObject.map.entities.add({
+                                    rectangle : {
+                                        coordinates : Cesium.Rectangle.fromDegrees(minXmaxYDegrees.lon, maxXminYDegrees.lat, maxXmaxYDegrees.lon, maxXmaxYDegrees.lat),
+                                        material : imgUrl,
+                                        classificationType : Cesium.ClassificationType.TERRAIN
+                                    }
+                                });
+                            }
+                        }
+                        , error : function(e) {
+                            console.log(e);
+                        }
+                    })
+                    /*interval = setInterval(function() {
                         $.ajax({
                             url: CONTEXT + '/view/los/get'
                             ,type:'post'
@@ -634,7 +686,7 @@
                                 }
                             }
                         });
-                    }, 5000);
+                    }, 5000);*/
                 }
                 ,error : function(result) {
                     debugger;

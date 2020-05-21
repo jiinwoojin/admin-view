@@ -29,6 +29,7 @@ logging:
     console: "%blue(%-5level) %yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %clr([%t]){green} %cyan(%logger[%method:%line]) - %magenta(%msg%n)"
     file: "%blue(%-5level) %yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %clr([%t]){green} %cyan(%logger[%method:%line]) - %magenta(%msg%n)"
   level:
+    root: ERROR
     com.jiin.admin: INFO
     org.springframework: INFO
     org.hibernate: INFO
