@@ -3,6 +3,7 @@ package com.jiin.admin.website.view.service;
 import com.jiin.admin.entity.*;
 import com.jiin.admin.website.model.ServerConnectionModel;
 import com.jiin.admin.website.model.ServerFormModel;
+import com.jiin.admin.website.model.ServerRelationModel;
 import com.jiin.admin.website.model.ServicePortModel;
 import com.jiin.admin.website.server.mapper.CountMapper;
 import com.jiin.admin.website.server.vo.DataCounter;
@@ -326,7 +327,7 @@ public class ServerInfoService {
     public boolean serverInfoDelete(long svrId){
         ServicePortEntity portEntity = serviceMapper.findPortConfigBySvrId(svrId);
         if(portEntity != null){
-            serviceMapper.deleteServerRelationBySvrId(svrId);
+            serviceMapper.deleteServerRelationBySvrIdCascade(svrId);
             serviceMapper.deleteServicePortBySvrId(svrId);
             serviceMapper.deleteServerConnection(svrId);
             return true;
@@ -335,6 +336,10 @@ public class ServerInfoService {
 
     @Transactional
     public boolean settingServerRelation(long mainSvrId, List<Long> subSvrIds){
+        serviceMapper.deleteServerRelationByMainSvrId(mainSvrId);
+        for(Long id : subSvrIds){
+            serviceMapper.insertServerRelationWithModel(new ServerRelationModel(0L, mainSvrId, id));
+        }
         return true;
     }
 
