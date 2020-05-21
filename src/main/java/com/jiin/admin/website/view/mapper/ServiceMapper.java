@@ -44,9 +44,6 @@ public interface ServiceMapper {
     @Select("SELECT * FROM _SERVER_CONNECTION WHERE IP_ADDRESS = #{ipAddress}")
     ServerConnectionEntity findServerConnectionsByIpAddress(@Param("ipAddress") String ipAddress);
 
-    @Select("SELECT COUNT(*) FROM _SERVER_RELATION WHERE MAIN_SVR_ID = #{mainSvrId} AND SUB_SVR_ID = #{subSvrId}")
-    long countServerRelationByEachSvrIds(@Param("mainSvrId") long mainSvrId, @Param("subSvrId") long subSvrId);
-
     @Select({
             "SELECT SC.* ",
             "FROM _SERVER_RELATION SR LEFT JOIN _SERVER_CONNECTION MC ",
@@ -72,6 +69,9 @@ public interface ServiceMapper {
     @Delete("DELETE FROM _SERVICE_PORT WHERE SVR_ID = #{svrId}")
     void deleteServicePortBySvrId(@Param("svrId") long svrId);
 
+    @Delete("DELETE FROM _SERVER_RELATION WHERE MAIN_SVR_ID = #{mainSvrId}")
+    void deleteServerRelationByMainSvrId(@Param("mainSvrId") long mainSvrId);
+
     @Delete("DELETE FROM _SERVER_RELATION WHERE MAIN_SVR_ID = #{id} OR SUB_SVR_ID = #{id}")
-    void deleteServerRelationBySvrId(@Param("id") long id);
+    void deleteServerRelationBySvrIdCascade(@Param("id") long id);
 }

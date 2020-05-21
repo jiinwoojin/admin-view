@@ -58,8 +58,15 @@ public class SystemMainController {
     // 관계 획득을 위한 1단계 작업 진행.
     @RequestMapping(value = "change-relation", method = RequestMethod.POST)
     public String changeRelationWithSvrIds(HttpServletRequest request){
-        System.out.println(Arrays.toString(request.getParameterValues("subSvrIds")));
-        System.out.println(request.getParameter("mainSvrId"));
-        return "redirect:service-address";
+        if(request.getParameterMap().keySet().containsAll(Arrays.asList("subSvrIds", "mainSvrId"))) {
+            List<Long> subSvrIds = Arrays.stream(request.getParameterValues("subSvrIds"))
+                                        .map(o -> Long.parseLong(o))
+                                        .collect(Collectors.toList());
+            Long mainSvrId = Long.parseLong(request.getParameter("mainSvrId"));
+            serverInfoService.settingServerRelation(mainSvrId, subSvrIds);
+            return "redirect:service-address";
+        } else {
+            return "redirect:../service-address?error";
+        }
     }
 }
