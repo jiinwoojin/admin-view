@@ -225,28 +225,47 @@ public class ServerInfoService {
 
     // 자신의 서버와 연결이 되는 목록을 가져온다. (지금은 리눅스만 가능)
     public Map<String, String> getEachFirstConnectionsMap() {
-        Map<String, String> map = new LinkedHashMap<>();
+        Map<String, String> mapInc = new LinkedHashMap<>();
+        Map<String, String> mapAno = new HashMap<>();
+
         String ipAddr = this.getOwnIpAddressInLinux();
 
         // 제공하는 서버가 윈도우가 아닌 경우에만 실행한다. (윈도우일 때, 제공 방안은 추후 개발 필요.)
         if (!System.getProperty("os.name").toLowerCase().contains("win") && ipAddr != null) {
-            ServerConnectionEntity ownConn = serviceMapper.findServerConnectionsByIpAddress(ipAddr);
-            for(ServerConnectionEntity connection : serviceMapper.findOwnRelateConnectionsByIpAddress(ipAddr)){
-                String own = ownConn.getKey();
-                String key = connection.getKey();
+            List<ServerConnectionEntity> list = serviceMapper.findOwnRelateConnectionsByIpAddress(ipAddr);
+            if(list.size() == 0) return mapInc;
+            else {
+                ServerConnectionEntity ownConn = serviceMapper.findServerConnectionsByIpAddress(ipAddr);
+                String ownKey = ownConn.getKey();
+                String ownName = ownKey.split("-")[1];
 
-                String ownName = own.split("-")[1];
+                for(ServerConnectionEntity anoConn : list){
+                    if(mapInc.containsKey("B3") && mapInc.containsKey("U1") && mapInc.containsKey("GOC")) break;
 
-                String center = key.split("-")[0];
-                String name = key.split("-")[1];
+                    String anoKey = anoConn.getKey();
+                    String anoCenter = anoKey.split("-")[0];
+                    String anoName = anoKey.split("-")[1];
 
-                if(ownName.equals(name)) {
-                    map.put(center.startsWith("N") ? center.substring(1) : center, key);
+                    if(ownName.equals(anoName)) {
+                        mapInc.put(anoCenter.startsWith("N") ? anoCenter.substring(1) : anoCenter, anoKey);
+                    } else {
+                        mapAno.put(anoCenter.startsWith("N") ? anoCenter.substring(1) : anoCenter, anoKey);
+                    }
                 }
             }
-            return map;
+
+            if(mapInc.containsKey("B1") && mapInc.containsKey("U3") && mapInc.containsKey("GOC")) return mapInc;
+
+            for(String c : Arrays.asList("B1", "U3", "GOC")){
+                if(!mapInc.containsKey(c)){
+                    mapInc.put(c, mapAno.get(c));
+                }
+            }
+
+            return mapInc;
         }
-        return map;
+
+        return mapInc;
     }
 
     // 연결 관계를 가져오는 메소드 (지금은 리눅스만 가능)
