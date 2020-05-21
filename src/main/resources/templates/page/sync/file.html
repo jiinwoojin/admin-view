@@ -56,7 +56,10 @@
                 <option value="n_si_2">N-SI 서버 (2)</option>
             </select>
 
-            <input type="checkbox" id="sync_confirm" onchange="onchange_sync()" /><label class="mx-1" for="sync_confirm">동기화 기록 포함</label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="sync_confirm" onchange="onchange_sync()" />&nbsp;&nbsp;
+                <label class="form-check-input mx-1" for="sync_confirm">동기화 기록 포함</label>
+            </div>
         </div>
         <!-- // 동기화 진행 현황 표기 종료 -->
 

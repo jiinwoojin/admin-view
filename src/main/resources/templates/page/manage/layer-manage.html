@@ -72,16 +72,16 @@
                             <div class="col-md-6 mt-1">
                                 <div id="iType_box">
                                     <label class="mr-1">데이터 유형</label>
-                                    <div class="form-check form-check-inline">
-                                        <input type="radio" id="all" name="lType" value="ALL" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'ALL') }" />
+                                    <div class="form-check form-check-inline i-checks">
+                                        <input type="radio" id="all" name="lType" value="ALL" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'ALL') }" />&nbsp;&nbsp;
                                         <label class="form-check-label" for="vector">모두</label>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <input type="radio" id="raster" name="lType" value="RASTER" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'RASTER') }" />
+                                    <div class="form-check form-check-inline i-checks">
+                                        <input type="radio" id="raster" name="lType" value="RASTER" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'RASTER') }" />&nbsp;&nbsp;
                                         <label class="form-check-label" for="raster">레스터</label>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <input type="radio" id="vector" name="lType" value="VECTOR" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'VECTOR') }" />
+                                    <div class="form-check form-check-inline i-checks">
+                                        <input type="radio" id="vector" name="lType" value="VECTOR" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'VECTOR') }" />&nbsp;&nbsp;
                                         <label class="form-check-label" for="vector">벡터</label>
                                     </div>
                                 </div>

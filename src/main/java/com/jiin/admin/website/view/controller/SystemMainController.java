@@ -55,7 +55,6 @@ public class SystemMainController {
         else return "redirect:../service-address?error";
     }
 
-    // 관계 획득을 위한 1단계 작업 진행.
     @RequestMapping(value = "change-relation", method = RequestMethod.POST)
     public String changeRelationWithSvrIds(HttpServletRequest request){
         if(request.getParameterMap().keySet().containsAll(Arrays.asList("subSvrIds", "mainSvrId"))) {
@@ -68,5 +67,10 @@ public class SystemMainController {
         } else {
             return "redirect:../service-address?error";
         }
+    }
+
+    @RequestMapping("log-manage")
+    public String logManage(){
+        return "page/system/log-manage";
     }
 }

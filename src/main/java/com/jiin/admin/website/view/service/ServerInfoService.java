@@ -7,6 +7,7 @@ import com.jiin.admin.website.model.ServerRelationModel;
 import com.jiin.admin.website.model.ServicePortModel;
 import com.jiin.admin.website.server.mapper.CountMapper;
 import com.jiin.admin.website.server.vo.DataCounter;
+import com.jiin.admin.website.server.vo.GeoManagerProcessInfo;
 import com.jiin.admin.website.server.vo.ServerBasicPerformance;
 import com.jiin.admin.website.view.mapper.AccountMapper;
 import com.jiin.admin.website.view.mapper.ServiceMapper;
@@ -182,6 +183,30 @@ public class ServerInfoService {
         return sp;
     }
 
+    // Dashboard
+    // 리눅스 서버에서 실행 중인 프로세스와 포트 번호 확인 기능을 통해 GIS 실행 여부를 확인한다.
+    public Map<String, GeoManagerProcessInfo> loadGeoManagerProcessInfoMap(List<String> geoManagers){
+        for(String manager : geoManagers){
+            String processResult = this.getLinuxShellWithCommand(String.format("ps -efl | grep %s", manager));
+            System.out.println(processResult); // Parsing Confirm
+            System.out.println("-----------");
+        }
+        return new HashMap<>();
+    }
+
+    public Map<String, GeoManagerProcessInfo> loadGeoManagerProcessInfoMapByUIType(String uiType){
+        switch(uiType){
+            case "DASHBOARD" :
+                return loadGeoManagerProcessInfoMap(
+                    Arrays.asList("mapserver", "mapproxy", "tegola", "terrain-server", "mapnik")
+                );
+
+            default :
+                return new HashMap<>();
+        }
+    }
+
+
     // 자신의 서버에 해당하는 성능 정보를 가져온다. (지금은 리눅스만 가능)
     public ServerBasicPerformance getOwnServerBasicPerformance(){
         String ipAddr = this.getOwnIpAddressInLinux();
@@ -192,6 +217,7 @@ public class ServerInfoService {
         return new ServerBasicPerformance();
     }
 
+    // 본인이 접속한 디바이스의 정보를 가져온다. (단, 리눅스를 사용하지 않아야 함. 즉, 수정 필요.)
     public ServerConnectionEntity getOwnServerConnection(){
         String ipAddr = this.getOwnIpAddressInLinux();
         if(ipAddr != null){
@@ -353,6 +379,7 @@ public class ServerInfoService {
         } else return false;
     }
 
+    // 서버 연동 설정을 위한 메소드
     @Transactional
     public boolean settingServerRelation(long mainSvrId, List<Long> subSvrIds){
         serviceMapper.deleteServerRelationByMainSvrId(mainSvrId);

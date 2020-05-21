@@ -85,16 +85,16 @@
                             <div class="col-md-4 mt-1">
                                 <div id="iType_box">
                                     <label class="mr-1">이미지 출력 방식</label>
-                                    <div class="form-check form-check-inline">
-                                        <input type="radio" id="all_iType" name="iType" value="ALL" class="form-check-input" th:checked="${ #strings.equals(param.iType, 'ALL') }" />
+                                    <div class="form-check form-check-inline i-checks">
+                                        <input type="radio" id="all_iType" name="iType" value="ALL" class="form-check-input" th:checked="${ #strings.equals(param.iType, 'ALL') }" />&nbsp;&nbsp;
                                         <label class="form-check-label" for="all_iType">모두</label>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <input type="radio" id="jpeg" name="iType" value="jpeg" class="form-check-input" th:checked="${ #strings.equals(param.iType, 'jpeg') }" />
+                                    <div class="form-check form-check-inline i-checks">
+                                        <input type="radio" id="jpeg" name="iType" value="jpeg" class="form-check-input" th:checked="${ #strings.equals(param.iType, 'jpeg') }" />&nbsp;&nbsp;
                                         <label class="form-check-label" for="jpeg">JPEG</label>
                                     </div>
-                                    <div class="form-check form-check-inline">
-                                        <input type="radio" id="png" name="iType" value="png" class="form-check-input" th:checked="${ #strings.equals(param.iType, 'png') }" />
+                                    <div class="form-check form-check-inline i-checks">
+                                        <input type="radio" id="png" name="iType" value="png" class="form-check-input" th:checked="${ #strings.equals(param.iType, 'png') }" />&nbsp;&nbsp;
                                         <label class="form-check-label" for="png">PNG</label>
                                     </div>
                                 </div>
