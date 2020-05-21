@@ -102,7 +102,7 @@
 
         <div class="row mb-2">
             <div class="col-md-4 col-sm-12" th:if="${ performanceMap.keySet().size() > 0 }" th:each="center : ${ performanceMap.keySet() }" th:id="${ center + '_SERVER_STATUS' }">
-                <div class="ibox">
+                <div class="ibox" th:if="${ performanceMap.get(center) != null }">
                     <div class="ibox-title">
                         <h3 class="section_tit" th:id="${ center + '_serverName' }"></h3>
                         <div class="ibox-tools">
@@ -118,7 +118,7 @@
                                 <a href="#" title="자세히">
                                     <i class="fas fa-search"></i>
                                 </a>
-                                <a th:id="${ center + '_refresh_server' }" onclick="onchange_refresh_server(this)">
+                                <a th:id="${ center + '_refresh_server' }" onclick="onchange_refresh_server(this)" data-toggle="tab" th:href="${ '#' + center + '_SERVER_TAB1' }">
                                     <i class="fas fa-sync"></i>
                                 </a>
                             </div>
@@ -128,8 +128,8 @@
                         <!-- Tab #START -->
                         <div class="tabs-container">
                             <ul class="nav nav-tabs" role="tablist">
-                                <li><a class="nav-link active" data-toggle="tab" th:id="${ '#' + center + '_SERVER_PILL1' }" th:href="${ '#' + center + '_SERVER_TAB1' }">기본사양</a></li>
-                                <li><a class="nav-link" data-toggle="tab" th:id="${ '#' + center + '_SERVER_PILL2' }" th:href="${ '#' + center + '_SERVER_TAB2' }">서비스 상태</a></li>
+                                <li><a class="nav-link active" data-toggle="tab" th:id="${ center + '_SERVER_PILL1' }" th:href="${ '#' + center + '_SERVER_TAB1' }">기본사양</a></li>
+                                <li><a class="nav-link" data-toggle="tab" th:id="${ center + '_SERVER_PILL2' }" th:href="${ '#' + center + '_SERVER_TAB2' }">서비스 상태</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div role="tabpanel" th:id="${ center + '_SERVER_TAB1' }" class="tab-pane active fade show">
@@ -190,10 +190,29 @@
                                         </dl>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         <!-- Tab #END -->
+                    </div>
+                </div>
+
+                <div class="ibox" th:unless="${ performanceMap.get(center) != null }">
+                    <div class="ibox-title">
+                        <h3 class="section_tit text-warning">NO EXIST.</h3>
+                        <div class="ibox-tools">
+                            <span class="text-warning">
+                                <i class="fas fa-times-circle"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="ibox-content" style="min-height : 227px;">
+                        <div class="text-center text-sm font-weight-bold text-uppercase mb-1 text-warning">
+                            <i class="h1 fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="text-center text-sm font-weight-bold text-uppercase mb-1 text-warning">
+                            <h2>해당 서버와 연동이 되어 있지 않습니다.</h2>
+                            <p>서비스 주소 관리 메뉴를 사용해서 서버를 설정하세요.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -208,11 +227,11 @@
                             </span>
                         </div>
                     </div>
-                    <div class="ibox-content">
-                        <div id="serverError_ICON1" class="text-center text-sm font-weight-bold text-uppercase mb-1 text-danger">
+                    <div class="ibox-content" style="min-height : 227px;">
+                        <div class="text-center text-sm font-weight-bold text-uppercase mb-1 text-danger">
                             <i class="h1 fas fa-exclamation-triangle"></i>
                         </div>
-                        <div id="serverError_STATUS1" class="text-center text-sm font-weight-bold text-uppercase mb-1 text-danger">
+                        <div class="text-center text-sm font-weight-bold text-uppercase mb-1 text-danger">
                             <h2>실행하는 서버의 연결 관계가 확실하지 않습니다.</h2>
                             <p>윈도우 측에서는 서버를 연동하기 위한 검토를 하는 중으로 리눅스 환경에서 실행하시길 바랍니다.</p>
                         </div>
@@ -320,11 +339,11 @@
                             </span>
                         </div>
                     </div>
-                    <div class="ibox-content">
-                        <div id="serverError_ICON2" class="text-center text-sm font-weight-bold text-uppercase mb-1 text-danger">
+                    <div class="ibox-content" style="min-height : 210px;">
+                        <div class="text-center text-sm font-weight-bold text-uppercase mb-1 text-danger">
                             <i class="h1 fas fa-exclamation-triangle"></i>
                         </div>
-                        <div id="serverError_STATUS2" class="text-center text-sm font-weight-bold text-uppercase mb-1 text-danger">
+                        <div class="text-center text-sm font-weight-bold text-uppercase mb-1 text-danger">
                             <h2>실행하는 서버의 연결 관계가 확실하지 않습니다.</h2>
                             <p>윈도우 측에서는 서버를 연동하기 위한 검토를 하는 중으로 리눅스 환경에서 실행하시길 바랍니다.</p>
                         </div>

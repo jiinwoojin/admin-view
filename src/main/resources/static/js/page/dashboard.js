@@ -83,7 +83,7 @@ function ajax_request(key, center){
 function find_by_center_refresh_server(center){
     var dom = document.getElementById(`${center}_SERVER_STATUS`);
     if(dom){
-        var key = document.getElementById(center + "_change_server").value;
+        var key = $("#" + center + "_change_server").val();
         if(key) ajax_request(key, center);
     }
 }
@@ -105,6 +105,7 @@ function onchange_refresh_server(dom){
     // 버튼일 때를 대비한다.
     if(!key) {
         key = document.getElementById(center + "_change_server").value;
+        $('#' + center + '_SERVER_PILL1').tab('show');
     }
     ajax_request(key, center);
 }
