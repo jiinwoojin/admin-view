@@ -78,7 +78,7 @@ ji3DMap.prototype.init = function init(options) {
  */
 ji3DMap.prototype.setBaseTerrain = function setBaseTerrain() {
     var terrainProvider = new Cesium.CesiumTerrainProvider({
-        url : stmp.PROTOCOL + '//' + stmp.SERVER_DOMAIN + ':11100/tilesets/dted'
+        url : stmp.PROTOCOL + '//' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT + '/tilesets/dted'
     });
 
     this.map.terrainProvider = terrainProvider;

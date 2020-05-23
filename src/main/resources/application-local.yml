@@ -17,6 +17,19 @@ project:
   data-path: /data/jiapp/data_dir
   mapserver:
     binary: /usr/local/bin/mapserv
+  docker-name:
+    mapproxy-name: jiin-mapproxy
+    mapserver-name: jiin-server-1
+    mapnik-name: jiin-server-2
+    height-name: jiin-height
+    rabbitmq-name: jiin-rabbitmq
+  server-port:
+    mapproxy-port: 11120
+    mapserver-port: 11130
+    mapnik-port: 11140
+    terrain-port: 11150
+    height-port: 11160
+    vector-port: 11170
   los:
     host: http://211.172.246.71
     heightPort: 11160
