@@ -2,14 +2,14 @@ project:
   datasource:
     base:
       driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://192.168.1.171:9999/mims
+      url: jdbc:postgresql://192.168.1.174:9999/mims
       username: jiapp
       password: jiapp
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
       mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
     map:
       driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://192.168.1.171:9999/mims
+      url: jdbc:postgresql://192.168.1.174:9999/mims
       username: jiapp
       password: jiapp
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml

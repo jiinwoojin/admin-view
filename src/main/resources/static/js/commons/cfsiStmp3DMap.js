@@ -78,7 +78,7 @@ ji3DMap.prototype.init = function init(options) {
  */
 ji3DMap.prototype.setBaseTerrain = function setBaseTerrain() {
     var terrainProvider = new Cesium.CesiumTerrainProvider({
-        url : stmp.PROTOCOL + '//' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT + '/tilesets/dted'
+        url : stmp.URL + '/tilesets/dted'
     });
 
     this.map.terrainProvider = terrainProvider;
@@ -108,7 +108,7 @@ ji3DMap.prototype.setBaseImagery = function setBaseImagery() {
     var imageryLayers = this.map.imageryLayers;
     imageryLayers.removeAll();
     imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-        url : stmp.PROTOCOL + '//' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT + '/mapproxy/service',
+        url : stmp.URL + '/mapproxy/service',
         layers : stmp.getBaseMapSource(),
         parameters : {
             transparent : 'true',
@@ -124,7 +124,7 @@ ji3DMap.prototype.changeBaseMap = function changeBaseMap() {
     var mapLayer = this.map.imageryLayers.get(1);
     this.map.imageryLayers.remove(mapLayer);
     this.map.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-        url : stmp.PROTOCOL + '//' + stmp.SERVER_DOMAIN + ':' + stmp.SERVER_MAP_PORT + '/geoserver/wms',
+        url : stmp.URL + '/geoserver/wms',
         layers : stmp.getMapSource(),
         rectangle : Cesium.Rectangle.fromDegrees(105.522, 17.034, 140.487, 51.449),
         style : 'default',

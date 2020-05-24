@@ -413,15 +413,15 @@ jiMap.prototype.setBaseStyle = function setBaseStyle() {
             'world' : {
                 'type' : 'raster',
                 'tiles' : [
-                    stmp.PROTOCOL + "//211.172.246.71:11100/mapproxy/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=osm",
+                    stmp.URL +  "/mapproxy/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=" + stmp.BASE_MAP_SOURCE,
                     //stmp.PROTOCOL + "//211.172.246.71:11130/mapserver/cgi-bin/mapserv?map=/data/jiapp/data_dir/style/basemaps/osm-google.map&bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=default"
                     //stmp.PROTOCOL + "//211.172.246.71:11190/osm_tiles/{z}/{x}/{y}.png"
                 ],
                 'tileSize' : 256
             }
         },
-        'sprite' : stmp.PROTOCOL + '//211.172.246.71:11100/GSymbol/GSSSymbol',
-        'glyphs' : stmp.PROTOCOL + '//211.172.246.71:11100/fonts/{fontstack}/{range}.pbf',
+        'sprite' : stmp.URL + '/GSymbol/GSSSymbol',
+        'glyphs' : stmp.URL + '/fonts/{fontstack}/{range}.pbf',
         'layers' : [{
             'id' : stmp.BASE_MAP_LAYER_ID,
             'type' : 'raster',

@@ -7,12 +7,13 @@ var stmp = {
     // 상황도 서버 도메인 서버 IP
     SERVER_DOMAIN : '211.172.246.71',
     // 상황도 서버 지도 PORT
-    SERVER_MAP_PORT : '11100',
+    SERVER_MAP_PORT : 11100,
     // 상황도 서버 이미지 PORT
-    SERVER_IMG_PORT : '11200',
+    SERVER_IMG_PORT : 11200,
     STMP_UI_PATH : '/ui/CF/SI',
-    BASE_MAP_SOURCE : 'world_k2',
+    BASE_MAP_SOURCE : 'osm',
     BASE_MAP_LAYER_ID : 'BASE_MAP',
+    URL : undefined,
     setBaseMapSource : function setBaseMapSource(value) {
         this.BASE_MAP_SOURCE = value;
     },
