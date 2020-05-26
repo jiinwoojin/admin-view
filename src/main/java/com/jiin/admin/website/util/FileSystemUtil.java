@@ -71,4 +71,41 @@ public class FileSystemUtil {
 
         return fileContext.toString();
     }
+
+    /**
+     * 파일 생성 (삭제 후 파일 생성)
+     * @param filePath filePath
+     * @param content  content
+     * @param charset  charset
+     * @throws IOException exception
+     */
+    public static void createAtFile(String filePath, String content, String charset) throws IOException {
+        // 파일이 있을 경우 삭제
+        deleteFile(filePath);
+
+        File file = new File(filePath);
+        FileUtils.write(file, content, charset);
+        if (!isWindowOS()) setFullFilePermissions(file.toPath());
+    }
+
+    /**
+     * 파일 생성 (삭제 후 파일 생성) charset default utf-8
+     * @param filePath filePath
+     * @param content  content
+     * @throws IOException exception
+     */
+    public static void createAtFile(String filePath, String content) throws IOException {
+        createAtFile(filePath, content, "utf-8");
+    }
+
+    /**
+     * 파일 삭제
+     * @param filePath 파일 경로
+     * @throws IOException Exception
+     */
+    public static void deleteFile(String filePath) throws IOException {
+        if (FileUtils.getFile(filePath).isFile()) {
+            FileUtils.forceDelete(FileUtils.getFile(filePath));
+        }
+    }
 }

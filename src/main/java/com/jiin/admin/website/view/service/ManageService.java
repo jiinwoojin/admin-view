@@ -11,6 +11,7 @@ import com.jiin.admin.website.model.LayerPageModel;
 import com.jiin.admin.website.model.MapPageModel;
 import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.util.FileSystemUtil;
+import com.jiin.admin.website.util.MapServerUtil;
 import com.jiin.admin.website.view.mapper.ManageMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -28,11 +29,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.attribute.PosixFileAttributes;
-import java.nio.file.attribute.PosixFilePermission;
-import java.text.ParseException;
 import java.util.*;
 
 @Slf4j
@@ -140,7 +136,7 @@ public class ManageService {
             FileUtils.forceDelete(FileUtils.getFile(mapFilePath));
         }
 
-        FileSystemUtil.writeContextAtFile(mapFilePath, stringBuilder.toString());
+        FileSystemUtil.createAtFile(mapFilePath, stringBuilder.toString());
     }
 
     /* MAP 관련 메소드 (MapManageService 분류 예상) */
@@ -366,7 +362,7 @@ public class ManageService {
 
         // lay 파일 생성
         String layFilePath = dataPath + Constants.LAY_FILE_PATH + "/" + layer.getName() + Constants.LAY_SUFFIX;
-        FileSystemUtil.writeContextAtFile(layFilePath, stringBuilder.toString());
+        FileSystemUtil.createAtFile(layFilePath, stringBuilder.toString());
     }
 
     /**
