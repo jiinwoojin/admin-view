@@ -67,6 +67,7 @@ public class MapServerUtil {
     public String fetchLayerFileContextWithEntity(File defaultLayer, String dataPath, LayerEntity layer) throws IOException {
         StringBuilder fileContext = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(defaultLayer));
+
         String line;
         while ((line = bufferedReader.readLine()) != null) {
             if (line.contains("NAME_VALUE")) {
@@ -84,5 +85,25 @@ public class MapServerUtil {
         }
 
         return fileContext.toString();
+    }
+
+    /**
+     * LAYER 데이터 삭제 이후, *.map 파일에서  INCLUDE "./layer/~~.lay" 를 없애는 메소드
+     * @Param mapFilePath String, layer String
+     * @throws
+     * @note
+     */
+    public static void removeLayerIncludeSyntaxInMapFiles(String mapFilePath, String layer) throws IOException {
+        File dir = new File(mapFilePath);
+        if(dir.isDirectory()){
+            for(File file : dir.listFiles()){
+                if(file.getName().lastIndexOf(".map") > -1){
+                    String filePath = mapFilePath + "/" + file.getName();
+                    String context = FileSystemUtil.fetchFileContext(filePath);
+                    context = context.replace(String.format("%s  INCLUDE \"./layer/%s%s\"", System.lineSeparator(), layer, Constants.LAY_SUFFIX), "");
+                    FileSystemUtil.writeContextAtFile(filePath, context);
+                }
+            }
+        }
     }
 }

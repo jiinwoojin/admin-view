@@ -121,7 +121,7 @@
     <div class="result_area">
 
         <ul class="col_list col_xxl_3" th:if="${ resMap.count > 0 }">
-            <li th:each="layer : ${ resMap.data }">
+            <li class="layer-item" th:each="layer : ${ resMap.data }">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h3 class="section_tit" th:text="${layer.name}">[LAYER 제목]</h3>
@@ -415,8 +415,12 @@
                     if (result) {
                         toastr.success("Layer [ " + layerName + " ] 가 제거 되었습니다.");
                         jQuery(ths).parents('.layer-item').remove();
-                        var total = $('#total');
-                        total.html((Number(total.html()) - 1));
+                        if($('.layer-item').length == 7){
+                            window.location.href = CONTEXT + '/view/manage/layer-manage?pg=1&sz=8&lType=ALL';
+                        } else {
+                            var total = $('#total');
+                            total.html((Number(total.html()) - 1));
+                        }
                     } else {
                         toastr.error('Layer 제거 중 오류가 발생하였습니다.');
                     }

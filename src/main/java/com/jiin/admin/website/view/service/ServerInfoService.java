@@ -440,8 +440,8 @@ public class ServerInfoService {
         DataCounter dataCounter = new DataCounter();
         dataCounter.setMapCount(countMapper.countByTableName(MapEntity.class.getAnnotation(Entity.class).name()));
         dataCounter.setSymbolCount(countMapper.countByTableName(MapSymbol.class.getAnnotation(Entity.class).name()));
+        dataCounter.setRasterLayerCount(countMapper.countLayersByType("RASTER"));
         dataCounter.setVectorLayerCount(countMapper.countLayersByType("VECTOR"));
-        dataCounter.setVectorLayerCount(countMapper.countLayersByType("RASTER"));
         dataCounter.setLayersProxyCount(countMapper.countByTableName(ProxyLayerEntity.class.getAnnotation(Entity.class).name()));
         dataCounter.setSourcesProxyCount(countMapper.countByTableName(ProxySourceEntity.class.getAnnotation(Entity.class).name()));
         dataCounter.setCachesProxyCount(countMapper.countByTableName(ProxyCacheEntity.class.getAnnotation(Entity.class).name()));
