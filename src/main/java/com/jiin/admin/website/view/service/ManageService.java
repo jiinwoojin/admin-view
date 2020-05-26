@@ -54,23 +54,34 @@ public class ManageService {
 
     /**
      * 파일 권한 설정 (LINUX, MAC)
+     * TODO 추후 fileUtils 로 통합
      * @param file Path
      * @throws IOException Exception
      */
     private void setPermission(Path file) throws IOException{
         Set<PosixFilePermission> permissionSet = Files.readAttributes(file, PosixFileAttributes.class).permissions();
 
+        // permission 755
         permissionSet.add(PosixFilePermission.OWNER_WRITE);
         permissionSet.add(PosixFilePermission.OWNER_READ);
         permissionSet.add(PosixFilePermission.OWNER_EXECUTE);
-        permissionSet.add(PosixFilePermission.GROUP_WRITE);
         permissionSet.add(PosixFilePermission.GROUP_READ);
         permissionSet.add(PosixFilePermission.GROUP_EXECUTE);
-        permissionSet.add(PosixFilePermission.OTHERS_WRITE);
         permissionSet.add(PosixFilePermission.OTHERS_READ);
         permissionSet.add(PosixFilePermission.OTHERS_EXECUTE);
 
         Files.setPosixFilePermissions(file, permissionSet);
+    }
+
+    /**
+     * TODO 추후 fileUtils 로 통합
+     * @param filePath path
+     * @throws IOException Exception
+     */
+    private void deleteFile(String filePath) throws IOException{
+        if (FileUtils.getFile(filePath).isFile()) {
+            FileUtils.forceDelete(FileUtils.getFile(filePath));
+        }
     }
 
     /**
@@ -156,9 +167,7 @@ public class ManageService {
         // map 파일 생성
         String mapFilePath = dataPath + Constants.MAP_FILE_PATH + "/" + map.getName() + Constants.MAP_SUFFIX;
 
-        if (FileUtils.getFile(mapFilePath).isFile()) {
-            FileUtils.forceDelete(FileUtils.getFile(mapFilePath));
-        }
+        deleteFile(mapFilePath);
 
         File mapFile = new File(mapFilePath);
         FileUtils.write(mapFile, stringBuilder.toString(), "utf-8");
@@ -285,9 +294,7 @@ public class ManageService {
 
         // lay 파일 삭제
         try {
-            if (FileUtils.getFile(mapFilePath).isFile()) {
-                FileUtils.forceDelete(FileUtils.getFile(mapFilePath));
-            }
+            deleteFile(mapFilePath);
         } catch (IOException e) {
             log.error(map.getName() + " LAY 파일 삭제 실패했습니다.");
         }
@@ -323,9 +330,7 @@ public class ManageService {
             if(method.equalsIgnoreCase("UPDATE")){
                 String dataFilePath = dataPath + layer.getDataFilePath();
                 try {
-                    if (FileUtils.getFile(dataFilePath).isFile()) {
-                        FileUtils.forceDelete(FileUtils.getFile(dataFilePath));
-                    }
+                    deleteFile(dataFilePath);
                 } catch (IOException e) {
                     log.error(layer.getName() + " DATA 파일 삭제 실패했습니다.");
                 }
@@ -334,7 +339,9 @@ public class ManageService {
             String dirPath = dataPath + Constants.DATA_PATH + "/" + middle_folder;
             File dir = new File(dirPath);
             if (!dir.exists()) {
-                dir.mkdir();
+                if (dir.mkdirs() && !System.getProperty("os.name").toLowerCase().contains("win")) {
+                    setPermission(dir.toPath());
+                }
             }
 
             filePath = dirPath + "/" + data_file.getOriginalFilename();
@@ -390,9 +397,7 @@ public class ManageService {
 
         // lay 파일 생성
         String layFilePath = dataPath + Constants.LAY_FILE_PATH + "/" + layer.getName() + Constants.LAY_SUFFIX;
-        if (FileUtils.getFile(layFilePath).isFile()) {
-            FileUtils.forceDelete(FileUtils.getFile(layFilePath));
-        }
+        deleteFile(layFilePath);
         File layFile = new File(layFilePath);
         FileUtils.write(layFile, stringBuilder.toString(), "utf-8");
         if(!System.getProperty("os.name").toLowerCase().contains("win")) setPermission(layFile.toPath());
@@ -534,18 +539,14 @@ public class ManageService {
         String dataFilePath = dataPath + layer.getDataFilePath();
         String layFilePath = dataPath + layer.getLayerFilePath();
         try {
-            if (FileUtils.getFile(dataFilePath).isFile()) {
-                FileUtils.forceDelete(FileUtils.getFile(dataFilePath));
-            }
+            deleteFile(dataFilePath);
         } catch (IOException e) {
             log.error(layer.getName() + " DATA 파일 삭제 실패했습니다.");
         }
 
         // lay 파일 삭제
         try {
-            if (FileUtils.getFile(layFilePath).isFile()) {
-                FileUtils.forceDelete(FileUtils.getFile(layFilePath));
-            }
+            deleteFile(layFilePath);
         } catch (IOException e) {
             log.error(layer.getName() + " LAY 파일 삭제 실패했습니다.");
         }
