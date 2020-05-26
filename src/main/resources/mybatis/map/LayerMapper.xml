@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiin.admin.mapper.data.LayerMapper">
+    <select id="findAll" resultType="LayerDTO">
+        SELECT * FROM _LAYER
+    </select>
+
+    <select id="findByPageModel" resultType="LayerDTO">
+        SELECT * FROM _LAYER L
+        <where>
+            <choose>
+                <when test='sb == 1'> L.NAME LIKE CONCAT('%', #{st}, '%') </when>
+                <when test='sb == 2'> L.REGISTOR_ID LIKE CONCAT('%', #{st}, '%') </when>
+                <when test='sb == 3'> LOWER(L.PROJECTION) LIKE CONCAT('%', #{st}, '%') </when>
+                <otherwise> 1=1 </otherwise>
+            </choose>
+            <if test="lType != 'ALL'">
+                AND L.TYPE = #{lType}
+            </if>
+            <if test="sDate != null and !sDate.equals('') and eDate != null and !eDate.equals('')">
+                AND L.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD')
+            </if>
+        </where>
+        ORDER BY
+        <choose>
+            <when test='ob == 1'>L.ID ASC</when>
+            <when test='ob == 2'>L.NAME ASC</when>
+            <when test='ob == 3'>L.REGIST_TIME DESC</when>
+            <otherwise>L.ID DESC</otherwise>
+        </choose>
+    </select>
+
+    <select id="findByName" resultType="LayerDTO">
+        SELECT * FROM _LAYER WHERE NAME = #{name}
+    </select>
+
+    <select id="findByMapId" resultType="LayerDTO">
+        SELECT * FROM _LAYER WHERE MAP_ID = #{mapId}
+    </select>
+</mapper>
