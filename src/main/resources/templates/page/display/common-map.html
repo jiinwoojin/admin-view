@@ -590,7 +590,7 @@
                 "observer_lat": 4530139.721076026,
                 "observer_height": 2,
                 "target_height": 10,
-                "semi_dimension": 1000,
+                "semi_dimension": 500,
                 "visible_color": "#0000FF",
                 "invisible_color": "#FF0000",
                 "image_alpha": 32,
@@ -611,6 +611,11 @@
                 , timeout : 60000
                 , success : function(result) {
                     console.log(result);
+
+                    (async function() {
+                        await sleep(5000);
+                    })();
+
                     var infoUrl = stmp.URL + '/' + result['output_image_info_destination'];
                     var imgUrl = stmp.URL + '/' + result['output_image_destination'];
                     $.ajax({

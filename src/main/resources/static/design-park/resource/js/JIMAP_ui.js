@@ -84,6 +84,11 @@ var uiDesign = {
     */
 }
 
+// [공통] sleep 함수
+function sleep(t) {
+    return new Promise(resolve => setTimeout(resolve, t));
+}
+
 /**
  * 스크립트 공통
  */

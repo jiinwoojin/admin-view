@@ -55,23 +55,34 @@ public class ManageService {
 
     /**
      * 파일 권한 설정 (LINUX, MAC)
+     * TODO 추후 fileUtils 로 통합
      * @param file Path
      * @throws IOException Exception
      */
     private void setPermission(Path file) throws IOException{
         Set<PosixFilePermission> permissionSet = Files.readAttributes(file, PosixFileAttributes.class).permissions();
 
+        // permission 755
         permissionSet.add(PosixFilePermission.OWNER_WRITE);
         permissionSet.add(PosixFilePermission.OWNER_READ);
         permissionSet.add(PosixFilePermission.OWNER_EXECUTE);
-        permissionSet.add(PosixFilePermission.GROUP_WRITE);
         permissionSet.add(PosixFilePermission.GROUP_READ);
         permissionSet.add(PosixFilePermission.GROUP_EXECUTE);
-        permissionSet.add(PosixFilePermission.OTHERS_WRITE);
         permissionSet.add(PosixFilePermission.OTHERS_READ);
         permissionSet.add(PosixFilePermission.OTHERS_EXECUTE);
 
         Files.setPosixFilePermissions(file, permissionSet);
+    }
+
+    /**
+     * TODO 추후 fileUtils 로 통합
+     * @param filePath path
+     * @throws IOException Exception
+     */
+    private void deleteFile(String filePath) throws IOException{
+        if (FileUtils.getFile(filePath).isFile()) {
+            FileUtils.forceDelete(FileUtils.getFile(filePath));
+        }
     }
 
     /**
@@ -160,6 +171,8 @@ public class ManageService {
         if (FileUtils.getFile(mapFilePath).isFile()) {
             FileUtils.forceDelete(FileUtils.getFile(mapFilePath));
         }
+
+        deleteFile(mapFilePath);
 
         File mapFile = new File(mapFilePath);
         FileUtils.write(mapFile, stringBuilder.toString(), "utf-8");
@@ -267,6 +280,7 @@ public class ManageService {
             return false;
         } else {
             mapper.deleteLayerRelationsByMapId(map.getId());
+            System.out.println(layerList);
             this.mapEntitySupplement(map, layerList);
             entityManager.merge(map);
             this.writeMapFileContext(map, layerList);
@@ -285,9 +299,7 @@ public class ManageService {
 
         // lay 파일 삭제
         try {
-            if (FileUtils.getFile(mapFilePath).isFile()) {
-                FileUtils.forceDelete(FileUtils.getFile(mapFilePath));
-            }
+            deleteFile(mapFilePath);
         } catch (IOException e) {
             log.error(map.getName() + " LAY 파일 삭제 실패했습니다.");
         }
@@ -554,18 +566,14 @@ public class ManageService {
         String dataFilePath = dataPath + layer.getDataFilePath();
         String layFilePath = dataPath + layer.getLayerFilePath();
         try {
-            if (FileUtils.getFile(dataFilePath).isFile()) {
-                FileUtils.forceDelete(FileUtils.getFile(dataFilePath));
-            }
+            deleteFile(dataFilePath);
         } catch (IOException e) {
             log.error(layer.getName() + " DATA 파일 삭제 실패했습니다.");
         }
 
         // lay 파일 삭제
         try {
-            if (FileUtils.getFile(layFilePath).isFile()) {
-                FileUtils.forceDelete(FileUtils.getFile(layFilePath));
-            }
+            deleteFile(layFilePath);
         } catch (IOException e) {
             log.error(layer.getName() + " LAY 파일 삭제 실패했습니다.");
         }
@@ -578,7 +586,6 @@ public class ManageService {
         }
 
         entityManager.remove(layer);
-
         return true;
     }
 
