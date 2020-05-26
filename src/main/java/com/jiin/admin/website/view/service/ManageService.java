@@ -10,6 +10,7 @@ import com.jiin.admin.entity.MapLayerRelationEntity;
 import com.jiin.admin.website.model.LayerPageModel;
 import com.jiin.admin.website.model.MapPageModel;
 import com.jiin.admin.website.model.OptionModel;
+import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.view.mapper.ManageMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -51,38 +52,6 @@ public class ManageService {
 
     @PersistenceContext
     EntityManager entityManager;
-
-    /**
-     * 파일 권한 설정 (LINUX, MAC)
-     * TODO 추후 fileUtils 로 통합
-     * @param file Path
-     * @throws IOException Exception
-     */
-    private void setPermission(Path file) throws IOException{
-        Set<PosixFilePermission> permissionSet = Files.readAttributes(file, PosixFileAttributes.class).permissions();
-
-        // permission 755
-        permissionSet.add(PosixFilePermission.OWNER_WRITE);
-        permissionSet.add(PosixFilePermission.OWNER_READ);
-        permissionSet.add(PosixFilePermission.OWNER_EXECUTE);
-        permissionSet.add(PosixFilePermission.GROUP_READ);
-        permissionSet.add(PosixFilePermission.GROUP_EXECUTE);
-        permissionSet.add(PosixFilePermission.OTHERS_READ);
-        permissionSet.add(PosixFilePermission.OTHERS_EXECUTE);
-
-        Files.setPosixFilePermissions(file, permissionSet);
-    }
-
-    /**
-     * TODO 추후 fileUtils 로 통합
-     * @param filePath path
-     * @throws IOException Exception
-     */
-    private void deleteFile(String filePath) throws IOException{
-        if (FileUtils.getFile(filePath).isFile()) {
-            FileUtils.forceDelete(FileUtils.getFile(filePath));
-        }
-    }
 
     /**
      * MapEntity 내용 보충
@@ -167,11 +136,7 @@ public class ManageService {
         // map 파일 생성
         String mapFilePath = dataPath + Constants.MAP_FILE_PATH + "/" + map.getName() + Constants.MAP_SUFFIX;
 
-        deleteFile(mapFilePath);
-
-        File mapFile = new File(mapFilePath);
-        FileUtils.write(mapFile, stringBuilder.toString(), "utf-8");
-        if(!System.getProperty("os.name").toLowerCase().contains("win")) setPermission(mapFile.toPath());
+        FileSystemUtil.writeContextAtFile(mapFilePath, stringBuilder.toString());
     }
 
     /* MAP 관련 메소드 (MapManageService 분류 예상) */
@@ -247,7 +212,7 @@ public class ManageService {
 
     /**
      * MAP 데이터 추가 (MapServer abc.map 파일)
-     * @Param map MapEntity, layerList String
+     * @param map MapEntity, layerList String
      * @throws IOException Exception
      */
     @Transactional
@@ -265,7 +230,7 @@ public class ManageService {
 
     /**
      * MAP 데이터 수정 (MapServer abc.map 파일)
-     * @Param map MapEntity, layerList String
+     * @param map MapEntity, layerList String
      * @throws IOException Exception
      */
     @Transactional
@@ -285,7 +250,7 @@ public class ManageService {
 
     /**
      * MAP 데이터 삭제 (MapServer abc.map 파일)
-     * @Param mapId Long
+     * @param mapId Long
      */
     @Transactional
     public boolean delMap(Long mapId) {
@@ -294,7 +259,7 @@ public class ManageService {
 
         // lay 파일 삭제
         try {
-            deleteFile(mapFilePath);
+            FileSystemUtil.deleteFile(mapFilePath);
         } catch (IOException e) {
             log.error(map.getName() + " LAY 파일 삭제 실패했습니다.");
         }
@@ -330,7 +295,7 @@ public class ManageService {
             if(method.equalsIgnoreCase("UPDATE")){
                 String dataFilePath = dataPath + layer.getDataFilePath();
                 try {
-                    deleteFile(dataFilePath);
+                    FileSystemUtil.deleteFile(dataFilePath);
                 } catch (IOException e) {
                     log.error(layer.getName() + " DATA 파일 삭제 실패했습니다.");
                 }
@@ -340,7 +305,7 @@ public class ManageService {
             File dir = new File(dirPath);
             if (!dir.exists()) {
                 if (dir.mkdirs() && !System.getProperty("os.name").toLowerCase().contains("win")) {
-                    setPermission(dir.toPath());
+                    FileSystemUtil.setFullFilePermissions(dir.toPath());
                 }
             }
 
@@ -348,7 +313,7 @@ public class ManageService {
             dataFile = new File(filePath);
             data_file.transferTo(dataFile);
 
-            if(!System.getProperty("os.name").toLowerCase().contains("win")) setPermission(dataFile.toPath());
+            if(!System.getProperty("os.name").toLowerCase().contains("win")) FileSystemUtil.setFullFilePermissions(dataFile.toPath());
         }
 
         layer.setDefault(false);
@@ -397,10 +362,7 @@ public class ManageService {
 
         // lay 파일 생성
         String layFilePath = dataPath + Constants.LAY_FILE_PATH + "/" + layer.getName() + Constants.LAY_SUFFIX;
-        deleteFile(layFilePath);
-        File layFile = new File(layFilePath);
-        FileUtils.write(layFile, stringBuilder.toString(), "utf-8");
-        if(!System.getProperty("os.name").toLowerCase().contains("win")) setPermission(layFile.toPath());
+        FileSystemUtil.writeContextAtFile(layFilePath, stringBuilder.toString());
     }
 
     /**
@@ -446,7 +408,7 @@ public class ManageService {
      * LAYER 데이터 목록 조회 with Pagination Model
      * @param layerPageModel LayerSearchModel
      */
-    public Map<String, Object> getLayerListByPaginationModel(LayerPageModel layerPageModel) throws ParseException {
+    public Map<String, Object> getLayerListByPaginationModel(LayerPageModel layerPageModel) {
         final Sort[] sorts = {
                 Sort.by("id").descending(),
                 Sort.by("id"),
@@ -482,7 +444,7 @@ public class ManageService {
      * @param type          종류 (raster / vector)
      * @param data_file     지도 파일
      * @return              성공 여부
-     * @throws IOException
+     * @throws IOException  exception
      */
     @Transactional
     public boolean addLayer(String name, String description, String projection, String middle_folder, String type, MultipartFile data_file) throws IOException {
@@ -509,7 +471,7 @@ public class ManageService {
      * @param type          종류 (raster / vector)
      * @param data_file     지도 파일
      * @return              성공 여부
-     * @throws IOException
+     * @throws IOException  exception
      */
     @Transactional
     public boolean updateLayer(long id, String name, String description, String projection, String middle_folder, String type, MultipartFile data_file) throws IOException {
@@ -529,7 +491,8 @@ public class ManageService {
 
     /**
      * LAYER 데이터 삭제 (MapServer abc.lay 파일)
-     * @Param layerId Long
+     * TODO 폴더에 파일이 없을 경우 폴더 삭제 로직 추가 해야함
+     * @param layerId layerId Long
      */
     @Transactional
     public boolean delLayer(Long layerId) {
@@ -539,14 +502,14 @@ public class ManageService {
         String dataFilePath = dataPath + layer.getDataFilePath();
         String layFilePath = dataPath + layer.getLayerFilePath();
         try {
-            deleteFile(dataFilePath);
+            FileSystemUtil.deleteFile(dataFilePath);
         } catch (IOException e) {
             log.error(layer.getName() + " DATA 파일 삭제 실패했습니다.");
         }
 
         // lay 파일 삭제
         try {
-            deleteFile(layFilePath);
+            FileSystemUtil.deleteFile(layFilePath);
         } catch (IOException e) {
             log.error(layer.getName() + " LAY 파일 삭제 실패했습니다.");
         }
@@ -570,81 +533,4 @@ public class ManageService {
         }
         return null;
     }
-
-    // 아래 코드는 추후 필요 가능함이 있을까봐 주석 처리 진행.
-    /*@Transactional
-    public boolean addSource(String name, String type, String desc, MultipartFile file) {
-        Path destDir;
-        try{
-            destDir = Files.createTempDirectory("temp");
-            System.out.println(">> unzip > " + destDir);
-            byte[] buffer = new byte[1024];
-            ZipInputStream zis = new ZipInputStream(file.getInputStream());
-            ZipEntry zipEntry;
-            while ((zipEntry = zis.getNextEntry()) != null) {
-                File destFile = new File(destDir.toFile(), zipEntry.getName());
-                if (zipEntry.isDirectory()) {
-                    destFile.mkdirs();
-                    continue;
-                }
-                FileOutputStream fos = new FileOutputStream(destFile);
-                int len;
-                while ((len = zis.read(buffer)) > 0) {
-                    fos.write(buffer, 0, len);
-                }
-                fos.close();
-            }
-            zis.closeEntry();
-            zis.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        //
-        File mapFile = findMapFile(destDir.toFile());
-        if(mapFile == null){
-            return false;
-        }
-        String layer = null;
-        try {
-            Scanner reader = new Scanner(mapFile);
-            while (reader.hasNextLine()) {
-                String line = reader.nextLine();
-                if(line.trim().equals("LAYER")){
-                    String layerGroup = reader.nextLine().split("\"")[1];
-                    String layerName = reader.nextLine().split("\"")[1];
-                    layer = layerGroup + ":" + layerName;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
-        if(layer == null){
-            return false;
-        }
-        String sourceDir = UUID.randomUUID().toString();
-        File dest = new File(dataPath + "/mapserver/" + sourceDir);
-        try {
-            FileUtils.copyDirectory(mapFile.getParentFile(), dest);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //
-        String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        MapSource entity = new MapSource();
-        entity.setDefault(false);
-        entity.setName(name);
-        entity.setType(type);
-        entity.setDescription(desc);
-        entity.setMapPath(dataPath + "/mapserver/"+ sourceDir + "/" + mapFile.getName());
-        entity.setLayers(layer); // TODO : 추출작업 필요
-        entity.setUseCache(true);
-        entity.setCacheName(name + "_CACHE");
-        entity.setRegistorId(loginUser);
-        entity.setRegistorName(loginUser);
-        entity.setRegistTime(new Date());
-        entityManager.persist(entity);
-        return true;
-    }*/
 }
