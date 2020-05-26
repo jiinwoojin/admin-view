@@ -16,5 +16,10 @@
 		<typeAlias alias="int" type="java.lang.Integer" />
 		<typeAlias alias="long" type="java.lang.Long" />
 		<typeAlias alias="list" type="java.util.List" />
+
+		<typeAlias alias="MapDTO" type="com.jiin.admin.dto.MapDTO" />
+		<typeAlias alias="LayerDTO" type="com.jiin.admin.dto.LayerDTO" />
+		<typeAlias alias="SymbolPositionDTO" type="com.jiin.admin.dto.SymbolPositionDTO" />
+		<typeAlias alias="AccountDTO" type="com.jiin.admin.dto.AccountDTO" />
 	</typeAliases>
 </configuration>

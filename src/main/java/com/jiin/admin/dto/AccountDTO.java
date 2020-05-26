@@ -1,5 +1,6 @@
 package com.jiin.admin.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,10 +9,12 @@ import lombok.Setter;
 public class AccountDTO {
     private Long id;
     private String username;
-    private String password;
     private String name;
     private String email;
     private Long roleId;
+
+    @JsonIgnore
+    private String password;
 
     public AccountDTO(){
 

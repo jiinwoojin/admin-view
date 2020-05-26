@@ -63,7 +63,7 @@ public class ServerConnectionEntity implements Persistable<Long> {
     private String password;
 
     /**
-     * Connection 정보 포트
+     * Connection 정보 포트 (제외 대상)
      */
     @Column(name = "PORT", length = 10)
     private String port;

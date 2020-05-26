@@ -10,18 +10,18 @@ import javax.persistence.*;
 // 포트 별 버전 관리 (ServicePortVerN (N >= 2))
 @Getter
 @Setter
-@Entity(name = "_SERVICE_PORT")
+@Entity(name = "_SERVICE_PORT_V2")
 @SequenceGenerator(
-        name = "SERVICE_PORT_SEQ_GEN",
-        sequenceName = "SERVICE_PORT_SEQ",
+        name = "SERVICE_PORT_V2_SEQ_GEN",
+        sequenceName = "SERVICE_PORT_V2_SEQ",
         initialValue = 1,
         allocationSize = 1
 )
-public class ServicePortEntity {
+public class ServicePortV2Entity {
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "SERVICE_PORT_SEQ_GEN"
+            generator = "SERVICE_PORT_V2_SEQ_GEN"
     )
     private Long id;
 
@@ -34,10 +34,16 @@ public class ServicePortEntity {
     private ServerConnectionEntity svr;
 
     /**
-     * PostgreSQL 포트
+     * PostgreSQL 포트 - OSM DB
      */
-    @Column(name = "POSTGRE_SQL_PORT", length = 10, nullable = false)
-    private String postgreSQLPort = "5432";
+    @Column(name = "SQL_OSM_PORT", length = 10, nullable = false)
+    private String sqlOSMPort = "5430";
+
+    /**
+     * PostgreSQL 포트 - Basic DB
+     */
+    @Column(name = "SQL_BASIC_PORT", length = 10, nullable = false)
+    private String sqlBasicPort = "5432";
 
     /**
      * Watchdog 포트
@@ -84,32 +90,26 @@ public class ServicePortEntity {
     /**
      * Vector Tile 포트
      */
-    @Column(name = "VECTOR_TILE_PORT", length = 10, nullable = false)
-    private String vectorTilePort = "11140";
+    @Column(name = "MAPNIK_PORT", length = 10, nullable = false)
+    private String mapnikPort = "11140";
 
     /**
-     * Ji-in Height 포트
+     * Terrain Server 포트
+     */
+    @Column(name = "TERRAIN_SERVER_PORT", length = 10, nullable = false)
+    private String terrainServerPort = "11150";
+
+    /**
+     * LOS 포트 (Ji-in Height)
      */
     @Column(name = "JIIN_HEIGHT_PORT", length = 10, nullable = false)
-    private String jiinHeightPort = "11150";
+    private String jiinHeightPort = "11160";
 
     /**
-     * LOS 포트
+     * Vector Tile (Tegola) 포트
      */
-    @Column(name = "LOS_PORT", length = 10, nullable = false)
-    private String losPort = "11160";
-
-    /**
-     * MINIO 포트
-     */
-    @Column(name = "MINIO_PORT", length = 10, nullable = false)
-    private String minioPort = "11170";
-
-    /**
-     * Mapnik 포트
-     */
-    @Column(name = "MAPNIK_PORT", length = 10, nullable = false)
-    private String mapnikPort = "11190";
+    @Column(name = "TEGOLA_PORT", length = 10, nullable = false)
+    private String tegolaPort = "11170";
 
     /**
      * Syncthing TCP 포트
@@ -122,4 +122,16 @@ public class ServicePortEntity {
      */
     @Column(name = "SYNCTHING_UDP_PORT", length = 10, nullable = false)
     private String syncthingUdpPort = "21027";
+
+    /**
+     * RabbitMQ 1st 포트
+     */
+    @Column(name = "RABBITMQ_PORT1", length = 10, nullable = false)
+    private String rabbitMQPort1 = "5672";
+
+    /**
+     * RabbitMQ 2nd 포트
+     */
+    @Column(name = "RABBITMQ_PORT2", length = 10, nullable = false)
+    private String rabbitMQPort2 = "15672";
 }

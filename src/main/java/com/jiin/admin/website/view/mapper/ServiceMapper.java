@@ -1,8 +1,10 @@
 package com.jiin.admin.website.view.mapper;
 
+import com.jiin.admin.dto.ServicePortV2DTO;
 import com.jiin.admin.entity.ServerConnectionEntity;
 import com.jiin.admin.entity.ServerRelationEntity;
 import com.jiin.admin.entity.ServicePortEntity;
+import com.jiin.admin.entity.ServicePortV2Entity;
 import com.jiin.admin.mapper.BaseMapper;
 import com.jiin.admin.website.model.ServerConnectionModel;
 import com.jiin.admin.website.model.ServerRelationModel;
@@ -25,6 +27,11 @@ public interface ServiceMapper {
             "VALUES(#{id}, #{svrId}, #{postgreSQLPort}, #{watchdogPort}, #{watchdogHbPort}, #{pcpProcessPort}, #{pgPool2Port}, #{adminServerPort}, #{mapProxyPort}, #{mapServerPort}, #{vectorTilePort}, #{jiinHeightPort}, #{losPort}, #{minioPort}, #{mapnikPort}, #{syncthingTcpPort}, #{syncthingUdpPort})")
     @SelectKey(statement="SELECT NEXTVAL('SERVICE_PORT_SEQ')", keyProperty="id", before=true, resultType=long.class)
     void insertServicePortWithModel(ServicePortModel servicePortModel);
+
+    @Insert("INSERT INTO _SERVICE_PORT_V2(ID, SVR_ID, SQL_OSM_PORT, SQL_BASIC_PORT, WATCHDOG_PORT, WATCHDOG_HB_PORT, PCP_PROCESS_PORT, PG_POOL_2_PORT, ADMIN_SERVER_PORT, MAP_PROXY_PORT, MAP_SERVER_PORT, MAPNIK_PORT, TERRAIN_SERVER_PORT, JIIN_HEIGHT_PORT, TEGOLA_PORT, SYNCTHING_TCP_PORT, SYNCTHING_UDP_PORT, RABBITMQ_PORT1, RABBITMQ_PORT2) " +
+            "VALUES(#{id}, #{svrId}, #{sqlOSMPort}, #{sqlBasicPort}, #{watchdogPort}, #{watchdogHbPort}, #{pcpProcessPort}, #{pgPool2Port}, #{adminServerPort}, #{mapProxyPort}, #{mapServerPort}, #{mapnikPort}, #{terrainServerPort}, #{jiinHeightPort}, #{tegolaPort}, #{syncthingTcpPort}, #{syncthingUdpPort}, #{rabbitMQPort1}, #{rabbitMQPort2})")
+    @SelectKey(statement="SELECT NEXTVAL('SERVICE_PORT_V2_SEQ')", keyProperty="id", before=true, resultType=long.class)
+    void insertServicePortV2(ServicePortV2DTO servicePortV2DTO);
 
     @Update("UPDATE _SERVER_CONNECTION SET TITLE = #{title}, TYPE = #{type}, IP_ADDRESS = #{ipAddress}, PORT = #{port}, USERNAME = #{username}, PASSWORD = #{password} WHERE KEY = #{key}")
     void updateServerConnectionWithModel(ServerConnectionModel serverConnectionModel);
@@ -57,8 +64,14 @@ public interface ServiceMapper {
     @Select("SELECT * FROM _SERVER_RELATION")
     List<ServerRelationEntity> findAllServerRelations();
 
+    @Select("SELECT COUNT(*) FROM _SERVER_RELATION WHERE MAIN_SVR_ID = #{mainSvrId} AND SUB_SVR_ID = ${subSvrId}")
+    long countByMainSvrIdAndSubSvrId(@Param("mainSvrId") long mainSvrId, @Param("subSvrId") long subSvrId);
+
     @Select("SELECT * FROM _SERVICE_PORT WHERE SVR_ID = #{svrId}")
     ServicePortEntity findPortConfigBySvrId(@Param("svrId") long svrId);
+
+    @Select("SELECT * FROM _SERVICE_PORT_V2 WHERE SVR_ID = #{svrId}")
+    ServicePortV2Entity findBySvrId(@Param("svrId") long svrId);
 
     @Update("TRUNCATE TABLE ${table} CASCADE")
     void truncateTableWithName(@Param("table") String table);

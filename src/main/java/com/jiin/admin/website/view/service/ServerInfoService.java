@@ -1,6 +1,7 @@
 package com.jiin.admin.website.view.service;
 
 import com.jiin.admin.entity.*;
+import com.jiin.admin.entity.ServicePortEntity;
 import com.jiin.admin.website.model.ServerConnectionModel;
 import com.jiin.admin.website.model.ServerFormModel;
 import com.jiin.admin.website.model.ServerRelationModel;

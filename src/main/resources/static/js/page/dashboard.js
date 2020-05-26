@@ -32,7 +32,8 @@ function ajax_request(key, center){
             var ipAddr = res.ipAddress;
             var port = res.port;
             $.ajax({
-                url: `http://${ipAddr}:${port}` + CONTEXT + '/server/api/dashboard/performance',
+                // '11110' 하드코딩 수정 필요 요망.
+                url: `http://${ipAddr}:${(port == null || '11110')}` + CONTEXT + '/server/api/dashboard/performance',
                 type: 'GET',
                 contentType: 'application/json',
                 success: function (connection) {
