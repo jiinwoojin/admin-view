@@ -18,10 +18,12 @@ public abstract class PageModel {
     private int recordCount;
 
     public PageModel(){
+        this.pg = 1;
         this.sz = 8;
     }
 
     public PageModel(int sz){
+        this.pg = 1;
         this.sz = sz;
     }
 

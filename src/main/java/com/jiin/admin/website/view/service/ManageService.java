@@ -10,6 +10,7 @@ import com.jiin.admin.entity.MapLayerRelationEntity;
 import com.jiin.admin.website.model.LayerPageModel;
 import com.jiin.admin.website.model.MapPageModel;
 import com.jiin.admin.website.model.OptionModel;
+import com.jiin.admin.website.util.MapServerUtil;
 import com.jiin.admin.website.view.mapper.ManageMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -155,7 +156,7 @@ public class ManageService {
 
         // map 파일 생성
         String mapFilePath = dataPath + Constants.MAP_FILE_PATH + "/" + map.getName() + Constants.MAP_SUFFIX;
-
+        System.out.println(mapFilePath);
         if (FileUtils.getFile(mapFilePath).isFile()) {
             FileUtils.forceDelete(FileUtils.getFile(mapFilePath));
         }
@@ -266,7 +267,6 @@ public class ManageService {
             return false;
         } else {
             mapper.deleteLayerRelationsByMapId(map.getId());
-            System.out.println(layerList);
             this.mapEntitySupplement(map, layerList);
             entityManager.merge(map);
             this.writeMapFileContext(map, layerList);
@@ -512,8 +512,28 @@ public class ManageService {
         log.info("Data Folder : " + dataPath + Constants.DATA_PATH + "/" + middle_folder);
 
         LayerEntity l = mapper.findLayerEntityByName(name);
+        String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(l != null){
-            LayerEntity layer = this.layerEntitySupplement("UPDATE", id, name, description, projection, middle_folder, type, data_file);
+            LayerEntity layer;
+            if(!data_file.isEmpty()) {
+                layer = this.layerEntitySupplement("UPDATE", id, name, description, projection, middle_folder, type, data_file);
+            } else {
+                layer = new LayerEntity();
+                layer.setId(l.getId());
+                layer.setName(name);
+                layer.setDescription(description);
+                layer.setProjection(projection);
+                // 파일 수정 시, 새로운 파일을 업로드 안 하는 이상 중간 폴더 위치 입력을 막을 필요가 있음.
+                // layer.setMiddleFolder(middle_folder);
+                layer.setType(type);
+                layer.setMiddleFolder(l.getMiddleFolder());
+                layer.setDataFilePath(l.getDataFilePath());
+                layer.setLayerFilePath(l.getLayerFilePath());
+                layer.setRegistorId(loginUser);
+                layer.setRegistorName(loginUser);
+                layer.setRegistTime(new Date());
+                layer.setDefault(false);
+            }
             entityManager.merge(layer);
             this.writeLayFileContext(layer);
             return true;
@@ -550,7 +570,15 @@ public class ManageService {
             log.error(layer.getName() + " LAY 파일 삭제 실패했습니다.");
         }
 
+        // INCLUDE lay 파일 내용 삭제
+        try {
+            MapServerUtil.removeLayerIncludeSyntaxInMapFiles(dataPath + Constants.MAP_FILE_PATH, layer.getName());
+        } catch (IOException e) {
+            log.error(layer.getName() + " INCLUDE LAY 파일 내용 삭제 실패했습니다.");
+        }
+
         entityManager.remove(layer);
+
         return true;
     }
 

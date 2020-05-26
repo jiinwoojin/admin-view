@@ -137,7 +137,7 @@
     <!-- pannal List #START -->
     <div class="result_area">
         <ul class="col_list col_xxl_3" th:if="${ resMap.count > 0 }">
-            <li th:each="map : ${ resMap.data }">
+            <li class="map-item" th:each="map : ${ resMap.data }">
                 <div class="ibox">
                     <div class="ibox-title">
                         <h3 class="section_tit" th:text="${map.name}">[MAP 제목]</h3>
@@ -234,9 +234,13 @@
                 }).done(function(result) {
                     if(result) {
                         toastr.success("Map [ " + mapName+ " ] 가 제거 되었습니다.");
-                        jQuery(ths).parents('.map-item').remove();
-                        var total = $('#total');
-                        total.html((Number(total.html()) - 1));
+                        $(ths).parents('.map-item').remove();
+                        if($('.map-item').length == 7){
+                            window.location.href = CONTEXT + '/view/manage/map-manage?pg=1&sz=8&iType=ALL&units=ALL';
+                        } else {
+                            var total = $('#total');
+                            total.html((Number(total.html()) - 1));
+                        }
                     } else {
                         toastr.error('Map 제거 중 오류가 발생하였습니다.');
                     }
