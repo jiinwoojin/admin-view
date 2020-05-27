@@ -10,34 +10,81 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 // 파일 시스템을 거치는 Utility 메소드 모음.
 public class FileSystemUtil {
     /**
-     * 운영체제가 윈도우 계열인지 확인하는 메소드
+     * 운영체제가 Windows 인지 확인하는 함수
      */
-    private static boolean isWindowOS(){
+    public static boolean isWindowOS(){
         return System.getProperty("os.name").toLowerCase().contains("win");
     }
 
     /**
-     * 파일 권한 설정 (LINUX, MAC) 755
-     * @param file Path
-     * @throws IOException exception
+     * 수치를 받으면 이진수 배열로 만들어 주는 함수
+     * @Param value int
      */
-    public static void setFullFilePermissions(Path file) throws IOException {
+    public static boolean[] getBinaryNumberArrayByInteger(int value){
+        if(value < 0) return null;
+        int idx = 2;
+        boolean[] array = new boolean[3];
+        while(idx >= 0){
+            array[idx] = value % 2 == 1;
+            value /= 2;
+            idx -= 1;
+        }
+        return array;
+    }
+
+    /**
+     * 파일 권한 설정 With Code (LINUX, MAC)
+     * @Param file Path
+     * @throws IOException
+     */
+    public static void setFilePermissionsByCode(Path file, String code) throws IOException {
+        if (code.length() != 3) return;
+        char[] cStr = code.toCharArray();
+        Map<String, Integer> map = new HashMap<String, Integer>() {{
+            put("own", cStr[0] - '0');
+            put("group", cStr[1] - '0');
+            put("other", cStr[2] - '0');
+        }};
+
+        boolean[] arr;
         Set<PosixFilePermission> permissionSet = Files.readAttributes(file, PosixFileAttributes.class).permissions();
-
-        permissionSet.add(PosixFilePermission.OWNER_WRITE);
-        permissionSet.add(PosixFilePermission.OWNER_READ);
-        permissionSet.add(PosixFilePermission.OWNER_EXECUTE);
-        permissionSet.add(PosixFilePermission.GROUP_READ);
-        permissionSet.add(PosixFilePermission.GROUP_EXECUTE);
-        permissionSet.add(PosixFilePermission.OTHERS_READ);
-        permissionSet.add(PosixFilePermission.OTHERS_EXECUTE);
-
+        for(String key : map.keySet()){
+            arr = getBinaryNumberArrayByInteger(map.get(key));
+            switch(key){
+                case "own" :
+                    if(arr[0]) permissionSet.add(PosixFilePermission.OWNER_READ);
+                    if(arr[1]) permissionSet.add(PosixFilePermission.OWNER_WRITE);
+                    if(arr[2]) permissionSet.add(PosixFilePermission.OWNER_EXECUTE);
+                    break;
+                case "group" :
+                    if(arr[0]) permissionSet.add(PosixFilePermission.GROUP_READ);
+                    if(arr[1]) permissionSet.add(PosixFilePermission.GROUP_WRITE);
+                    if(arr[2]) permissionSet.add(PosixFilePermission.GROUP_EXECUTE);
+                    break;
+                case "other" :
+                    if(arr[0]) permissionSet.add(PosixFilePermission.OTHERS_READ);
+                    if(arr[1]) permissionSet.add(PosixFilePermission.OTHERS_WRITE);
+                    if(arr[2]) permissionSet.add(PosixFilePermission.OTHERS_EXECUTE);
+                    break;
+            }
+        }
         Files.setPosixFilePermissions(file, permissionSet);
+    }
+
+    /**
+     * 파일 권한 설정 Default (LINUX, MAC)
+     * @Param file Path
+     * @throws IOException
+     */
+    public static void setFileDefaultPermissions(Path file) throws IOException {
+        setFilePermissionsByCode(file, "755");
     }
 
     /**
@@ -50,7 +97,7 @@ public class FileSystemUtil {
         if (FileUtils.getFile(filePath).isFile()) {
             File file = new File(filePath);
             FileUtils.write(file, context, "utf-8");
-            if(!isWindowOS()) setFullFilePermissions(file.toPath());
+            if(!isWindowOS()) setFileDefaultPermissions(file.toPath());
         }
     }
 
@@ -85,7 +132,7 @@ public class FileSystemUtil {
 
         File file = new File(filePath);
         FileUtils.write(file, content, charset);
-        if (!isWindowOS()) setFullFilePermissions(file.toPath());
+        if (!isWindowOS()) setFileDefaultPermissions(file.toPath());
     }
 
     /**

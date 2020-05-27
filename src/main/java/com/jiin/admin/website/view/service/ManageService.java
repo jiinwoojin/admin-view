@@ -305,7 +305,7 @@ public class ManageService {
             File dir = new File(dirPath);
             if (!dir.exists()) {
                 if (dir.mkdirs() && !System.getProperty("os.name").toLowerCase().contains("win")) {
-                    FileSystemUtil.setFullFilePermissions(dir.toPath());
+                    FileSystemUtil.setFileDefaultPermissions(dir.toPath());
                 }
             }
 
@@ -313,7 +313,7 @@ public class ManageService {
             dataFile = new File(filePath);
             data_file.transferTo(dataFile);
 
-            if(!System.getProperty("os.name").toLowerCase().contains("win")) FileSystemUtil.setFullFilePermissions(dataFile.toPath());
+            if(!System.getProperty("os.name").toLowerCase().contains("win")) FileSystemUtil.setFileDefaultPermissions(dataFile.toPath());
         }
 
         layer.setDefault(false);
