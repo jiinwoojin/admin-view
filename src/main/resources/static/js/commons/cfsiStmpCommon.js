@@ -2170,6 +2170,7 @@ var stmp = {
      * @param evt
      */
     , milsymbolsPreview : function(evt){
+        console.log(evt)
         var source = stmp.mapObject.map.getSource('milsymbols-source-feature')
         if(source === undefined){
             return
@@ -2240,6 +2241,8 @@ var stmp = {
                 })
                 sourceData.features.splice(targetFeature.position, 1)
                 sourceData.features = sourceData.features.concat(data.features)
+            }else{
+                console.log(targetFeature)
             }
         })
         return sourceData
@@ -2279,8 +2282,9 @@ var stmp = {
             var data = JSON.parse(stmp.mapObject.map._drawing_milsymbol._geojson)
             jQuery.each(data.features, function(idx, feature){
                 feature.properties.drawId = drawId
-                if(feature.type === "Point"){
+                if(feature.geometry.type === "Point"){
                     feature.properties.type = "Label"
+                    feature.properties.labelOffset = [feature.properties.labelXOffset,feature.properties.labelYOffset]
                 }
             })
             datas = datas.concat(data.features);
@@ -2322,7 +2326,16 @@ var stmp = {
                 type: 'symbol',
                 source: source.id,
                 layout: {
-                    'icon-image': ['get', 'imageId']
+                    'text-field': ['get', 'label'],
+                    'text-allow-overlap' : true,
+                    "text-size": ['get', 'fontSize'],
+                    'text-rotate': ['get','rotation'],
+                    "text-font": ["Gosanja"]
+                },
+                paint: {
+                    "text-color": ['get', 'fontColor'],
+                    "text-halo-color": ['get', 'labelOutlineColor'],
+                    "text-halo-width": ['get', 'labelOutlineWidth'],
                 },
                 filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Label']]
             },"gl-draw-polygon-fill-inactive.cold")
@@ -2375,13 +2388,25 @@ var stmp = {
             symbol.options._max_point = drawInfo.max_point
             symbol.options._draw_type = drawInfo.draw_type
             symbol.options._constraint = drawInfo.constraint
-            stmp.drawControl.changeMode("draw_line_string")
+            if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_2D){
+                // 맵박스
+                stmp.drawControl.changeMode("draw_line_string")
+            }else if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_3D){
+                // 세슘
+
+            }
         } else {
             symbol.options._min_point = 1
             symbol.options._max_point = 1
             symbol.options._draw_type = "Point"
             symbol.options._constraint = "milSym"
-            stmp.drawControl.changeMode("draw_point")
+            if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_2D){
+                // 맵박스
+                stmp.drawControl.changeMode("draw_point")
+            }else if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_3D){
+                // 세슘
+
+            }
         }
         symbol.options._symbol_serial = (stmp.mapObject.map._drawing_milsymbol ? stmp.mapObject.map._drawing_milsymbol.options._symbol_serial + 1 : 0)
         // 심볼생성

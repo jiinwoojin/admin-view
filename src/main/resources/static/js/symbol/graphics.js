@@ -28,7 +28,6 @@ function drawMsymbol(id, format, sidc){
 
 	var pixelWidth = 0; // 부호 가로 크기
 	var pixelHeight = 0; // 부호 세로 크기
-	var id = id;
 	
 	rendererMP.setDefaultSymbologyStandard(symStd);
 	
