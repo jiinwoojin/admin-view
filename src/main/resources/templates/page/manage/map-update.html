@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">MAP 생성</h1>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2>MAP 수정</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/view/manage/map-list?pg=1&sz=8&lType=ALL}">지도 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">MAP 수정</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <form th:action="@{/view/manage/map-update}" th:object="${mapDTO}" method="post" onsubmit="return preSubmit(this)">
+        <input type="hidden" id="layerList" name="layerList">
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary mx-1">
+                <i class="fas fa-save"></i> 저장
+            </button>
+            <a class="btn btn-secondary mx-1" th:href="@{'/view/manage/map-list?' + ${qs}}">
+                <i class="fas fa-times"></i> 취소
+            </a>
+        </div>
+        <div class="form-group row">
+            <input type="hidden" th:field="*{id}" />
+            <div class="col-12">
+                <label for="map-name">지도 이름</label>
+            </div>
+            <div class="col-6">
+                <input type="text" class="form-control" id="map-name" th:field="*{name}" readonly />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="map-description">설명</label>
+                    <input type="text" id="map-description" class="form-control" th:field="*{description}">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="map-imageType">출력 포맷</label>
+                    <select class="form-control" id="map-imageType" th:field="*{imageType}">
+                        <option value="jpeg">jpeg</option>
+                        <option value="png">png</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="map-projection">투영</label>
+                    <select class="form-control" id="map-projection" th:field="*{projection}">
+                        <option value="epsg:3857">EPSG:3857</option>
+                        <option value="epsg:4326">EPSG:4326</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="map-units">측정 단위</label>
+                    <select class="form-control" id="map-units" th:field="*{units}">
+                        <option value="DD">DD</option>
+                        <option value="FEET">FEET</option>
+                        <option value="INCHES">INCHES</option>
+                        <option value="KILOMETERS">KILOMETERS</option>
+                        <option value="METERS" selected>METERS</option>
+                        <option value="MILES">MILES</option>
+                        <option value="NAUTICALMILES">NAUTICALMILES</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label>위도 / 경도 범위</label>
+                    <div class="row no-gutters" id="map-extent">
+                        <div class="col-3">
+                            <input type="text" class="form-control text-right" id="map-minx" th:field="*{minX}">
+                            <label for="map-minx">
+                                <small class="form-text text-muted">
+                                    <i class="far fa-question-circle"></i> Min. X
+                                </small>
+                            </label>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control text-right" id="map-miny" th:field="*{minY}">
+                            <label for="map-miny">
+                                <small class="form-text text-muted">
+                                    <i class="far fa-question-circle"></i> Min. Y
+                                </small>
+                            </label>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control text-right" id="map-maxx" th:field="*{maxX}">
+                            <label for="map-maxx">
+                                <small class="form-text text-muted">
+                                    <i class="far fa-question-circle"></i> Max. X
+                                </small>
+                            </label>
+                        </div>
+                        <div class="col-3">
+                            <input type="text" class="form-control text-right" id="map-maxy" th:field="*{maxY}">
+                            <label for="map-maxy">
+                                <small class="form-text text-muted">
+                                    <i class="far fa-question-circle"></i> Max. Y
+                                </small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div id="layer-list">
+        <h3 class="section-tit">선택된 레이어 목록</h3>
+        <div class="text-right mb-1">
+            <button data-toggle="modal" data-target="#layer-add" class="btn btn-sm btn-success mr-1">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+        <table class="table basic text-center" id="layer_list">
+            <thead>
+            <tr>
+                <th>순서</th>
+                <th>체크</th>
+                <th>이름</th>
+                <th>종류</th>
+                <th>투영</th>
+                <th>설명</th>
+                <th>삭제</th>
+            </tr>
+            </thead>
+            <tbody id="layer-body">
+            </tbody>
+        </table>
+        <!-- Modal -->
+        <div class="modal fade" id="layer-add" tabindex="-1" role="dialog" aria-labelledby="add-layer" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="add-layer">레이어 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <table id="list_table" class="table table-sm basic">
+                            <thead class="table-info">
+                            <tr>
+                                <th>체크</th>
+                                <th scope="col" class="text-center">이름</th>
+                                <th scope="col" class="text-center">종류</th>
+                                <th scope="col" class="text-center">투영</th>
+                                <th scope="col" class="text-center">설명</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="layer, index : ${ layers }">
+                                <td class="text-center">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" th:value="${index.index}" onchange="checkLayer(this);">
+                                    </div>
+                                </td>
+                                <td class="text-center align-middle" th:text="${ layer.name }"></td>
+                                <td class="text-center align-middle" th:text="${ layer.type }"></td>
+                                <td class="text-center align-middle" th:text="${ layer.projection }"></td>
+                                <td class="text-center align-middle" th:text="${ layer.description }"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times"></i> 취소
+                        </button>
+                        <button type="button" class="btn btn-success" onclick="addLayer();">
+                            <i class="fas fa-plus"></i> 추가
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        var message = /*[[ ${message} ]]*/ null;
+        var table = null;
+        /*<![CDATA[*/
+        var layers = [[${layers}]];
+        /*]]>*/
+
+        var checkLayers = {};
+
+        var layerBody = document.querySelector('#layer-body');
+
+        var layerTable;
+
+        var layerCount = 0;
+
+        var drawLayer = {};
+
+        function layerInitialize() {
+            var layers = /*[[ ${selectLayers} ]]*/ null;
+            $('#layer_list').DataTable().destroy();
+            for (var [key, value] of Object.entries(layers)) {
+                var id = value.id;
+
+                if (drawLayer[id] === undefined) {
+                    createTableData(key, value);
+                }
+            }
+
+            tableReroad();
+
+            var layerTable = document.querySelector('#layer_list').tBodies;
+            var layers = [];
+            for (var value of layerTable[0].rows) {
+                var layer = {};
+                layer.layerId = value.querySelector('input').value;
+                layer.order = Number(value.children[0].innerHTML);
+                layers.push(layer);
+            }
+            document.querySelector('#layerList').value = JSON.stringify(layers);
+            console.log(JSON.stringify(layers))
+        }
+
+        $(document).ready(function() {
+            if (!jQuery.isEmptyObject(message)) {
+                toastr.info(message);
+            }
+
+            table = $('#list_table').DataTable();
+
+            $('#map-name').change(function() {
+                $('#map-name').data("check-duplicate",false);
+                $('#duplicate-check-message').text("중복확인을 해주세요.");
+            });
+
+            layerTable = $('#layer_list').DataTable({
+                rowReorder: true,
+                stateSave: true
+            });
+
+            layerInitialize();
+        });
+
+        function preSubmit(form) {
+            var action = form.action;
+            if (action.indexOf("map-update") > -1) {
+                updateMap(form);
+            }
+            return false;
+        }
+
+        function updateMap(form) {
+            if (jQuery.isEmptyObject(form['name'].value)) {
+                form['name'].focus();
+                toastr.warning("이름이 입력되지 않았습니다.");
+                return
+            } else if (jQuery(form['name']).data("check-duplicate") === false) {
+                toastr.warning("이름 중복확인이 되지 않았습니다.");
+                return
+            }
+
+            if (Object.keys(drawLayer).length === 0) {
+                toastr.warning('레이어를 추가하지 않았습니다.');
+                return;
+            } else {
+                setLayer();
+            }
+
+            if (confirm("[ " + form['name'].value + " ] Map 을 수정 하시겠습니까?")) {
+                form.submit();
+            }
+        }
+
+        function setLayer() {
+            var layerTable = document.querySelector('#layer_list').tBodies;
+            console.log(layerTable);
+
+            // layerList
+            var layers = [];
+            for (var value of layerTable[0].rows) {
+                var layer = {};
+                layer.layerId = value.querySelector('input').value;
+                layer.order = Number(value.children[0].innerHTML);
+
+                layers.push(layer);
+            }
+
+            console.log(layers);
+
+            document.querySelector('#layerList').value = JSON.stringify(layers);
+        }
+
+        function checkLayer(el) {
+            var index = $(el).val();
+            if (el.checked) {
+                checkLayers[index] = layers[index];
+            } else {
+                if (checkLayers[index]) {
+                    delete checkLayers[index];
+                }
+            }
+        }
+
+        function addLayer() {
+            if (Object.keys(checkLayers).length > 0) {
+                $('#layer_list').DataTable().destroy();
+                for (var [key, value] of Object.entries(checkLayers)) {
+                    var id = value.id;
+
+                    if (drawLayer[id] === undefined) {
+                        createTableData(key, value);
+                    }
+                }
+            }
+
+            tableReroad();
+
+            $('#layer-add').modal('hide');
+        }
+
+        function tableReroad() {
+            layerTable = $('#layer_list').DataTable({
+                rowReorder: true,
+                stateSave: true
+            });
+        }
+
+        function createTableData(order, layer) {
+            var tr = document.createElement('tr');
+
+            var orderTd = document.createElement('td');
+            orderTd.className = 'text-center align-middle';
+            orderTd.innerHTML = ++layerCount;
+            tr.appendChild(orderTd);
+
+            // ID
+            var checkTd = document.createElement('td');
+            checkTd.className = 'text-center';
+            var checkDiv = document.createElement('div');
+            checkDiv.className = 'form-check';
+            var checkInput = document.createElement('input');
+            checkInput.type = 'checkbox';
+            checkInput.value = layer.id;
+            //checkInput.onchange = checkLayerMap;
+            checkInput.className = 'form-check-input';
+            checkInput.checked = true;
+            checkDiv.appendChild(checkInput);
+            checkTd.appendChild(checkDiv);
+
+            tr.appendChild(checkTd);
+
+            // 이름 name
+            var nameTd = document.createElement('td');
+            nameTd.className = 'text-center align-middle';
+            nameTd.innerHTML = layer.name;
+
+            tr.appendChild(nameTd);
+
+            // 종류 type
+            var typeTd = document.createElement('td');
+            typeTd.className = 'text-center align-middle';
+            typeTd.innerHTML = layer.type;
+
+            tr.appendChild(typeTd);
+
+            // 투영 projection
+            var projectionTd = document.createElement('td');
+            projectionTd.className = 'text-center align-middle';
+            projectionTd.innerHTML = layer.projection;
+
+            tr.appendChild(projectionTd);
+
+            // 설명 description
+            var descriptionTd = document.createElement('td');
+            descriptionTd.className = 'text-center align-middle';
+            descriptionTd.innerHTML = layer.description;
+
+            tr.appendChild(descriptionTd);
+
+            var deleteTd = document.createElement('td');
+            deleteTd.onclick = deleteLayer;
+            deleteTd.className = 'text-center align-middle';
+
+            var deleteSpan = document.createElement('span');
+            deleteSpan.className = 'btn btn-danger';
+            deleteSpan.innerHTML = '<i class="fas fa-trash"></i>';
+            deleteTd.appendChild(deleteSpan);
+
+            tr.appendChild(deleteTd);
+
+            layerBody.appendChild(tr);
+
+            drawLayer[layer.id] = 1;
+        }
+
+        function deleteLayer() {
+            $('#layer_list').DataTable().destroy();
+
+            var row = this.parentNode;
+
+            var checkTd = row.childNodes[1];
+
+            var layerId = checkTd.querySelector('input').value;
+
+            if (drawLayer[layerId] !== undefined) {
+                delete drawLayer[layerId];
+            }
+            var rowIndex = row.rowIndex;
+            document.querySelector('#layer_list').deleteRow(rowIndex);
+
+            layerCount--;
+
+            tableReroad();
+        }
+    </script>
+</th:block>
+
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/rowReorder.bootstrap4.css}">
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/jquery.dataTables.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.rowReorder.js}"></script>
+</th:block>
+</html>

@@ -16,7 +16,7 @@ public class LayerDTO {
     private String type;
     private String layerFilePath;
     private String dataFilePath;
-    private Boolean isDefault;
+    private boolean isDefault;
     private String registorId;
     private String registorName;
     private Date registTime;

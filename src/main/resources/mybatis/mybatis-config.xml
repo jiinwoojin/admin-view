@@ -19,7 +19,8 @@
 
 		<typeAlias alias="MapDTO" type="com.jiin.admin.dto.MapDTO" />
 		<typeAlias alias="LayerDTO" type="com.jiin.admin.dto.LayerDTO" />
-		<typeAlias alias="SymbolPositionDTO" type="com.jiin.admin.dto.SymbolPositionDTO" />
+		<typeAlias alias="MLRelationDTO" type="com.jiin.admin.dto.MapLayerRelationDTO" />
+ 		<typeAlias alias="SymbolPositionDTO" type="com.jiin.admin.dto.SymbolPositionDTO" />
 		<typeAlias alias="AccountDTO" type="com.jiin.admin.dto.AccountDTO" />
 	</typeAliases>
 </configuration>

@@ -19,7 +19,7 @@ public class MapDTO {
     private String projection;
     private String description;
     private String imageType;
-    private Boolean isDefault;
+    private boolean isDefault;
     private String registorId;
     private String registorName;
     private Date registTime;

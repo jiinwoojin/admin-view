@@ -9,8 +9,15 @@ import java.util.List;
 
 @BaseMapper
 public interface MapMapper {
+    long findNextSeqVal();
     List<MapDTO> findAll();
     List<MapDTO> findByPageModel(MapPageModel mapPageModel);
 
+    MapDTO findById(@Param("id") long id);
     MapDTO findByName(@Param("name") String name);
+
+    int insert(MapDTO mapDTO);
+    int update(MapDTO mapDTO);
+
+    int deleteById(long id);
 }

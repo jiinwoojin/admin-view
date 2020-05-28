@@ -1,10 +1,13 @@
 package com.jiin.admin.website.util;
 
 import com.jiin.admin.Constants;
-import com.jiin.admin.entity.LayerEntity;
-import com.jiin.admin.entity.MapEntity;
+import com.jiin.admin.dto.LayerDTO;
+import com.jiin.admin.dto.MapDTO;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 // MapServer 기반 파일 작성 메소드 모음
@@ -15,7 +18,7 @@ public class MapServerUtil {
      * @throws IOException Exception
      * @note Entity -> DTO 변경 가능성 고려.
      */
-    public String fetchMapFileContextWithEntity(File defaultMap, String dataPath, MapEntity map, List<LayerEntity> layers) throws IOException {
+    public static String fetchMapFileContextWithDTO(File defaultMap, String dataPath, MapDTO map, List<LayerDTO> layers) throws IOException {
         StringBuilder fileContext = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(defaultMap));
 
@@ -44,7 +47,7 @@ public class MapServerUtil {
                 line = line.replaceAll("WMS_SRS_VALUE", map.getProjection());
             } else if (line.contains("LAYER_INCLUDE")) {
                 StringBuffer sb = new StringBuffer();
-                for(LayerEntity layer : layers){
+                for(LayerDTO layer : layers){
                     sb.append("  INCLUDE \"./layer/").append(layer.getName()).append(Constants.LAY_SUFFIX).append("\"");
                     sb.append(System.lineSeparator());
                 }
@@ -64,7 +67,7 @@ public class MapServerUtil {
      * @throws IOException Exception
      * @note Entity -> DTO 변경 가능성 고려.
      */
-    public String fetchLayerFileContextWithEntity(File defaultLayer, String dataPath, LayerEntity layer) throws IOException {
+    public static String fetchLayerFileContextWithDTO(File defaultLayer, String dataPath, LayerDTO layer) throws IOException {
         StringBuilder fileContext = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(defaultLayer));
 

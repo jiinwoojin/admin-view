@@ -2,11 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jiin.admin.mapper.data.MapMapper">
+    <select id="findNextSeqVal" resultType="long">
+        SELECT NEXTVAL('MAP_SEQ')
+    </select>
+
     <select id="findAll" resultType="MapDTO">
         SELECT * FROM _MAP
     </select>
 
     <select id="findByPageModel" resultType="MapDTO">
+        <bind name="start" value="(pg - 1) * sz" />
         SELECT * FROM _MAP M
         <where>
             <choose>
@@ -32,9 +37,36 @@
             <when test="ob == 3">M.REGIST_TIME DESC</when>
             <otherwise>M.ID DESC</otherwise>
         </choose>
+        <choose>
+            <when test="start gte 0">
+                LIMIT ${sz} OFFSET ${start}
+            </when>
+            <otherwise>
+                LIMIT 0
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findById" resultType="MapDTO">
+        SELECT * FROM _MAP WHERE ID = #{id}
     </select>
 
     <select id="findByName" resultType="MapDTO">
         SELECT * FROM _MAP WHERE NAME = #{name}
     </select>
+
+    <insert id="insert">
+        INSERT INTO _MAP(ID, NAME, MAP_FILE_PATH, MIN_X, MAX_X, MIN_Y, MAX_Y, UNITS, PROJECTION, DESCRIPTION, IMAGE_TYPE, IS_DEFAULT, REGISTOR_ID, REGISTOR_NAME, REGIST_TIME)
+        VALUES(#{id}, #{name}, #{mapFilePath}, #{minX}, #{maxX}, #{minY}, #{maxY}, #{units}, #{projection}, #{description}, #{imageType}, #{isDefault}, #{registorId}, #{registorName}, #{registTime})
+    </insert>
+
+    <update id="update">
+        UPDATE _MAP SET
+        NAME = #{name}, MAP_FILE_PATH = #{mapFilePath}, MIN_X = #{minX}, MAX_X = #{maxX}, MIN_Y = #{minY}, MAX_Y = #{maxY}, UNITS = #{units}, PROJECTION = #{projection}, IMAGE_TYPE = #{imageType}, IS_DEFAULT = #{isDefault}, REGISTOR_ID = #{registorId}, REGISTOR_NAME = #{registorName}, REGIST_TIME = #{registTime}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM _MAP WHERE ID = #{id}
+    </delete>
 </mapper>

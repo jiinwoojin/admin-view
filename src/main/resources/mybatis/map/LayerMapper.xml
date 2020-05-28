@@ -7,6 +7,7 @@
     </select>
 
     <select id="findByPageModel" resultType="LayerDTO">
+        <bind name="start" value="(pg - 1) * sz" />
         SELECT * FROM _LAYER L
         <where>
             <choose>
@@ -29,6 +30,18 @@
             <when test='ob == 3'>L.REGIST_TIME DESC</when>
             <otherwise>L.ID DESC</otherwise>
         </choose>
+        <choose>
+            <when test="start gte 0">
+                LIMIT ${sz} OFFSET ${start}
+            </when>
+            <otherwise>
+                LIMIT 0
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findById" resultType="LayerDTO">
+        SELECT * FROM _LAYER WHERE ID = #{id}
     </select>
 
     <select id="findByName" resultType="LayerDTO">
@@ -36,6 +49,9 @@
     </select>
 
     <select id="findByMapId" resultType="LayerDTO">
-        SELECT * FROM _LAYER WHERE MAP_ID = #{mapId}
+        SELECT L.* FROM _LAYER L
+        LEFT JOIN _MAP_LAYER_RELATION ML
+        ON ML.LAYER_ID = L.ID
+        WHERE ML.MAP_ID = #{mapId}
     </select>
 </mapper>

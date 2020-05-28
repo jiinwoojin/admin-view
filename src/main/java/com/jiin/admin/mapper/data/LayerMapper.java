@@ -12,6 +12,7 @@ public interface LayerMapper {
     List<LayerDTO> findAll();
     List<LayerDTO> findByPageModel(LayerPageModel layerPageModel);
 
+    LayerDTO findById(@Param("id") long id);
     LayerDTO findByName(@Param("name") String name);
-    LayerDTO findByMapId(@Param("mapId") long mapId);
+    List<LayerDTO> findByMapId(@Param("mapId") long mapId);
 }
