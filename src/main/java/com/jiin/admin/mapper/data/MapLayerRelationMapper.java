@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Param;
 public interface MapLayerRelationMapper {
     int insert(MapLayerRelationDTO mapLayerRelationDTO);
     int deleteByMapId(@Param("mapId") long mapId);
+    int deleteByLayerId(@Param("layerId") long layerId);
 }

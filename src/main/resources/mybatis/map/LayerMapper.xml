@@ -40,6 +40,24 @@
         </choose>
     </select>
 
+    <select id="countByPageModel" resultType="long">
+        SELECT COUNT(*) FROM _LAYER L
+        <where>
+            <choose>
+                <when test='sb == 1'> L.NAME LIKE CONCAT('%', #{st}, '%') </when>
+                <when test='sb == 2'> L.REGISTOR_ID LIKE CONCAT('%', #{st}, '%') </when>
+                <when test='sb == 3'> LOWER(L.PROJECTION) LIKE CONCAT('%', #{st}, '%') </when>
+                <otherwise> 1=1 </otherwise>
+            </choose>
+            <if test="lType != 'ALL'">
+                AND L.TYPE = #{lType}
+            </if>
+            <if test="sDate != null and !sDate.equals('') and eDate != null and !eDate.equals('')">
+                AND L.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD')
+            </if>
+        </where>
+    </select>
+
     <select id="findById" resultType="LayerDTO">
         SELECT * FROM _LAYER WHERE ID = #{id}
     </select>
@@ -54,4 +72,23 @@
         ON ML.LAYER_ID = L.ID
         WHERE ML.MAP_ID = #{mapId}
     </select>
+
+    <insert id="insert">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT NEXTVAL('LAYER_SEQ')
+        </selectKey>
+        INSERT INTO _LAYER(ID, NAME, TYPE, DATA_FILE_PATH, DESCRIPTION, IS_DEFAULT, LAYER_FILE_PATH, MIDDLE_FOLDER, PROJECTION, REGISTOR_ID, REGISTOR_NAME, REGIST_TIME)
+        VALUES(#{id}, #{name}, #{type}, #{dataFilePath}, #{description}, #{isDefault}, #{layerFilePath}, #{middleFolder}, #{projection}, #{registorId}, #{registorName}, #{registTime})
+    </insert>
+
+    <update id="update">
+        UPDATE _LAYER SET
+        NAME = #{name}, TYPE = #{type}, DATA_FILE_PATH = #{dataFilePath}, DESCRIPTION = #{description}, IS_DEFAULT = #{isDefault}, LAYER_FILE_PATH = #{layerFilePath}, MIDDLE_FOLDER = #{middleFolder}, PROJECTION = #{projection}, REGISTOR_ID = #{registorId}, REGISTOR_NAME = #{registorName}, REGIST_TIME = #{registTime}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM _LAYER
+        WHERE ID = #{id}
+    </delete>
 </mapper>

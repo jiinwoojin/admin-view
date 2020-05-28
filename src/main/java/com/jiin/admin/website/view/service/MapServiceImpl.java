@@ -105,6 +105,18 @@ public class MapServiceImpl implements MapService {
     }
 
     /**
+     * MAP 데이터 중 추가 및 삭제 시 공통으로 설정할 수 있는 로직 정리
+     * @param mapDTO MapDTO
+     */
+    private void setCommonProperties(MapDTO mapDTO){
+        // TODO : 굳이 setter 안 쓰고, Builder 를 사용해서 한 번에 실행하는 방법이 있을까? - Builder 패턴 알아볼 것
+        String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        mapDTO.setRegistorId(loginUser);
+        mapDTO.setRegistorName(loginUser);
+        mapDTO.setRegistTime(new Date());
+    }
+
+    /**
      * MAP 검색 조건 옵션 목록
      */
     @Override
@@ -122,14 +134,13 @@ public class MapServiceImpl implements MapService {
 
     /**
      * MAP 데이터 목록 조회 with Pagination Model
-     * @param mapPageModel MapSearchModel
+     * @param mapPageModel MapPageModel
      */
     @Override
     public Map<String, Object> loadDataListAndCountByPaginationModel(MapPageModel mapPageModel) {
-        List<MapDTO> mapList = mapMapper.findByPageModel(mapPageModel);
         return new HashMap<String, Object>(){{
-            put("data", mapList);
-            put("count", mapList.size());
+            put("data", mapMapper.findByPageModel(mapPageModel));
+            put("count", mapMapper.countByPageModel(mapPageModel));
         }};
     }
 
@@ -144,24 +155,20 @@ public class MapServiceImpl implements MapService {
 
     /**
      * MAP 데이터 추가
-     * @param mapDTO MapDTO, layers JSON String
+     * @param mapDTO MapDTO, relations JSON String
      */
     @Override
     @Transactional
     public boolean createData(MapDTO mapDTO, String relations) throws JsonProcessingException {
         if(mapMapper.findByName(mapDTO.getName()) != null) return false;
 
-        // TODO : 굳이 setter 안 쓰고, Builder 를 사용해서 한 번에 실행하는 방법이 있을까? - Builder 패턴 알아볼 것
         long id = mapMapper.findNextSeqVal();
         String mapFilePath = String.format("%s%s/%s%s", dataPath, Constants.MAP_FILE_PATH, mapDTO.getName(), Constants.MAP_SUFFIX);
-        String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         mapDTO.setId(id);
         mapDTO.setMapFilePath(mapFilePath.replaceAll(dataPath, ""));
         mapDTO.setDefault(false);
-        mapDTO.setRegistorId(loginUser);
-        mapDTO.setRegistorName(loginUser);
-        mapDTO.setRegistTime(new Date());
+        setCommonProperties(mapDTO);
 
         if(mapMapper.insert(mapDTO) > 0){
             // MAP - LAYER 관계 최초 생성
@@ -185,7 +192,7 @@ public class MapServiceImpl implements MapService {
 
     /**
      * MAP 데이터 수정
-     * @param mapDTO MapDTO, layers JSON String
+     * @param mapDTO MapDTO, relations JSON String
      */
     @Override
     @Transactional
@@ -193,12 +200,8 @@ public class MapServiceImpl implements MapService {
         MapDTO selected = mapMapper.findByName(mapDTO.getName());
         if(selected == null) return false;
 
-        // TODO : 굳이 setter 안 쓰고, Builder 를 사용해서 한 번에 실행하는 방법이 있을까? - Builder 패턴 알아볼 것
-        String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         mapDTO.setMapFilePath(selected.getMapFilePath()); // 이름은 변동할 수 없으니 현재까지 저장된 디렉토리를 그대로 유지.
-        mapDTO.setRegistorId(loginUser);
-        mapDTO.setRegistorName(loginUser);
-        mapDTO.setRegistTime(new Date());
+        setCommonProperties(mapDTO);
 
         if(mapMapper.update(mapDTO) > 0) {
             // MAP - LAYER Relation 설정
@@ -239,6 +242,8 @@ public class MapServiceImpl implements MapService {
                 log.error(selected.getName() + " MAP 파일 삭제 실패했습니다.");
                 return false;
             }
+
+            log.info(selected.getName() + " MAP 파일 삭제 성공했습니다.");
             return true;
         }
         return false;

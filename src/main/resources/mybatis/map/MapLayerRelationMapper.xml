@@ -14,4 +14,9 @@
         DELETE FROM _MAP_LAYER_RELATION
         WHERE MAP_ID = #{mapId}
     </delete>
+
+    <delete id="deleteByLayerId">
+        DELETE FROM _MAP_LAYER_RELATION
+        WHERE LAYER_ID = #{layerId}
+    </delete>
 </mapper>
