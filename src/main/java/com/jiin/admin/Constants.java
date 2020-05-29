@@ -21,4 +21,13 @@ public class Constants {
     public static final String MAP_FILE_PATH = "/mapserver";
 
     public static final String MAP_SUFFIX = ".map";
+
+    /**
+     * PROXY YAML 파일 경로
+     */
+    public static final String PROXY_SETTING_FILE_PATH = "/proxy";
+
+    public static final String PROXY_SETTING_FILE_NAME = "gis-server-1.yaml";
+
+    public static final String PROXY_CACHE_DIRECTORY = "/cache";
 }

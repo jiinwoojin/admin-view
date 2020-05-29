@@ -16,7 +16,7 @@ public class MapServerUtil {
      * abc.map 파일 내용 생성 메소드
      * @param defaultMap File, dataPath String, map MapEntity, layers List(LayerEntity)
      * @throws IOException Exception
-     * @note Entity -> DTO 변경 가능성 고려.
+     * @note JPA Entity 대응 필요, wms_srs (복수), wms_title 등 메타 정보 주입 대응 필요
      */
     public static String fetchMapFileContextWithDTO(File defaultMap, String dataPath, MapDTO map, List<LayerDTO> layers) throws IOException {
         StringBuilder fileContext = new StringBuilder();
@@ -65,7 +65,7 @@ public class MapServerUtil {
      * abc.layer 파일 내용 생성 메소드
      * @param defaultLayer File, dataPath String, layer LayerEntity, layers List(LayerEntity)
      * @throws IOException Exception
-     * @note Entity -> DTO 변경 가능성 고려.
+     * @note JPA Entity 대응 필요
      */
     public static String fetchLayerFileContextWithDTO(File defaultLayer, String dataPath, LayerDTO layer) throws IOException {
         StringBuilder fileContext = new StringBuilder();
@@ -93,7 +93,7 @@ public class MapServerUtil {
     /**
      * LAYER 데이터 삭제 이후, *.map 파일에서  INCLUDE "./layer/~~.lay" 를 없애는 메소드
      * @Param mapFilePath String, layer String
-     * @throws
+     * @throws IOException Exception
      * @note
      */
     public static void removeLayerIncludeSyntaxInMapFiles(String mapFilePath, String layer) throws IOException {

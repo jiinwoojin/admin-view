@@ -1,11 +1,7 @@
 package com.jiin.admin.website.server.controller;
 
-import com.jiin.admin.dto.LayerDTO;
-import com.jiin.admin.dto.MapDTO;
-import com.jiin.admin.dto.SymbolPositionDTO;
-import com.jiin.admin.mapper.data.LayerMapper;
-import com.jiin.admin.mapper.data.MapMapper;
-import com.jiin.admin.mapper.data.SymbolPositionMapper;
+import com.jiin.admin.dto.*;
+import com.jiin.admin.mapper.data.*;
 import com.jiin.admin.website.model.LayerPageModel;
 import com.jiin.admin.website.model.MapPageModel;
 import com.jiin.admin.website.view.service.LayerService;
@@ -36,6 +32,12 @@ public class TestRestController {
     @Resource
     private LayerService layerService;
 
+    @Resource
+    private ProxyLayerMapper proxyLayerMapper;
+
+    @Resource
+    private ProxyCacheMapper proxyCacheMapper;
+
     @GetMapping("map-list")
     public List<MapDTO> getMapDTOList(){
         return mapMapper.findAll();
@@ -61,5 +63,13 @@ public class TestRestController {
         return symbolPositionMapper.findAll();
     }
 
+    @GetMapping("proxy-layer-list")
+    public List<ProxyLayerDTO> getProxyLayerDTOList(){
+        return proxyLayerMapper.findAll();
+    }
 
+    @GetMapping("proxy-cache-list")
+    public List<ProxyCacheDTO> getProxyCacheDTOList(){
+        return proxyCacheMapper.findAll();
+    }
 }

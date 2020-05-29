@@ -30,7 +30,8 @@ public class ProxyMainController {
     // Proxy Layer 미리보기 페이지 : DB Layer Reading (설정 값으로 되어 있는 경우만)
     @RequestMapping("preview")
     public String proxyLayerPreviewPage(Model model) throws IOException {
-        model.addAttribute("serviceURL", MapProxyUtil.getServiceURL());
+        // 리펙토링 버전에서 하드 코딩 박은 거 해지하겠음...
+        model.addAttribute("serviceURL", String.format("http://%s:%s/%s", "211.172.246.71", "11100", "mapproxy"));
         model.addAttribute("proxyLayers", proxyService.getProxyLayerEntitiesIsSelected().get("data"));
         model.addAttribute("proxyYAML", mapProxyYamlComponent.getMapProxyYamlFileContext());
         return "page/cache/preview";
