@@ -10,6 +10,8 @@ import java.util.List;
 @BaseMapper
 public interface MapMapper {
     long findNextSeqVal();
+    long countByPageModel(MapPageModel mapPageModel);
+
     List<MapDTO> findAll();
     List<MapDTO> findByPageModel(MapPageModel mapPageModel);
 

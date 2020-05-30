@@ -13,6 +13,7 @@ public class ProxyLayerDTO { // MyBatis Based DTO
     private String name;
     private String title;
     private List<ProxySourceDTO> sources;
+    private List<ProxyCacheDTO> caches;
     private Boolean selected;
     private Boolean isDefault;
 
@@ -20,12 +21,13 @@ public class ProxyLayerDTO { // MyBatis Based DTO
         this.sources = new ArrayList<>();
     }
 
-    public ProxyLayerDTO(Long id, String name, String title, List<ProxySourceDTO> sources, Boolean selected, Boolean isDefault){
+    public ProxyLayerDTO(Long id, String name, String title, List<ProxySourceDTO> sources, List<ProxyCacheDTO> caches, Boolean selected, Boolean isDefault){
         this.id = id;
         this.name = name;
         this.title = title;
-        this.selected = selected;
         this.sources = sources;
+        this.caches = caches;
+        this.selected = selected;
         this.isDefault = isDefault;
     }
 }

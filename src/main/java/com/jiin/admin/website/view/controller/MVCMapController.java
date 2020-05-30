@@ -37,7 +37,7 @@ public class MVCMapController {
         model.addAttribute("sbList", mapService.loadSearchByOptionList());
         model.addAttribute("message", session.message());
         model.addAttribute("qs", mapPageModel.getQueryString());
-        return "page/manage/map-list";
+        return "page/manage/refactoring/map-list";
     }
 
     /**
@@ -49,7 +49,7 @@ public class MVCMapController {
         model.addAttribute("layers", layerService.loadDataList());
         model.addAttribute("qs", mapPageModel.getQueryString());
 
-        return "page/manage/map-create";
+        return "page/manage/refactoring/map-create";
     }
 
     /**
@@ -74,7 +74,7 @@ public class MVCMapController {
         model.addAttribute("layers", layerService.loadDataList());
         model.addAttribute("qs", mapPageModel.getQueryString());
 
-        return "page/manage/map-update";
+        return "page/manage/refactoring/map-update";
     }
 
     /**
@@ -84,7 +84,7 @@ public class MVCMapController {
     @PostMapping("map-update")
     public String postMapUpdate(@Valid MapDTO mapDTO, @RequestParam("layerList") String relations) throws IOException {
         boolean result = mapService.setData(mapDTO, relations);
-        session.message(String.format("MAP [%s] 추가 %s 하였습니다.", mapDTO.getName(), (result ? "성공" : "실패")));
+        session.message(String.format("MAP [%s] 수정 %s 하였습니다.", mapDTO.getName(), (result ? "성공" : "실패")));
         return "redirect:map-list?pg=1&sz=8&iType=ALL&units=ALL";
     }
 

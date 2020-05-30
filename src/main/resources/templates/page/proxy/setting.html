@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">설정</h1>
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2 class="page_tit">설정</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/view/cache/setting}">서비스 캐시 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">설정</li>
+        </ol>
+    </nav>
+</th:block>
+</nav>
+
+<th:block layout:fragment="content-body-fragment">
+    <div class="row">
+        <div class="col-xl-6">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="layer-tab" data-toggle="tab" href="#layer" role="tab" aria-controls="layer" aria-selected="true">Layer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="source-tab" data-toggle="tab" href="#source" role="tab" aria-controls="source" aria-selected="false">Source</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="cache-tab" data-toggle="tab" href="#cache" role="tab" aria-controls="cache" aria-selected="false">Cache</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="tab_context_view">
+                <div class="tab-pane fade show active" id="layer" role="tabpanel" aria-labelledby="layer-tab">
+                    <div class="py-1">
+                        <h3 class="section_tit">레이어 관리</h3>
+                        <div class="text-right my-1">
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#layerDataInsert" onclick="">
+                                <i class="fas fa-plus"></i> 데이터 추가
+                            </button>
+                        </div>
+
+                        <!-- Data Inserting Modal - LAYER 시작 -->
+                        <div class="modal fade" id="layerDataInsert" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <form id="add-proxy-layer" th:action="@{/view/cache/add-proxy-layer}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" th:object="${addProxyLayer}">
+                                        <div class="modal-header">
+                                            <h4 class="cont_tit">데이터 추가 - Layer</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('proxyLayerName', 'layer')">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="modal-body" th:if="${ #lists.size(sourceMap) > 0 }">
+                                            <div class="form-group row">
+                                                <div class="col-12">
+                                                    <label for="proxyLayerName">레이어 이름 <span class="text-danger">(*)</span></label>
+                                                </div>
+                                                <div class="col-12 input-group">
+                                                    <input type="text" class="form-control" th:field="*{proxyLayerName}">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-btn btn btn-primary" onclick="jiCommon.duplicateCheck('PROXYLAYER','#proxyLayerName','#duplicate-check-message-proxy-layer')" style="cursor: pointer;">중복확인</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <small class="form-text text-muted" id="duplicate-check-message-proxy-layer">중복확인을 해주세요.</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxyLayerTitle">레이어 제목 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" th:field="*{proxyLayerTitle}" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxySources">레이어 연계 소스 <span class="text-info">(*)</span></label>
+                                                <select class="form-control" th:field="*{proxySources}" multiple>
+                                                    <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group" th:if="${ #lists.size(proxyCaches) > 0}">
+                                                <label for="proxyCaches">레이어 연계 캐시 <span class="text-info">(*)</span></label>
+                                                <select class="form-control" id="proxyCaches" name="proxyCaches" multiple>
+                                                    <option th:each="cache : ${proxyCaches}" th:text="${ cache.name }" th:value="${ cache.name }"></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="alert alert-warning py-1" th:unless="${ #lists.size(proxyCaches) > 0}">
+                                                <h1 class="display-4">
+                                                    <i class="fas fa-times-circle"></i> No Cache Datas
+                                                </h1>
+                                                <p class="lead">추가 된 캐시 (Cache) 데이터가 없습니다. 캐시 데이터를 추가하고 다시 시도 바랍니다.</p>
+                                            </div>
+
+                                            <p><span class="text-danger">(*)</span> : 해당 데이터는 반드시 입력 되어야 합니다.</p>
+                                            <p><span class="text-info">(*)</span> : 해당 데이터들 중에 최소한 하나는 선택되어 있어야 합니다.</p>
+                                        </div>
+
+                                        <div class="modal-body" th:unless="${ #lists.size(sourceMap) > 0 }">
+                                            <div class="jumbotron">
+                                                <h1 class="display-4">
+                                                    <i class="fas fa-times-circle"></i> Error
+                                                </h1>
+                                                <p class="lead">추가 된 리소스 (Source) 데이터가 없습니다. 리소스 데이터를 추가하고 다시 시도 바랍니다.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="onclick_close('proxyLayerName', 'layer')">
+                                                <i class="fas fa-times"></i> 취소
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-save"></i> 저장
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Data Inserting Modal - LAYER 끝 -->
+
+                        <!-- Data Updating Modal - LAYER 시작 -->
+                        <div class="modal fade" id="layerDataUpdate" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <form id="update-proxy-layer" th:action="@{/view/cache/update-proxy-layer}" method="post" accept-charset="utf-8" onsubmit="return layerRelationValidation('UPDATE')">
+                                        <input type="hidden" id="proxyLayerId_u" name="id" />
+                                        <div class="modal-header">
+                                            <h4 class="cont_tit">데이터 수정 - Layer</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="modal-body" th:if="${ #lists.size(sourceMap) > 0 }">
+                                            <div class="form-group row">
+                                                <div class="col-12">
+                                                    <label for="proxyLayerName_u">레이어 이름 <span class="text-danger">(*)</span></label>
+                                                </div>
+                                                <div class="col-12 input-group">
+                                                    <input type="text" class="form-control" id="proxyLayerName_u" name="proxyLayerName" readonly />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxyLayerTitle_u">레이어 제목 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" id="proxyLayerTitle_u" name="proxyLayerTitle" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxySources_u">레이어 연계 소스 <span class="text-info">(*)</span></label>
+                                                <select class="form-control" id="proxySources_u" name="proxySources" multiple>
+                                                    <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group" th:if="${ #lists.size(proxyCaches) > 0}">
+                                                <label for="proxyCaches_u">레이어 연계 캐시 <span class="text-info">(*)</span></label>
+                                                <select class="form-control" id="proxyCaches_u" name="proxyCaches" multiple>
+                                                    <option th:each="cache : ${proxyCaches}" th:text="${ cache.name }" th:value="${ cache.name }"></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="alert alert-warning py-1" th:unless="${ #lists.size(proxyCaches) > 0}">
+                                                <h1 class="display-4">
+                                                    <i class="fas fa-times-circle"></i> No Cache Datas
+                                                </h1>
+                                                <p class="lead">추가 된 캐시 (Cache) 데이터가 없습니다. 캐시 데이터를 추가하고 다시 시도 바랍니다.</p>
+                                            </div>
+                                            <p><span class="text-danger">(*)</span> : 해당 데이터는 반드시 입력 되어야 합니다.</p>
+                                            <p><span class="text-info">(*)</span> : 해당 데이터들 중에 최소한 하나는 선택되어 있어야 합니다.</p>
+                                        </div>
+
+                                        <div class="modal-body" th:unless="${ #lists.size(sourceMap) > 0 }">
+                                            <div class="jumbotron">
+                                                <h1 class="display-4">
+                                                    <i class="fas fa-times-circle"></i> Error
+                                                </h1>
+                                                <p class="lead">추가 된 리소스 (Source) 데이터가 없습니다. 리소스 데이터를 추가하고 다시 시도 바랍니다.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                <i class="fas fa-times"></i> 취소
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-save"></i> 저장
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Data Updating Modal - LAYER 끝 -->
+
+                        <!-- Data List Table - LAYER 시작 -->
+                        <table id="list_table_layer" class="table basic my-1">
+                            <thead class="table-info">
+                            <tr>
+                                <th scope="col" class="text-center">이름</th>
+                                <th scope="col" class="text-center">제목</th>
+                                <th scope="col" class="text-center">수정 및 삭제</th>
+                                <th scope="col" class="text-center">설정 적용</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="layer : ${ layerMap }">
+                                <td class="text-center align-middle" th:text="${ layer.name }"></td>
+                                <td class="text-center align-middle" th:text="${ layer.title }"></td>
+                                <td class="text-center align-middle">
+                                    <button th:id="${ 'layerUpdate' + layer.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#layerDataUpdate">
+                                        <i class="fas fa-cog"></i>
+                                    </button>
+                                    <script th:inline="javascript">
+                                        var l_json[[${layer.id}]] = /*[[${ layer }]]*/ {};
+                                        document.getElementById('layerUpdate' + [[${layer.id}]]).onclick = function() {
+                                            onclick_update_layer(l_json[[${layer.id}]]);
+                                        };
+                                    </script>
+                                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/cache/delete-proxy-layer/' + ${layer.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedLayers', [[${layer.name}]])">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- Data List Table - LAYER 끝 -->
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="source" role="tabpanel" aria-labelledby="source-tab">
+                    <div class="py-1">
+                        <h3 class="section_tit my-1">소스 관리</h3>
+                        <div class="text-right my-1">
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#sourceDataInsert">
+                                <i class="fas fa-plus"></i> 데이터 추가
+                            </button>
+                        </div>
+
+                        <!-- Data Inserting Modal - SOURCE 시작 -->
+                        <div class="modal fade" id="sourceDataInsert" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <form id="add-proxy-source" th:action="@{/view/cache/add-proxy-source}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" th:object="${addProxySource}">
+                                        <div class="modal-header">
+                                            <h4 class="cont_tit">데이터 추가 - Source</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('proxySourceName', 'source')">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group row">
+                                                <div class="col-12">
+                                                    <label for="proxySourceName">리소스 이름 <span class="text-danger">(*)</span></label>
+                                                    <div class="col-12 input-group">
+                                                        <input type="text" class="form-control" th:field="*{proxySourceName}">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-btn btn btn-primary" onclick="jiCommon.duplicateCheck('PROXYSOURCE','#proxySourceName','#duplicate-check-message-proxy-source')" style="cursor: pointer;">중복확인</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <small class="form-text text-muted" id="duplicate-check-message-proxy-source">중복확인을 해주세요.</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxySourceType">리소스 종류 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" th:field="*{proxySourceType}" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="mapFile">MapServer 리소스 : Map 파일 선택 <span class="text-danger">(*)</span></label>
+                                                <select class="form-control" id="mapFile" onchange="onchange_mapFile_value('INSERT')">
+                                                    <option value='{ "requestMap" : "[none]", "mapId" : -1 }'>-- Map 파일 선택 --</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="requestMap">Map 파일 주소 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" th:field="*{requestMap}" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="mapLayer">MapServer 리소스 : 레이어 선택 <span class="text-info">(*)</span></label>
+                                                <input type="text" data-role="tagsinput" id="mapLayer_multiple" onchange="onchange_mapLayer_multiple_value('INSERT')" />
+                                                <select class="form-control" id="mapLayer" onchange="onchange_mapLayer_value('INSERT')">
+                                                    <option value="[none]">-- 레이어 선택 --</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="requestLayers">요청 Layer <span class="text-info">(*)</span></label>
+                                                <input type="text" class="form-control" th:field="*{requestLayers}" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="mapServerBinary">MapServer 바이러리 주소 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" th:field="*{mapServerBinary}" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="mapServerWorkDir">MapServer 작업 주소 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" th:field="*{mapServerWorkDir}" readonly />
+                                            </div>
+
+                                            <p><span class="text-danger">(*)</span> : 해당 데이터는 반드시 입력 되어야 합니다.</p>
+                                            <p><span class="text-info">(*)</span> : 해당 데이터들 중에 최소한 하나 이상 있어야 합니다.</p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="onclick_close('proxySourceName', 'source')">
+                                                <i class="fas fa-times"></i> 취소
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-save"></i> 저장
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Data Inserting Modal - SOURCE 끝 -->
+
+                        <!-- Data Updating Modal - SOURCE 시작 -->
+                        <div class="modal fade" id="sourceDataUpdate" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <form id="update-proxy-source" th:action="@{/view/cache/update-proxy-source}" method="post" accept-charset="utf-8" onsubmit="return requestValidation('UPDATE')">
+                                        <div class="modal-header">
+                                            <h4 class="cont_tit">데이터 수정 - Source</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" id="proxySourceId_u" name="id" />
+                                            <div class="form-group">
+                                                <label for="proxySourceName_u">리소스 이름 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" id="proxySourceName_u" name="proxySourceName" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxySourceType_u">리소스 종류 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" id="proxySourceType_u" name="proxySourceType" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="mapFile">MapServer 리소스 : Map 파일 선택 <span class="text-danger">(*)</span></label>
+                                                <select class="form-control" id="mapFile_u" onchange="onchange_mapFile_value('UPDATE')">
+                                                    <option value='{ "requestMap" : "[none]", "mapId" : -1 }'>-- Map 파일 선택 --</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="requestMap_u">Map 파일 주소 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" id="requestMap_u" name="requestMap" readonly />
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="mapLayer">MapServer 리소스 : 레이어 선택 <span class="text-info">(*)</span></label>
+                                                <input type="text" class="form-control" data-role="tagsinput" id="mapLayer_multiple_u" onchange="onchange_mapLayer_multiple_value('UPDATE')" />
+                                                <select class="form-control" id="mapLayer_u" onchange="onchange_mapLayer_value('UPDATE')">
+                                                    <option value="[none]">-- 레이어 선택 --</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="requestLayers_u">요청 Layer <span class="text-info">(*)</span></label>
+                                                <input type="text" class="form-control" id="requestLayers_u" name="requestLayers" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="mapServerBinary_u">MapServer 바이러리 주소 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" id="mapServerBinary_u" name="mapServerBinary" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="mapServerWorkDir_u">MapServer 작동 주소 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" id="mapServerWorkDir_u" name="mapServerWorkDir" readonly />
+                                            </div>
+
+                                            <p><span class="text-danger">(*)</span> : 해당 데이터는 반드시 입력 되어야 합니다.</p>
+                                            <p><span class="text-info">(*)</span> : 해당 데이터들 중에 최소한 하나 이상 있어야 합니다.</p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                <i class="fas fa-times"></i> 취소
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-save"></i> 저장
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Data List Table - SOURCE 시작 -->
+                        <table id="list_table_source" class="table basic my-1">
+                            <thead class="table-info">
+                            <tr>
+                                <th scope="col" class="text-center">이름</th>
+                                <th scope="col" class="text-center">종류</th>
+                                <th scope="col" class="text-center">수정 및 삭제</th>
+                                <th scope="col" class="text-center">설정 적용</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="source : ${ sourceMap }">
+                                <td class="text-center align-middle" th:text="${ source.name }"></td>
+                                <td class="text-center align-middle" th:text="${ source.type }"></td>
+                                <td class="text-center align-middle">
+                                    <button th:id="${ 'sourceUpdate' + source.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#sourceDataUpdate">
+                                        <i class="fas fa-cog"></i>
+                                    </button>
+                                    <script th:inline="javascript">
+                                        var s_json[[${source.id}]] = /*[[${ source }]]*/ {};
+                                        document.getElementById('sourceUpdate' + [[${source.id}]]).onclick = function() {
+                                            onclick_update_source(s_json[[${source.id}]]);
+                                        };
+                                    </script>
+                                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/cache/delete-proxy-source/' + ${source.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedSources', [[${source.name}]])">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- Data List Table - SOURCE 끝 -->
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="cache" role="tabpanel" aria-labelledby="cache-tab">
+                    <div class="py-1">
+                        <h3 class="section_tit my-1">캐시 관리</h3>
+                        <div class="text-right my-1">
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#cacheDataInsert">
+                                <i class="fas fa-plus"></i> 데이터 추가
+                            </button>
+                        </div>
+
+                        <!-- Data Inserting Modal - CACHE 시작 -->
+                        <div class="modal fade" id="cacheDataInsert" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <form id="add-proxy-cache" th:action="@{/view/cache/add-proxy-cache}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" th:object="${addProxyCache}">
+                                        <div class="modal-header">
+                                            <h4 class="cont_tit">데이터 추가 - Cache</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('proxyCacheName', 'cache')">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="modal-body" th:if="${ #lists.size(sourceMap) > 0 }">
+                                            <div class="form-group row">
+                                                <div class="col-12">
+                                                    <label for="proxyCacheName">캐시 이름 <span class="text-danger">(*)</span></label>
+                                                </div>
+                                                <div class="col-12 input-group">
+                                                    <input type="text" class="form-control" th:field="*{proxyCacheName}">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-btn btn btn-primary" style="cursor: pointer;" onclick="jiCommon.duplicateCheck('PROXYCACHE','#proxyCacheName','#duplicate-check-message-proxy-cache')">중복확인</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <small class="form-text text-muted" id="duplicate-check-message-proxy-cache">중복확인을 해주세요.</small>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxyCacheType">캐시 종류 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" th:field="*{proxyCacheType}" readonly />
+                                            </div>
+
+                                            <label for="proxyCacheDirectory">캐시 디렉토리 <span class="text-danger">(*)</span></label>
+                                            <small>캐시 디렉토리는 설정한 이후 값 변경이 불가능합니다.</small>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        직접 설정 <input id="directoryEdit" type="checkbox" onchange="onchange_cache_directory_checkbox()" />
+                                                    </div>
+                                                </div>
+                                                <input type="text" class="form-control" th:field="*{proxyCacheDirectory}" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="metaSizeX">타일 가로 크기 <span class="text-danger">(*)</span></label>
+                                                <input type="number" class="form-control" th:field="*{metaSizeX}" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="metaSizeY">타일 세로 크기 <span class="text-danger">(*)</span></label>
+                                                <input type="number" class="form-control" th:field="*{metaSizeY}" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="metaBuffer">타일 버퍼 크기 <span class="text-danger">(*)</span></label>
+                                                <input type="number" class="form-control" th:field="*{metaBuffer}" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxySourcesWithCaches">캐시 연계 소스 <span style="color: red;">(*)</span></label>
+                                                <select class="form-control" th:field="*{proxySourcesWithCaches}" multiple>
+                                                    <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
+                                                </select>
+                                            </div>
+
+                                            <p><span class="text-danger">(*)</span> : 해당 데이터는 반드시 입력 되어야 합니다.</p>
+                                        </div>
+
+                                        <div class="modal-body" th:unless="${ #lists.size(sourceMap) > 0 }">
+                                            <div class="jumbotron">
+                                                <h1 class="display-4">
+                                                    <i class="fas fa-times-circle"></i> Error
+                                                </h1>
+                                                <p class="lead">추가 된 리소스 (Source) 데이터가 없습니다. 리소스 데이터를 추가하고 다시 시도 바랍니다.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="onclick_close('proxyCacheName', 'cache')">
+                                                <i class="fas fa-times"></i> 취소
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-save"></i> 저장
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Data Inserting Modal - CACHE 끝 -->
+
+                        <!-- Data Updating Modal - CACHE 시작 -->
+                        <div class="modal fade" id="cacheDataUpdate" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <form id="update-proxy-cache" th:action="@{/view/cache/update-proxy-cache}" method="post" accept-charset="utf-8">
+                                        <div class="modal-header">
+                                            <h4 class="cont_tit">데이터 수정 - Cache</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+                                        <div class="modal-body" th:if="${ #lists.size(sourceMap) > 0 }">
+                                            <input type="hidden" id="proxyCacheId_u" name="id" />
+                                            <div class="form-group">
+                                                <label for="proxyCacheName_u">캐시 이름 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" id="proxyCacheName_u" name="proxyCacheName" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxyCacheType_u">캐시 종류 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" id="proxyCacheType_u" name="proxyCacheType" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxyCacheDirectory_u">캐시 디렉토리 <span class="text-danger">(*)</span></label>
+                                                <input type="text" class="form-control" id="proxyCacheDirectory_u" name="proxyCacheDirectory" readonly />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="metaSizeX_u">타일 가로 크기 <span class="text-danger">(*)</span></label>
+                                                <input type="number" class="form-control" id="metaSizeX_u" name="metaSizeX" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="metaSizeY_u">타일 세로 크기 <span class="text-danger">(*)</span></label>
+                                                <input type="number" class="form-control" id="metaSizeY_u" name="metaSizeY" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="metaBuffer_u">타일 버퍼 크기 <span class="text-danger">(*)</span></label>
+                                                <input type="number" class="form-control" id="metaBuffer_u" name="metaBuffer" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="proxySourcesWithCaches_u">캐시 연계 소스 <span class="text-danger">(*)</span></label>
+                                                <select class="form-control" id="proxySourcesWithCaches_u" name="proxySourcesWithCaches" multiple>
+                                                    <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
+                                                </select>
+                                            </div>
+
+                                            <p><span class="text-danger">(*)</span> : 해당 데이터는 반드시 입력 되어야 합니다.</p>
+                                        </div>
+
+                                        <div class="modal-body" th:unless="${ #lists.size(sourceMap) > 0 }">
+                                            <div class="jumbotron">
+                                                <h1 class="display-4">
+                                                    <i class="fas fa-times-circle"></i> Error
+                                                </h1>
+                                                <p class="lead">추가 된 리소스 (Source) 데이터가 없습니다. 리소스 데이터를 추가하고 다시 시도 바랍니다.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                <i class="fas fa-times"></i> 취소
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-save"></i> 저장
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Data Updating Modal - CACHE 끝 -->
+
+                        <!-- Data List Table - CACHE 시작 -->
+                        <table id="list_table_cache" class="table basic my-1">
+                            <thead class="table-info">
+                            <tr>
+                                <th scope="col" class="text-center">이름</th>
+                                <th scope="col" class="text-center">종류</th>
+                                <th scope="col" class="text-center">수정 및 삭제</th>
+                                <th scope="col" class="text-center">설정 적용</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="cache : ${ cacheMap }">
+                                <td class="text-center align-middle" th:text="${ cache.name }"></td>
+                                <td class="text-center align-middle" th:text="${ cache.cacheType }"></td>
+                                <td class="text-center align-middle">
+                                    <button th:id="${ 'cacheUpdate' + cache.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#cacheDataUpdate">
+                                        <i class="fas fa-cog"></i>
+                                    </button>
+                                    <script th:inline="javascript">
+                                        var c_json[[${cache.id}]] = /*[[${ cache }]]*/ {};
+                                        document.getElementById('cacheUpdate' + [[${cache.id}]]).onclick = function() {
+                                            onclick_update_cache(c_json[[${cache.id}]]);
+                                        };
+                                    </script>
+                                    <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/cache/delete-proxy-cache/' + ${cache.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedCaches', [[${cache.name}]])">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!-- Data List Table - CACHE 끝 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 선택 목록 View 시작 -->
+        <div class="col-xl-6">
+
+            <!-- 선택된 레이어 목록 View 시작 -->
+            <div id="layer_select" class="my-2">
+                <p>레이어 선택 <span style="color: red;">(*)</span></p>
+
+                <ul class="list-group" id="selectedLayers">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        데이터 로딩 중
+                        <span class="badge badge-info badge-pill">
+                            <i class="fas fa-sync"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <!-- // 선택된 레이어 목록 View 종료 -->
+
+            <!-- 선택된 소스 목록 View 시작 -->
+            <div id="source_select" class="my-2">
+                <p>소스 선택 <span style="color: red;">(*)</span></p>
+
+                <ul class="list-group" id="selectedSources">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        데이터 로딩 중
+                        <span class="badge badge-info badge-pill">
+                            <i class="fas fa-sync"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <!-- // 선택된 소스 목록 View 종료 -->
+
+            <!-- 선택된 캐시 목록 View 시작 -->
+            <div id="cache_select" class="my-2">
+                <p>캐시 선택</p>
+
+                <ul class="list-group" id="selectedCaches">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        데이터 로딩 중
+                        <span class="badge badge-info badge-pill">
+                            <i class="fas fa-sync"></i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <!-- // 선택된 캐시 목록 View 종료 -->
+
+            <div class="text-right">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="initialize_selected_data()">
+                    <i class="fas fa-sync"></i> 초기화
+                </button>
+
+                <button type="button" class="btn btn-primary btn-sm" onclick="submit_selected_data()">
+                    <i class="fas fa-save"></i> 저장
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- // 선택 목록 View 종료 -->
+
+    <script>
+        var cacheDirectoryPath = '[[${proxyCacheDirectory}]]';
+        var dataDirPath = '[[${dataDirectory}]]';
+    </script>
+</th:block>
+
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css}">
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js}"></script>
+    <script th:src="@{/js/page/proxy-select.js}"></script>
+</th:block>
+</html>

@@ -2,5 +2,56 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jiin.admin.mapper.data.ProxyLayerMapper">
+    <resultMap id="layerAndEachList" type="ProxyLayerDTO">
+        <id property="id" column="ID" />
+        <result property="name" column="NAME" />
+        <result property="title" column="TITLE" />
+        <result property="selected" column="SELECTED" />
+        <result property="isDefault" column="IS_DEFAULT" />
+        <collection property="sources" column="{layerId=ID}" javaType="java.util.ArrayList" ofType="ProxySourceDTO" select="findProxySourceListByLayerId" />
+        <collection property="caches" column="{layerId=ID}" javaType="java.util.ArrayList" ofType="ProxyCacheDTO" select="findProxyCacheListByLayerId" />
+    </resultMap>
 
+    <select id="findNextSeqVal" resultType="long">
+        SELECT NEXTVAL('PROXY_LAYER_SEQ')
+    </select>
+
+    <select id="findAll" resultMap="layerAndEachList">
+        SELECT * FROM _PROXY_LAYER
+    </select>
+
+    <select id="findBySelected" resultType="ProxyLayerDTO">
+        SELECT * FROM _PROXY_LAYER WHERE SELECTED = #{selected}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO _PROXY_LAYER(ID, NAME, TITLE, SELECTED, IS_DEFAULT)
+        VALUES(#{id}, #{name}, #{title}, #{selected}, #{isDefault})
+    </insert>
+
+    <update id="update">
+        UPDATE _PROXY_LAYER SET
+        NAME = #{name}, TITLE = #{title}, SELECTED = #{selected}, IS_DEFAULT = #{isDefault}
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM _PROXY_LAYER WHERE ID = #{id}
+    </delete>
+
+    <select id="findProxySourceListByLayerId" parameterType="java.util.Map" resultType="ProxySourceDTO">
+        SELECT S.*
+        FROM _PROXY_LAYER_SOURCE_RELATION LS
+        LEFT JOIN _PROXY_SOURCE S
+        ON LS.SOURCE_ID = S.ID
+        WHERE LS.LAYER_ID = #{layerId}
+    </select>
+
+    <select id="findProxyCacheListByLayerId" parameterType="java.util.Map" resultType="ProxyCacheDTO">
+        SELECT C.*
+        FROM _PROXY_LAYER_CACHE_RELATION LC
+        LEFT JOIN _PROXY_CACHE C
+        ON LC.CACHE_ID = C.id
+        WHERE LC.LAYER_ID = #{layerId}
+    </select>
 </mapper>

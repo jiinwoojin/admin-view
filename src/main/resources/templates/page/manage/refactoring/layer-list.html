@@ -25,13 +25,13 @@
                     <input type="hidden" name="sz" value="8" />
 
                     <div class="row justify-content-md-center">
-                        <div class="col-md-3 col-sm-12 mb-sm-1">
+                        <div class="col-xl-3 col-lg-5 col-sm-12 mb-sm-1 mb-0">
                             <select id="sb" name="sb" class="form-control form-control-sm">
                                 <option th:each="sb : ${ sbList }" th:text="${ sb.label }" th:value="${ sb.value }" th:selected="${ #strings.equals(param.sb, #strings.toString(sb.value)) }"></option>
                             </select>
                         </div>
 
-                        <div class="col-md-3 col-sm-12">
+                        <div class="col-md-3 col-lg-5 col-sm-12">
                             <div class="input-group">
                                 <input placeholder="검색어를 입력하세요." id="st" name="st" type="text" th:value="${param.st}" class="form-control form-control-sm" />
                                 <span class="input-group-append">
@@ -159,7 +159,7 @@
                                    th:data-name="${ layer.name }"
                                    th:data-description="${ layer.description }"
                                    th:data-projection="${ layer.projection }"
-                                   th:data-middleFolder="${ layer.middleFolder }"
+                                   th:data-middlefolder="${ layer.middleFolder }"
                                    th:data-layertype="${ layer.type }"
                                    th:data-filepath="${ layer.dataFilePath }"
                             >
@@ -232,7 +232,7 @@
     <div class="modal fade" id="layer-create" tabindex="-1" role="dialog" aria-labelledby="insert-layer" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form th:action="@{/view/manage/add-layer}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" enctype="multipart/form-data">
+                <form th:action="@{/view/manage/layer-create}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h5 class="modal-title" id="insert-layer">LAYER 추가</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -268,14 +268,14 @@
                         </div>
                         <div class="form-group">
                             <label for="layer-middle_folder">폴더명</label>
-                            <input type="text" class="form-control" name="middle_folder" id="layer-middle_folder">
+                            <input type="text" class="form-control" name="middleFolder" id="layer-middle_folder">
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-4">
                                 <label class="col-form-label" for="layer-type">레이어 종류</label>
                                 <select class="form-control" name="type" id="layer-type">
-                                    <option value="Raster">Raster</option>
-                                    <option value="Vector">Vector</option>
+                                    <option value="RASTER">Raster</option>
+                                    <option value="VECTOR">Vector</option>
                                 </select>
                             </div>
                             <div class="col-sm-8">
@@ -313,7 +313,7 @@
     <div class="modal fade" id="layer-update" tabindex="-1" role="dialog" aria-labelledby="update-layer" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form th:action="@{/view/manage/update-layer}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this);" enctype="multipart/form-data">
+                <form th:action="@{/view/manage/layer-update}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this);" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h5 class="modal-title" id="update-layer">LAYER 수정</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -344,14 +344,14 @@
                         </div>
                         <div class="form-group">
                             <label for="layer-middle_folder">폴더명</label>
-                            <input type="text" class="form-control" name="middle_folder" id="layer-middle_folder-u">
+                            <input type="text" class="form-control" name="middleFolder" id="layer-middle_folder-u">
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-4">
                                 <label class="col-form-label" for="layer-type">레이어 종류</label>
                                 <select class="form-control" name="type" id="layer-type-u">
-                                    <option value="Raster">Raster</option>
-                                    <option value="Vector">Vector</option>
+                                    <option value="RASTER">Raster</option>
+                                    <option value="VECTOR">Vector</option>
                                 </select>
                             </div>
                             <div class="col-sm-8">
@@ -416,9 +416,9 @@
 
         function preSubmit(form) {
             var action = form.action;
-            if (action.indexOf("add-layer") > -1) {
+            if (action.indexOf("layer-create") > -1) {
                 addLayer(form);
-            } else if(action.indexOf("update-layer") > -1) {
+            } else if(action.indexOf("layer-update") > -1) {
                 return true;
             }
             return false;
@@ -442,14 +442,14 @@
         function delLayer(ths, layerName, layerId) {
             if (confirm("[ " + layerName + " ] Layer 를 제거 하시겠습니까?")) {
                 jQuery.post({
-                    url: CONTEXT + "/view/manage/del-layer",
+                    url: CONTEXT + "/view/manage/layer-delete",
                     data: {layerId : layerId}
                 }).done(function(result) {
                     if (result) {
                         toastr.success("Layer [ " + layerName + " ] 가 제거 되었습니다.");
                         jQuery(ths).parents('.layer-item').remove();
                         if($('.layer-item').length == 7){
-                            window.location.href = CONTEXT + '/view/manage/layer-manage?pg=1&sz=8&lType=ALL';
+                            window.location.href = CONTEXT + '/view/manage/layer-list?pg=1&sz=8&lType=ALL';
                         } else {
                             var total = $('#total');
                             total.html((Number(total.html()) - 1));
@@ -529,16 +529,16 @@
                 popup.find("[name='name']").val(layerName);
                 popup.find("[name='description']").val(layerDescription);
                 popup.find("[name='projection']").val(layerProjection);
-                popup.find("[name='middle_folder']").val(layerMiddleFolder);
-                popup.find("[name='type']").val(type === 'RASTER' ? 'Raster' : 'Vector');
+                popup.find("[name='middleFolder']").val(layerMiddleFolder);
+                popup.find("[name='type']").val(type === 'RASTER' ? 'RASTER' : 'VECTOR');
                 document.getElementById('data_file_path').innerText = filePath;
             } else {
                 popup.find("[name='id']").val(0);
                 popup.find("[name='name']").val('');
                 popup.find("[name='description']").val('');
                 popup.find("[name='projection'] > option").first().attr('selected', 'true');
-                popup.find("[name='middle_folder']").val('');
-                popup.find("[name='type']").val('Raster');
+                popup.find("[name='middleFolder']").val('');
+                popup.find("[name='type']").val('RASTER');
                 document.getElementById('data_file_path').innerText = 'HAS NO DATA.';
             }
         });

@@ -2,5 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jiin.admin.mapper.data.ProxySourceMapper">
+    <select id="findAll" resultType="ProxySourceDTO">
+        SELECT * FROM _PROXY_SOURCE
+    </select>
 
+    <select id="findBySelected" resultType="ProxySourceDTO">
+        SELECT * FROM _PROXY_SOURCE WHERE SELECTED = #{selected}
+    </select>
+
+    <insert id="insert">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT NEXTVAL('PROXY_SOURCE_SEQ')
+        </selectKey>
+        INSERT INTO _PROXY_SOURCE(ID, NAME, TYPE, SELECTED, REQUEST_LAYERS, REQUEST_MAP, MAP_SERVER_BINARY, MAP_SERVER_WORK_DIR)
+        VALUES(#{id}, #{name}, #{type}, #{selected}, #{requestLayers}, #{requestMap}, #{mapServerBinary}, #{mapServerWorkDir})
+    </insert>
+
+    <update id="update">
+        UPDATE _PROXY_SOURCE SET
+        NAME = #{name}, TYPE = #{type}, SELECTED = #{selected}, REQUEST_LAYERS = #{requestLayers}, REQUEST_MAP = #{requestMap}, MAP_SERVER_BINARY = #{mapServerBinary}, MAP_SERVER_WORK_DIR = #{mapServerWorkDir}
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM _PROXY_SOURCE WHERE id = #{id}
+    </delete>
 </mapper>
