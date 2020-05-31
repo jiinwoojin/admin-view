@@ -2315,28 +2315,6 @@ var stmp = {
                 filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Image']]
             },"gl-draw-polygon-fill-inactive.cold")
         }
-        // 라벨 레이어
-        var labelLayer = stmp.mapObject.map.getLayer('milsymbols-layer-label')
-        if(labelLayer === undefined){
-            stmp.mapObject.map.addLayer({
-                id: 'milsymbols-layer-label',
-                type: 'symbol',
-                source: source.id,
-                layout: {
-                    'text-field': ['get', 'label'],
-                    'text-allow-overlap' : true,
-                    "text-size": ['get', 'fontSize'],
-                    'text-rotate': ['get','angle'],
-                    "text-font": ["Gosanja"]
-                },
-                paint: {
-                    "text-color": ['get', 'fontColor'],
-                    "text-halo-color": ['get', 'labelOutlineColor'],
-                    "text-halo-width": ['get', 'labelOutlineWidth'],
-                },
-                filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Label']]
-            },"gl-draw-polygon-fill-inactive.cold")
-        }
         // 라인 레이어
         var lineLayer = stmp.mapObject.map.getLayer('milsymbols-layer-line')
         if(lineLayer === undefined){
@@ -2362,6 +2340,29 @@ var stmp = {
                     "fill-color": ['get', 'fillColor']
                 },
                 filter: ['==', '$type', 'Polygon']
+            },"gl-draw-polygon-fill-inactive.cold")
+        }
+
+        // 라벨 레이어
+        var labelLayer = stmp.mapObject.map.getLayer('milsymbols-layer-label')
+        if(labelLayer === undefined){
+            stmp.mapObject.map.addLayer({
+                id: 'milsymbols-layer-label',
+                type: 'symbol',
+                source: source.id,
+                layout: {
+                    'text-field': ['get', 'label'],
+                    'text-allow-overlap' : true,
+                    "text-size": ['get', 'fontSize'],
+                    'text-rotate': ['get','angle'],
+                    "text-font": ["Gosanja"]
+                },
+                paint: {
+                    "text-color": ['get', 'fontColor'],
+                    "text-halo-color": ['get', 'labelOutlineColor'],
+                    "text-halo-width": ['get', 'labelOutlineWidth'],
+                },
+                filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Label']]
             },"gl-draw-polygon-fill-inactive.cold")
         }
     }
