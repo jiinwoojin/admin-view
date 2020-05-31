@@ -2196,20 +2196,14 @@ var stmp = {
      */
     , milsymbolsChangeSourceData : function(sourceData, drawId, drawGeometry, type){
         var features = sourceData.features
-        var targetFeatures = []
+        var removeFeatures = []
         jQuery.each(features, function(idx, feature){
-            if(feature.properties.drawId === drawId){
-                feature.position = idx
-                targetFeatures.push(feature)
+            if(feature.properties.drawId !== drawId){
+                return
             }
-        })
-        if(targetFeatures.length === 0){
-            return null
-        }
-        jQuery.each(targetFeatures, function(idx, targetFeature){
-            if(targetFeature.geometry.type === "Point") {
+            if(feature.geometry.type === "Point" && feature.properties.type !== "Label") {
                 if(type === "move"){
-                    targetFeature.geometry = drawGeometry
+                    feature.geometry = drawGeometry
                 }else if(type === "draw"){
                     var options = stmp.getMilsymbolOptions()
                     var symbol = new ms.Symbol(options) // 심볼생성
@@ -2220,31 +2214,35 @@ var stmp = {
                         }
                         stmp.mapObject.map.addImage(drawId + "-image",image)
                     })
-                    targetFeature.properties.imageId = drawId + "-image"
+                    feature.properties.imageId = drawId + "-image"
                 }
-            }else if(targetFeature.geometry.type === "LineString"
-                || targetFeature.geometry.type === "MultiLineString"
-                || targetFeature.geometry.type === "Polygon"){
-                var coord = drawGeometry.coordinates
-                stmp.mapObject.map._drawing_milsymbol_coordinates = []
-                var coordinates = stmp.mapObject.map._drawing_milsymbol_coordinates
-                jQuery.each(coord, function(idx, point){
-                    coordinates.push({x:point[0],y:point[1]})
-                })
-                drawMsymbol(-1, 'geoJSON')
-                var data = JSON.parse(stmp.mapObject.map._drawing_milsymbol._geojson)
-                jQuery.each(data.features, function(idx, feature){
-                    feature.properties.drawId = drawId
-                    if(feature.type === "Point"){
-                        feature.properties.type = "Label"
-                    }
-                })
-                sourceData.features.splice(targetFeature.position, 1)
-                sourceData.features = sourceData.features.concat(data.features)
             }else{
-                console.log(targetFeature)
+                feature.position = idx
+                removeFeatures.splice( 0, 0, feature)
             }
         })
+        if(removeFeatures.length > 0){
+            jQuery.each(removeFeatures, function(idx, removeFeature){
+                sourceData.features.splice(removeFeature.position, 1)
+            })
+            //
+            var coord = drawGeometry.coordinates
+            stmp.mapObject.map._drawing_milsymbol_coordinates = []
+            var coordinates = stmp.mapObject.map._drawing_milsymbol_coordinates
+            jQuery.each(coord, function(idx, point){
+                coordinates.push({x:point[0],y:point[1]})
+            })
+            drawMsymbol(-1, 'geoJSON')
+            var data = JSON.parse(stmp.mapObject.map._drawing_milsymbol._geojson)
+            jQuery.each(data.features, function(idx, feature){
+                feature.properties.drawId = drawId
+                if(feature.geometry.type === "Point"){
+                    feature.properties.type = "Label"
+                    feature.properties.labelOffset = [feature.properties.labelXOffset,feature.properties.labelYOffset]
+                }
+            })
+            sourceData.features = sourceData.features.concat(data.features)
+        }
         return sourceData
     }
     , milsymbolsGenerator : function(evt){
@@ -2255,7 +2253,6 @@ var stmp = {
         //
         var options = stmp.mapObject.map._drawing_milsymbol.options
         var coordinates = stmp.mapObject.map._drawing_milsymbol_coordinates
-        var prefixFeatureId = "milsymbols-" + options.sidc + "-" + options._symbol_serial
         var datas = []
         if(geometryType === "Point"){
             var imageData = stmp.mapObject.map._drawing_milsymbol.asCanvas().toDataURL()
@@ -2329,7 +2326,7 @@ var stmp = {
                     'text-field': ['get', 'label'],
                     'text-allow-overlap' : true,
                     "text-size": ['get', 'fontSize'],
-                    'text-rotate': ['get','rotation'],
+                    'text-rotate': ['get','angle'],
                     "text-font": ["Gosanja"]
                 },
                 paint: {
