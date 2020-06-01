@@ -32,26 +32,26 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * LOS 이지훈
- *
+ * 추후 minio 사용시 구현
  */
 @Slf4j
 @Controller
 @RequestMapping("los")
 public class LosController {
 
-    @Value("${project.los.host}")
+    //@Value("${project.los.host}")
     private String losHost;
 
-    @Value("${project.los.heightPort}")
+    //@Value("${project.los.heightPort}")
     private String losPort;
 
-    @Value("${project.los.minioPort}")
+    //@Value("${project.los.minioPort}")
     private String minioPort;
 
-    @Value("${project.los.accessKey}")
+    //@Value("${project.los.accessKey}")
     private String accessKey;
 
-    @Value("${project.los.secretKey}")
+    //@Value("${project.los.secretKey}")
     private String secretKey;
 
     /**

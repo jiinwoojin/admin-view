@@ -1778,7 +1778,7 @@ var stmp = {
                             var label = null
                             var labelX = stmp.getGridLabel(hpos[0], 'lon', type, item.coordStepX, item.labelStepX)
                             var labelY = stmp.getGridLabel(vpos[1], 'lat', type, item.coordStepY, item.labelStepY)
-                            if(jQuery.isEmptyObject(labelX) && jQuery.isEmptyObject(labelY)){
+                            if($.isEmptyObject(labelX) && $.isEmptyObject(labelY)){
                                 return
                             }
                             if(type == "GEOREF"){
@@ -2488,4 +2488,8 @@ var stmp = {
 };
 if (window.stmp === undefined) {
     window.stmp = stmp;
+}
+
+if (stmp.URL === undefined) {
+    stmp.URL = stmp.PROTOCOL + '//' + stmp.SERVER_DOMAIN + (stmp.SERVER_MAP_PORT !== 0 ? ':' + stmp.SERVER_MAP_PORT : '');
 }
