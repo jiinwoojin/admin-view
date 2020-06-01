@@ -194,24 +194,38 @@ public class LayerServiceImpl implements LayerService {
         if(selected == null) return false;
 
         boolean isUploaded = (uploadData != null && uploadData.getSize() > 0);
+        boolean isChanged = !isUploaded && !layerDTO.getMiddleFolder().equals(selected.getMiddleFolder());
 
-        if(isUploaded){
-            String dataFilePath = String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), uploadData.getOriginalFilename());
-            layerDTO.setDataFilePath(dataFilePath.replaceAll(dataPath, ""));
-        }
         layerDTO.setLayerFilePath(selected.getLayerFilePath());
+        String dataFilePath;
+        if(isUploaded){
+            dataFilePath = String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), uploadData.getOriginalFilename());
+        } else if(isChanged) {
+            dataFilePath = selected.getDataFilePath().replace(selected.getMiddleFolder(), layerDTO.getMiddleFolder());
+        } else {
+            dataFilePath = selected.getDataFilePath();
+        }
+        layerDTO.setDataFilePath(dataFilePath.replaceAll(dataPath, ""));
+
         setCommonProperties(layerDTO);
 
         if(layerMapper.update(layerDTO) > 0){
             String layFilePath = String.format("%s%s", dataPath, selected.getLayerFilePath());
 
-            // 새로운 파일이 업로드 되었다면...
+            // 새로운 파일이 업로드 되거나 중간 디렉토리가 교체 되었다면...
             if(isUploaded) {
                 // 1단계. DB 갱신 이후 기존 레이어 리소스 파일 삭제
                 removeLayerResourceFile(selected);
-
                 // 2단계. 파일을 로컬에 옮긴다.
                 transferNewUploadFile(layerDTO, uploadData);
+            }
+
+            // 경로가 바뀌면 위의 로직의 역순서로 진행.
+            if(isChanged) {
+                // 1단계. 파일을 로컬에 옮긴다.
+                FileSystemUtil.moveFile(dataPath + selected.getDataFilePath(), dataPath + layerDTO.getDataFilePath());
+                // 2단계. DB 갱신 이후 기존 레이어 리소스 파일 삭제
+                removeLayerResourceFile(selected);
             }
 
             // *.lay 파일 생성
