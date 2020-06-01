@@ -427,7 +427,7 @@ jiMap.prototype.setBaseStyle = function setBaseStyle() {
             'type' : 'raster',
             'source' : 'world',
             'minzoom' : 0,
-            'maxzoom' : 20
+            'maxzoom' : 22
         }]
     };
 };

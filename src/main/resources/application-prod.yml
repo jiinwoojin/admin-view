@@ -24,7 +24,6 @@ project:
     height-name: jiin-height
     rabbitmq-name: jiin-rabbitmq
   server-port:    # service port
-    admin-view: 11110
     mapproxy-port: 11120
     mapserver-port: 11130
     mapnik-port: 11140
