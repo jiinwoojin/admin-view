@@ -27,7 +27,19 @@ public class Constants {
      */
     public static final String PROXY_SETTING_FILE_PATH = "/proxy";
 
-    public static final String PROXY_SETTING_FILE_NAME = "gis-server-1.yaml";
+    public static final String PROXY_SETTING_FILE_NAME = "mapproxy.yaml";
 
     public static final String PROXY_CACHE_DIRECTORY = "/cache";
+
+    /**
+     * PROXY SEDD YAML 정보
+     */
+    public static final String SEED_SETTING_FILE_NAME = "seed.yaml";
+
+    /**
+     * SERVER INFO 정보
+     */
+    public static final String SERVER_INFO_FILE_PATH = "/conf";
+
+    public static final String SERVER_INFO_FILE_NAME = "server_info.yaml";
 }
