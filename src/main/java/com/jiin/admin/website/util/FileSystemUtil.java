@@ -1,5 +1,6 @@
 package com.jiin.admin.website.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 
 import java.io.BufferedReader;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 // 파일 시스템을 거치는 Utility 메소드 모음.
+@Slf4j
 public class FileSystemUtil {
     /**
      * 운영체제가 Windows 인지 확인하는 함수
@@ -88,20 +90,6 @@ public class FileSystemUtil {
     }
 
     /**
-     * 파일 새로 저장하기 (삭제 후 새 파일 생성)
-     * @param filePath String, context String
-     * @throws IOException Exception
-     */
-    public static void writeContextAtFile(String filePath, String context) throws IOException {
-        // 해당 디렉토리에 파일이 이미 있는 경우만 내용을 채운다.
-        if (FileUtils.getFile(filePath).isFile()) {
-            File file = new File(filePath);
-            FileUtils.write(file, context, "utf-8");
-            if(!isWindowOS()) setFileDefaultPermissions(file.toPath());
-        }
-    }
-
-    /**
      * 파일 내용 불러오기
      * @param filePath String
      * @throws IOException
@@ -126,13 +114,37 @@ public class FileSystemUtil {
      * @param charset  charset
      * @throws IOException exception
      */
-    public static void createAtFile(String filePath, String content, String charset) throws IOException {
+    public static void createAtFile(String filePath, String content, String charset) {
         // 파일이 있을 경우 삭제
-        deleteFile(filePath);
+        try {
+            deleteFile(filePath);
+        } catch (IOException e) {
+            log.error(filePath + " 삭제 불가!");
+        }
 
         File file = new File(filePath);
-        FileUtils.write(file, content, charset);
-        if (!isWindowOS()) setFileDefaultPermissions(file.toPath());
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                log.error(filePath + " 파일 생성 불가");
+            }
+        }
+
+
+        try {
+            FileUtils.write(file, content, charset);
+        } catch (IOException e) {
+            log.error(filePath + " 내용 생성 불가");
+        }
+
+        if (!isWindowOS()) {
+            try {
+                setFileDefaultPermissions(file.toPath());
+            } catch (IOException e) {
+                log.error(filePath + " 권한 설정 불가");
+            }
+        }
     }
 
     /**
@@ -153,6 +165,23 @@ public class FileSystemUtil {
     public static void deleteFile(String filePath) throws IOException {
         if (FileUtils.getFile(filePath).isFile()) {
             FileUtils.forceDelete(FileUtils.getFile(filePath));
+        }
+    }
+
+    /**
+     * 파일 이동
+     * @param beforePath 파일 경로, newPath 파일 경로
+     * @throws IOException Exception
+     */
+    public static void moveFile(String beforePath, String newPath){
+        File bFile = new File(beforePath);
+        String fileName = bFile.getName();
+
+        File nPath = new File(newPath.replace("/" + fileName, ""));
+        try {
+            FileUtils.moveFileToDirectory(bFile, nPath, true);
+        } catch (IOException e) {
+            log.error("파일 옮기기 실패! " + beforePath + " -> " + newPath);
         }
     }
 }

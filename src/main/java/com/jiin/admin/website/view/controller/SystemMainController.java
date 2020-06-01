@@ -1,25 +1,23 @@
 package com.jiin.admin.website.view.controller;
 
-import com.jiin.admin.entity.ServerConnectionEntity;
-import com.jiin.admin.website.model.ServerFormModel;
-import com.jiin.admin.website.view.service.ServerInfoService;
+import com.jiin.admin.config.SessionService;
+import com.jiin.admin.website.model.ServerCenterInfoModel;
+import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("server")
 public class SystemMainController {
     @Autowired
-    private ServerInfoService serverInfoService;
+    private ServerCenterInfoService serverCenterInfoService;
+
+    @Autowired
+    private SessionService sessionService;
 
     @RequestMapping("service-info")
     public String serviceInfoPage(Model model){
@@ -33,40 +31,25 @@ public class SystemMainController {
 
     @RequestMapping("service-address")
     public String addressConfigPage(Model model){
-        List<ServerConnectionEntity> ownConnections = serverInfoService.getOwnRelateConnectionsList();
-        model.addAttribute("ownConnection", serverInfoService.getOwnServerConnection());
-        model.addAttribute("connections", ownConnections);
-        model.addAttribute("connectionIds", ownConnections.stream().map(o -> o.getId()).collect(Collectors.toList()));
-        model.addAttribute("typeConnections", serverInfoService.getOwnAllConnectionsListSameType());
+        model.addAttribute("connections", serverCenterInfoService.loadDataList());
+        model.addAttribute("kinds", serverCenterInfoService.loadKindList());
+        model.addAttribute("zones", serverCenterInfoService.loadZoneList());
+        model.addAttribute("message", sessionService.message());
         return "page/system/service-address";
     }
 
     @RequestMapping(value = "connection-save", method = RequestMethod.POST)
-    public String addressConfigPageSaveLink(ServerFormModel serverFormModel) {
-        if(serverInfoService.serverInfoSave(serverFormModel))
-            return "redirect:service-address";
-        else return "redirect:service-address?error";
+    public String addressConfigPageSaveLink(ServerCenterInfoModel serverCenterInfoModel) {
+        boolean result = serverCenterInfoService.saveData(serverCenterInfoModel);
+        sessionService.message(String.format("SERVER INFO [%s] 저장 %s 하였습니다.", serverCenterInfoModel.getName(), (result ? "성공" : "실패")));
+        return "redirect:service-address";
     }
 
-    @RequestMapping("remove-server/{svrId}")
-    public String serviceRemoveBySvrId(@PathVariable long svrId){
-        if(serverInfoService.serverInfoDelete(svrId))
-            return "redirect:../service-address";
-        else return "redirect:../service-address?error";
-    }
-
-    @RequestMapping(value = "change-relation", method = RequestMethod.POST)
-    public String changeRelationWithSvrIds(HttpServletRequest request){
-        if(request.getParameterMap().keySet().containsAll(Arrays.asList("subSvrIds", "mainSvrId"))) {
-            List<Long> subSvrIds = Arrays.stream(request.getParameterValues("subSvrIds"))
-                                        .map(o -> Long.parseLong(o))
-                                        .collect(Collectors.toList());
-            Long mainSvrId = Long.parseLong(request.getParameter("mainSvrId"));
-            serverInfoService.settingServerRelation(mainSvrId, subSvrIds);
-            return "redirect:service-address";
-        } else {
-            return "redirect:../service-address?error";
-        }
+    @RequestMapping("remove-server")
+    public String serviceRemoveBySvrId(@RequestParam String name){
+        boolean result = serverCenterInfoService.removeDataByName(name);
+        sessionService.message(String.format("SERVER INFO [%s] 삭제 %s 하였습니다.", name, (result ? "성공" : "실패")));
+        return "redirect:service-address";
     }
 
     @RequestMapping("log-manage")
