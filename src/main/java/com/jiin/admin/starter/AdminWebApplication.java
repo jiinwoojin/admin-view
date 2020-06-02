@@ -35,7 +35,6 @@ public class AdminWebApplication extends SpringBootServletInitializer implements
         bootingService.initializeSymbol();
         bootingService.initializeRoles();
         bootingService.initializeAccounts();
-        bootingService.initializeServerConnections(); // 정상작동 하게끔 수정작업 진행.
 
 //        try {
 //            bootingService.initializeCache();

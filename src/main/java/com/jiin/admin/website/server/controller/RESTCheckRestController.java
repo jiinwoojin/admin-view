@@ -1,6 +1,5 @@
 package com.jiin.admin.website.server.controller;
 
-import com.jiin.admin.config.DockerService;
 import com.jiin.admin.website.server.service.CheckService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +10,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("api/check")
-public class CheckRestController {
+public class RESTCheckRestController {
 
     @Resource
     private CheckService service;

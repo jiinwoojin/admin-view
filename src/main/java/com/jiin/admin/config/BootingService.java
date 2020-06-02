@@ -3,17 +3,13 @@ package com.jiin.admin.config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.dto.AccountDTO;
-import com.jiin.admin.dto.ServicePortV2DTO;
-import com.jiin.admin.entity.*;
-import com.jiin.admin.entity.enumeration.ServerType;
-import com.jiin.admin.entity.ServicePortEntity;
-import com.jiin.admin.website.model.ServerConnectionModel;
-import com.jiin.admin.website.model.ServerRelationModel;
-import com.jiin.admin.website.model.ServicePortModel;
+import com.jiin.admin.entity.LayerEntity;
+import com.jiin.admin.entity.MapEntity;
+import com.jiin.admin.entity.RoleEntity;
+import com.jiin.admin.entity.SymbolPositionEntity;
 import com.jiin.admin.website.model.SymbolPositionModel;
 import com.jiin.admin.website.server.mapper.CheckMapper;
 import com.jiin.admin.website.view.mapper.AccountMapper;
-import com.jiin.admin.website.view.mapper.ServiceMapper;
 import com.jiin.admin.website.view.mapper.SymbolMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
@@ -26,7 +22,8 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Date;
+import java.util.Map;
 
 
 @Service
@@ -55,9 +52,6 @@ public class BootingService {
 
     @Resource
     private AccountMapper accountMapper;
-
-    @Resource
-    private ServiceMapper serviceMapper;
 
 //    @Resource
 //    private ManageMapper manageMapper;
@@ -256,119 +250,6 @@ public class BootingService {
         }
         if(checkMapper.countDuplicateRole("USER") < 1){
             accountMapper.insertRole(new RoleEntity(null, "USER", "일반 사용자", false, false, false, false, false));
-        }
-    }
-
-    @Transactional
-    public void initializeServerConnections(){
-        //serviceMapper.truncateTableWithName("_SERVICE_PORT");
-        //serviceMapper.truncateTableWithName("_SERVER_RELATION");
-        //serviceMapper.truncateTableWithName("_SERVER_CONNECTION");
-
-        // 서버 정보 초기화 로직 : 파일 호출 이후 올바른 정보로 대체할 필요는 있음.
-        final List<String> KEY_LIST = Arrays.asList("B1-Svr1", "B1-Svr2", "NB1-Svr1", "NB1-Svr2", "U3-Svr1", "U3-Svr2", "NU3-Svr1", "NU3-Svr2", "GOC-Svr1", "GOC-Svr2", "B1-CDS", "U3-CDS", "B1-Test1", "B1-Test2");
-        for(String key : KEY_LIST){
-            ServerConnectionModel model = null;
-            System.out.println(key);
-            switch(key){
-                case "B1-Svr1" :
-                    model = new ServerConnectionModel(0L, "B1-Svr1", "B1 SI Server 1", ServerType.SI.name(), "192.168.1.141", "11110", "jiapp", "jiin0701!");
-                    break;
-                case "B1-Svr2" :
-                    model = new ServerConnectionModel(0L, "B1-Svr2", "B1 SI Server 2", ServerType.SI.name(), "192.168.1.142", "11110", "jiapp", "jiin0701!");
-                    break;
-                case "NB1-Svr1" :
-                    model = new ServerConnectionModel(0L, "NB1-Svr1", "B1 N-SI Server 1", ServerType.N_SI.name(), "192.168.1.152", "11110", "jiapp", "jiin0701!");
-                    break;
-                case "NB1-Svr2" :
-                    model = new ServerConnectionModel(0L, "NB1-Svr2", "B1 N-SI Server 2", ServerType.N_SI.name(), "192.168.1.153", "11110", "jiapp", "jiin0701!");
-                    break;
-                case "U3-Svr1" :
-                    model = new ServerConnectionModel(0L, "U3-Svr1", "U3 SI Server 1", ServerType.SI.name(), "192.168.1.155", "11110", "jiapp", "jiin0701!");
-                    break;
-                case "U3-Svr2" :
-                    model = new ServerConnectionModel(0L, "U3-Svr2", "U3 SI Server 2", ServerType.SI.name(), "192.168.1.156", "11110", "jiapp", "jiin0701!");
-                    break;
-                case "NU3-Svr1" :
-                    model = new ServerConnectionModel(0L, "NU3-Svr1", "U3 N-SI Server 1", ServerType.N_SI.name(), "192.168.1.158", "11110", "jiapp", "jiin0701!");
-                    break;
-                case "NU3-Svr2" :
-                    model = new ServerConnectionModel(0L, "NU3-Svr2", "U3 N-SI Server 2", ServerType.N_SI.name(), "192.168.1.159", "11110", "jiapp", "jiin0701!");
-                    break;
-                case "GOC-Svr1" :
-                    model = new ServerConnectionModel(0L, "GOC-Svr1", "GOC SI Server 1", ServerType.SI.name(), "192.168.1.161", "11110", "jiapp", "jiin0701!");
-                    break;
-                case "GOC-Svr2" :
-                    model = new ServerConnectionModel(0L, "GOC-Svr2", "GOC SI Server 2", ServerType.SI.name(), "192.168.1.162", "11110", "jiapp", "jiin0701!");
-                    break;
-                case "B1-CDS" :
-                    model = new ServerConnectionModel(0L, "B1-CDS", "B1 CDS", ServerType.CDS.name(), "192.168.1.164", "11110", "jiapp", "jiin0701!");
-                    break;
-                case "U3-CDS" :
-                    model = new ServerConnectionModel(0L, "U3-CDS", "U3 CDS", ServerType.CDS.name(), "192.168.1.165", "11110", "jiapp", "jiin0701!");
-                    break;
-                case "B1-Test1" : // 테스트 데이터
-                    model = new ServerConnectionModel(0L, "B1-Test1", "B1 Test 1", ServerType.SI.name(), "192.168.2.51", "11110", "root", "jiin0701!");
-                    break;
-                case "B1-Test2" : // 테스트 데이터
-                    model = new ServerConnectionModel(0L, "B1-Test2", "B1 Test 2", ServerType.SI.name(), "192.168.2.157", "8090", "root", "jiin0701!");
-                    break;
-            }
-            if(serviceMapper.findServerConnectionByName(key) == null) serviceMapper.insertServerConnectionWithModel(model);
-            else serviceMapper.updateServerConnectionWithModel(model);
-        }
-
-        // 서비스 포트 초기화 로직
-        Map<String, ServerConnectionEntity> map = new HashMap<>();
-        for (String key : KEY_LIST) {
-            ServerConnectionEntity entity = serviceMapper.findServerConnectionByName(key);
-            map.put(key, entity);
-
-            ServicePortEntity portEntity = serviceMapper.findPortConfigBySvrId(entity.getId());
-            if(portEntity == null) {
-                ServicePortModel port = new ServicePortModel();
-                port.setSvrId(entity.getId());
-                serviceMapper.insertServicePortWithModel(port);
-            }
-
-            ServicePortV2Entity portV2Entity = serviceMapper.findBySvrId(entity.getId());
-            if(portV2Entity == null){
-                ServicePortV2DTO port = new ServicePortV2DTO();
-                port.setSvrId(entity.getId());
-                serviceMapper.insertServicePortV2(port);
-            }
-        }
-
-        // 서버 관계 초기화 로직 개선 : 관계 생성
-        final Map<String, List<String>> relations = new HashMap<String, List<String>>(){{
-            put("B1-Svr1", Arrays.asList("B1-Svr1", "B1-Svr2", "B1-CDS", "U3-Svr1", "U3-Svr2", "GOC-Svr1", "GOC-Svr2"));
-            put("B1-Svr2", Arrays.asList("B1-Svr1", "B1-Svr2", "B1-CDS", "U3-Svr1", "U3-Svr2", "GOC-Svr1", "GOC-Svr2"));
-            put("U3-Svr1", Arrays.asList("B1-Svr1", "B1-Svr2", "U3-Svr1", "U3-Svr2", "U3-CDS", "GOC-Svr1", "GOC-Svr2"));
-            put("U3-Svr2", Arrays.asList("B1-Svr1", "B1-Svr2", "U3-Svr1", "U3-Svr2", "U3-CDS", "GOC-Svr1", "GOC-Svr2"));
-            put("GOC-Svr1", Arrays.asList("B1-Svr1", "B1-Svr2", "U3-Svr1", "U3-Svr2", "GOC-Svr1", "GOC-Svr2"));
-            put("GOC-Svr2", Arrays.asList("B1-Svr1", "B1-Svr2", "U3-Svr1", "U3-Svr2", "GOC-Svr1", "GOC-Svr2"));
-            put("NB1-Svr1", Arrays.asList("NB1-Svr1", "NB1-Svr2", "B1-CDS", "NU3-Svr1", "NU3-Svr2"));
-            put("NB1-Svr2", Arrays.asList("NB1-Svr1", "NB1-Svr2", "B1-CDS", "NU3-Svr1", "NU3-Svr2"));
-            put("NU3-Svr1", Arrays.asList("NB1-Svr1", "NB1-Svr2", "NU3-Svr1", "NU3-Svr2", "U3-CDS"));
-            put("NU3-Svr2", Arrays.asList("NB1-Svr1", "NB1-Svr2", "NU3-Svr1", "NU3-Svr2", "U3-CDS"));
-            put("B1-CDS", Arrays.asList("B1-Svr1", "B1-Svr2", "NB1-Svr1", "NB1-Svr2"));
-            put("U3-CDS", Arrays.asList("U3-Svr1", "U3-Svr2", "NU3-Svr1", "NU3-Svr2"));
-            put("B1-Test1", Arrays.asList("B1-Test1", "B1-Test2", "U3-Svr1", "GOC-Svr1")); // 테스트 데이터
-            put("B1-Test2", Arrays.asList("B1-Test1", "B1-Test2", "U3-Svr1", "GOC-Svr1")); // 테스트 데이터
-        }};
-
-        // 서버 관계 초기화 로직 개선 : 관계에 따른 데이터 추가
-        for(String main : relations.keySet()){
-            List<String> anos = relations.get(main);
-            long mainSvrId = map.get(main).getId();
-            for(String sub : anos){
-                long subSvrId = map.get(sub).getId();
-                if(serviceMapper.countByMainSvrIdAndSubSvrId(mainSvrId, subSvrId) == 0){
-                    serviceMapper.insertServerRelationWithModel(
-                        new ServerRelationModel(0L, mainSvrId, subSvrId)
-                    );
-                }
-            }
         }
     }
 }

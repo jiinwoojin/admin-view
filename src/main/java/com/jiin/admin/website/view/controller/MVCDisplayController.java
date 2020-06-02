@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("display")
-public class DisplayMainController {
+public class MVCDisplayController {
     @RequestMapping("2d-map")
     public String twoDimensionDisplayView(Model model){
         return "page/display/2d-map";

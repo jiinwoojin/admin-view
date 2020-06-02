@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping("symbol")
-public class SymbolController {
+public class MVCSymbolController {
     @Resource
     private SymbolService service;
 
