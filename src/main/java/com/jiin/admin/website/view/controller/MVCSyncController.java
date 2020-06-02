@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("sync")
-public class SyncMainController {
+public class MVCSyncController {
     @RequestMapping("database")
     public String serviceShutdownPage(Model model){
         return "page/sync/database";

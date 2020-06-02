@@ -33,10 +33,6 @@
 		<typeAlias alias="PLCRelationDTO" type="com.jiin.admin.dto.ProxyLayerCacheRelationDTO" />
 		<typeAlias alias="PCSRelationDTO" type="com.jiin.admin.dto.ProxyCacheSourceRelationDTO" />
 
-		<!-- Server Structure Based DTO -->
-		<typeAlias alias="ServerConnectionDTO" type="com.jiin.admin.dto.ServerConnectionDTO" />
-		<typeAlias alias="ServerRelationDTO" type="com.jiin.admin.dto.ServerRelationDTO" />
-
 		<!-- Account Based DTO -->
  		<typeAlias alias="AccountDTO" type="com.jiin.admin.dto.AccountDTO" />
 		<typeAlias alias="RoleDTO" type="com.jiin.admin.dto.RoleDTO" />
