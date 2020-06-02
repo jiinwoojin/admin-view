@@ -25,7 +25,7 @@
         <!-- 서버 주소 선택 시작 -->
         <div class="col-md-6">
             <h3 class="section-tit my-2">서버 주소 선택</h3>
-            <div class="text-right mb-2">.
+            <div class="text-right mb-2">
                 <button type="button" class="btn btn-primary" onclick="onclick_initialize_button('INSERT')">
                     <i class="fas fa-plus"></i> 서버 추가
                 </button>
@@ -34,6 +34,7 @@
             <table id="list_table" class="table table-sm basic my-1">
                 <thead class="table-info">
                 <tr>
+                    <th scope="col" class="text-center">KEY</th>
                     <th scope="col" class="text-center">IP 주소</th>
                     <th scope="col" class="text-center">호스트 이름</th>
                     <th scope="col" class="text-center">서버 ZONE</th>
@@ -43,6 +44,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="connection : ${ connections }">
+                    <td class="text-center align-middle" th:text="${connection.key}">[KEY 값]</td>
                     <td class="text-center align-middle" th:text="${connection.ip}">[IP 주소]</td>
                     <td class="text-center align-middle" th:text="${connection.name}">[호스트 이름]</td>
                     <td class="text-center align-middle" th:switch="${connection.zone}">
@@ -66,7 +68,7 @@
                         >
                             <i class="fas fa-cog"></i>
                         </button>
-                        <a class="btn btn-danger btn-circle btn-sm mx-1" type="button" th:href="@{ '/view/server/remove-server?name=' + ${connection.name} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                        <a class="btn btn-danger btn-circle btn-sm mx-1" type="button" th:href="@{ '/view/server/remove-server?key=' + ${connection.key} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>
@@ -78,6 +80,38 @@
 
         <!-- 서버 주소 편집 시작 -->
         <div class="col-md-6">
+            <div class="form-row mb-2">
+                <h3 class="section-tit my-2">로컬 서버 정보</h3>
+                <div class="form-row mb-1">
+                    <div class="col-6">
+                        <label for="server-name">호스트 이름</label>
+                        <input type="text" class="form-control" th:value="${local.name}" readonly  />
+                    </div>
+
+                    <div class="col-6">
+                        <label for="server-zone">서버 ZONE</label>
+                        <input type="text" class="form-control" th:value="${local.zone == 'GOC' ? '지작사' : local.zone}" readonly />
+                    </div>
+
+                    <div class="col-6">
+                        <label for="server-kind">서버 종류</label>
+                        <input type="text" class="form-control" th:value="${local.kind == 'NSI' ? 'N-SI' : local.kind}" readonly />
+                    </div>
+
+                    <div class="col-6">
+                        <label for="server-ip">IP 주소 이름</label>
+                        <input type="text" class="form-control" th:value="${local.ip}" readonly />
+                    </div>
+
+                    <div class="col-12">
+                        <label for="server-ip">서버 부가 설명</label>
+                        <input type="text" class="form-control" th:value="${local.description}" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+
             <form id="connection-form" method="post" accept-charset="utf-8" action="connection-save">
                 <h3 class="section-tit my-2">서버 관리</h3>
                 <input type="hidden" id="svr-method" name="method" />
@@ -112,9 +146,7 @@
                     </div>
                 </div>
 
-                <hr/>
-
-                <div class="text-right">
+                <div class="text-right mt-2">
                     <button id="cancel-btn" type="button" class="btn btn-secondary" onclick="onclick_initialize_button('cancel')" disabled>
                         <i class="fas fa-times"></i> 취소
                     </button>
@@ -124,80 +156,6 @@
                     </button>
                 </div>
             </form>
-
-            <h3 class="section-tit my-2">포트 설정</h3>
-
-            <div class="form-row mb-1">
-                <div class="col">
-                    <label for="port-postgresql">PostgreSQL</label>
-                    <input type="number" class="form-control" id="port-postgresql" name="postgreSQLPort" readonly />
-                </div>
-                <div class="col">
-                    <label for="port-watchdog">Watchdog</label>
-                    <input type="number" class="form-control" id="port-watchdog" name="watchdogPort" readonly />
-                </div>
-                <div class="col">
-                    <label for="port-watchdog-hb">Watchdog HB</label>
-                    <input type="number" class="form-control" id="port-watchdog-hb" name="watchdogHbPort" readonly />
-                </div>
-                <div class="col">
-                    <label for="port-pcp-process">PCP Process</label>
-                    <input type="number" class="form-control" id="port-pcp-process" name="pcpProcessPort" readonly />
-                </div>
-            </div>
-
-            <div class="form-row mb-1">
-                <div class="col">
-                    <label for="port-pgpool2">PGPool 2</label>
-                    <input type="number" class="form-control" id="port-pgpool2" name="pgPool2Port" readonly />
-                </div>
-                <div class="col">
-                    <label for="port-admin">Admin Server</label>
-                    <input type="number" class="form-control" id="port-admin" name="adminServerPort" readonly />
-                </div>
-                <div class="col">
-                    <label for="port-mapproxy">Map Proxy</label>
-                    <input type="number" class="form-control" id="port-mapproxy" name="mapProxyPort" readonly />
-                </div>
-                <div class="col">
-                    <label for="port-mapserver">Map Server</label>
-                    <input type="number" class="form-control" id="port-mapserver" name="mapServerPort" readonly />
-                </div>
-            </div>
-
-            <div class="form-row mb-1">
-                <div class="col">
-                    <label for="port-vector">Vector Tile</label>
-                    <input type="number" class="form-control" id="port-vector" name="vectorTilePort" readonly />
-                </div>
-                <div class="col">
-                    <label for="port-jiin">Ji-in Height</label>
-                    <input type="number" class="form-control" id="port-jiin" name="jiinHeightPort" readonly />
-                </div>
-                <div class="col">
-                    <label for="port-los">LOS</label>
-                    <input type="number" class="form-control" id="port-los" name="losPort" readonly />
-                </div>
-                <div class="col">
-                    <label for="port-minio">MINIO</label>
-                    <input type="number" class="form-control" id="port-minio" name="minioPort" readonly />
-                </div>
-            </div>
-
-            <div class="form-row mb-1">
-                <div class="col">
-                    <label for="port-mapnik">Mapnik</label>
-                    <input type="number" class="form-control" id="port-mapnik" name="mapnikPort" readonly />
-                </div>
-                <div class="col">
-                    <label for="port-syncthing-tcp">Syncthing TCP</label>
-                    <input type="number" class="form-control" id="port-syncthing-tcp" name="syncthingTcpPort" readonly />
-                </div>
-                <div class="col">
-                    <label for="port-syncthing-udp">Syncthing UDP</label>
-                    <input type="number" class="form-control" id="port-syncthing-udp" name="syncthingUdpPort" readonly />
-                </div>
-            </div>
         </div>
         <!-- // 서버 주소 편집 종료 -->
 

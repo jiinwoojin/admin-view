@@ -9,9 +9,10 @@ import java.util.Map;
 public interface ServerCenterInfoService {
     List<ServerCenterInfo> loadDataList();
     Map<String, Object> loadDataMapZoneBase();
+    ServerCenterInfo loadLocalInfoData();
     String[] loadZoneList();
     String[] loadKindList();
     boolean loadDataHasInFile(String name);
     boolean saveData(ServerCenterInfoModel model);
-    boolean removeDataByName(String name);
+    boolean removeDataByKey(String key);
 }
