@@ -1,4 +1,4 @@
-package com.jiin.admin.website.server.vo;
+package com.jiin.admin.vo;
 
 import lombok.Getter;
 import lombok.Setter;

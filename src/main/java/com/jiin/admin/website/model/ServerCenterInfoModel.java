@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class ServerCenterInfoModel {
     private String method;
+    private String key;
     private String name;
     private String ip;
     private String zone;
@@ -18,8 +19,9 @@ public class ServerCenterInfoModel {
 
     }
 
-    public ServerCenterInfoModel(String method, String name, String ip, String zone, String kind, String description){
+    public ServerCenterInfoModel(String method, String key, String name, String ip, String zone, String kind, String description){
         this.method = method;
+        this.key = key;
         this.name = name;
         this.ip = ip;
         this.zone = zone;
@@ -30,7 +32,7 @@ public class ServerCenterInfoModel {
     public static ServerCenterInfo convertDTO(ServerCenterInfoModel model){
         if(model == null) return null;
         else {
-            return new ServerCenterInfo(model.getName(), model.getIp(), model.getZone(), model.getKind(), model.getDescription());
+            return new ServerCenterInfo(model.getKey(), model.getName(), model.getIp(), model.getZone(), model.getKind(), model.getDescription());
         }
     }
 }

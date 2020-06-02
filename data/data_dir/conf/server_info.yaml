@@ -10,67 +10,40 @@ local:
   description: B1-Svr1    # 설명
 
 remote:
-  count: 7                # 연결된 서버 수
-  server-1:
-    zone: B1
-    kind: SI
-    name: B1-Svr1
-    ip: 192.168.1.141     # dns 명이 될 수도 있음
-    description: B1-Svr1
-  server-2:
+  count: 6                # 연결된 서버 수
+  server-1:               # Key
     zone: B1
     kind: SI
     name: B1-Svr2
     ip: 192.168.1.142     # dns 명이 될 수도 있음
     description: B1-Svr2
-  server-3:
+  server-2:               # Key
     zone: U3
     kind: SI
     name: U3-Svr1
     ip: 192.168.1.155     # dns 명이 될 수도 있음
     description: U3-Svr1
-  server-4:
+  server-3:               # Key
     zone: U3
     kind: SI
     name: U3-Svr2
     ip: 192.168.1.156     # dns 명이 될 수도 있음
     description: U3-Svr2
-  server-5:
+  server-4:               # Key
     zone: GOC
     kind: SI
     name: GOC-Svr1
     ip: 192.168.1.161     # dns 명이 될 수도 있음
     description: GOC-Svr1
-  server-6:
+  server-5:               # Key
     zone: GOC
     kind: SI
     name: GOC-Svr2
     ip: 192.168.1.162     # dns 명이 될 수도 있음
     description: GOC-Svr2
-  server-7:
+  server-6:               # Key
     zone: B1
     kind: CDS
     name: CDS-B1
     ip: 192.168.1.164     # dns 명이 될 수도 있음
     description: CDS-B1
-
-port:
-  http: 80
-  https: 443
-  postgresql-osm: 5430
-  postgresql-basic: 5432
-  watchdog: 9000
-  watchdog-heart-beat: 9694
-  pcp-process: 9898
-  pgpool2: 9999
-  admin-server: 11110
-  mapproxy: 11120
-  mapserver: 11130
-  mapnik: 11140
-  terrain-server: 11150
-  jiin-height: 11160
-  tegola: 11170
-  syncthing-tcp: 22000
-  syncthing-udp: 21027
-  rabbitmq-tcp1: 5672
-  rabbitmq-tcp2: 15672

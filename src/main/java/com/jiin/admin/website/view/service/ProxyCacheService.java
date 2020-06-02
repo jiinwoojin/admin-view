@@ -2,7 +2,7 @@ package com.jiin.admin.website.view.service;
 
 import com.jiin.admin.website.model.ProxySelectModel;
 
-public interface ProxyService {
+public interface ProxyCacheService {
     String loadDataDir();
     String loadProxyMainDir();
 

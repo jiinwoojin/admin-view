@@ -62,7 +62,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
             Map<String, Object> remoteMap = (Map<String, Object>) map.get("remote");
             int cnt = (Integer) remoteMap.get("count");
             for(int i = 1; i <= cnt; i++){
-                list.add(ServerCenterInfo.convertDTO((Map<String, Object>) remoteMap.get(String.format("server-%d", i))));
+                list.add(ServerCenterInfo.convertDTO("server-" + i, (Map<String, Object>) remoteMap.get(String.format("server-%d", i))));
             }
             return list;
         } else return new ArrayList<>();
@@ -173,6 +173,22 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     }
 
     /**
+     * YAML 파일을 기반으로 대시보드를 위한 서버 목록을 형성한다.
+     * @param
+     */
+    @Override
+    public Map<String, Object> loadDataMapZoneBase() {
+        List<ServerCenterInfo> servers = this.loadDataListAtYAMLFile();
+        Map<String, Object> map = new LinkedHashMap<>();
+        for(ServerCenterInfo server : servers){
+            List<ServerCenterInfo> tmpList = (List<ServerCenterInfo>) map.getOrDefault(server.getZone(), new ArrayList<ServerCenterInfo>());
+            tmpList.add(server);
+            map.put(server.getZone(), tmpList);
+        }
+        return map;
+    }
+
+    /**
      * YAML 파일을 기반으로 중복 여부를 확인한다.
      * @param name String
      */
@@ -219,6 +235,6 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
 
 
     /**
-     * YAML 파일을 기반으로 포트 번호 목록을 불러온다.
+     * YAML 파일을 기반으로 포트 번호 목록을 불러온다. [구현 예정 : Port 값만 보여주는 기능.]
      */
 }

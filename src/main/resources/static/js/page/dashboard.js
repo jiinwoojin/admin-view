@@ -5,6 +5,18 @@ $(function () {
     find_by_center_refresh_server('GOC');
 });
 
+// 센터 별 초기화를 위한 함수이다.
+function find_by_center_refresh_server(center){
+    var dom = document.getElementById(`${center}_SERVER_STATUS`);
+    if(dom){
+        var select = document.getElementById(center + "_change_server");
+        var options = select.options;
+        if(options.length <= 1) return;
+        $("#" + center + "_change_server").val(options[1].value);
+        onchange_refresh_server(select);
+    }
+}
+
 // 메시지 별 (LOADING, ERROR) 렌더링
 function msg_initialize(center, msg){
     document.getElementById(center + '_usedCapacity').innerHTML = msg == 'LOADING' ? '<i class="fas fa-spin fa-spinner"></i>' : '<i class="fas fa-question"></i>';
@@ -23,55 +35,39 @@ function msg_initialize(center, msg){
 }
 
 // 공통으로 부를 ajax
-function ajax_request(key, center){
+function ajax_request(ip, port, center){
     $.ajax({
-        url: CONTEXT + '/server/api/dashboard/connection/' + key,
+        url: (port == null) ? `https://${ip}${CONTEXT}/server/api/dashboard/performance` : `http://${ip}:${port}${CONTEXT}/server/api/dashboard/performance`,
         type: 'GET',
         contentType: 'application/json',
-        success: function (res) {
-            var ipAddr = res.ipAddress;
-            var port = res.port;
-            $.ajax({
-                // '11110' 하드코딩 수정 필요 요망.
-                url: `http://${ipAddr}:${(port == null || '11110')}` + CONTEXT + '/server/api/dashboard/performance',
-                type: 'GET',
-                contentType: 'application/json',
-                success: function (connection) {
-                    if(connection){
-                        for(var k in connection){
-                            if(!k.endsWith('status')) {
-                                document.getElementById(center + '_' + k).innerHTML = `<span>${connection[k]}</span>`;
-                            } else {
-                                switch(connection[k]){
-                                    case "ON" :
-                                        document.getElementById(center + '_serverName').className = 'text-info';
-                                        document.getElementById(center + '_serverStatus').className = 'text-info';
-                                        document.getElementById(center + '_serverStatus').innerHTML = '<i class="fas fa-check-circle"></i>';
-                                        break;
-                                    case "OFF" :
-                                        document.getElementById(center + '_serverName').className = 'text-danger';
-                                        document.getElementById(center + '_serverStatus').className = 'text-danger';
-                                        document.getElementById(center + '_serverStatus').innerHTML = '<i class="fas fa-check-times"></i>';
-                                        break;
-                                    case "ERROR" :
-                                        document.getElementById(center + '_serverName').className = 'text-danger';
-                                        document.getElementById(center + '_serverStatus').className = 'text-danger';
-                                        document.getElementById(center + '_serverStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
-                                        break;
-                                }
-                            }
+        success: function (connection) {
+            if(connection){
+                for(var k in connection){
+                    if(!k.endsWith('status')) {
+                        document.getElementById(center + '_' + k).innerHTML = `<span>${connection[k]}</span>`;
+                    } else {
+                        switch(connection[k]){
+                            case "ON" :
+                                document.getElementById(center + '_serverName').className = 'text-info';
+                                document.getElementById(center + '_serverStatus').className = 'text-info';
+                                document.getElementById(center + '_serverStatus').innerHTML = '<i class="fas fa-check-circle"></i>';
+                                break;
+                            case "OFF" :
+                                document.getElementById(center + '_serverName').className = 'text-danger';
+                                document.getElementById(center + '_serverStatus').className = 'text-danger';
+                                document.getElementById(center + '_serverStatus').innerHTML = '<i class="fas fa-check-times"></i>';
+                                break;
+                            case "ERROR" :
+                                document.getElementById(center + '_serverName').className = 'text-danger';
+                                document.getElementById(center + '_serverStatus').className = 'text-danger';
+                                document.getElementById(center + '_serverStatus').innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+                                break;
                         }
                     }
-                },
-                error: function(e){
-                    msg_initialize(center, 'ERROR');
-                },
-                beforeSend: function(){
-                    msg_initialize(center, 'LOADING');
                 }
-            });
+            }
         },
-        error: function (e) {
+        error: function(e){
             msg_initialize(center, 'ERROR');
         },
         beforeSend: function(){
@@ -80,20 +76,11 @@ function ajax_request(key, center){
     });
 }
 
-// 센터 별 초기화를 위한 함수이다.
-function find_by_center_refresh_server(center){
-    var dom = document.getElementById(`${center}_SERVER_STATUS`);
-    if(dom){
-        var key = $("#" + center + "_change_server").val();
-        if(key) ajax_request(key, center);
-    }
-}
-
 // 버튼과 셀렉트 폼과 같이 사용.
 function onchange_refresh_server(dom){
-    var key = dom.value;
-    var center = '';
+    var val = dom.value;
 
+    var center;
     // 버튼과 셀렉트 둘 다 id 는 센터로 시작한다.
     if(dom.id.startsWith('B1')){
         center = 'B1';
@@ -104,9 +91,16 @@ function onchange_refresh_server(dom){
     }
 
     // 버튼일 때를 대비한다.
-    if(!key) {
-        key = document.getElementById(center + "_change_server").value;
-        $('#' + center + '_SERVER_PILL1').tab('show');
+    if(!val){
+        val = document.getElementById(center + "_change_server").value;
     }
-    ajax_request(key, center);
+
+    if(val !== '') {
+        var split = val.split('|');
+        var ip = split[2];
+
+        $('#' + center + '_SERVER_PILL1').tab('show');
+
+        ajax_request(ip, 11110, center);
+    }
 }

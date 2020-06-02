@@ -1,4 +1,4 @@
-package com.jiin.admin.website.server.mapper;
+package com.jiin.admin.mapper.data;
 
 import com.jiin.admin.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;

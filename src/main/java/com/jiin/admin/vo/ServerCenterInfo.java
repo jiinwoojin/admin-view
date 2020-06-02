@@ -10,6 +10,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class ServerCenterInfo {
+    private String key;
     private String name;
     private String ip;
     private String zone;
@@ -20,7 +21,8 @@ public class ServerCenterInfo {
 
     }
 
-    public ServerCenterInfo(String name, String ip, String zone, String kind, String description){
+    public ServerCenterInfo(String key, String name, String ip, String zone, String kind, String description){
+        this.key = key;
         this.name = name;
         this.ip = ip;
         this.zone = zone;
@@ -28,10 +30,10 @@ public class ServerCenterInfo {
         this.description = description;
     }
 
-    public static ServerCenterInfo convertDTO(Map<String, Object> map){
+    public static ServerCenterInfo convertDTO(String key, Map<String, Object> map){
         if(map == null) return null;
         return new ServerCenterInfo(
-            (String) map.get("name"), (String) map.get("ip"), (String) map.get("zone"), (String) map.get("kind"), (String) map.get("description")
+            key, (String) map.get("name"), (String) map.get("ip"), (String) map.get("zone"), (String) map.get("kind"), (String) map.get("description")
         );
     }
 
