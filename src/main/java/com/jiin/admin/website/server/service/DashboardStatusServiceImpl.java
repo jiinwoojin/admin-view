@@ -1,16 +1,26 @@
 package com.jiin.admin.website.server.service;
 
 import com.jiin.admin.Constants;
+import com.jiin.admin.vo.GeoDockerContainerInfo;
 import com.jiin.admin.vo.ServerBasicPerformance;
 import com.jiin.admin.vo.ServerCenterInfo;
+import com.jiin.admin.website.util.DockerUtil;
 import com.jiin.admin.website.util.LinuxCommandUtil;
 import com.jiin.admin.website.util.YAMLFileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.json.JsonObject;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -18,6 +28,21 @@ import java.util.Map;
 public class DashboardStatusServiceImpl implements DashboardStatusService {
     @Value("${project.data-path}")
     private String dataPath;
+
+    @Value("${project.docker-name.mapserver-name}")
+    private String MAP_SERVER_NAME;
+
+    @Value("${project.docker-name.mapproxy-name}")
+    private String MAP_PROXY_NAME;
+
+    @Value("${project.docker-name.mapnik-name}")
+    private String MAPNIK_NAME;
+
+    @Value("${project.docker-name.height-name}")
+    private String HEIGHT_NAME;
+
+    @Value("${project.docker-name.rabbitmq-name}")
+    private String RABBIT_MQ_NAME;
 
     /**
      * server-info.yaml 에 기재된 로컬 정보를 가져온다.
@@ -101,5 +126,41 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
         }
 
         return sp;
+    }
+
+    /**
+     * 대시보드 화면에 보여줄 서비스 상태를 보여준다. With Docker Container
+     * @param
+     */
+    @Override
+    public Map<String, GeoDockerContainerInfo> loadGeoDockerContainerStatus() {
+        Map<String, GeoDockerContainerInfo> map = new HashMap<>();
+        List<Map<String, JsonObject>> containers = DockerUtil.fetchContainerMetaInfoByProperty("State");
+        for(Map<String, JsonObject> ctn : containers){
+            if(ctn.containsKey("/" + MAP_PROXY_NAME) || ctn.containsKey("/" + MAP_SERVER_NAME) || ctn.containsKey("/" + MAPNIK_NAME) || ctn.containsKey("/" + HEIGHT_NAME)|| ctn.containsKey("/" + RABBIT_MQ_NAME)) {
+                String utcPattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'";
+                SimpleDateFormat sdf = new SimpleDateFormat(utcPattern);
+
+                for(String ctnKey : ctn.keySet()){
+                    String key = ctnKey.replace("/", "");
+                    key = key.toLowerCase();
+                    JsonObject json = ctn.get(ctnKey);
+
+                    Date startTime = null;
+                    Date finishTime = null;
+                    try {
+                        startTime = sdf.parse(json.getString("StartedAt"));
+                        finishTime = sdf.parse(json.getString("FinishedAt"));
+                    } catch (ParseException e) {
+                        log.error("날짜 파싱 오류입니다. 다시 시도 바랍니다.");
+                    }
+
+                    map.put(key, new GeoDockerContainerInfo(
+                        key, json.getString("Status"), json.getBoolean("Running"), json.getBoolean("Restarting"), json.getBoolean("Dead"), startTime, finishTime
+                    ));
+                }
+            }
+        }
+        return map;
     }
 }

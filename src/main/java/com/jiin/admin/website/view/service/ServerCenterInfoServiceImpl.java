@@ -232,9 +232,4 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         infos = infos.stream().filter(o -> !o.getKey().equals(key)).collect(Collectors.toList());
         return this.saveServerInfosAtYAMLFile(infos);
     }
-
-
-    /**
-     * YAML 파일을 기반으로 포트 번호 목록을 불러온다. [구현 예정 : Port 값만 보여주는 기능.]
-     */
 }
