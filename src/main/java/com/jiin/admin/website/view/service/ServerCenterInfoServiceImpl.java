@@ -92,33 +92,25 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
                 return false;
             }
 
-            // 1단계. 내용 변경
-            Map<String, Object> remoteMap = (Map<String, Object>) map.remove("remote");
-            Set<String> keys = new HashSet<>(remoteMap.keySet());
-            for(String key : keys){
-                if(key.contains("server-")) remoteMap.remove(key);
-            }
-
+            // 1단계. remote 내용 변경
+            Map<String, Object> remoteMap = new LinkedHashMap<>();
             int cnt = servers.size();
             remoteMap.put("count", cnt);
             for(int i = 0; i < cnt; i++){
                 remoteMap.put(String.format("server-%d", i + 1), ServerCenterInfo.convertMap(servers.get(i)));
             }
-
             map.put("remote", remoteMap);
 
             Map<String, Object> convertMap = new LinkedHashMap<>();
             convertMap.put("config", map.get("config"));
             convertMap.put("local", map.get("local"));
             convertMap.put("remote", map.get("remote"));
-            convertMap.put("port", map.get("port"));
 
             // 2단계. 새로 저장
             String context = YAMLFileUtil.fetchYAMLStringByMap(convertMap, "BLOCK");
 
             context = context.replace("\nlocal:", "\n\nlocal:");
             context = context.replace("\nremote:", "\n\nremote:");
-            context = context.replace("\nport:", "\n\nport:");
 
             try {
                 FileSystemUtil.createAtFile(mainPath, context);
@@ -189,14 +181,24 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     }
 
     /**
-     * YAML 파일을 기반으로 중복 여부를 확인한다.
-     * @param name String
+     * Local 서버 정보를 가져온다.
+     * @param
      */
     @Override
-    public boolean loadDataHasInFile(String name) {
+    public ServerCenterInfo loadLocalInfoData() {
+        Map<String, Object> map = this.loadMapDataAtYAMLFile();
+        return (map != null) ? ServerCenterInfo.convertDTO("local", (Map<String, Object>) map.get("local")) : null;
+    }
+
+    /**
+     * YAML 파일을 기반으로 중복 여부를 확인한다.
+     * @param key String
+     */
+    @Override
+    public boolean loadDataHasInFile(String key) {
         return this.loadDataListAtYAMLFile().stream()
-                .filter(o -> o.getName() != null)
-                .filter(o -> o.getName().equals(name))
+                .filter(o -> o.getKey() != null)
+                .filter(o -> o.getKey().equals(key))
                 .count() > 0L;
     }
 
@@ -209,11 +211,9 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
         switch(model.getMethod()){
             case "INSERT" :
-                if(this.loadDataHasInFile(model.getName())) return false;
                 infos.add(ServerCenterInfoModel.convertDTO(model));
                 return this.saveServerInfosAtYAMLFile(infos);
             case "UPDATE" :
-                if(!this.loadDataHasInFile(model.getName())) return false;
                 infos = infos.stream().filter(o -> o != null).map(o -> o.getName().equals(model.getName()) ? ServerCenterInfoModel.convertDTO(model) : o).collect(Collectors.toList());
                 return this.saveServerInfosAtYAMLFile(infos);
             default :
@@ -223,13 +223,13 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
 
     /**
      * YAML 파일을 기반으료 서버 설정을 삭제한다.
-     * @param name String
+     * @param key String
      */
     @Override
-    public boolean removeDataByName(String name) {
-        if(!this.loadDataHasInFile(name)) return false;
+    public boolean removeDataByKey(String key) {
+        if(!this.loadDataHasInFile(key)) return false;
         List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
-        infos = infos.stream().filter(o -> !o.getName().equals(name)).collect(Collectors.toList());
+        infos = infos.stream().filter(o -> !o.getKey().equals(key)).collect(Collectors.toList());
         return this.saveServerInfosAtYAMLFile(infos);
     }
 
