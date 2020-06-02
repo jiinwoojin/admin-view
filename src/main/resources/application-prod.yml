@@ -22,7 +22,7 @@ project:
     mapserver-name: jiin-server-1
     mapnik-name: jiin-server-2
     height-name: jiin-height
-    rabbitmq-name: jiin-rabbitmq
+    rabbitmq-name: celery-rabbitmq
   server-port:    # service port
     mapproxy-port: 11120
     mapserver-port: 11130

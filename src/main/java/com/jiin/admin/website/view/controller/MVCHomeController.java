@@ -20,6 +20,7 @@ public class MVCHomeController {
     public String homeMainPageForGuest(Model model){
         model.addAttribute("counter", dataCountService.loadDataCounter());
         model.addAttribute("serverMap", serverCenterInfoService.loadDataMapZoneBase());
+        model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
         model.addAttribute("zones", serverCenterInfoService.loadZoneList());
         return "page/home/dashboard";
     }

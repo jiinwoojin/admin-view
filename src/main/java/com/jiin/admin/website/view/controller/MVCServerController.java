@@ -39,17 +39,24 @@ public class MVCServerController {
         return "page/system/service-address";
     }
 
-    @RequestMapping(value = "connection-save", method = RequestMethod.POST)
-    public String postServiceConnectionSave(ServerCenterInfoModel serverCenterInfoModel) {
-        boolean result = serverCenterInfoService.saveData(serverCenterInfoModel);
-        sessionService.message(String.format("SERVER INFO [%s] 저장 %s 하였습니다.", serverCenterInfoModel.getName(), (result ? "성공" : "실패")));
+    @RequestMapping(value = "local-save", method = RequestMethod.POST)
+    public String postServiceLocalSave(ServerCenterInfoModel serverCenterInfoModel) {
+        boolean result = serverCenterInfoService.saveLocalData(serverCenterInfoModel);
+        sessionService.message(String.format("LOCAL SERVER INFO [%s] 저장 %s 하였습니다.", serverCenterInfoModel.getName(), (result ? "성공" : "실패")));
+        return "redirect:service-address";
+    }
+
+    @RequestMapping(value = "remote-save", method = RequestMethod.POST)
+    public String postServiceRemoteSave(ServerCenterInfoModel serverCenterInfoModel) {
+        boolean result = serverCenterInfoService.saveRemoteData(serverCenterInfoModel);
+        sessionService.message(String.format("REMOTE SERVER INFO [%s] 저장 %s 하였습니다.", serverCenterInfoModel.getName(), (result ? "성공" : "실패")));
         return "redirect:service-address";
     }
 
     @RequestMapping("remove-server")
     public String linkRemoveServerByName(@RequestParam String key){
         boolean result = serverCenterInfoService.removeDataByKey(key);
-        sessionService.message(String.format("SERVER INFO [%s] 삭제 %s 하였습니다.", key, (result ? "성공" : "실패")));
+        sessionService.message(String.format("REMOTE SERVER INFO [%s] 삭제 %s 하였습니다.", key, (result ? "성공" : "실패")));
         return "redirect:service-address";
     }
 

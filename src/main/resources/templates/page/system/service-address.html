@@ -65,6 +65,7 @@
                                 th:data-kind="${connection.kind}"
                                 th:data-ip="${connection.ip}"
                                 th:data-description="${connection.description}"
+                                th:data-key="${connection.key}"
                         >
                             <i class="fas fa-cog"></i>
                         </button>
@@ -80,78 +81,94 @@
 
         <!-- 서버 주소 편집 시작 -->
         <div class="col-md-6">
-            <div class="form-row mb-2">
-                <h3 class="section-tit my-2">로컬 서버 정보</h3>
+            <form id="svr-local-form" method="post" accept-charset="utf-8" action="local-save">
+                <h3 class="section-tit my-2">로컬 서버 설정</h3>
                 <div class="form-row mb-1">
-                    <div class="col-6">
-                        <label for="server-name">호스트 이름</label>
-                        <input type="text" class="form-control" th:value="${local.name}" readonly  />
+                    <div class="col-6 mb-1">
+                        <label for="local-name">호스트 이름</label>
+                        <input type="text" class="form-control" id="local-name" name="name" th:value="${local.name}" readonly  />
                     </div>
 
-                    <div class="col-6">
-                        <label for="server-zone">서버 ZONE</label>
-                        <input type="text" class="form-control" th:value="${local.zone == 'GOC' ? '지작사' : local.zone}" readonly />
-                    </div>
-
-                    <div class="col-6">
-                        <label for="server-kind">서버 종류</label>
-                        <input type="text" class="form-control" th:value="${local.kind == 'NSI' ? 'N-SI' : local.kind}" readonly />
-                    </div>
-
-                    <div class="col-6">
-                        <label for="server-ip">IP 주소 이름</label>
-                        <input type="text" class="form-control" th:value="${local.ip}" readonly />
-                    </div>
-
-                    <div class="col-12">
-                        <label for="server-ip">서버 부가 설명</label>
-                        <input type="text" class="form-control" th:value="${local.description}" readonly />
-                    </div>
-                </div>
-            </div>
-
-            <hr/>
-
-            <form id="connection-form" method="post" accept-charset="utf-8" action="connection-save">
-                <h3 class="section-tit my-2">서버 관리</h3>
-                <input type="hidden" id="svr-method" name="method" />
-                <div class="form-row mb-1">
-                    <div class="col-6">
-                        <label for="server-name">호스트 이름</label>
-                        <input type="text" class="form-control" id="server-name" name="name" readonly />
-                    </div>
-
-                    <div class="col-6">
-                        <label for="server-zone">서버 ZONE</label>
-                        <select class="form-control" id="server-zone" name="zone" disabled>
+                    <div class="col-6 mb-1">
+                        <label for="local-zone">서버 ZONE</label>
+                        <select class="form-control" id="local-zone" name="zone" th:value="${local.zone}" disabled>
                             <option th:each="zone : ${ zones }" th:value="${zone}" th:text="${zone == 'GOC' ? '지작사' : zone}" />
                         </select>
                     </div>
 
-                    <div class="col-6">
-                        <label for="server-kind">서버 종류</label>
-                        <select class="form-control" id="server-kind" name="kind" disabled>
+                    <div class="col-6 mb-1">
+                        <label for="local-kind">서버 종류</label>
+                        <select class="form-control" id="local-kind" name="kind" th:value="${local.kind}" disabled>
                             <option th:each="kind : ${ kinds }" th:value="${kind}" th:text="${kind == 'NSI' ? 'N-SI' : kind}" />
                         </select>
                     </div>
 
-                    <div class="col-6">
-                        <label for="server-ip">IP 주소 이름</label>
-                        <input type="text" class="form-control" id="server-ip" name="ip" readonly />
+                    <div class="col-6 mb-1">
+                        <label for="local-ip">IP 주소</label>
+                        <input type="text" class="form-control" id="local-ip" name="ip" th:value="${local.ip}" readonly />
                     </div>
 
-                    <div class="col-12">
-                        <label for="server-ip">서버 부가 설명</label>
-                        <input type="text" class="form-control" id="server-description" name="description" readonly />
+                    <div class="col-12 mb-1">
+                        <label for="local-description">서버 부가 설명</label>
+                        <input type="text" class="form-control" id="local-description" name="description" th:value="${local.description}" readonly />
                     </div>
                 </div>
 
-                <div class="text-right mt-2">
-                    <button id="cancel-btn" type="button" class="btn btn-secondary" onclick="onclick_initialize_button('cancel')" disabled>
+                <div class="text-right mt-1">
+                    <button id="setting-btn-local" type="button" class="btn btn-info" onclick="onclick_local_edit_button()">
+                        <i class="fas fa-cog"></i> 설정
+                    </button>
+
+                    <button id="save-btn-local" type="submit" class="btn btn-primary" disabled>
+                        <i class="fas fa-save"></i> 저장
+                    </button>
+                </div>
+            </form>
+
+
+            <hr/>
+
+            <form id="svr-remote-form" method="post" accept-charset="utf-8" action="remote-save">
+                <h3 class="section-tit my-2">연동 서버 관리</h3>
+                <input type="hidden" id="svr-method" name="method" />
+                <input type="hidden" id="remote-key" name="key" />
+                <div class="form-row mb-1">
+                    <div class="col-6 mb-1">
+                        <label for="remote-name">호스트 이름</label>
+                        <input type="text" class="form-control" id="remote-name" name="name" readonly />
+                    </div>
+
+                    <div class="col-6 mb-1">
+                        <label for="remote-zone">서버 ZONE</label>
+                        <select class="form-control" id="remote-zone" name="zone" disabled>
+                            <option th:each="zone : ${ zones }" th:value="${zone}" th:text="${zone == 'GOC' ? '지작사' : zone}" />
+                        </select>
+                    </div>
+
+                    <div class="col-6 mb-1">
+                        <label for="remote-kind">서버 종류</label>
+                        <select class="form-control" id="remote-kind" name="kind" disabled>
+                            <option th:each="kind : ${ kinds }" th:value="${kind}" th:text="${kind == 'NSI' ? 'N-SI' : kind}" />
+                        </select>
+                    </div>
+
+                    <div class="col-6 mb-1">
+                        <label for="remote-ip">IP 주소 이름</label>
+                        <input type="text" class="form-control" id="remote-ip" name="ip" readonly />
+                    </div>
+
+                    <div class="col-12 mb-1">
+                        <label for="remote-description">서버 부가 설명</label>
+                        <input type="text" class="form-control" id="remote-description" name="description" readonly />
+                    </div>
+                </div>
+
+                <div class="text-right mt-1">
+                    <button id="cancel-btn-remote" type="button" class="btn btn-secondary" onclick="onclick_initialize_button('cancel')" disabled>
                         <i class="fas fa-times"></i> 취소
                     </button>
 
-                    <button id="save-btn" type="submit" class="btn btn-primary" disabled>
+                    <button id="save-btn-remote" type="submit" class="btn btn-primary" disabled>
                         <i class="fas fa-save"></i> 저장
                     </button>
                 </div>
@@ -162,9 +179,9 @@
     </div>
 
     <script th:inline="javascript">
-        var initIds = /*[[${connectionIds}]]*/ {};
-        var initTypeCons = /*[[${typeConnections}]]*/ {};
         var message = /*[[ ${message} ]]*/ null;
+        var localMain = /*[[ ${local} ]]*/ null;
+        var localEditable = false;
     </script>
     <script>
         $(document).ready(function() {
@@ -174,80 +191,84 @@
             initialize_dataTable('list_table');
         });
 
-        // 서버 주소 편집 버튼 클릭 시 실행되는 함수
+        // 로컬 서버 주소 편집 버튼 클릭 시 실행되는 함수
+        function onclick_local_edit_button(){
+            localEditable = !localEditable;
+
+            document.getElementById('save-btn-local').disabled = !localEditable;
+
+            if(localEditable){
+                document.getElementById('setting-btn-local').className = "btn btn-secondary";
+                document.getElementById('setting-btn-local').innerHTML = '<i class="fas fa-times"></i> 취소';
+            } else {
+                document.getElementById('setting-btn-local').className = "btn btn-info";
+                document.getElementById('setting-btn-local').innerHTML = '<i class="fas fa-cog"></i> 설정';
+            }
+
+            var serverZone = document.getElementById('local-zone');
+            var serverKind = document.getElementById('local-kind');
+            serverZone.disabled = !localEditable;
+            serverKind.disabled = !localEditable;
+
+            for(var dom of $('[id^=local]')){
+                var i = dom.id;
+                if(!i.endsWith('zone') && !i.endsWith('kind')){
+                    if(!localEditable) dom.value = localMain[i.replace('local-', '')];
+                    dom.readOnly = !localEditable;
+                }
+            }
+
+            if(!localEditable){
+                document.getElementById('local-zone').value = localMain && localMain.zone;
+                document.getElementById('local-kind').value = localMain && localMain.kind;
+            }
+        }
+
+        // 연동 서버 주소 편집 버튼 클릭 시 실행되는 함수
         function onclick_server_address_edit(name){
             $('#svr-method').val('UPDATE');
 
-            document.getElementById('cancel-btn').disabled = false;
-            document.getElementById('save-btn').disabled = false;
+            document.getElementById('cancel-btn-remote').disabled = false;
+            document.getElementById('save-btn-remote').disabled = false;
 
             var btn = $("#connectUpdate_" + name);
-            document.getElementById('server-ip').value = btn.data('ip');
-            document.getElementById('server-name').value = name;
-            document.getElementById('server-zone').value = btn.data('zone');
-            document.getElementById('server-kind').value = btn.data('kind');
-            document.getElementById('server-description').value = btn.data('description');
+            document.getElementById('remote-ip').value = btn.data('ip');
+            document.getElementById('remote-name').value = name;
+            document.getElementById('remote-zone').value = btn.data('zone');
+            document.getElementById('remote-kind').value = btn.data('kind');
+            document.getElementById('remote-description').value = btn.data('description');
+            document.getElementById('remote-key').value = btn.data('key');
 
-            var serverZone = document.getElementById('server-zone');
-            var serverKind = document.getElementById('server-kind');
+            var serverZone = document.getElementById('remote-zone');
+            var serverKind = document.getElementById('remote-kind');
             serverZone.disabled = false;
             serverKind.disabled = false;
 
             // 서버 관련 Field Read Only 해제
-            for(var dom of $('[id^=server]')){
+            for(var dom of $('[id^=remote]')){
                 var i = dom.id;
                 if(!i.endsWith('zone') && !i.endsWith('kind')){
                     dom.readOnly = false;
                 }
             }
-
-            // $.ajax({
-            //     url: CONTEXT + '/server/api/server/port/' + id,
-            //     type: 'GET',
-            //     success: function(res){
-            //         document.getElementById('port-postgresql').value = res && res.postgreSQLPort;
-            //         document.getElementById('port-watchdog').value = res && res.watchdogPort;
-            //         document.getElementById('port-watchdog-hb').value = res && res.watchdogHbPort;
-            //         document.getElementById('port-pcp-process').value = res && res.pcpProcessPort;
-            //         document.getElementById('port-pgpool2').value = res && res.pgPool2Port;
-            //         document.getElementById('port-admin').value = res && res.adminServerPort;
-            //         document.getElementById('port-mapproxy').value = res && res.mapProxyPort;
-            //         document.getElementById('port-mapserver').value = res && res.mapServerPort;
-            //         document.getElementById('port-vector').value = res && res.vectorTilePort;
-            //         document.getElementById('port-jiin').value = res && res.jiinHeightPort;
-            //         document.getElementById('port-los').value = res && res.losPort;
-            //         document.getElementById('port-minio').value = res && res.minioPort;
-            //         document.getElementById('port-mapnik').value = res && res.mapnikPort;
-            //         document.getElementById('port-syncthing-tcp').value = res && res.syncthingTcpPort;
-            //         document.getElementById('port-syncthing-udp').value = res && res.syncthingUdpPort;
-            //
-            //         // 포트 관련 Field Read Only 해제
-            //         for(var dom of $('[id^=port]')) {
-            //             dom.readOnly = false;
-            //         }
-            //     },
-            //     error: function(e){
-            //         console.log(e)
-            //     }
-            // });
         }
 
         // 상황에 따른 버튼 상태 초기화
         function onclick_initialize_button(type){
             $('#svr-method').val((type === 'cancel') ? 'NONE' : 'INSERT');
 
-            document.getElementById('cancel-btn').disabled = (type === 'cancel');
-            document.getElementById('save-btn').disabled = (type === 'cancel');
+            document.getElementById('cancel-btn-remote').disabled = (type === 'cancel');
+            document.getElementById('save-btn-remote').disabled = (type === 'cancel');
 
-            document.getElementById('server-zone').value = 'B1';
-            document.getElementById('server-kind').value = 'SI';
+            document.getElementById('remote-zone').value = 'B1';
+            document.getElementById('remote-kind').value = 'SI';
 
-            var serverZone = document.getElementById('server-zone');
-            var serverKind = document.getElementById('server-kind');
+            var serverZone = document.getElementById('remote-zone');
+            var serverKind = document.getElementById('remote-kind');
             serverZone.disabled = (type === 'cancel');
             serverKind.disabled = (type === 'cancel');
 
-            for(var dom of $('[id^=server]')){
+            for(var dom of $('[id^=remote]')){
                 var i = dom.id;
                 if(!i.endsWith('zone') && !i.endsWith('kind')){
                     dom.value = '';

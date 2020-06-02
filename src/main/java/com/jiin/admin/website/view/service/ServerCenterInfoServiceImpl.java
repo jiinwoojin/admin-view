@@ -11,9 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -21,6 +22,16 @@ import java.util.stream.Collectors;
 public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     @Value("${project.data-path}")
     private String dataPath;
+
+    /**
+     * 배열의 인덱스를 바꾸는 메소드
+     * @param
+     */
+    private void swap(String[] arr, int a, int b){
+        String tmp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = tmp;
+    }
 
     /**
      * 서버 설정 기반 YAML 파일을 불러온다.
@@ -70,59 +81,42 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
 
     /**
      * YAML 파일에 서버 정보 데이터들을 저장해서 YAML 파일을 재작성한다.
-     * @param servers List of ServerCenterInfo
+     * @param remotes List of ServerCenterInfo
      */
-    private boolean saveServerInfosAtYAMLFile(List<ServerCenterInfo> servers){
+    private boolean saveServerInfosAtYAMLFile(ServerCenterInfo local, List<ServerCenterInfo> remotes){
         Map<String, Object> map = this.loadMapDataAtYAMLFile();
         if(map == null) return false;
-        if(map.containsKey("remote")) {
-            // 0단계. 백업
-            DateFormat format = new SimpleDateFormat("yyMMdd_hhmmss");
-            Date date = new Date();
-            String nowTime = format.format(date);
 
-            String backupPath = dataPath + Constants.SERVER_INFO_FILE_PATH + "/" + String.format("server_info_%s.yaml", nowTime);
-            String mainPath = dataPath + Constants.SERVER_INFO_FILE_PATH + "/" + Constants.SERVER_INFO_FILE_NAME;
+        String mainPath = dataPath + Constants.SERVER_INFO_FILE_PATH + "/" + Constants.SERVER_INFO_FILE_NAME;
 
-            try {
-                String beforeContext = FileSystemUtil.fetchFileContext(mainPath);
-                FileSystemUtil.createAtFile(backupPath, beforeContext);
-            } catch (IOException e) {
-                log.error("YAML 파일 백업 진행 실패.");
-                return false;
-            }
+        // 1단계. remote 내용 변경
+        Map<String, Object> remoteMap = new LinkedHashMap<>();
+        int cnt = remotes.size();
+        remoteMap.put("count", cnt);
+        for(int i = 0; i < cnt; i++){
+            remoteMap.put(String.format("server-%d", i + 1), ServerCenterInfo.convertMap(remotes.get(i)));
+        }
+        map.put("remote", remoteMap);
 
-            // 1단계. remote 내용 변경
-            Map<String, Object> remoteMap = new LinkedHashMap<>();
-            int cnt = servers.size();
-            remoteMap.put("count", cnt);
-            for(int i = 0; i < cnt; i++){
-                remoteMap.put(String.format("server-%d", i + 1), ServerCenterInfo.convertMap(servers.get(i)));
-            }
-            map.put("remote", remoteMap);
+        Map<String, Object> convertMap = new LinkedHashMap<>();
+        convertMap.put("config", map.get("config"));
+        convertMap.put("local", ServerCenterInfo.convertMap(local));
+        convertMap.put("remote", map.get("remote"));
 
-            Map<String, Object> convertMap = new LinkedHashMap<>();
-            convertMap.put("config", map.get("config"));
-            convertMap.put("local", map.get("local"));
-            convertMap.put("remote", map.get("remote"));
+        // 2단계. 새로 저장
+        String context = YAMLFileUtil.fetchYAMLStringByMap(convertMap, "BLOCK");
 
-            // 2단계. 새로 저장
-            String context = YAMLFileUtil.fetchYAMLStringByMap(convertMap, "BLOCK");
+        context = context.replace("\nlocal:", "\n\nlocal:");
+        context = context.replace("\nremote:", "\n\nremote:");
 
-            context = context.replace("\nlocal:", "\n\nlocal:");
-            context = context.replace("\nremote:", "\n\nremote:");
-
-            try {
-                FileSystemUtil.createAtFile(mainPath, context);
-            } catch (IOException e) {
-                log.error("YAML 파일 생성 진행 실패.");
-                return false;
-            }
-
-            return true;
+        try {
+            FileSystemUtil.createAtFile(mainPath, context);
+        } catch (IOException e) {
+            log.error("YAML 파일 생성 진행 실패.");
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -132,11 +126,18 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     @Override
     public String[] loadZoneList() {
         Map<String, Object> map = this.loadMapDataAtYAMLFile();
+        ServerCenterInfo local = this.loadLocalInfoData();
         if(map == null) return new String[0];
         else {
             Map<String, Object> configMap = (Map<String, Object>) map.get("config");
             String zones = (String) configMap.get("zone");
-            return zones.split(",");
+            String[] zoneArray = zones.split(",");
+            if(local.getZone().equalsIgnoreCase("U3")) swap(zoneArray, 0, 1);
+            if(local.getZone().equalsIgnoreCase("GOC")) {
+                swap(zoneArray, 0, 2);
+                swap(zoneArray, 1, 2);
+            }
+            return zoneArray;
         }
     }
 
@@ -171,6 +172,10 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     @Override
     public Map<String, Object> loadDataMapZoneBase() {
         List<ServerCenterInfo> servers = this.loadDataListAtYAMLFile();
+
+        ServerCenterInfo local = this.loadLocalInfoData();
+        if(local != null) servers.add(0, local);
+
         Map<String, Object> map = new LinkedHashMap<>();
         for(ServerCenterInfo server : servers){
             List<ServerCenterInfo> tmpList = (List<ServerCenterInfo>) map.getOrDefault(server.getZone(), new ArrayList<ServerCenterInfo>());
@@ -203,19 +208,29 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     }
 
     /**
-     * YAML 파일을 기반으로 서버 설정을 추가(INSERT) 및 수정(UPDATE) 한다.
+     * YAML 파일을 기반으로 로컬 서버 설정을 저장한다.
      * @param model ServerCenterInfoModel
      */
     @Override
-    public boolean saveData(ServerCenterInfoModel model) {
+    public boolean saveLocalData(ServerCenterInfoModel model) {
+        List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
+        return this.saveServerInfosAtYAMLFile(ServerCenterInfoModel.convertDTO(model), infos);
+    }
+
+    /**
+     * YAML 파일을 기반으로 연동 서버 설정을 추가(INSERT) 및 수정(UPDATE) 한다.
+     * @param model ServerCenterInfoModel
+     */
+    @Override
+    public boolean saveRemoteData(ServerCenterInfoModel model) {
         List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
         switch(model.getMethod()){
             case "INSERT" :
                 infos.add(ServerCenterInfoModel.convertDTO(model));
-                return this.saveServerInfosAtYAMLFile(infos);
+                return this.saveServerInfosAtYAMLFile(this.loadLocalInfoData(), infos);
             case "UPDATE" :
-                infos = infos.stream().filter(o -> o != null).map(o -> o.getName().equals(model.getName()) ? ServerCenterInfoModel.convertDTO(model) : o).collect(Collectors.toList());
-                return this.saveServerInfosAtYAMLFile(infos);
+                infos = infos.stream().filter(o -> o != null).map(o -> o.getKey().equals(model.getKey()) ? ServerCenterInfoModel.convertDTO(model) : o).collect(Collectors.toList());
+                return this.saveServerInfosAtYAMLFile(this.loadLocalInfoData(), infos);
             default :
                 return false;
         }
@@ -230,6 +245,6 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         if(!this.loadDataHasInFile(key)) return false;
         List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
         infos = infos.stream().filter(o -> !o.getKey().equals(key)).collect(Collectors.toList());
-        return this.saveServerInfosAtYAMLFile(infos);
+        return this.saveServerInfosAtYAMLFile(this.loadLocalInfoData(), infos);
     }
 }
