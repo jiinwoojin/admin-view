@@ -432,6 +432,10 @@ jiFeature.prototype = {
 
 var Geometry = {};
 
+Geometry.create = function create(type, coordinates, options) {
+
+}
+
 /**
  * Point 객체
  * @constructor
@@ -652,7 +656,7 @@ Geometry.destination = function destination(origin, distance, bearing, units) {
 
 /**
  * PI * radian = 180도
- * 1radian = 180 / PI
+ * 1 radian = 180 / PI
  * @param degrees
  * @returns {number}
  */
