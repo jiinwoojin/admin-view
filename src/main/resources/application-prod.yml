@@ -22,14 +22,24 @@ project:
     mapserver-name: jiin-server-1
     mapnik-name: jiin-server-2
     height-name: jiin-height
-    rabbitmq-name: jiin-rabbitmq
-  server-port:    # service port
+    rabbitmq-name: celery-rabbitmq
+  server-port:    # service port (슬라이드 REF - 변경 가능성 있음.)
+    postgresql-osm-port: 5430
+    postgresql-basic-port: 5432
+    watchdog-port: 9000
+    watchdog-heart-beat-port: 9694
+    pcp-process-port: 9898
+    pg-pool-port: 9999
     mapproxy-port: 11120
     mapserver-port: 11130
     mapnik-port: 11140
     terrain-port: 11150
     height-port: 11160
     vector-port: 11170
+    syncthing-tcp-port: 22000
+    syncthing-udp-port: 21027
+    rabbitmq-main-port: 5672
+    rabbitmq-sub-port: 15672
 
 logging:
   pattern:

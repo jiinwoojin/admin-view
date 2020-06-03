@@ -13,6 +13,7 @@ public interface ServerCenterInfoService {
     String[] loadZoneList();
     String[] loadKindList();
     boolean loadDataHasInFile(String name);
-    boolean saveData(ServerCenterInfoModel model);
+    boolean saveLocalData(ServerCenterInfoModel model);
+    boolean saveRemoteData(ServerCenterInfoModel model);
     boolean removeDataByKey(String key);
 }

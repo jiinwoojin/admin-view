@@ -102,7 +102,7 @@
 
         <div class="row mb-2">
             <div class="col-md-4 col-sm-12" th:if="${ zones.length > 0 }" th:each="zone : ${ zones }" th:id="${ zone + '_SERVER_STATUS' }">
-                <div class="ibox" th:if="${ serverMap.get(zone) != null }">
+                <div class="ibox" th:if="${ serverMap.get(zone) != null }" th:style="${ local.zone == zone ? 'border: 3px solid #0386A3; border-radius: 3px;' : ''}">
                     <div class="ibox-title">
                         <h3 class="section_tit" th:id="${ zone + '_serverName' }"></h3>
                         <div class="ibox-tools">
@@ -197,7 +197,7 @@
                     </div>
                 </div>
 
-                <div class="ibox" th:unless="${ serverMap.get(zone) != null }">
+                <div class="ibox" th:unless="${ serverMap.get(zone) != null }" th:style="${ local.zone == zone ? 'border: 3px solid #0386A3; border-radius: 3px;' : ''}">
                     <div class="ibox-title">
                         <h3 class="section_tit text-warning">NO EXIST.</h3>
                         <div class="ibox-tools">
@@ -250,7 +250,7 @@
 
         <div class="row">
             <div class="col-xl-4" th:each="zone : ${ zones }" th:id="${ zone + '_SYNC_STATUS' }" th:if="${ zones.length > 0 }">
-                <div class="ibox">
+                <div class="ibox" th:style="${ local.zone == zone ? 'border: 3px solid #0386A3; border-radius: 3px;' : ''}">
                     <div class="ibox-title">
                         <h3 class="section_tit" th:id="${ zone + '_serverName' }" th:switch="${ zone }">
                             <span th:case="B1" th:text="${ 'B1 센터 - SI' }"></span>
