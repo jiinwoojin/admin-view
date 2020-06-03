@@ -23,6 +23,7 @@ project:
     mapnik-name: jiin-server-2
     height-name: jiin-height
     rabbitmq-name: celery-rabbitmq
+    nginx-name: jiin-nginx
   server-port:    # service port (슬라이드 REF - 변경 가능성 있음.)
     postgresql-osm-port: 5430
     postgresql-basic-port: 5432

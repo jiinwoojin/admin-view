@@ -18,6 +18,7 @@ project:
   mapserver:
     binary: /usr/local/bin/mapserv
   docker-name:    # docker service name
+    nginx-name: jiin-nginx
     mapproxy-name: jiin-mapproxy
     mapserver-name: jiin-server-1
     mapnik-name: jiin-server-2

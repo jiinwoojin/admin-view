@@ -132,36 +132,42 @@
                                 <li><a class="nav-link active" data-toggle="tab" th:id="${ zone + '_SERVER_PILL1' }" th:href="${ '#' + zone + '_SERVER_TAB1' }">기본사양</a></li>
                                 <li><a class="nav-link" data-toggle="tab" th:id="${ zone + '_SERVER_PILL2' }" th:href="${ '#' + zone + '_SERVER_TAB2' }">서비스 상태</a></li>
                             </ul>
-                            <div class="tab-content">
+                            <div class="tab-content" >
                                 <div role="tabpanel" th:id="${ zone + '_SERVER_TAB1' }" class="tab-pane active fade show">
                                     <div class="panel-body">
-                                        <dl class="row mb-0">
+                                        <dl class="row mb-1">
+                                            <dt class="col-sm-6 text-sm-right">서버 ZONE :</dt>
+                                            <dd class="col-sm-6 text-sm-left">
+                                                <span th:text="${zone}"></span>
+                                            </dd>
+                                        </dl>
+                                        <dl class="row mb-1">
                                             <dt class="col-sm-6 text-sm-right">디스크 :</dt>
-                                            <dd class="col-sm-6 text-sm-left mb-1">
+                                            <dd class="col-sm-6 text-sm-left">
                                                 <span th:id="${ zone + '_usedCapacity' }" th:text="${'LOADING'}"></span> / <span th:id="${ zone + '_totalCapacity' }" th:text="${'LOADING'}"></span> GB
                                             </dd>
                                         </dl>
-                                        <dl class="row mb-0">
+                                        <dl class="row mb-1">
                                             <dt class="col-sm-6 text-sm-right">메모리 :</dt>
-                                            <dd class="col-sm-6 text-sm-left mb-1">
+                                            <dd class="col-sm-6 text-sm-left">
                                                 <span th:id="${ zone + '_usedMemory' }" th:text="${'LOADING'}"></span> / <span th:id="${ zone + '_totalMemory' }" th:text="${'LOADING'}"></span> MB
                                             </dd>
                                         </dl>
-                                        <dl class="row mb-0">
+                                        <dl class="row mb-1">
                                             <dt class="col-sm-6 text-sm-right">사용 가능한 메모리 :</dt>
-                                            <dd class="col-sm-6 text-sm-left mb-1">
+                                            <dd class="col-sm-6 text-sm-left">
                                                 <span th:id="${ zone + '_availableMemory' }" th:text="${'LOADING'}"></span> MB
                                             </dd>
                                         </dl>
-                                        <dl class="row mb-0">
+                                        <dl class="row mb-1">
                                             <dt class="col-sm-6 text-sm-right">CPU 점유율 :</dt>
-                                            <dd class="col-sm-6 text-sm-left mb-1">
+                                            <dd class="col-sm-6 text-sm-left">
                                                 <span th:id="${ zone + '_cpuUsage' }" th:text="${'LOADING'}"></span> %
                                             </dd>
                                         </dl>
-                                        <dl class="row mb-0">
+                                        <dl class="row mb-1">
                                             <dt class="col-sm-6 text-sm-right">서버 접속자 수 :</dt>
-                                            <dd class="col-sm-6 text-sm-left mb-1">
+                                            <dd class="col-sm-6 text-sm-left">
                                                 <span th:id="${ zone + '_connections' }" th:text="${'LOADING'}"></span>
                                             </dd>
                                         </dl>
@@ -169,25 +175,59 @@
                                 </div>
                                 <div role="tabpanel" th:id="${ zone + '_SERVER_TAB2' }" class="tab-pane fade show">
                                     <div class="panel-body">
-                                        <dl class="row mb-0">
-                                            <dt class="col-sm-6 text-sm-right">MapServer 상태 :</dt>
-                                            <dd class="col-sm-6 text-sm-left mb-1"><i class="fas fa-check text-info"></i></dd>
+                                        <dl class="row mb-1">
+                                            <dt class="col-sm-4 text-sm-right">MapServer :</dt>
+                                            <dd class="col-sm-4 text-sm-center">
+                                                <span th:id="${ zone + '_geo_service_text_' + geoMap.get('MAPSERVER') }">UNKNOWN</span>
+                                            </dd>
+                                            <dd class="col-sm-4 text-sm-center">
+                                                <i class="fas fa-question" th:id="${ zone + '_geo_service_icon_' + geoMap.get('MAPSERVER') }"></i>
+                                            </dd>
                                         </dl>
-                                        <dl class="row mb-0">
-                                            <dt class="col-sm-6 text-sm-right">MapProxy 상태 :</dt>
-                                            <dd class="col-sm-6 text-sm-left mb-1"><i class="fas fa-check text-info"></i></dd>
+                                        <dl class="row mb-1">
+                                            <dt class="col-sm-4 text-sm-right">MapProxy :</dt>
+                                            <dd class="col-sm-4 text-sm-center">
+                                                <span th:id="${ zone + '_geo_service_text_' + geoMap.get('MAPPROXY') }">UNKNOWN</span>
+                                            </dd>
+                                            <dd class="col-sm-4 text-sm-center">
+                                                <i class="fas fa-question" th:id="${ zone + '_geo_service_icon_' + geoMap.get('MAPPROXY') }"></i>
+                                            </dd>
                                         </dl>
-                                        <dl class="row mb-0">
-                                            <dt class="col-sm-6 text-sm-right">Terrain Server 상태 :</dt>
-                                            <dd class="col-sm-6 text-sm-left mb-1"><i class="fas fa-times text-danger"></i></dd>
+                                        <dl class="row mb-1">
+                                            <dt class="col-sm-4 text-sm-right">NGINX :</dt>
+                                            <dd class="col-sm-4 text-sm-center">
+                                                <span th:id="${ zone + '_geo_service_text_' + geoMap.get('NGINX') }">UNKNOWN</span>
+                                            </dd>
+                                            <dd class="col-sm-4 text-sm-center">
+                                                <i class="fas fa-question" th:id="${ zone + '_geo_service_icon_' + geoMap.get('NGINX') }"></i>
+                                            </dd>
                                         </dl>
-                                        <dl class="row mb-0">
-                                            <dt class="col-sm-6 text-sm-right">Mapnik 상태 :</dt>
-                                            <dd class="col-sm-6 text-sm-left mb-1"><i class="fas fa-check text-info"></i></dd>
+                                        <dl class="row mb-1">
+                                            <dt class="col-sm-4 text-sm-right">Mapnik :</dt>
+                                            <dd class="col-sm-4 text-sm-center">
+                                                <span th:id="${ zone + '_geo_service_text_' + geoMap.get('MAPNIK') }">UNKNOWN</span>
+                                            </dd>
+                                            <dd class="col-sm-4 text-sm-center">
+                                                <i class="fas fa-question" th:id="${ zone + '_geo_service_icon_' + geoMap.get('MAPNIK') }"></i>
+                                            </dd>
                                         </dl>
-                                        <dl class="row mb-0">
-                                            <dt class="col-sm-6 text-sm-right">Tegola 상태 :</dt>
-                                            <dd class="col-sm-6 text-sm-left mb-1"><i class="fas fa-times text-danger"></i></dd>
+                                        <dl class="row mb-1">
+                                            <dt class="col-sm-4 text-sm-right">RabbitMQ :</dt>
+                                            <dd class="col-sm-4 text-sm-center">
+                                                <span th:id="${ zone + '_geo_service_text_' + geoMap.get('RABBITMQ') }">UNKNOWN</span>
+                                            </dd>
+                                            <dd class="col-sm-4 text-sm-center">
+                                                <i class="fas fa-question" th:id="${ zone + '_geo_service_icon_' + geoMap.get('RABBITMQ') }"></i>
+                                            </dd>
+                                        </dl>
+                                        <dl class="row mb-1">
+                                            <dt class="col-sm-4 text-sm-right">Height :</dt>
+                                            <dd class="col-sm-4 text-sm-center">
+                                                <span th:id="${ zone + '_geo_service_text_' + geoMap.get('HEIGHT') }">UNKNOWN</span>
+                                            </dd>
+                                            <dd class="col-sm-4 text-sm-center">
+                                                <i class="fas fa-question" th:id="${ zone + '_geo_service_icon_' + geoMap.get('HEIGHT') }"></i>
+                                            </dd>
                                         </dl>
                                     </div>
                                 </div>

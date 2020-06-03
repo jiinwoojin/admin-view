@@ -44,6 +44,9 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
     @Value("${project.docker-name.rabbitmq-name}")
     private String RABBIT_MQ_NAME;
 
+    @Value("${project.docker-name.nginx-name}")
+    private String NGINX_NAME;
+
     /**
      * server-info.yaml 에 기재된 로컬 정보를 가져온다.
      * @param
@@ -137,7 +140,7 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
         Map<String, GeoDockerContainerInfo> map = new HashMap<>();
         List<Map<String, JsonObject>> containers = DockerUtil.fetchContainerMetaInfoByProperty("State");
         for(Map<String, JsonObject> ctn : containers){
-            if(ctn.containsKey("/" + MAP_PROXY_NAME) || ctn.containsKey("/" + MAP_SERVER_NAME) || ctn.containsKey("/" + MAPNIK_NAME) || ctn.containsKey("/" + HEIGHT_NAME)|| ctn.containsKey("/" + RABBIT_MQ_NAME)) {
+            if(ctn.containsKey("/" + MAP_PROXY_NAME) || ctn.containsKey("/" + MAP_SERVER_NAME) || ctn.containsKey("/" + MAPNIK_NAME) || ctn.containsKey("/" + HEIGHT_NAME) || ctn.containsKey("/" + RABBIT_MQ_NAME) || ctn.containsKey("/" + NGINX_NAME)) {
                 String utcPattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'";
                 SimpleDateFormat sdf = new SimpleDateFormat(utcPattern);
 
