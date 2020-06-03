@@ -10,14 +10,12 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("api/check")
-public class RESTCheckRestController {
-
+public class RESTCheckController {
     @Resource
     private CheckService service;
 
     @PostMapping("duplicate")
-    public boolean duplicate(@RequestParam("type") String type
-            ,@RequestParam("name") String name){
-        return service.checkDuplicate(type,name);
+    public boolean duplicate(@RequestParam("type") String type, @RequestParam("name") String name){
+        return service.checkDuplicate(type, name);
     }
 }

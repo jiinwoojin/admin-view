@@ -3,6 +3,7 @@ package com.jiin.admin.website.view.controller;
 import com.jiin.admin.config.SessionService;
 import com.jiin.admin.website.model.ServerCenterInfoModel;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
+import com.jiin.admin.website.view.service.ServiceInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,18 +18,35 @@ public class MVCServerController {
     private ServerCenterInfoService serverCenterInfoService;
 
     @Autowired
+    private ServiceInfoService serviceInfoService;
+
+    @Autowired
     private SessionService sessionService;
 
+    /**
+     * 서비스의 등록 정보를 열람하는 페이지.
+     * @param model Model
+     */
     @RequestMapping("service-info")
     public String pageServiceInfo(Model model){
         return "page/system/service-info";
     }
 
+    /**
+     * 서비스의 목록들을 관리하는 페이지
+     * @param model Model
+     */
     @RequestMapping("service-manage")
     public String pageServiceManagement(Model model){
+        model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
+        model.addAttribute("serviceMap", serviceInfoService.loadGeoContainerMap());
         return "page/system/service-manage";
     }
 
+    /**
+     * 서버 로컬, 연동 주소를 관리하는 페이지
+     * @param model Model
+     */
     @RequestMapping("service-address")
     public String pageServiceAddressConfig(Model model){
         model.addAttribute("connections", serverCenterInfoService.loadDataList());
@@ -39,6 +57,10 @@ public class MVCServerController {
         return "page/system/service-address";
     }
 
+    /**
+     * 로컬 주소 정보를 저장하는 POST 요청
+     * @param serverCenterInfoModel ServerCenterInfoModel
+     */
     @RequestMapping(value = "local-save", method = RequestMethod.POST)
     public String postServiceLocalSave(ServerCenterInfoModel serverCenterInfoModel) {
         boolean result = serverCenterInfoService.saveLocalData(serverCenterInfoModel);
@@ -46,6 +68,10 @@ public class MVCServerController {
         return "redirect:service-address";
     }
 
+    /**
+     * 연동 주소 정보를 저장하는 POST 요청
+     * @param serverCenterInfoModel ServerCenterInfoModel
+     */
     @RequestMapping(value = "remote-save", method = RequestMethod.POST)
     public String postServiceRemoteSave(ServerCenterInfoModel serverCenterInfoModel) {
         boolean result = serverCenterInfoService.saveRemoteData(serverCenterInfoModel);
@@ -53,6 +79,10 @@ public class MVCServerController {
         return "redirect:service-address";
     }
 
+    /**
+     * 연동 주소를 삭제하기 위한 링크
+     * @param key String
+     */
     @RequestMapping("remove-server")
     public String linkRemoveServerByName(@RequestParam String key){
         boolean result = serverCenterInfoService.removeDataByKey(key);
@@ -60,6 +90,10 @@ public class MVCServerController {
         return "redirect:service-address";
     }
 
+    /**
+     * 로그 정보를 관리하는 페이지
+     * @param
+     */
     @RequestMapping("log-manage")
     public String pageLogManagement(){
         return "page/system/log-manage";

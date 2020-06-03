@@ -49,6 +49,27 @@ public class DockerUtil {
     }
 
     /**
+     * Docker Container 단일 서비스 상태를 가져온다.
+     * @param name String
+     */
+    public static JsonObject loadContainerByNameAndProperty(String name, String property) throws IOException {
+        final Docker docker = fetchDefaultDocker();
+        final Containers containers = docker.containers();
+
+        for(final Container container : containers){
+            JsonObject json = container.inspect();
+            String ctnName = json.getString("Name");
+            ctnName = ctnName.replace("/", "");
+
+            if(ctnName.equalsIgnoreCase(name)) {
+                return json.getJsonObject(property);
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * 해당 Docker 의 Container 이름으로 서비스 상태를 조정한다.
      * @param name String, method String
      */

@@ -18,133 +18,30 @@
 
 <th:block layout:fragment="content-body-fragment">
     <!-- 서버 상태 조회 시작 -->
-    <div class="row">
-        <div class="col-xl-2 mb-4">
-            <div class="card border-bottom-success shadow h-100 py-2">
-                <div class="card-body text-center">
-                    <div class="text-sm font-weight-bold mb-1 text-success">
-                        <i class="h1 fas fa-check-circle"></i>
-                    </div>
-                    <div class="text-sm font-weight-bold mb-1 text-success">
-                        <span>Map Server</span>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-danger btn-sm mx-1">
-                            <i class="fas fa-power-off"></i>
-                        </button>
-                        <button class="btn btn-success btn-sm mx-1">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-2 mb-4">
-            <div class="card border-bottom-success shadow h-100 py-2">
-                <div class="card-body text-center">
-                    <div class="text-sm font-weight-bold mb-1 text-success">
-                        <i class="h1 fas fa-check-circle"></i>
-                    </div>
-                    <div class="text-sm font-weight-bold mb-1 text-success">
-                        <span>Map Proxy</span>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-danger btn-sm mx-1">
-                            <i class="fas fa-power-off"></i>
-                        </button>
-                        <button class="btn btn-success btn-sm mx-1">
-                            <i class="fas fa-redo"></i>
-                        </button>
+    <div class="row justify-content-md-center">
+        <div class="col-lg-12">
+            <h3 class="text-center section_tit">
+                서비스 상태 조회 및 관리
+            </h3>
+            <div id="carousel">
+                <div th:each="service : ${serviceMap.keySet()}">
+                    <div class="ibox-content mx-1">
+                        <div class="text-sm font-weight-bold mb-1 text-center">
+                            <i class="h1 fas fa-question" th:id="${ 'service-status-icon-' + serviceMap.get(service).name }"></i>
+                        </div>
+                        <div class="text-sm font-weight-bold mb-1 text-center">
+                            <p th:text="${service}"></p>
+                            <p th:text="${serviceMap.get(service).status}" th:id="${ 'service-status-text-' + serviceMap.get(service).name }"></p>
+                        </div>
+                        <div class="text-center">
+                            <button th:id="${ 'service_refresh_' + serviceMap.get(service).name }" class="btn btn-primary btn-sm" th:onclick="onclick_status_refresh([[${serviceMap.get(service).name}]],[[${local.ip}]],[[${serviceMap.get(service).port}]])">
+                                <i class="fas fa-sync"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-xl-2 mb-4">
-            <div class="card border-bottom-success shadow h-100 py-2">
-                <div class="card-body text-center">
-                    <div class="text-sm font-weight-bold mb-1 text-success">
-                        <i class="h1 fas fa-check-circle"></i>
-                    </div>
-                    <div class="text-sm font-weight-bold mb-1 text-success">
-                        <span>Terrain Server</span>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-danger btn-sm mx-1">
-                            <i class="fas fa-power-off"></i>
-                        </button>
-                        <button class="btn btn-success btn-sm mx-1">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-2 mb-4">
-            <div class="card border-bottom-success shadow h-100 py-2">
-                <div class="card-body text-center">
-                    <div class="text-sm font-weight-bold mb-1 text-success">
-                        <i class="h1 fas fa-check-circle"></i>
-                    </div>
-                    <div class="text-sm font-weight-bold mb-1 text-success">
-                        <span>Mapnik</span>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-danger btn-sm mx-1">
-                            <i class="fas fa-power-off"></i>
-                        </button>
-                        <button class="btn btn-success btn-sm mx-1">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-2 mb-4">
-            <div class="card border-bottom-success shadow h-100 py-2">
-                <div class="card-body text-center">
-                    <div class="text-sm font-weight-bold mb-1 text-success">
-                        <i class="h1 fas fa-check-circle"></i>
-                    </div>
-                    <div class="text-sm font-weight-bold mb-1 text-success">
-                        <span>Tegola</span>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-danger btn-sm mx-1">
-                            <i class="fas fa-power-off"></i>
-                        </button>
-                        <button class="btn btn-success btn-sm mx-1">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xl-2 mb-4">
-            <div class="card border-bottom-success shadow h-100 py-2">
-                <div class="card-body text-center">
-                    <div class="text-sm font-weight-bold mb-1 text-success">
-                        <i class="h1 fas fa-check-circle"></i>
-                    </div>
-                    <div class="text-sm font-weight-bold mb-1 text-success">
-                        <span>Docker</span>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-danger btn-sm mx-1">
-                            <i class="fas fa-power-off"></i>
-                        </button>
-                        <button class="btn btn-success btn-sm mx-1">
-                            <i class="fas fa-redo"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
     <!-- // 서버 상태 조회 종료 -->
 
@@ -235,8 +132,80 @@
             $(document).ready(function() {
                 $('#list_table_shutdown,#list_table_restart').each(function () {
                     initialize_dataTable(this.id);
-                })
+                });
+
+                $('#carousel').slick({
+                    infinite: true,
+                    slidesToShow: 6,
+                    slidesToScroll: 6,
+                    centerMode: true,
+                    responsive: [
+                        {
+                            breakpoint: 1440,
+                            settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 3
+                            }
+                        }
+                    ]
+                });
             });
+
+            function display_initialize(service, type){
+                var dom_icon = document.getElementById('service-status-icon-' + service);
+                var dom_text = document.getElementById('service-status-text-' + service);
+                dom_text.innerText = type;
+                dom_text.className = '';
+                dom_icon.className = (type === 'LOADING') ? 'h1 fas fa-spin fa-spinner' : 'h1 fas fa-question';
+            }
+
+            function onclick_status_refresh(service, ip, port){
+                $.ajax({
+                    url: (port !== 0) ? `${CONTEXT}/server/api/service/extension-check?ip=${ip}&port=${port}` : `${CONTEXT}/server/api/service/docker-check?name=${service}`,
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: function(status){
+                        var dom_icon = document.getElementById('service-status-icon-' + service);
+                        var dom_text = document.getElementById('service-status-text-' + service);
+                        dom_text.innerText = status.result.toUpperCase();
+                        switch(status.result.toUpperCase()){
+                            case 'CREATED':
+                                dom_icon.className = 'fas fa-plus-square text-info';
+                                dom_text.className = 'text-info';
+                                break;
+                            case 'RUNNING':
+                                dom_icon.className = 'fas fa-check text-info';
+                                dom_text.className = 'text-info';
+                                break;
+                            case 'RESTARTING':
+                                dom_icon.className = 'fas fa-sync text-warning';
+                                dom_text.className = 'text-warning';
+                                break;
+                            case 'PAUSED':
+                                dom_icon.className = 'fas fa-pause text-warning';
+                                dom_text.className = 'text-warning';
+                                break;
+                            case 'REMOVING':
+                            case 'EXITED':
+                            case 'DEAD':
+                                dom_icon.className = 'fas fa-times-circle text-danger';
+                                dom_text.className = 'text-danger';
+                                break;
+                            default :
+                                dom_icon.className = 'fas fa-question';
+                                dom_text.innerText = 'UNKNOWN';
+                                dom_text.className = '';
+                                break;
+                        }
+                    },
+                    error: function(e){
+                        display_initialize(service, 'UNKNOWN');
+                    },
+                    beforeSend: function(){
+                        display_initialize(service, 'LOADING');
+                    }
+                });
+            }
         </script>
     </div>
     <!-- // 서버 작동 내역 조회 종료 -->
@@ -244,10 +213,13 @@
 
 <th:block layout:fragment="custom-html-link">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/slick/slick.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/slick/slick-theme.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/slick/slick.min.js}"></script>
 </th:block>
 </html>

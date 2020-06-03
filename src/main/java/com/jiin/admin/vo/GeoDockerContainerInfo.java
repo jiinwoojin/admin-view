@@ -7,9 +7,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class GeoDockerContainerInfo {
-    private String name; // Container 이름
-    private String status; // 프로세스 상태
+public class GeoDockerContainerInfo extends GeoContainerInfo {
     private boolean run;
     private boolean restart;
     private boolean dead;
@@ -17,8 +15,7 @@ public class GeoDockerContainerInfo {
     private Date finishTime;
 
     public GeoDockerContainerInfo(){
-        this.name = "UNKNOWN";
-        this.status = "UNKNOWN";
+        super("UNKNOWN", "UNKNOWN", 0);
         this.run = false;
         this.restart = false;
         this.dead = true;
@@ -27,8 +24,7 @@ public class GeoDockerContainerInfo {
     }
 
     public GeoDockerContainerInfo(String name, String status, boolean run, boolean restart, boolean dead, Date startTime, Date finishTime) {
-        this.name = name;
-        this.status = status;
+        super(name, status, 0);
         this.run = run;
         this.restart = restart;
         this.dead = dead;
