@@ -122,13 +122,14 @@ function ajax_request(ip, port, zone){
                             break;
                     }
                 }
+
                 // 나머지는 UNKNOWN 처리.
                 $.each($(`i[id^=${zone}_geo_service_icon_]`), function() {
                     var key = this.id.replace(`${zone}_geo_service_icon_`, '');
                     if(!visited.includes(key)) this.className = 'fas fa-question';
                 });
-                $.each($(`i[id^=${zone}_geo_service_text_]`), function() {
-                    var key = this.id.replace(`${zone}_geo_service_icon_`, '');
+                $.each($(`span[id^=${zone}_geo_service_text_]`), function() {
+                    var key = this.id.replace(`${zone}_geo_service_text_`, '');
                     if(!visited.includes(key)) this.innerText = 'UNKNOWN';
                 });
             }
