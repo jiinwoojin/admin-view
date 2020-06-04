@@ -175,58 +175,13 @@
                                 </div>
                                 <div role="tabpanel" th:id="${ zone + '_SERVER_TAB2' }" class="tab-pane fade show">
                                     <div class="panel-body">
-                                        <dl class="row mb-1">
-                                            <dt class="col-sm-4 text-sm-right">MapServer :</dt>
+                                        <dl class="row mb-1" th:each="service : ${ { 'MapServer', 'MapProxy', 'Ji-in Height', 'Mapnik', 'Nginx', 'RabbitMQ' } }">
+                                            <dt class="col-sm-4 text-sm-right" th:text="${ service + ' :' }">MapServer :</dt>
                                             <dd class="col-sm-4 text-sm-center">
-                                                <span th:id="${ zone + '_geo_service_text_' + geoMap.get('MAPSERVER') }">UNKNOWN</span>
+                                                <span th:id="${ zone + '_geo_service_text_' + geoMap.get(service).name }">UNKNOWN</span>
                                             </dd>
                                             <dd class="col-sm-4 text-sm-center">
-                                                <i class="fas fa-question" th:id="${ zone + '_geo_service_icon_' + geoMap.get('MAPSERVER') }"></i>
-                                            </dd>
-                                        </dl>
-                                        <dl class="row mb-1">
-                                            <dt class="col-sm-4 text-sm-right">MapProxy :</dt>
-                                            <dd class="col-sm-4 text-sm-center">
-                                                <span th:id="${ zone + '_geo_service_text_' + geoMap.get('MAPPROXY') }">UNKNOWN</span>
-                                            </dd>
-                                            <dd class="col-sm-4 text-sm-center">
-                                                <i class="fas fa-question" th:id="${ zone + '_geo_service_icon_' + geoMap.get('MAPPROXY') }"></i>
-                                            </dd>
-                                        </dl>
-                                        <dl class="row mb-1">
-                                            <dt class="col-sm-4 text-sm-right">NGINX :</dt>
-                                            <dd class="col-sm-4 text-sm-center">
-                                                <span th:id="${ zone + '_geo_service_text_' + geoMap.get('NGINX') }">UNKNOWN</span>
-                                            </dd>
-                                            <dd class="col-sm-4 text-sm-center">
-                                                <i class="fas fa-question" th:id="${ zone + '_geo_service_icon_' + geoMap.get('NGINX') }"></i>
-                                            </dd>
-                                        </dl>
-                                        <dl class="row mb-1">
-                                            <dt class="col-sm-4 text-sm-right">Mapnik :</dt>
-                                            <dd class="col-sm-4 text-sm-center">
-                                                <span th:id="${ zone + '_geo_service_text_' + geoMap.get('MAPNIK') }">UNKNOWN</span>
-                                            </dd>
-                                            <dd class="col-sm-4 text-sm-center">
-                                                <i class="fas fa-question" th:id="${ zone + '_geo_service_icon_' + geoMap.get('MAPNIK') }"></i>
-                                            </dd>
-                                        </dl>
-                                        <dl class="row mb-1">
-                                            <dt class="col-sm-4 text-sm-right">RabbitMQ :</dt>
-                                            <dd class="col-sm-4 text-sm-center">
-                                                <span th:id="${ zone + '_geo_service_text_' + geoMap.get('RABBITMQ') }">UNKNOWN</span>
-                                            </dd>
-                                            <dd class="col-sm-4 text-sm-center">
-                                                <i class="fas fa-question" th:id="${ zone + '_geo_service_icon_' + geoMap.get('RABBITMQ') }"></i>
-                                            </dd>
-                                        </dl>
-                                        <dl class="row mb-1">
-                                            <dt class="col-sm-4 text-sm-right">Height :</dt>
-                                            <dd class="col-sm-4 text-sm-center">
-                                                <span th:id="${ zone + '_geo_service_text_' + geoMap.get('HEIGHT') }">UNKNOWN</span>
-                                            </dd>
-                                            <dd class="col-sm-4 text-sm-center">
-                                                <i class="fas fa-question" th:id="${ zone + '_geo_service_icon_' + geoMap.get('HEIGHT') }"></i>
+                                                <i class="fas fa-question" th:id="${ zone + '_geo_service_icon_' + geoMap.get(service).name }"></i>
                                             </dd>
                                         </dl>
                                     </div>

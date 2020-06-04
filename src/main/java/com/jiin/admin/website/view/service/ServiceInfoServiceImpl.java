@@ -54,7 +54,7 @@ public class ServiceInfoServiceImpl implements ServiceInfoService {
         return new LinkedHashMap<String, GeoContainerInfo>() {{
             put("MapServer", new GeoContainerInfo(MAP_SERVER_NAME, "UNKNOWN", 0));
             put("MapProxy", new GeoContainerInfo(MAP_PROXY_NAME, "UNKNOWN", 0));
-            put("Ji-in Height", new GeoContainerInfo(MAPNIK_NAME, "UNKNOWN", 0));
+            put("Ji-in Height", new GeoContainerInfo(HEIGHT_NAME, "UNKNOWN", 0));
             put("RabbitMQ", new GeoContainerInfo(RABBIT_MQ_NAME, "UNKNOWN", 0));
             put("Mapnik", new GeoContainerInfo(MAPNIK_NAME, "UNKNOWN", 0));
             put("Nginx", new GeoContainerInfo(NGINX_NAME, "UNKNOWN", 0));
