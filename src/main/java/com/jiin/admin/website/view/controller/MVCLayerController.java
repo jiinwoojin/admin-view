@@ -34,7 +34,7 @@ public class MVCLayerController {
         model.addAttribute("obList", layerService.loadOrderByOptionList());
         model.addAttribute("sbList", layerService.loadSearchByOptionList());
         model.addAttribute("message", session.message());
-        return "page/manage/refactoring/layer-list";
+        return "page/manage/layer-list";
     }
 
     /**
