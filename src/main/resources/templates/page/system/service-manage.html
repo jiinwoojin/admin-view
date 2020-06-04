@@ -30,7 +30,7 @@
                             <i class="h1 fas fa-question" th:id="${ 'service-status-icon-' + serviceMap.get(service).name }"></i>
                         </div>
                         <div class="text-sm font-weight-bold mb-1 text-center">
-                            <p th:text="${service}"></p>
+                            <p><b th:text="${service}" th:id="${ 'service-status-title-' + serviceMap.get(service).name }"></b></p>
                             <p th:text="${serviceMap.get(service).status}" th:id="${ 'service-status-text-' + serviceMap.get(service).name }"></p>
                         </div>
                         <div class="text-center">
@@ -128,6 +128,10 @@
             </div>
         </div>
 
+        <script th:inline="javascript">
+            var localMain = /*[[ ${local} ]]*/ null;
+        </script>
+
         <script>
             $(document).ready(function() {
                 $('#list_table_shutdown,#list_table_restart').each(function () {
@@ -138,7 +142,6 @@
                     infinite: true,
                     slidesToShow: 6,
                     slidesToScroll: 6,
-                    centerMode: true,
                     responsive: [
                         {
                             breakpoint: 1440,
@@ -149,52 +152,69 @@
                         }
                     ]
                 });
+
+                for(var dom of $('[id^=service_refresh_]')){
+                    dom.click();
+                }
             });
 
             function display_initialize(service, type){
                 var dom_icon = document.getElementById('service-status-icon-' + service);
                 var dom_text = document.getElementById('service-status-text-' + service);
+                var dom_title = document.getElementById('service-status-title-' + service);
+
                 dom_text.innerText = type;
                 dom_text.className = '';
+                dom_title.className = '';
                 dom_icon.className = (type === 'LOADING') ? 'h1 fas fa-spin fa-spinner' : 'h1 fas fa-question';
             }
 
             function onclick_status_refresh(service, ip, port){
                 $.ajax({
-                    url: (port !== 0) ? `${CONTEXT}/server/api/service/extension-check?ip=${ip}&port=${port}` : `${CONTEXT}/server/api/service/docker-check?name=${service}`,
+                    url: (port !== 0) ? `${CONTEXT}/server/api/service/extension-check?ip=${ip}&port=${port}` : `http://${localMain.ip}:11110${CONTEXT}/server/api/service/docker-check?name=${service}`,
                     type: 'GET',
                     contentType: 'application/json',
                     success: function(status){
                         var dom_icon = document.getElementById('service-status-icon-' + service);
                         var dom_text = document.getElementById('service-status-text-' + service);
-                        dom_text.innerText = status.result.toUpperCase();
+                        var dom_title = document.getElementById('service-status-title-' + service);
+
+                        var res = status.result && status.result.toUpperCase();
+                        dom_text.innerText = res ? res : 'UNKNOWN';
+
                         switch(status.result.toUpperCase()){
                             case 'CREATED':
-                                dom_icon.className = 'fas fa-plus-square text-info';
+                                dom_icon.className = 'h1 fas fa-plus-square text-info';
                                 dom_text.className = 'text-info';
+                                dom_title.className = 'text-info';
                                 break;
                             case 'RUNNING':
-                                dom_icon.className = 'fas fa-check text-info';
+                                dom_icon.className = 'h1 fas fa-check text-info';
                                 dom_text.className = 'text-info';
+                                dom_title.className = 'text-info';
                                 break;
                             case 'RESTARTING':
-                                dom_icon.className = 'fas fa-sync text-warning';
+                                dom_icon.className = 'h1 fas fa-sync text-warning';
                                 dom_text.className = 'text-warning';
+                                dom_title.className = 'text-warning';
                                 break;
                             case 'PAUSED':
-                                dom_icon.className = 'fas fa-pause text-warning';
+                                dom_icon.className = 'h1 fas fa-pause text-warning';
                                 dom_text.className = 'text-warning';
+                                dom_title.className = 'text-warning';
                                 break;
                             case 'REMOVING':
                             case 'EXITED':
                             case 'DEAD':
-                                dom_icon.className = 'fas fa-times-circle text-danger';
+                                dom_icon.className = 'h1 fas fa-times-circle text-danger';
                                 dom_text.className = 'text-danger';
+                                dom_title.className = 'text-danger';
                                 break;
                             default :
-                                dom_icon.className = 'fas fa-question';
+                                dom_icon.className = 'h1 fas fa-question';
                                 dom_text.innerText = 'UNKNOWN';
                                 dom_text.className = '';
+                                dom_title.className = '';
                                 break;
                         }
                     },

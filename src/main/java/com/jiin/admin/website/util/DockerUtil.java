@@ -9,10 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import javax.json.JsonObject;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Slf4j
 public class DockerUtil {
@@ -25,13 +24,23 @@ public class DockerUtil {
     }
 
     /**
+     * Docker 에 있는 모든 Container 를 가져온다. 상태가 어떻게 됐든 간에.
+     * @param
+     */
+    private static List<Container> fetchAllContainers(){
+        final Docker docker = fetchDefaultDocker();
+        final Iterator<Container> iter = docker.containers().all();
+
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(iter, Spliterator.ORDERED), false)
+                            .collect(Collectors.toList());
+    }
+
+    /**
      * 현재 Docker 가 가지고 있는 Container 들의 정보 중 일부를 반환한다.
      * @param
      */
     public static List<Map<String, JsonObject>> fetchContainerMetaInfoByProperty(String property){
-        final Docker docker = fetchDefaultDocker();
-        final Containers containers = docker.containers();
-
+        List<Container> containers = fetchAllContainers();
         List<Map<String, JsonObject>> list = new ArrayList<>();
         for(final Container container : containers){
             try {
@@ -53,9 +62,7 @@ public class DockerUtil {
      * @param name String
      */
     public static JsonObject loadContainerByNameAndProperty(String name, String property) throws IOException {
-        final Docker docker = fetchDefaultDocker();
-        final Containers containers = docker.containers();
-
+        List<Container> containers = fetchAllContainers();
         for(final Container container : containers){
             JsonObject json = container.inspect();
             String ctnName = json.getString("Name");
@@ -74,9 +81,7 @@ public class DockerUtil {
      * @param name String, method String
      */
     public static void executeContainerByNameAndMethod(String name, String method) throws IOException {
-        final Docker docker = fetchDefaultDocker();
-        final Containers containers = docker.containers();
-
+        List<Container> containers = fetchAllContainers();
         for(final Container container : containers){
             JsonObject json = container.inspect();
             String ctnName = json.getString("Name");
