@@ -1,12 +1,17 @@
 package com.jiin.admin.website.view.service;
 
 import com.jiin.admin.vo.GeoContainerInfo;
+import com.jiin.admin.website.util.DockerUtil;
+// import com.jiin.admin.website.util.LinuxCommandUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class ServiceInfoServiceImpl implements ServiceInfoService {
     @Value("${project.docker-name.mapserver-name}")
@@ -46,11 +51,11 @@ public class ServiceInfoServiceImpl implements ServiceInfoService {
     private int SYNCTHING_PORT;
 
     /**
-     * 대시보드 화면에서 Docker Container 이름을 기반으로 데이터를 추출하기 위한 Map 을 생성한다.
+     * Docker Container 및 다른 서비스들 이름을 기반으로 데이터를 추출하기 위한 Map 을 생성한다.
      * @param
      */
     @Override
-    public Map<String, GeoContainerInfo> loadGeoContainerMap() {
+    public Map<String, GeoContainerInfo> loadGeoServiceMap() {
         return new LinkedHashMap<String, GeoContainerInfo>() {{
             put("MapServer", new GeoContainerInfo(MAP_SERVER_NAME, "UNKNOWN", 0));
             put("MapProxy", new GeoContainerInfo(MAP_PROXY_NAME, "UNKNOWN", 0));
@@ -65,5 +70,24 @@ public class ServiceInfoServiceImpl implements ServiceInfoService {
             put("Terrain Server", new GeoContainerInfo("terrain_server", "UNKNOWN", TERRAIN_SERVER_PORT));
             put("Syncthing", new GeoContainerInfo("syncthing", "UNKNOWN", SYNCTHING_PORT));
         }};
+    }
+
+    /**
+     * 서비스 이름과 기능을 입력해서 해당 서비스에 대한 명령을 실행한다.
+     * @param
+     */
+    @Override
+    public void executeGeoServiceByNameAndMethod(String name, String method) {
+        // Docker Container 대응
+        if(name.equalsIgnoreCase(MAP_SERVER_NAME) || name.equalsIgnoreCase(MAP_PROXY_NAME) || name.equalsIgnoreCase(MAPNIK_NAME) || name.equalsIgnoreCase(HEIGHT_NAME) || name.equalsIgnoreCase(RABBIT_MQ_NAME) || name.equalsIgnoreCase(NGINX_NAME)){
+            try {
+                DockerUtil.executeContainerByNameAndMethod(name, method);
+            } catch (IOException e) {
+                log.error(String.format("Docker %s Container %s 명령을 실행할 수 없습니다.", name, method));
+            }
+        } else {
+            // 해당 서비스에 대한 리셋 명령어 (아마 종료 명령어와 시작 명령어 동시일 거라 생각)
+            // LinuxCommandUtil.fetchShellContextByLinuxCommand("cd /");
+        }
     }
 }

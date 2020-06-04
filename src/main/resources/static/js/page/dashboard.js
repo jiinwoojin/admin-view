@@ -48,7 +48,7 @@ function msg_initialize_geo_service(zone, msg){
 // 공통으로 부를 ajax
 function ajax_request(ip, port, zone){
     $.ajax({
-        url: (port == null) ? `https://${ip}${CONTEXT}/server/api/dashboard/performance` : `http://${ip}:${port}${CONTEXT}/server/api/dashboard/performance`,
+        url: (window.location.protocol === 'https:') ? `https://${ip}${CONTEXT}/server/api/dashboard/performance` : `http://${ip}:${port}${CONTEXT}/server/api/dashboard/performance`,
         type: 'GET',
         contentType: 'application/json',
         success: function (connection) {
@@ -87,7 +87,7 @@ function ajax_request(ip, port, zone){
     });
 
     $.ajax({
-        url: (port == null) ? `https://${ip}${CONTEXT}/server/api/dashboard/service-status` : `http://${ip}:${port}${CONTEXT}/server/api/dashboard/service-status`,
+        url: (window.location.protocol === 'https:') ? `https://${ip}${CONTEXT}/server/api/dashboard/service-status` : `http://${ip}:${port}${CONTEXT}/server/api/dashboard/service-status`,
         type: 'GET',
         contentType: 'application/json',
         success: function (status) {

@@ -39,8 +39,20 @@ public class MVCServerController {
     @RequestMapping("service-manage")
     public String pageServiceManagement(Model model){
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
-        model.addAttribute("serviceMap", serviceInfoService.loadGeoContainerMap());
+        model.addAttribute("serviceMap", serviceInfoService.loadGeoServiceMap());
+        model.addAttribute("message", sessionService.message());
         return "page/system/service-manage";
+    }
+
+    /**
+     * Docker Container 실행 (시작, 종료, 재시작) 및 일반 서비스 실행 (재시작) 을 위한 링크
+     * @param name String, method String
+     */
+    @RequestMapping("service-execute")
+    public String linkServiceControlByNameAndMethod(@RequestParam String name, @RequestParam String method) {
+        sessionService.message(String.format("[%s] 서비스의 [%s] 명령을 시작합니다.", name, method));
+        serviceInfoService.executeGeoServiceByNameAndMethod(name, method);
+        return "redirect:service-manage";
     }
 
     /**
