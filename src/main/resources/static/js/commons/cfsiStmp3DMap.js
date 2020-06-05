@@ -1,4 +1,11 @@
+'use strict';
+
+// cesium 3D
 var ji3DMap = function ji3DMap(options) {
+    if (!(this instanceof ji3DMap)) {
+        throw new Error('new 로 생성해야 함.');
+    }
+
     this.map = this.init(options);
 
     this.map.scene.globe = new Cesium.Globe(Cesium.Ellipsoid.WGS84);

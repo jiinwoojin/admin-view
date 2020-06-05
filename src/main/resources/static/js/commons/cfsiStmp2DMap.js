@@ -1,5 +1,11 @@
+'use strict';
+
 // mapbox gl js 2D
 var jiMap = function jiMap(options) {
+    if (!(this instanceof jiMap)) {
+        throw new Error('new 로 생성해야 함.');
+    }
+
     if (stmp.valid.checkValue(stmp.mapExtents)) {
         options.bounds = [stmp.mapExtents.west, stmp.mapExtents.south,
             stmp.mapExtents.east, stmp.mapExtents.north];

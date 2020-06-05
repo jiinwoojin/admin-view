@@ -4,6 +4,10 @@
  * TODO 군대부호 관련 수식 정보 추가 필요 (cop db 정의 시)
  */
 var jiFeature = function jiFeature(params) {
+	if (!(this instanceof jiFeature)) {
+		throw new Error('new 로 생성해야 함.');
+	}
+
 	this.id = params.id;								// 객체 ID
 	this.stmpLayerId = params.layerId;					// 레이어 ID
 	this.type = params.type;							// 객체 TYPE
@@ -248,7 +252,7 @@ jiFeature.prototype = {
 				break;
 			case stmp.GEOMETRY_TYPE.POLYGON :
 				if (this.getTypeCd() === stmp.DRAW_TYPE_KIND.CIRCLE.CD) {
-					_geometry = Geometry.Circle(this.getCoordinates(), this.styleInfo.style.radius);
+					_geometry = new Geometry.Circle(this.getCoordinates(), this.styleInfo.style.radius);
 				} else {
 					_geometry = new Geometry.Polygon([this.getCoordinates()]);
 				}
