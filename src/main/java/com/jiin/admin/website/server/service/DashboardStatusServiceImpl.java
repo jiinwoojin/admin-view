@@ -4,8 +4,10 @@ import com.jiin.admin.Constants;
 import com.jiin.admin.vo.GeoDockerContainerInfo;
 import com.jiin.admin.vo.ServerBasicPerformance;
 import com.jiin.admin.vo.ServerCenterInfo;
+import com.jiin.admin.vo.SynchronizeBasicInfo;
 import com.jiin.admin.website.util.DockerUtil;
 import com.jiin.admin.website.util.LinuxCommandUtil;
+import com.jiin.admin.website.util.SocketUtil;
 import com.jiin.admin.website.util.YAMLFileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,6 +48,20 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
 
     @Value("${project.docker-name.nginx-name}")
     private String NGINX_NAME;
+
+    @Value("${project.server-port.postgresql-osm-port}")
+    private int POSTGRE_SQL_OSM_PORT;
+
+    @Value("${project.server-port.postgresql-basic-port}")
+    private int POSTGRE_SQL_BASIC_PORT;
+
+    @Value("${project.server-port.pg-pool-port}")
+    private int PG_POOL_PORT;
+
+    @Value("${project.server-port.syncthing-tcp-port}")
+    private int SYNCTHING_TCP_PORT;
+
+    // UDP 는 추가 여부 확인 이후에 반영할 것.
 
     /**
      * server-info.yaml 에 기재된 로컬 정보를 가져온다.
@@ -165,5 +181,38 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
             }
         }
         return map;
+    }
+
+    /**
+     * 대시보드 화면에 보여줄 데이터베이스 및 파일 동기화 상태를 보여준다.
+     * @param remoteIP String, remoteDBPort int, remoteFilePort int
+     */
+    @Override
+    public SynchronizeBasicInfo loadSyncBasicStatus(String remoteIP, int remoteDBPort, int remoteFilePort) {
+        ServerCenterInfo localInfo;
+        try {
+            localInfo = loadLocalServerInfo();
+        } catch (IOException e) {
+            log.error("로컬 정보를 가져올 수 없습니다.");
+            return null;
+        }
+
+        SynchronizeBasicInfo basicInfo = new SynchronizeBasicInfo();
+        basicInfo.setServerName(localInfo.getName());
+
+        // PostgreSQL OSM / Basic, PGPool2, Syncthing 기본 상태를 설정한다.
+        basicInfo.setPgsqlOSMStatus(SocketUtil.loadIsTcpPortOpen(localInfo.getIp(), POSTGRE_SQL_OSM_PORT) ? "RUNNING" : "DEAD");
+        basicInfo.setPgsqlBasicStatus(SocketUtil.loadIsTcpPortOpen(localInfo.getIp(), POSTGRE_SQL_BASIC_PORT) ? "RUNNING" : "DEAD");
+        basicInfo.setPgpoolStatus(SocketUtil.loadIsTcpPortOpen(localInfo.getIp(), PG_POOL_PORT) ? "RUNNING" : "DEAD");
+        basicInfo.setSyncthingStatus(SocketUtil.loadIsTcpPortOpen(localInfo.getIp(), SYNCTHING_TCP_PORT) ? "RUNNING" : "DEAD");
+
+        // remoteIP, remoteDBPort, remoteFilePort 를 사용해서 접속한 서버와의 동기화 Status 를 확인한다.
+        // remoteIP : A 서버 (요청), localIP : B 서버 (응답) 순으로 진행해야 함.
+        // select * from pg_stat_wal_receiver; 해당 쿼리를 해서 결과가 있을 경우 해당 DB는 standby DB
+        // select * from pg_stat_replication; 해당 쿼리를 해서 결과가 있을 경우 해당 DB는 primary DB
+        basicInfo.setWithSyncDBStatus("UNKNOWN");
+        basicInfo.setWithSyncFileStatus("UNKNOWN");
+
+        return basicInfo;
     }
 }
