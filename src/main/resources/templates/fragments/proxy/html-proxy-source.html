@@ -1,0 +1,207 @@
+<div class="py-1">
+    <h3 class="section_tit my-1">소스 관리</h3>
+    <div class="text-right my-1">
+        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#sourceDataInsert">
+            <i class="fas fa-plus"></i> 데이터 추가
+        </button>
+    </div>
+
+    <!-- Data Inserting Modal - SOURCE 시작 -->
+    <div class="modal fade" id="sourceDataInsert" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <form id="add-proxy-source" th:action="@{/view/cache/add-proxy-source}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" th:object="${addProxySource}">
+                    <div class="modal-header">
+                        <h4 class="cont_tit">데이터 추가 - Source</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('proxySourceName', 'source')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label for="proxySourceName">리소스 이름 <span class="text-danger">(*)</span></label>
+                                <div class="col-12 input-group">
+                                    <input type="text" class="form-control" th:field="*{proxySourceName}">
+                                    <div class="input-group-append">
+                                        <span class="input-group-btn btn btn-primary" onclick="jiCommon.duplicateCheck('PROXYSOURCE','#proxySourceName','#duplicate-check-message-proxy-source')" style="cursor: pointer;">중복확인</span>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <small class="form-text text-muted" id="duplicate-check-message-proxy-source">중복확인을 해주세요.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proxySourceType">리소스 종류 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" th:field="*{proxySourceType}" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mapFile">MapServer 리소스 : Map 파일 선택 <span class="text-danger">(*)</span></label>
+                            <select class="form-control" id="mapFile" onchange="onchange_mapFile_value('INSERT')">
+                                <option value='{ "requestMap" : "[none]", "mapId" : -1 }'>-- Map 파일 선택 --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="requestMap">Map 파일 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" th:field="*{requestMap}" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mapLayer">MapServer 리소스 : 레이어 선택 <span class="text-info">(*)</span></label>
+                            <input type="text" data-role="tagsinput" id="mapLayer_multiple" onchange="onchange_mapLayer_multiple_value('INSERT')" />
+                            <select class="form-control" id="mapLayer" onchange="onchange_mapLayer_value('INSERT')">
+                                <option value="[none]">-- 레이어 선택 --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="requestLayers">요청 Layer <span class="text-info">(*)</span></label>
+                            <input type="text" class="form-control" th:field="*{requestLayers}" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mapServerBinary">MapServer 바이러리 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" th:field="*{mapServerBinary}" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mapServerWorkDir">MapServer 작업 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" th:field="*{mapServerWorkDir}" readonly />
+                        </div>
+
+                        <p><span class="text-danger">(*)</span> : 해당 데이터는 반드시 입력 되어야 합니다.</p>
+                        <p><span class="text-info">(*)</span> : 해당 데이터들 중에 최소한 하나 이상 있어야 합니다.</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="onclick_close('proxySourceName', 'source')">
+                            <i class="fas fa-times"></i> 취소
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 저장
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Data Inserting Modal - SOURCE 끝 -->
+
+    <!-- Data Updating Modal - SOURCE 시작 -->
+    <div class="modal fade" id="sourceDataUpdate" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <form id="update-proxy-source" th:action="@{/view/cache/update-proxy-source}" method="post" accept-charset="utf-8" onsubmit="return requestValidation('UPDATE')">
+                    <div class="modal-header">
+                        <h4 class="cont_tit">데이터 수정 - Source</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="proxySourceId_u" name="id" />
+                        <div class="form-group">
+                            <label for="proxySourceName_u">리소스 이름 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" id="proxySourceName_u" name="proxySourceName" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="proxySourceType_u">리소스 종류 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" id="proxySourceType_u" name="proxySourceType" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mapFile">MapServer 리소스 : Map 파일 선택 <span class="text-danger">(*)</span></label>
+                            <select class="form-control" id="mapFile_u" onchange="onchange_mapFile_value('UPDATE')">
+                                <option value='{ "requestMap" : "[none]", "mapId" : -1 }'>-- Map 파일 선택 --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="requestMap_u">Map 파일 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" id="requestMap_u" name="requestMap" readonly />
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="mapLayer">MapServer 리소스 : 레이어 선택 <span class="text-info">(*)</span></label>
+                            <input type="text" class="form-control" data-role="tagsinput" id="mapLayer_multiple_u" onchange="onchange_mapLayer_multiple_value('UPDATE')" />
+                            <select class="form-control" id="mapLayer_u" onchange="onchange_mapLayer_value('UPDATE')">
+                                <option value="[none]">-- 레이어 선택 --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="requestLayers_u">요청 Layer <span class="text-info">(*)</span></label>
+                            <input type="text" class="form-control" id="requestLayers_u" name="requestLayers" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mapServerBinary_u">MapServer 바이러리 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" id="mapServerBinary_u" name="mapServerBinary" readonly />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mapServerWorkDir_u">MapServer 작동 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" id="mapServerWorkDir_u" name="mapServerWorkDir" readonly />
+                        </div>
+
+                        <p><span class="text-danger">(*)</span> : 해당 데이터는 반드시 입력 되어야 합니다.</p>
+                        <p><span class="text-info">(*)</span> : 해당 데이터들 중에 최소한 하나 이상 있어야 합니다.</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times"></i> 취소
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 저장
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data List Table - SOURCE 시작 -->
+    <table id="list_table_source" class="table basic my-1">
+        <thead class="table-info">
+        <tr>
+            <th scope="col" class="text-center">이름</th>
+            <th scope="col" class="text-center">종류</th>
+            <th scope="col" class="text-center">수정 및 삭제</th>
+            <th scope="col" class="text-center">설정 적용</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="source : ${ sourceMap }">
+            <td class="text-center align-middle" th:text="${ source.name }"></td>
+            <td class="text-center align-middle" th:text="${ source.type }"></td>
+            <td class="text-center align-middle">
+                <button th:id="${ 'sourceUpdate' + source.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#sourceDataUpdate">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <script th:inline="javascript">
+                    var s_json[[${source.id}]] = /*[[${ source }]]*/ {};
+                    document.getElementById('sourceUpdate' + [[${source.id}]]).onclick = function() {
+                        onclick_update_source(s_json[[${source.id}]]);
+                    };
+                </script>
+                <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/cache/delete-proxy-source/' + ${source.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                    <i class="fas fa-trash"></i>
+                </a>
+            </td>
+            <td class="text-center align-middle">
+                <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedSources', [[${source.name}]])">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- Data List Table - SOURCE 끝 -->
+</div>
