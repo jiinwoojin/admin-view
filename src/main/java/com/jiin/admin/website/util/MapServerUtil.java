@@ -104,7 +104,7 @@ public class MapServerUtil {
                     String filePath = mapFilePath + "/" + file.getName();
                     String context = FileSystemUtil.fetchFileContext(filePath);
                     context = context.replace(String.format("%s  INCLUDE \"./layer/%s%s\"", System.lineSeparator(), layer, Constants.LAY_SUFFIX), "");
-                    FileSystemUtil.writeContextAtFile(filePath, context);
+                    FileSystemUtil.createAtFile(filePath, context);
                 }
             }
         }

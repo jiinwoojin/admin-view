@@ -131,7 +131,6 @@ public class ManageService {
 
         // map 파일 생성
         String mapFilePath = dataPath + Constants.MAP_FILE_PATH + "/" + map.getName() + Constants.MAP_SUFFIX;
-        System.out.println(mapFilePath);
         if (FileUtils.getFile(mapFilePath).isFile()) {
             FileUtils.forceDelete(FileUtils.getFile(mapFilePath));
         }
@@ -240,7 +239,6 @@ public class ManageService {
             return false;
         } else {
             mapper.deleteLayerRelationsByMapId(map.getId());
-            System.out.println(layerList);
             this.mapEntitySupplement(map, layerList);
             entityManager.merge(map);
             this.writeMapFileContext(map, layerList);

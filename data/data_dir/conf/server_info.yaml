@@ -1,0 +1,49 @@
+config:
+  zone: B1,U3,GOC
+  kind: SI,NSI,CDS
+
+local:
+  zone: B1                # 센터 종류 (B1 | U3 | GOC)
+  kind: SI                # 서버 종류 (SI | NSI)
+  name: B1-Svr1           # hostname 이 들어감 (ex: b1_svr1)
+  ip: 192.168.1.141       # dns 명이 될 수도 있음
+  description: B1-Svr1    # 설명
+
+remote:
+  count: 6                # 연결된 서버 수
+  server-1:               # Key
+    zone: B1
+    kind: SI
+    name: B1-Svr2
+    ip: 192.168.1.142     # dns 명이 될 수도 있음
+    description: B1-Svr2
+  server-2:               # Key
+    zone: U3
+    kind: SI
+    name: U3-Svr1
+    ip: 192.168.1.155     # dns 명이 될 수도 있음
+    description: U3-Svr1
+  server-3:               # Key
+    zone: U3
+    kind: SI
+    name: U3-Svr2
+    ip: 192.168.1.156     # dns 명이 될 수도 있음
+    description: U3-Svr2
+  server-4:               # Key
+    zone: GOC
+    kind: SI
+    name: GOC-Svr1
+    ip: 192.168.1.161     # dns 명이 될 수도 있음
+    description: GOC-Svr1
+  server-5:               # Key
+    zone: GOC
+    kind: SI
+    name: GOC-Svr2
+    ip: 192.168.1.162     # dns 명이 될 수도 있음
+    description: GOC-Svr2
+  server-6:               # Key
+    zone: B1
+    kind: CDS
+    name: CDS-B1
+    ip: 192.168.1.164     # dns 명이 될 수도 있음
+    description: CDS-B1

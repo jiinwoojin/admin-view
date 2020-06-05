@@ -37,7 +37,7 @@ public class MVCMapController {
         model.addAttribute("sbList", mapService.loadSearchByOptionList());
         model.addAttribute("message", session.message());
         model.addAttribute("qs", mapPageModel.getQueryString());
-        return "page/manage/refactoring/map-list";
+        return "page/manage/map-list";
     }
 
     /**
@@ -49,7 +49,7 @@ public class MVCMapController {
         model.addAttribute("layers", layerService.loadDataList());
         model.addAttribute("qs", mapPageModel.getQueryString());
 
-        return "page/manage/refactoring/map-create";
+        return "page/manage/map-create";
     }
 
     /**
@@ -74,7 +74,7 @@ public class MVCMapController {
         model.addAttribute("layers", layerService.loadDataList());
         model.addAttribute("qs", mapPageModel.getQueryString());
 
-        return "page/manage/refactoring/map-update";
+        return "page/manage/map-update";
     }
 
     /**

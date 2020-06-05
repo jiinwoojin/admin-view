@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout" lang="ko">
+<th:block layout:fragment="content-title-fragment">
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2 class="page_tit">LAYER 관리</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/view/manage/map-manage?pg=1&sz=8&lType=ALL&units=ALL}">지도 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">LAYER 관리</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <!-- search area #START -->
+    <div class="search_area">
+        <div class="ibox">
+            <div class="ibox-content">
+                <form onsubmit="return onsubmit_check()">
+                    <input type="hidden" name="pg" value="1" />
+                    <input type="hidden" name="sz" value="8" />
+
+                    <div class="row justify-content-md-center">
+                        <div class="col-xl-3 col-lg-5 col-sm-12 mb-sm-1 mb-0">
+                            <select id="sb" name="sb" class="form-control form-control-sm">
+                                <option th:each="sb : ${ sbList }" th:text="${ sb.label }" th:value="${ sb.value }" th:selected="${ #strings.equals(param.sb, #strings.toString(sb.value)) }"></option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 col-lg-5 col-sm-12">
+                            <div class="input-group">
+                                <input placeholder="검색어를 입력하세요." id="st" name="st" type="text" th:value="${param.st}" class="form-control form-control-sm" />
+                                <span class="input-group-append">
+                                    <button type="submit" class="btn btn-sm btn-primary" title="검색">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </span>
+                                <button type="button" class="btn btn-sm btn-white m-l-xs searchMore" title="상세검색">
+                                    <i class="fas fa-angle-down"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-warning m-l-xs" onclick="onclick_refresh_search()">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="searchDetail">
+                        <!-- 검색 방식 선택 -->
+                        <div class="hr-line-dashed">
+                        </div>
+
+                        <div class="row justify-content-md-center">
+                            <!-- 검색 방식 선택 -->
+                            <div class="col-12 col-lg-6 col-xl-3">
+                                <div class="form-group">
+                                    <label for="ob">정렬 방식</label>
+                                    <select id="ob" name="ob" class="form-control form-control-sm">
+                                        <option th:each="ob : ${ obList }" th:text="${ ob.label }" th:value="${ ob.value }" th:selected="${ #strings.equals(param.ob, #strings.toString(ob.value)) }"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 col-xl-5">
+                                <div class="form-group">
+                                    <fieldset>
+                                        <legend class="bold">업로드 일자</legend>
+                                        <div class="input-daterange input-group input-group-sm" id="datepicker">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control-sm form-control" id="sDate" name="sDate" th:value="${param.sDate}" />
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    ~
+                                                </span>
+                                            </div>
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text">
+                                                    <i class="far fa-calendar-alt"></i>
+                                                </span>
+                                            </div>
+                                            <input type="text" class="form-control-sm form-control" id="eDate" name="eDate" th:value="${param.eDate}" />
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6 col-xl-4">
+                                <div id="iType_box">
+                                    <div class="form-group">
+                                        <label class="mr-1">데이터 유형</label>
+                                        <div class="form-check form-check-inline i-checks">
+                                            <input type="radio" id="all" name="lType" value="ALL" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'ALL') }" />&nbsp;&nbsp;
+                                            <label class="form-check-label" for="vector">모두</label>
+                                        </div>
+                                        <div class="form-check form-check-inline i-checks">
+                                            <input type="radio" id="raster" name="lType" value="RASTER" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'RASTER') }" />&nbsp;&nbsp;
+                                            <label class="form-check-label" for="raster">레스터</label>
+                                        </div>
+                                        <div class="form-check form-check-inline i-checks">
+                                            <input type="radio" id="vector" name="lType" value="VECTOR" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'VECTOR') }" />&nbsp;&nbsp;
+                                            <label class="form-check-label" for="vector">벡터</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="date_box">
+                                    <label class="mr-1">일정 구간</label>
+                                    <div class="btn-group my-1">
+                                        <button type="button" class="btn btn-secondary" onclick="onclick_day_button(1)">1 일</button>
+                                        <button type="button" class="btn btn-secondary" onclick="onclick_day_button(3)">3 일</button>
+                                        <button type="button" class="btn btn-secondary" onclick="onclick_day_button(7)">7 일</button>
+                                        <button type="button" class="btn btn-secondary" onclick="onclick_day_button(30)">30 일</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="button_area mb-3">
+        <div class="d-flex justify-content-between">
+            <!-- 총 결과 카운트 -->
+            <h3 class="session_tit">검색 결과 : 총 <span th:text="${ resMap.count }" id="total"></span> 건</h3>
+
+            <div id="map_config_button">
+                <!-- LAYER 추가 버튼 -->
+                <button data-toggle="modal" data-target="#layer-create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-plus fa-sm text-white-50"></i> LAYER 추가
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- pannal List #START -->
+    <div class="result_area">
+
+        <ul class="col_list col_xxl_3" th:if="${ resMap.count > 0 }">
+            <li class="layer-item" th:each="layer : ${ resMap.data }">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h3 class="section_tit" th:text="${layer.name}">[LAYER 제목]</h3>
+                        <div class="ibox-tools">
+                            <a th:if="${layer.isDefault()}" href="#" data-toggle="tooltip" data-placement="top" title="수정 및 삭제 불가.">
+                                <i class="fas fa-map-pin"></i>
+                            </a>
+                            <a th:if="${!layer.isDefault()}" data-toggle="modal" href="#layer-update" data-target="#layer-update"
+                                   th:data-id="${ layer.id }"
+                                   th:data-name="${ layer.name }"
+                                   th:data-description="${ layer.description }"
+                                   th:data-projection="${ layer.projection }"
+                                   th:data-middlefolder="${ layer.middleFolder }"
+                                   th:data-layertype="${ layer.type }"
+                                   th:data-filepath="${ layer.dataFilePath }"
+                            >
+                                <i class="fas fa-cog"></i>
+                            </a>
+                            <a th:if="${!layer.isDefault()}" th:onclick="delLayer(this,[[${layer.name}]],[[${layer.id}]])" title="삭제">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-stripped small m-t-md">
+                            <tbody>
+                            <tr>
+                                <th class="no-borders">
+                                    <i class="fas fa-calendar"></i> 등록일
+                                </th>
+                                <td class="no-borders">
+                                    <span th:text="${layer.registTime}">[LAYER 등록일]</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <i class="fas fa-user"></i> 등록자
+                                </th>
+                                <td>
+                                    <span th:text="${layer.registorName}">[LAYER 등록자]</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <i class="fas fa-book"></i> 내용 설명
+                                </th>
+                                <td>
+                                    <span th:text="${layer.description}">[LAYER 내용 설명]</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <i class="fas fa-binoculars"></i> 투영
+                                </th>
+                                <td>
+                                    <span th:text="${layer.projection}">[LAYER 투영]</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="jumbotron jumbotron-fluid" th:unless="${ resMap.count > 0 }">
+            <div class="container">
+                <h1 class="display-4">
+                    <i class="fas fa-times-circle"></i> No Results.
+                </h1>
+                <p class="lead">해당하는 데이터가 존재하지 않습니다. 다른 방법으로 검색 시도 바랍니다.</p>
+            </div>
+        </div>
+        <!-- pannal List #END -->
+
+        <!-- pageNavigation #START -->
+        <th:block th:replace="fragments/html-pagination-bar :: html-pagination-bar('/manage/layer-manage')" />
+        <!-- pageNavigation #END -->
+
+    </div>
+
+    <!-- LAYER 추가 Modal -->
+    <div class="modal fade" id="layer-create" tabindex="-1" role="dialog" aria-labelledby="insert-layer" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form th:action="@{/view/manage/layer-create}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="insert-layer">LAYER 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label for="layer-name">LAYER 이름</label>
+                            </div>
+                            <div class="col-12 input-group">
+                                <input type="text" class="form-control" name="name" id="layer-name">
+                                <div class="input-group-append">
+                                    <span class="input-group-btn btn btn-primary" onclick="jiCommon.duplicateCheck('LAYER','#layer-name','#duplicate-check-message')">중복확인</span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <small class="form-text text-muted" id="duplicate-check-message">중복확인을 해주세요.</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="layer-description">설명</label>
+                            <input type="text" class="form-control" name="description" id="layer-description">
+                        </div>
+                        <!-- TODO select 로 수정 필요함 -->
+                        <div class="form-group">
+                            <label for="layer-projection">투영</label>
+                            <select class="form-control" id="layer-projection" name="projection">
+                                <option value="epsg:3857">EPSG:3857</option>
+                                <option value="epsg:4326">EPSG:4326</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="layer-middle_folder">폴더명</label>
+                            <input type="text" class="form-control" name="middleFolder" id="layer-middle_folder">
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label class="col-form-label" for="layer-type">레이어 종류</label>
+                                <select class="form-control" name="type" id="layer-type">
+                                    <option value="RASTER">Raster</option>
+                                    <option value="VECTOR">Vector</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-8">
+                                <label class="col-form-label" for="___customFile">지도 파일</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="___customFileAddon" style="height: 33.5px;">
+                                            TIFF (RASTER) / SHP (VECTOR)
+                                        </span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="___customFile"
+                                               aria-describedby="___customFileAddon" name="data_file">
+                                        <label class="custom-file-label" for="___customFile">파일 선택</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times"></i> 취소
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 저장
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- LAYER 수정 Modal -->
+    <div class="modal fade" id="layer-update" tabindex="-1" role="dialog" aria-labelledby="update-layer" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form th:action="@{/view/manage/layer-update}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this);" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="update-layer">LAYER 수정</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" />
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label for="layer-name-u">LAYER 이름</label>
+                            </div>
+                            <div class="col-12">
+                                <input type="text" class="form-control" name="name" id="layer-name-u" readonly />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="layer-description">설명</label>
+                            <input type="text" class="form-control" name="description" id="layer-description-u">
+                        </div>
+                        <!-- TODO select 로 수정 필요함 -->
+                        <div class="form-group">
+                            <label for="layer-projection">투영</label>
+                            <select class="form-control" id="layer-projection-u" name="projection">
+                                <option value="epsg:3857">EPSG:3857</option>
+                                <option value="epsg:4326">EPSG:4326</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="layer-middle_folder">폴더명</label>
+                            <input type="text" class="form-control" name="middleFolder" id="layer-middle_folder-u">
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label class="col-form-label" for="layer-type">레이어 종류</label>
+                                <select class="form-control" name="type" id="layer-type-u">
+                                    <option value="RASTER">Raster</option>
+                                    <option value="VECTOR">Vector</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-8">
+                                <label class="col-form-label" for="___customFile">지도 파일 <span style="color: blue;">(*)</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="___customFileAddon_u" style="height: 33.5px;">
+                                            TIFF (RASTER) / SHP (VECTOR)
+                                        </span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="___customFile_u"
+                                               aria-describedby="___customFileAddon" name="data_file">
+                                        <label class="custom-file-label" for="___customFile">파일 선택</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p><span style="color: blue;">(*)</span> : 데이터 수정을 진행할 때, 이를 올리지 않으면 아래 파일은 그대로 저장됩니다.</p>
+                        <p id="data_file_path"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                            <i class="fas fa-times"></i> 취소
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 저장
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        var message = /*[[ ${message} ]]*/ null;
+        var table = null;
+        $(document).ready(function() {
+            if (!jQuery.isEmptyObject(message)) {
+                toastr.info(message);
+            }
+
+            $('#layer-name').change(function() {
+                $('#layer-name').data("check-duplicate",false);
+                $('#duplicate-check-message').text("중복확인을 해주세요.");
+            });
+
+            $(".custom-file-input").on("change", function() {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+
+            // Datepicker
+            $("#sDate").datepicker({
+                format:'yyyy-mm-dd'
+            });
+            $("#eDate").datepicker({
+                format:'yyyy-mm-dd'
+            });
+        });
+
+        function preSubmit(form) {
+            var action = form.action;
+            if (action.indexOf("layer-create") > -1) {
+                addLayer(form);
+            } else if(action.indexOf("layer-update") > -1) {
+                return true;
+            }
+            return false;
+        }
+
+        function addLayer(form) {
+            if (jQuery.isEmptyObject(form['name'].value)) {
+                form['name'].focus();
+                toastr.warning("이름이 입력되지 않았습니다.");
+                return;
+            }else if(jQuery(form['name']).data("check-duplicate") === false) {
+                toastr.warning("이름 중복확인이 되지 않았습니다.");
+                return;
+            }else if(form['data_file'].value == ''){
+                toastr.warning("레이어 파일을 업로드 하시길 바랍니다. Raster 파일은 *.tiff, Vector 파일은 *.shp 이 포함된 *.zip 입니다.");
+                return;
+            }
+            form.submit();
+        }
+
+        function delLayer(ths, layerName, layerId) {
+            if (confirm("[ " + layerName + " ] Layer 를 제거 하시겠습니까?")) {
+                jQuery.post({
+                    url: CONTEXT + "/view/manage/layer-delete",
+                    data: {layerId : layerId}
+                }).done(function(result) {
+                    if (result) {
+                        toastr.success("Layer [ " + layerName + " ] 가 제거 되었습니다.");
+                        jQuery(ths).parents('.layer-item').remove();
+                        if($('.layer-item').length == 7){
+                            window.location.href = CONTEXT + '/view/manage/layer-list?pg=1&sz=8&lType=ALL';
+                        } else {
+                            var total = $('#total');
+                            total.html((Number(total.html()) - 1));
+                        }
+                    } else {
+                        toastr.error('Layer 제거 중 오류가 발생하였습니다.');
+                    }
+                }).fail(function() {
+                    toastr.error('Layer 제거에 실패하였습니다.');
+                }).always(function() {
+                    jQuery("#loader-wrapper").hide();
+                });
+            }
+        }
+
+        function addSource(id) {
+            var option;
+            if (id) {
+                option = jQuery("#___customSelect").find("option[value='"+id+"']");
+            } else {
+                option = jQuery("#___customSelect").find("option:checked")
+            }
+            var area = jQuery("#parent-buttons");
+            var sources = area.find("[data-source-id]");
+            if (sources.length === 0) {
+                area.empty();
+            }
+            area.append("<button data-source-id='"+option.val()+"' type=\"button\" class=\"btn btn-outline-warning mb-1 ml-1 p-1 hidden\" " +
+                "               style=\"padding-top: 3px !important;padding-bottom: 3px !important;\"><span>"+option.text()+"</span>\n" +
+                "           <i class=\"fa fa-fw fa-times\" onclick=\"removeSource('"+option.val()+"')\"></i>\n" +
+                "               <input type=\"hidden\" name=\"sources\" value=\""+option.val()+"\">\n" +
+                "       </button>");
+            if (id) {
+                // nothing
+            } else {
+                toastr.success("Source[" + option.text() + "]가 연결되었습니다.");
+            }
+        }
+
+        function removeSource(sourceId) {
+            var area = jQuery("#parent-buttons");
+            var source = area.find("[data-source-id='"+sourceId+"']");
+            source.remove();
+            //
+            var sources = area.find("[data-source-id]");
+            if (sources.length === 0) {
+                area.append("<button type=\"button\" class=\"btn btn-warning text-white mb-1 p-1\" style=\"padding-top: 3px !important;padding-bottom: 3px !important;\" id=\"btn-parent-all\">연결된 Source 가 없습니다.</button>");
+            }
+        }
+
+        jQuery("#layer-create").on("shown.bs.modal", function(e) {
+            var btn = e.relatedTarget;
+            var target = jQuery(btn).data("target");
+            var popup = jQuery(target);
+
+            popup.find("[name='name']").val('');
+            popup.find("[name='description']").val('');
+            popup.find("[name='projection'] > option").first().attr('selected', 'true');
+            popup.find("[name='middle_folder']").val('');
+        });
+
+        jQuery("#layer-update").on("shown.bs.modal", function(e) {
+            var btn = e.relatedTarget;
+
+            var layerId = jQuery(btn).data('id');
+            var layerName = jQuery(btn).data("name");
+            var layerDescription = jQuery(btn).data("description");
+            var layerProjection = jQuery(btn).data('projection');
+            var layerMiddleFolder = $(btn).data('middlefolder');
+            var type = $(btn).data('layertype');
+            var filePath = $(btn).data('filepath');
+
+            var target = jQuery(btn).data("target");
+            var popup = jQuery(target);
+            if (layerId) {
+                popup.find("[name='id']").val(layerId);
+                popup.find("[name='name']").val(layerName);
+                popup.find("[name='description']").val(layerDescription);
+                popup.find("[name='projection']").val(layerProjection);
+                popup.find("[name='middleFolder']").val(layerMiddleFolder);
+                popup.find("[name='type']").val(type === 'RASTER' ? 'RASTER' : 'VECTOR');
+                document.getElementById('data_file_path').innerText = filePath;
+            } else {
+                popup.find("[name='id']").val(0);
+                popup.find("[name='name']").val('');
+                popup.find("[name='description']").val('');
+                popup.find("[name='projection'] > option").first().attr('selected', 'true');
+                popup.find("[name='middleFolder']").val('');
+                popup.find("[name='type']").val('RASTER');
+                document.getElementById('data_file_path').innerText = 'HAS NO DATA.';
+            }
+        });
+
+        function onclick_day_button(day) {
+            var sDate = document.getElementById("sDate");
+            var eDate = document.getElementById("eDate");
+            var minus;
+            if (eDate.value === "") {
+                minus = new Date();
+                minus.setDate(minus.getDate() - day);
+                sDate.value = minus.toISOString().slice(0, 10);
+                eDate.value = new Date().toISOString().slice(0, 10);
+            } else {
+                minus = new Date(eDate.value);
+                minus.setDate(minus.getDate() - day);
+                sDate.value = minus.toISOString().slice(0, 10);
+            }
+        }
+
+        function onsubmit_check() {
+            var sDate = document.getElementById("sDate");
+            var eDate = document.getElementById("eDate");
+
+            if (sDate.value === '' && eDate.value === '') {
+                return true;
+            } else {
+                if (sDate.value === '' || eDate.value === '') {
+                    toastr.warning('날짜는 둘 다 기입이 되거나 아무 것도 기입이 안 되어 있어야 합니다.');
+                    return false;
+                } else {
+                    if(sDate.value.localeCompare(eDate.value) > 0) {
+                        toastr.warning('날짜 순서에 오류가 있습니다.');
+                        return false;
+                    } else return true;
+                }
+            }
+        }
+
+        function onclick_refresh_search(){
+            $("#ob option:eq(0)").prop("selected", true);
+            $("#sb option:eq(0)").prop("selected", true);
+            document.getElementById('st').value = '';
+            document.getElementById('sDate').value = '';
+            document.getElementById('eDate').value = '';
+            $("input:radio[name='lType'][value='ALL']").prop('checked', true);
+            $("input:radio[name='lType'][value='RASTER']").prop('checked', false);
+            $("input:radio[name='lType'][value='VECTOR']").prop('checked', false);
+        }
+    </script>
+</th:block>
+
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/static/design-park/resource/library/css/plugins/datapicker/datepicker3.css}">
+    <link rel="stylesheet" th:href="@{/static/design-park/resource/library/css/plugins/daterangepicker/daterangepicker-bs3.css}">
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/static/design-park/resource/library/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+    <script th:src="@{/static/design-park/resource/library/js/plugins/daterangepicker/daterangepicker.js}"></script>
+</th:block>
+</html>

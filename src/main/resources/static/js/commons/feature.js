@@ -432,6 +432,10 @@ jiFeature.prototype = {
 
 var Geometry = {};
 
+Geometry.create = function create(type, coordinates, options) {
+
+}
+
 /**
  * Point 객체
  * @constructor
@@ -583,6 +587,13 @@ Geometry.MultiPolygon = function MultiPolygon() {
 
 };
 
+/**
+ * Circle 객체
+ * @param center
+ * @param radius
+ * @param units
+ * @constructor
+ */
 Geometry.Circle = function Circle(center, radius, units) {
 	if (!center) {
 		throw new Error('중심 좌표값이 없습니다.');
@@ -601,8 +612,30 @@ Geometry.Circle = function Circle(center, radius, units) {
 		coordinates.push(Geometry.destination(center, radius, i * -360 / steps, units));
 	}
 
-	return new Geometry.Polygon([coordinates]);
+	this.center = center;
+	this.radius = radius;
+	this.units = units;
+	this.type = 'Polygon';
+	this.coordinates = new Geometry.Polygon([coordinates]).getCoordinates();
 };
+// Circle Prototype
+Geometry.Circle.prototype = {
+	getType : function getType() {
+		return this.type;
+	},
+	getCoordinates : function getCoordinates() {
+		return this.coordinates;
+	},
+	getCenter : function getCenter() {
+		return this.center;
+	},
+	getRadius : function getRadius() {
+		return this.radius;
+	},
+	getUnits : function getUnits() {
+		return this.units;
+	}
+}
 
 Geometry.destination = function destination(origin, distance, bearing, units) {
 	var lon1 = Geometry.toRadians(origin[0]);
@@ -621,11 +654,22 @@ Geometry.destination = function destination(origin, distance, bearing, units) {
 	return [lon, lat];
 };
 
+/**
+ * PI * radian = 180도
+ * 1 radian = 180 / PI
+ * @param degrees
+ * @returns {number}
+ */
 Geometry.toRadians = function toRadians(degrees) {
 	var radians = degrees % 360;
 	return (radians * Math.PI) / 180;
 };
 
+/**
+ * 각도로 변환 0 ~ 360
+ * @param radians
+ * @returns {number}
+ */
 Geometry.toDegrees = function toDegrees(radians) {
 	var degrees = radians % (2 * Math.PI);
 	return (degrees * 180) / Math.PI;
@@ -635,7 +679,7 @@ Geometry.lengthToRadians = function lengthToRadians(distance, units) {
 	return distance / Geometry.factors[units];
 };
 
-Geometry.earthRadius = 6371008.8;
+Geometry.earthRadius = 6371008.8;	// 지구 평균 반지름
 
 Geometry.factors = {
 	meters : Geometry.earthRadius,
