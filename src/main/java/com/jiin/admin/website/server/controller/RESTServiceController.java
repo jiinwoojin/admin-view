@@ -18,7 +18,7 @@ public class RESTServiceController {
     @GetMapping("extension-check")
     public Map<String, Object> getExtensionCheckByIpAndPort(@RequestParam String ip, @RequestParam int port){
         return new HashMap<String, Object>() {{
-            put("result", SocketUtil.loadIsPortOpen(ip, port) ? "RUNNING" : "DEAD");
+            put("result", SocketUtil.loadIsTcpPortOpen(ip, port) ? "RUNNING" : "DEAD");
         }};
     }
 

@@ -5,5 +5,6 @@ import com.jiin.admin.vo.GeoContainerInfo;
 import java.util.Map;
 
 public interface ServiceInfoService {
-    Map<String, GeoContainerInfo> loadGeoContainerMap();
+    Map<String, GeoContainerInfo> loadGeoServiceMap();
+    void executeGeoServiceByNameAndMethod(String name, String method);
 }

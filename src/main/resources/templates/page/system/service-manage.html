@@ -34,9 +34,57 @@
                             <p th:text="${serviceMap.get(service).status}" th:id="${ 'service-status-text-' + serviceMap.get(service).name }"></p>
                         </div>
                         <div class="text-center">
-                            <button th:id="${ 'service_refresh_' + serviceMap.get(service).name }" class="btn btn-primary btn-sm" th:onclick="onclick_status_refresh([[${serviceMap.get(service).name}]],[[${local.ip}]],[[${serviceMap.get(service).port}]])">
+                            <button th:id="${ 'service_refresh_' + serviceMap.get(service).name }" class="btn btn-primary btn-sm px-1" th:onclick="onclick_status_refresh([[${serviceMap.get(service).name}]],[[${local.ip}]],[[${serviceMap.get(service).port}]])">
                                 <i class="fas fa-sync"></i>
                             </button>
+
+                            <!-- docker container 전용 버튼 -->
+                            <block th:remove="tag" th:if="${ serviceMap.get(service).port == 0 }">
+                                <button
+                                    th:id="${ 'service-start-' + serviceMap.get(service).name }"
+                                    class="btn btn-info btn-sm px-1"
+                                    th:data-service="${ service }"
+                                    th:data-link="${ '/view/server/service-execute?method=START&name=' + serviceMap.get(service).name  }"
+                                    data-method="START"
+                                    onclick="onclick_service_execute(this)"
+                                >
+                                    <i class="fas fa-play-circle"></i>
+                                </button>
+                                <button
+                                    th:id="${ 'service-stop-' + serviceMap.get(service).name }"
+                                    class="btn btn-danger btn-sm px-1"
+                                    th:data-service="${ service }"
+                                    th:data-link="${ '/view/server/service-execute?method=STOP&name=' + serviceMap.get(service).name }"
+                                    data-method="STOP"
+                                    onclick="onclick_service_execute(this)"
+                                >
+                                    <i class="fas fa-stop-circle"></i>
+                                </button>
+                                <button
+                                    th:id="${ 'service-restart-' + serviceMap.get(service).name }"
+                                    class="btn btn-warning btn-sm px-1"
+                                    th:data-service="${ service }"
+                                    th:data-link="${ '/view/server/service-execute?method=RESTART&name=' + serviceMap.get(service).name }"
+                                    data-method="RESTART"
+                                    onclick="onclick_service_execute(this)"
+                                >
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                            </block>
+
+                            <!-- 나머지 전용 버튼 -->
+                            <block th:remove="tag" th:unless="${ serviceMap.get(service).port == 0 }">
+                                <button
+                                    th:id="${ 'service-restart-' + serviceMap.get(service).name }"
+                                    class="btn btn-warning btn-sm px-1"
+                                    th:data-service="${ service }"
+                                    th:data-link="${ '/view/server/service-execute?method=RESTART&name=' + serviceMap.get(service).name }"
+                                    th:data-method="RESTART"
+                                    onclick="onclick_service_execute(this)"
+                                >
+                                    <i class="fas fa-reply"></i>
+                                </button>
+                            </block>
                         </div>
                     </div>
                 </div>
@@ -130,10 +178,15 @@
 
         <script th:inline="javascript">
             var localMain = /*[[ ${local} ]]*/ null;
+            var message = /*[[ ${message} ]]*/ null;
         </script>
 
         <script>
             $(document).ready(function() {
+                if (!jQuery.isEmptyObject(message)) {
+                    toastr.info(message);
+                }
+
                 $('#list_table_shutdown,#list_table_restart').each(function () {
                     initialize_dataTable(this.id);
                 });
@@ -167,11 +220,16 @@
                 dom_text.className = '';
                 dom_title.className = '';
                 dom_icon.className = (type === 'LOADING') ? 'h1 fas fa-spin fa-spinner' : 'h1 fas fa-question';
+
+                if(type === 'UNKNOWN') {
+                    $(`#service-start-${service}`).prop('disabled', false);
+                    $(`#service-stop-${service}`).prop('disabled', true);
+                }
             }
 
             function onclick_status_refresh(service, ip, port){
                 $.ajax({
-                    url: (port !== 0) ? `${CONTEXT}/server/api/service/extension-check?ip=${ip}&port=${port}` : `http://${localMain.ip}:11110${CONTEXT}/server/api/service/docker-check?name=${service}`,
+                    url: (port !== 0) ? `${CONTEXT}/server/api/service/extension-check?ip=${ip}&port=${port}` : `${CONTEXT}/server/api/service/docker-check?name=${service}`,
                     type: 'GET',
                     contentType: 'application/json',
                     success: function(status){
@@ -182,26 +240,23 @@
                         var res = status.result && status.result.toUpperCase();
                         dom_text.innerText = res ? res : 'UNKNOWN';
 
-                        switch(status.result.toUpperCase()){
+                        var res = status.result.toUpperCase();
+                        switch(res){
                             case 'CREATED':
-                                dom_icon.className = 'h1 fas fa-plus-square text-info';
-                                dom_text.className = 'text-info';
-                                dom_title.className = 'text-info';
-                                break;
                             case 'RUNNING':
-                                dom_icon.className = 'h1 fas fa-check text-info';
+                            case 'RESTARTING':
+                                dom_icon.className = (res === 'CREATED') ? 'h1 fas fa-plus-square text-info' : (res === 'RUNNING') ? 'h1 fas fa-check text-info' : 'h1 fas fa-sync text-warning';
                                 dom_text.className = 'text-info';
                                 dom_title.className = 'text-info';
-                                break;
-                            case 'RESTARTING':
-                                dom_icon.className = 'h1 fas fa-sync text-warning';
-                                dom_text.className = 'text-warning';
-                                dom_title.className = 'text-warning';
+                                $(`#service-start-${service}`).prop('disabled', true);
+                                $(`#service-stop-${service}`).prop('disabled', false);
                                 break;
                             case 'PAUSED':
                                 dom_icon.className = 'h1 fas fa-pause text-warning';
                                 dom_text.className = 'text-warning';
                                 dom_title.className = 'text-warning';
+                                $(`#service-start-${service}`).prop('disabled', true);
+                                $(`#service-stop-${service}`).prop('disabled', false);
                                 break;
                             case 'REMOVING':
                             case 'EXITED':
@@ -209,12 +264,16 @@
                                 dom_icon.className = 'h1 fas fa-times-circle text-danger';
                                 dom_text.className = 'text-danger';
                                 dom_title.className = 'text-danger';
+                                $(`#service-start-${service}`).prop('disabled', false);
+                                $(`#service-stop-${service}`).prop('disabled', true);
                                 break;
                             default :
                                 dom_icon.className = 'h1 fas fa-question';
                                 dom_text.innerText = 'UNKNOWN';
                                 dom_text.className = '';
                                 dom_title.className = '';
+                                $(`#service-start-${service}`).prop('disabled', false);
+                                $(`#service-stop-${service}`).prop('disabled', true);
                                 break;
                         }
                     },
@@ -225,6 +284,17 @@
                         display_initialize(service, 'LOADING');
                     }
                 });
+            }
+
+            function onclick_service_execute(btn){
+                var method = $(btn).data('method');
+                var link = CONTEXT + $(btn).data('link');
+                var service = $(btn).data('service');
+
+                var question = service + " 서비스를 " + (method === 'START' ? '가동' : method === 'RESTART' ? '재가동' : '정지') + '합니다. 계속 하시겠습니까?';
+                if(confirm(question)){
+                    window.location.href = link;
+                }
             }
         </script>
     </div>

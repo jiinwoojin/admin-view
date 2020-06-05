@@ -26,7 +26,7 @@ public class MVCHomeController {
         model.addAttribute("serverMap", serverCenterInfoService.loadDataMapZoneBase());
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
         model.addAttribute("zones", serverCenterInfoService.loadZoneList());
-        model.addAttribute("geoMap", serviceInfoService.loadGeoContainerMap());
+        model.addAttribute("geoMap", serviceInfoService.loadGeoServiceMap());
         return "page/home/dashboard";
     }
 }

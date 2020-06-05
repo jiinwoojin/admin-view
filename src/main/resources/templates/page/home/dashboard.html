@@ -116,7 +116,7 @@
                                 <span th:id="${ zone + '_serverStatus' }" class="text-danger">
                                     <i class="fas fa-exclamation-triangle"></i>
                                 </span>
-                                <a href="#" title="자세히">
+                                <a th:href="@{/view/server/service-manage}" title="자세히">
                                     <i class="fas fa-search"></i>
                                 </a>
                                 <a th:id="${ zone + '_refresh_server' }" onclick="onchange_refresh_server(this)" th:href="${ '#' + zone + '_SERVER_TAB1' }">
@@ -247,20 +247,22 @@
             <div class="col-xl-4" th:each="zone : ${ zones }" th:id="${ zone + '_SYNC_STATUS' }" th:if="${ zones.length > 0 }">
                 <div class="ibox" th:style="${ local.zone == zone ? 'border: 3px solid #0386A3; border-radius: 3px;' : ''}">
                     <div class="ibox-title">
-                        <h3 class="section_tit" th:id="${ zone + '_serverName' }" th:switch="${ zone }">
-                            <span th:case="B1" th:text="${ 'B1 센터 - SI' }"></span>
-                            <span th:case="U3" th:text="${ 'U3 센터 - SI' }"></span>
-                            <span th:case="GOC" th:text="${ '지작사 센터 - SI' }"></span>
-                        </h3>
+                        <h3 class="section_tit" th:id="${ zone + '_syncName' }"></h3>
                         <div class="ibox-tools">
                             <div class="form-inline">
-                                <span th:id="${ zone + '_serverStatus' }" class="text-danger">
+                                <select class="custom-select custom-select-sm mr-1" th:id="${ zone + '_change_sync' }" value="" onchange="onchange_refresh_sync(this)">
+                                    <option value="">-- 서버 선택 --</option>
+                                    <block th:each="server : ${serverMap.get(zone)}" th:remove="tag">
+                                        <option th:text="${ server.name }" th:value="${ server.key + '|' + server.name + '|' + server.ip }"></option>
+                                    </block>
+                                </select>
+                                <span th:id="${ zone + '_syncStatus' }" class="text-danger">
                                     <i class="fas fa-exclamation-triangle"></i>
                                 </span>
                                 <a href="#" title="자세히">
                                     <i class="fas fa-search"></i>
                                 </a>
-                                <a title="새로고침" th:id="${ zone + '_refresh_server' }" onclick="onchange_refresh_server(this)">
+                                <a title="새로고침" th:id="${ zone + '_refresh_sync' }" onclick="onchange_refresh_sync(this)">
                                     <i class="fas fa-sync"></i>
                                 </a>
                             </div>
@@ -276,28 +278,28 @@
                                 <div role="tabpanel" th:id="${ zone + '_SYNC_TAB1' }" class="tab-pane active fade show">
                                     <div class="panel-body">
                                         <dl class="row mb-0">
-                                            <dt class="col-8 col-sm-6 col-lg-7 text-sm-right">Syncthing 상태 :</dt>
-                                            <dd class="col-4 col-lg-5 text-sm-left mb-1"><i class="fas fa-check text-info"></i></dd>
+                                            <dt class="col-8 col-sm-6 col-lg-7 text-sm-right">PostgreSQL OSM 상태 :</dt>
+                                            <dd class="col-4 col-lg-5 text-sm-left mb-1"><i th:id="${ zone + '_sync_basic_pgsqlOSMStatus' }" class="fas fa-question"></i></dd>
                                         </dl>
+                                        <dl class="row mb-0">
+                                            <dt class="col-8 col-sm-6 col-lg-7 text-sm-right">PostgreSQL Basic 상태 :</dt>
+                                            <dd class="col-4 col-lg-5 text-sm-left mb-1"><i th:id="${ zone + '_sync_basic_pgsqlBasicStatus' }" class="fas fa-question"></i></dd>
+                                        </dl>
+                                        <dl class="row mb-0">
+                                            <dt class="col-8 col-sm-6 col-lg-7 text-sm-right">Syncthing 상태 :</dt>
+                                            <dd class="col-4 col-lg-5 text-sm-left mb-1"><i th:id="${ zone + '_sync_basic_syncthingStatus' }" class="fas fa-question"></i></dd>
+                                            </dl>
                                         <dl class="row mb-0">
                                             <dt class="col-8 col-sm-6 col-lg-7 text-sm-right">PGPool 2 상태 :</dt>
-                                            <dd class="col-4 col-lg-5 text-sm-left mb-1"><i class="fas fa-check text-info"></i></dd>
+                                            <dd class="col-4 col-lg-5 text-sm-left mb-1"><i th:id="${ zone + '_sync_basic_pgpoolStatus' }" class="fas fa-question"></i></dd>
                                         </dl>
                                         <dl class="row mb-0">
-                                            <dt class="col-8 col-sm-6 col-lg-7 text-sm-right">O3 센터 파일 동기화 준비 :</dt>
-                                            <dd class="col-4 col-lg-5 text-sm-left mb-1"><i class="fas fa-check text-info"></i></dd>
+                                            <dt class="col-8 col-sm-6 col-lg-7 text-sm-right">해당 센터 파일 동기화 상태 :</dt>
+                                            <dd class="col-4 col-lg-5 text-sm-left mb-1"><i th:id="${ zone + '_sync_basic_withSyncDBStatus' }" class="fas fa-question"></i></dd>
                                         </dl>
                                         <dl class="row mb-0">
-                                            <dt class="col-8 col-sm-6 col-lg-7 text-sm-right">O3 센터 DB 동기화 준비 :</dt>
-                                            <dd class="col-4 col-lg-5 text-sm-left mb-1"><i class="fas fa-check text-info"></i></dd>
-                                        </dl>
-                                        <dl class="row mb-0">
-                                            <dt class="col-8 col-sm-6 col-lg-7 text-sm-right">OO사 센터 파일 동기화 준비 :</dt>
-                                            <dd class="col-4 col-lg-5 text-sm-left mb-1"><i class="fas fa-check text-info"></i></dd>
-                                        </dl>
-                                        <dl class="row mb-0">
-                                            <dt class="col-8 col-sm-6 col-lg-7 text-sm-right">OO사 센터 DB 동기화 준비 : </dt>
-                                            <dd class="col-4 col-lg-5 text-sm-left mb-1"><i class="fas fa-check text-info"></i></dd>
+                                            <dt class="col-8 col-sm-6 col-lg-7 text-sm-right">해당 센터 서버 동기화 상태 :</dt>
+                                            <dd class="col-4 col-lg-5 text-sm-left mb-1"><i th:id="${ zone + '_sync_basic_withSyncFileStatus' }" class="fas fa-question"></i></dd>
                                         </dl>
                                     </div>
                                 </div>
@@ -305,7 +307,7 @@
                                 <div role="tabpanel" th:id="${ zone + '_SYNC_TAB2' }" class="tab-pane fade">
                                     <div class="panel-body">
                                         <dl class="row mb-0 m-t-lg">
-                                            <dt class="col-sm-6 text-sm-right">최근 진행 일자 :</dt>
+                                            <dt class="col-sm-6 text-sm-right">파일 동기화 최근 진행 일자 :</dt>
                                             <dd class="col-sm-6 text-sm-left mb-1">2020-04-22 10:00:00</dd>
                                         </dl>
                                         <dl class="row mb-0">
@@ -313,12 +315,31 @@
                                             <dd class="col-sm-6 text-sm-left mb-1">A.tif 이외 10 개</dd>
                                         </dl>
                                         <dl class="row mb-0">
-                                            <dt class="col-sm-6 text-sm-right">동기화 기본 디렉토리 :</dt>
+                                            <dt class="col-sm-6 text-sm-right">파일 동기화 기본 디렉토리 :</dt>
                                             <dd class="col-sm-6 text-sm-left mb-1">/data/center/sync</dd>
                                         </dl>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ibox" th:unless="${ serverMap.get(zone) != null }" th:style="${ local.zone == zone ? 'border: 3px solid #0386A3; border-radius: 3px;' : ''}">
+                    <div class="ibox-title">
+                        <h3 class="section_tit text-warning">NO EXIST.</h3>
+                        <div class="ibox-tools">
+                            <span class="text-warning">
+                                <i class="fas fa-times-circle"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="ibox-content" style="min-height : 227px;">
+                        <div class="text-center text-sm font-weight-bold text-uppercase mb-1 text-warning">
+                            <i class="h1 fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="text-center text-sm font-weight-bold text-uppercase mb-1 text-warning">
+                            <h2>해당 서버와 연동이 되어 있지 않습니다.</h2>
+                            <p>서비스 주소 관리 메뉴를 사용해서 서버를 설정하세요.</p>
                         </div>
                     </div>
                 </div>
@@ -348,7 +369,10 @@
             </div>
         </div>
     </div>
-
-    <script th:src="@{/js/page/dashboard.js}"></script>
+    <script th:inline="javascript">
+        var pgSQLBasicPort = /*[[${geoMap.get("PostgreSQL Basic").port}]]*/ 0;
+        var syncthingPort = /*[[${geoMap.get("Syncthing").port}]]*/ 0;
+    </script>
+    <script th:src="@{/js/page/dashboard-page.js}"></script>
 </th:block>
 </html>
