@@ -123,25 +123,6 @@ var stmp = {
     setSignCnvsnLink : function setSignCnvsnLink(value) {
         this.SIGN_CNVSN_LINK = value;
     },
-    /**
-     * Source 타입 정의 (2D)
-     */
-    SOURCE_TYPE : {
-        GEOJSON : 'geojson',
-        VECTOR : 'vector',
-        RASTER : 'raster',
-        IMAGE : 'image'
-    },
-    /**
-     * Vector Symbol 타입 정의 (2D)
-     */
-    LAYER_TYPE : {
-        RASTER : 'raster',
-        CIRCLE : 'circle',
-        LINE : 'line',
-        SYMBOL : 'symbol',
-        FILL : 'fill'
-    },
     BROWSER_KIND_CD : '',
     BROWSER_KIND : {
         IE : '0',
@@ -167,14 +148,6 @@ var stmp = {
         UTM : '2',
         GEOREF : '3',
         GARS : '4'
-    },
-    GEOMETRY_TYPE : {
-        POINT : 'Point',
-        MULTIPOINT : 'MultiPoint',
-        LINESTRING : 'LineString',
-        MULTILINESTRING : 'MultiLineString',
-        POLYGON : 'Polygon',
-        MULTIPOLYGON : 'MultiPolygon'
     },
     MESSAGE : {
         ERROR_FEATURE_ID : '객체 ID 가 없습니다.',

@@ -12,7 +12,9 @@ var jiFeature = function jiFeature(params) {
 	this.stmpLayerId = params.layerId;					// 레이어 ID
 	this.type = params.type;							// 객체 TYPE
 	this.geometryType = null;							// geometry Type
-	this.layerType = null;								// layer Type
+	this.mapBoxLayerType = null;						// mapbox layer Type
+	this.cesiumLayerType = null;						// cesium layer Type
+	this.olLayerType = null;							// ol layer Type
 
 	this._checkGeometryType();
 	this.coordInfo = params.coordInfo;					// 좌표 정보
@@ -55,8 +57,8 @@ jiFeature.prototype = {
 	getGeometry : function getGeometry() {
 		return this.geometry;
 	},
-	getLayerType : function getLayerType() {
-		return this.layerType;
+	getMapBoxLayerType : function getMapBoxLayerType() {
+		return this.mapBoxLayerType;
 	},
 	getLayerId : function getLayerId() {
 		return this.getStmpLayerId() + '_' + this.getTypeName();
@@ -100,29 +102,6 @@ jiFeature.prototype = {
 	getImage : function getImage() {
 		return this.img;
 	},
-	getLayer : function getLayer() {
-		// TODO 타입별 구분 필요
-
-        var layer = {
-            'id' : this.getLayerId(),					// 레이어 ID _ 객체 ID
-            'type' : this.layerType,
-            'source' : this.getStmpLayerId(),
-			'filter' : ['all', ['==', 'isVisible', true]]
-        };
-
-        layer.filter.push(['==', 'type', this.getTypeName()]);
-
-        var style = this._getStyle();
-        if (style.layout) {
-            layer.layout = style.layout;
-        }
-
-        if (style.paint) {
-            layer.paint = style.paint;
-        }
-
-		return layer;
-	},
 	getProperties : function getProperties() {
         return this.properties;
 	},
@@ -143,7 +122,7 @@ jiFeature.prototype = {
 
         _properties.id = this.getId();
 
-        if (this.getLayerType() === stmp.LAYER_TYPE.SYMBOL) {
+        if (this.getMapBoxLayerType() === stmp.LAYER_TYPE.SYMBOL) {
             _properties.img = this.getImageId();
 
             var _size;
@@ -154,14 +133,14 @@ jiFeature.prototype = {
             }
 
             _properties.size = _size;
-        } else if (this.getLayerType() === stmp.LAYER_TYPE.CIRCLE) {
+        } else if (this.getMapBoxLayerType() === stmp.LAYER_TYPE.CIRCLE) {
             _properties.radius = stmp.valid.defaultValue(this.styleInfo.style.radius,
                 stmp.STYLE_2D_PAINT.CIRCLE.RADIUS.default);
             _properties.color = stmp.valid.defaultValue(this.styleInfo.style.color,
                 stmp.STYLE_2D_PAINT.CIRCLE.COLOR.default);
             _properties.opacity = stmp.valid.defaultValue(this.styleInfo.style.opacity,
                 stmp.STYLE_2D_PAINT.CIRCLE.OPACITY.default);
-        } else if (this.getLayerType() === stmp.LAYER_TYPE.FILL) {
+        } else if (this.getMapBoxLayerType() === stmp.LAYER_TYPE.FILL) {
         	_properties.color = stmp.valid.defaultValue(this.styleInfo.style.color,
 				stmp.STYLE_2D_PAINT.FILL.COLOR.default);
         	_properties.opacity = stmp.valid.defaultValue(this.styleInfo.style.opacity,
@@ -169,7 +148,7 @@ jiFeature.prototype = {
         	if (this.styleInfo.style['outline-color']) {
         		_properties['outline-color'] = this.styleInfo.style['outline-color'];
 			}
-		} else if (this.getLayerType() === stmp.LAYER_TYPE.LINE) {
+		} else if (this.getMapBoxLayerType() === stmp.LAYER_TYPE.LINE) {
         	_properties.cap = stmp.valid.defaultValue(this.styleInfo.style.cap,
 				stmp.STYLE_2D_LAYOUT.LINE.CAP.default);
         	_properties.join = stmp.valid.defaultValue(this.styleInfo.style.join,
@@ -244,13 +223,13 @@ jiFeature.prototype = {
 	_createGeometry : function _createGeometry() {
 		var _geometry;
 		switch (this.geometryType) {
-			case stmp.GEOMETRY_TYPE.POINT :
+			case jiConstant.GEOMETRY_TYPE.POINT :
 				_geometry = new Geometry.Point(this.getCoordinates());
 				break;
-			case stmp.GEOMETRY_TYPE.LINESTRING :
+			case jiConstant.GEOMETRY_TYPE.LINESTRING :
 				_geometry = new Geometry.LineString(this.getCoordinates());
 				break;
-			case stmp.GEOMETRY_TYPE.POLYGON :
+			case jiConstant.GEOMETRY_TYPE.POLYGON :
 				if (this.getTypeCd() === stmp.DRAW_TYPE_KIND.CIRCLE.CD) {
 					_geometry = new Geometry.Circle(this.getCoordinates(), this.styleInfo.style.radius);
 				} else {
@@ -348,80 +327,34 @@ jiFeature.prototype = {
             'layout' : layout
         }
 	},
-	_setPointStyle : function _setPointStyle() {
-		var paint = {
-			'circle-radius' : ['get', 'radius'],
-			'circle-color' : ['get', 'color'],
-			'circle-opacity' : ['get', 'opacity']
-		};
-
-		return {
-			'paint' : paint
-		}
-	},
-	_setLineStyle : function _setLineStyle() {
-	    if (!this.styleInfo.style.color) {
-	        throw new Error('선 색 정보가 없습니다.');
-        }
-
-        var layout = {
-            'line-cap' : this.styleInfo.style.cap || stmp.STYLE_2D_LAYOUT.LINE.CAP.default,
-            'line-join' : this.styleInfo.style.join || stmp.STYLE_2D_LAYOUT.LINE.JOIN.default
-        };
-
-        var paint = {
-            'line-color' : this.styleInfo.style.color,
-			'line-width' : this.styleInfo.style.width || stmp.STYLE_2D_PAINT.LINE.WIDTH.default,
-			'line-opacity' : this.styleInfo.style.opacity || stmp.STYLE_2D_PAINT.LINE.OPACITY.default
-        };
-
-        return {
-        	'layout' : layout,
-			'paint' : paint
-		}
-	},
-    _setPolygonStyle : function _setPolygonStyle() {
-		var paint = {
-			'fill-color' : ['get', 'color'],
-			'fill-opacity' : ['get', 'opacity']
-		};
-
-		if (this.styleInfo.style['outline-color']) {
-			paint['fill-outline-color'] = ['get', 'outline-color'];
-		}
-
-		return {
-			'paint' : paint
-		}
-    },
 	_checkGeometryType : function _checkGeometryType() {
 		var _geometryType;
-		var _layerType;
+		var _mapboxLayerType;
 
 		switch (this.type.CD) {
 			case stmp.DRAW_TYPE_KIND.POINT.CD :
-				_geometryType = stmp.GEOMETRY_TYPE.POINT;
-				_layerType = stmp.LAYER_TYPE.CIRCLE;
+				_geometryType = jiConstant.GEOMETRY_TYPE.POINT;
+				_mapboxLayerType = jiConstant.MAPBOX_LAYER_TYPE.CIRCLE;
 				break;
 			case stmp.DRAW_TYPE_KIND.BASE_MILSYMBOL.CD :
 			case stmp.DRAW_TYPE_KIND.IMAGE.CD :
-				_geometryType = stmp.GEOMETRY_TYPE.POINT;
-				_layerType = stmp.LAYER_TYPE.SYMBOL;
+				_geometryType = jiConstant.GEOMETRY_TYPE.POINT;
+				_mapboxLayerType = jiConstant.MAPBOX_LAYER_TYPE.SYMBOL;
 				break;
 			case stmp.DRAW_TYPE_KIND.LINE.CD :
-				_geometryType = stmp.GEOMETRY_TYPE.LINESTRING;
-				_layerType = stmp.LAYER_TYPE.LINE;
+				_geometryType = jiConstant.GEOMETRY_TYPE.LINESTRING;
+				_mapboxLayerType = jiConstant.MAPBOX_LAYER_TYPE.LINE;
 				break;
 			case stmp.DRAW_TYPE_KIND.CIRCLE.CD :
 			case stmp.DRAW_TYPE_KIND.POLYGON.CD :
-				_geometryType = stmp.GEOMETRY_TYPE.POLYGON;
-				_layerType = stmp.LAYER_TYPE.FILL;
+				_geometryType = jiConstant.GEOMETRY_TYPE.POLYGON;
+				_mapboxLayerType = jiConstant.MAPBOX_LAYER_TYPE.FILL;
 				break;
 			case stmp.DRAW_TYPE_KIND.OVERLAY.CD :
 				switch (this.overlayData.type) {
 					case stmp.OVERLAY_TYPE.LINE :
-						_geometryType = stmp.GEOMETRY_TYPE.LINESTRING;
-						_layerType = stmp.LAYER_TYPE.LINE;
+						_geometryType = jiConstant.GEOMETRY_TYPE.LINESTRING;
+						_mapboxLayerType = jiConstant.MAPBOX_LAYER_TYPE.LINE;
 						break;
 					case stmp.OVERLAY_TYPE.ARC :
 						break;
@@ -430,7 +363,7 @@ jiFeature.prototype = {
 		}
 
 		this.geometryType = _geometryType;
-		this.layerType = _layerType;
+		this.mapBoxLayerType = _mapboxLayerType;
 	}
 };
 
