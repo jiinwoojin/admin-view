@@ -1020,7 +1020,7 @@ jiMap.prototype.changeMapDrawFeatures = function changeMapDrawFeatures(featureMa
 jiMap.prototype._setLayer = function _setLayer(feature) {
     var _layer = {
         'id' : feature.getLayerId(),
-        'type' : feature.getLayerType(),
+        'type' : feature.getMapBoxLayerType(),
         'source' : feature.getStmpLayerId(),
         'filter' : ['all', ['==', 'isVisible', true]]
     };
@@ -1041,7 +1041,7 @@ jiMap.prototype._setLayer = function _setLayer(feature) {
 };
 
 jiMap.prototype._setLayerStyle = function _setLayerStyle(feature) {
-    var _layerType = feature.getLayerType();
+    var _layerType = feature.getMapBoxLayerType();
     var _layout = null;
     var _paint = null;
     var _style = {};
@@ -1100,19 +1100,19 @@ jiMap.prototype._setLayerStyle = function _setLayerStyle(feature) {
     };
 
     switch (_layerType) {
-        case stmp.LAYER_TYPE.CIRCLE :
+        case jiConstant.MAPBOX_LAYER_TYPE.CIRCLE :
             circleStyle();
             break;
-        case stmp.LAYER_TYPE.LINE :
+        case jiConstant.MAPBOX_LAYER_TYPE.LINE :
             lineStyle();
             break;
-        case stmp.LAYER_TYPE.FILL :
+        case jiConstant.MAPBOX_LAYER_TYPE.FILL :
             fillStyle();
             break;
-        case stmp.LAYER_TYPE.SYMBOL :
+        case jiConstant.MAPBOX_LAYER_TYPE.SYMBOL :
             symbolStyle();
             break;
-        case stmp.LAYER_TYPE.RASTER :
+        case jiConstant.MAPBOX_LAYER_TYPE.RASTER :
             rasterStyle();
             break;
     }
