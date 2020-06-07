@@ -122,7 +122,7 @@ jiFeature.prototype = {
 
         _properties.id = this.getId();
 
-        if (this.getMapBoxLayerType() === stmp.LAYER_TYPE.SYMBOL) {
+        if (this.getMapBoxLayerType() === jiConstant.MAPBOX_LAYER_TYPE.SYMBOL) {
             _properties.img = this.getImageId();
 
             var _size;
@@ -133,14 +133,14 @@ jiFeature.prototype = {
             }
 
             _properties.size = _size;
-        } else if (this.getMapBoxLayerType() === stmp.LAYER_TYPE.CIRCLE) {
+        } else if (this.getMapBoxLayerType() === jiConstant.MAPBOX_LAYER_TYPE.CIRCLE) {
             _properties.radius = stmp.valid.defaultValue(this.styleInfo.style.radius,
                 stmp.STYLE_2D_PAINT.CIRCLE.RADIUS.default);
             _properties.color = stmp.valid.defaultValue(this.styleInfo.style.color,
                 stmp.STYLE_2D_PAINT.CIRCLE.COLOR.default);
             _properties.opacity = stmp.valid.defaultValue(this.styleInfo.style.opacity,
                 stmp.STYLE_2D_PAINT.CIRCLE.OPACITY.default);
-        } else if (this.getMapBoxLayerType() === stmp.LAYER_TYPE.FILL) {
+        } else if (this.getMapBoxLayerType() === jiConstant.MAPBOX_LAYER_TYPE.FILL) {
         	_properties.color = stmp.valid.defaultValue(this.styleInfo.style.color,
 				stmp.STYLE_2D_PAINT.FILL.COLOR.default);
         	_properties.opacity = stmp.valid.defaultValue(this.styleInfo.style.opacity,
@@ -148,7 +148,7 @@ jiFeature.prototype = {
         	if (this.styleInfo.style['outline-color']) {
         		_properties['outline-color'] = this.styleInfo.style['outline-color'];
 			}
-		} else if (this.getMapBoxLayerType() === stmp.LAYER_TYPE.LINE) {
+		} else if (this.getMapBoxLayerType() === jiConstant.MAPBOX_LAYER_TYPE.LINE) {
         	_properties.cap = stmp.valid.defaultValue(this.styleInfo.style.cap,
 				stmp.STYLE_2D_LAYOUT.LINE.CAP.default);
         	_properties.join = stmp.valid.defaultValue(this.styleInfo.style.join,
@@ -196,27 +196,6 @@ jiFeature.prototype = {
             + ((this.getTypeCd() === stmp.DRAW_TYPE_KIND.BASE_MILSYMBOL.CD
 				|| this.getTypeCd() === stmp.DRAW_TYPE_KIND.MILITARY_MILSYMBOL.CD) ? 'SYMBOL' : 'IMAGE');
     },
-    _getStyle : function _getStyle() {
-	    var _style;
-        switch (this.getTypeCd()) {
-            case stmp.DRAW_TYPE_KIND.POINT.CD :
-				_style = this._setPointStyle();
-				break;
-            case stmp.DRAW_TYPE_KIND.BASE_MILSYMBOL.CD :
-            case stmp.DRAW_TYPE_KIND.IMAGE.CD :
-                _style = this._setImageStyle();
-                break;
-            case stmp.DRAW_TYPE_KIND.LINE.CD :
-                _style = this._setLineStyle();
-                break;
-			case stmp.DRAW_TYPE_KIND.CIRCLE.CD :
-            case stmp.DRAW_TYPE_KIND.POLYGON.CD :
-                _style = this._setPolygonStyle();
-                break;
-        }
-
-        return _style;
-	},
 	_setSymbol : function _setSymbol(sidc, options) {
 		return stmp.setSymbolInfo(sidc, options);
 	},
@@ -309,23 +288,6 @@ jiFeature.prototype = {
 		}
 
 		return _coordinates;
-	},
-	_setImageStyle : function _setImageStyle() {
-        var layout = {
-            'icon-image' : '{img}',
-            'icon-size' :  ['get', 'size'],
-			'icon-allow-overlap' : true
-        };
-
-        if (this.getTypeCd() === stmp.DRAW_TYPE_KIND.BASE_MILSYMBOL) {
-			if (stmp.getWarsblYn()) {
-				layout['icon-size'] = stmp.getWarsblValue();
-			}
-		}
-
-        return {
-            'layout' : layout
-        }
 	},
 	_checkGeometryType : function _checkGeometryType() {
 		var _geometryType;

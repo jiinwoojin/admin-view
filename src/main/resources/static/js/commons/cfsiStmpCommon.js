@@ -1008,7 +1008,7 @@ var stmp = {
         if (!this.checkMapKind()) {
             if (!this.mapObject.getSource(_options.layerId)) {
                 this.mapObject.addSource(_options.layerId, {
-                    'type' : stmp.SOURCE_TYPE.GEOJSON,
+                    'type' : jiConstant.MAPBOX_SOURCE_TYPE.GEOJSON,
                     'data' : {
                         'type' : 'FeatureCollection',
                         'features' : []
@@ -1157,7 +1157,7 @@ var stmp = {
         if (!this.checkMapKind()) {
             if (!this.mapObject.getSource(_stmpLayerId)) {
                 this.mapObject.addSource(_stmpLayerId, {
-                    'type' : stmp.SOURCE_TYPE.GEOJSON,
+                    'type' : jiConstant.MAPBOX_SOURCE_TYPE.GEOJSON,
                     'data' : {
                         'type' : 'FeatureCollection',
                         'features' : _features
