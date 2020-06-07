@@ -12,7 +12,7 @@ var G_modifiers;
 
 var rendererMP = sec.web.renderer.SECWebRenderer;
 
-function drawMsymbol(id, format, sidc){
+function drawMsymbol(id, format, sidc, type){
 	var modifiers = {}; // graphics 부호 속성 array
 	var symbolCode = ''; // 부호 코드
 	var controlPoints = '';
@@ -115,11 +115,11 @@ function drawMsymbol(id, format, sidc){
 	}
 
 	if(format != undefined){
-		stmp.mapObject.map._drawing_milsymbol._line_symbol = null
+		stmp.mapObject.map._drawing_milsymbol._svg_symbol = null
 		stmp.mapObject.map._drawing_milsymbol._geojson = null
 		stmp.mapObject.map._drawing_milsymbol._modifiers = null
 		if(format == 'SVG'){
-			stmp.mapObject.map._drawing_milsymbol._line_symbol = armyc2.c2sd.renderer.MilStdSVGRenderer.Render(symbolCode,modifiers); // Save Graphics symbol
+			stmp.mapObject.map._drawing_milsymbol._svg_symbol = armyc2.c2sd.renderer.MilStdSVGRenderer.Render(symbolCode,modifiers); // Save Graphics symbol
 			stmp.mapObject.map._drawing_milsymbol._geojson = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);
 		} else {
 			stmp.mapObject.map._drawing_milsymbol._geojson = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);

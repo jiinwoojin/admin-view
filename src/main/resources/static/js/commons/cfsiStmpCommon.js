@@ -2252,13 +2252,28 @@ var stmp = {
         var coord = features[0].geometry.coordinates
         //
         var options = stmp.mapObject.map._drawing_milsymbol.options
+        var constraint = options._constraint
         var coordinates = stmp.mapObject.map._drawing_milsymbol_coordinates
         var datas = []
         if(geometryType === "Point"){
-            var imageData = stmp.mapObject.map._drawing_milsymbol.asCanvas().toDataURL()
-            stmp.mapObject.map.loadImage(imageData,function(e,image){
-                stmp.mapObject.map.addImage(drawId + "-image", image)
-            })
+            if(constraint === "milSym"){
+                var imageData = stmp.mapObject.map._drawing_milsymbol.asCanvas().toDataURL()
+                stmp.mapObject.map.loadImage(imageData,function(e,image){
+                    stmp.mapObject.map.addImage(drawId + "-image", image)
+                })
+            }else{
+                drawMsymbol(options._symbol_serial, 'SVG', null, geometryType);
+                if(jQuery("#svg-draw").length == 0){
+                    jQuery("body").append("<div id='svg-draw'></div>")
+                }
+                jQuery("#svg-draw").empty()
+                jQuery("#svg-draw").append(stmp.mapObject.map._drawing_milsymbol._svg_symbol.getSVG())
+                html2canvas(jQuery("#svg-draw svg")[0],{backgroundColor: "rgba(0,0,0,0)"}).then(function(canvas){
+                    stmp.mapObject.map.loadImage(canvas.toDataURL(),function(e,image){
+                        stmp.mapObject.map.addImage(drawId + "-image", image)
+                    })
+                })
+            }
             datas.push({
                 type: 'Feature',
                 properties: {
@@ -2275,7 +2290,7 @@ var stmp = {
             jQuery.each(coord, function(idx, point){
                 coordinates.push({x:point[0],y:point[1]})
             })
-            drawMsymbol(options._symbol_serial, 'geoJSON')
+            drawMsymbol(options._symbol_serial, 'geoJSON', null, geometryType)
             var data = JSON.parse(stmp.mapObject.map._drawing_milsymbol._geojson)
             jQuery.each(data.features, function(idx, feature){
                 feature.properties.drawId = drawId
@@ -2386,9 +2401,13 @@ var stmp = {
             symbol.options._max_point = drawInfo.max_point
             symbol.options._draw_type = drawInfo.draw_type
             symbol.options._constraint = drawInfo.constraint
+            var mode = "draw_line_string"
+            if(drawInfo.draw_type === 'Point'){
+                mode = "draw_point"
+            }
             if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_2D){
                 // 맵박스
-                stmp.drawControl.changeMode("draw_line_string")
+                stmp.drawControl.changeMode(mode)
             }else if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_3D){
                 // 세슘
 

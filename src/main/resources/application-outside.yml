@@ -17,16 +17,43 @@ project:
   data-path: /Users/PIG/SourceTree/admin-view/data/data_dir
   mapserver:
     binary: /usr/local/bin/mapserv
-  los:
-    host: http://192.168.99.100
-    port: 9000
-    accessKey: minioadmin
-    secretKey: minioadmin
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
+  docker-name:    # docker service name
+    nginx-name: jiin-nginx
+    mapproxy-name: jiin-mapproxy
+    mapserver-name: jiin-server-1
+    mapnik-name: jiin-server-2
+    height-name: jiin-height
+    rabbitmq-name: celery-rabbitmq
+  server-port:    # service port (슬라이드 REF - 변경 가능성 있음.)
+    postgresql-osm-port: 5430
+    postgresql-basic-port: 5432
+    watchdog-port: 9000
+    watchdog-heart-beat-port: 9694
+    pcp-process-port: 9898
+    pg-pool-port: 9999
+    mapproxy-port: 11120
+    mapserver-port: 11130
+    mapnik-port: 11140
+    terrain-port: 11150
+    height-port: 11160
+    vector-port: 11170
+    syncthing-tcp-port: 22000
+    syncthing-udp-port: 21027
+    rabbitmq-main-port: 5672
+    rabbitmq-sub-port: 15672
+
 logging:
+  pattern:
+    console: "%blue(%-5level) %yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %clr([%t]){green} %cyan(%logger[%method:%line]) - %magenta(%msg%n)"
+    file: "%blue(%-5level) %yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %clr([%t]){green} %cyan(%logger[%method:%line]) - %magenta(%msg%n)"
   level:
-    org.springframework : INFO
-    org.springframework.web : INFO
+    root: ERROR
+    com.jiin.admin: DEBUG
+    org.springframework: DEBUG
+    org.hibernate: DEBUG
+    org.thymeleaf: DEBUG
+    org.mybatis: DEBUG
+    com.zaxxer: DEBUG
+  file:
+    name: /data/jiapp/data_dir/logs/admin_log.log
+    max-size: 50MB
