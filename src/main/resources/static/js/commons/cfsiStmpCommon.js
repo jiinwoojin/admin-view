@@ -2278,7 +2278,7 @@ var stmp = {
         var source = stmp.mapObject.map.getSource('milsymbols-source-feature')
         if(source === undefined){
             stmp.mapObject.map.addSource('milsymbols-source-feature', {
-                type: stmp.SOURCE_TYPE.GEOJSON,
+                type: jiConstant.MAPBOX_SOURCE_TYPE.GEOJSON,
                 data: {
                     type: 'FeatureCollection',
                     features: datas
@@ -2298,7 +2298,8 @@ var stmp = {
                 type: 'symbol',
                 source: source.id,
                 layout: {
-                    'icon-image': ['get', 'imageId']
+                    'icon-image': ['get', 'imageId'],
+                    'icon-allow-overlap': true
                 },
                 filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Image']]
             },"gl-draw-polygon-fill-inactive.cold")
