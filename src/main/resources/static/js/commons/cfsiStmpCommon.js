@@ -2237,7 +2237,7 @@ var stmp = {
             }else{
                 drawMsymbol(options._symbol_serial, 'SVG', null, geometryType);
                 if(jQuery("#svg-draw").length == 0){
-                    jQuery("body").append("<div id='svg-draw'></div>")
+                    jQuery("body").append("<div id='svg-draw' style='display: none'></div>")
                 }
                 jQuery("#svg-draw").empty()
                 jQuery("#svg-draw").append(stmp.mapObject.map._drawing_milsymbol._svg_symbol.getSVG())
