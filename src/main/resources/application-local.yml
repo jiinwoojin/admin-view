@@ -37,6 +37,7 @@ project:
     terrain-port: 11150
     height-port: 11160
     vector-port: 11170
+    syncthing-main-port: 8384
     syncthing-tcp-port: 22000
     syncthing-udp-port: 21027
     rabbitmq-main-port: 5672

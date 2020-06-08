@@ -14,6 +14,17 @@ var jiConstant = {
         CIRCLE : 'Circle'
     },
     /**
+     * 좌표계 정의
+     */
+    COORDINATE_SYSTEM : {
+        WGS84 : '0',
+        MGRS : '1',
+        UTM : '2',
+        GEOREF : '3',
+        GARS : '4',
+        WEB_MERCATOR : '5'
+    },
+    /**
      * mapbox source 타입 정의
      */
     MAPBOX_SOURCE_TYPE : {
