@@ -15,8 +15,6 @@ project:
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
       mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
   data-path: /data/jiapp/data_dir
-  mapserver:
-    binary: /usr/local/bin/mapserv
   docker-name:    # docker service name
     mapproxy-name: jiin-mapproxy
     mapserver-name: jiin-server-1
