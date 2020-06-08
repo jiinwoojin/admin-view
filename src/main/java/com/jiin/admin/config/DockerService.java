@@ -29,9 +29,6 @@ public class DockerService {
     @Value("${project.data-path}")
     private String dataPath;
 
-    @Value("${project.mapserver.binary}")
-    private String mapserverBinary;
-
     @PersistenceContext
     EntityManager entityManager;
 

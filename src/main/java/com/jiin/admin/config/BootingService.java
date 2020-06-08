@@ -29,9 +29,6 @@ import java.util.Map;
 @Service
 @ComponentScan(basePackages = {"com.jiin.admin.website.gis"})
 public class BootingService {
-    @Value("${project.mapserver.binary}")
-    private String mapServerBinary;
-
     @Value("${project.data-path}")
     private String dataPath;
 
