@@ -12,7 +12,7 @@ var G_modifiers;
 
 var rendererMP = sec.web.renderer.SECWebRenderer;
 
-function drawMsymbol(id, format, sidc, type){
+function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 	var modifiers = {}; // graphics 부호 속성 array
 	var symbolCode = ''; // 부호 코드
 	var controlPoints = '';
@@ -28,11 +28,18 @@ function drawMsymbol(id, format, sidc, type){
 
 	var pixelWidth = 0; // 부호 가로 크기
 	var pixelHeight = 0; // 부호 세로 크기
-	
+
+	if(symStd === undefined){
+		symStd = window.symStd
+	}
+	if(cs === undefined){
+		cs = document.getElementById('SIDCCODINGSCHEME').value
+	}
+	if(function_sidc === undefined){
+		function_sidc = window.function_sidc
+	}
+
 	rendererMP.setDefaultSymbologyStandard(symStd);
-	
-	var cs = document.getElementById('SIDCCODINGSCHEME').value;
-	
 	if(sidc == undefined) {
 		sidc = '';
 		if(cs.charAt(0) == 'W') {
@@ -110,10 +117,32 @@ function drawMsymbol(id, format, sidc, type){
 		}
 		var coordData = setCoordinates(coordinates);
 		controlPoints = coordData.controlPoints;
-		
-		scale = stmp.mapObject.map.transform.scale
+		var zoom = Math.floor(stmp.mapObject.map.getZoom())
+		var res = {
+			0: 78271.484,
+			1: 39135.742,
+			2: 19567.871,
+			3: 9783.936,
+			4: 4891.968,
+			5: 2445.984,
+			6: 1222.992,
+			7: 611.496,
+			8: 305.748,
+			9: 152.874,
+			10: 76.437,
+			11: 38.218,
+			12: 19.109,
+			13: 9.555,
+			14: 4.777,
+			15: 2.389,
+			16: 1.194,
+			17: 0.597,
+			18: 0.299,
+			19: 0.149,
+			20: 0.075
+		}
+		scale = (300000000 - 10000) / res[0] * res[(zoom)]
 	}
-
 	if(format != undefined){
 		stmp.mapObject.map._drawing_milsymbol._svg_symbol = null
 		stmp.mapObject.map._drawing_milsymbol._geojson = null

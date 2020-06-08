@@ -2170,6 +2170,7 @@ var stmp = {
     , milsymbolsChangeSourceData : function(sourceData, drawId, drawGeometry, type){
         var features = sourceData.features
         var removeFeatures = []
+        var symStd, cs, function_sidc
         jQuery.each(features, function(idx, feature){
             if(feature.properties.drawId !== drawId){
                 return
@@ -2178,22 +2179,41 @@ var stmp = {
                 if(type === "move"){
                     feature.geometry = drawGeometry
                 }else if(type === "draw"){
-                    var options = stmp.getMilsymbolOptions()
-                    var symbol = new ms.Symbol(options) // 심볼생성
-                    var imageData = symbol.asCanvas().toDataURL()
-                    stmp.mapObject.map.loadImage(imageData,function(e,image){
-                        if(stmp.mapObject.map.hasImage(drawId + "-image")){
-                            stmp.mapObject.map.removeImage(drawId + "-image")
+                    if(stmp.mapObject.map.hasImage(drawId + "-image")){
+                        stmp.mapObject.map.removeImage(drawId + "-image")
+                    }
+                    var constraint = feature.properties._constraint
+                    if(constraint === "milSym"){
+                        var imageData = stmp.mapObject.map._drawing_milsymbol.asCanvas().toDataURL()
+                        stmp.mapObject.map.loadImage(imageData,function(e,image){
+                            stmp.mapObject.map.addImage(drawId + "-image", image)
+                        })
+                    }else{
+                        var _cs = document.getElementById('SIDCCODINGSCHEME').value;
+                        drawMsymbol(-1, 'SVG', null, window.symStd, _cs, window.function_sidc);
+                        if(jQuery("#svg-draw").length == 0){
+                            jQuery("body").css("overflow",'hidden')
+                            jQuery("body").append("<div id='svg-draw'></div>")
                         }
-                        stmp.mapObject.map.addImage(drawId + "-image",image)
-                    })
+                        jQuery("#svg-draw").empty()
+                        jQuery("#svg-draw").append(stmp.mapObject.map._drawing_milsymbol._svg_symbol.getSVG())
+                        html2canvas(jQuery("#svg-draw svg")[0],{backgroundColor: "rgba(0,0,0,0)"}).then(function(canvas){
+                            stmp.mapObject.map.loadImage(canvas.toDataURL(),function(e,image){
+                                stmp.mapObject.map.addImage(drawId + "-image", image)
+                            })
+                        })
+                    }
                     feature.properties.imageId = drawId + "-image"
                 }
             }else{
                 feature.position = idx
+                symStd = feature.properties._symStd
+                cs = feature.properties._cs
+                function_sidc = feature.properties._function_sidc
                 removeFeatures.splice( 0, 0, feature)
             }
         })
+        //console.log(symStd, cs, function_sidc)
         if(removeFeatures.length > 0){
             jQuery.each(removeFeatures, function(idx, removeFeature){
                 sourceData.features.splice(removeFeature.position, 1)
@@ -2205,10 +2225,13 @@ var stmp = {
             jQuery.each(coord, function(idx, point){
                 coordinates.push({x:point[0],y:point[1]})
             })
-            drawMsymbol(-1, 'geoJSON')
+            drawMsymbol(-1, 'geoJSON', null, symStd, cs, function_sidc)
             var data = JSON.parse(stmp.mapObject.map._drawing_milsymbol._geojson)
             jQuery.each(data.features, function(idx, feature){
                 feature.properties.drawId = drawId
+                feature.properties._symStd = symStd
+                feature.properties._cs = cs
+                feature.properties._function_sidc = function_sidc
                 if(feature.geometry.type === "Point"){
                     feature.properties.type = "Label"
                     feature.properties.labelOffset = [feature.properties.labelXOffset,feature.properties.labelYOffset]
@@ -2235,7 +2258,8 @@ var stmp = {
                     stmp.mapObject.map.addImage(drawId + "-image", image)
                 })
             }else{
-                drawMsymbol(options._symbol_serial, 'SVG', null, geometryType);
+                var cs = document.getElementById('SIDCCODINGSCHEME').value;
+                drawMsymbol(options._symbol_serial, 'SVG', null, symStd, cs, function_sidc);
                 if(jQuery("#svg-draw").length == 0){
                     jQuery("body").css("overflow",'hidden')
                     jQuery("body").append("<div id='svg-draw'></div>")
@@ -2253,7 +2277,8 @@ var stmp = {
                 properties: {
                     type: 'Image',
                     imageId: drawId + "-image",
-                    drawId : drawId
+                    drawId : drawId,
+                    _constraint : constraint
                 },
                 geometry: {
                     type: 'Point',
@@ -2264,9 +2289,14 @@ var stmp = {
             jQuery.each(coord, function(idx, point){
                 coordinates.push({x:point[0],y:point[1]})
             })
-            drawMsymbol(options._symbol_serial, 'geoJSON', null, geometryType)
-            var data = JSON.parse(stmp.mapObject.map._drawing_milsymbol._geojson)
+            var cs = document.getElementById('SIDCCODINGSCHEME').value;
+            drawMsymbol(options._symbol_serial, 'geoJSON', null, symStd, cs, function_sidc)
+            var geojson = stmp.mapObject.map._drawing_milsymbol._geojson
+            var data = JSON.parse(geojson)
             jQuery.each(data.features, function(idx, feature){
+                feature.properties._symStd = symStd
+                feature.properties._cs = cs
+                feature.properties._function_sidc = function_sidc
                 feature.properties.drawId = drawId
                 if(feature.geometry.type === "Point"){
                     feature.properties.type = "Label"
