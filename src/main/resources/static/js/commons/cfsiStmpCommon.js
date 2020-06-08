@@ -2237,7 +2237,8 @@ var stmp = {
             }else{
                 drawMsymbol(options._symbol_serial, 'SVG', null, geometryType);
                 if(jQuery("#svg-draw").length == 0){
-                    jQuery("body").append("<div id='svg-draw' style='display: none'></div>")
+                    jQuery("body").css("overflow",'hidden')
+                    jQuery("body").append("<div id='svg-draw'></div>")
                 }
                 jQuery("#svg-draw").empty()
                 jQuery("#svg-draw").append(stmp.mapObject.map._drawing_milsymbol._svg_symbol.getSVG())
@@ -2299,7 +2300,8 @@ var stmp = {
                 source: source.id,
                 layout: {
                     'icon-image': ['get', 'imageId'],
-                    'icon-allow-overlap': true
+                    'icon-allow-overlap': true,
+                    'icon-ignore-placement' : true,
                 },
                 filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Image']]
             },"gl-draw-polygon-fill-inactive.cold")
@@ -2342,6 +2344,7 @@ var stmp = {
                 layout: {
                     'text-field': ['get', 'label'],
                     'text-allow-overlap' : true,
+                    'text-ignore-placement' : true,
                     "text-size": ['get', 'fontSize'],
                     'text-rotate': ['get','angle'],
                     "text-font": ["Gosanja"]
