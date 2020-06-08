@@ -1,10 +1,13 @@
 package com.jiin.admin.dto;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -35,5 +38,13 @@ public class ProxyCacheDTO { // MyBatis Based DTO
         this.cacheDirectory = cacheDirectory;
         this.selected = selected;
         this.isDefault = isDefault;
+    }
+
+    public String getSourceKeys() throws JsonProcessingException {
+        if(this.sources == null) return "[]";
+        else {
+            ObjectMapper obj = new ObjectMapper();
+            return obj.writeValueAsString(this.sources.stream().map(o -> o.getName()).collect(Collectors.toList()));
+        }
     }
 }

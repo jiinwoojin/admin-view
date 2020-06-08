@@ -1,45 +1,48 @@
 <div class="py-1">
     <h3 class="section_tit my-1">캐시 관리</h3>
     <div class="text-right my-1">
-        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#cacheDataInsert">
+        <button type="button" class="btn btn-info btn-sm" onclick="onclick_insert_data('cache')">
             <i class="fas fa-plus"></i> 데이터 추가
         </button>
     </div>
 
-    <!-- Data Inserting Modal - CACHE 시작 -->
-    <div class="modal fade" id="cacheDataInsert" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Data Form Modal - CACHE 시작 -->
+    <div class="modal fade" id="cacheModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
-                <form id="add-proxy-cache" th:action="@{/view/cache/add-proxy-cache}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" th:object="${addProxyCache}">
+                <form data-title="cache-form" th:action="@{/view/proxy/cache-save}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)">
+                    <input type="hidden" id="cache-id" name="id" value="0" />
+                    <input type="hidden" id="cache-method" name="method" value="INSERT" />
+
                     <div class="modal-header">
-                        <h4 class="cont_tit">데이터 추가 - Cache</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('proxyCacheName', 'cache')">
+                        <h4 class="cont_tit">데이터 <span id="source-cache-title"></span> - Cache</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('cache')">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
 
-                    <div class="modal-body" th:if="${ #lists.size(sourceMap) > 0 }">
+                    <div class="modal-body" th:if="${ #lists.size(sources) > 0 }">
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="proxyCacheName">캐시 이름 <span class="text-danger">(*)</span></label>
+                                <label for="cache-name">캐시 이름 <span class="text-danger">(*)</span></label>
                             </div>
                             <div class="col-12 input-group">
-                                <input type="text" class="form-control" th:field="*{proxyCacheName}">
+                                <input type="text" class="form-control" id="cache-name" name="name">
                                 <div class="input-group-append">
-                                    <span class="input-group-btn btn btn-primary" style="cursor: pointer;" onclick="jiCommon.duplicateCheck('PROXYCACHE','#proxyCacheName','#duplicate-check-message-proxy-cache')">중복확인</span>
+                                    <span id="cache-validate-btn" class="input-group-btn btn btn-primary" style="cursor: pointer;" onclick="jiCommon.duplicateCheck('PROXYCACHE','#cache-name','#duplicate-check-message-proxy-cache')">중복확인</span>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div id="cache-validate-text" class="col-12">
                                 <small class="form-text text-muted" id="duplicate-check-message-proxy-cache">중복확인을 해주세요.</small>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="proxyCacheType">캐시 종류 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control" th:field="*{proxyCacheType}" readonly />
+                            <label for="cache-cacheType">캐시 종류 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" id="cache-cacheType" name="cacheType" readonly />
                         </div>
 
-                        <label for="proxyCacheDirectory">캐시 디렉토리 <span class="text-danger">(*)</span></label>
+                        <label for="cache-cacheDirectory">캐시 디렉토리 <span class="text-danger">(*)</span></label>
                         <small>캐시 디렉토리는 설정한 이후 값 변경이 불가능합니다.</small>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -47,38 +50,35 @@
                                     직접 설정 <input id="directoryEdit" type="checkbox" onchange="onchange_cache_directory_checkbox()" />
                                 </div>
                             </div>
-                            <input type="text" class="form-control" th:field="*{proxyCacheDirectory}" readonly />
+                            <input type="text" class="form-control" id="cache-cacheDirectory" name="cacheDirectory" readonly />
                         </div>
 
                         <div class="form-group">
+                            <label for="cache-metaSizeX">타일 가로 크기 <span class="text-danger">(*)</span></label>
+                            <input type="number" class="form-control" id="cache-metaSizeX" name="metaSizeX" />
                         </div>
 
                         <div class="form-group">
-                            <label for="metaSizeX">타일 가로 크기 <span class="text-danger">(*)</span></label>
-                            <input type="number" class="form-control" th:field="*{metaSizeX}" />
+                            <label for="cache-metaSizeY">타일 세로 크기 <span class="text-danger">(*)</span></label>
+                            <input type="number" class="form-control" id="cache-metaSizeY" name="metaSizeY" />
                         </div>
 
                         <div class="form-group">
-                            <label for="metaSizeY">타일 세로 크기 <span class="text-danger">(*)</span></label>
-                            <input type="number" class="form-control" th:field="*{metaSizeY}" />
+                            <label for="cache-metaBuffer">타일 버퍼 크기 <span class="text-danger">(*)</span></label>
+                            <input type="number" class="form-control" id="cache-metaBuffer" name="metaBuffer" />
                         </div>
 
                         <div class="form-group">
-                            <label for="metaBuffer">타일 버퍼 크기 <span class="text-danger">(*)</span></label>
-                            <input type="number" class="form-control" th:field="*{metaBuffer}" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="proxySourcesWithCaches">캐시 연계 소스 <span style="color: red;">(*)</span></label>
-                            <select class="form-control" th:field="*{proxySourcesWithCaches}" multiple>
-                                <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
+                            <label for="cache-sources">캐시 연계 소스 <span style="color: red;">(*)</span></label>
+                            <select class="form-control" id="cache-sources" name="sources" multiple>
+                                <option th:each="source : ${selectSources}" th:text="${ source.name }" th:value="${ source.name }"></option>
                             </select>
                         </div>
 
                         <p><span class="text-danger">(*)</span> : 해당 데이터는 반드시 입력 되어야 합니다.</p>
                     </div>
 
-                    <div class="modal-body" th:unless="${ #lists.size(sourceMap) > 0 }">
+                    <div class="modal-body" th:unless="${ #lists.size(sources) > 0 }">
                         <div class="jumbotron">
                             <h1 class="display-4">
                                 <i class="fas fa-times-circle"></i> Error
@@ -88,7 +88,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="onclick_close('proxyCacheName', 'cache')">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="onclick_close('cache')">
                             <i class="fas fa-times"></i> 취소
                         </button>
                         <button type="submit" class="btn btn-primary">
@@ -99,84 +99,7 @@
             </div>
         </div>
     </div>
-    <!-- Data Inserting Modal - CACHE 끝 -->
-
-    <!-- Data Updating Modal - CACHE 시작 -->
-    <div class="modal fade" id="cacheDataUpdate" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <form id="update-proxy-cache" th:action="@{/view/cache/update-proxy-cache}" method="post" accept-charset="utf-8">
-                    <div class="modal-header">
-                        <h4 class="cont_tit">데이터 수정 - Cache</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body" th:if="${ #lists.size(sourceMap) > 0 }">
-                        <input type="hidden" id="proxyCacheId_u" name="id" />
-                        <div class="form-group">
-                            <label for="proxyCacheName_u">캐시 이름 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control" id="proxyCacheName_u" name="proxyCacheName" readonly />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="proxyCacheType_u">캐시 종류 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control" id="proxyCacheType_u" name="proxyCacheType" readonly />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="proxyCacheDirectory_u">캐시 디렉토리 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control" id="proxyCacheDirectory_u" name="proxyCacheDirectory" readonly />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="metaSizeX_u">타일 가로 크기 <span class="text-danger">(*)</span></label>
-                            <input type="number" class="form-control" id="metaSizeX_u" name="metaSizeX" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="metaSizeY_u">타일 세로 크기 <span class="text-danger">(*)</span></label>
-                            <input type="number" class="form-control" id="metaSizeY_u" name="metaSizeY" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="metaBuffer_u">타일 버퍼 크기 <span class="text-danger">(*)</span></label>
-                            <input type="number" class="form-control" id="metaBuffer_u" name="metaBuffer" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="proxySourcesWithCaches_u">캐시 연계 소스 <span class="text-danger">(*)</span></label>
-                            <select class="form-control" id="proxySourcesWithCaches_u" name="proxySourcesWithCaches" multiple>
-                                <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
-                            </select>
-                        </div>
-
-                        <p><span class="text-danger">(*)</span> : 해당 데이터는 반드시 입력 되어야 합니다.</p>
-                    </div>
-
-                    <div class="modal-body" th:unless="${ #lists.size(sourceMap) > 0 }">
-                        <div class="jumbotron">
-                            <h1 class="display-4">
-                                <i class="fas fa-times-circle"></i> Error
-                            </h1>
-                            <p class="lead">추가 된 리소스 (Source) 데이터가 없습니다. 리소스 데이터를 추가하고 다시 시도 바랍니다.</p>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fas fa-times"></i> 취소
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> 저장
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Data Updating Modal - CACHE 끝 -->
+    <!-- Data Form Modal - CACHE 끝 -->
 
     <!-- Data List Table - CACHE 시작 -->
     <table id="list_table_cache" class="table basic my-1">
@@ -189,20 +112,28 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="cache : ${ cacheMap }">
+        <tr th:each="cache : ${ caches }">
             <td class="text-center align-middle" th:text="${ cache.name }"></td>
             <td class="text-center align-middle" th:text="${ cache.cacheType }"></td>
             <td class="text-center align-middle">
-                <button th:id="${ 'cacheUpdate' + cache.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#cacheDataUpdate">
+                <button
+                    type="button"
+                    class="btn btn-info btn-circle btn-sm mx-1"
+                    data-obj="cache"
+                    th:data-id="${cache.id}"
+                    data-method="UPDATE"
+                    th:data-name="${cache.name}"
+                    th:data-cache-type="${cache.cacheType}"
+                    th:data-cache-directory="${cache.cacheDirectory}"
+                    th:data-meta-size-x="${cache.metaSizeX}"
+                    th:data-meta-size-y="${cache.metaSizeY}"
+                    th:data-meta-buffer="${cache.metaBuffer}"
+                    th:data-sources="${cache.sourceKeys}"
+                    onclick="onclick_update_data(this)"
+                >
                     <i class="fas fa-cog"></i>
                 </button>
-                <script th:inline="javascript">
-                    var c_json[[${cache.id}]] = /*[[${ cache }]]*/ {};
-                    document.getElementById('cacheUpdate' + [[${cache.id}]]).onclick = function() {
-                        onclick_update_cache(c_json[[${cache.id}]]);
-                    };
-                </script>
-                <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/cache/delete-proxy-cache/' + ${cache.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/cache/remove-cache?id=' + ${cache.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                     <i class="fas fa-trash"></i>
                 </a>
             </td>

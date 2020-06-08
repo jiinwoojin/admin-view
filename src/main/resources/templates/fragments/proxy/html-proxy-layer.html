@@ -1,70 +1,80 @@
 <div class="py-1">
     <h3 class="section_tit">레이어 관리</h3>
     <div class="text-right my-1">
-        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#layerDataInsert" onclick="">
+        <button type="button" class="btn btn-info btn-sm" onclick="onclick_insert_data('layer')">
             <i class="fas fa-plus"></i> 데이터 추가
         </button>
     </div>
 
-    <!-- Data Inserting Modal - LAYER 시작 -->
-    <div class="modal fade" id="layerDataInsert" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Data Form Modal - LAYER 시작 -->
+    <div class="modal fade" id="layerModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
-                <form id="add-proxy-layer" th:action="@{/view/cache/add-proxy-layer}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" th:object="${addProxyLayer}">
+                <form data-title="layer-form" th:action="@{/view/proxy/layer-save}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)">
+                    <input type="hidden" id="layer-id" name="id" value="0" />
+                    <input type="hidden" id="layer-method" name="method" value="INSERT" />
+
                     <div class="modal-header">
-                        <h4 class="cont_tit">데이터 추가 - Layer</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('proxyLayerName', 'layer')">
+                        <h4 class="cont_tit">데이터 <span id="layer-method-title"></span> - Layer</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('layer')">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
 
-                    <div class="modal-body" th:if="${ #lists.size(sourceMap) > 0 }">
+                    <div class="modal-body" th:if="${ #lists.size(sources) > 0 }">
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="proxyLayerName">레이어 이름 <span class="text-danger">(*)</span></label>
+                                <label for="layer-name">레이어 이름 <span class="text-danger">(*)</span></label>
                             </div>
                             <div class="col-12 input-group">
-                                <input type="text" class="form-control" th:field="*{proxyLayerName}">
+                                <input type="text" class="form-control" id="layer-name" name="name">
                                 <div class="input-group-append">
-                                    <span class="input-group-btn btn btn-primary" onclick="jiCommon.duplicateCheck('PROXYLAYER','#proxyLayerName','#duplicate-check-message-proxy-layer')" style="cursor: pointer;">중복확인</span>
+                                    <span id="layer-validate-btn" class="input-group-btn btn btn-primary" onclick="jiCommon.duplicateCheck('PROXYLAYER','#layer-name','#duplicate-check-message-proxy-layer')" style="cursor: pointer;">중복확인</span>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div id="layer-validate-text" class="col-12">
                                 <small class="form-text text-muted" id="duplicate-check-message-proxy-layer">중복확인을 해주세요.</small>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="proxyLayerTitle">레이어 제목 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control" th:field="*{proxyLayerTitle}" />
+                            <label for="layer-title">레이어 제목 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" id="layer-title" name="title" />
                         </div>
 
-                        <div class="form-group">
-                            <label for="proxySources">레이어 연계 소스 <span class="text-info">(*)</span></label>
-                            <select class="form-control" th:field="*{proxySources}" multiple>
-                                <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
+                        <div class="form-group" th:if="${ #lists.size(selectSources) > 0}">
+                            <label for="layer-sources">레이어 연계 소스 <span class="text-info">(*)</span></label>
+                            <select class="form-control" id="layer-sources" name="sources" multiple>
+                                <option th:each="source : ${selectSources}" th:text="${ source.name }" th:value="${ source.name }"></option>
                             </select>
                         </div>
 
-                        <div class="form-group" th:if="${ #lists.size(proxyCaches) > 0}">
-                            <label for="proxyCaches">레이어 연계 캐시 <span class="text-info">(*)</span></label>
-                            <select class="form-control" id="proxyCaches" name="proxyCaches" multiple>
-                                <option th:each="cache : ${proxyCaches}" th:text="${ cache.name }" th:value="${ cache.name }"></option>
+                        <div class="alert alert-warning py-1" th:unless="${ #lists.size(selectSources) > 0}">
+                            <h1 class="display-4">
+                                <i class="fas fa-times-circle"></i> No Source Datas
+                            </h1>
+                            <p class="lead">선택된 리소스 (Source) 데이터가 없습니다. 리소스 데이터를 선택 하시고 다시 시도 바랍니다.</p>
+                        </div>
+
+                        <div class="form-group" th:if="${ #lists.size(selectCaches) > 0}">
+                            <label for="layer-caches">레이어 연계 캐시 <span class="text-info">(*)</span></label>
+                            <select class="form-control" id="layer-caches" name="caches" multiple>
+                                <option th:each="cache : ${selectCaches}" th:text="${ cache.name }" th:value="${ cache.name }"></option>
                             </select>
                         </div>
 
-                        <div class="alert alert-warning py-1" th:unless="${ #lists.size(proxyCaches) > 0}">
+                        <div class="alert alert-warning py-1" th:unless="${ #lists.size(selectCaches) > 0}">
                             <h1 class="display-4">
                                 <i class="fas fa-times-circle"></i> No Cache Datas
                             </h1>
-                            <p class="lead">추가 된 캐시 (Cache) 데이터가 없습니다. 캐시 데이터를 추가하고 다시 시도 바랍니다.</p>
+                            <p class="lead">선택된 캐시 (Cache) 데이터가 없습니다. 캐시 데이터를 선택 하시고 다시 시도 바랍니다.</p>
                         </div>
 
                         <p><span class="text-danger">(*)</span> : 해당 데이터는 반드시 입력 되어야 합니다.</p>
                         <p><span class="text-info">(*)</span> : 해당 데이터들 중에 최소한 하나는 선택되어 있어야 합니다.</p>
                     </div>
 
-                    <div class="modal-body" th:unless="${ #lists.size(sourceMap) > 0 }">
+                    <div class="modal-body" th:unless="${ #lists.size(sources) > 0 }">
                         <div class="jumbotron">
                             <h1 class="display-4">
                                 <i class="fas fa-times-circle"></i> Error
@@ -74,7 +84,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="onclick_close('proxyLayerName', 'layer')">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="onclick_close('layer')">
                             <i class="fas fa-times"></i> 취소
                         </button>
                         <button type="submit" class="btn btn-primary">
@@ -85,82 +95,7 @@
             </div>
         </div>
     </div>
-    <!-- Data Inserting Modal - LAYER 끝 -->
-
-    <!-- Data Updating Modal - LAYER 시작 -->
-    <div class="modal fade" id="layerDataUpdate" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <form id="update-proxy-layer" th:action="@{/view/cache/update-proxy-layer}" method="post" accept-charset="utf-8" onsubmit="return layerRelationValidation('UPDATE')">
-                    <input type="hidden" id="proxyLayerId_u" name="id" />
-                    <div class="modal-header">
-                        <h4 class="cont_tit">데이터 수정 - Layer</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body" th:if="${ #lists.size(sourceMap) > 0 }">
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <label for="proxyLayerName_u">레이어 이름 <span class="text-danger">(*)</span></label>
-                            </div>
-                            <div class="col-12 input-group">
-                                <input type="text" class="form-control" id="proxyLayerName_u" name="proxyLayerName" readonly />
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="proxyLayerTitle_u">레이어 제목 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control" id="proxyLayerTitle_u" name="proxyLayerTitle" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="proxySources_u">레이어 연계 소스 <span class="text-info">(*)</span></label>
-                            <select class="form-control" id="proxySources_u" name="proxySources" multiple>
-                                <option th:each="source : ${proxySources}" th:text="${ source.name }" th:value="${ source.name }"></option>
-                            </select>
-                        </div>
-
-                        <div class="form-group" th:if="${ #lists.size(proxyCaches) > 0}">
-                            <label for="proxyCaches_u">레이어 연계 캐시 <span class="text-info">(*)</span></label>
-                            <select class="form-control" id="proxyCaches_u" name="proxyCaches" multiple>
-                                <option th:each="cache : ${proxyCaches}" th:text="${ cache.name }" th:value="${ cache.name }"></option>
-                            </select>
-                        </div>
-
-                        <div class="alert alert-warning py-1" th:unless="${ #lists.size(proxyCaches) > 0}">
-                            <h1 class="display-4">
-                                <i class="fas fa-times-circle"></i> No Cache Datas
-                            </h1>
-                            <p class="lead">추가 된 캐시 (Cache) 데이터가 없습니다. 캐시 데이터를 추가하고 다시 시도 바랍니다.</p>
-                        </div>
-                        <p><span class="text-danger">(*)</span> : 해당 데이터는 반드시 입력 되어야 합니다.</p>
-                        <p><span class="text-info">(*)</span> : 해당 데이터들 중에 최소한 하나는 선택되어 있어야 합니다.</p>
-                    </div>
-
-                    <div class="modal-body" th:unless="${ #lists.size(sourceMap) > 0 }">
-                        <div class="jumbotron">
-                            <h1 class="display-4">
-                                <i class="fas fa-times-circle"></i> Error
-                            </h1>
-                            <p class="lead">추가 된 리소스 (Source) 데이터가 없습니다. 리소스 데이터를 추가하고 다시 시도 바랍니다.</p>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fas fa-times"></i> 취소
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> 저장
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Data Updating Modal - LAYER 끝 -->
+    <!-- Data Form Modal - LAYER 끝 -->
 
     <!-- Data List Table - LAYER 시작 -->
     <table id="list_table_layer" class="table basic my-1">
@@ -173,20 +108,25 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="layer : ${ layerMap }">
+        <tr th:each="layer : ${ layers }">
             <td class="text-center align-middle" th:text="${ layer.name }"></td>
             <td class="text-center align-middle" th:text="${ layer.title }"></td>
             <td class="text-center align-middle">
-                <button th:id="${ 'layerUpdate' + layer.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#layerDataUpdate">
+                <button
+                    type="button"
+                    class="btn btn-info btn-circle btn-sm mx-1"
+                    data-obj="layer"
+                    th:data-id="${layer.id}"
+                    data-method="UPDATE"
+                    th:data-name="${layer.name}"
+                    th:data-title="${layer.title}"
+                    th:data-sources="${layer.sourceKeys}"
+                    th:data-caches="${layer.cacheKeys}"
+                    onclick="onclick_update_data(this)"
+                >
                     <i class="fas fa-cog"></i>
                 </button>
-                <script th:inline="javascript">
-                    var l_json[[${layer.id}]] = /*[[${ layer }]]*/ {};
-                    document.getElementById('layerUpdate' + [[${layer.id}]]).onclick = function() {
-                        onclick_update_layer(l_json[[${layer.id}]]);
-                    };
-                </script>
-                <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/cache/delete-proxy-layer/' + ${layer.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/proxy/remove-layer?id=' + ${layer.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                     <i class="fas fa-trash"></i>
                 </a>
             </td>
