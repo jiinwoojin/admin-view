@@ -5,13 +5,13 @@
   "sources": {
     "kr1": {
       "type": "vector",
-      "tiles": ["http://211.172.246.71:20001/maps/kr1/{z}/{x}/{y}.pbf"],
+      "tiles": ["http://192.168.1.180:20001/maps/kr1/{z}/{x}/{y}.pbf"],
       "minZoom": 0,
       "maxZoom": 20
     }
   },
-  "sprite": "http://211.172.246.71:11100/GSymbol/GSSSymbol",
-  "glyphs": "http://211.172.246.71:11100/fonts/{fontstack}/{range}.pbf",
+  "sprite": "http://192.168.1.180:11100/GSymbol/GSSSymbol",
+  "glyphs": "http://192.168.1.180:11100/fonts/{fontstack}/{range}.pbf",
   "layers": [
     {
       "id": "background",
