@@ -1,5 +1,6 @@
 package com.jiin.admin.website.model;
 
+import com.jiin.admin.dto.ProxyCacheDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -36,5 +37,11 @@ public class ProxyCacheModelV2 {
         this.metaSizeY = metaSizeY;
         this.metaBuffer = metaBuffer;
         this.sources = proxySourcesWithCaches;
+    }
+
+    // convertDTO 에서는 caches 데이터가 무의미해서 new ArrayList() 로 두었다.
+    public static ProxyCacheDTO convertDTO(ProxyCacheModelV2 model){
+        if(model == null) return null;
+        return new ProxyCacheDTO(model.getId(), model.getName(), model.getMetaSizeX(), model.getMetaSizeY(), model.getMetaBuffer(), new ArrayList(), model.getCacheType(), model.getCacheDirectory(), false, false);
     }
 }

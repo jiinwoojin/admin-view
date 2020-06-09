@@ -8,9 +8,11 @@ import java.util.List;
 
 @BaseMapper
 public interface ProxySourceMapper {
+    long findNextSeqVal();
     List<ProxySourceDTO> findAll();
+    ProxySourceDTO findByName(@Param("name") String name);
     List<ProxySourceDTO> findBySelected(@Param("selected") boolean selected);
-    int create(ProxySourceDTO proxySourceDTO);
+    int insert(ProxySourceDTO proxySourceDTO);
     int update(ProxySourceDTO proxySourceDTO);
     int deleteById(@Param("id") long id);
 }

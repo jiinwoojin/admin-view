@@ -1,5 +1,6 @@
 package com.jiin.admin.website.model;
 
+import com.jiin.admin.dto.ProxyLayerDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,5 +31,11 @@ public class ProxyLayerModelV2 {
         this.title = title;
         this.sources = sources;
         this.caches = caches;
+    }
+
+    // convertDTO 에서는 sources, caches 데이터가 무의미해서 new ArrayList() 로 두었다.
+    public static ProxyLayerDTO convertDTO(ProxyLayerModelV2 model){
+        if(model == null) return null;
+        return new ProxyLayerDTO(model.getId(), model.getName(), model.getTitle(), new ArrayList<>(), new ArrayList<>(), false, false);
     }
 }

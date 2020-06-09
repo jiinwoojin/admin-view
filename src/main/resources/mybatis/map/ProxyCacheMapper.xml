@@ -23,6 +23,10 @@
         SELECT * FROM _PROXY_CACHE
     </select>
 
+    <select id="findByName" resultMap="cacheAndEachList">
+        SELECT * FROM _PROXY_CACHE WHERE NAME = #{name}
+    </select>
+
     <select id="findBySelected" resultType="ProxyCacheDTO">
         SELECT * FROM _PROXY_CACHE WHERE SELECTED = #{selected}
     </select>

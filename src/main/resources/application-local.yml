@@ -2,9 +2,9 @@ project:
   datasource:
     base:
       driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://211.172.246.71:5000/mims
-      username: jiserver
-      password: jiserver
+      url: jdbc:postgresql://192.168.2.18:5432/mims # 가비아가 터져서 당분간 이거로 씁니다...
+      username: postgres
+      password: jiin0701
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
       mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
     map:

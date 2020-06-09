@@ -2,11 +2,8 @@ package com.jiin.admin.website.view.service;
 
 import com.jiin.admin.Constants;
 import com.jiin.admin.dto.ProxyCacheDTO;
-import com.jiin.admin.dto.ProxyLayerDTO;
 import com.jiin.admin.dto.ProxySourceDTO;
-import com.jiin.admin.mapper.data.ProxyCacheMapper;
-import com.jiin.admin.mapper.data.ProxyLayerMapper;
-import com.jiin.admin.mapper.data.ProxySourceMapper;
+import com.jiin.admin.mapper.data.*;
 import com.jiin.admin.website.model.*;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.MapProxyUtil;
@@ -15,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +35,15 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
 
     @Resource
     private ProxyCacheMapper proxyCacheMapper;
+
+    @Resource
+    private ProxyLayerSourceRelationMapper proxyLayerSourceRelationMapper;
+
+    @Resource
+    private ProxyLayerCacheRelationMapper proxyLayerCacheRelationMapper;
+
+    @Resource
+    private ProxyCacheSourceRelationMapper proxyCacheSourceRelationMapper;
 
     /**
      * YAML 파일 내용을 채취한 이후, 해당 디렉토리에 저장힌다.
@@ -64,28 +71,40 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     }
 
     /**
-     * layers 와 sources 의 Relation 을 생성한다.
-     * @param id long, sources List : String
+     * 각 해당하는 Relation 을 생성한다.
+     * @param mainType String, subType String, mainId long, subNames List : String
      */
-    private boolean createRelationWithLayerAndSources(long id, List<String> sources){
-        return false;
-    }
+    private boolean createRelationWithMainIdAndSubNames(String mainType, String subType, long mainId, List<String> subNames){
+        int cnt = subNames.size();
+        if(mainType.equals("LAYER") && subType.equals("SOURCE")){
+            proxyLayerSourceRelationMapper.deleteByLayerId(mainId);
+            for(String key : subNames) {
+                ProxySourceDTO subData = proxySourceMapper.findByName(key);
+                if (subData != null) {
+                    cnt -= proxyLayerSourceRelationMapper.insertByRelationModel(new RelationModel(0L, mainId, subData.getId()));
+                }
+            }
+        } else if(mainType.equals("LAYER") && subType.equals("CACHE")){
+            proxyLayerCacheRelationMapper.deleteByLayerId(mainId);
+            for(String key : subNames) {
+                ProxyCacheDTO subData = proxyCacheMapper.findByName(key);
+                if (subData != null) {
+                    cnt -= proxyLayerCacheRelationMapper.insertByRelationModel(new RelationModel(0L, mainId, subData.getId()));
+                }
+            }
+        } else if(mainType.equals("CACHE") && subType.equals("SOURCE")){
+            proxyCacheSourceRelationMapper.deleteByCacheId(mainId);
+            for(String key : subNames) {
+                ProxySourceDTO subData = proxySourceMapper.findByName(key);
+                if (subData != null) {
+                    cnt -= proxyCacheSourceRelationMapper.insertByRelationModel(new RelationModel(0L, mainId, subData.getId()));
+                }
+            }
+        } else {
+            return false;
+        }
 
-    /**
-     * layers 와 caches 의 Relation 을 생성한다.
-     * @param id long, caches List : String
-     */
-    private boolean createRelationWithLayerAndCaches(long id, List<String> caches){
-        return false;
-    }
-
-
-    /**
-     * cache 와 sources 의 Relation 을 생성한다.
-     * @param id long, sources List : String
-     */
-    private boolean createRelationWithCacheAndSources(long id, List<String> sources){
-        return false;
+        return cnt == 0;
     }
 
     @Override
@@ -94,8 +113,8 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     }
 
     @Override
-    public String loadProxyMainDir() {
-        return dataPath + "/cache/";
+    public String loadProxyCacheMainDir() {
+        return dataPath + Constants.PROXY_CACHE_DIRECTORY + "/";
     }
 
     @Override
@@ -172,32 +191,63 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
 
     /**
      * MapProxy 기반 Layer 정보를 저장한다.
-     * @param proxyLayerModel ProxyLayerModel
+     * @param proxyLayerModelV2 ProxyLayerModelV2
      */
     @Override
+    @Transactional
     public boolean saveProxyLayerByModel(ProxyLayerModelV2 proxyLayerModelV2) {
-        return false;
+        switch(proxyLayerModelV2.getMethod()){
+            case "INSERT" :
+                long nextIdx = proxyLayerMapper.findNextSeqVal();
+                return true;
+            case "UPDATE" :
+                return true;
+
+            default :
+                return false;
+        }
     }
 
     /**
      * MapProxy 기반 Source 정보를 저장한다.
-     * @param proxySourceModel ProxySourceModel
+     * @param proxySourceModelV2 ProxySourceModelV2
      */
     @Override
+    @Transactional
     public boolean saveProxySourceByModel(ProxySourceModelV2 proxySourceModelV2) {
-        return false;
+        switch(proxySourceModelV2.getMethod()){
+            case "INSERT" :
+                long nextIdx = proxySourceMapper.findNextSeqVal();
+                return true;
+            case "UPDATE" :
+                return true;
+
+            default :
+                return false;
+        }
     }
 
     /**
      * MapProxy 기반 Cache 정보를 저장한다.
-     * @param proxyCacheModel ProxyCacheModel
+     * @param proxyCacheModelV2 ProxyCacheModelV2
      */
     @Override
+    @Transactional
     public boolean saveProxyCacheByModel(ProxyCacheModelV2 proxyCacheModelV2) {
-        return false;
+        switch(proxyCacheModelV2.getMethod()){
+            case "INSERT" :
+                long nextIdx = proxyCacheMapper.findNextSeqVal();
+                return true;
+            case "UPDATE" :
+                return true;
+
+            default :
+                return false;
+        }
     }
 
     @Override
+    @Transactional
     public boolean removeProxyDataByIdAndType(long id, String type) {
         return false;
     }

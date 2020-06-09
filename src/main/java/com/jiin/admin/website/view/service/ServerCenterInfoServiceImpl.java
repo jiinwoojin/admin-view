@@ -1,8 +1,12 @@
 package com.jiin.admin.website.view.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.Constants;
 import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.ServerCenterInfoModel;
+import com.jiin.admin.website.util.ConnectRestUtil;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.YAMLFileUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -11,15 +15,15 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Service
 public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
+    @Value("${server.servlet.context-path}")
+    private String contextPath;
+
     @Value("${project.data-path}")
     private String dataPath;
 
@@ -71,9 +75,9 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         if(map.containsKey("remote")) {
             List<ServerCenterInfo> list = new ArrayList<>();
             Map<String, Object> remoteMap = (Map<String, Object>) map.get("remote");
-            int cnt = (Integer) remoteMap.get("count");
-            for(int i = 1; i <= cnt; i++){
-                list.add(ServerCenterInfo.convertDTO("server-" + i, (Map<String, Object>) remoteMap.get(String.format("server-%d", i))));
+            for(String key : remoteMap.keySet()){
+                if(!key.equals("count"))
+                    list.add(ServerCenterInfo.convertDTO(key, (Map<String, Object>) remoteMap.get(key)));
             }
             return list;
         } else return new ArrayList<>();
@@ -94,7 +98,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         int cnt = remotes.size();
         remoteMap.put("count", cnt);
         for(int i = 0; i < cnt; i++){
-            remoteMap.put(String.format("server-%d", i + 1), ServerCenterInfo.convertMap(remotes.get(i)));
+            remoteMap.put(remotes.get(i).getKey(), ServerCenterInfo.convertMap(remotes.get(i)));
         }
         map.put("remote", remoteMap);
 
@@ -161,7 +165,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
      * @param
      */
     @Override
-    public List<ServerCenterInfo> loadDataList() {
+    public List<ServerCenterInfo> loadRemoteList() {
         return this.loadDataListAtYAMLFile();
     }
 
@@ -192,7 +196,23 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     @Override
     public ServerCenterInfo loadLocalInfoData() {
         Map<String, Object> map = this.loadMapDataAtYAMLFile();
-        return (map != null) ? ServerCenterInfo.convertDTO("local", (Map<String, Object>) map.get("local")) : null;
+        Map<String, Object> local = (Map<String, Object>) map.get("local");
+        return (map != null) ? ServerCenterInfo.convertDTO((String) local.get("key"), local) : null;
+    }
+
+    /**
+     * Remote 서버 정보 중 하나를 가져온다.
+     * @param
+     */
+    @Override
+    public ServerCenterInfo loadRemoteInfoDataByKey(String key) {
+        List<ServerCenterInfo> connections = this.loadDataListAtYAMLFile().stream()
+                .filter(o -> o.getKey() != null)
+                .filter(o -> o.getKey().equals(key))
+                .collect(Collectors.toList());
+
+        if(connections.size() > 0) return connections.get(0);
+        else return null;
     }
 
     /**
@@ -223,6 +243,8 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
      */
     @Override
     public boolean saveRemoteData(ServerCenterInfoModel model) {
+        ServerCenterInfo local = this.loadLocalInfoData();
+        if(model.getKey().equals(local.getKey())) return this.saveLocalData(model);
         List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
         switch(model.getMethod()){
             case "INSERT" :
@@ -237,7 +259,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     }
 
     /**
-     * YAML 파일을 기반으료 서버 설정을 삭제한다.
+     * YAML 파일을 기반으로 서버 설정을 삭제한다.
      * @param key String
      */
     @Override
@@ -246,5 +268,86 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
         infos = infos.stream().filter(o -> !o.getKey().equals(key)).collect(Collectors.toList());
         return this.saveServerInfosAtYAMLFile(this.loadLocalInfoData(), infos);
+    }
+
+    /**
+     * REST API 를 기반으로 한 목록을 추출한 결과 : 수정 데이터 반영을 위한 기능.
+     * @param isHTTP boolean, sentServer ServerCenterInfo, restContext String
+     */
+    @Override
+    public List<ServerCenterInfo> sendServerInfoList(boolean isHTTP, ServerCenterInfo sentServer, String restContext) {
+        String url = String.format("%s://%s%s/view/server/%s", "http", sentServer.getIp() + ":11000", contextPath, restContext);
+        ObjectMapper obj = new ObjectMapper();
+        String resJSON = ConnectRestUtil.sendREST(url, null, "GET", null);
+        log.info("REST API 요청을 시작합니다. : " + url);
+
+        List<ServerCenterInfo> res;
+        try {
+            res = obj.readValue(resJSON, obj.getTypeFactory().constructCollectionType(List.class, ServerCenterInfo.class));
+        } catch (JsonProcessingException e) {
+            log.error("JSON 파싱 오류 입니다 : " + e.getMessage());
+            return new ArrayList<>();
+        }
+        return res;
+    }
+
+    /**
+     * REST API 를 기반으로 한 삭제 및 추가 요청.
+     * @param isHTTP boolean, sentServer ServerCenterInfo, receiveServer ServerCenterInfo, restContext String
+     */
+    @Override
+    public void sendDuplexRequest(boolean isHTTP, ServerCenterInfo sentServer, ServerCenterInfo targetServer, String restContext) {
+        String url = String.format("%s://%s%s/view/server/%s", "http", sentServer.getIp() + ":11000", contextPath, restContext);
+        ObjectMapper obj = new ObjectMapper();
+        String resJSON = "";
+        try {
+            log.info("REST API 요청을 시작합니다. : " + url);
+            resJSON = ConnectRestUtil.sendREST(url, null, "POST", obj.writeValueAsString(targetServer));
+        } catch (JsonProcessingException e) {
+            log.error("JSON 파싱 오류 입니다 : " + e.getMessage());
+        }
+
+        Map<String, String> res = new HashMap<>();
+        try {
+            res = obj.readValue(resJSON, Map.class);
+        } catch (JsonProcessingException e) {
+            log.error("JSON 파싱 오류 입니다 : " + e.getMessage());
+        }
+
+        if(res == null || res.isEmpty()) return;
+
+        if(!res.get("result").equals("true"))
+            log.error("이중화 작업 도중 오류 발생! : " + sentServer.getKey() + " 에서 " + targetServer.getKey() + " 데이터 저장 도중...");
+    }
+
+    /**
+     * REST API 를 기반으로 한 수정 요청.
+     * @param isHTTP boolean, sentServers List Of ServerCenterInfo, targetServer ServerCenterInfo, restContext String
+     */
+    @Override
+    public void sendDuplexRequest(boolean isHTTP, List<ServerCenterInfo> sentServers, ServerCenterInfo targetServer, String restContext) {
+        for(ServerCenterInfo sentServer : sentServers) {
+            String url = String.format("%s://%s%s/view/server/%s", "http", sentServer.getIp() + ":11000", contextPath, restContext);
+            ObjectMapper obj = new ObjectMapper();
+            String resJSON = "";
+            try {
+                log.info("REST API 요청을 시작합니다. : " + url);
+                resJSON = ConnectRestUtil.sendREST(url, null, "POST", obj.writeValueAsString(targetServer));
+            } catch (JsonProcessingException e) {
+                log.error("JSON 파싱 오류 입니다 : " + e.getMessage());
+            }
+
+            Map<String, String> res = new HashMap<>();
+            try {
+                res = obj.readValue(resJSON, Map.class);
+            } catch (JsonProcessingException e) {
+                log.error("JSON 파싱 오류 입니다 : " + e.getMessage());
+            }
+
+            if(res == null || res.isEmpty()) continue;
+
+            if(!res.get("result").equals("true"))
+                log.error("이중화 작업 도중 오류 발생! : " + sentServer.getKey() + " 에서 " + targetServer.getKey() + " 데이터 저장 도중...");
+        }
     }
 }
