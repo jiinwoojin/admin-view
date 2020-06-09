@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,22 +87,35 @@ public class MVCServerController {
 
     /**
      * 연동 주소 정보를 저장하는 POST 요청
-     * @param serverCenterInfoModel ServerCenterInfoModel
+     * @param request HttpServletRequest, serverCenterInfoModel ServerCenterInfoModel
      */
     @RequestMapping(value = "remote-save", method = RequestMethod.POST)
-    public String postServiceRemoteSave(ServerCenterInfoModel serverCenterInfoModel) {
+    public String postServiceRemoteSave(HttpServletRequest request, ServerCenterInfoModel serverCenterInfoModel) {
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+        ServerCenterInfo remote = ServerCenterInfoModel.convertDTO(serverCenterInfoModel);
         boolean result = serverCenterInfoService.saveRemoteData(serverCenterInfoModel);
+        if(serverCenterInfoModel.getMethod().equals("INSERT")) {
+            serverCenterInfoService.sendDuplexRequest(request.getRequestURL().toString().startsWith("http://"), remote, local, "create-duplex");
+        }
+        if(serverCenterInfoModel.getMethod().equals("UPDATE")){
+            List<ServerCenterInfo> sentServers = serverCenterInfoService.sendServerInfoList(request.getRequestURL().toString().startsWith("http://"), remote, "remote-list");
+            sentServers.add(local);
+            serverCenterInfoService.sendDuplexRequest(request.getRequestURL().toString().startsWith("http://"), sentServers, remote, "update-duplex");
+        }
         sessionService.message(String.format("REMOTE SERVER INFO [%s] 저장 %s 하였습니다.", serverCenterInfoModel.getName(), (result ? "성공" : "실패")));
         return "redirect:service-address";
     }
 
     /**
      * 연동 주소를 삭제하기 위한 링크
-     * @param key String
+     * @param request HttpServletRequest, key String
      */
     @RequestMapping("remove-server")
-    public String linkRemoveServerByKey(@RequestParam String key){
+    public String linkRemoveServerByKey(HttpServletRequest request, @RequestParam String key){
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+        ServerCenterInfo remote = serverCenterInfoService.loadRemoteInfoDataByKey(key);
         boolean result = serverCenterInfoService.removeDataByKey(key);
+        serverCenterInfoService.sendDuplexRequest(request.getRequestURL().toString().startsWith("http://"), remote, local, "delete-duplex");
         sessionService.message(String.format("REMOTE SERVER INFO [%s] 삭제 %s 하였습니다.", key, (result ? "성공" : "실패")));
         return "redirect:service-address";
     }

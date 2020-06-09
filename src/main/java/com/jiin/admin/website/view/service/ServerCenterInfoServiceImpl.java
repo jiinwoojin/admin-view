@@ -1,7 +1,6 @@
 package com.jiin.admin.website.view.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.Constants;
 import com.jiin.admin.vo.ServerCenterInfo;
@@ -276,7 +275,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
      */
     @Override
     public List<ServerCenterInfo> sendServerInfoList(boolean isHTTP, ServerCenterInfo sentServer, String restContext) {
-        String url = String.format("%s://%s%s/view/server/%s", "http", sentServer.getIp() + ":11000", contextPath, restContext);
+        String url = String.format("%s://%s%s/view/server/%s", "http", sentServer.getIp() + ":11110", contextPath, restContext);
         ObjectMapper obj = new ObjectMapper();
         String resJSON = ConnectRestUtil.sendREST(url, null, "GET", null);
         log.info("REST API 요청을 시작합니다. : " + url);
@@ -297,7 +296,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
      */
     @Override
     public void sendDuplexRequest(boolean isHTTP, ServerCenterInfo sentServer, ServerCenterInfo targetServer, String restContext) {
-        String url = String.format("%s://%s%s/view/server/%s", "http", sentServer.getIp() + ":11000", contextPath, restContext);
+        String url = String.format("%s://%s%s/view/server/%s", "http", sentServer.getIp() + ":11110", contextPath, restContext);
         ObjectMapper obj = new ObjectMapper();
         String resJSON = "";
         try {
@@ -327,7 +326,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     @Override
     public void sendDuplexRequest(boolean isHTTP, List<ServerCenterInfo> sentServers, ServerCenterInfo targetServer, String restContext) {
         for(ServerCenterInfo sentServer : sentServers) {
-            String url = String.format("%s://%s%s/view/server/%s", "http", sentServer.getIp() + ":11000", contextPath, restContext);
+            String url = String.format("%s://%s%s/view/server/%s", "http", sentServer.getIp() + ":11110", contextPath, restContext);
             ObjectMapper obj = new ObjectMapper();
             String resJSON = "";
             try {
@@ -344,7 +343,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
                 log.error("JSON 파싱 오류 입니다 : " + e.getMessage());
             }
 
-            if(res == null || res.isEmpty()) continue;
+            if(res == null || res.isEmpty()) return;
 
             if(!res.get("result").equals("true"))
                 log.error("이중화 작업 도중 오류 발생! : " + sentServer.getKey() + " 에서 " + targetServer.getKey() + " 데이터 저장 도중...");

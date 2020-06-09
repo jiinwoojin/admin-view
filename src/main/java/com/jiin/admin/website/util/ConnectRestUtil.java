@@ -16,7 +16,7 @@ public class ConnectRestUtil {
         String line = null;
         StringBuffer res = new StringBuffer();
         try {
-            URL url = new URL(restURL + parameter);
+            URL url = new URL(restURL + parameter == null ? "" : parameter);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod(method);

@@ -286,9 +286,16 @@
             }
         }
 
+        function onsubmit_duplex(){
+
+            return false;
+        }
+
         // 추가 이중화
         function insert_duplex_rest(){
-
+            // $.ajax({
+            //     url: (window.location.protocol === 'https:') ? `https://${ip}${CONTEXT}/server/api/dashboard/performance` : `http://${ip}:11110${CONTEXT}/server/api/dashboard/performance`,
+            // })
         }
 
         // 삭제 이중화
