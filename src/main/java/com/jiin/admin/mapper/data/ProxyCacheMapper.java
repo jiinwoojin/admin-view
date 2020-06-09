@@ -10,8 +10,9 @@ import java.util.List;
 public interface ProxyCacheMapper {
     long findNextSeqVal();
     List<ProxyCacheDTO> findAll();
+    ProxyCacheDTO findByName(@Param("name") String name);
     List<ProxyCacheDTO> findBySelected(@Param("selected") boolean selected);
-    int create(ProxyCacheDTO proxyCacheDTO);
+    int insert(ProxyCacheDTO proxyCacheDTO);
     int update(ProxyCacheDTO proxyCacheDTO);
     int deleteById(@Param("id") long id);
 }

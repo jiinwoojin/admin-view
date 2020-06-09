@@ -1,15 +1,20 @@
 package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.config.SessionService;
+import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.ServerCenterInfoModel;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import com.jiin.admin.website.view.service.ServiceInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("server")
@@ -61,7 +66,7 @@ public class MVCServerController {
      */
     @RequestMapping("service-address")
     public String pageServiceAddressConfig(Model model){
-        model.addAttribute("connections", serverCenterInfoService.loadDataList());
+        model.addAttribute("connections", serverCenterInfoService.loadRemoteList());
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
         model.addAttribute("kinds", serverCenterInfoService.loadKindList());
         model.addAttribute("zones", serverCenterInfoService.loadZoneList());
@@ -82,24 +87,71 @@ public class MVCServerController {
 
     /**
      * 연동 주소 정보를 저장하는 POST 요청
-     * @param serverCenterInfoModel ServerCenterInfoModel
+     * @param request HttpServletRequest, serverCenterInfoModel ServerCenterInfoModel
      */
     @RequestMapping(value = "remote-save", method = RequestMethod.POST)
-    public String postServiceRemoteSave(ServerCenterInfoModel serverCenterInfoModel) {
+    public String postServiceRemoteSave(HttpServletRequest request, ServerCenterInfoModel serverCenterInfoModel) {
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+        ServerCenterInfo remote = ServerCenterInfoModel.convertDTO(serverCenterInfoModel);
         boolean result = serverCenterInfoService.saveRemoteData(serverCenterInfoModel);
+        if(serverCenterInfoModel.getMethod().equals("INSERT")) {
+            serverCenterInfoService.sendDuplexRequest(request.getRequestURL().toString().startsWith("http://"), remote, local, "create-duplex");
+        }
+        if(serverCenterInfoModel.getMethod().equals("UPDATE")){
+            List<ServerCenterInfo> sentServers = serverCenterInfoService.sendServerInfoList(request.getRequestURL().toString().startsWith("http://"), remote, "remote-list");
+            sentServers.add(local);
+            serverCenterInfoService.sendDuplexRequest(request.getRequestURL().toString().startsWith("http://"), sentServers, remote, "update-duplex");
+        }
         sessionService.message(String.format("REMOTE SERVER INFO [%s] 저장 %s 하였습니다.", serverCenterInfoModel.getName(), (result ? "성공" : "실패")));
         return "redirect:service-address";
     }
 
     /**
      * 연동 주소를 삭제하기 위한 링크
-     * @param key String
+     * @param request HttpServletRequest, key String
      */
     @RequestMapping("remove-server")
-    public String linkRemoveServerByName(@RequestParam String key){
+    public String linkRemoveServerByKey(HttpServletRequest request, @RequestParam String key){
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+        ServerCenterInfo remote = serverCenterInfoService.loadRemoteInfoDataByKey(key);
         boolean result = serverCenterInfoService.removeDataByKey(key);
+        serverCenterInfoService.sendDuplexRequest(request.getRequestURL().toString().startsWith("http://"), remote, local, "delete-duplex");
         sessionService.message(String.format("REMOTE SERVER INFO [%s] 삭제 %s 하였습니다.", key, (result ? "성공" : "실패")));
         return "redirect:service-address";
+    }
+
+    /**
+     * 연동 주소 목록을 REST API 로 호출한다 : 서버 목록 갱신화 중 Update 기능에 반영하기 위함.
+     * @param
+     */
+    @ResponseBody
+    @RequestMapping("remote-list")
+    public List<ServerCenterInfo> getRemoteServerList(){
+        return serverCenterInfoService.loadRemoteList();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "create-duplex", method = RequestMethod.POST)
+    public Map<String, Object> postCreateDuplexWithServerVO(@RequestBody ServerCenterInfo serverCenterInfo){
+        return new HashMap<String, Object>() {{
+            put("result", serverCenterInfoService.saveRemoteData(ServerCenterInfoModel.convertModel("INSERT", serverCenterInfo)));
+        }};
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "update-duplex", method = RequestMethod.POST)
+    public Map<String, Object> postUpdateDuplexWithServerVO(@RequestBody ServerCenterInfo serverCenterInfo){
+        return new HashMap<String, Object>() {{
+            put("result", serverCenterInfoService.saveRemoteData(ServerCenterInfoModel.convertModel("UPDATE", serverCenterInfo)));
+        }};
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "delete-duplex", method = RequestMethod.POST)
+    public Map<String, Object> postDeleteDuplexWithServerVO(@RequestBody ServerCenterInfo serverCenterInfo){
+        return new HashMap<String, Object>() {{
+            put("result", serverCenterInfoService.removeDataByKey(serverCenterInfo.getKey()));
+        }};
     }
 
     /**

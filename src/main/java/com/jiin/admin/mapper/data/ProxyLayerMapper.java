@@ -10,8 +10,9 @@ import java.util.List;
 public interface ProxyLayerMapper {
     long findNextSeqVal();
     List<ProxyLayerDTO> findAll();
+    ProxyLayerDTO findByName(@Param("name") String name);
     List<ProxyLayerDTO> findBySelected(@Param("selected") boolean selected);
-    int create(ProxyLayerDTO proxyLayerDTO);
+    int insert(ProxyLayerDTO proxyLayerDTO);
     int update(ProxyLayerDTO proxyLayerDTO);
     int deleteById(@Param("id") long id);
 }

@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
+
 @Controller
 @RequestMapping("home")
 public class MVCHomeController {
-    @Autowired
+    @Resource
     private ServerCenterInfoService serverCenterInfoService;
 
     @Autowired

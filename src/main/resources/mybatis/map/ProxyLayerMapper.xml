@@ -20,6 +20,10 @@
         SELECT * FROM _PROXY_LAYER
     </select>
 
+    <select id="findByName" resultMap="layerAndEachList">
+        SELECT * FROM _PROXY_LAYER WHERE NAME = #{name}
+    </select>
+
     <select id="findBySelected" resultType="ProxyLayerDTO">
         SELECT * FROM _PROXY_LAYER WHERE SELECTED = #{selected}
     </select>

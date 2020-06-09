@@ -40,6 +40,7 @@ public class ServerCenterInfo {
     public static Map<String, Object> convertMap(ServerCenterInfo serverCenterInfo) {
         if(serverCenterInfo == null) return null;
         return new HashMap<String, Object>() {{
+            put("key", serverCenterInfo.getKey());
             put("name", serverCenterInfo.getName());
             put("ip", serverCenterInfo.getIp());
             put("zone", serverCenterInfo.getZone());

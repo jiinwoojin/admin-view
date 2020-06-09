@@ -2,8 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jiin.admin.mapper.data.ProxySourceMapper">
+    <select id="findNextSeqVal" resultType="long">
+        SELECT NEXTVAL('PROXY_SOURCE_SEQ')
+    </select>
+
     <select id="findAll" resultType="ProxySourceDTO">
         SELECT * FROM _PROXY_SOURCE
+    </select>
+
+    <select id="findByName" resultType="ProxySourceDTO">
+        SELECT * FROM _PROXY_SOURCE WHERE NAME = #{name}
     </select>
 
     <select id="findBySelected" resultType="ProxySourceDTO">

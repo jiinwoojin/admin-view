@@ -1,5 +1,6 @@
 package com.jiin.admin.website.model;
 
+import com.jiin.admin.dto.ProxySourceDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,5 +30,10 @@ public class ProxySourceModelV2 {
         this.requestLayers = requestLayers;
         this.mapServerBinary = mapServerBinary;
         this.mapServerWorkDir = mapServerWorkDir;
+    }
+
+    public static ProxySourceDTO convertDTO(ProxySourceModelV2 model){
+        if(model == null) return null;
+        return new ProxySourceDTO(model.getId(), model.getName(), model.getType(), model.getRequestMap(), model.getRequestLayers(), model.getMapServerBinary(), model.getMapServerWorkDir(), false, false);
     }
 }

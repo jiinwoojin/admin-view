@@ -35,4 +35,11 @@ public class ServerCenterInfoModel {
             return new ServerCenterInfo(model.getKey(), model.getName(), model.getIp(), model.getZone(), model.getKind(), model.getDescription());
         }
     }
+
+    public static ServerCenterInfoModel convertModel(String method, ServerCenterInfo dto){
+        if(dto == null) return null;
+        else {
+            return new ServerCenterInfoModel(method, dto.getKey(), dto.getName(), dto.getIp(), dto.getZone(), dto.getKind(), dto.getDescription());
+        }
+    }
 }

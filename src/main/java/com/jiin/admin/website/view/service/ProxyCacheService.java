@@ -7,7 +7,7 @@ import com.jiin.admin.website.model.ProxySourceModelV2;
 
 public interface ProxyCacheService {
     String loadDataDir();
-    String loadProxyMainDir();
+    String loadProxyCacheMainDir();
     String loadMapServerBinary();
 
     Object loadDataList(String type);

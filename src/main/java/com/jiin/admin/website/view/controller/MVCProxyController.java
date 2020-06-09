@@ -35,7 +35,7 @@ public class MVCProxyController {
         model.addAttribute("selectSources", proxyCacheService.loadDataListBySelected("SOURCES", true));
         model.addAttribute("selectCaches", proxyCacheService.loadDataListBySelected("CACHES", true));
 
-        model.addAttribute("proxyCacheDirectory", proxyCacheService.loadProxyMainDir());
+        model.addAttribute("proxyCacheDirectory", proxyCacheService.loadProxyCacheMainDir());
         model.addAttribute("dataDirectory", proxyCacheService.loadDataDir());
         model.addAttribute("mapServerBinary", proxyCacheService.loadMapServerBinary());
 

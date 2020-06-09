@@ -2,6 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jiin.admin.mapper.data.ProxyCacheSourceRelationMapper">
+    <insert id="insertByRelationModel">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT NEXTVAL('PROXY_CACHE_SOURCE_SEQ')
+        </selectKey>
+        INSERT INTO _PROXY_CACHE_SOURCE_RELATION(ID, CACHE_ID, SOURCE_ID)
+        VALUES(#{id}, #{mainId}, #{subId})
+    </insert>
 
+    <delete id="deleteByCacheId">
+        DELETE FROM _PROXY_CACHE_SOURCE_RELATION WHERE CACHE_ID = #{cacheId}
+    </delete>
+
+    <delete id="deleteBySourceId">
+        DELETE FROM _PROXY_CACHE_SOURCE_RELATION WHERE SOURCE_ID = #{sourceId}
+    </delete>
 </mapper>
 
