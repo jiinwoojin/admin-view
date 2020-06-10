@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,35 +85,22 @@ public class MVCServerController {
 
     /**
      * 연동 주소 정보를 저장하는 POST 요청
-     * @param request HttpServletRequest, serverCenterInfoModel ServerCenterInfoModel
+     * @param serverCenterInfoModel ServerCenterInfoModel
      */
     @RequestMapping(value = "remote-save", method = RequestMethod.POST)
-    public String postServiceRemoteSave(HttpServletRequest request, ServerCenterInfoModel serverCenterInfoModel) {
-        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
-        ServerCenterInfo remote = ServerCenterInfoModel.convertDTO(serverCenterInfoModel);
+    public String postServiceRemoteSave(ServerCenterInfoModel serverCenterInfoModel) {
         boolean result = serverCenterInfoService.saveRemoteData(serverCenterInfoModel);
-        if(serverCenterInfoModel.getMethod().equals("INSERT")) {
-            serverCenterInfoService.sendDuplexRequest(request.getRequestURL().toString().startsWith("http://"), remote, local, "create-duplex");
-        }
-        if(serverCenterInfoModel.getMethod().equals("UPDATE")){
-            List<ServerCenterInfo> sentServers = serverCenterInfoService.sendServerInfoList(request.getRequestURL().toString().startsWith("http://"), remote, "remote-list");
-            sentServers.add(local);
-            serverCenterInfoService.sendDuplexRequest(request.getRequestURL().toString().startsWith("http://"), sentServers, remote, "update-duplex");
-        }
         sessionService.message(String.format("REMOTE SERVER INFO [%s] 저장 %s 하였습니다.", serverCenterInfoModel.getName(), (result ? "성공" : "실패")));
         return "redirect:service-address";
     }
 
     /**
      * 연동 주소를 삭제하기 위한 링크
-     * @param request HttpServletRequest, key String
+     * @param key String
      */
     @RequestMapping("remove-server")
-    public String linkRemoveServerByKey(HttpServletRequest request, @RequestParam String key){
-        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
-        ServerCenterInfo remote = serverCenterInfoService.loadRemoteInfoDataByKey(key);
+    public String linkRemoveServerByKey(@RequestParam String key){
         boolean result = serverCenterInfoService.removeDataByKey(key);
-        serverCenterInfoService.sendDuplexRequest(request.getRequestURL().toString().startsWith("http://"), remote, local, "delete-duplex");
         sessionService.message(String.format("REMOTE SERVER INFO [%s] 삭제 %s 하였습니다.", key, (result ? "성공" : "실패")));
         return "redirect:service-address";
     }
@@ -127,9 +112,15 @@ public class MVCServerController {
     @ResponseBody
     @RequestMapping("remote-list")
     public List<ServerCenterInfo> getRemoteServerList(){
-        return serverCenterInfoService.loadRemoteList();
+        List<ServerCenterInfo> list = serverCenterInfoService.loadRemoteList();
+        list.add(0, serverCenterInfoService.loadLocalInfoData());
+        return list;
     }
 
+    /**
+     * 서버 추가 이중화 작업
+     * @param serverCenterInfo ServerCenterInfo
+     */
     @ResponseBody
     @RequestMapping(value = "create-duplex", method = RequestMethod.POST)
     public Map<String, Object> postCreateDuplexWithServerVO(@RequestBody ServerCenterInfo serverCenterInfo){
@@ -138,19 +129,32 @@ public class MVCServerController {
         }};
     }
 
+    /**
+     * 서버 수정 이중화 작업
+     * @param serverCenterInfo ServerCenterInfo
+     */
     @ResponseBody
     @RequestMapping(value = "update-duplex", method = RequestMethod.POST)
-    public Map<String, Object> postUpdateDuplexWithServerVO(@RequestBody ServerCenterInfo serverCenterInfo){
+    public Map<String, Object> postUpdateDuplexWithServer(@RequestBody ServerCenterInfo serverCenterInfo){
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
         return new HashMap<String, Object>() {{
-            put("result", serverCenterInfoService.saveRemoteData(ServerCenterInfoModel.convertModel("UPDATE", serverCenterInfo)));
+            if(local.getKey().equals(serverCenterInfo.getKey())){
+                put("result", serverCenterInfoService.saveLocalData(ServerCenterInfoModel.convertModel("UPDATE", serverCenterInfo)));
+            } else {
+                put("result", serverCenterInfoService.saveRemoteData(ServerCenterInfoModel.convertModel("UPDATE", serverCenterInfo)));
+            }
         }};
     }
 
+    /**
+     * 서버 삭제 이중화 작업
+     * @param map Map
+     */
     @ResponseBody
     @RequestMapping(value = "delete-duplex", method = RequestMethod.POST)
-    public Map<String, Object> postDeleteDuplexWithServerVO(@RequestBody ServerCenterInfo serverCenterInfo){
+    public Map<String, Object> postDeleteDuplexWithServerKey(@RequestBody Map<String, String> map){
         return new HashMap<String, Object>() {{
-            put("result", serverCenterInfoService.removeDataByKey(serverCenterInfo.getKey()));
+            put("result", serverCenterInfoService.removeDataByKey(map.get("key")));
         }};
     }
 

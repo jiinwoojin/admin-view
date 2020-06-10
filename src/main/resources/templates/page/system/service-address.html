@@ -45,7 +45,7 @@
                 <tbody>
                 <tr th:each="connection : ${ connections }">
                     <td class="text-center align-middle" th:text="${connection.key}">[KEY 값]</td>
-                    <td class="text-center align-middle" th:text="${connection.ip}">[IP 주소]</td>
+                    <td class="text-center align-middle" th:text="${connection.ip}" th:id="${ 'remove-ip-' + connection.key }">[IP 주소]</td>
                     <td class="text-center align-middle" th:text="${connection.name}">[호스트 이름]</td>
                     <td class="text-center align-middle" th:switch="${connection.zone}">
                         <span th:text="${'B1'}" th:case="B1"></span>
@@ -69,7 +69,7 @@
                         >
                             <i class="fas fa-cog"></i>
                         </button>
-                        <a class="btn btn-danger btn-circle btn-sm mx-1" type="button" th:href="@{ '/view/server/remove-server?key=' + ${connection.key} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                        <a class="btn btn-danger btn-circle btn-sm mx-1" type="button" th:href="@{ '/view/server/remove-server?key=' + ${connection.key} }" th:onclick="return onclick_remove_server([[${connection.key}]])">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>
@@ -81,7 +81,7 @@
 
         <!-- 서버 주소 편집 시작 -->
         <div class="col-md-6">
-            <form id="svr-local-form" method="post" accept-charset="utf-8" action="local-save">
+            <form id="svr-local-form" method="post" accept-charset="utf-8" action="local-save" onsubmit="return onsubmit_duplex('local')">
                 <h3 class="section-tit my-2">로컬 서버 설정</h3>
                 <div class="form-row mb-1">
                     <div class="col-6 mb-1">
@@ -133,7 +133,7 @@
 
             <hr/>
 
-            <form id="svr-remote-form" method="post" accept-charset="utf-8" action="remote-save">
+            <form id="svr-remote-form" method="post" accept-charset="utf-8" action="remote-save" onsubmit="return onsubmit_duplex('remote')">
                 <h3 class="section-tit my-2">연동 서버 관리</h3>
                 <input type="hidden" id="svr-method" name="method" />
                 <div class="form-row mb-1">
@@ -173,7 +173,7 @@
                 </div>
 
                 <div class="text-right mt-1">
-                    <button id="cancel-btn-remote" type="button" class="btn btn-secondary" onclick="onclick_initialize_button('cancel')" disabled>
+                    <button id="cancel-btn-remote" type="button" class="btn btn-secondary" onclick="return onclick_initialize_button('cancel')" disabled>
                         <i class="fas fa-times"></i> 취소
                     </button>
 
@@ -197,6 +197,12 @@
             if (!$.isEmptyObject(message)) {
                 toastr.info(message);
             }
+            if(sessionStorage.hasOwnProperty("duplex")){
+                toastr.info(sessionStorage.getItem("duplex"));
+                sessionStorage.removeItem("duplex");
+            }
+            $('#local-zone').val(localMain.zone);
+            $('#local-kind').val(localMain.kind);
             initialize_dataTable('list_table');
         });
 
@@ -286,26 +292,129 @@
             }
         }
 
-        function onsubmit_duplex(){
-
-            return false;
+        function onsubmit_duplex(area){
+            if(area === 'local'){
+                update_duplex_rest(area);
+                return true;
+            } else {
+                var method = document.getElementById('svr-method').value;
+                switch(method){
+                    case 'INSERT' :
+                        create_duplex_rest();
+                        return true;
+                    case 'UPDATE' :
+                        update_duplex_rest(area);
+                        return true;
+                    default :
+                        return false;
+                }
+            }
         }
 
-        // 추가 이중화
-        function insert_duplex_rest(){
-            // $.ajax({
-            //     url: (window.location.protocol === 'https:') ? `https://${ip}${CONTEXT}/server/api/dashboard/performance` : `http://${ip}:11110${CONTEXT}/server/api/dashboard/performance`,
-            // })
+        function onclick_remove_server(key){
+            if(confirm('서버 ' + key + ' 삭제를 진행 하시겠습니까?')){
+                remove_duplex_rest(key);
+                return true;
+            } else return false;
+        }
+
+        // REMOTE 추가 이중화 (로컬 저장 이후, 상대편에게 로컬 정보 제공.)
+        function create_duplex_rest(){
+            var ip = document.getElementById('remote-ip').value;
+            var key = document.getElementById('remote-key').value;
+            $.ajax({
+                url: (window.location.protocol === 'https:') ? `https://${ip}${CONTEXT}/view/server/create-duplex` : `http://${ip}:11110${CONTEXT}/view/server/create-duplex`,
+                type: 'post',
+                data: JSON.stringify({
+                    key: localMain && localMain.key,
+                    name: localMain && localMain.name,
+                    ip: localMain && localMain.ip,
+                    zone: localMain && localMain.zone,
+                    kind: localMain && localMain.kind,
+                    description: localMain && localMain.description
+                }),
+                contentType: "application/json",
+                success: function(res){
+                    if(res && res.result){
+                        sessionStorage.setItem('duplex', key + ' 서버와 ' + localMain.key + ' 끼리의 추가 이중화가 완료 되었습니다.');
+                    } else {
+                        toastr.error(key + ' 서버와 ' + localMain.key + ' 추가 이중화 중 문제 발생 : 데이터 모순 저장.');
+                    }
+                },
+                error: function(e){
+                    toastr.error(key + ' 서버와 ' + localMain.key + ' 추가 동기화 중 오류 발생! : ' + e.statusText);
+                }
+            });
+        }
+
+        // REMOTE 수정 이중화 (목록 호출 이후, 상대편에게 수정된 데이터를 제공한다.)
+        function update_duplex_rest(area){
+            var updatedIP = document.getElementById(`${area}-ip`).value;
+            var updatedKey = document.getElementById(`${area}-key`).value;
+            $.ajax({
+                url: (window.location.protocol === 'https:') ? `https://${updatedIP}${CONTEXT}/view/server/remote-list` : `http://${updatedIP}:11110${CONTEXT}/view/server/remote-list`,
+                success: function(res){
+                    var server = res;
+                    var count = 0;
+                    var errorKeys = '';
+                    if(Array.isArray(server)){
+                        server.forEach(o => {
+                            var remoteIP = o.ip;
+                            $.ajax({
+                                url: (window.location.protocol === 'https:') ? `https://${remoteIP}${CONTEXT}/view/server/update-duplex` : `http://${remoteIP}:11110${CONTEXT}/view/server/update-duplex`,
+                                type: 'post',
+                                data: JSON.stringify({
+                                    key: document.getElementById(`${area}-key`).value,
+                                    name: document.getElementById(`${area}-name`).value,
+                                    ip: document.getElementById(`${area}-ip`).value,
+                                    zone: document.getElementById(`${area}-zone`).value,
+                                    kind: document.getElementById(`${area}-kind`).value,
+                                    description: document.getElementById(`${area}-description`).value
+                                }),
+                                contentType: "application/json",
+                                async: false,
+                                success: function(res){
+                                    if(res && res.result){
+                                        count += 1;
+                                    } else {
+                                        errorKeys += (o.key + ' ');
+                                    }
+                                },
+                                error: function(e){
+                                    errorKeys += (o.key + ' ');
+                                }
+                            });
+                        })
+                    }
+                    sessionStorage.setItem('duplex', `${updatedKey} 서버와 연관된 ${server.length} 개 서버 수정 동기화 작업 중 ${count} 개 성공. \n 실패 서버 목록 : ${errorKeys}`);
+                },
+                error: function(e){
+                    toastr.error('수정 동기화 중 오류 발생! : ' + e.statusText);
+                }
+            });
         }
 
         // 삭제 이중화
-        function remove_duplex_rest(){
-
-        }
-
-        // 수정 이중화
-        function update_duplex_rest(){
-
+        function remove_duplex_rest(key){
+            var removeIP = document.getElementById('remove-ip-' + key).innerText;
+            $.ajax({
+                url: (window.location.protocol === 'https:') ? `https://${removeIP}${CONTEXT}/view/server/delete-duplex` : `http://${removeIP}:11110${CONTEXT}/view/server/delete-duplex`,
+                type: 'post',
+                data: JSON.stringify({
+                    key: localMain && localMain.key
+                }),
+                contentType: "application/json",
+                success: function(res){
+                    if(res && res.result){
+                        sessionStorage.setItem('duplex', key + ' 서버와 ' + localMain.key + ' 끼리의 삭제 이중화가 완료 되었습니다.');
+                    } else {
+                        toastr.error(key + ' 서버와 ' + localMain.key + ' 끼리의 삭제 이중화 중 문제 발생 : 데이터 모순 저장.');
+                    }
+                },
+                error: function(e){
+                    toastr.error(key + ' 서버와 ' + localMain.key + ' 삭제 동기화 중 오류 발생! : ' + e);
+                }
+            });
         }
     </script>
 </th:block>
