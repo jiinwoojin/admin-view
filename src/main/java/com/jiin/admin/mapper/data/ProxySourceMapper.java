@@ -14,5 +14,7 @@ public interface ProxySourceMapper {
     List<ProxySourceDTO> findBySelected(@Param("selected") boolean selected);
     int insert(ProxySourceDTO proxySourceDTO);
     int update(ProxySourceDTO proxySourceDTO);
+    int updateSelectedByNameIn(@Param("names") List<String> names, @Param("selected") boolean selected);
+    int updateSelectedAllDisabled();
     int deleteById(@Param("id") long id);
 }

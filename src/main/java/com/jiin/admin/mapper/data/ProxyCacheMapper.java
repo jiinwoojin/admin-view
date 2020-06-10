@@ -14,5 +14,7 @@ public interface ProxyCacheMapper {
     List<ProxyCacheDTO> findBySelected(@Param("selected") boolean selected);
     int insert(ProxyCacheDTO proxyCacheDTO);
     int update(ProxyCacheDTO proxyCacheDTO);
+    int updateSelectedByNameIn(@Param("names") List<String> names, @Param("selected") boolean selected);
+    int updateSelectedAllDisabled();
     int deleteById(@Param("id") long id);
 }
