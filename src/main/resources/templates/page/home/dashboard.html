@@ -245,7 +245,7 @@
 
         <div class="row">
             <div class="col-xl-4" th:each="zone : ${ zones }" th:id="${ zone + '_SYNC_STATUS' }" th:if="${ zones.length > 0 }">
-                <div class="ibox" th:style="${ local.zone == zone ? 'border: 3px solid #0386A3; border-radius: 3px;' : ''}">
+                <div class="ibox" th:if="${ serverMap.get(zone) != null }" th:style="${ local.zone == zone ? 'border: 3px solid #0386A3; border-radius: 3px;' : ''}">
                     <div class="ibox-title">
                         <h3 class="section_tit" th:id="${ zone + '_syncName' }"></h3>
                         <div class="ibox-tools">
