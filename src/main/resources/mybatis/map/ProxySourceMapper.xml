@@ -32,6 +32,20 @@
         WHERE ID = #{id}
     </update>
 
+    <update id="updateSelectedByNameIn">
+        UPDATE _PROXY_SOURCE SET
+        SELECTED = #{selected}
+        WHERE NAME IN
+        <foreach collection="names" item="name" index="index" separator="," open="(" close=")">
+            #{name}
+        </foreach>
+    </update>
+
+    <update id="updateSelectedAllDisabled">
+        UPDATE _PROXY_SOURCE SET
+        SELECTED = false
+    </update>
+
     <delete id="deleteById">
         DELETE FROM _PROXY_SOURCE WHERE id = #{id}
     </delete>

@@ -39,10 +39,25 @@
         WHERE ID = #{id}
     </update>
 
+    <update id="updateSelectedByNameIn">
+        UPDATE _PROXY_LAYER SET
+        SELECTED = #{selected}
+        WHERE NAME IN
+        <foreach collection="names" item="name" index="index" separator="," open="(" close=")">
+            #{name}
+        </foreach>
+    </update>
+
+    <update id="updateSelectedAllDisabled">
+        UPDATE _PROXY_LAYER SET
+        SELECTED = false
+    </update>
+
     <delete id="deleteById">
         DELETE FROM _PROXY_LAYER WHERE ID = #{id}
     </delete>
 
+    <!-- Mapper 인터페이스에 없지만 내부에서 사용되기 때문에 지우지 말 것. (1) -->
     <select id="findProxySourceListByLayerId" parameterType="java.util.Map" resultType="ProxySourceDTO">
         SELECT S.*
         FROM _PROXY_LAYER_SOURCE_RELATION LS
@@ -51,6 +66,7 @@
         WHERE LS.LAYER_ID = #{layerId}
     </select>
 
+    <!-- Mapper 인터페이스에 없지만 내부에서 사용되기 때문에 지우지 말 것. (2) -->
     <select id="findProxyCacheListByLayerId" parameterType="java.util.Map" resultType="ProxyCacheDTO">
         SELECT C.*
         FROM _PROXY_LAYER_CACHE_RELATION LC

@@ -14,5 +14,7 @@ public interface ProxyLayerMapper {
     List<ProxyLayerDTO> findBySelected(@Param("selected") boolean selected);
     int insert(ProxyLayerDTO proxyLayerDTO);
     int update(ProxyLayerDTO proxyLayerDTO);
+    int updateSelectedByNameIn(@Param("names") List<String> names, @Param("selected") boolean selected);
+    int updateSelectedAllDisabled();
     int deleteById(@Param("id") long id);
 }

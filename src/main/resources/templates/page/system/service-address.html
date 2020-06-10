@@ -372,7 +372,7 @@
                                     description: document.getElementById(`${area}-description`).value
                                 }),
                                 contentType: "application/json",
-                                async: false,
+                                async: false, // 이를 안 쓰고 완료 카운트 및 미완료 목록 추출을 하는 방법을 찾아야 함. 속도가 너무 느림.
                                 success: function(res){
                                     if(res && res.result){
                                         count += 1;
