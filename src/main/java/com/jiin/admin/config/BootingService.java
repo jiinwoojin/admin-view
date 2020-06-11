@@ -3,8 +3,6 @@ package com.jiin.admin.config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.dto.AccountDTO;
-import com.jiin.admin.entity.LayerEntity;
-import com.jiin.admin.entity.MapEntity;
 import com.jiin.admin.entity.RoleEntity;
 import com.jiin.admin.entity.SymbolPositionEntity;
 import com.jiin.admin.website.model.SymbolPositionModel;
@@ -16,7 +14,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -122,8 +119,8 @@ public class BootingService {
         // 기본 레이어 및 소스 초기화
         System.out.println(">>> initializeLayer Start");
         Date now = new Date();
-        entityManager.createQuery("DELETE FROM " + MapEntity.class.getAnnotation(Entity.class).name() + " WHERE IS_DEFAULT = true").executeUpdate();
-        entityManager.createQuery("DELETE FROM " + LayerEntity.class.getAnnotation(Entity.class).name()+ " WHERE IS_DEFAULT = true").executeUpdate();
+        //entityManager.createQuery("DELETE FROM " + MapEntity.class.getAnnotation(Entity.class).name() + " WHERE IS_DEFAULT = true").executeUpdate();
+        //entityManager.createQuery("DELETE FROM " + LayerEntity.class.getAnnotation(Entity.class).name()+ " WHERE IS_DEFAULT = true").executeUpdate();
         /*YAMLFactory fac = new YAMLFactory();
         ObjectMapper mapper = new ObjectMapper(fac);
         mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
