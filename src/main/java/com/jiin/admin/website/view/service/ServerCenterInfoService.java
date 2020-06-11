@@ -8,6 +8,7 @@ import java.util.Map;
 
 public interface ServerCenterInfoService {
     List<ServerCenterInfo> loadRemoteList();
+    List<ServerCenterInfo> loadSameCenterList();
     Map<String, Object> loadDataMapZoneBase();
     ServerCenterInfo loadLocalInfoData();
     String[] loadZoneList();

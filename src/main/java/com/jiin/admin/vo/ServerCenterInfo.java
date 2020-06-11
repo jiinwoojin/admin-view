@@ -1,5 +1,6 @@
 package com.jiin.admin.vo;
 
+import com.jiin.admin.website.util.RandomUtil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,7 +41,7 @@ public class ServerCenterInfo {
     public static Map<String, Object> convertMap(ServerCenterInfo serverCenterInfo) {
         if(serverCenterInfo == null) return null;
         return new HashMap<String, Object>() {{
-            put("key", serverCenterInfo.getKey());
+            put("key", serverCenterInfo.getKey().equals("initialized") ? "svr-" + RandomUtil.loadRandomAlphabetCode(5) : serverCenterInfo.getKey());
             put("name", serverCenterInfo.getName());
             put("ip", serverCenterInfo.getIp());
             put("zone", serverCenterInfo.getZone());

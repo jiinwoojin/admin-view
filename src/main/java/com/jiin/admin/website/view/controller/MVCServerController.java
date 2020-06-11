@@ -6,6 +6,7 @@ import com.jiin.admin.website.model.ServerCenterInfoModel;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import com.jiin.admin.website.view.service.ServiceInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -65,6 +66,7 @@ public class MVCServerController {
     @RequestMapping("service-address")
     public String pageServiceAddressConfig(Model model){
         model.addAttribute("connections", serverCenterInfoService.loadRemoteList());
+        model.addAttribute("neighbors", serverCenterInfoService.loadSameCenterList());
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
         model.addAttribute("kinds", serverCenterInfoService.loadKindList());
         model.addAttribute("zones", serverCenterInfoService.loadZoneList());
@@ -151,7 +153,7 @@ public class MVCServerController {
      * @param map Map
      */
     @ResponseBody
-    @RequestMapping(value = "delete-duplex", method = RequestMethod.POST)
+    @RequestMapping(value = "remove-duplex", method = RequestMethod.POST)
     public Map<String, Object> postDeleteDuplexWithServerKey(@RequestBody Map<String, String> map){
         return new HashMap<String, Object>() {{
             put("result", serverCenterInfoService.removeDataByKey(map.get("key")));

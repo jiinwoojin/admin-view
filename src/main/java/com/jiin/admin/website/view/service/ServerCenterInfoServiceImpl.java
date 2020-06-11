@@ -169,6 +169,18 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     }
 
     /**
+     * 같은 센터 (kind, zone) 안에 있는 서버 정보 목록들을 불러온다.
+     * @param
+     */
+    @Override
+    public List<ServerCenterInfo> loadSameCenterList() {
+        ServerCenterInfo local = this.loadLocalInfoData();
+        return this.loadDataListAtYAMLFile().stream()
+                .filter(o -> o.getZone().equals(local.getZone()) && o.getKind().equals(local.getKind()))
+                .collect(Collectors.toList());
+    }
+
+    /**
      * YAML 파일을 기반으로 대시보드를 위한 서버 목록을 형성한다.
      * @param
      */
@@ -196,6 +208,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     public ServerCenterInfo loadLocalInfoData() {
         Map<String, Object> map = this.loadMapDataAtYAMLFile();
         Map<String, Object> local = (Map<String, Object>) map.get("local");
+
         return (map != null) ? ServerCenterInfo.convertDTO((String) local.get("key"), local) : null;
     }
 
