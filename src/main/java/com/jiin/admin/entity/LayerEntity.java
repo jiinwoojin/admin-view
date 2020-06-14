@@ -94,11 +94,28 @@ public class LayerEntity implements Persistable<Long> {
     @Column(name = "REGIST_TIME", nullable = false)
     private Date registTime;
 
+    /**
+     * 수정 날짜
+     */
+    @Column(name = "UPDATE_TIME")
+    private Date updateTime;
+
+    /**
+     * 버전 정보
+     */
+    @Column(name = "VERSION", length = 10, nullable = false)
+    private String version;
+
     @OneToMany(mappedBy = "layer", cascade = CascadeType.ALL)
     private Set<MapLayerRelationEntity> mapLayerRelations = new HashSet<>();
 
     @Override
     public boolean isNew() {
         return false;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.version = this.version == null ? "1.0" : this.version;
     }
 }
