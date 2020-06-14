@@ -1,10 +1,9 @@
 package com.jiin.admin.website.server.controller;
 
 import com.jiin.admin.website.model.FileDownloadModel;
-import com.jiin.admin.website.server.service.FileService;
+import com.jiin.admin.website.server.service.MapUpdateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 
 @Slf4j
 @RestController
-@RequestMapping("api/file")
-public class RESTFileController {
+@RequestMapping("api/mapupdate")
+public class RESTMapUpdateController {
 
-    private final FileService fileService;
+    private final MapUpdateService mapUpdateService;
 
     @Autowired
-    public RESTFileController(FileService fileService) {
-        this.fileService = fileService;
+    public RESTMapUpdateController(MapUpdateService mapUpdateService) {
+        this.mapUpdateService = mapUpdateService;
     }
 
     @GetMapping(value = "download", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,7 +32,7 @@ public class RESTFileController {
         response.setContentType("application/zip");
         response.setHeader("Content-Disposition", "attachment;filename=" + fileDownloadModel.getMap() + ".zip");
 
-        StreamingResponseBody stream = fileService.getFile(fileDownloadModel, response);
+        StreamingResponseBody stream = mapUpdateService.getFile(fileDownloadModel, response);
 
         log.info("steaming response {} ", stream);
         return new ResponseEntity<>(stream, HttpStatus.OK);

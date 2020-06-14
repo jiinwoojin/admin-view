@@ -18,7 +18,7 @@ import java.util.zip.ZipOutputStream;
 
 @Slf4j
 @Service
-public class FileServiceImpl implements FileService{
+public class MapUpdateServiceImpl implements MapUpdateService {
 
     @Value("${project.data-path}")
     private String DATA_PATH;

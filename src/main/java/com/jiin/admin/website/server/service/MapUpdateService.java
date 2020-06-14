@@ -5,6 +5,6 @@ import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBo
 
 import javax.servlet.http.HttpServletResponse;
 
-public interface FileService {
+public interface MapUpdateService {
     StreamingResponseBody getFile(FileDownloadModel fileDownloadModel, HttpServletResponse response);
 }
