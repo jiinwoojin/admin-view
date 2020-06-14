@@ -331,31 +331,32 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="layer-description">설명</label>
+                            <label for="layer-description-u">설명</label>
                             <input type="text" class="form-control" name="description" id="layer-description-u">
                         </div>
                         <!-- TODO select 로 수정 필요함 -->
                         <div class="form-group">
-                            <label for="layer-projection">투영</label>
+                            <label for="layer-projection-u">투영</label>
                             <select class="form-control" id="layer-projection-u" name="projection">
                                 <option value="epsg:3857">EPSG:3857</option>
                                 <option value="epsg:4326">EPSG:4326</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="layer-middle_folder">폴더명</label>
+                            <label for="layer-middle_folder-u">폴더명</label>
                             <input type="text" class="form-control" name="middleFolder" id="layer-middle_folder-u">
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-4">
-                                <label class="col-form-label" for="layer-type">레이어 종류</label>
+                                <label class="col-form-label" for="layer-type-u">레이어 종류</label>
                                 <select class="form-control" name="type" id="layer-type-u">
                                     <option value="RASTER">Raster</option>
                                     <option value="VECTOR">Vector</option>
+                                    <option value="CADRG">CADRG</option>
                                 </select>
                             </div>
                             <div class="col-sm-8">
-                                <label class="col-form-label" for="___customFile">지도 파일 <span style="color: blue;">(*)</span></label>
+                                <label class="col-form-label" for="___customFile_u">지도 파일 <span style="color: blue;">(*)</span></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="___customFileAddon_u" style="height: 33.5px;">
@@ -432,7 +433,7 @@
             }else if(jQuery(form['name']).data("check-duplicate") === false) {
                 toastr.warning("이름 중복확인이 되지 않았습니다.");
                 return;
-            }else if(form['data_file'].value == ''){
+            }else if(form['data_file'].value === ''){
                 toastr.warning("레이어 파일을 업로드 하시길 바랍니다. Raster 파일은 *.tiff, Vector 파일은 *.shp 이 포함된 *.zip 입니다.");
                 return;
             }
@@ -448,7 +449,7 @@
                     if (result) {
                         toastr.success("Layer [ " + layerName + " ] 가 제거 되었습니다.");
                         jQuery(ths).parents('.layer-item').remove();
-                        if($('.layer-item').length == 7){
+                        if($('.layer-item').length === 7){
                             window.location.href = CONTEXT + '/view/manage/layer-list?pg=1&sz=8&lType=ALL';
                         } else {
                             var total = $('#total');
@@ -592,12 +593,12 @@
 </th:block>
 
 <th:block layout:fragment="custom-html-link">
-    <link rel="stylesheet" th:href="@{/static/design-park/resource/library/css/plugins/datapicker/datepicker3.css}">
-    <link rel="stylesheet" th:href="@{/static/design-park/resource/library/css/plugins/daterangepicker/daterangepicker-bs3.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/datapicker/datepicker3.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/daterangepicker/daterangepicker-bs3.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
-    <script th:src="@{/static/design-park/resource/library/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
-    <script th:src="@{/static/design-park/resource/library/js/plugins/daterangepicker/daterangepicker.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/daterangepicker/daterangepicker.js}"></script>
 </th:block>
 </html>

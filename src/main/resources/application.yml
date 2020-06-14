@@ -6,6 +6,9 @@ spring:
   http:
     encoding:
       charset: UTF-8
+  mvc:
+    async:
+      request-timeout: 3600000
   datasource:
     driver-class-name: ${project.datasource.base.driver-class-name}
     url: ${project.datasource.base.url}
