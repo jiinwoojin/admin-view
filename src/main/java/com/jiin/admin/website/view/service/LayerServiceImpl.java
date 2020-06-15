@@ -9,6 +9,7 @@ import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.MapServerUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,10 @@ public class LayerServiceImpl implements LayerService {
 
     @Resource
     private MapLayerRelationMapper mapLayerRelationMapper;
+
+    private static Double DEFAULT_LAYER_VERSION = 1.0;
+
+    private static String CADRG_DEFAULT_EXECUTE_FILE = "/RPF/A.TOC";
 
     private static final List<OptionModel> sbOptions = Arrays.asList(
         new OptionModel("-- 검색 키워드 선택 --", 0),
@@ -67,12 +72,17 @@ public class LayerServiceImpl implements LayerService {
             }
         }
 
-        // 2단계. 레이어 리소스 파일 업로드 뒤 옮기기
+        // 2단계. 레이어 리소스 파일 업로드 뒤 옮기기 (CADRG 아닌 버전 기준)
+        String filename = uploadFile.getOriginalFilename();
         File dataFile = new File(String.format("%s/%s", dataDirStr, uploadFile.getOriginalFilename()));
         try {
             uploadFile.transferTo(dataFile);
+
+            // 압축 파일인 경우 (CADRG 혹은 SHP) 에는 파일 압축 해제를 진행해야 한다.
+            if(filename.contains(".zip") || filename.contains(".ZIP")){
+                FileSystemUtil.decompressZipFile(dataFile);
+            }
         } catch (IOException e) {
-            e.printStackTrace();
             log.error(layerDTO.getName() + " DATA 파일 옮기기 실패했습니다.");
         }
     }
@@ -84,7 +94,11 @@ public class LayerServiceImpl implements LayerService {
     private void removeLayerResourceFile(LayerDTO layerDTO){
         String dataFilePath = dataPath + layerDTO.getDataFilePath();
         try {
-            FileSystemUtil.deleteFile(dataFilePath);
+            if(!layerDTO.getType().equals("CADRG")) {
+                FileSystemUtil.deleteFile(dataFilePath);
+            } else {
+                FileSystemUtil.deleteFile(dataFilePath.replace(CADRG_DEFAULT_EXECUTE_FILE, ""));
+            }
         } catch (IOException e) {
             log.error("레이어 " + layerDTO.getName() + " DATA 파일 삭제 실패했습니다.");
         }
@@ -156,15 +170,25 @@ public class LayerServiceImpl implements LayerService {
         if(layerMapper.findByName(layerDTO.getName()) != null) return false;
         if(uploadData == null || uploadData.getSize() <= 0) return false; // 초기에는 TIFF / SHP 파일을 업로드 해야 한다.
 
+        Date date = new Date();
         String layFilePath = String.format("%s%s/%s%s", dataPath, Constants.LAY_FILE_PATH, layerDTO.getName(), Constants.LAY_SUFFIX);
-        String dataFilePath = String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), uploadData.getOriginalFilename());
+
+        String dataFilePath = "";
+
+        // CADRG 인 경우에는 따로 설정한다.
+        if(layerDTO.getType().equals("CADRG")){
+            dataFilePath = String.format("%s%s/%s%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), CADRG_DEFAULT_EXECUTE_FILE);
+        } else {
+            dataFilePath = String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), uploadData.getOriginalFilename());
+        }
+
         layerDTO.setLayerFilePath(layFilePath.replaceAll(dataPath, ""));
         layerDTO.setDataFilePath(dataFilePath.replaceAll(dataPath, ""));
         layerDTO.setDefault(false);
-        Date date = new Date();
+
         layerDTO.setRegistTime(date);
         layerDTO.setUpdateTime(date);
-        layerDTO.setVersion(1.0);     // 기본 1.0
+        layerDTO.setVersion(DEFAULT_LAYER_VERSION);     // 기본 1.0
         setCommonProperties(layerDTO);
 
         if(layerMapper.insert(layerDTO) > 0){
@@ -202,16 +226,22 @@ public class LayerServiceImpl implements LayerService {
         layerDTO.setLayerFilePath(selected.getLayerFilePath());
         String dataFilePath;
         if(isUploaded){
-            dataFilePath = String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), uploadData.getOriginalFilename());
+            // CADRG 인 경우에는 따로 설정한다.
+            if(layerDTO.getType().equals("CADRG")){
+                dataFilePath = String.format("%s%s/%s%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), CADRG_DEFAULT_EXECUTE_FILE);
+            } else {
+                dataFilePath = String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), uploadData.getOriginalFilename());
+            }
         } else if(isChanged) {
             dataFilePath = selected.getDataFilePath().replace(selected.getMiddleFolder(), layerDTO.getMiddleFolder());
         } else {
             dataFilePath = selected.getDataFilePath();
         }
         layerDTO.setDataFilePath(dataFilePath.replaceAll(dataPath, ""));
+        layerDTO.setRegistTime(selected.getRegistTime()); // 추가 시간은 그대로 유지.
         layerDTO.setUpdateTime(new Date());     // update 시간 추가
 
-        layerDTO.setVersion(Double.parseDouble(String.format("%.1f",(layerDTO.getVersion() + 0.1))));
+        layerDTO.setVersion(Double.parseDouble(String.format("%.1f", (layerDTO.getVersion() + 0.1))));
 
         setCommonProperties(layerDTO);
 
@@ -229,9 +259,25 @@ public class LayerServiceImpl implements LayerService {
             // 경로가 바뀌면 위의 로직의 역순서로 진행.
             if(isChanged) {
                 // 1단계. 파일을 로컬에 옮긴다.
-                FileSystemUtil.moveFile(dataPath + selected.getDataFilePath(), dataPath + layerDTO.getDataFilePath());
-                // 2단계. DB 갱신 이후 기존 레이어 리소스 파일 삭제
-                removeLayerResourceFile(selected);
+                String source = dataPath + selected.getDataFilePath();
+                String target = dataPath + layerDTO.getDataFilePath();
+
+                File sourceFile = new File(source.replace(CADRG_DEFAULT_EXECUTE_FILE, ""));
+                File targetFile = new File(target.replace(CADRG_DEFAULT_EXECUTE_FILE, ""));
+                if(layerDTO.getType().equals("CADRG")) {
+                    try {
+                        FileUtils.moveDirectory(sourceFile, targetFile);
+                    } catch (IOException e) {
+                        log.error(layerDTO.getName() + " CADRG 리소스 디렉토리 변경 실패했습니다 : " + e.getMessage());
+                        return false;
+                    }
+                } else {
+                    // 1단계. 파일을 옮긴다.
+                    FileSystemUtil.moveFile(source, target);
+
+                    // 2단계. 기존 레이어 리소스 파일 삭제
+                    removeLayerResourceFile(selected);
+                }
             }
 
             // *.lay 파일 생성

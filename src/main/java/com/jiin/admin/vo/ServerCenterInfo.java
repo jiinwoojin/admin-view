@@ -49,4 +49,11 @@ public class ServerCenterInfo {
             put("description", serverCenterInfo.getDescription());
         }};
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(!(o instanceof ServerCenterInfo)) return false;
+        ServerCenterInfo svr = (ServerCenterInfo) o;
+        return svr.getKey().equals(this.getKey()) || (svr.getName().equals(this.getName()) && svr.getIp().equals(this.getIp()) && svr.getZone().equals(this.getZone()) && svr.getKind().equals(this.getKind()));
+    }
 }

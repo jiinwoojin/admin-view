@@ -24,6 +24,7 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -43,6 +44,8 @@ public class MapServiceImpl implements MapService {
     @Resource
     private MapLayerRelationMapper mapLayerRelationMapper;
 
+    private static Double DEFAULT_MAP_VERSION = 1.0;
+
     private static final List<OptionModel> sbOptions = Arrays.asList(
         new OptionModel("-- 검색 키워드 선택 --", 0),
         new OptionModel("MAP 이름", 1),
@@ -56,6 +59,21 @@ public class MapServiceImpl implements MapService {
         new OptionModel("이름 순서 정렬", 2),
         new OptionModel("등록 기간 역순 정렬", 3)
     );
+
+    /**
+     * 레이어들 중에서 가장 큰 버전을 가져온다.
+     * @param layers String JSON
+     */
+    private Double loadMaximumVersionAtLayerList(List<LayerDTO> layers){
+        PriorityQueue<Double> versions = new PriorityQueue<>();
+        versions.add(DEFAULT_MAP_VERSION);
+        for(LayerDTO layer : layers){
+            if(layer.getVersion() != null){
+                versions.add(layer.getVersion());
+            }
+        }
+        return versions.peek();
+    }
 
     /**
      * 연동 관계 데이터 중 레이어 순서에 맞춰 반환

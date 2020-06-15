@@ -3,10 +3,7 @@ package com.jiin.admin.website.util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributes;
@@ -14,6 +11,8 @@ import java.nio.file.attribute.PosixFilePermission;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 // 파일 시스템을 거치는 Utility 메소드 모음.
 @Slf4j
@@ -165,6 +164,20 @@ public class FileSystemUtil {
     public static void deleteFile(String filePath) throws IOException {
         if (FileUtils.getFile(filePath).isFile()) {
             FileUtils.forceDelete(FileUtils.getFile(filePath));
+        } else {
+            File directory = new File(filePath);
+            if(directory.exists()) {
+                File[] children = directory.listFiles();
+                for (File file : children) {
+                    if (file.isFile()) {
+                        file.delete();
+                    } else {
+                        deleteFile(file.getPath());
+                    }
+                    file.delete();
+                }
+                directory.delete();
+            }
         }
     }
 
@@ -182,6 +195,55 @@ public class FileSystemUtil {
             FileUtils.moveFileToDirectory(bFile, nPath, true);
         } catch (IOException e) {
             log.error("파일 옮기기 실패! " + beforePath + " -> " + newPath);
+        }
+    }
+
+    /**
+     * ZIP 파일 압축 해제
+     * @param zipFile File, directory String
+     * @throws IOException Exception
+     */
+    public static void decompressZipFile(File zipFile){
+        String directory = zipFile.getParent();
+        try(
+            FileInputStream fis = new FileInputStream(zipFile);
+            ZipInputStream zis = new ZipInputStream(fis);
+        ){
+            ZipEntry entry;
+            while((entry = zis.getNextEntry()) != null){
+                String filename = entry.getName();
+                File file = new File(directory, filename);
+                if(entry.isDirectory()){
+                    file.mkdirs();
+                } else {
+                    saveFileInZipStream(file, zis);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            log.error("파일을 찾을 수 없음 : " + zipFile.getName());
+        } catch (IOException e) {
+            log.error("파일 입출력에 오류 있음 : " + e.getMessage());
+        }
+    }
+
+    /**
+     * ZIP 파일 내에 있는 파일 저장 메소드
+     * @param file File, zis ZipInputStream
+     * @throws IOException Exception
+     */
+    private static void saveFileInZipStream(File file, ZipInputStream zis){
+        File parent = new File(file.getParent());
+        if(!parent.exists()) parent.mkdirs();
+        try(FileOutputStream fos = new FileOutputStream(file)){
+            byte[] buffer = new byte[1024];
+            int size = 0;
+            while((size = zis.read(buffer)) > 0){
+                fos.write(buffer, 0, size);
+            }
+        } catch (FileNotFoundException e) {
+            log.error("파일을 찾을 수 없음 : " + file.getName());
+        } catch (IOException e) {
+            log.error("파일 입출력에 오류 있음 : " + e.getMessage());
         }
     }
 }

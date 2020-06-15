@@ -156,6 +156,7 @@
                             </a>
                             <a th:if="${!layer.isDefault()}" data-toggle="modal" href="#layer-update" data-target="#layer-update"
                                    th:data-id="${ layer.id }"
+                                   th:data-version="${ layer.version }"
                                    th:data-name="${ layer.name }"
                                    th:data-description="${ layer.description }"
                                    th:data-projection="${ layer.projection }"
@@ -323,6 +324,7 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="id" />
+                        <input type="hidden" name="version" />
                         <div class="form-group row">
                             <div class="col-12">
                                 <label for="layer-name-u">LAYER 이름</label>
@@ -523,6 +525,7 @@
             var layerMiddleFolder = $(btn).data('middlefolder');
             var type = $(btn).data('layertype');
             var filePath = $(btn).data('filepath');
+            var version = $(btn).data('version');
 
             var target = jQuery(btn).data("target");
             var popup = jQuery(target);
@@ -532,7 +535,8 @@
                 popup.find("[name='description']").val(layerDescription);
                 popup.find("[name='projection']").val(layerProjection);
                 popup.find("[name='middleFolder']").val(layerMiddleFolder);
-                popup.find("[name='type']").val(type === 'RASTER' ? 'RASTER' : 'VECTOR');
+                popup.find("[name='version']").val(version);
+                popup.find("[name='type']").val(type === 'RASTER' ? 'RASTER' : type === 'VECTOR' ? 'VECTOR' : 'CADRG');
                 document.getElementById('data_file_path').innerText = filePath;
             } else {
                 popup.find("[name='id']").val(0);
