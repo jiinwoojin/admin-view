@@ -60,12 +60,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
             return false;
         }
 
-        try {
-            FileSystemUtil.createAtFile(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME, context);
-        } catch (IOException e) {
-            log.error("Map Proxy YAML 파일을 생성할 수 없습니다. : 파일 형성 오류");
-            return false;
-        }
+        FileSystemUtil.createAtFile(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME, context);
 
         return true;
     }

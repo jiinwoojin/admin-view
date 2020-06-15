@@ -1,5 +1,6 @@
 package com.jiin.admin.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Persistable;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Persistable;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity(name = "_LAYER")
@@ -108,6 +110,11 @@ public class LayerEntity implements Persistable<Long> {
 
     @OneToMany(mappedBy = "layer", cascade = CascadeType.ALL)
     private Set<MapLayerRelationEntity> mapLayerRelations = new HashSet<>();
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = "_MAP_LAYER_VERSION", joinColumns = @JoinColumn(name = "MAP_LAYER_ID"), inverseJoinColumns = @JoinColumn(name = "MAP_VERSION_ID"))
+    private List<MapVersionEntity> mapVersions;
 
     @Override
     public boolean isNew() {

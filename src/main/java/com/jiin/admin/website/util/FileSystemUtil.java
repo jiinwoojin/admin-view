@@ -9,10 +9,12 @@ import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 // 파일 시스템을 거치는 Utility 메소드 모음.
 @Slf4j
@@ -150,9 +152,8 @@ public class FileSystemUtil {
      * 파일 생성 (삭제 후 파일 생성) charset default utf-8
      * @param filePath filePath
      * @param content  content
-     * @throws IOException exception
      */
-    public static void createAtFile(String filePath, String content) throws IOException {
+    public static void createAtFile(String filePath, String content) {
         createAtFile(filePath, content, "utf-8");
     }
 
@@ -201,7 +202,7 @@ public class FileSystemUtil {
     /**
      * ZIP 파일 압축 해제
      * @param zipFile File, directory String
-     * @throws IOException Exception
+     * @throws FileNotFoundException, IOException Exception
      */
     public static void decompressZipFile(File zipFile){
         String directory = zipFile.getParent();
@@ -229,7 +230,7 @@ public class FileSystemUtil {
     /**
      * ZIP 파일 내에 있는 파일 저장 메소드
      * @param file File, zis ZipInputStream
-     * @throws IOException Exception
+     * @throws FileNotFoundException, IOException Exception
      */
     private static void saveFileInZipStream(File file, ZipInputStream zis){
         File parent = new File(file.getParent());
@@ -245,5 +246,94 @@ public class FileSystemUtil {
         } catch (IOException e) {
             log.error("파일 입출력에 오류 있음 : " + e.getMessage());
         }
+    }
+
+    /**
+     * 파일을 복사한다.
+     * @param from File, to File
+     */
+    private static void copyFile(File from, File to) throws IOException {
+        if(from.isDirectory())
+            FileUtils.copyDirectoryToDirectory(from, to);
+        else
+            FileUtils.copyFile(from, to);
+    }
+
+    /**
+     * ZIP 파일 생성 메소드
+     * @param dataPath String, zipPath String, filename String, paths List of Strings
+     */
+    public static File saveZipFileWithPaths(String dataPath, String zipPath, String filename, List<String> paths){
+        for(String path : paths) {
+            String cadrgExcludePath = dataPath + path.replace("/RPF/A.TOC", "");
+            File file = new File(cadrgExcludePath);
+            if (!file.isDirectory()) {
+                try {
+                    copyFile(file, new File(zipPath + "/" + filename.replace(".zip", "") + "/" + file.getName()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                String dataDirExcludePath = cadrgExcludePath.replace(dataPath, "");
+                try {
+                    copyFile(new File(cadrgExcludePath), new File(zipPath + "/" + filename.replace(".zip", "")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        try {
+            FileOutputStream fos = new FileOutputStream(zipPath + "/" + filename);
+            ZipOutputStream zipOut = new ZipOutputStream(fos);
+            File fileToZip = new File(zipPath + "/" + filename.replace(".zip", ""));
+
+            zipFile(fileToZip, fileToZip.getName(), zipOut);
+
+            zipOut.closeEntry();
+            zipOut.close();
+            fos.close();
+
+            return new File(zipPath + "/" + filename);
+        } catch (FileNotFoundException e) {
+            log.error("파일이 존재하지 않습니다 : " + filename);
+            return null;
+        } catch (IOException e) {
+            log.error("파일 입출력 오류! : " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * ZIP 파일 압축 메소드 : 소스 코드 참조
+     * @param fileToZip File, fileName String, zipOut ZipOutputStream
+     */
+    private static void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {
+        if (fileToZip.isHidden()) {
+            return;
+        }
+        if (fileToZip.isDirectory()) {
+            if (fileName.endsWith("/")) {
+                zipOut.putNextEntry(new ZipEntry(fileName));
+                zipOut.closeEntry();
+            } else {
+                zipOut.putNextEntry(new ZipEntry(fileName + "/"));
+                zipOut.closeEntry();
+            }
+            File[] children = fileToZip.listFiles();
+            for (File childFile : children) {
+                zipFile(childFile, fileName + "/" + childFile.getName(), zipOut);
+            }
+            return;
+        }
+        FileInputStream fis = new FileInputStream(fileToZip);
+        ZipEntry zipEntry = new ZipEntry(fileName);
+        zipOut.putNextEntry(zipEntry);
+        byte[] bytes = new byte[1024];
+        int length;
+        while ((length = fis.read(bytes)) >= 0) {
+            zipOut.write(bytes, 0, length);
+        }
+        fis.close();
     }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 @BaseMapper
 public interface LayerMapper {
     long countByPageModel(LayerPageModel layerPageModel);
+    double findMaxVersion();
 
     List<LayerDTO> findAll();
     List<LayerDTO> findByPageModel(LayerPageModel layerPageModel);
