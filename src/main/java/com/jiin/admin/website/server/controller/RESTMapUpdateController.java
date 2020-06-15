@@ -42,24 +42,13 @@ public class RESTMapUpdateController {
     }
 
     @PostMapping(value = "checkversion")
-    public ResponseEntity<List<VersionDTO>> checkVersion(@RequestBody Map<String, Object> map) {
-        log.info(map.toString());
-        VersionDTO version1 = new VersionDTO();
-        version1.setMap("CADRG");
-        version1.setVersion(1.1);
-        VersionDTO version2 = new VersionDTO();
-        version2.setMap("R14");
-        version2.setVersion(1.2);
-        List<VersionDTO> versions = new ArrayList<>();
-        versions.add(version1);
-        versions.add(version2);
-
+    public ResponseEntity<List<VersionDTO>> checkVersion(@RequestBody Map<String, List<VersionDTO>> map) {
         if (map.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        //List<VersionDTO> versionDTOS = mapUpdateService.checkVersion(mapdata.toString());
+        List<VersionDTO> versionDTOS = mapUpdateService.checkVersion(map);
 
-        return new ResponseEntity<>(versions, HttpStatus.OK);
+        return new ResponseEntity<>(versionDTOS, HttpStatus.OK);
     }
 }

@@ -10,4 +10,5 @@ import java.util.List;
 @BaseMapper
 public interface MapUpdateMapper {
 
+    MapDTO findByName(@Param("name") String map);
 }

@@ -1,10 +1,15 @@
 package com.jiin.admin.website.server.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jiin.admin.dto.MapDTO;
 import com.jiin.admin.dto.VersionDTO;
 import com.jiin.admin.mapper.data.LayerMapper;
 import com.jiin.admin.mapper.data.MapUpdateMapper;
 import com.jiin.admin.website.model.FileDownloadModel;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Service;
@@ -16,9 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -67,10 +70,22 @@ public class MapUpdateServiceImpl implements MapUpdateService {
     }
 
     @Override
-    public List<VersionDTO> checkVersion(String mapdata) {
+    public List<VersionDTO> checkVersion(Map<String, List<VersionDTO>> map) {
 
-        List<VersionDTO> versions = new ArrayList<>();
+        List<VersionDTO> mapdata = map.get("mapdata");
 
-        return versions;
+        log.info(Arrays.toString(mapdata.toArray()));
+
+        for (VersionDTO versionDTO : mapdata) {
+            MapDTO mapDTO = mapUpdateMapper.findByName(versionDTO.getMap());
+
+            if (mapDTO != null) {
+                versionDTO.setVersion(mapDTO.getVersion());
+            } else {
+                versionDTO.setVersion(0.0);
+            }
+        }
+
+        return mapdata;
     }
 }
