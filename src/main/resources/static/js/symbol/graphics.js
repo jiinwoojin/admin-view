@@ -17,10 +17,10 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 	var symbolCode = ''; // 부호 코드
 	var controlPoints = '';
 	var bbox = '';
-	
+
 	var ratio = window.devicePixelRatio || 1;
 	var scale;
-	
+
 	var formatKML = 0;
 	var formatGeoSVG = 6; // svg format code
 	var formatGeoCanvas = 3;
@@ -50,15 +50,15 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 			var SIDCFUNCTIONID = function_sidc;
 			if(SIDCFUNCTIONID.length != 15)
 				return;
-			
+
 			sidc = buildSymbolID(function_sidc, null);
 		}
 		document.getElementById("SIDC").value = sidc;
 		window.location.hash = sidc;
 	}
-	
+
 	symbolCode = sidc;
-	
+
 	var code = SymbolUtilities.getBasicSymbolID(sidc);
 	var coordinates = []
 	if(stmp.mapObject && stmp.mapObject.map && stmp.mapObject.map._drawing_milsymbol_coordinates){
@@ -68,7 +68,7 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 		if(SymbolDefTable.getSymbolDef(code, symStd)){
 			var mtgs = SymbolDefTable.getSymbolDef(code, symStd);
 			var mtgs_split = mtgs.modifiers.split('.');
-			
+
 			for(var i = 0; i < mtgs_split.length; i++){
 				// C -> 숫자(특수한경우), H -> 문자(20), N -> ENY표시, T -> 문자(15), V -> 문자(20), W -> 숫자,기호 YY:MM:DD(16)
 				// X -> 숫자(14), Y -> 문자(19) , AM -> 숫자(6), AN -> 숫자(3)
@@ -88,7 +88,7 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 						modifiers[mtgs_split[i]] = data;
 					} else {
 						var mtgs_input = document.getElementById(mtgs_split[i]);
-						if ( mtgs_split[i] === "B") {//20200225 add 
+						if ( mtgs_split[i] === "B") {//20200225 add
 							mtgs_input = document.getElementById("SIDCSYMBOLMODIFIER12");
 						}
 						if(mtgs_input != undefined){
@@ -97,18 +97,18 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 					}
 				}
 			}
-		} 
-		
+		}
+
 		if(format == 'SVG'){
 			var size = document.getElementById("Size").value;
 			var keepUnitRatio = false;
 			var drawAsIcon = false;
-			   
+
 			modifiers.SYMSTD = 1;
 			modifiers.SIZE = size;
 			modifiers.KEEPUNITRATIO = keepUnitRatio;
 			modifiers.ICON = drawAsIcon;
-			
+
 			//var lineColor = document.getElementById("MonoColor")[document.getElementById("MonoColor").selectedIndex].value;
 			var lineColor = SymbolUtilities.getLineColorOfAffiliation(code).toHexString(false);//20200303
 			if(lineColor != ''){
@@ -117,31 +117,53 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 		}
 		var coordData = setCoordinates(coordinates);
 		controlPoints = coordData.controlPoints;
-		var zoom = Math.floor(stmp.mapObject.map.getZoom())
-		var res = {
-			0: 78271.484,
-			1: 39135.742,
-			2: 19567.871,
-			3: 9783.936,
-			4: 4891.968,
-			5: 2445.984,
-			6: 1222.992,
-			7: 611.496,
-			8: 305.748,
-			9: 152.874,
-			10: 76.437,
-			11: 38.218,
-			12: 19.109,
-			13: 9.555,
-			14: 4.777,
-			15: 2.389,
-			16: 1.194,
-			17: 0.597,
-			18: 0.299,
-			19: 0.149,
-			20: 0.075
+		// scale 유사값
+		if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_2D){
+			// 맵박스
+			var zoom = Math.floor(stmp.mapObject.map.getZoom())
+			var res = {
+				0: 78271.484,
+				1: 39135.742,
+				2: 19567.871,
+				3: 9783.936,
+				4: 4891.968,
+				5: 2445.984,
+				6: 1222.992,
+				7: 611.496,
+				8: 305.748,
+				9: 152.874,
+				10: 76.437,
+				11: 38.218,
+				12: 19.109,
+				13: 9.555,
+				14: 4.777,
+				15: 2.389,
+				16: 1.194,
+				17: 0.597,
+				18: 0.299,
+				19: 0.149,
+				20: 0.075
+			}
+			scale = (300000000 - 10000) / res[0] * res[(zoom)]
+		}else if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_3D){
+			// 세슘
+			var xmin = 999999999, ymin = 999999999, xmax = 0, ymax = 0
+			for(var idx in coordinates){
+				var x = coordinates[idx].x
+				var y = coordinates[idx].y
+				if (x < xmin) xmin = x
+				if (y < ymin) ymin = y
+				if (x > xmax) xmax = x
+				if (y > ymax) ymax = y
+			}
+			var extent = [xmin,ymin,xmax,ymax]
+			var res = (xmax - xmin) / stmp.mapObject.map.container.clientWidth
+			var METERS_PER_DEGREES = 111194.87428468118
+			var inchesPerMetre = 39.37
+			var dpi = 96
+			scale = res * METERS_PER_DEGREES * inchesPerMetre * dpi
+			//console.log(coordinates, extent, res, dpi)
 		}
-		scale = (300000000 - 10000) / res[0] * res[(zoom)]
 	}
 	if(format != undefined){
 		stmp.mapObject.map._drawing_milsymbol._svg_symbol = null
@@ -173,12 +195,12 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 function setCoordinates(coordinates){
 	var coordData = [];
 	coordData.controlPoints = '';
-	
+
 	var minX = 0;
 	var minY = 0;
 	var maxX = 0;
 	var maxY = 0;
-	
+
 	if(coordinates.length == 1){
 		coordData.controlPoints += coordinates[0].x + ',' + coordinates[0].y;
 	} else {
@@ -198,7 +220,7 @@ function getCoordinates(coordX, coordY){
 	var coordinates = new Object();
 	coordinates.x = coordX;
 	coordinates.y = coordY;
-	
+
 	G_coordinates.push(coordinates);
 }
 
@@ -218,7 +240,7 @@ function mapScale(dpi) {
 function setAM_AN(constraint){
 	var SIDCCode = document.getElementById('SIDC').value;
 	SIDCCode = SymbolUtilities.getBasicSymbolID(SIDCCode);
-	
+
 	var requireData;
 	var modifInput;
 	if(SymbolUtilities.hasAMmodifierRadius(SIDCCode, symStd)){
