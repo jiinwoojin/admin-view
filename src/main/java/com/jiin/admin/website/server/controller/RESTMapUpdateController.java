@@ -1,5 +1,6 @@
 package com.jiin.admin.website.server.controller;
 
+import com.jiin.admin.dto.VersionDTO;
 import com.jiin.admin.website.model.FileDownloadModel;
 import com.jiin.admin.website.server.service.MapUpdateService;
 import lombok.extern.slf4j.Slf4j;
@@ -7,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -36,5 +39,27 @@ public class RESTMapUpdateController {
 
         log.info("steaming response {} ", stream);
         return new ResponseEntity<>(stream, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "checkversion")
+    public ResponseEntity<List<VersionDTO>> checkVersion(@RequestBody Map<String, Object> map) {
+        log.info(map.toString());
+        VersionDTO version1 = new VersionDTO();
+        version1.setMap("CADRG");
+        version1.setVersion(1.1);
+        VersionDTO version2 = new VersionDTO();
+        version2.setMap("R14");
+        version2.setVersion(1.2);
+        List<VersionDTO> versions = new ArrayList<>();
+        versions.add(version1);
+        versions.add(version2);
+
+        if (map.size() == 0) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        //List<VersionDTO> versionDTOS = mapUpdateService.checkVersion(mapdata.toString());
+
+        return new ResponseEntity<>(versions, HttpStatus.OK);
     }
 }
