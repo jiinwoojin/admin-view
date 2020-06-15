@@ -477,37 +477,146 @@ ji3DMap.prototype._bindEvents = function _bindEvents() {
  */
 var _pickedFeature = null;
 ji3DMap.prototype._leftClickEvent = function _leftClickEvent(movement) {
-    var threeObjYn = false; //3차원 객체여부
-    var pickedFeature =  stmp.mapObject.map.scene.pick(movement.position);
-    if(pickedFeature == null){
-        //20200131 jmk 추가
-        if(window._moveYn){    //적부대위치이동
-            var cartesian = stmp.mapObject.map.camera.pickEllipsoid(movement.position, stmp.mapObject.map.scene.globe.ellipsoid);
-            _featureObj.id._position._value.x = cartesian.x;
-            _featureObj.id._position._value.y = cartesian.y;
-            _featureObj.id._position._value.z = cartesian.z;
-            window._moveYn = false;
-            var movePos = stmp.mapObject.project(movement.position);
-            _scwin3DMap.updateDitemPos(movePos.lon,movePos.lat);
-        } else {
-            flt_rightClickLayer.hide();
+    var obj = stmp.mapObject
+    var mode = obj._drawControlMode
+    var points = obj._drawControlPoints
+    if(mode == "draw_point"){
+        points.push(stmp.mapObject.map.camera.pickEllipsoid(movement.position))
+        obj._drawMilSymbol()
+    }else if(mode == "draw_line_string"){
+        var entities = stmp.mapObject.map.entities._entities._array
+        var removeTargets = []
+        jQuery.each(entities,function(idx, entity){
+            if(entity.id && entity.id.indexOf("draw-entities-") > -1){
+                removeTargets.push(entity)
+            }
+        })
+        jQuery.each(removeTargets,function(idx, target){
+            stmp.mapObject.map.entities.remove(target)
+        })
+        points.push(stmp.mapObject.map.camera.pickEllipsoid(movement.position))
+        jQuery.each(points,function(idx, point){
+            obj.map.entities.add({
+                id : 'draw-entities-' + idx,
+                position : point,
+                point : {
+                    color : Cesium.Color.RED,
+                    pixelSize: 10
+                }
+            });
+        })
+        obj.map.entities.add({
+            id : 'draw-entities-line',
+            polyline : {
+                positions : points,
+                width: 5,
+                material : Cesium.Color.BLUE
+            }
+        });
+        // drawMilSymbol / _leftDoubleClickEvent
+    }else{
+        var threeObjYn = false; //3차원 객체여부
+        var pickedFeature =  stmp.mapObject.map.scene.pick(movement.position);
+        if(pickedFeature == null){
+            //20200131 jmk 추가
+            if(window._moveYn){    //적부대위치이동
+                var cartesian = stmp.mapObject.map.camera.pickEllipsoid(movement.position, stmp.mapObject.map.scene.globe.ellipsoid);
+                _featureObj.id._position._value.x = cartesian.x;
+                _featureObj.id._position._value.y = cartesian.y;
+                _featureObj.id._position._value.z = cartesian.z;
+                window._moveYn = false;
+                var movePos = stmp.mapObject.project(movement.position);
+                _scwin3DMap.updateDitemPos(movePos.lon,movePos.lat);
+            } else {
+                //flt_rightClickLayer.hide();
+            }
+            return;
         }
-        return;
-    }
-    try{
-        var propId = pickedFeature.getProperty('name');
-        threeObjYn = true;
-    } catch(e){
-        threeObjYn = false;
-    }
-    if(threeObjYn){ //3차원 객체
-        _pickedFeature = pickedFeature;
-        stmp.openSMTAlert("/ui/CF/SI/SMT/CFSISMDitem3dObjtPopup.xml", "804","3d객체속성", "3dObjtPopup");
-    } else {
-        //
+        try{
+            var propId = pickedFeature.getProperty('name');
+            threeObjYn = true;
+        } catch(e){
+            threeObjYn = false;
+        }
+        if(threeObjYn){ //3차원 객체
+            _pickedFeature = pickedFeature;
+            stmp.openSMTAlert("/ui/CF/SI/SMT/CFSISMDitem3dObjtPopup.xml", "804","3d객체속성", "3dObjtPopup");
+        } else {
+            //
+        }
     }
 };
-/**
+ji3DMap.prototype._leftDoubleClickEvent = function _leftDoubleClickEvent(movement) {
+    var obj = stmp.mapObject
+    obj._drawControlPoints.push(stmp.mapObject.map.camera.pickEllipsoid(movement.position))
+    obj._drawMilSymbol()
+}
+ji3DMap.prototype._drawMilSymbol = function _drawMilSymbol() {
+    var obj = stmp.mapObject
+    var mode = obj._drawControlMode
+    var constraint = obj._drawControlConstraint
+    var points = obj._drawControlPoints
+    obj.map.screenSpaceEventHandler.removeInputAction(this._leftDoubleClickEvent, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
+    if(mode == "draw_point") {
+        if(constraint === "milSym"){
+            obj.map.entities.add({
+                position: points[0],
+                billboard: {
+                    image: stmp.mapObject.map._drawing_milsymbol.asCanvas().toDataURL()
+                }
+            })
+        }else{
+            var _cs = document.getElementById('SIDCCODINGSCHEME').value;
+            drawMsymbol(-1, 'SVG', null, window.symStd, _cs, window.function_sidc);
+            if(jQuery("#svg-draw").length == 0){
+                jQuery("body").css("overflow",'hidden')
+                jQuery("body").append("<div id='svg-draw'></div>")
+            }
+            jQuery("#svg-draw").empty()
+            jQuery("#svg-draw").append(stmp.mapObject.map._drawing_milsymbol._svg_symbol.getSVG())
+            html2canvas(jQuery("#svg-draw svg")[0],{backgroundColor: "rgba(0,0,0,0)"}).then(function(canvas){
+                obj.map.entities.add({
+                    position: points[0],
+                    billboard: {
+                        image: canvas.toDataURL()
+                    }
+                })
+            })
+        }
+    }else if(mode == "draw_line_string") {
+        var coordinates = stmp.mapObject.map._drawing_milsymbol_coordinates
+        jQuery.each(points, function(idx, point){
+            var wgs = Cesium.Ellipsoid.WGS84.cartesianToCartographic(point)
+            var lon = Cesium.Math.toDegrees(wgs.longitude)
+            var lat = Cesium.Math.toDegrees(wgs.latitude)
+            coordinates.push({x:lon,y:lat})
+        })
+        var cs = document.getElementById('SIDCCODINGSCHEME').value;
+        drawMsymbol(-1, 'geoJSON', null, symStd, cs, function_sidc)
+        var geojson = stmp.mapObject.map._drawing_milsymbol._geojson
+        var data = JSON.parse(geojson)
+        //console.log(data)
+        var dataSource = Cesium.GeoJsonDataSource.load(data)
+        obj.map.dataSources.add(dataSource)
+        //obj.map.zoomTo(dataSource)
+    }
+    obj._drawControlMode = null
+    obj._drawControlPoints = []
+    if(mode == "draw_line_string") {
+        var entities = stmp.mapObject.map.entities._entities._array
+        var removeTargets = []
+        jQuery.each(entities, function (idx, entity) {
+            if (entity.id && entity.id.indexOf("draw-entities-") > -1) {
+                removeTargets.push(entity)
+            }
+        })
+        console.log(removeTargets)
+        jQuery.each(removeTargets, function (idx, target) {
+            stmp.mapObject.map.entities.remove(target)
+        })
+    }
+}
+/**_drawControlMode
  * 마우스 오른쪽 클릭 이벤트
  * @param movement
  * @private
@@ -537,5 +646,14 @@ ji3DMap.prototype._mouseMoveEvent = function _mouseMoveEvent(movement) {
         var height = '고도값 : ' + Math.round(cartographic.height) + 'm';
 
         stmp.displaySupportInfo(longitude, latitude, height);
+    }
+};
+ji3DMap.prototype.drawControlMode = function drawControlMode(mode,constraint) {
+    this._drawControlMode = mode
+    this._drawControlConstraint = constraint
+    this._drawControlPoints = []
+    this.map.screenSpaceEventHandler.removeInputAction(this._leftDoubleClickEvent, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
+    if(mode == "draw_line_string") {
+        this.map.screenSpaceEventHandler.setInputAction(this._leftDoubleClickEvent, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
     }
 };

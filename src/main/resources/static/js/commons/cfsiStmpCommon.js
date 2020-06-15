@@ -1408,8 +1408,8 @@ var stmp = {
             if (this.getLayerList2d().size() > 0) {     // 2D 에 등록되어 있는 layer 정보 제거
                 this.getLayerList2d().clear();
             }
-
-            this.mapObject.changeMapDrawFeatures(this.getGlobalFeatures());
+            // 임시 주석
+            //this.mapObject.changeMapDrawFeatures(this.getGlobalFeatures());
             console.log('layer 구성 완료');
         }
     },
@@ -2417,7 +2417,7 @@ var stmp = {
                 stmp.drawControl.changeMode(mode)
             }else if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_3D){
                 // 세슘
-
+                stmp.mapObject.drawControlMode(mode,symbol.options._constraint)
             }
         } else {
             symbol.options._min_point = 1
@@ -2429,7 +2429,7 @@ var stmp = {
                 stmp.drawControl.changeMode("draw_point")
             }else if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_3D){
                 // 세슘
-
+                stmp.mapObject.drawControlMode("draw_point",symbol.options._constraint)
             }
         }
         symbol.options._symbol_serial = (stmp.mapObject.map._drawing_milsymbol ? stmp.mapObject.map._drawing_milsymbol.options._symbol_serial + 1 : 0)
