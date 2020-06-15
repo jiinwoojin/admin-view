@@ -112,12 +112,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         context = context.replace("\nlocal:", "\n\nlocal:");
         context = context.replace("\nremote:", "\n\nremote:");
 
-        try {
-            FileSystemUtil.createAtFile(mainPath, context);
-        } catch (IOException e) {
-            log.error("YAML 파일 생성 진행 실패.");
-            return false;
-        }
+        FileSystemUtil.createAtFile(mainPath, context);
 
         return true;
     }

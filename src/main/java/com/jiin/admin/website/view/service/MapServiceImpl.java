@@ -7,9 +7,11 @@ import com.jiin.admin.Constants;
 import com.jiin.admin.dto.LayerDTO;
 import com.jiin.admin.dto.MapDTO;
 import com.jiin.admin.dto.MapLayerRelationDTO;
+import com.jiin.admin.dto.MapVersionDTO;
 import com.jiin.admin.mapper.data.LayerMapper;
 import com.jiin.admin.mapper.data.MapLayerRelationMapper;
 import com.jiin.admin.mapper.data.MapMapper;
+import com.jiin.admin.mapper.data.MapVersionMapper;
 import com.jiin.admin.website.model.MapPageModel;
 import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.util.FileSystemUtil;
@@ -44,6 +46,9 @@ public class MapServiceImpl implements MapService {
     @Resource
     private MapLayerRelationMapper mapLayerRelationMapper;
 
+    @Resource
+    private MapVersionMapper mapVersionMapper;
+
     private static Double DEFAULT_MAP_VERSION = 1.0;
 
     private static final List<OptionModel> sbOptions = Arrays.asList(
@@ -59,21 +64,6 @@ public class MapServiceImpl implements MapService {
         new OptionModel("이름 순서 정렬", 2),
         new OptionModel("등록 기간 역순 정렬", 3)
     );
-
-    /**
-     * 레이어들 중에서 가장 큰 버전을 가져온다.
-     * @param layers String JSON
-     */
-    private Double loadMaximumVersionAtLayerList(List<LayerDTO> layers){
-        PriorityQueue<Double> versions = new PriorityQueue<>();
-        versions.add(DEFAULT_MAP_VERSION);
-        for(LayerDTO layer : layers){
-            if(layer.getVersion() != null){
-                versions.add(layer.getVersion());
-            }
-        }
-        return versions.peek();
-    }
 
     /**
      * 연동 관계 데이터 중 레이어 순서에 맞춰 반환
@@ -113,6 +103,31 @@ public class MapServiceImpl implements MapService {
         }
         return true;
     }
+
+    /**
+     * 데이터를 추가 및 수정한 이후, 버전 관리 기능을 실시한다.
+     * @param mapDTO MapDTO, layers List of Layers
+     */
+    private boolean saveMapVersionRecentlyStatus(MapDTO mapDTO, List<LayerDTO> layers){
+        MapVersionDTO current = mapVersionMapper.findByMapIdRecently(mapDTO.getId());
+        double newVersion = (current != null) ? current.getVersion() + 0.1f : DEFAULT_MAP_VERSION;
+        // 아래 문장은 1.9 -> 2.0, 2.9 -> 3.0 등으로 넘어갈 때 모든 버전 데이터를 삭제하기 위한 로직에서 활용하면 될 것이다...
+        if(newVersion == Math.ceil(newVersion)){
+            log.info("새로운 버전이 정수이기 때문에 초기화 됩니다.");
+        }
+        long id = mapVersionMapper.findNextSeqVal();
+        String savePath = dataPath + Constants.MAP_VERSION_FILE_PATH + "/" + mapDTO.getName();
+        String fileName = String.format("%s_V%.1f.zip", mapDTO.getName(), newVersion);
+        File zipFile = FileSystemUtil.saveZipFileWithPaths(dataPath, savePath, fileName, layers.stream().map(o -> o.getDataFilePath()).collect(Collectors.toList()));
+
+        String finalSavePath = savePath + "/" + fileName;
+        int res = mapVersionMapper.insert(new MapVersionDTO(id, mapDTO.getId(), Double.parseDouble(String.format("%.1f", newVersion)), finalSavePath.replace(dataPath, ""), zipFile.length(), new Date()));
+        if(res > 0){
+            layers.forEach(o -> mapVersionMapper.insertRelate(id, o.getId()));
+            return true;
+        } else return false;
+    }
+
 
     /**
      * MAP 데이터와 LAYER 데이터와의 연동 관계 삭제
@@ -192,10 +207,16 @@ public class MapServiceImpl implements MapService {
             // MAP - LAYER 관계 최초 생성
             createRelationByMapIdAndRelationJSON(id, relations);
 
+            List<LayerDTO> layers = loadLayersByRelationJSON(relations);
+
             // *.map 파일 생성
             try {
+                // 1단계. abc.map 파일 생성
                 String fileContext = MapServerUtil.fetchMapFileContextWithDTO(defaultMap, dataPath, mapDTO, loadLayersByRelationJSON(relations));
                 FileSystemUtil.createAtFile(mapFilePath, fileContext);
+
+                // 2단계. Version 관리
+                this.saveMapVersionRecentlyStatus(mapDTO, layers);
             } catch (IOException e){
                 log.error(mapDTO.getName() + " MAP 파일 생성 실패했습니다.");
                 return false;
@@ -226,11 +247,17 @@ public class MapServiceImpl implements MapService {
             removeRelationByMapId(mapDTO.getId());
             createRelationByMapIdAndRelationJSON(mapDTO.getId(), relations);
 
+            List<LayerDTO> layers = loadLayersByRelationJSON(relations);
+
             // *.map 파일 생성
             try {
+                // 1단계. abc.map 파일 생성
                 String mapFilePath = String.format("%s%s", dataPath, selected.getMapFilePath());
-                String fileContext = MapServerUtil.fetchMapFileContextWithDTO(defaultMap, dataPath, mapDTO, loadLayersByRelationJSON(relations));
+                String fileContext = MapServerUtil.fetchMapFileContextWithDTO(defaultMap, dataPath, mapDTO, layers);
                 FileSystemUtil.createAtFile(mapFilePath, fileContext);
+
+                // 2단계. Version 관리
+                this.saveMapVersionRecentlyStatus(mapDTO, layers);
             } catch (IOException e){
                 log.error(mapDTO.getName() + " MAP 파일 수정 실패했습니다.");
                 return false;
@@ -252,6 +279,10 @@ public class MapServiceImpl implements MapService {
         MapDTO selected = mapMapper.findById(id);
         if(selected == null) return false;
         removeRelationByMapId(id);
+        for(MapVersionDTO version : mapVersionMapper.findByMapId(id)){
+            mapVersionMapper.deleteRelateByVersionId(version.getId());
+        }
+        mapVersionMapper.deleteByMapId(id);
         if(mapMapper.deleteById(id) > 0) {
             try {
                 String mapFilePath = String.format("%s%s", dataPath, selected.getMapFilePath());

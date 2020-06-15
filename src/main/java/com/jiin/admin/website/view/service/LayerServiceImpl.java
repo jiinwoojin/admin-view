@@ -264,6 +264,8 @@ public class LayerServiceImpl implements LayerService {
 
                 File sourceFile = new File(source.replace(CADRG_DEFAULT_EXECUTE_FILE, ""));
                 File targetFile = new File(target.replace(CADRG_DEFAULT_EXECUTE_FILE, ""));
+
+                // 레이어 파일 타입이 CADRG ZIP 인 경우 디렉토리 단위를 옮겨야 한다.
                 if(layerDTO.getType().equals("CADRG")) {
                     try {
                         FileUtils.moveDirectory(sourceFile, targetFile);

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiin.admin.mapper.data.MapVersionMapper">
+    <select id="findNextSeqVal" resultType="long">
+        SELECT NEXTVAL('MAP_VERSION_SEQ')
+    </select>
+
+    <select id="findByMapIdRecently" resultType="MapVersionDTO">
+        SELECT * FROM _MAP_VERSION
+        WHERE MAP_ID = #{mapId}
+        ORDER BY VERSION DESC LIMIT 1
+    </select>
+
+    <select id="findByMapIdAndLayerRecently" resultType="MapVersionDTO">
+        SELECT * FROM _MAP_VERSION M LEFT JOIN _MAP_LAYER_VERSION L
+        ON L.MAP_VERSION_ID = M.ID
+        WHERE M.MAP_ID = #{mapId} AND L.MAP_LAYER_ID = #{layerId}
+        ORDER BY M.VERSION DESC LIMIT 1
+    </select>
+
+    <select id="findByMapId" resultType="MapVersionDTO">
+        SELECT * FROM _MAP_VERSION
+        WHERE MAP_ID = #{mapId}
+    </select>
+
+    <select id="findByMapIdAndVersion" resultType="MapVersionDTO">
+        SELECT * FROM _MAP_VERSION
+        WHERE MAP_ID = #{mapId} AND VERSION = #{version}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO _MAP_VERSION(ID, MAP_ID, VERSION, ZIP_FILE_PATH, ZIP_FILE_SIZE, UPLOAD_DATE)
+        VALUES(#{id}, #{mapId}, #{version}, #{zipFilePath}, #{zipFileSize}, #{uploadDate})
+    </insert>
+
+    <insert id="insertRelate">
+        INSERT INTO _MAP_LAYER_VERSION(MAP_VERSION_ID, MAP_LAYER_ID)
+        VALUES(#{mapVersionId}, #{mapLayerId})
+    </insert>
+
+    <delete id="deleteByMapId">
+        DELETE FROM _MAP_VERSION
+        WHERE MAP_ID = #{mapId}
+    </delete>
+
+    <delete id="deleteRelateByVersionId">
+        DELETE FROM _MAP_LAYER_VERSION
+        WHERE MAP_VERSION_ID = #{id}
+    </delete>
+
+    <delete id="deleteRelateByLayerId">
+        DELETE FROM __MAP_LAYER_VERSION
+        WHERE MAP_LAYER_ID = #{layerId}
+    </delete>
+</mapper>

@@ -42,4 +42,9 @@ public class Constants {
     public static final String SERVER_INFO_FILE_PATH = "/conf";
 
     public static final String SERVER_INFO_FILE_NAME = "server_info.yaml";
+
+    /**
+     * MAP VERSION 관리 정보
+     */
+    public static final String MAP_VERSION_FILE_PATH = "/mapsets";
 }
