@@ -21,6 +21,10 @@ public class LayerDTO {
     private String registorName;
     private Date registTime;
 
+    private Date updateTime;
+
+    private Double version;
+
     public LayerDTO(){
 
     }

@@ -109,8 +109,8 @@ public class MapEntity implements Persistable<Long> {
     /**
      * 버전 정보
      */
-    @Column(name = "VERSION", length = 10, nullable = false)
-    private String version;
+    @Column(name = "VERSION", length = 10)
+    private Double version;
 
     @OneToMany(mappedBy = "map", cascade = CascadeType.ALL)
     private Set<MapLayerRelationEntity> mapLayerRelations = new HashSet<>();
@@ -122,6 +122,6 @@ public class MapEntity implements Persistable<Long> {
 
     @PrePersist
     public void prePersist() {
-        this.version = this.version == null ? "1.0" : this.version;
+        this.version = this.version == null ? 1.0 : this.version;
     }
 }

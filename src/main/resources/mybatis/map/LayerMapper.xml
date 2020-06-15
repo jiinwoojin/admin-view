@@ -77,13 +77,18 @@
         <selectKey keyProperty="id" resultType="long" order="BEFORE">
             SELECT NEXTVAL('LAYER_SEQ')
         </selectKey>
-        INSERT INTO _LAYER(ID, NAME, TYPE, DATA_FILE_PATH, DESCRIPTION, IS_DEFAULT, LAYER_FILE_PATH, MIDDLE_FOLDER, PROJECTION, REGISTOR_ID, REGISTOR_NAME, REGIST_TIME)
-        VALUES(#{id}, #{name}, #{type}, #{dataFilePath}, #{description}, #{isDefault}, #{layerFilePath}, #{middleFolder}, #{projection}, #{registorId}, #{registorName}, #{registTime})
+        INSERT INTO _LAYER(ID, NAME, TYPE, DATA_FILE_PATH, DESCRIPTION, IS_DEFAULT, LAYER_FILE_PATH, MIDDLE_FOLDER, PROJECTION, REGISTOR_ID, REGISTOR_NAME, REGIST_TIME, UPDATE_TIME, VERSION)
+        VALUES(#{id}, #{name}, #{type}, #{dataFilePath}, #{description}, #{isDefault}, #{layerFilePath}, #{middleFolder}, #{projection}, #{registorId}, #{registorName}, #{registTime}, #{updateTime}, #{version})
     </insert>
 
     <update id="update">
         UPDATE _LAYER SET
-        NAME = #{name}, TYPE = #{type}, DATA_FILE_PATH = #{dataFilePath}, DESCRIPTION = #{description}, IS_DEFAULT = #{isDefault}, LAYER_FILE_PATH = #{layerFilePath}, MIDDLE_FOLDER = #{middleFolder}, PROJECTION = #{projection}, REGISTOR_ID = #{registorId}, REGISTOR_NAME = #{registorName}, REGIST_TIME = #{registTime}
+            NAME = #{name}, TYPE = #{type}, DATA_FILE_PATH = #{dataFilePath},
+            DESCRIPTION = #{description}, IS_DEFAULT = #{isDefault},
+            LAYER_FILE_PATH = #{layerFilePath}, MIDDLE_FOLDER = #{middleFolder},
+            PROJECTION = #{projection}, REGISTOR_ID = #{registorId},
+            REGISTOR_NAME = #{registorName}, REGIST_TIME = #{registTime},
+            UPDATE_TIME = #{updateTime}, VERSION = #{version}
         WHERE id = #{id}
     </update>
 

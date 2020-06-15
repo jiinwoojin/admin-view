@@ -99,7 +99,6 @@ public class LayerServiceImpl implements LayerService {
         String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         layerDTO.setRegistorId(loginUser);
         layerDTO.setRegistorName(loginUser);
-        layerDTO.setRegistTime(new Date());
         layerDTO.setType(layerDTO.getType().toUpperCase());
     }
 
@@ -162,6 +161,10 @@ public class LayerServiceImpl implements LayerService {
         layerDTO.setLayerFilePath(layFilePath.replaceAll(dataPath, ""));
         layerDTO.setDataFilePath(dataFilePath.replaceAll(dataPath, ""));
         layerDTO.setDefault(false);
+        Date date = new Date();
+        layerDTO.setRegistTime(date);
+        layerDTO.setUpdateTime(date);
+        layerDTO.setVersion(1.0);     // 기본 1.0
         setCommonProperties(layerDTO);
 
         if(layerMapper.insert(layerDTO) > 0){
@@ -206,6 +209,9 @@ public class LayerServiceImpl implements LayerService {
             dataFilePath = selected.getDataFilePath();
         }
         layerDTO.setDataFilePath(dataFilePath.replaceAll(dataPath, ""));
+        layerDTO.setUpdateTime(new Date());     // update 시간 추가
+
+        layerDTO.setVersion(Double.parseDouble(String.format("%.1f",(layerDTO.getVersion() + 0.1))));
 
         setCommonProperties(layerDTO);
 
