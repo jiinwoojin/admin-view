@@ -12,7 +12,7 @@ public class FileDownloadModel {
     private String map;
 
     /**
-     * CS 상황도 현재 MAP 버전 정보
+     * down 받을 version
      */
-    private Double currentVersion;
+    private Double version;
 }

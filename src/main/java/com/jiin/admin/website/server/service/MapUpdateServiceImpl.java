@@ -21,7 +21,7 @@ public class MapUpdateServiceImpl implements MapUpdateService {
 
     @Override
     public VersionDTO getFile(FileDownloadModel fileDownloadModel) {
-        return mapUpdateMapper.findFileInfo(fileDownloadModel.getMap(), fileDownloadModel.getCurrentVersion());
+        return mapUpdateMapper.findFileInfo(fileDownloadModel.getMap(), fileDownloadModel.getVersion());
     }
 
     @Override
