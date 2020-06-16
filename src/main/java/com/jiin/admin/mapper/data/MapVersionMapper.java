@@ -13,6 +13,7 @@ public interface MapVersionMapper {
     MapVersionDTO findByMapIdRecently(@Param("mapId") long mapId);
     MapVersionDTO findByMapIdAndLayerRecently(@Param("mapId") long mapId, @Param("layerId") long layerId);
     List<MapVersionDTO> findByMapId(@Param("mapId") long mapId);
+    List<MapVersionDTO> findByLayerId(@Param("layerId") long layerId);
     MapVersionDTO findByMapIdAndVersion(@Param("mapId") long mapId, @Param("version") double version);
 
     int insert(MapVersionDTO mapVersionDTO);

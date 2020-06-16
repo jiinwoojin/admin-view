@@ -3,6 +3,7 @@ package com.jiin.admin.website.util;
 import com.jiin.admin.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.apache.tomcat.util.bcel.Const;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -266,24 +267,34 @@ public class FileSystemUtil {
      * @param dataPath String, zipPath String, filename String, paths List of Strings
      */
     public static File saveZipFileWithPaths(String dataPath, String zipPath, String filename, List<Map<String, String>> paths){
+        // 처음에는 ZIP 파일 존재 여부를 확인한다.
+        File zipFile = new File(zipPath + "/" + filename);
+        if(zipFile.exists()) {
+            try {
+                deleteFile(zipFile.getPath());
+            } catch (IOException e) {
+                log.info(filename + " 파일이 없어 생성하는 작업을 진행합니다.");
+            }
+        }
+
         for(Map<String, String> path : paths) {
             String cadrgExcludePath = dataPath + path.get("dataFilePath").replace("/RPF/A.TOC", "");
             File file = new File(cadrgExcludePath);
-            if (!file.isDirectory()) {
+            if (!file.isDirectory()) { // RASTER 파일인 경우
                 try {
-                    copyDirectory(file, new File(String.format("%s/%s%s", zipPath, filename.replace(".zip", ""), path.get("dataFilePath"))));
+                    copyDirectory(file, new File(String.format("%s/%s%s", zipPath, filename.replace(".zip", ""), path.get("dataFilePath").replaceFirst(Constants.DATA_PATH, ""))));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else {
+            } else { // CADRG 파일인 경우 (Vector 파일의 경우 조치 추가 필요)
                 String cadrgHome = dataPath + Constants.DATA_PATH + "/" + path.get("middleFolder");
                 try {
                     String[] split = path.get("middleFolder").split("/");
                     String tmpPath = split.length > 0 ? path.get("middleFolder") : "";
                     if(split.length > 0){
-                        tmpPath = tmpPath.replaceFirst("(?s)(.*)" + split[split.length - 1], "$1" + "");
+                        tmpPath = tmpPath.replaceFirst("(?s)(.*)" + split[split.length - 1], "$1");
                     }
-                    copyDirectory(new File(cadrgHome), new File(String.format("%s/%s%s/%s", zipPath, filename.replace(".zip", ""), Constants.DATA_PATH, tmpPath)));
+                    copyDirectory(new File(cadrgHome), new File(String.format("%s/%s/%s", zipPath, filename.replace(".zip", ""), tmpPath)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -293,15 +304,20 @@ public class FileSystemUtil {
         try {
             FileOutputStream fos = new FileOutputStream(zipPath + "/" + filename);
             ZipOutputStream zipOut = new ZipOutputStream(fos);
-            File fileToZip = new File(zipPath + "/" + filename.replace(".zip", "") + Constants.DATA_PATH);
+            File fileToZip = new File(zipPath + "/" + filename.replace(".zip", ""));
 
-            zipFile(fileToZip, fileToZip.getName(), zipOut);
+            for(File file : fileToZip.listFiles()) {
+                zipFile(file, file.getName(), zipOut);
+            }
 
             zipOut.closeEntry();
             zipOut.close();
             fos.close();
 
+            FileUtils.deleteDirectory(fileToZip); // 모든 파일이 압축 완료된 이후에는 전부 날려버린다.
+
             return new File(zipPath + "/" + filename);
+
         } catch (FileNotFoundException e) {
             log.error("파일이 존재하지 않습니다 : " + filename);
             return null;
@@ -316,6 +332,7 @@ public class FileSystemUtil {
      * @param fileToZip File, fileName String, zipOut ZipOutputStream
      */
     private static void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {
+        if(!isWindowOS()) setFileDefaultPermissions(fileToZip.toPath()); // 기본 755 권한을 모두 준다.
         if (fileToZip.isHidden()) {
             return;
         }

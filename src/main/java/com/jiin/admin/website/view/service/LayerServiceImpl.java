@@ -8,6 +8,7 @@ import com.jiin.admin.website.model.LayerPageModel;
 import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.MapServerUtil;
+import com.jiin.admin.website.view.component.MapVersionManagement;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +35,9 @@ public class LayerServiceImpl implements LayerService {
 
     @Resource
     private MapLayerRelationMapper mapLayerRelationMapper;
+
+    @Resource
+    private MapVersionManagement mapVersionManagement;
 
     private static Double DEFAULT_LAYER_VERSION = 1.0;
 
@@ -282,6 +286,9 @@ public class LayerServiceImpl implements LayerService {
                 }
             }
 
+            // 레이어 수정 전에 Map Version 관리도 추가 반영.
+            mapVersionManagement.setLayerUpdateManage(layerDTO);
+
             // *.lay 파일 생성
             try {
                 String fileContext = MapServerUtil.fetchLayerFileContextWithDTO(defaultLayer, dataPath, layerDTO);
@@ -306,7 +313,12 @@ public class LayerServiceImpl implements LayerService {
     public boolean removeData(long id) {
         LayerDTO selected = layerMapper.findById(id);
         if(selected == null) return false;
+
         mapLayerRelationMapper.deleteByLayerId(id);
+
+        // 레이어 삭제 전에 Map Version 관리도 추가 반영.
+        mapVersionManagement.setLayerRemoveManage(selected);
+
         if(layerMapper.deleteById(id) > 0){
             // 1단계. 리소스 파일 삭제
             removeLayerResourceFile(selected);

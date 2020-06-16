@@ -24,6 +24,13 @@
         WHERE MAP_ID = #{mapId}
     </select>
 
+    <select id="findByLayerId" resultType="MapVersionDTO">
+        SELECT M.* FROM _MAP_VERSION M
+        LEFT JOIN _MAP_LAYER_VERSION L
+        ON M.ID = L.MAP_VERSION_ID
+        WHERE L.MAP_LAYER_ID = #{layerId}
+    </select>
+
     <select id="findByMapIdAndVersion" resultType="MapVersionDTO">
         SELECT * FROM _MAP_VERSION
         WHERE MAP_ID = #{mapId} AND VERSION = #{version}
@@ -55,7 +62,7 @@
     </delete>
 
     <delete id="deleteRelateByLayerId">
-        DELETE FROM __MAP_LAYER_VERSION
+        DELETE FROM _MAP_LAYER_VERSION
         WHERE MAP_LAYER_ID = #{layerId}
     </delete>
 </mapper>

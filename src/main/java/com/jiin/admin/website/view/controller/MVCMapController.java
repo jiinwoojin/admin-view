@@ -82,8 +82,8 @@ public class MVCMapController {
      * @param mapDTO MapDTO, relations String JSON
      */
     @PostMapping("map-update")
-    public String postMapUpdate(@Valid MapDTO mapDTO, @RequestParam("layerList") String relations) throws IOException {
-        boolean result = mapService.setData(mapDTO, relations);
+    public String postMapUpdate(@Valid MapDTO mapDTO, @RequestParam("layerList") String relations, @RequestParam(value = "versionCheck", defaultValue = "true") Boolean versionCheck) throws IOException {
+        boolean result = mapService.setData(mapDTO, relations, versionCheck);
         session.message(String.format("MAP [%s] 수정 %s 하였습니다.", mapDTO.getName(), (result ? "성공" : "실패")));
         return "redirect:map-list?pg=1&sz=8&iType=ALL&units=ALL";
     }

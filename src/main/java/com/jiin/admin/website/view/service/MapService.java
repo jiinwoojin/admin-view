@@ -15,6 +15,6 @@ public interface MapService {
     Map<String, Object> loadDataListAndCountByPaginationModel(MapPageModel mapPageModel);
     MapDTO loadDataById(long id);
     boolean createData(MapDTO mapDTO, String layers, boolean versionCheck) throws IOException;
-    boolean setData(MapDTO mapDTO, String layers) throws JsonProcessingException;
+    boolean setData(MapDTO mapDTO, String layers, boolean versionCheck) throws JsonProcessingException;
     boolean removeData(long id) throws IOException;
 }
