@@ -1,5 +1,6 @@
 package com.jiin.admin.website.util;
 
+import com.jiin.admin.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 
@@ -249,34 +250,41 @@ public class FileSystemUtil {
     }
 
     /**
-     * 파일을 복사한다.
+     * 디렉토리를 복사한다.
      * @param from File, to File
      */
-    private static void copyFile(File from, File to) throws IOException {
-        if(from.isDirectory())
-            FileUtils.copyDirectoryToDirectory(from, to);
-        else
+    private static void copyDirectory(File from, File to) throws IOException {
+        if(from.isFile()) {
             FileUtils.copyFile(from, to);
+        } else {
+            FileUtils.copyDirectoryToDirectory(from, to);
+        }
     }
 
     /**
      * ZIP 파일 생성 메소드
      * @param dataPath String, zipPath String, filename String, paths List of Strings
      */
-    public static File saveZipFileWithPaths(String dataPath, String zipPath, String filename, List<String> paths){
-        for(String path : paths) {
-            String cadrgExcludePath = dataPath + path.replace("/RPF/A.TOC", "");
+    public static File saveZipFileWithPaths(String dataPath, String zipPath, String filename, List<Map<String, String>> paths){
+        for(Map<String, String> path : paths) {
+            String cadrgExcludePath = dataPath + path.get("dataFilePath").replace("/RPF/A.TOC", "");
             File file = new File(cadrgExcludePath);
             if (!file.isDirectory()) {
                 try {
-                    copyFile(file, new File(zipPath + "/" + filename.replace(".zip", "") + "/" + file.getName()));
+                    copyDirectory(file, new File(String.format("%s/%s%s", zipPath, filename.replace(".zip", ""), path.get("dataFilePath"))));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
-                String dataDirExcludePath = cadrgExcludePath.replace(dataPath, "");
+                String cadrgHome = dataPath + Constants.DATA_PATH + "/" + path.get("middleFolder");
                 try {
-                    copyFile(new File(cadrgExcludePath), new File(zipPath + "/" + filename.replace(".zip", "")));
+                    String[] split = path.get("middleFolder").split("/");
+                    String tmpPath = split.length > 0 ? path.get("middleFolder") : "";
+                    if(split.length > 0){
+                        tmpPath = tmpPath.replaceFirst("(?s)(.*)" + split[split.length - 1], "$1" + "");
+                    }
+                    System.out.println(tmpPath);
+                    copyDirectory(new File(cadrgHome), new File(String.format("%s/%s%s/%s", zipPath, filename.replace(".zip", ""), Constants.DATA_PATH, tmpPath)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -286,7 +294,7 @@ public class FileSystemUtil {
         try {
             FileOutputStream fos = new FileOutputStream(zipPath + "/" + filename);
             ZipOutputStream zipOut = new ZipOutputStream(fos);
-            File fileToZip = new File(zipPath + "/" + filename.replace(".zip", ""));
+            File fileToZip = new File(zipPath + "/" + filename.replace(".zip", "") + Constants.DATA_PATH);
 
             zipFile(fileToZip, fileToZip.getName(), zipOut);
 

@@ -135,6 +135,7 @@
                 <th>종류</th>
                 <th>투영</th>
                 <th>설명</th>
+                <th>버전</th>
                 <th>삭제</th>
             </tr>
             </thead>
@@ -161,6 +162,7 @@
                                 <th scope="col" class="text-center">종류</th>
                                 <th scope="col" class="text-center">투영</th>
                                 <th scope="col" class="text-center">설명</th>
+                                <th scope="col" class="text-center">버전</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -174,6 +176,7 @@
                                 <td class="text-center align-middle" th:text="${ layer.type }"></td>
                                 <td class="text-center align-middle" th:text="${ layer.projection }"></td>
                                 <td class="text-center align-middle" th:text="${ layer.description }"></td>
+                                <td class="text-center align-middle" th:text="${ layer.version }"></td>
                             </tr>
                             </tbody>
                         </table>
@@ -387,6 +390,13 @@
             descriptionTd.innerHTML = layer.description;
 
             tr.appendChild(descriptionTd);
+
+            // 버전 version
+            var versionTd = document.createElement('td');
+            versionTd.className = 'text-center align-middle';
+            versionTd.innerHTML = layer.version;
+
+            tr.appendChild(versionTd);
 
             var deleteTd = document.createElement('td');
             deleteTd.onclick = deleteLayer;

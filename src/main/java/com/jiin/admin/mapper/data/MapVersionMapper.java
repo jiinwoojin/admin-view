@@ -13,10 +13,12 @@ public interface MapVersionMapper {
     MapVersionDTO findByMapIdRecently(@Param("mapId") long mapId);
     MapVersionDTO findByMapIdAndLayerRecently(@Param("mapId") long mapId, @Param("layerId") long layerId);
     List<MapVersionDTO> findByMapId(@Param("mapId") long mapId);
-    List<MapVersionDTO> findByMapIdAndVersion(@Param("mapId") long mapId, @Param("version") double version);
+    MapVersionDTO findByMapIdAndVersion(@Param("mapId") long mapId, @Param("version") double version);
 
     int insert(MapVersionDTO mapVersionDTO);
     int insertRelate(@Param("mapVersionId") long mapVersionId, @Param("mapLayerId") long layerId);
+
+    int update(MapVersionDTO mapVersionDTO);
 
     int deleteByMapId(@Param("mapId") long mapId);
     int deleteRelateByVersionId(@Param("id") long id);

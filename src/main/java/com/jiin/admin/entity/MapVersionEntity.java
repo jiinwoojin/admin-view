@@ -2,6 +2,7 @@ package com.jiin.admin.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,7 +20,7 @@ import java.util.List;
 })
 @Getter
 @Setter
-public class MapVersionEntity {
+public class MapVersionEntity implements Persistable<Long> {
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
@@ -47,4 +48,9 @@ public class MapVersionEntity {
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = "_MAP_LAYER_VERSION", joinColumns = @JoinColumn(name = "MAP_VERSION_ID"), inverseJoinColumns = @JoinColumn(name = "MAP_LAYER_ID"))
     private List<LayerEntity> layers;
+
+    @Override
+    public boolean isNew() {
+        return false;
+    }
 }

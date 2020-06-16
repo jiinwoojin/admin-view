@@ -39,6 +39,11 @@
         VALUES(#{mapVersionId}, #{mapLayerId})
     </insert>
 
+    <update id="update">
+        UPDATE _MAP_VERSION SET
+        MAP_ID = #{mapId}, VERSION = #{version}, ZIP_FILE_PATH = #{zipFilePath}, ZIP_FILE_SIZE = #{zipFileSize}, UPLOAD_DATE = #{uploadDate}
+        WHERE ID = #{id}
+    </update>
     <delete id="deleteByMapId">
         DELETE FROM _MAP_VERSION
         WHERE MAP_ID = #{mapId}

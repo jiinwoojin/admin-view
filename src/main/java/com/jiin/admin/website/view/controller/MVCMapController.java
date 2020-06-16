@@ -57,8 +57,8 @@ public class MVCMapController {
      * @param mapDTO MapDTO, relations String JSON
      */
     @PostMapping("map-create")
-    public String postMapCreate(@Valid MapDTO mapDTO, @RequestParam("layerList") String relations) throws IOException {
-        boolean result = mapService.createData(mapDTO, relations);
+    public String postMapCreate(@Valid MapDTO mapDTO, @RequestParam("layerList") String relations, @RequestParam("versionCheck") Boolean versionCheck) throws IOException {
+        boolean result = mapService.createData(mapDTO, relations, versionCheck);
         session.message(String.format("MAP [%s] 추가 %s 하였습니다.", mapDTO.getName(), (result ? "성공" : "실패")));
         return "redirect:map-list?pg=1&sz=8&iType=ALL&units=ALL";
     }

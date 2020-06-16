@@ -216,7 +216,7 @@
                                     <i class="fas fa-code-branch"></i> 버전
                                 </th>
                                 <td>
-                                    <span th:text="${map.version}">[LAYER 버전]</span>
+                                    <span th:text="${resMap.get('versionMap').get(map.id) == null ? 'NONE' : resMap.get('versionMap').get(map.id)}">[LAYER 버전]</span>
                                 </td>
                             </tr>
                             </tbody>
