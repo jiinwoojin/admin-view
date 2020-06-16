@@ -211,7 +211,7 @@
                                     <i class="fas fa-code-branch"></i> 버전
                                 </th>
                                 <td>
-                                    <span th:text="${layer.version}">[LAYER 버전]</span>
+                                    <span th:text="${layer.version == null ? 'NONE' : layer.version}">[LAYER 버전]</span>
                                 </td>
                             </tr>
                             </tbody>

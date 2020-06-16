@@ -283,7 +283,6 @@ public class FileSystemUtil {
                     if(split.length > 0){
                         tmpPath = tmpPath.replaceFirst("(?s)(.*)" + split[split.length - 1], "$1" + "");
                     }
-                    System.out.println(tmpPath);
                     copyDirectory(new File(cadrgHome), new File(String.format("%s/%s%s/%s", zipPath, filename.replace(".zip", ""), Constants.DATA_PATH, tmpPath)));
                 } catch (IOException e) {
                     e.printStackTrace();
