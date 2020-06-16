@@ -9,4 +9,8 @@ public class VersionDTO {
     private String map;
 
     private Double version;
+
+    private Long zipFileSize;
+
+    private String zipFilePath;
 }

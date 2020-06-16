@@ -2,14 +2,12 @@ package com.jiin.admin.website.server.service;
 
 import com.jiin.admin.dto.VersionDTO;
 import com.jiin.admin.website.model.FileDownloadModel;
-import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
 public interface MapUpdateService {
-    StreamingResponseBody getFile(FileDownloadModel fileDownloadModel, HttpServletResponse response);
+    VersionDTO getFile(FileDownloadModel fileDownloadModel);
 
     List<VersionDTO> checkVersion(Map<String, List<VersionDTO>> map);
 }

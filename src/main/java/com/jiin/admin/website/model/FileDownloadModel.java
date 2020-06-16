@@ -7,11 +7,6 @@ import lombok.Setter;
 @Setter
 public class FileDownloadModel {
     /**
-     * CS 상환도 마지막 Update 정보
-     */
-    private String lastUpdate;
-
-    /**
      * CS 상황도 MAP 정보
      */
     private String map;
