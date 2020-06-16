@@ -2,7 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jiin.admin.mapper.data.MapUpdateMapper">
-    <select id="findByName" resultType="MapDTO">
-        SELECT * FROM _MAP WHERE NAME = #{name}
+    <select id="findByNameAndVersion" resultType="VersionDTO">
+        WITH T1 AS (
+            SELECT * FROM _map WHERE NAME = #{name}
+        )
+        SELECT T1.name AS map, T2.version, T2.zip_file_size as zipFileSize
+        FROM _map_version as T2, T1
+        WHERE T2.map_id = T1.id AND T2.version > #{version}
+    </select>
+
+    <!-- version 과 map 이름으로 file 경로 가져오기 -->
+    <select id="findFileInfo" resultType="VersionDTO">
+        WITH T1 AS (
+            SELECT * FROM _map WHERE NAME = #{name}
+        )
+        SELECT T2.zip_file_path, T2.zip_file_size
+        FROM _map_version as T2, T1
+        WHERE T2.map_id = T1.id AND T2.version = #{version}
     </select>
 </mapper>

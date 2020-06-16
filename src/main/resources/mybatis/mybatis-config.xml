@@ -17,13 +17,14 @@
 		<typeAlias alias="long" type="java.lang.Long" />
 		<typeAlias alias="list" type="java.util.List" />
 
-		<!-- MapServer Based DTO -->
+		<!-- Map Based DTO -->
 		<typeAlias alias="MapDTO" type="com.jiin.admin.dto.MapDTO" />
 		<typeAlias alias="LayerDTO" type="com.jiin.admin.dto.LayerDTO" />
 		<typeAlias alias="MLRelationDTO" type="com.jiin.admin.dto.MapLayerRelationDTO" />
 		<typeAlias alias="MapVersionDTO" type="com.jiin.admin.dto.MapVersionDTO" />
+		<typeAlias alias="VersionDTO" type="com.jiin.admin.dto.VersionDTO" />
 
-		<!-- Mapnik Based DTO -->
+		<!-- Vector Tiles Based DTO -->
 		<typeAlias alias="SymbolPositionDTO" type="com.jiin.admin.dto.SymbolPositionDTO" />
 
 		<!-- MapProxy Based DTO -->

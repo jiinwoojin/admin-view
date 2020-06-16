@@ -24,7 +24,7 @@ public class MapVersionEntity implements Persistable<Long> {
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "MAP_VERSION_SEQ"
+            generator = "MAP_VERSION_SEQ_GEN"
     )
     @Column(name = "ID")
     private Long id;
