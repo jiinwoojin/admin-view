@@ -55,7 +55,7 @@
     </delete>
 
     <delete id="deleteRelateByLayerId">
-        DELETE FROM __MAP_LAYER_VERSION
+        DELETE FROM _MAP_LAYER_VERSION
         WHERE MAP_LAYER_ID = #{layerId}
     </delete>
 </mapper>

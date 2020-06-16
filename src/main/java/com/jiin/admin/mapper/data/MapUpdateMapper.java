@@ -11,5 +11,5 @@ public interface MapUpdateMapper {
 
     List<VersionDTO> findByNameAndVersion(@Param("name") String map, @Param("version") Double version);
 
-    VersionDTO findFileInfo(@Param("name") String map, @Param("version") Double currentVersion);
+    VersionDTO findFileInfo(@Param("name") String map, @Param("version") Double version);
 }
