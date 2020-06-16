@@ -12,8 +12,8 @@ $(function () {
 // 센터 별 초기화를 위한 함수이다. - 서버 관련
 function find_by_center_refresh_server(center){
     var dom = document.getElementById(`${center}_SERVER_STATUS`);
-    if(dom){
-        var select = document.getElementById(center + "_change_server");
+    var select = document.getElementById(center + "_change_server");
+    if(dom && select){
         var options = select.options;
         if(options.length <= 1) return;
         $("#" + center + "_change_server").val(options[1].value);
@@ -23,9 +23,9 @@ function find_by_center_refresh_server(center){
 
 // 센터 별 초기화를 위한 함수이다. - 동기화 관련
 function find_by_center_refresh_sync(center){
-    var dom = document.getElementById(`${center}_SERVER_STATUS`);
-    if(dom){
-        var select = document.getElementById(center + "_change_sync");
+    var dom = document.getElementById(`${center}_SYNC_STATUS`);
+    var select = document.getElementById(center + "_change_sync");
+    if(dom && select){
         var options = select.options;
         if(options.length <= 1) return;
         $("#" + center + "_change_sync").val(options[1].value);
