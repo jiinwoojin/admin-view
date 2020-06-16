@@ -4,11 +4,13 @@ import com.jiin.admin.dto.VersionDTO;
 import com.jiin.admin.mapper.data.MapUpdateMapper;
 import com.jiin.admin.website.model.FileDownloadModel;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
