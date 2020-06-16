@@ -6,7 +6,7 @@
         WITH T1 AS (
             SELECT * FROM _map WHERE NAME = #{name}
         )
-        SELECT T1.name AS map
+        SELECT T1.name AS map, T2.version, T2.zip_file_size as zipFileSize
         FROM _map_version as T2, T1
         WHERE T2.map_id = T1.id AND T2.version > #{version}
     </select>
