@@ -6,17 +6,25 @@ import com.jiin.admin.website.model.MapPageModel;
 import com.jiin.admin.website.view.service.LayerService;
 import com.jiin.admin.website.view.service.MapService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.BufferedOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 @Controller
 @RequestMapping("manage")
 public class MVCMapController {
+    @Value("${project.data-path}")
+    private String dataPath;
+
     @Autowired
     private MapService mapService;
 
@@ -76,6 +84,26 @@ public class MVCMapController {
         model.addAttribute("qs", mapPageModel.getQueryString());
 
         return "page/manage/map-update";
+    }
+
+    /**
+     * MAP Version ZIP 파일 다운로드 : 예비 생성. 사용 여부는 확실치 않음.
+     * @param zipPathFile String, response HttpServletResponse
+     */
+    @RequestMapping("zip-download")
+    public void pageMapVersionZipDownload(@RequestParam("zipPathFile") String zipPathFile, HttpServletResponse response){
+        File file = new File(dataPath + zipPathFile);
+        if(file.isFile()) {
+            response.setContentType("application/octet-stream");
+            response.setContentLength((int) file.length());
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\";");
+            response.setHeader("Content-Transfer-Encoding", "binary");
+            try(BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream())){
+                output.write(Files.readAllBytes(file.toPath()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

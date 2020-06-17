@@ -41,7 +41,9 @@ public class LayerServiceImpl implements LayerService {
 
     private static Double DEFAULT_LAYER_VERSION = 1.0;
 
-    private static String CADRG_DEFAULT_EXECUTE_FILE = "/RPF/A.TOC";
+    private static String CADRG_DEFAULT_EXECUTE_DIRECTORY = "/RPF";
+
+    private static String CADRG_DEFAULT_EXECUTE_FILE = "/A.TOC";
 
     private static final List<OptionModel> sbOptions = Arrays.asList(
         new OptionModel("-- 검색 키워드 선택 --", 0),
@@ -85,6 +87,7 @@ public class LayerServiceImpl implements LayerService {
             // 압축 파일인 경우 (CADRG 혹은 SHP) 에는 파일 압축 해제를 진행해야 한다.
             if(filename.contains(".zip") || filename.contains(".ZIP")){
                 FileSystemUtil.decompressZipFile(dataFile);
+                FileSystemUtil.deleteFile(dataFile.getPath()); // 파일 업로드가 완료되면 삭제한다.
             }
         } catch (IOException e) {
             log.error(layerDTO.getName() + " DATA 파일 옮기기 실패했습니다.");
@@ -101,7 +104,7 @@ public class LayerServiceImpl implements LayerService {
             if(!layerDTO.getType().equals("CADRG")) {
                 FileSystemUtil.deleteFile(dataFilePath);
             } else {
-                FileSystemUtil.deleteFile(dataFilePath.replace(CADRG_DEFAULT_EXECUTE_FILE, ""));
+                FileSystemUtil.deleteFile(dataFilePath.replace(CADRG_DEFAULT_EXECUTE_DIRECTORY + CADRG_DEFAULT_EXECUTE_FILE, ""));
             }
         } catch (IOException e) {
             log.error("레이어 " + layerDTO.getName() + " DATA 파일 삭제 실패했습니다.");
@@ -181,7 +184,7 @@ public class LayerServiceImpl implements LayerService {
 
         // CADRG 인 경우에는 따로 설정한다.
         if(layerDTO.getType().equals("CADRG")){
-            dataFilePath = String.format("%s%s/%s%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), CADRG_DEFAULT_EXECUTE_FILE);
+            dataFilePath = String.format("%s%s/%s%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), CADRG_DEFAULT_EXECUTE_DIRECTORY + CADRG_DEFAULT_EXECUTE_FILE);
         } else {
             dataFilePath = String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), uploadData.getOriginalFilename());
         }
@@ -232,7 +235,7 @@ public class LayerServiceImpl implements LayerService {
         if(isUploaded){
             // CADRG 인 경우에는 따로 설정한다.
             if(layerDTO.getType().equals("CADRG")){
-                dataFilePath = String.format("%s%s/%s%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), CADRG_DEFAULT_EXECUTE_FILE);
+                dataFilePath = String.format("%s%s/%s%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), CADRG_DEFAULT_EXECUTE_DIRECTORY + CADRG_DEFAULT_EXECUTE_FILE);
             } else {
                 dataFilePath = String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), uploadData.getOriginalFilename());
             }

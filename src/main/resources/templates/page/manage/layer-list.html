@@ -241,7 +241,7 @@
     <div class="modal fade" id="layer-create" tabindex="-1" role="dialog" aria-labelledby="insert-layer" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form th:action="@{/view/manage/layer-create}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)" enctype="multipart/form-data">
+                <form th:action="@{/view/manage/layer-create}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this);" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h5 class="modal-title" id="insert-layer">LAYER 추가</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -426,29 +426,51 @@
             });
         });
 
-        function preSubmit(form) {
-            var action = form.action;
-            if (action.indexOf("layer-create") > -1) {
-                addLayer(form);
-            } else if(action.indexOf("layer-update") > -1) {
-                return true;
-            }
-            return false;
+        function validateFile(form){
+            var file = form['data_file'].value;
+            if(file) {
+                var fileArr = file.split('\\');
+                var fileName = fileArr[fileArr.length - 1];
+                var fileType = form['type'].value;
+                if(fileName.endsWith('zip') || fileName.endsWith('ZIP')){
+                    if(fileType === 'RASTER'){
+                        toastr.warning('ZIP 파일은 VECTOR 및 CADRG 타입만 업로드 가능합니다.');
+                        return false;
+                    } else return true;
+                } else if (fileName.endsWith('tif') || fileName.endsWith('TIF')){
+                    if(fileType !== 'RASTER'){
+                        toastr.warning('TIFF 파일은 RASTER 타입만 업로드 가능합니다.');
+                        return false;
+                    } else return true;
+                } else {
+                    toastr.warning('*.zip, *.tif 파일만 업로드 가능합니다.');
+                    return false;
+                }
+            } else return true;
         }
 
         function addLayer(form) {
             if (jQuery.isEmptyObject(form['name'].value)) {
                 form['name'].focus();
                 toastr.warning("이름이 입력되지 않았습니다.");
-                return;
-            }else if(jQuery(form['name']).data("check-duplicate") === false) {
+                return false;
+            } else if(jQuery(form['name']).data("check-duplicate") === false) {
                 toastr.warning("이름 중복확인이 되지 않았습니다.");
-                return;
-            }else if(form['data_file'].value === ''){
-                toastr.warning("레이어 파일을 업로드 하시길 바랍니다. Raster 파일은 *.tiff, Vector 파일은 *.shp 이 포함된 *.zip 입니다.");
-                return;
+                return false;
+            } else if(form['data_file'].value === ''){
+                toastr.warning("레이어 파일을 업로드 하시길 바랍니다. Raster 파일은 *.tif, Vector 파일은 *.shp 이 포함된 *.zip, CADRG 도 마찬가지로 *.zip 입니다.");
+                return false;
             }
-            form.submit();
+            return true;
+        }
+
+        function preSubmit(form) {
+            var action = form.action;
+            if (action.indexOf("layer-create") > -1) {
+                return addLayer(form) && validateFile(form);
+            } else if(action.indexOf("layer-update") > -1) {
+                return validateFile(form);
+            } else return false;
         }
 
         function delLayer(ths, layerName, layerId) {
