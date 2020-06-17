@@ -18,7 +18,6 @@ import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.MapServerUtil;
 import com.jiin.admin.website.view.component.MapVersionManagement;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -164,6 +163,13 @@ public class MapServiceImpl implements MapService {
         }};
     }
 
+    @Override
+    public Map<String, Object> loadVersionInfoListById(long id) {
+        return new HashMap<String, Object>(){{
+            put("list", mapVersionMapper.findByMapId(id));
+        }};
+    }
+
     /**
      * MAP 데이터 단일 조회
      * @param id long
@@ -237,6 +243,8 @@ public class MapServiceImpl implements MapService {
         if(versionCheck){
             mapVersionManagement.setMapLayerVersionManage(mapDTO, prevLayers, layers);
             mapVersionManagement.saveMapVersionRecentlyStatus(mapDTO, layers);
+        } else {
+            mapVersionManagement.removeVersionWithDTO(selected);
         }
 
         setCommonProperties(mapDTO);
@@ -273,15 +281,11 @@ public class MapServiceImpl implements MapService {
         MapDTO selected = mapMapper.findById(id);
         if(selected == null) return false;
         removeRelationByMapId(id);
-        for(MapVersionDTO version : mapVersionMapper.findByMapId(id)){
-            mapVersionMapper.deleteRelateByVersionId(version.getId());
-        }
-        mapVersionMapper.deleteByMapId(id);
+        mapVersionManagement.removeVersionWithDTO(selected);
         if(mapMapper.deleteById(id) > 0) {
             try {
                 String mapFilePath = String.format("%s%s", dataPath, selected.getMapFilePath());
                 FileSystemUtil.deleteFile(mapFilePath);
-                mapVersionManagement.removeVersionFolderWithDTO(selected);
             } catch (IOException e) {
                 log.error(selected.getName() + " MAP 파일 삭제 실패했습니다.");
                 return false;

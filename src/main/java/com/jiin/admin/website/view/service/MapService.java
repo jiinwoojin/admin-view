@@ -13,6 +13,7 @@ public interface MapService {
     List<OptionModel> loadSearchByOptionList();
     List<OptionModel> loadOrderByOptionList();
     Map<String, Object> loadDataListAndCountByPaginationModel(MapPageModel mapPageModel);
+    Map<String, Object> loadVersionInfoListById(long id);
     MapDTO loadDataById(long id);
     boolean createData(MapDTO mapDTO, String layers, boolean versionCheck) throws IOException;
     boolean setData(MapDTO mapDTO, String layers, boolean versionCheck) throws JsonProcessingException;

@@ -21,6 +21,7 @@ public interface MapVersionMapper {
 
     int update(MapVersionDTO mapVersionDTO);
 
+    int deleteById(@Param("id") long id);
     int deleteByMapId(@Param("mapId") long mapId);
     int deleteRelateByVersionId(@Param("id") long id);
     int deleteRelateByLayerId(@Param("layerId") long layerId);

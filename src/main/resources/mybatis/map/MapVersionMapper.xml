@@ -22,6 +22,7 @@
     <select id="findByMapId" resultType="MapVersionDTO">
         SELECT * FROM _MAP_VERSION
         WHERE MAP_ID = #{mapId}
+        ORDER BY VERSION DESC
     </select>
 
     <select id="findByLayerId" resultType="MapVersionDTO">
@@ -51,6 +52,12 @@
         MAP_ID = #{mapId}, VERSION = #{version}, ZIP_FILE_PATH = #{zipFilePath}, ZIP_FILE_SIZE = #{zipFileSize}, UPLOAD_DATE = #{uploadDate}
         WHERE ID = #{id}
     </update>
+
+    <delete id="deleteById">
+        DELETE FROM _MAP_VERSION
+        WHERE ID = #{id}
+    </delete>
+
     <delete id="deleteByMapId">
         DELETE FROM _MAP_VERSION
         WHERE MAP_ID = #{mapId}
