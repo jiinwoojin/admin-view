@@ -98,7 +98,7 @@ public class DockerUtil {
                         container.restart();
                         return;
                     default :
-                        log.error(name + " - " + "Docker 이벤트는 START, STOP, RESTART 기능 중에 가능합니다.");
+                        log.error("ERROR - " + "Docker 이벤트는 START, STOP, RESTART 기능 중에 가능합니다.");
                         return;
                 }
             }

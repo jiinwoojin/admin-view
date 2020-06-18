@@ -121,7 +121,7 @@ public class FileSystemUtil {
         try {
             deleteFile(filePath);
         } catch (IOException e) {
-            log.error(filePath + " 삭제 불가!");
+            log.error("ERROR - " + e.getMessage());
         }
 
         File file = new File(filePath);
@@ -129,7 +129,7 @@ public class FileSystemUtil {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                log.error(filePath + " 파일 생성 불가");
+                log.error("ERROR - " + e.getMessage());
             }
         }
 
@@ -137,14 +137,14 @@ public class FileSystemUtil {
         try {
             FileUtils.write(file, content, charset);
         } catch (IOException e) {
-            log.error(filePath + " 내용 생성 불가");
+            log.error("ERROR - " + e.getMessage());
         }
 
         if (!isWindowOS()) {
             try {
                 setFileDefaultPermissions(file.toPath());
             } catch (IOException e) {
-                log.error(filePath + " 권한 설정 불가");
+                log.error("ERROR - " + e.getMessage());
             }
         }
     }
@@ -196,7 +196,7 @@ public class FileSystemUtil {
         try {
             FileUtils.moveFileToDirectory(bFile, nPath, true);
         } catch (IOException e) {
-            log.error("파일 옮기기 실패! " + beforePath + " -> " + newPath);
+            log.error("ERROR - " + e.getMessage());
         }
     }
 
@@ -222,9 +222,9 @@ public class FileSystemUtil {
                 }
             }
         } catch (FileNotFoundException e) {
-            log.error("파일을 찾을 수 없음 : " + zipFile.getName());
+            log.error("ERROR - " + e.getMessage());
         } catch (IOException e) {
-            log.error("파일 입출력에 오류 있음 : " + e.getMessage());
+            log.error("ERROR - " + e.getMessage());
         }
     }
 
@@ -243,9 +243,9 @@ public class FileSystemUtil {
                 fos.write(buffer, 0, size);
             }
         } catch (FileNotFoundException e) {
-            log.error("파일을 찾을 수 없음 : " + file.getName());
+            log.error("ERROR - " + e.getMessage());
         } catch (IOException e) {
-            log.error("파일 입출력에 오류 있음 : " + e.getMessage());
+            log.error("ERROR - " + e.getMessage());
         }
     }
 
@@ -318,10 +318,10 @@ public class FileSystemUtil {
             return new File(zipPath + "/" + filename);
 
         } catch (FileNotFoundException e) {
-            log.error("파일이 존재하지 않습니다 : " + filename);
+            log.error("ERROR - " + e.getMessage());
             return null;
         } catch (IOException e) {
-            log.error("파일 입출력 오류! : " + e.getMessage());
+            log.error("ERROR - " + e.getMessage());
             return null;
         }
     }

@@ -213,7 +213,7 @@ public class MapServiceImpl implements MapService {
                     mapVersionManagement.saveMapVersionRecentlyStatus(mapDTO, layers);
                 }
             } catch (IOException e){
-                log.error(mapDTO.getName() + " MAP 파일 생성 실패했습니다.");
+                log.error("ERROR - " + e.getMessage());
                 return false;
             }
 
@@ -244,7 +244,7 @@ public class MapServiceImpl implements MapService {
             mapVersionManagement.setMapLayerVersionManage(mapDTO, prevLayers, layers);
             mapVersionManagement.saveMapVersionRecentlyStatus(mapDTO, layers);
         } else {
-            mapVersionManagement.removeVersionWithDTO(selected);
+            mapVersionManagement.removeVersionWithMapData(selected);
         }
 
         setCommonProperties(mapDTO);
@@ -261,7 +261,7 @@ public class MapServiceImpl implements MapService {
                 String fileContext = MapServerUtil.fetchMapFileContextWithDTO(defaultMap, dataPath, mapDTO, layers);
                 FileSystemUtil.createAtFile(mapFilePath, fileContext);
             } catch (IOException e){
-                log.error(mapDTO.getName() + " MAP 파일 수정 실패했습니다.");
+                log.error("ERROR - " + e.getMessage());
                 return false;
             }
 
@@ -280,14 +280,15 @@ public class MapServiceImpl implements MapService {
     public boolean removeData(long id) {
         MapDTO selected = mapMapper.findById(id);
         if(selected == null) return false;
-        removeRelationByMapId(id);
-        mapVersionManagement.removeVersionWithDTO(selected);
+        removeRelationByMapId(id); // 현재 MAP, LAYER 종속 관계 삭제
+        mapVersionManagement.removeVersionWithMapData(selected); // MAP 버전 폴더 및 DB 삭제
         if(mapMapper.deleteById(id) > 0) {
+
             try {
                 String mapFilePath = String.format("%s%s", dataPath, selected.getMapFilePath());
                 FileSystemUtil.deleteFile(mapFilePath);
             } catch (IOException e) {
-                log.error(selected.getName() + " MAP 파일 삭제 실패했습니다.");
+                log.error("ERROR - " + e.getMessage());
                 return false;
             }
 

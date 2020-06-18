@@ -126,7 +126,7 @@ public class ManageService {
                 stringBuilder.append(System.lineSeparator());
             }
         } catch (IOException e) {
-            log.error(e.getMessage());
+            log.error("ERROR - " + e.getMessage());
         }
 
         // map 파일 생성
@@ -259,7 +259,7 @@ public class ManageService {
         try {
             FileSystemUtil.deleteFile(mapFilePath);
         } catch (IOException e) {
-            log.error(map.getName() + " LAY 파일 삭제 실패했습니다.");
+            log.error("ERROR - " + e.getMessage());
         }
 
         entityManager.remove(map);
@@ -295,7 +295,7 @@ public class ManageService {
                 try {
                     FileSystemUtil.deleteFile(dataFilePath);
                 } catch (IOException e) {
-                    log.error(layer.getName() + " DATA 파일 삭제 실패했습니다.");
+                    log.error("ERROR - " + e.getMessage());
                 }
             }
 
@@ -355,7 +355,7 @@ public class ManageService {
                 stringBuilder.append(System.lineSeparator());
             }
         } catch (IOException e) {
-            log.error(e.getMessage());
+            log.error("ERROR - " + e.getMessage());
         }
 
         // lay 파일 생성
@@ -522,21 +522,21 @@ public class ManageService {
         try {
             FileSystemUtil.deleteFile(dataFilePath);
         } catch (IOException e) {
-            log.error(layer.getName() + " DATA 파일 삭제 실패했습니다.");
+            log.error("ERROR - " + e.getMessage());
         }
 
         // lay 파일 삭제
         try {
             FileSystemUtil.deleteFile(layFilePath);
         } catch (IOException e) {
-            log.error(layer.getName() + " LAY 파일 삭제 실패했습니다.");
+            log.error("ERROR - " + e.getMessage());
         }
 
         // INCLUDE lay 파일 내용 삭제
         try {
             MapServerUtil.removeLayerIncludeSyntaxInMapFiles(dataPath + Constants.MAP_FILE_PATH, layer.getName());
         } catch (IOException e) {
-            log.error(layer.getName() + " INCLUDE LAY 파일 내용 삭제 실패했습니다.");
+            log.error("ERROR - " + e.getMessage());
         }
 
         entityManager.remove(layer);

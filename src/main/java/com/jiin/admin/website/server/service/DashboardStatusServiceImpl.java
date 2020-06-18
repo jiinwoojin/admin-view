@@ -83,7 +83,7 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
         try {
             localInfo = loadLocalServerInfo();
         } catch (IOException e) {
-            log.error("로컬 정보를 가져올 수 없습니다.");
+            log.error("ERROR - " + e.getMessage());
             return null;
         }
 
@@ -171,7 +171,7 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
                         startTime = sdf.parse(json.getString("StartedAt"));
                         finishTime = sdf.parse(json.getString("FinishedAt"));
                     } catch (ParseException e) {
-                        log.error("날짜 파싱 오류입니다. 다시 시도 바랍니다.");
+                        log.error("ERROR - " + e.getMessage());
                     }
 
                     map.put(key, new GeoDockerContainerInfo(
@@ -193,7 +193,7 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
         try {
             localInfo = loadLocalServerInfo();
         } catch (IOException e) {
-            log.error("로컬 정보를 가져올 수 없습니다.");
+            log.error("ERROR - " + e.getMessage());
             return null;
         }
 

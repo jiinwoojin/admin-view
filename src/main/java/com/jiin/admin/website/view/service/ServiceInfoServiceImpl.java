@@ -83,7 +83,7 @@ public class ServiceInfoServiceImpl implements ServiceInfoService {
             try {
                 DockerUtil.executeContainerByNameAndMethod(name, method);
             } catch (IOException e) {
-                log.error(String.format("Docker %s Container %s 명령을 실행할 수 없습니다.", name, method));
+                log.error("ERROR - " + e.getMessage());
             }
         } else {
             // 해당 서비스에 대한 리셋 명령어 (아마 종료 명령어와 시작 명령어 동시일 거라 생각)

@@ -58,7 +58,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         try {
             map = YAMLFileUtil.fetchMapByYAMLFile(this.loadServerConfigYAMLFile());
         } catch (IOException e) {
-            log.error("YAML 파일을 찾을 수 없습니다.");
+            log.error("ERROR - " + e.getMessage());
             return null;
         }
         return map;

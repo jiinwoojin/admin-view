@@ -72,7 +72,7 @@ public class LayerServiceImpl implements LayerService {
                 try {
                     FileSystemUtil.setFileDefaultPermissions(dataDir.toPath());
                 } catch (IOException e) {
-                    log.error(layerDTO.getName() + " DATA 디렉토리 권한 설정 실패했습니다.");
+                    log.error("ERROR - " + e.getMessage());
                     e.printStackTrace();
                 }
             }
@@ -90,7 +90,7 @@ public class LayerServiceImpl implements LayerService {
                 FileSystemUtil.deleteFile(dataFile.getPath()); // 파일 업로드가 완료되면 삭제한다.
             }
         } catch (IOException e) {
-            log.error(layerDTO.getName() + " DATA 파일 옮기기 실패했습니다.");
+            log.error("ERROR - " + e.getMessage());
         }
     }
 
@@ -107,7 +107,7 @@ public class LayerServiceImpl implements LayerService {
                 FileSystemUtil.deleteFile(dataFilePath.replace(CADRG_DEFAULT_EXECUTE_DIRECTORY + CADRG_DEFAULT_EXECUTE_FILE, ""));
             }
         } catch (IOException e) {
-            log.error("레이어 " + layerDTO.getName() + " DATA 파일 삭제 실패했습니다.");
+            log.error("ERROR - " + e.getMessage());
         }
     }
 
@@ -207,7 +207,7 @@ public class LayerServiceImpl implements LayerService {
                 String fileContext = MapServerUtil.fetchLayerFileContextWithDTO(defaultLayer, dataPath, layerDTO);
                 FileSystemUtil.createAtFile(layFilePath, fileContext);
             } catch (IOException e) {
-                log.error(layerDTO.getName() + " LAY 파일 생성 실패했습니다.");
+                log.error("ERROR - " + e.getMessage());
                 return false;
             }
 
@@ -277,7 +277,7 @@ public class LayerServiceImpl implements LayerService {
                     try {
                         FileUtils.moveDirectory(sourceFile, targetFile);
                     } catch (IOException e) {
-                        log.error(layerDTO.getName() + " CADRG 리소스 디렉토리 변경 실패했습니다 : " + e.getMessage());
+                        log.error("ERROR - " + e.getMessage());
                         return false;
                     }
                 } else {
@@ -297,7 +297,7 @@ public class LayerServiceImpl implements LayerService {
                 String fileContext = MapServerUtil.fetchLayerFileContextWithDTO(defaultLayer, dataPath, layerDTO);
                 FileSystemUtil.createAtFile(layFilePath, fileContext);
             } catch (IOException e) {
-                log.error(layerDTO.getName() + " LAY 파일 수정 실패했습니다.");
+                log.error("ERROR - " + e.getMessage());
                 return false;
             }
 
@@ -331,14 +331,14 @@ public class LayerServiceImpl implements LayerService {
                 String mapFilePath = String.format("%s%s", dataPath, selected.getLayerFilePath());
                 FileSystemUtil.deleteFile(mapFilePath);
             } catch (IOException e) {
-                log.error(selected.getName() + " LAY 파일 삭제 실패했습니다.");
+                log.error("ERROR - " + e.getMessage());
             }
 
             // 3단계. INCLUDE lay 파일 내용 삭제
             try {
                 MapServerUtil.removeLayerIncludeSyntaxInMapFiles(dataPath + Constants.MAP_FILE_PATH, selected.getName());
             } catch (IOException e) {
-                log.error(selected.getName() + " MAP INCLUDE SYNTEX 내용 삭제 실패했습니다.");
+                log.error("ERROR - " + e.getMessage());
             }
 
             log.info(selected.getName() + " LAY 파일 삭제 성공했습니다.");

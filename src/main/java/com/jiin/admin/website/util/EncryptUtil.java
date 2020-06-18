@@ -1,8 +1,11 @@
 package com.jiin.admin.website.util;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+@Slf4j
 public class EncryptUtil {
     public static final String MD5 = "MD5";
     public static final String SHA256 = "SHA-256";
@@ -19,7 +22,7 @@ public class EncryptUtil {
                 sb.append(Integer.toHexString(0xff & digested[i]));
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {
-            System.err.println(String.format("Invalid Encryption Algorithm : %s", algorithm));
+            log.error("ERROR - " + e.getMessage());
             return null;
         }
     }

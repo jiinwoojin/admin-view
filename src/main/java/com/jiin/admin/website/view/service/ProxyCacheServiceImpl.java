@@ -56,7 +56,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 proxyLayerMapper.findAll(), proxySourceMapper.findAll(), proxyCacheMapper.findAll(), dataPath
             );
         } catch (IOException e) {
-            log.error("Map Proxy YAML 파일을 생성할 수 없습니다. : DB 내용 오류");
+            log.error("ERROR - " + e.getMessage());
             return false;
         }
 

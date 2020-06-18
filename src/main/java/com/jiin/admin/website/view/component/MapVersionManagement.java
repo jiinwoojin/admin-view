@@ -47,7 +47,7 @@ public class MapVersionManagement {
                 try {
                     FileSystemUtil.deleteFile(filePath);
                 } catch (IOException e) {
-                    log.error("파일 삭제 실패 : " + filePath);
+                    log.error("ERROR - " + e.getMessage());
                 }
             }
         }
@@ -76,9 +76,9 @@ public class MapVersionManagement {
     public boolean saveMapVersionRecentlyStatus(MapDTO mapDTO, List<LayerDTO> layers){
         double newVersion = loadMaximumVersionAtLayerList(layers);
 
+        // 종속된 LAYER 중 가장 신 버전이 삭제 되어 버전이 낮아지는 경우에 실행되는 메소드.
         MapVersionDTO current = mapVersionMapper.findByMapIdRecently(mapDTO.getId());
         if(current != null) {
-            // 레이어 삭제 시 가장 신 버전이 삭제 되어 버전이 낮아지는 경우에 실행되는 메소드.
             if(newVersion < current.getVersion()) {
                 cleanCurrentVersionData(mapDTO, newVersion);
             }
@@ -142,7 +142,7 @@ public class MapVersionManagement {
         Set<Double> mapVersions = mapVersionMapper.findByMapId(map.getId()).stream().map(o -> o.getVersion()).collect(Collectors.toSet());
         MapVersionDTO current = mapVersionMapper.findByMapIdRecently(map.getId());
         for(LayerDTO layer : nextLayers){
-            // 새로 추가하는 레이어 중에 같은 버전이 있는 경우 1를 높여야 한다.
+            // 새로 추가하는 레이어 중에 같은 버전이 있는 경우 현재 버전의 0.1 를 높인다.
             // 단, 새로 추가하는 의미는 같은 ID 의 데이터인 경우는 이전 버전을 그대로 '유지' 하는 것에 중점을 둬야 한다.
             if(!maintainIds.contains(layer.getId())){
                 // 이전 레이어 버전이 포함이 되어 있든, Map 의 버전이 포함되어 있든 현재 버전에 0.1 를 가차없이 올려버린다.
@@ -160,7 +160,7 @@ public class MapVersionManagement {
      * MAP 파일을 삭제할 시, 혹은 중간에 버전 관리를 안 할 때, 버전 관리 폴더도 파기한다.
      * @param map MapDTO
      */
-    public void removeVersionWithDTO(MapDTO map){
+    public void removeVersionWithMapData(MapDTO map){
         for(MapVersionDTO version : mapVersionMapper.findByMapId(map.getId())){
             mapVersionMapper.deleteRelateByVersionId(version.getId());
         }
@@ -170,7 +170,7 @@ public class MapVersionManagement {
         try {
             FileUtils.deleteDirectory(new File(path));
         } catch (IOException e) {
-            log.error(path + " 디렉토리가 존재하지 않아 삭제를 진행하지 않았습니다.");
+            log.error("ERROR - " + e.getMessage());
         }
     }
 

@@ -19,10 +19,10 @@ public class SocketUtil {
             new Socket(host, port).close();
             return true;
         } catch (UnknownHostException e) {
-            log.error(String.format("HOST : %s 로 접근 불가입니다. PING 테스트를 다시 하세요.", host));
+            log.error("ERROR - " + e.getMessage());
             return false;
         } catch (IOException e) {
-            log.error(String.format("HOST : %s / PORT : %d 로 접근 불가입니다. 포트 방화벽을 다시 확인하세요.", host, port));
+            log.error("ERROR - " + e.getMessage());
             return false;
         }
     }
