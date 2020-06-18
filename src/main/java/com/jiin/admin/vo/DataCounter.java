@@ -14,6 +14,7 @@ public class DataCounter {
     private long symbolCount;
     private long rasterLayerCount;
     private long vectorLayerCount;
+    private long cadrgLayerCount;
     private long layersProxyCount;
     private long layersSelectedProxyCount;
     private long sourcesProxyCount;
@@ -26,12 +27,13 @@ public class DataCounter {
         this.userCount = new ArrayList<>();
     }
 
-    public DataCounter(long mapCount, long symbolCount, long rasterLayerCount, long vectorLayerCount, long layersProxyCount, long layersSelectedProxyCount, long sourcesProxyCount, long sourcesSelectedProxyCount, long cachesProxyCount, long cachesSelectedProxyCount, List<Map<String, Long>> userCount) {
+    public DataCounter(long mapCount, long symbolCount, long rasterLayerCount, long vectorLayerCount, long cadrgLayerCount, long layersProxyCount, long layersSelectedProxyCount, long sourcesProxyCount, long sourcesSelectedProxyCount, long cachesProxyCount, long cachesSelectedProxyCount, List<Map<String, Long>> userCount) {
         this.mapCount = mapCount;
         this.symbolCount = symbolCount;
         this.rasterLayerCount = rasterLayerCount;
         this.vectorLayerCount = vectorLayerCount;
         this.layersProxyCount = layersProxyCount;
+        this.cadrgLayerCount = cadrgLayerCount;
         this.layersSelectedProxyCount = layersSelectedProxyCount;
         this.sourcesProxyCount = sourcesProxyCount;
         this.sourcesSelectedProxyCount = sourcesSelectedProxyCount;
