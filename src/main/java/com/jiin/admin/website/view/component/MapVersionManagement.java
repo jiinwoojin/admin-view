@@ -75,7 +75,7 @@ public class MapVersionManagement {
      * @param mapDTO MapDTO, layers List of Layers
      */
     @Transactional
-    public boolean saveMapVersionRecentlyStatus(MapDTO mapDTO, List<LayerDTO> layers){
+    public boolean saveMapVersionRecentlyStatus(MapDTO mapDTO, List<LayerDTO> layers) {
         double newVersion = loadMaximumVersionAtLayerList(layers);
 
         // 종속된 LAYER 중 가장 신 버전이 삭제 되어 버전이 낮아지는 경우에 실행되는 메소드.
@@ -98,6 +98,7 @@ public class MapVersionManagement {
             put("dataFilePath", o.getDataFilePath());
             put("middleFolder", o.getMiddleFolder());
         }}).collect(Collectors.toList()));
+
         if(zipFile == null) {
             log.error(fileName + " 파일이 형성되지 않았습니다. 다시 시도 바랍니다.");
             return false;
@@ -113,7 +114,6 @@ public class MapVersionManagement {
             res = mapVersionMapper.insert(new MapVersionDTO(id, mapDTO.getId(), Double.parseDouble(String.format("%.1f", newVersion)), finalSavePath.replace(dataPath, ""), zipFile.length(), new Date()));
             if (res > 0) {
                 layers.forEach(o -> mapVersionMapper.insertRelate(id, o.getId()));
-                return true;
             } else return false;
         } else {
             mapVersionMapper.deleteRelateByVersionId(mapVersionDTO.getId());
@@ -123,9 +123,19 @@ public class MapVersionManagement {
             res = mapVersionMapper.update(mapVersionDTO);
             if (res > 0) {
                 layers.forEach(o -> mapVersionMapper.insertRelate(mapVersionDTO.getId(), o.getId()));
-                return true;
             } else return false;
         }
+
+        if(!FileSystemUtil.isWindowOS()){
+            // MAP VERSION 과정이 끝나면 모든 권한을 755 로 설정.
+            try {
+                FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.MAP_VERSION_FILE_PATH));
+            } catch (IOException e) {
+                log.error("ERROR - " + e.getMessage());
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -136,7 +146,10 @@ public class MapVersionManagement {
     public void setMapLayerVersionManage(MapDTO map, List<LayerDTO> prevLayers, List<LayerDTO> nextLayers){
         // 데이터 변동 시, 이전에 설정했던 레이어들은 버전 변경에 배제를 한다. 변화량이 있는 데이터에 한해 계산해야 한다.
         Set<Long> prevIds = prevLayers.stream().map(o -> o.getId()).collect(Collectors.toSet());
-        Set<Long> nextIds = nextLayers.stream().map(o -> o.getId()).collect(Collectors.toSet());
+        Set<Long> nextIds = nextLayers.stream()
+                .filter(o1 -> prevLayers.stream().filter(o2 -> o2.getId().equals(o1.getId()) && o2.getVersion().equals(o1.getVersion())).count() > 0)
+                .map(o -> o.getId())
+                .collect(Collectors.toSet());
 
         Set<Long> maintainIds = new HashSet<>(nextIds);
         maintainIds.retainAll(prevIds);

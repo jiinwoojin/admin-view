@@ -92,6 +92,27 @@ public class FileSystemUtil {
     }
 
     /**
+     * 폴더를 순회하며 모든 권한을 기본 권한 (755) 로 설정하기
+     * @Param file Path
+     * @throws IOException
+     */
+    public static void setFileDefaultPermissionsWithFileDirectory(File file) throws IOException {
+        if(!file.exists()) return;
+        if(file.isFile()){
+            setFileDefaultPermissions(file.toPath());
+            return;
+        } else {
+            File[] files = file.listFiles();
+            for(File f : files){
+                if(f.isDirectory()){
+                    setFileDefaultPermissions(f.toPath());
+                }
+                setFileDefaultPermissionsWithFileDirectory(f);
+            }
+        }
+    }
+
+    /**
      * 파일 내용 불러오기
      * @param filePath String
      * @throws IOException
@@ -193,7 +214,6 @@ public class FileSystemUtil {
         File nPath = new File(newPath.replace("/" + fileName, ""));
         try {
             FileUtils.moveFileToDirectory(bFile, nPath, true);
-            if(!isWindowOS()) setFileDefaultPermissions(nPath.toPath()); // 기본 755 권한을 모두 준다.
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
         }
@@ -216,7 +236,6 @@ public class FileSystemUtil {
                 File file = new File(directory, filename);
                 if(entry.isDirectory()){
                     file.mkdirs();
-                    if(!isWindowOS()) setFileDefaultPermissions(file.toPath()); // 기본 755 권한을 모두 준다.
                 } else {
                     saveFileInZipStream(file, zis);
                 }
@@ -234,7 +253,6 @@ public class FileSystemUtil {
      * @throws FileNotFoundException, IOException Exception
      */
     private static void saveFileInZipStream(File file, ZipInputStream zis) throws IOException {
-        if(!isWindowOS()) setFileDefaultPermissions(file.toPath()); // 기본 755 권한을 모두 준다.
         File parent = new File(file.getParent());
         if(!parent.exists()) parent.mkdirs();
         try(FileOutputStream fos = new FileOutputStream(file)){
@@ -259,7 +277,6 @@ public class FileSystemUtil {
             FileUtils.copyFile(from, to);
         } else {
             FileUtils.copyDirectoryToDirectory(from, to);
-            if(!isWindowOS()) setFileDefaultPermissions(to.toPath()); // 기본 755 권한을 모두 준다.
         }
     }
 
@@ -333,7 +350,6 @@ public class FileSystemUtil {
      * @param fileToZip File, fileName String, zipOut ZipOutputStream
      */
     private static void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {
-        if(!isWindowOS()) setFileDefaultPermissions(fileToZip.toPath()); // 기본 755 권한을 모두 준다.
         if (fileToZip.isHidden()) {
             return;
         }

@@ -69,19 +69,10 @@ public class LayerServiceImpl implements LayerService {
      * @param layerDTO LayerDTO, uploadFile MultipartFile
      */
     private void transferNewUploadFile(LayerDTO layerDTO, MultipartFile uploadFile){
-        // 1단계. 레이어 리소스 파일 디렉토리 755 권한 설정
+        // 1단계. 레이어 리소스 파일 디렉토리 생성
         String dataDirStr = dataPath + Constants.DATA_PATH + "/" + layerDTO.getMiddleFolder();
         File dataDir = new File(dataDirStr);
-        if(!dataDir.exists()){
-            if(dataDir.mkdirs() && !FileSystemUtil.isWindowOS()){
-                try {
-                    FileSystemUtil.setFileDefaultPermissions(dataDir.toPath());
-                } catch (IOException e) {
-                    log.error("ERROR - " + e.getMessage());
-                    e.printStackTrace();
-                }
-            }
-        }
+        if(!dataDir.exists()) dataDir.mkdirs();
 
         // 2단계. 레이어 리소스 파일 업로드 뒤 옮기기 (CADRG 아닌 버전 기준)
         String filename = uploadFile.getOriginalFilename();
@@ -96,6 +87,17 @@ public class LayerServiceImpl implements LayerService {
             }
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
+        }
+
+        // 3단계. DATA 폴더 하단부로 755 권한 설정.
+        if(!FileSystemUtil.isWindowOS()) {
+            try {
+                FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.DATA_PATH));
+                FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.MAP_FILE_PATH));
+            } catch (IOException e) {
+                log.error("ERROR - " + e.getMessage());
+                e.printStackTrace();
+            }
         }
     }
 
@@ -292,6 +294,15 @@ public class LayerServiceImpl implements LayerService {
 
                 // 2단계. 기존 레이어 리소스 파일 삭제
                 removeLayerResourceFile(selected);
+            }
+
+            if(!FileSystemUtil.isWindowOS()) {
+                // 디렉토리 변경이 끝나면 모든 권한을 755 로 설정.
+                try {
+                    FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.DATA_PATH));
+                } catch (IOException e) {
+                    log.error("ERROR - " + e.getMessage());
+                }
             }
         }
 
