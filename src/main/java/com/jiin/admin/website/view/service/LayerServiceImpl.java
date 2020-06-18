@@ -44,11 +44,11 @@ public class LayerServiceImpl implements LayerService {
     @Resource
     private MapVersionManagement mapVersionManagement;
 
-    private static Double DEFAULT_LAYER_VERSION = 1.0;
+    private static final Double DEFAULT_LAYER_VERSION = 1.0;
 
-    private static String CADRG_DEFAULT_EXECUTE_DIRECTORY = "/RPF";
+    private static final String CADRG_DEFAULT_EXECUTE_DIRECTORY = "/RPF";
 
-    private static String CADRG_DEFAULT_EXECUTE_FILE = "/A.TOC";
+    private static final String CADRG_DEFAULT_EXECUTE_FILE = "/A.TOC";
 
     private static final List<OptionModel> sbOptions = Arrays.asList(
         new OptionModel("-- 검색 키워드 선택 --", 0),
