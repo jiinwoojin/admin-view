@@ -2,8 +2,10 @@ package com.jiin.admin.website.view.service;
 
 import com.jiin.admin.Constants;
 import com.jiin.admin.dto.LayerDTO;
+import com.jiin.admin.dto.MapVersionDTO;
 import com.jiin.admin.mapper.data.LayerMapper;
 import com.jiin.admin.mapper.data.MapLayerRelationMapper;
+import com.jiin.admin.mapper.data.MapVersionMapper;
 import com.jiin.admin.website.model.LayerPageModel;
 import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.util.FileSystemUtil;
@@ -35,6 +37,9 @@ public class LayerServiceImpl implements LayerService {
 
     @Resource
     private MapLayerRelationMapper mapLayerRelationMapper;
+
+    @Resource
+    private MapVersionMapper mapVersionMapper;
 
     @Resource
     private MapVersionManagement mapVersionManagement;
@@ -227,10 +232,11 @@ public class LayerServiceImpl implements LayerService {
         LayerDTO selected = layerMapper.findByName(layerDTO.getName());
         if(selected == null) return false;
 
+        layerDTO.setLayerFilePath(selected.getLayerFilePath());
+
         boolean isUploaded = (uploadData != null && uploadData.getSize() > 0);
         boolean isChanged = !isUploaded && !layerDTO.getMiddleFolder().equals(selected.getMiddleFolder());
 
-        layerDTO.setLayerFilePath(selected.getLayerFilePath());
         String dataFilePath;
         if(isUploaded){
             // CADRG 인 경우에는 따로 설정한다.
@@ -244,54 +250,55 @@ public class LayerServiceImpl implements LayerService {
         } else {
             dataFilePath = selected.getDataFilePath();
         }
+
         layerDTO.setDataFilePath(dataFilePath.replaceAll(dataPath, ""));
         layerDTO.setRegistTime(selected.getRegistTime()); // 추가 시간은 그대로 유지.
         layerDTO.setUpdateTime(new Date());     // update 시간 추가
 
-        layerDTO.setVersion(Double.parseDouble(String.format("%.1f", (layerDTO.getVersion() + 0.1))));
+        layerDTO.setVersion(Double.parseDouble(String.format("%.1f", (layerDTO.getVersion() + 0.1)))); // 버전은 뭐를 하든 0.1 로 높여준다.
 
         setCommonProperties(layerDTO);
 
-        if(layerMapper.update(layerDTO) > 0){
-            String layFilePath = String.format("%s%s", dataPath, selected.getLayerFilePath());
+        String layFilePath = String.format("%s%s", dataPath, selected.getLayerFilePath());
 
-            // 새로운 파일이 업로드 되거나 중간 디렉토리가 교체 되었다면...
-            if(isUploaded) {
-                // 1단계. DB 갱신 이후 기존 레이어 리소스 파일 삭제
-                removeLayerResourceFile(selected);
-                // 2단계. 파일을 로컬에 옮긴다.
-                transferNewUploadFile(layerDTO, uploadData);
-            }
+        // 새로운 파일이 업로드 되거나 중간 디렉토리가 교체 되었다면...
+        if(isUploaded) {
+            // 1단계. DB 갱신 이후 기존 레이어 리소스 파일 삭제
+            removeLayerResourceFile(selected);
+            // 2단계. 파일을 로컬에 옮긴다.
+            transferNewUploadFile(layerDTO, uploadData);
+        }
 
-            // 경로가 바뀌면 위의 로직의 역순서로 진행.
-            if(isChanged) {
-                // 1단계. 파일을 로컬에 옮긴다.
-                String source = dataPath + selected.getDataFilePath();
-                String target = dataPath + layerDTO.getDataFilePath();
+        // 경로가 바뀌면 위의 로직의 역순서로 진행.
+        if(isChanged) {
+            // 1단계. 파일을 로컬에 옮긴다.
+            String source = dataPath + selected.getDataFilePath();
+            String target = dataPath + layerDTO.getDataFilePath();
 
-                File sourceFile = new File(source.replace(CADRG_DEFAULT_EXECUTE_FILE, ""));
-                File targetFile = new File(target.replace(CADRG_DEFAULT_EXECUTE_FILE, ""));
+            File sourceFile = new File(source.replace(CADRG_DEFAULT_EXECUTE_FILE, ""));
+            File targetFile = new File(target.replace(CADRG_DEFAULT_EXECUTE_FILE, ""));
 
-                // 레이어 파일 타입이 CADRG ZIP 인 경우 디렉토리 단위를 옮겨야 한다.
-                if(layerDTO.getType().equals("CADRG")) {
-                    try {
-                        FileUtils.moveDirectory(sourceFile, targetFile);
-                    } catch (IOException e) {
-                        log.error("ERROR - " + e.getMessage());
-                        return false;
-                    }
-                } else {
-                    // 1단계. 파일을 옮긴다.
-                    FileSystemUtil.moveFile(source, target);
-
-                    // 2단계. 기존 레이어 리소스 파일 삭제
-                    removeLayerResourceFile(selected);
+            // 레이어 파일 타입이 CADRG ZIP 인 경우 디렉토리 단위를 옮겨야 한다.
+            if(layerDTO.getType().equals("CADRG")) {
+                try {
+                    FileUtils.moveDirectory(sourceFile, targetFile);
+                } catch (IOException e) {
+                    log.error("ERROR - " + e.getMessage());
+                    return false;
                 }
+            } else {
+                // 1단계. 파일을 옮긴다.
+                FileSystemUtil.moveFile(source, target);
+
+                // 2단계. 기존 레이어 리소스 파일 삭제
+                removeLayerResourceFile(selected);
             }
+        }
 
-            // 레이어 수정 전에 Map Version 관리도 추가 반영.
-            mapVersionManagement.setLayerUpdateManage(layerDTO);
+        // 레이어 수정 전에 Map Version 관리도 추가 반영.
+        mapVersionManagement.setLayerUpdateManage(layerDTO);
 
+        if(layerMapper.update(layerDTO) > 0) {
             // *.lay 파일 생성
             try {
                 String fileContext = MapServerUtil.fetchLayerFileContextWithDTO(defaultLayer, dataPath, layerDTO);
@@ -320,7 +327,8 @@ public class LayerServiceImpl implements LayerService {
         mapLayerRelationMapper.deleteByLayerId(id);
 
         // 레이어 삭제 전에 Map Version 관리도 추가 반영.
-        mapVersionManagement.setLayerRemoveManage(selected);
+        List<MapVersionDTO> mapVersions = mapVersionMapper.findByLayerId(id);
+        if(mapVersions.size() > 0) mapVersionManagement.setLayerRemoveManage(selected);
 
         if(layerMapper.deleteById(id) > 0){
             // 1단계. 리소스 파일 삭제

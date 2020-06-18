@@ -6,6 +6,11 @@
         SELECT NEXTVAL('MAP_VERSION_SEQ')
     </select>
 
+    <select id="countLayersByMapVersionId" resultType="long">
+        SELECT COUNT(*) FROM _MAP_LAYER_VERSION
+        WHERE MAP_VERSION_ID = #{versionId}
+    </select>
+
     <select id="findByMapIdRecently" resultType="MapVersionDTO">
         SELECT * FROM _MAP_VERSION
         WHERE MAP_ID = #{mapId}

@@ -99,13 +99,11 @@ public class FileSystemUtil {
     public static String fetchFileContext(String filePath) throws IOException {
         StringBuilder fileContext = new StringBuilder();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
-
         String line;
         while ((line = bufferedReader.readLine()) != null) {
             fileContext.append(line);
             fileContext.append(System.lineSeparator());
         }
-
         return fileContext.toString();
     }
 
@@ -195,6 +193,7 @@ public class FileSystemUtil {
         File nPath = new File(newPath.replace("/" + fileName, ""));
         try {
             FileUtils.moveFileToDirectory(bFile, nPath, true);
+            if(!isWindowOS()) setFileDefaultPermissions(nPath.toPath()); // 기본 755 권한을 모두 준다.
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
         }
@@ -217,6 +216,7 @@ public class FileSystemUtil {
                 File file = new File(directory, filename);
                 if(entry.isDirectory()){
                     file.mkdirs();
+                    if(!isWindowOS()) setFileDefaultPermissions(file.toPath()); // 기본 755 권한을 모두 준다.
                 } else {
                     saveFileInZipStream(file, zis);
                 }
@@ -233,7 +233,8 @@ public class FileSystemUtil {
      * @param file File, zis ZipInputStream
      * @throws FileNotFoundException, IOException Exception
      */
-    private static void saveFileInZipStream(File file, ZipInputStream zis){
+    private static void saveFileInZipStream(File file, ZipInputStream zis) throws IOException {
+        if(!isWindowOS()) setFileDefaultPermissions(file.toPath()); // 기본 755 권한을 모두 준다.
         File parent = new File(file.getParent());
         if(!parent.exists()) parent.mkdirs();
         try(FileOutputStream fos = new FileOutputStream(file)){
@@ -258,6 +259,7 @@ public class FileSystemUtil {
             FileUtils.copyFile(from, to);
         } else {
             FileUtils.copyDirectoryToDirectory(from, to);
+            if(!isWindowOS()) setFileDefaultPermissions(to.toPath()); // 기본 755 권한을 모두 준다.
         }
     }
 

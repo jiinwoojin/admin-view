@@ -9,7 +9,7 @@ import java.util.List;
 @BaseMapper
 public interface MapVersionMapper {
     long findNextSeqVal();
-
+    long countLayersByMapVersionId(@Param("versionId") long mapId);
     MapVersionDTO findByMapIdRecently(@Param("mapId") long mapId);
     MapVersionDTO findByMapIdAndLayerRecently(@Param("mapId") long mapId, @Param("layerId") long layerId);
     List<MapVersionDTO> findByMapId(@Param("mapId") long mapId);

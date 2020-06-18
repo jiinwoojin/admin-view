@@ -240,13 +240,6 @@ public class MapServiceImpl implements MapService {
 
         mapDTO.setMapFilePath(selected.getMapFilePath()); // 이름은 변동할 수 없으니 현재까지 저장된 디렉토리를 그대로 유지.
 
-        if(versionCheck){
-            mapVersionManagement.setMapLayerVersionManage(mapDTO, prevLayers, layers);
-            mapVersionManagement.saveMapVersionRecentlyStatus(mapDTO, layers);
-        } else {
-            mapVersionManagement.removeVersionWithMapData(selected);
-        }
-
         setCommonProperties(mapDTO);
 
         if(mapMapper.update(mapDTO) > 0) {
@@ -260,6 +253,14 @@ public class MapServiceImpl implements MapService {
                 String mapFilePath = String.format("%s%s", dataPath, selected.getMapFilePath());
                 String fileContext = MapServerUtil.fetchMapFileContextWithDTO(defaultMap, dataPath, mapDTO, layers);
                 FileSystemUtil.createAtFile(mapFilePath, fileContext);
+
+                if(versionCheck){
+                    mapVersionManagement.setMapLayerVersionManage(mapDTO, prevLayers, layers);
+                    mapVersionManagement.saveMapVersionRecentlyStatus(mapDTO, layers);
+                } else {
+                    mapVersionManagement.removeVersionWithMapData(selected);
+                }
+
             } catch (IOException e){
                 log.error("ERROR - " + e.getMessage());
                 return false;
@@ -283,7 +284,6 @@ public class MapServiceImpl implements MapService {
         removeRelationByMapId(id); // 현재 MAP, LAYER 종속 관계 삭제
         mapVersionManagement.removeVersionWithMapData(selected); // MAP 버전 폴더 및 DB 삭제
         if(mapMapper.deleteById(id) > 0) {
-
             try {
                 String mapFilePath = String.format("%s%s", dataPath, selected.getMapFilePath());
                 FileSystemUtil.deleteFile(mapFilePath);
@@ -291,7 +291,6 @@ public class MapServiceImpl implements MapService {
                 log.error("ERROR - " + e.getMessage());
                 return false;
             }
-
             log.info(selected.getName() + " MAP 파일 삭제 성공했습니다.");
             return true;
         }

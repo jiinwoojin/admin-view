@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -73,6 +74,7 @@ public class MapVersionManagement {
      * MAP 데이터를 추가 및 수정한 이후, 버전 관리 기능을 실시한다.
      * @param mapDTO MapDTO, layers List of Layers
      */
+    @Transactional
     public boolean saveMapVersionRecentlyStatus(MapDTO mapDTO, List<LayerDTO> layers){
         double newVersion = loadMaximumVersionAtLayerList(layers);
 
@@ -130,6 +132,7 @@ public class MapVersionManagement {
      * 변경되는 레이어들에 대한 버전 관리를 진행한다.
      * @param prevLayers List Of Layers, newLayers List Of Layers
      */
+    @Transactional
     public void setMapLayerVersionManage(MapDTO map, List<LayerDTO> prevLayers, List<LayerDTO> nextLayers){
         // 데이터 변동 시, 이전에 설정했던 레이어들은 버전 변경에 배제를 한다. 변화량이 있는 데이터에 한해 계산해야 한다.
         Set<Long> prevIds = prevLayers.stream().map(o -> o.getId()).collect(Collectors.toSet());
@@ -160,6 +163,7 @@ public class MapVersionManagement {
      * MAP 파일을 삭제할 시, 혹은 중간에 버전 관리를 안 할 때, 버전 관리 폴더도 파기한다.
      * @param map MapDTO
      */
+    @Transactional
     public void removeVersionWithMapData(MapDTO map){
         for(MapVersionDTO version : mapVersionMapper.findByMapId(map.getId())){
             mapVersionMapper.deleteRelateByVersionId(version.getId());
@@ -178,11 +182,13 @@ public class MapVersionManagement {
      * LAYER 정보가 바뀔 때 이를 보유한 MAP 데이터에 대한 버전 정보를 관리한다.
      * @param layer LayerDTO
      */
+    @Transactional
     public void setLayerUpdateManage(LayerDTO layer){
         List<MapVersionDTO> versions = mapVersionMapper.findByLayerId(layer.getId());
-        for(MapVersionDTO version : versions){
-            MapDTO map = mapMapper.findById(version.getMapId());
-            List<LayerDTO> prevLayers = layerMapper.findByMapId(version.getMapId());
+
+        for(long mapId : versions.stream().map(o -> o.getMapId()).collect(Collectors.toSet())){
+            MapDTO map = mapMapper.findById(mapId);
+            List<LayerDTO> prevLayers = layerMapper.findByMapId(mapId);
             List<LayerDTO> nextLayers = prevLayers.stream().map(o -> o.getId().equals(layer.getId()) ? layer : o).collect(Collectors.toList());
             setMapLayerVersionManage(map, prevLayers, nextLayers);
             saveMapVersionRecentlyStatus(map, nextLayers);
@@ -193,15 +199,25 @@ public class MapVersionManagement {
      * LAYER 정보가 삭제될 때 이를 보유한 MAP 데이터에 대한 버전 정보를 관리한다.
      * @param layer LayerDTO
      */
+    @Transactional
     public void setLayerRemoveManage(LayerDTO layer){
-        mapVersionMapper.deleteRelateByLayerId(layer.getId());
         List<MapVersionDTO> versions = mapVersionMapper.findByLayerId(layer.getId());
+        mapVersionMapper.deleteRelateByLayerId(layer.getId());
         for(MapVersionDTO version : versions){
-            MapDTO map = mapMapper.findById(version.getMapId());
-            List<LayerDTO> prevLayers = layerMapper.findByMapId(version.getMapId());
-            List<LayerDTO> nextLayers = prevLayers.stream().filter(o -> !o.getId().equals(layer.getId())).collect(Collectors.toList());
-            setMapLayerVersionManage(map, prevLayers, nextLayers);
-            saveMapVersionRecentlyStatus(map, nextLayers);
+            // 만약 버전 종속 레이어가 없는 경우에는 맵 버전도 삭제. 아닌 경우에는 삭제 뒤 버전 재조정 작업을 진행.
+            if(mapVersionMapper.countLayersByMapVersionId(version.getId()) == 0) {
+                mapVersionMapper.deleteById(version.getId());
+                try {
+                    FileSystemUtil.deleteFile(dataPath + version.getZipFilePath());
+                } catch (IOException e) {
+                    log.error("ERROR - " + e.getMessage());
+                }
+            } else {
+                MapDTO map = mapMapper.findById(version.getMapId());
+                List<LayerDTO> prevLayers = layerMapper.findByMapId(version.getMapId());
+                List<LayerDTO> nextLayers = prevLayers.stream().filter(o -> !o.getId().equals(layer.getId())).collect(Collectors.toList());
+                saveMapVersionRecentlyStatus(map, nextLayers);
+            }
         }
     }
 }
