@@ -9,6 +9,13 @@ public class Constants {
     public static final String DATA_PATH = "/data";
 
     /**
+     * CADRG 타입 데이터 경로 관련
+     */
+    public static final String CADRG_DEFAULT_EXECUTE_DIRECTORY = "/RPF";
+
+    public static final String CADRG_DEFAULT_EXECUTE_FILE = "/A.TOC";
+
+    /**
      * LAYER 파일 경로
      */
     public static final String LAY_FILE_PATH = "/mapserver/layer";
@@ -47,4 +54,6 @@ public class Constants {
      * MAP VERSION 관리 정보
      */
     public static final String MAP_VERSION_FILE_PATH = "/mapsets";
+
+    public static final Double DEFAULT_LAYER_VERSION = 1.0;
 }

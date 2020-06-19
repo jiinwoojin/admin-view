@@ -426,6 +426,19 @@
             });
         });
 
+        function validateMiddleFolder(form){
+            if(form['middleFolder'].value === '') {
+                toastr.warning("중간 폴더를 입력하시길 바랍니다.");
+                return false;
+            } else {
+                var middleFolder = form['middleFolder'].value;
+                if(middleFolder.startsWith('/') || middleFolder.endsWith('/')){
+                    toastr.warning('중간 폴더 경로 맨 앞이나 맨 뒤에 "/" 문자를 넣지 마시길 바랍니다.');
+                    return false;
+                } else return true;
+            }
+        }
+
         function validateFile(form){
             var file = form['data_file'].value;
             if(file) {
@@ -460,16 +473,17 @@
             } else if(form['data_file'].value === ''){
                 toastr.warning("레이어 파일을 업로드 하시길 바랍니다. Raster 파일은 *.tif, Vector 파일은 *.shp 이 포함된 *.zip, CADRG 도 마찬가지로 *.zip 입니다.");
                 return false;
+            } else {
+                return true;
             }
-            return true;
         }
 
         function preSubmit(form) {
             var action = form.action;
             if (action.indexOf("layer-create") > -1) {
-                return addLayer(form) && validateFile(form);
+                return addLayer(form) && validateMiddleFolder(form) && validateFile(form);
             } else if(action.indexOf("layer-update") > -1) {
-                return validateFile(form);
+                return validateMiddleFolder(form) && validateFile(form);
             } else return false;
         }
 

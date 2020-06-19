@@ -292,7 +292,7 @@ public class FileSystemUtil {
         }
 
         for(Map<String, String> path : paths) {
-            String cadrgExcludePath = dataPath + path.get("dataFilePath").replace("/RPF/A.TOC", "");
+            String cadrgExcludePath = dataPath + path.get("dataFilePath").replace(Constants.CADRG_DEFAULT_EXECUTE_DIRECTORY + Constants.CADRG_DEFAULT_EXECUTE_FILE, "");
             File file = new File(cadrgExcludePath);
             if (!file.isDirectory()) { // RASTER 파일인 경우
                 try {

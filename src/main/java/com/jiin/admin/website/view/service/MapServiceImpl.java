@@ -255,7 +255,6 @@ public class MapServiceImpl implements MapService {
                 FileSystemUtil.createAtFile(mapFilePath, fileContext);
 
                 if(versionCheck){
-                    mapVersionManagement.setMapLayerVersionManage(mapDTO, prevLayers, layers);
                     mapVersionManagement.saveMapVersionRecentlyStatus(mapDTO, layers);
                 } else {
                     mapVersionManagement.removeVersionWithMapData(selected);
