@@ -86,8 +86,8 @@ public class LayerServiceImpl implements LayerService {
         // 3단계. DATA 폴더 하단부로 755 권한 설정.
         if(!FileSystemUtil.isWindowOS()) {
             try {
-                FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.DATA_PATH));
-                FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.MAP_FILE_PATH));
+                String middleFirst = layerDTO.getMiddleFolder().split("/")[0];
+                FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.DATA_PATH + String.format("/%s", middleFirst)));
             } catch (IOException e) {
                 log.error("ERROR - " + e.getMessage());
                 e.printStackTrace();
@@ -293,7 +293,8 @@ public class LayerServiceImpl implements LayerService {
             if(!FileSystemUtil.isWindowOS()) {
                 // 디렉토리 변경이 끝나면 모든 권한을 755 로 설정.
                 try {
-                    FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.DATA_PATH));
+                    String middleFirst = layerDTO.getMiddleFolder().split("/")[0];
+                    FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.DATA_PATH + String.format("/%s", middleFirst)));
                 } catch (IOException e) {
                     log.error("ERROR - " + e.getMessage());
                 }

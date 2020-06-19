@@ -466,7 +466,7 @@
 
         function onclick_download(){
             var dataFilePath = $('#map-version').val();
-            location.href = CONTEXT + '/view/manage/zip-download?zipPathFile=' + dataFilePath;
+            location.href = CONTEXT + '/view/manage/zip-download?zipPathFile=' + (dataFilePath && dataFilePath.replace("\\", "/"));
         }
     </script>
 </th:block>

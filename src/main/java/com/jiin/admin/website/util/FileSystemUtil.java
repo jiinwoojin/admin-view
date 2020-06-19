@@ -285,7 +285,14 @@ public class FileSystemUtil {
         File zipFile = Paths.get(zipPath, filename).toFile();
         if(zipFile.exists()) {
             try {
+                decompressZipFile(zipFile);
                 deleteFile(zipFile.getPath());
+                for(File file : new File(zipPath).listFiles()){
+                    if(file.isDirectory()){
+                        copyDirectory(file, new File(String.format("%s/%s", zipPath, filename.replace(".zip", ""))));
+                        deleteFile(file.getPath());
+                    }
+                }
             } catch (IOException e) {
                 log.info(filename + " 파일이 없어 생성하는 작업을 진행합니다.");
             }
@@ -296,7 +303,8 @@ public class FileSystemUtil {
             File file = new File(cadrgExcludePath);
             if (!file.isDirectory()) { // RASTER 파일인 경우
                 try {
-                    copyDirectory(file, new File(String.format("%s/%s%s", zipPath, filename.replace(".zip", ""), path.get("dataFilePath").replaceFirst(Constants.DATA_PATH, ""))));
+                    File tmpFile = new File(String.format("%s/%s%s", zipPath, filename.replace(".zip", ""), path.get("dataFilePath").replaceFirst(Constants.DATA_PATH, "")));
+                    copyDirectory(file, tmpFile);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -308,7 +316,8 @@ public class FileSystemUtil {
                     if(split.length > 0){
                         tmpPath = tmpPath.replaceFirst("(?s)(.*)" + split[split.length - 1], "$1");
                     }
-                    copyDirectory(new File(cadrgHome), new File(String.format("%s/%s/%s", zipPath, filename.replace(".zip", ""), tmpPath)));
+                    File tmpDir = new File(String.format("%s/%s/%s", zipPath, filename.replace(".zip", ""), tmpPath));
+                    copyDirectory(new File(cadrgHome), tmpDir);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

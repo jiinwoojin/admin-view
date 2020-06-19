@@ -94,7 +94,7 @@ public class MapVersionManagement {
      * @param mapDTO MapDTO, layers List of Layers
      */
     @Transactional
-    public boolean saveMapVersionRecentlyStatus(MapDTO mapDTO, List<LayerDTO> layers) {
+    public void saveMapVersionRecentlyStatus(MapDTO mapDTO, List<LayerDTO> layers) {
         double newVersion = loadMaximumVersionAtLayerList(layers);
 
         // 종속된 LAYER 중 가장 신 버전이 삭제 되어 버전이 낮아지는 경우에 실행되는 메소드.
@@ -110,55 +110,60 @@ public class MapVersionManagement {
             log.info("새로운 버전이 정수이기 때문에 초기화 됩니다.");
         }
 
-        String savePath = Paths.get(dataPath, Constants.MAP_VERSION_FILE_PATH, mapDTO.getName()).toString();
-        String fileName = String.format("%s_V%.1f.zip", mapDTO.getName(), newVersion);
-
-        File zipFile = FileSystemUtil.saveZipFileWithPaths(dataPath, savePath, fileName, layers.stream().map(o -> new HashMap<String, String>() {{
-            put("dataFilePath", o.getDataFilePath());
-            put("middleFolder", o.getMiddleFolder());
-        }}).collect(Collectors.toList()));
-
-        if (zipFile == null) {
-            log.error(fileName + " 파일이 형성되지 않았습니다. 다시 시도 바랍니다.");
-            return false;
+        Map<Double, List<LayerDTO>> versionMap = new HashMap<>();
+        for(LayerDTO layer : layers){
+            List<LayerDTO> tmpLayers = versionMap.getOrDefault(layer.getVersion(), new ArrayList<>());
+            tmpLayers.add(layer);
+            versionMap.put(layer.getVersion(), tmpLayers);
         }
 
-        MapVersionDTO mapVersionDTO = mapVersionMapper.findByMapIdAndVersion(mapDTO.getId(), newVersion);
+        for(Double version : versionMap.keySet()){
+            List<LayerDTO> tmpLayers = versionMap.getOrDefault(version, new ArrayList<>());
+            String savePath = Paths.get(dataPath, Constants.MAP_VERSION_FILE_PATH, mapDTO.getName()).toString();
+            String fileName = String.format("%s_V%.1f.zip", mapDTO.getName(), version);
+            File zipFile = FileSystemUtil.saveZipFileWithPaths(dataPath, savePath, fileName, tmpLayers.stream().map(o -> new HashMap<String, String>() {{
+                put("dataFilePath", o.getDataFilePath());
+                put("middleFolder", o.getMiddleFolder());
+            }}).collect(Collectors.toList()));
+            if (zipFile == null) {
+                log.error(fileName + " 파일이 형성되지 않았습니다. 다시 시도 바랍니다.");
+            }
 
-        int res;
-        String finalSavePath = Paths.get(savePath, fileName).toString();
+            MapVersionDTO mapVersionDTO = mapVersionMapper.findByMapIdAndVersion(mapDTO.getId(), version);
 
-        if (mapVersionDTO == null) {
-            long id = mapVersionMapper.findNextSeqVal();
-            res = mapVersionMapper.insert(new MapVersionDTO(id, mapDTO.getId(), Double.parseDouble(String.format("%.1f", newVersion)), finalSavePath.replace(dataPath, ""), zipFile.length(), new Date()));
-            if (res > 0) {
-                layers.forEach(o -> mapVersionMapper.insertRelate(id, o.getId()));
-            } else return false;
-        } else {
-            mapVersionMapper.deleteRelateByVersionId(mapVersionDTO.getId());
-            mapVersionDTO.setUploadDate(new Date());
-            mapVersionDTO.setZipFilePath(finalSavePath.replace(dataPath, ""));
-            mapVersionDTO.setZipFileSize(zipFile.length());
-            res = mapVersionMapper.update(mapVersionDTO);
-            if (res > 0) {
-                layers.forEach(o -> mapVersionMapper.insertRelate(mapVersionDTO.getId(), o.getId()));
-            } else return false;
+            int res;
+            String finalSavePath = Paths.get(savePath, fileName).toString();
+
+            if (mapVersionDTO == null) {
+                long id = mapVersionMapper.findNextSeqVal();
+                res = mapVersionMapper.insert(new MapVersionDTO(id, mapDTO.getId(), Double.parseDouble(String.format("%.1f", version)), finalSavePath.replace("\\", "/").replace(dataPath, ""), zipFile.length(), new Date()));
+                if (res > 0) {
+                    layers.forEach(o -> mapVersionMapper.insertRelate(id, o.getId()));
+                }
+            } else {
+                mapVersionMapper.deleteRelateByVersionId(mapVersionDTO.getId());
+                mapVersionDTO.setUploadDate(new Date());
+                mapVersionDTO.setZipFilePath(finalSavePath.replace("\\", "/").replace(dataPath, ""));
+                mapVersionDTO.setZipFileSize(zipFile.length());
+                res = mapVersionMapper.update(mapVersionDTO);
+                if (res > 0) {
+                    layers.forEach(o -> mapVersionMapper.insertRelate(mapVersionDTO.getId(), o.getId()));
+                }
+            }
         }
 
         if(!FileSystemUtil.isWindowOS()){
             // MAP VERSION 과정이 끝나면 모든 권한을 755 로 설정.
             try {
-                FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.MAP_VERSION_FILE_PATH));
+                FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.MAP_VERSION_FILE_PATH + String.format("/%s", mapDTO.getName())));
             } catch (IOException e) {
                 log.error("ERROR - " + e.getMessage());
             }
         }
-
-        return true;
     }
 
     /**
-     * 변경되는 레이어들에 대한 버전 관리를 진행한다.
+     * 변경되는 레이어들에 대해 새로 부여할 버전을 계산한다.
      * @param prevLayers List Of Layers, newLayers List Of Layers
      */
     public double calculateMapVersionInNextLayers(MapDTO map, List<LayerDTO> prevLayers, List<LayerDTO> nextLayers){
@@ -188,6 +193,24 @@ public class MapVersionManagement {
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
         }
+    }
+
+    /**
+     * MAP 에서 LAYER 목록이 달라질 때 실행해서 버전 정보를 관리한다.
+     * @param map MapDTO, prevLayers List of Layers, nextLayers List of Layers
+     */
+    @Transactional
+    public void setMapLayerListChangeManage(MapDTO map, List<LayerDTO> prevLayers, List<LayerDTO> nextLayers){
+        double newVersion = calculateMapVersionInNextLayers(map, prevLayers, nextLayers);
+        List<LayerDTO> pureNewLayers = loadPureNewLayersInNextLayers(prevLayers, nextLayers);
+        List<LayerDTO> newLayers = new ArrayList<>(nextLayers);
+        for(LayerDTO layer : pureNewLayers){
+            layer.setVersion(newVersion);
+            layerMapper.update(layer);
+            setLayerUpdateManage(layer);
+            newLayers = newLayers.stream().map(o -> o.getId().equals(layer.getId()) ? layer : o).collect(Collectors.toList());
+        }
+        saveMapVersionRecentlyStatus(map, newLayers);
     }
 
     /**
