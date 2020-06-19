@@ -128,13 +128,16 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
             errCnt += 1;
         }
 
-        // 사용자 접속 정보
+        // 사용자 접속 정보 (NGINX 로 대체)
+        sp.setConnections(-1);
+    /*
         String connections = LinuxCommandUtil.fetchShellContextByLinuxCommand("who | awk \'END{print NR}\'");
         if(connections != null){
             sp.setConnections(Long.parseLong(connections.trim()));
         } else {
             errCnt += 1;
         }
+    */
 
         if(errCnt == 4){
             sp.setStatus("OFF");
