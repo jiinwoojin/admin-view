@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -59,7 +60,7 @@ public class MapVersionManagement {
      * @param layers List Of Layers
      */
     private Double loadMaximumVersionAtLayerList(List<LayerDTO> layers){
-        return Collections.max(layers.stream().filter(o -> o.getVersion() != null).map(o -> o.getVersion()).collect(Collectors.toSet()));
+        return Collections.max(layers.stream().filter(o -> o.getVersion() != null).map(LayerDTO::getVersion).collect(Collectors.toSet()));
     }
 
     /**
@@ -67,7 +68,7 @@ public class MapVersionManagement {
      * @param layers List Of Layers
      */
     private Set<Double> loadVersionSetAtLayerList(List<LayerDTO> layers){
-        return layers.stream().filter(o -> o.getVersion() != null).map(o -> o.getVersion()).collect(Collectors.toSet());
+        return layers.stream().filter(o -> o.getVersion() != null).map(LayerDTO::getVersion).collect(Collectors.toSet());
     }
 
     /**
@@ -91,7 +92,7 @@ public class MapVersionManagement {
             log.info("새로운 버전이 정수이기 때문에 초기화 됩니다.");
         }
 
-        String savePath = dataPath + Constants.MAP_VERSION_FILE_PATH + "/" + mapDTO.getName();
+        String savePath = Paths.get(dataPath, Constants.MAP_VERSION_FILE_PATH, mapDTO.getName()).toString();
         String fileName = String.format("%s_V%.1f.zip", mapDTO.getName(), newVersion);
 
         File zipFile = FileSystemUtil.saveZipFileWithPaths(dataPath, savePath, fileName, layers.stream().map(o -> new HashMap<String, String>() {{
@@ -99,7 +100,7 @@ public class MapVersionManagement {
             put("middleFolder", o.getMiddleFolder());
         }}).collect(Collectors.toList()));
 
-        if(zipFile == null) {
+        if (zipFile == null) {
             log.error(fileName + " 파일이 형성되지 않았습니다. 다시 시도 바랍니다.");
             return false;
         }
@@ -107,9 +108,9 @@ public class MapVersionManagement {
         MapVersionDTO mapVersionDTO = mapVersionMapper.findByMapIdAndVersion(mapDTO.getId(), newVersion);
 
         int res;
-        String finalSavePath = savePath + "/" + fileName;
+        String finalSavePath = Paths.get(savePath, fileName).toString();
 
-        if(mapVersionDTO == null) {
+        if (mapVersionDTO == null) {
             long id = mapVersionMapper.findNextSeqVal();
             res = mapVersionMapper.insert(new MapVersionDTO(id, mapDTO.getId(), Double.parseDouble(String.format("%.1f", newVersion)), finalSavePath.replace(dataPath, ""), zipFile.length(), new Date()));
             if (res > 0) {
@@ -145,17 +146,17 @@ public class MapVersionManagement {
     @Transactional
     public void setMapLayerVersionManage(MapDTO map, List<LayerDTO> prevLayers, List<LayerDTO> nextLayers){
         // 데이터 변동 시, 이전에 설정했던 레이어들은 버전 변경에 배제를 한다. 변화량이 있는 데이터에 한해 계산해야 한다.
-        Set<Long> prevIds = prevLayers.stream().map(o -> o.getId()).collect(Collectors.toSet());
+        Set<Long> prevIds = prevLayers.stream().map(LayerDTO::getId).collect(Collectors.toSet());
         Set<Long> nextIds = nextLayers.stream()
                 .filter(o1 -> prevLayers.stream().filter(o2 -> o2.getId().equals(o1.getId()) && o2.getVersion().equals(o1.getVersion())).count() > 0)
-                .map(o -> o.getId())
+                .map(LayerDTO::getId)
                 .collect(Collectors.toSet());
 
         Set<Long> maintainIds = new HashSet<>(nextIds);
         maintainIds.retainAll(prevIds);
 
         Set<Double> layerVersions = loadVersionSetAtLayerList(prevLayers);
-        Set<Double> mapVersions = mapVersionMapper.findByMapId(map.getId()).stream().map(o -> o.getVersion()).collect(Collectors.toSet());
+        Set<Double> mapVersions = mapVersionMapper.findByMapId(map.getId()).stream().map(MapVersionDTO::getVersion).collect(Collectors.toSet());
         MapVersionDTO current = mapVersionMapper.findByMapIdRecently(map.getId());
         for(LayerDTO layer : nextLayers){
             // 새로 추가하는 레이어 중에 같은 버전이 있는 경우 현재 버전의 0.1 를 높인다.
@@ -183,9 +184,8 @@ public class MapVersionManagement {
         }
         mapVersionMapper.deleteByMapId(map.getId());
 
-        String path = dataPath + Constants.MAP_VERSION_FILE_PATH + "/" + map.getName();
         try {
-            FileUtils.deleteDirectory(new File(path));
+            FileUtils.deleteDirectory(Paths.get(dataPath, Constants.MAP_VERSION_FILE_PATH, map.getName()).toFile());
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
         }
@@ -199,7 +199,7 @@ public class MapVersionManagement {
     public void setLayerUpdateManage(LayerDTO layer){
         List<MapVersionDTO> versions = mapVersionMapper.findByLayerId(layer.getId());
 
-        for(long mapId : versions.stream().map(o -> o.getMapId()).collect(Collectors.toSet())){
+        for(long mapId : versions.stream().map(MapVersionDTO::getMapId).collect(Collectors.toSet())){
             MapDTO map = mapMapper.findById(mapId);
             List<LayerDTO> prevLayers = layerMapper.findByMapId(mapId);
             List<LayerDTO> nextLayers = prevLayers.stream().map(o -> o.getId().equals(layer.getId()) ? layer : o).collect(Collectors.toList());
