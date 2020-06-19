@@ -11,10 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -28,7 +26,6 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
 
     /**
      * 배열의 인덱스를 바꾸는 메소드
-     * @param
      */
     private void swap(String[] arr, int a, int b){
         String tmp = arr[a];
@@ -38,35 +35,34 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
 
     /**
      * 서버 설정 기반 YAML 파일을 불러온다.
-     * @param
      */
     private File loadServerConfigYAMLFile() throws IOException {
-        File file = new File(dataPath + Constants.SERVER_INFO_FILE_PATH + "/" + Constants.SERVER_INFO_FILE_NAME);
-        if(file.exists()) return file;
-        else {
+        File file = Paths.get(dataPath, Constants.SERVER_INFO_FILE_PATH, Constants.SERVER_INFO_FILE_NAME).toFile();
+
+        if (!file.exists()) {
             file.createNewFile();
-            return file;
         }
+
+        return file;
     }
 
     /**
      * YAML 파일에 있는 모든 요소들을 MAP 데이터로 변환한다.
-     * @param
      */
     private Map<String, Object> loadMapDataAtYAMLFile() {
-        Map<String, Object> map = null;
+        Map<String, Object> map;
         try {
             map = YAMLFileUtil.fetchMapByYAMLFile(this.loadServerConfigYAMLFile());
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
             return null;
         }
+
         return map;
     }
 
     /**
      * YAML 파일을 기반으로 서버 설정 목록을 생성한다.
-     * @param
      */
     private List<ServerCenterInfo> loadDataListAtYAMLFile(){
         Map<String, Object> map = this.loadMapDataAtYAMLFile();
@@ -96,7 +92,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         Map<String, Object> remoteMap = new LinkedHashMap<>();
         int cnt = remotes.size();
         remoteMap.put("count", cnt);
-        for(int i = 0; i < cnt; i++){
+        for (int i = 0; i < cnt; i++) {
             remoteMap.put(remotes.get(i).getKey(), ServerCenterInfo.convertMap(remotes.get(i)));
         }
         map.put("remote", remoteMap);
@@ -119,7 +115,6 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
 
     /**
      * YAML 파일을 기반으로 서버 센터 목록을 불러온다.
-     * @param
      */
     @Override
     public String[] loadZoneList() {
@@ -141,7 +136,6 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
 
     /**
      * YAML 파일을 기반으로 서버 종류 목록을 불러온다.
-     * @param
      */
     @Override
     public String[] loadKindList() {
@@ -156,7 +150,6 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
 
     /**
      * YAML 파일을 기반으로 서버 설정 목록을 불러온다.
-     * @param
      */
     @Override
     public List<ServerCenterInfo> loadRemoteList() {
@@ -165,7 +158,6 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
 
     /**
      * 같은 센터 (kind, zone) 안에 있는 서버 정보 목록들을 불러온다.
-     * @param
      */
     @Override
     public List<ServerCenterInfo> loadSameCenterList() {
@@ -177,7 +169,6 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
 
     /**
      * YAML 파일을 기반으로 대시보드를 위한 서버 목록을 형성한다.
-     * @param
      */
     @Override
     public Map<String, Object> loadDataMapZoneBase() {
@@ -197,7 +188,6 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
 
     /**
      * Local 서버 정보를 가져온다.
-     * @param
      */
     @Override
     public ServerCenterInfo loadLocalInfoData() {
@@ -243,7 +233,9 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
                 infos.add(ServerCenterInfoModel.convertDTO(model));
                 return this.saveServerInfosAtYAMLFile(this.loadLocalInfoData(), infos);
             case "UPDATE" :
-                infos = infos.stream().filter(o -> o != null).map(o -> o.getKey().equals(model.getKey()) ? ServerCenterInfoModel.convertDTO(model) : o).collect(Collectors.toList());
+                infos = infos.stream().filter(Objects::nonNull)
+                        .map(o -> o.getKey().equals(model.getKey()) ? ServerCenterInfoModel.convertDTO(model) : o)
+                        .collect(Collectors.toList());
                 return this.saveServerInfosAtYAMLFile(this.loadLocalInfoData(), infos);
             default :
                 return false;
@@ -258,7 +250,8 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     public boolean removeDataByKey(String key) {
         if(!this.loadDataHasInFile(key)) return false;
         List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
-        infos = infos.stream().filter(o -> !o.getKey().equals(key)).collect(Collectors.toList());
+        infos = infos.stream().filter(o -> !o.getKey().equals(key))
+                .collect(Collectors.toList());
         return this.saveServerInfosAtYAMLFile(this.loadLocalInfoData(), infos);
     }
 }

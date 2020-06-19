@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.HashMap;
@@ -46,7 +47,7 @@ public class FileSystemUtil {
     /**
      * 파일 권한 설정 With Code (LINUX, MAC)
      * @Param file Path
-     * @throws IOException
+     * @throws IOException ioexception
      */
     public static void setFilePermissionsByCode(Path file, String code) throws IOException {
         if (code.length() != 3) return;
@@ -85,7 +86,7 @@ public class FileSystemUtil {
     /**
      * 파일 권한 설정 Default (LINUX, MAC)
      * @Param file Path
-     * @throws IOException
+     * @throws IOException ioexception
      */
     public static void setFileDefaultPermissions(Path file) throws IOException {
         setFilePermissionsByCode(file, "755");
@@ -94,13 +95,12 @@ public class FileSystemUtil {
     /**
      * 폴더를 순회하며 모든 권한을 기본 권한 (755) 로 설정하기
      * @Param file Path
-     * @throws IOException
+     * @throws IOException ioexception
      */
     public static void setFileDefaultPermissionsWithFileDirectory(File file) throws IOException {
         if(!file.exists()) return;
-        if(file.isFile()){
+        if (file.isFile()) {
             setFileDefaultPermissions(file.toPath());
-            return;
         } else {
             File[] files = file.listFiles();
             for(File f : files){
@@ -115,7 +115,7 @@ public class FileSystemUtil {
     /**
      * 파일 내용 불러오기
      * @param filePath String
-     * @throws IOException
+     * @throws IOException ioexception
      */
     public static String fetchFileContext(String filePath) throws IOException {
         StringBuilder fileContext = new StringBuilder();
@@ -205,7 +205,6 @@ public class FileSystemUtil {
     /**
      * 파일 이동
      * @param beforePath 파일 경로, newPath 파일 경로
-     * @throws IOException Exception
      */
     public static void moveFile(String beforePath, String newPath){
         File bFile = new File(beforePath);
@@ -222,7 +221,6 @@ public class FileSystemUtil {
     /**
      * ZIP 파일 압축 해제
      * @param zipFile File, directory String
-     * @throws FileNotFoundException, IOException Exception
      */
     public static void decompressZipFile(File zipFile){
         String directory = zipFile.getParent();
@@ -240,8 +238,6 @@ public class FileSystemUtil {
                     saveFileInZipStream(file, zis);
                 }
             }
-        } catch (FileNotFoundException e) {
-            log.error("ERROR - " + e.getMessage());
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
         }
@@ -286,7 +282,7 @@ public class FileSystemUtil {
      */
     public static File saveZipFileWithPaths(String dataPath, String zipPath, String filename, List<Map<String, String>> paths){
         // 처음에는 ZIP 파일 존재 여부를 확인한다.
-        File zipFile = new File(zipPath + "/" + filename);
+        File zipFile = Paths.get(zipPath, filename).toFile();
         if(zipFile.exists()) {
             try {
                 deleteFile(zipFile.getPath());
