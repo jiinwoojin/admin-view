@@ -99,14 +99,10 @@ public class FileSystemUtil {
      */
     public static void setFileDefaultPermissionsWithFileDirectory(File file) throws IOException {
         if(!file.exists()) return;
-        if (file.isFile()) {
-            setFileDefaultPermissions(file.toPath());
-        } else {
+        setFileDefaultPermissions(file.toPath());
+        if (file.isDirectory()) {
             File[] files = file.listFiles();
             for(File f : files){
-                if(f.isDirectory()){
-                    setFileDefaultPermissions(f.toPath());
-                }
                 setFileDefaultPermissionsWithFileDirectory(f);
             }
         }
