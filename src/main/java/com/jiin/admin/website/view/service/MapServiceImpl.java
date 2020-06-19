@@ -210,7 +210,7 @@ public class MapServiceImpl implements MapService {
 
                 // 2단계. Version 관리 (선택)
                 if(versionCheck) {
-                    mapVersionManagement.saveMapVersionRecentlyStatus(mapDTO, layers);
+                    mapVersionManagement.saveMapVersionRecentlyStatus(mapDTO, new ArrayList<>(), layers);
                 }
             } catch (IOException e){
                 log.error("ERROR - " + e.getMessage());
