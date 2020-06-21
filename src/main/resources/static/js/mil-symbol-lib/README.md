@@ -2,7 +2,7 @@
 
 ## 관련 라이브러리
 
-    [milSymbolLoader.js] 파일 1개만 포트 합니다.
+    [milSymbolLoader.js] 파일 1개만 import 합니다.
     
     따로 환경세팅은 안해도 되도록 구성하였습니다.
     [milSymbolLoader] 객체를 사용합니다. 
