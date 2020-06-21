@@ -256,9 +256,11 @@
             $('.btn-overlay').tooltip();
 
             // 군대부호 잠깐 가리기 위해서 이 로직을 주석 처리 진행할 것.
+            /*
             if (stmp.getMilsym() === undefined) {
                 stmp.setMilSym(ms);
             }
+            */
 
             getMap('mapbox-display');
             // $('#display-display2d').addClass('active');
@@ -678,12 +680,8 @@
     <script th:src="@{/js/commons/geoTrans.js}"></script>
     <script th:src="@{/js/jiin/jimap_constant.js}"></script>
     <script th:src="@{/js/commons/feature.js}"></script>
-    <script th:src="@{/js/military/mb-milSymbol.js}"></script>
-    <script th:src="@{/js/military/milSymbol.js}"></script>
     <script th:src="@{/gis/turf-5.1.6/turf.js}"></script>
     <script th:src="@{/js/commons/cfsiStmpCommon.js}"></script>
-    <script th:src="@{/js/symbol/snap.svg-min.js}"></script>
-    <script th:src="@{/js/symbol/html2canvas.min.js}"></script>
 </th:block>
 
 <th:block layout:fragment="custom-html-link">

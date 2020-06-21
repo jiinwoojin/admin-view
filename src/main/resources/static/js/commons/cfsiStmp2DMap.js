@@ -20,7 +20,7 @@ var jiMap = function jiMap(options) {
 
     if (!stmp.MINI_MAP) {
         // 지도 로드 완료 시
-        this.map.on('load', function() {
+        this.map.on('load', function(evt) {
             if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_2D) {
                 // 맵박스
                 stmp.mapObject.setZoomRate(10);             // wheel rate 설정
@@ -28,388 +28,20 @@ var jiMap = function jiMap(options) {
                 stmp.mapObject._bindEvents();
                 console.log('2DMap 생성 완료.');
             }
+            //
+            milSymbolLoader.init({map : evt.target},function(){
+                /**
+                 * callback 함수가 있을 경우 호출
+                 */
+                if (stmp.valid.checkValue(options.initFn)) {
+                    options.initFn()
+                }
+            })
         });
         /* GRID area */
         // 그리드 라벨 redraw
         this.map.on('moveend', stmp.graticulesLabelGenerator)
         /* GRID area */
-        /* 군대부호 area */
-        // basegeometry 재선언
-        if(ms.___original_basegeometry === undefined){
-            ms.___original_basegeometry = ms.getSymbolParts()[0]
-            var symbolParts = ms.getSymbolParts();
-            symbolParts.splice(0, 1, function(){
-                var obj = ms.___original_basegeometry.call(this,ms)
-                var percent = parseFloat(this.options.fillPercent)
-                if(!isNaN(percent) && percent < 1){
-                    var drawArray2 = obj.post
-                    var newDrawArray2 = []
-                    var exec = false
-                    jQuery.each(drawArray2, function(idx, draw){
-                        if(draw.type === 'path' && exec === false) {
-                            exec = true
-                            var override = Object.assign({}, draw);
-                            var background = Object.assign({}, draw);
-                            var fillcolor = Object.assign({}, draw);
-                            var boundry = Object.assign({}, draw);
-                            boundry.fillopacity = 0
-                            var path = fillcolor.d
-                            var xmin = 99999
-                            var ymin = 99999
-                            var xmax = 0
-                            var ymax = 0
-                            // 쉼표구분안됨...
-                            if(path === "M 45,150 L 45,30,155,30,155,150"){
-                                path = "M 45,150 L 45,30 155,30 155,150"
-                            }
-                            var pathcoords = path.split(" ")
-                            var prevx, prevy
-                            var startLine = false
-                            var percentRate = 1
-                            var clipPath = boundry.d
-                            // 수중학적 밑으로 꺼짐 현상
-                            // 상단 라인 잔상 현상
-                            if(path === "m 45,50 c 0,100 40,120 55,120 15,0 55,-20 55,-120"){
-                                percentRate = 0.43
-                                clipPath = "m 45,49 c 0,100 40,120 55,120 15,0 55,-20 55,-120"
-                            }
-                            if(path === "M45,50 L45,130 100,180 155,130 155,50"){
-                                clipPath = "M45,49 L45,130 100,180 155,130 155,49"
-                            }
-
-                            jQuery.each(pathcoords, function (idx, pathcoord) {
-                                var xy = pathcoord.split(",")
-                                if (/[lc]/.test(xy[0])) {
-                                    startLine = true
-                                }
-                                var x = parseInt(xy[0].replace(/[LCMVHl]/, ""))
-                                var y = parseInt(xy[1])
-                                if (startLine) {
-                                    x = prevx + x
-                                    y = prevy + y
-                                }
-                                if (x < xmin) xmin = x
-                                if (y < ymin) ymin = y
-                                if (x > xmax) xmax = x
-                                if (y > ymax) ymax = y
-                                if (!isNaN(x) && !isNaN(y)) {
-                                    prevx = x
-                                    prevy = y
-                                }
-                            })
-                            override.d = "M " + xmin + "," + ymin + " H " + xmax + " V " + ymax + " H " + xmin + " V " + ymin + " Z"
-                            override.clipPath = clipPath
-                            override.fill = "rgb(255,255,255)"
-                            override.stroke = "rgba(0,0,0,0)"
-                            override.fillopacity = 1
-                            if(ymin < 0){
-                                ymin = 0
-                            }
-                            ymin = ymin - 3
-                            ymax = Math.round(ymin + (((ymax * percentRate) - ymin) * (1 - percent)))
-                            fillcolor.d = "M " + xmin + "," + ymin + " H " + xmax + " V " + ymax + " H " + xmin + " V " + ymin + " Z"
-                            fillcolor.clipPath = clipPath
-                            fillcolor.fill = "rgb(255,255,255)"
-                            fillcolor.stroke = "rgba(0,0,0,0)"
-                            fillcolor.fillopacity = 1
-                            newDrawArray2.push(override);
-                            newDrawArray2.push(background);
-                            newDrawArray2.push(fillcolor);
-                            newDrawArray2.push(boundry);
-                            console.log(boundry)
-                        }else if(draw.type === 'circle' && exec === false){
-                            exec = true
-                            var centerx = draw.cx
-                            var centery = draw.cy
-                            var radius = draw.r
-                            var clipPath = "M "+(centerx-radius)+", "+centery+" a "+radius+","+radius+" 0 1,0 "+(radius*2)+",0 a "+radius+","+radius+" 0 1,0 -"+(radius*2)+",0"
-                            var xmin = centerx - radius
-                            var ymin = centery - radius
-                            var xmax = centerx + radius
-                            var ymax = centery + radius
-                            var background = Object.assign({}, draw);
-                            var boundry = Object.assign({}, draw);
-                            boundry.fill = "rgb(128,224,255,0)"
-                            var override = {}
-                            override.type = "path"
-                            override.clipPath = clipPath
-                            override.fill = "rgb(255,255,255)"
-                            override.fillopacity = 1
-                            override.stroke = "rgba(0,0,0,0)"
-                            override.strokewidth = 0
-                            override.d = "M " + xmin + "," + ymin + " H " + xmax + " V " + ymax + " H " + xmin + " V " + ymin + " Z"
-                            var fillcolor = {}
-                            fillcolor.type = "path"
-                            fillcolor.clipPath = clipPath
-                            fillcolor.fill = "rgb(255,255,255)"
-                            fillcolor.fillopacity = 1
-                            fillcolor.stroke = "rgba(0,0,0,0)"
-                            fillcolor.strokewidth = 0
-                            ymax = Math.round(ymin + ((ymax - ymin) * (1 - percent)))
-                            fillcolor.d = "M " + xmin + "," + ymin + " H " + xmax + " V " + ymax + " H " + xmin + " V " + ymin + " Z"
-                            newDrawArray2.push(override);
-                            newDrawArray2.push(background);
-                            newDrawArray2.push(fillcolor);
-                            newDrawArray2.push(boundry);
-                        }else{
-                            newDrawArray2.push(draw)
-                        }
-                    })
-                    obj.post = newDrawArray2
-                    return obj
-                }else{
-                    return obj
-                }
-            })
-            ms.setSymbolParts(symbolParts);
-        }
-        stmp.drawControl = new MapboxDraw({
-            displayControlsDefault: false,
-            userProperties: true,
-            // 그리기 완료 후 inactive 심볼의 경우 투명 스타일 적용 위함.
-            styles: [
-                // default themes provided by MB Draw
-                {
-                    'id': 'gl-draw-polygon-fill-inactive',
-                    'type': 'fill',
-                    'filter': ['all', ['==', 'active', 'false'],
-                        ['==', '$type', 'Polygon'],
-                        ['!=', 'mode', 'static']
-                    ],
-                    'paint': {
-                        'fill-color': 'rgba(0, 0, 0, 0)', /* 투명적용 */
-                        'fill-outline-color': 'rgba(0, 0, 0, 0)', /* 투명적용 */
-                        'fill-opacity': 0.1
-                    }
-                },
-                {
-                    'id': 'gl-draw-polygon-fill-active',
-                    'type': 'fill',
-                    'filter': ['all', ['==', 'active', 'true'],
-                        ['==', '$type', 'Polygon']
-                    ],
-                    'paint': {
-                        'fill-color': '#fbb03b',
-                        'fill-outline-color': '#fbb03b',
-                        'fill-opacity': 0.1
-                    }
-                },
-                {
-                    'id': 'gl-draw-polygon-midpoint',
-                    'type': 'circle',
-                    'filter': ['all', ['==', '$type', 'Point'],
-                        ['==', 'meta', 'midpoint']
-                    ],
-                    'paint': {
-                        'circle-radius': 3,
-                        'circle-color': '#fbb03b'
-                    }
-                },
-                {
-                    'id': 'gl-draw-polygon-stroke-inactive',
-                    'type': 'line',
-                    'filter': ['all', ['==', 'active', 'false'],
-                        ['==', '$type', 'Polygon'],
-                        ['!=', 'mode', 'static']
-                    ],
-                    'layout': {
-                        'line-cap': 'round',
-                        'line-join': 'round'
-                    },
-                    'paint': {
-                        'line-color': '#3bb2d0',
-                        'line-width': 2
-                    }
-                },
-                {
-                    'id': 'gl-draw-polygon-stroke-active',
-                    'type': 'line',
-                    'filter': ['all', ['==', 'active', 'true'],
-                        ['==', '$type', 'Polygon']
-                    ],
-                    'layout': {
-                        'line-cap': 'round',
-                        'line-join': 'round'
-                    },
-                    'paint': {
-                        'line-color': '#fbb03b',
-                        'line-dasharray': [0.2, 2],
-                        'line-width': 2
-                    }
-                },
-                {
-                    'id': 'gl-draw-line-inactive',
-                    'type': 'line',
-                    'filter': ['all', ['==', 'active', 'false'],
-                        ['==', '$type', 'LineString'],
-                        ['!=', 'mode', 'static']
-                    ],
-                    'layout': {
-                        'line-cap': 'round',
-                        'line-join': 'round'
-                    },
-                    'paint': {
-                        'line-color': 'rgba(0, 0, 0, 0)', /* 투명적용 */
-                        'line-width': 2
-                    }
-                },
-                {
-                    'id': 'gl-draw-line-active',
-                    'type': 'line',
-                    'filter': ['all', ['==', '$type', 'LineString'],
-                        ['==', 'active', 'true']
-                    ],
-                    'layout': {
-                        'line-cap': 'round',
-                        'line-join': 'round'
-                    },
-                    'paint': {
-                        'line-color': '#fbb03b',
-                        'line-dasharray': [0.2, 2],
-                        'line-width': 2
-                    }
-                },
-                {
-                    'id': 'gl-draw-polygon-and-line-vertex-stroke-inactive',
-                    'type': 'circle',
-                    'filter': ['all', ['==', 'meta', 'vertex'],
-                        ['==', '$type', 'Point'],
-                        ['!=', 'mode', 'static']
-                    ],
-                    'paint': {
-                        'circle-radius': 5,
-                        'circle-color': '#fff'
-                    }
-                },
-                {
-                    'id': 'gl-draw-polygon-and-line-vertex-inactive',
-                    'type': 'circle',
-                    'filter': ['all', ['==', 'meta', 'vertex'],
-                        ['==', '$type', 'Point'],
-                        ['!=', 'mode', 'static']
-                    ],
-                    'paint': {
-                        'circle-radius': 3,
-                        'circle-color': '#fbb03b'
-                    }
-                },
-                {
-                    'id': 'gl-draw-point-point-stroke-inactive',
-                    'type': 'circle',
-                    'filter': ['all', ['==', 'active', 'false'],
-                        ['==', '$type', 'Point'],
-                        ['==', 'meta', 'feature'],
-                        ['!=', 'mode', 'static']
-                    ],
-                    'paint': {
-                        'circle-radius': 5,
-                        'circle-opacity': 1,
-                        'circle-color': 'rgba(0, 0, 0, 0)', /* 투명적용 */
-                    }
-                },
-                {
-                    'id': 'gl-draw-point-inactive',
-                    'type': 'circle',
-                    'filter': ['all', ['==', 'active', 'false'],
-                        ['==', '$type', 'Point'],
-                        ['==', 'meta', 'feature'],
-                        ['!=', 'mode', 'static']
-                    ],
-                    'paint': {
-                        'circle-radius': 3,
-                        'circle-color': 'rgba(0, 0, 0, 0)', /* 투명적용 */
-                    }
-                },
-                {
-                    'id': 'gl-draw-point-stroke-active',
-                    'type': 'circle',
-                    'filter': ['all', ['==', '$type', 'Point'],
-                        ['==', 'active', 'true'],
-                        ['!=', 'meta', 'midpoint']
-                    ],
-                    'paint': {
-                        'circle-radius': 7,
-                        'circle-color': '#fff'
-                    }
-                },
-                {
-                    'id': 'gl-draw-point-active',
-                    'type': 'circle',
-                    'filter': ['all', ['==', '$type', 'Point'],
-                        ['!=', 'meta', 'midpoint'],
-                        ['==', 'active', 'true']
-                    ],
-                    'paint': {
-                        'circle-radius': 5,
-                        'circle-color': '#fbb03b'
-                    }
-                },
-                {
-                    'id': 'gl-draw-polygon-fill-static',
-                    'type': 'fill',
-                    'filter': ['all', ['==', 'mode', 'static'],
-                        ['==', '$type', 'Polygon']
-                    ],
-                    'paint': {
-                        'fill-color': '#404040',
-                        'fill-outline-color': '#404040',
-                        'fill-opacity': 0.1
-                    }
-                },
-                {
-                    'id': 'gl-draw-polygon-stroke-static',
-                    'type': 'line',
-                    'filter': ['all', ['==', 'mode', 'static'],
-                        ['==', '$type', 'Polygon']
-                    ],
-                    'layout': {
-                        'line-cap': 'round',
-                        'line-join': 'round'
-                    },
-                    'paint': {
-                        'line-color': '#404040',
-                        'line-width': 2
-                    }
-                },
-                {
-                    'id': 'gl-draw-line-static',
-                    'type': 'line',
-                    'filter': ['all', ['==', 'mode', 'static'],
-                        ['==', '$type', 'LineString']
-                    ],
-                    'layout': {
-                        'line-cap': 'round',
-                        'line-join': 'round'
-                    },
-                    'paint': {
-                        'line-color': '#404040',
-                        'line-width': 2
-                    }
-                },
-                {
-                    'id': 'gl-draw-point-static',
-                    'type': 'circle',
-                    'filter': ['all', ['==', 'mode', 'static'],
-                        ['==', '$type', 'Point']
-                    ],
-                    'paint': {
-                        'circle-radius': 5,
-                        'circle-color': '#404040'
-                    }
-                },
-                // end default themes provided by MB Draw
-            ]
-        });
-        this.map.addControl(stmp.drawControl);
-        this.map.on('draw.update', stmp.milsymbolsPreview);
-        this.map.on('draw.create', stmp.milsymbolsGenerator);
-        /* 군대부호 area */
-        /**
-         * callback 함수가 있을 경우 호출
-         */
-        if (stmp.valid.checkValue(options.initFn)) {
-            this.map.on('load', options.initFn);
-        }
     }
 };
 
@@ -446,6 +78,7 @@ jiMap.prototype.setBaseStyle = function setBaseStyle() {
  * 맵 객체를 초기화 한다.
  */
 jiMap.prototype.init = function init(options) {
+    //mapboxgl.accessToken = 'pk.eyJ1IjoibmV1dHRpIiwiYSI6ImNqeG8xZTI0ejAyN2MzZ3IycmprMGozMTgifQ.COExEgQEp4_q926PX_Qu2w';
     return new mapboxgl.Map({
         container : options.container,
         //style : this.setBaseStyle(),
@@ -828,7 +461,7 @@ jiMap.prototype._bindEvents = function _bindEvents() {
         console.log(e);
         console.log(stmp.mapObject.map.getZoom());
         // zoom 레벨에 따라 지도 변환
-        // 육도일 경우 육도로만 전환 
+        // 육도일 경우 육도로만 전환
         // 14LV : 2.5만
         // 13LV : 5만
         // 12LV : 10만
