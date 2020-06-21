@@ -94,8 +94,8 @@ public class MapVersionManagement {
      * @param mapDTO MapDTO, layers List of Layers
      */
     @Transactional
-    public void saveMapVersionRecentlyStatus(MapDTO mapDTO, List<LayerDTO> layers) {
-        double newVersion = loadMaximumVersionAtLayerList(layers);
+    public void saveMapVersionRecentlyStatus(MapDTO mapDTO, List<LayerDTO> prevLayers, List<LayerDTO> nextLayers) {
+        double newVersion = loadMaximumVersionAtLayerList(nextLayers);
 
         // 종속된 LAYER 중 가장 신 버전이 삭제 되어 버전이 낮아지는 경우에 실행되는 메소드.
         MapVersionDTO current = mapVersionMapper.findByMapIdRecently(mapDTO.getId());
@@ -110,8 +110,9 @@ public class MapVersionManagement {
             log.info("새로운 버전이 정수이기 때문에 초기화 됩니다.");
         }
 
+        List<LayerDTO> pureNewLayers = loadPureNewLayersInNextLayers(prevLayers, nextLayers);
         Map<Double, List<LayerDTO>> versionMap = new HashMap<>();
-        for(LayerDTO layer : layers){
+        for(LayerDTO layer : pureNewLayers){
             List<LayerDTO> tmpLayers = versionMap.getOrDefault(layer.getVersion(), new ArrayList<>());
             tmpLayers.add(layer);
             versionMap.put(layer.getVersion(), tmpLayers);
@@ -138,7 +139,7 @@ public class MapVersionManagement {
                 long id = mapVersionMapper.findNextSeqVal();
                 res = mapVersionMapper.insert(new MapVersionDTO(id, mapDTO.getId(), Double.parseDouble(String.format("%.1f", version)), finalSavePath.replace("\\", "/").replace(dataPath, ""), zipFile.length(), new Date()));
                 if (res > 0) {
-                    layers.forEach(o -> mapVersionMapper.insertRelate(id, o.getId()));
+                    tmpLayers.forEach(o -> mapVersionMapper.insertRelate(id, o.getId()));
                 }
             } else {
                 mapVersionMapper.deleteRelateByVersionId(mapVersionDTO.getId());
@@ -147,7 +148,7 @@ public class MapVersionManagement {
                 mapVersionDTO.setZipFileSize(zipFile.length());
                 res = mapVersionMapper.update(mapVersionDTO);
                 if (res > 0) {
-                    layers.forEach(o -> mapVersionMapper.insertRelate(mapVersionDTO.getId(), o.getId()));
+                    tmpLayers.forEach(o -> mapVersionMapper.insertRelate(mapVersionDTO.getId(), o.getId()));
                 }
             }
         }
@@ -210,7 +211,7 @@ public class MapVersionManagement {
             setLayerUpdateManage(layer);
             newLayers = newLayers.stream().map(o -> o.getId().equals(layer.getId()) ? layer : o).collect(Collectors.toList());
         }
-        saveMapVersionRecentlyStatus(map, newLayers);
+        saveMapVersionRecentlyStatus(map, prevLayers, newLayers);
     }
 
     /**
@@ -265,8 +266,9 @@ public class MapVersionManagement {
         for(long mapId : layerMap.keySet()){
             MapDTO map = mapMapper.findById(mapId);
             Map<String, List<LayerDTO>> listMap = (Map<String, List<LayerDTO>>) layerMap.get(mapId);
+            List<LayerDTO> prevLayers = listMap.get("prevLayers");
             List<LayerDTO> nextLayers = listMap.get("nextLayers");
-            saveMapVersionRecentlyStatus(map, nextLayers);
+            saveMapVersionRecentlyStatus(map, prevLayers, nextLayers);
         }
     }
 
@@ -291,7 +293,7 @@ public class MapVersionManagement {
                 MapDTO map = mapMapper.findById(version.getMapId());
                 List<LayerDTO> prevLayers = layerMapper.findByMapId(version.getMapId());
                 List<LayerDTO> nextLayers = prevLayers.stream().filter(o -> !o.getId().equals(layer.getId())).collect(Collectors.toList());
-                saveMapVersionRecentlyStatus(map, nextLayers);
+                saveMapVersionRecentlyStatus(map, prevLayers, nextLayers);
             }
         }
     }

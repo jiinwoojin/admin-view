@@ -253,8 +253,6 @@ public class FileSystemUtil {
             while((size = zis.read(buffer)) > 0){
                 fos.write(buffer, 0, size);
             }
-        } catch (FileNotFoundException e) {
-            log.error("ERROR - " + e.getMessage());
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
         }
@@ -337,9 +335,6 @@ public class FileSystemUtil {
 
             return new File(zipPath + "/" + filename);
 
-        } catch (FileNotFoundException e) {
-            log.error("ERROR - " + e.getMessage());
-            return null;
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
             return null;
