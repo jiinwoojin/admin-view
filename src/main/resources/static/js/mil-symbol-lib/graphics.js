@@ -61,8 +61,8 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 
 	var code = SymbolUtilities.getBasicSymbolID(sidc);
 	var coordinates = []
-	if(stmp.mapObject && stmp.mapObject.map && stmp.mapObject.map._drawing_milsymbol_coordinates){
-		coordinates = stmp.mapObject.map._drawing_milsymbol_coordinates
+	if(milSymbolLoader && milSymbolLoader.map && milSymbolLoader.map._drawing_milsymbol_coordinates){
+		coordinates = milSymbolLoader.map._drawing_milsymbol_coordinates
 	}
 	if(coordinates.length > 0) {
 		if(SymbolDefTable.getSymbolDef(code, symStd)){
@@ -120,7 +120,7 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 		// scale 유사값
 		if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_2D){
 			// 맵박스
-			var zoom = Math.floor(stmp.mapObject.map.getZoom())
+			var zoom = Math.floor(milSymbolLoader.map.getZoom())
 			var res = {
 				0: 78271.484,
 				1: 39135.742,
@@ -157,7 +157,7 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 				if (y > ymax) ymax = y
 			}
 			var extent = [xmin,ymin,xmax,ymax]
-			var res = (xmax - xmin) / stmp.mapObject.map.container.clientWidth
+			var res = (xmax - xmin) / milSymbolLoader.map.container.clientWidth
 			var METERS_PER_DEGREES = 111194.87428468118
 			var inchesPerMetre = 39.37
 			var dpi = 96
@@ -166,15 +166,15 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 		}
 	}
 	if(format != undefined){
-		stmp.mapObject.map._drawing_milsymbol._svg_symbol = null
-		stmp.mapObject.map._drawing_milsymbol._geojson = null
-		stmp.mapObject.map._drawing_milsymbol._modifiers = null
+		milSymbolLoader.map._drawing_milsymbol._svg_symbol = null
+		milSymbolLoader.map._drawing_milsymbol._geojson = null
+		milSymbolLoader.map._drawing_milsymbol._modifiers = null
 		if(format == 'SVG'){
-			stmp.mapObject.map._drawing_milsymbol._svg_symbol = armyc2.c2sd.renderer.MilStdSVGRenderer.Render(symbolCode,modifiers); // Save Graphics symbol
-			stmp.mapObject.map._drawing_milsymbol._geojson = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);
+			milSymbolLoader.map._drawing_milsymbol._svg_symbol = armyc2.c2sd.renderer.MilStdSVGRenderer.Render(symbolCode,modifiers); // Save Graphics symbol
+			milSymbolLoader.map._drawing_milsymbol._geojson = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);
 		} else {
-			stmp.mapObject.map._drawing_milsymbol._geojson = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);
-			stmp.mapObject.map._drawing_milsymbol._modifiers = modifiers;
+			milSymbolLoader.map._drawing_milsymbol._geojson = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);
+			milSymbolLoader.map._drawing_milsymbol._modifiers = modifiers;
 		}
 	} else {
 		// 작전활동부호 미리보기 이미지

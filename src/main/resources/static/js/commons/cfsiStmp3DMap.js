@@ -41,9 +41,12 @@ var ji3DMap = function ji3DMap(options) {
     this.rightClickHandler= new Cesium.ScreenSpaceEventHandler(this.map.scene.canvas);
 
     this._bindEvents();
+
+    milSymbolLoader.init({map : this.map}, null)
 };
 
 ji3DMap.prototype.init = function init(options) {
+    //Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwNjI4Zjc5My1iOGY4LTRiYTUtOGE1NC1mM2VkNzgyODkxOTkiLCJpZCI6MTU4MDAsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1Njg4NTQ5ODB9.nNExhlkH4Ss0txvJrrUvR4UmIHr4IM0rPQohubzklgU";
     return new Cesium.Viewer(options.container, {
         sceneMode : Cesium.SceneMode.SCENE3D,
         timeline : false,
