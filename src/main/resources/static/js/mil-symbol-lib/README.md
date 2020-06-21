@@ -9,8 +9,8 @@
     ex) <script th:src="@{/js/commons/milSymbolLoader.js}"></script>
     
     - Folder : /src/main/resources/static/js/mil-symbol-lib
-    - Files : "milsymbol.js임","savm-bc.js","symbol.js","symbolCommon.js","graphics.js","html2canvas.min.js","mb-milSymbol.js","cmm-milSymbol.js"
-    - Import : /src/main/resources/static/js/commons/_*milSymbolLoader.js*_
+    - Files : "milsymbol.js", "savm-bc.js", "symbol.js", "symbolCommon.js", "graphics.js", "html2canvas.min.js", "mb-milSymbol.js", "cmm-milSymbol.js"
+    - Import : /src/main/resources/static/js/commons/milSymbolLoader.js
     
     
 ## 초기화 스크립트
