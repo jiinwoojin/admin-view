@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,9 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
 
     @Value("${project.data-path}")
     private String dataPath;
+
+    @Value("classpath:data/default-map-proxy.yaml")
+    private File defaultMapProxy;
 
     @Resource
     private ProxyLayerMapper proxyLayerMapper;
@@ -50,18 +54,8 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      * @param
      */
     private boolean saveYAMLFileByEachList(){
-        String context;
-        try {
-            context = MapProxyUtil.fetchYamlFileContextWithDTO(
-                proxyLayerMapper.findAll(), proxySourceMapper.findAll(), proxyCacheMapper.findAll(), dataPath
-            );
-        } catch (IOException e) {
-            log.error("ERROR - " + e.getMessage());
-            return false;
-        }
-
+        String context = MapProxyUtil.fetchYamlFileContextWithDTO(proxyLayerMapper.findBySelected(true), proxySourceMapper.findBySelected(true), proxyCacheMapper.findBySelected(true));
         FileSystemUtil.createAtFile(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME, context);
-
         return true;
     }
 
@@ -285,10 +279,10 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         proxySourceMapper.updateSelectedAllDisabled();
         proxyCacheMapper.updateSelectedAllDisabled();
 
-        proxyLayerMapper.updateSelectedByNameIn(proxySelectModel.getLayers(), true);
-        proxySourceMapper.updateSelectedByNameIn(proxySelectModel.getSources(), true);
-        proxyCacheMapper.updateSelectedByNameIn(proxySelectModel.getCaches(), true);
+        if(proxySelectModel.getLayers().size() > 0) proxyLayerMapper.updateSelectedByNameIn(proxySelectModel.getLayers(), true);
+        if(proxySelectModel.getSources().size() > 0) proxySourceMapper.updateSelectedByNameIn(proxySelectModel.getSources(), true);
+        if(proxySelectModel.getCaches().size() > 0) proxyCacheMapper.updateSelectedByNameIn(proxySelectModel.getCaches(), true);
 
-        return true;
+        return saveYAMLFileByEachList();
     }
 }
