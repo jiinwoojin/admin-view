@@ -271,6 +271,15 @@ public class FileSystemUtil {
     }
 
     /**
+     * 파일 확장자 추출
+     * @Param filename String
+     */
+    public static String loadFileExtensionName(String filename){
+        String[] split = filename.split("\\.");
+        return split[split.length - 1].toLowerCase();
+    }
+
+    /**
      * ZIP 파일 생성 메소드
      * @param dataPath String, zipPath String, filename String, paths List of Strings
      */
@@ -302,8 +311,8 @@ public class FileSystemUtil {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else { // CADRG 파일인 경우 (Vector 파일의 경우 조치 추가 필요)
-                String cadrgHome = dataPath + Constants.DATA_PATH + "/" + path.get("middleFolder");
+            } else { // CADRG, VECTOR 파일인 경우
+                String dirHome = dataPath + Constants.DATA_PATH + "/" + path.get("middleFolder");
                 try {
                     String[] split = path.get("middleFolder").split("/");
                     String tmpPath = split.length > 0 ? path.get("middleFolder") : "";
@@ -311,7 +320,7 @@ public class FileSystemUtil {
                         tmpPath = tmpPath.replaceFirst("(?s)(.*)" + split[split.length - 1], "$1");
                     }
                     File tmpDir = new File(String.format("%s/%s/%s", zipPath, filename.replace(".zip", ""), tmpPath));
-                    copyDirectory(new File(cadrgHome), tmpDir);
+                    copyDirectory(new File(dirHome), tmpDir);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
