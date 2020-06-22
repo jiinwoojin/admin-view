@@ -459,10 +459,19 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
     var datas = []
     if(geometryType === "Point"){
         if(constraint === "milSym"){
-            var imageData = milSymbolLoader.map._drawing_milsymbol.asCanvas().toDataURL()
-            milSymbolLoader.map.loadImage(imageData,function(e,image){
+            var imageData = milSymbolLoader.map._drawing_milsymbol.asCanvas().toDataURL('image/png')
+            /*milSymbolLoader.map.loadImage(imageData,function(e,image){
                 milSymbolLoader.map.addImage(drawId + "-image", image)
-            })
+            })*/
+
+            var image = new Image();
+            image.crossOrigin = 'anonymous';
+
+            image.addEventListener('load', function(e) {
+                milSymbolLoader.map.addImage(drawId + "-image", image)
+            });
+
+            image.src = imageData;
         }else{
             var cs = document.getElementById('SIDCCODINGSCHEME').value;
             drawMsymbol(options._symbol_serial, 'SVG', null, symStd, cs, function_sidc);
@@ -472,11 +481,21 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
             }
             jQuery("#svg-draw").empty()
             jQuery("#svg-draw").append(milSymbolLoader.map._drawing_milsymbol._svg_symbol.getSVG())
-            html2canvas(jQuery("#svg-draw svg")[0],{backgroundColor: "rgba(0,0,0,0)"}).then(function(canvas){
+            var imageData = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(milSymbolLoader.map._drawing_milsymbol._svg_symbol.getSVG())));
+            /*html2canvas(jQuery("#svg-draw svg")[0],{backgroundColor: "rgba(0,0,0,0)"}).then(function(canvas){
                 milSymbolLoader.map.loadImage(canvas.toDataURL(),function(e,image){
                     milSymbolLoader.map.addImage(drawId + "-image", image)
                 })
-            })
+            })*/
+
+            var image = new Image();
+            image.crossOrigin = 'anonymous';
+
+            image.addEventListener('load', function(e) {
+                milSymbolLoader.map.addImage(drawId + "-image", image)
+            });
+
+            image.src = imageData;
         }
         datas.push({
             type: 'Feature',
