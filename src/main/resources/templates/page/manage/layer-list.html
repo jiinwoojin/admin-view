@@ -449,7 +449,13 @@
                     if(fileType === 'RASTER'){
                         toastr.warning('ZIP 파일은 VECTOR 및 CADRG 타입만 업로드 가능합니다.');
                         return false;
-                    } else return true;
+                    } else if(fileType === 'VECTOR') {
+                       handleFile(form, form.action.indexOf("layer-create") > -1 ? 'INSERT' : 'UPDATE');
+                        return false;
+                    } else if(fileType === 'CADRG') {
+                        handleFile(form, form.action.indexOf("layer-create") > -1 ? 'INSERT' : 'UPDATE');
+                        return false;
+                    } else return false;
                 } else if (fileName.endsWith('tif') || fileName.endsWith('TIF')){
                     if(fileType !== 'RASTER'){
                         toastr.warning('TIFF 파일은 RASTER 타입만 업로드 가능합니다.');
@@ -460,6 +466,54 @@
                     return false;
                 }
             } else return true;
+        }
+
+        function handleFile(form, type) {
+            var file = document.getElementsByName('data_file')[type === 'INSERT' ? 0 : 1].files[0];
+            if(file) {
+                var type = $('#layer-type').val();
+                var zipMain = new JSZip();
+                if (type === 'VECTOR') {
+                    zipMain.loadAsync(file)
+                        .then(function (zip) {
+                            var arr = ['shp', 'shx', 'dbf'];
+                            zip.forEach(function (rPath) {
+                                var split = rPath.split('.');
+                                var ext = split[split.length - 1] && split[split.length - 1].toLowerCase();
+                                if(arr.includes(ext)){
+                                    arr.splice(arr.indexOf(ext), 1);
+                                }
+                            });
+                            if(arr.length > 0){
+                                if(arr.includes('shp')) {
+                                    toastr.warning('압축 파일 안에 *.shp 파일이 없습니다. 다시 업로드 하시길 바랍니다.')
+                                } else {
+                                    toastr.warning('SHP 파일 업로드 시, *.shp, *.shx, *.dbf 파일이 포함되어 있어야 합니다.');
+                                }
+                            } else {
+                                form.submit();
+                            };
+                        });
+                }
+
+                if (type === 'CADRG') {
+                    zipMain.loadAsync(file)
+                        .then(function (zip) {
+                            var inc = false;
+
+                            zip.forEach(function (rPath) {
+                                if(rPath === 'RPF/A.TOC') {
+                                    inc = true;
+                                }
+                            });
+
+                            if(inc) form.submit();
+                            else {
+                                toastr.warning('CADRG ZIP 파일을 올릴 때, 실행 파일 경로가 /RPF/A.TOC 에 저장되어 있는지 확인 부탁 드립니다.');
+                            }
+                        });
+                }
+            }
         }
 
         function addLayer(form) {
@@ -640,7 +694,6 @@
         }
     </script>
 </th:block>
-
 <th:block layout:fragment="custom-html-link">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/datapicker/datepicker3.css}">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/daterangepicker/daterangepicker-bs3.css}">
@@ -649,5 +702,6 @@
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/daterangepicker/daterangepicker.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jszip/jszip.min.js}"></script>
 </th:block>
 </html>
