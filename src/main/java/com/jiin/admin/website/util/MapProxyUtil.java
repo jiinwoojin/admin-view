@@ -45,7 +45,7 @@ public class MapProxyUtil {
      * @param
      * @note JPA Entity 대응 필요, wms_srs (복수), wms_title 등 메타 정보 주입 대응 필요
      */
-    public static String fetchYamlFileContextWithDTO(List<ProxyLayerDTO> layers, List<ProxySourceDTO> sources, List<ProxyCacheDTO> caches, String dataPath) throws IOException {
+    public static String fetchYamlFileContextWithDTO(List<ProxyLayerDTO> layers, List<ProxySourceDTO> sources, List<ProxyCacheDTO> caches) {
         Map<String, Object> yamlModel = new LinkedHashMap<>();
 
         List<Map<String, Object>> layers_y = new ArrayList<>();
@@ -120,12 +120,6 @@ public class MapProxyUtil {
 
         DumperOptions options = new DumperOptions();
         options.setDefaultFlowStyle(DumperOptions.FlowStyle.AUTO); // 이를 BLOCK 으로 설정하면, 배열 field 가 (- a) 같이 나오고, AUTO 로 설정하면 배열 field 가 배열로 나오지만 object 가 SET 문자열로 나옴.
-
-        File directory = new File(dataPath + Constants.PROXY_SETTING_FILE_PATH);
-        if(!directory.exists()) directory.mkdirs();
-
-        File file = new File(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME);
-        if(!file.exists()) file.createNewFile();
 
         Yaml yaml = new Yaml(options);
 

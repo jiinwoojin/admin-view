@@ -244,7 +244,7 @@ public class FileSystemUtil {
      * @param file File, zis ZipInputStream
      * @throws FileNotFoundException, IOException Exception
      */
-    private static void saveFileInZipStream(File file, ZipInputStream zis) throws IOException {
+    private static void saveFileInZipStream(File file, ZipInputStream zis) {
         File parent = new File(file.getParent());
         if(!parent.exists()) parent.mkdirs();
         try(FileOutputStream fos = new FileOutputStream(file)){
@@ -302,16 +302,15 @@ public class FileSystemUtil {
         }
 
         for(Map<String, String> path : paths) {
-            String cadrgExcludePath = dataPath + path.get("dataFilePath").replace(Constants.CADRG_DEFAULT_EXECUTE_DIRECTORY + Constants.CADRG_DEFAULT_EXECUTE_FILE, "");
-            File file = new File(cadrgExcludePath);
-            if (!file.isDirectory()) { // RASTER 파일인 경우
+            File file = new File(dataPath + path.get("dataFilePath"));
+            if(loadFileExtensionName(file.getName()).equals("tif")) { // RASTER (TIF) 대응
                 try {
                     File tmpFile = new File(String.format("%s/%s%s", zipPath, filename.replace(".zip", ""), path.get("dataFilePath").replaceFirst(Constants.DATA_PATH, "")));
                     copyDirectory(file, tmpFile);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else { // CADRG, VECTOR 파일인 경우
+            } else { // VECTOR (SHP) 및 CADRG 대응
                 String dirHome = dataPath + Constants.DATA_PATH + "/" + path.get("middleFolder");
                 try {
                     String[] split = path.get("middleFolder").split("/");

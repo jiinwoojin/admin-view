@@ -37,7 +37,7 @@ function submit_selected_data(){
         var form = document.createElement("form");
         form.setAttribute("charset", "UTF-8");
         form.setAttribute("method", "POST");
-        form.setAttribute("action", CONTEXT + "/view/cache/checking-save");
+        form.setAttribute("action", CONTEXT + "/view/proxy/checking-save");
 
         var hiddenField = document.createElement("input");
 
@@ -183,6 +183,10 @@ window.onload = function() {
     $('#list_table_source,#list_table_layer,#list_table_cache').each(function(){
         initialize_dataTable(this.id);
     });
+
+    if(message){
+        toastr.info(message);
+    }
 }
 
 function preSubmit(form){

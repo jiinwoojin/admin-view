@@ -126,7 +126,7 @@
                 >
                     <i class="fas fa-cog"></i>
                 </button>
-                <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/proxy/remove-layer?id=' + ${layer.id} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/proxy/layer-delete?id=' + ${layer.id} + '&name=' + ${layer.name} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                     <i class="fas fa-trash"></i>
                 </a>
             </td>
