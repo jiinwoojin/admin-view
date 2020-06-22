@@ -667,7 +667,6 @@ milSymbolLoader.milsymbolsChangeSourceData = function(sourceData, drawId, drawGe
             removeFeatures.splice( 0, 0, feature)
         }
     })
-    //console.log(symStd, cs, function_sidc)
     if(removeFeatures.length > 0){
         jQuery.each(removeFeatures, function(idx, removeFeature){
             sourceData.features.splice(removeFeature.position, 1)
@@ -704,7 +703,8 @@ milSymbolLoader.drawMilsymbol = function(options){
         toastr.error("MilSymbol options 값이 없습니다.")
         return
     }
-    var symbol = new ms.Symbol(options) // 심볼생성
+    console.log(options)
+    var symbol = {}
     var sidc = options.SIDC
     if (sidc.charAt(0) === 'W' || sidc.charAt(0) === 'G') {
         var drawInfo = getDrawGraphicsInfo(sidc);
@@ -712,14 +712,18 @@ milSymbolLoader.drawMilsymbol = function(options){
             toastr.warning("군대부호["+sidc+"] 의 정보를 가져올 수 없습니다.")
             return;
         }
+        var mode = "draw_line_string"
+
+        if(drawInfo.draw_type === 'Point'){
+            mode = "draw_point"
+            symbol = new ms.Symbol(options) // 심볼생성
+        }else{
+            symbol.options = {}
+        }
         symbol.options._min_point = drawInfo.min_point
         symbol.options._max_point = drawInfo.max_point
         symbol.options._draw_type = drawInfo.draw_type
         symbol.options._constraint = drawInfo.constraint
-        var mode = "draw_line_string"
-        if(drawInfo.draw_type === 'Point'){
-            mode = "draw_point"
-        }
         if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_2D){
             // 맵박스
             milSymbolLoader.drawControl.changeMode(mode)
@@ -728,6 +732,7 @@ milSymbolLoader.drawMilsymbol = function(options){
             stmp.mapObject.drawControlMode(mode,symbol.options._constraint)
         }
     } else {
+        symbol = new ms.Symbol(options) // 심볼생성
         symbol.options._min_point = 1
         symbol.options._max_point = 1
         symbol.options._draw_type = "Point"

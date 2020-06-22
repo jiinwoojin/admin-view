@@ -174,6 +174,11 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 			milSymbolLoader.map._drawing_milsymbol._geojson = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);
 		} else {
 			milSymbolLoader.map._drawing_milsymbol._geojson = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);
+			if(symbolCode === "GFG-GLC---****X"){
+				// 작전활동부호-지휘통제및일반작전-일반-선-접촉선
+				// 색상변경
+				milSymbolLoader.map._drawing_milsymbol._geojson = milSymbolLoader.map._drawing_milsymbol._geojson.replace("#FF0000","#000000")
+			}
 			milSymbolLoader.map._drawing_milsymbol._modifiers = modifiers;
 		}
 	} else {
