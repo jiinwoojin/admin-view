@@ -40,6 +40,11 @@
         </div>
         <!-- // Openlayers 종료 -->
 
+        <script th:inline="javascript">
+            var localMain = /*[[ ${local} ]]*/ null;
+            var port = /*[[ ${port} ]]*/ 0;
+        </script>
+
         <script>
             var mapSource, layer, map;
 
@@ -47,7 +52,7 @@
                 initialize_dataTable('list_table_layer');
 
                 mapSource = new ol.source.TileWMS({
-                    url: '[[${serviceURL}]]/service',
+                    url: `http://${localMain && localMain.ip}:${port}/service`,
                     params: {
                         'REQUEST' : 'getMap',
                         'LAYERS' : 'world_k2'

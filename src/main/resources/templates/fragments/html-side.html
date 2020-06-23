@@ -37,7 +37,7 @@
                         </a>
                     </li>
                     <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/manage/layer') ? 'active' : '' }">
-                        <a class="nav-link" th:href="@{/view/manage/layer-list?pg=1&sz=8&lType=ALL}">
+                        <a class="nav-link" th:href="@{/view/manage/layer-list?pg=1&sz=10&lType=ALL}">
                             <i class="fas fa-fw fa-layer-group"></i>
                             <span class="nav-label">LAYER 관리</span>
                         </a>
@@ -75,23 +75,23 @@
                 </ul>
             </li>
 
-            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache') ? 'active' : '' }">
+            <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/proxy') ? 'active' : '' }">
                 <a href="#" aria-expanded="true"><i class="fa fa-caret-right"></i> <span class="nav-label">서비스 캐시 관리</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse" aria-expanded="false">
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/preview') ? 'active' : '' }">
-                        <a th:href="@{/view/cache/preview}">
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/proxy/preview') ? 'active' : '' }">
+                        <a th:href="@{/view/proxy/preview}">
                             <i class="fas fa-fw fa-search"></i>
                             <span class="nav-label">조회</span>
                         </a>
                     </li>
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/setting') ? 'active' : '' }">
-                        <a th:href="@{/view/cache/setting}">
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/proxy/setting') ? 'active' : '' }">
+                        <a th:href="@{/view/proxy/setting}">
                             <i class="fas fa-fw fa-cogs"></i>
                             <span class="nav-label">설정</span>
                         </a>
                     </li>
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/cache/seeding') ? 'active' : '' }">
-                        <a th:href="@{/view/cache/seeding}">
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/proxy/seeding') ? 'active' : '' }">
+                        <a th:href="@{/view/proxy/seeding}">
                             <i class="fas fa-fw fa-calendar"></i>
                             <span class="nav-label">SEED 설정</span>
                         </a>

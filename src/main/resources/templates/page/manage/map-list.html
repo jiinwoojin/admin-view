@@ -274,7 +274,7 @@
                     if(result) {
                         toastr.success("Map [ " + mapName+ " ] 가 제거 되었습니다.");
                         $(ths).parents('.map-item').remove();
-                        if($('.map-item').length == 7){
+                        if($('.map-item').length == 7 || $('.map-item').length == 0){
                             window.location.href = CONTEXT + '/view/manage/map-list?pg=1&sz=8&iType=ALL&units=ALL';
                         } else {
                             var total = $('#total');

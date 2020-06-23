@@ -111,6 +111,17 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         return mapServerBinary;
     }
 
+    @Override
+    public String loadProxyYamlSetting() {
+        try {
+            String text = FileSystemUtil.fetchFileContext(dataPath + Constants.PROXY_SETTING_FILE_PATH + Constants.PROXY_SETTING_FILE_NAME);
+            return text;
+        } catch (IOException e) {
+            log.error("ERROR - " + e.getMessage());
+            return "text";
+        }
+    }
+
     /**
      * 각 캐시 정보 목록들을 불러온다.
      * @param type String

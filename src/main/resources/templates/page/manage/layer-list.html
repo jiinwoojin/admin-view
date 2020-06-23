@@ -8,7 +8,7 @@
         <h2 class="page_tit">LAYER 관리</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a th:href="@{/view/manage/map-manage?pg=1&sz=8&lType=ALL&units=ALL}">지도 관리</a>
+                <a th:href="@{/view/manage/map-list?pg=1&sz=8&lType=ALL&units=ALL}">지도 관리</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">LAYER 관리</li>
         </ol>
@@ -22,7 +22,7 @@
             <div class="ibox-content">
                 <form onsubmit="return onsubmit_check()">
                     <input type="hidden" name="pg" value="1" />
-                    <input type="hidden" name="sz" value="8" />
+                    <input type="hidden" name="sz" value="10" />
 
                     <div class="row justify-content-md-center">
                         <div class="col-xl-3 col-lg-5 col-sm-12 mb-sm-1 mb-0">
@@ -108,6 +108,10 @@
                                             <input type="radio" id="vector" name="lType" value="VECTOR" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'VECTOR') }" />&nbsp;&nbsp;
                                             <label class="form-check-label" for="vector">벡터</label>
                                         </div>
+                                        <div class="form-check form-check-inline i-checks">
+                                            <input type="radio" id="cadrg" name="lType" value="CADRG" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'CADRG') }" />&nbsp;&nbsp;
+                                            <label class="form-check-label" for="cadrg">CADRG</label>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -143,83 +147,53 @@
     </div>
 
     <!-- pannal List #START -->
-    <div class="result_area">
-
-        <ul class="col_list col_xxl_3" th:if="${ resMap.count > 0 }">
-            <li class="layer-item" th:each="layer : ${ resMap.data }">
-                <div class="ibox">
-                    <div class="ibox-title">
-                        <h3 class="section_tit" th:text="${layer.name}">[LAYER 제목]</h3>
-                        <div class="ibox-tools">
-                            <a th:if="${layer.isDefault()}" href="#" data-toggle="tooltip" data-placement="top" title="수정 및 삭제 불가.">
-                                <i class="fas fa-map-pin"></i>
+    <div class="result_area" id="list-view">
+        <table class="table table-sm table-striped" th:if="${ resMap.count > 0 }">
+            <thead>
+                <tr>
+                    <th class="text-center align-middle">LAYER 이름</th>
+                    <th class="text-center align-middle">업로드 일자</th>
+                    <th class="text-center align-middle">올린 사람</th>
+                    <th class="text-center align-middle">좌표계</th>
+                    <th class="text-center align-middle">버전</th>
+                    <th class="text-center align-middle">버튼</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="layer-item" th:each="layer : ${ resMap.data }">
+                    <td class="text-center align-middle" th:text="${ layer.name }"></td>
+                    <td class="text-center align-middle" th:text="${ layer.registTime }"></td>
+                    <td class="text-center align-middle" th:text="${ layer.registorName }"></td>
+                    <td class="text-center align-middle" th:text="${ layer.projection }"></td>
+                    <td class="text-center align-middle" th:text="${ layer.version == null ? 'NONE' : layer.version }"></td>
+                    <td class="text-center align-middle">
+                        <block th:remove="tag" th:if="${ layer.isDefault() }">
+                            <a class="btn btn-sm btn-circle btn-secondary" href="#" data-toggle="tooltip" data-placement="top" title="수정 및 삭제 불가.">
+                                <i class="fas fa-map-pin text-white"></i>
                             </a>
-                            <a th:if="${!layer.isDefault()}" data-toggle="modal" href="#layer-update" data-target="#layer-update"
-                                   th:data-id="${ layer.id }"
-                                   th:data-version="${ layer.version }"
-                                   th:data-name="${ layer.name }"
-                                   th:data-description="${ layer.description }"
-                                   th:data-projection="${ layer.projection }"
-                                   th:data-middlefolder="${ layer.middleFolder }"
-                                   th:data-layertype="${ layer.type }"
-                                   th:data-filepath="${ layer.dataFilePath }"
+                        </block>
+                        <block th:remove="tag" th:unless="${ layer.isDefault() }">
+                            <a class="btn btn-sm btn-circle btn-info mx-1" data-toggle="modal" href="#layer-update" data-target="#layer-update"
+                               th:data-id="${ layer.id }"
+                               th:data-version="${ layer.version }"
+                               th:data-name="${ layer.name }"
+                               th:data-description="${ layer.description }"
+                               th:data-projection="${ layer.projection }"
+                               th:data-middlefolder="${ layer.middleFolder }"
+                               th:data-layertype="${ layer.type }"
+                               th:data-filepath="${ layer.dataFilePath }"
+                               title="수정"
                             >
                                 <i class="fas fa-cog"></i>
                             </a>
-                            <a th:if="${!layer.isDefault()}" th:onclick="delLayer(this,[[${layer.name}]],[[${layer.id}]])" title="삭제">
-                                <i class="fas fa-trash"></i>
+                            <a class="btn btn-sm btn-circle btn-danger mx-1" th:onclick="delLayer(this,[[${layer.name}]],[[${layer.id}]])" title="삭제">
+                                <i class="fas fa-trash text-white"></i>
                             </a>
-                        </div>
-                    </div>
-                    <div class="ibox-content">
-                        <table class="table table-stripped small m-t-md">
-                            <tbody>
-                            <tr>
-                                <th class="no-borders">
-                                    <i class="fas fa-calendar"></i> 등록일
-                                </th>
-                                <td class="no-borders">
-                                    <span th:text="${layer.registTime}">[LAYER 등록일]</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <i class="fas fa-user"></i> 등록자
-                                </th>
-                                <td>
-                                    <span th:text="${layer.registorName}">[LAYER 등록자]</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <i class="fas fa-book"></i> 내용 설명
-                                </th>
-                                <td>
-                                    <span th:text="${layer.description}">[LAYER 내용 설명]</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <i class="fas fa-binoculars"></i> 투영
-                                </th>
-                                <td>
-                                    <span th:text="${layer.projection}">[LAYER 투영]</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    <i class="fas fa-code-branch"></i> 버전
-                                </th>
-                                <td>
-                                    <span th:text="${layer.version == null ? 'NONE' : layer.version}">[LAYER 버전]</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </li>
-        </ul>
+                        </block>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
         <div class="jumbotron jumbotron-fluid" th:unless="${ resMap.count > 0 }">
             <div class="container">
@@ -267,7 +241,6 @@
                             <label for="layer-description">설명</label>
                             <input type="text" class="form-control" name="description" id="layer-description">
                         </div>
-                        <!-- TODO select 로 수정 필요함 -->
                         <div class="form-group">
                             <label for="layer-projection">투영</label>
                             <select class="form-control" id="layer-projection" name="projection">
@@ -345,7 +318,6 @@
                             <label for="layer-description-u">설명</label>
                             <input type="text" class="form-control" name="description" id="layer-description-u">
                         </div>
-                        <!-- TODO select 로 수정 필요함 -->
                         <div class="form-group">
                             <label for="layer-projection-u">투영</label>
                             <select class="form-control" id="layer-projection-u" name="projection">
@@ -450,7 +422,7 @@
                         toastr.warning('ZIP 파일은 VECTOR 및 CADRG 타입만 업로드 가능합니다.');
                         return false;
                     } else if(fileType === 'VECTOR') {
-                       handleFile(form, form.action.indexOf("layer-create") > -1 ? 'INSERT' : 'UPDATE');
+                        handleFile(form, form.action.indexOf("layer-create") > -1 ? 'INSERT' : 'UPDATE');
                         return false;
                     } else if(fileType === 'CADRG') {
                         handleFile(form, form.action.indexOf("layer-create") > -1 ? 'INSERT' : 'UPDATE');
@@ -550,8 +522,8 @@
                     if (result) {
                         toastr.success("Layer [ " + layerName + " ] 가 제거 되었습니다.");
                         jQuery(ths).parents('.layer-item').remove();
-                        if($('.layer-item').length === 7){
-                            window.location.href = CONTEXT + '/view/manage/layer-list?pg=1&sz=8&lType=ALL';
+                        if($('.layer-item').length === 9 || $('.layer-item').length === 0) {
+                            window.location.href = CONTEXT + '/view/manage/layer-list?pg=1&sz=10&lType=ALL';
                         } else {
                             var total = $('#total');
                             total.html((Number(total.html()) - 1));

@@ -9,6 +9,7 @@ public interface ProxyCacheService {
     String loadDataDir();
     String loadProxyCacheMainDir();
     String loadMapServerBinary();
+    String loadProxyYamlSetting();
 
     Object loadDataList(String type);
     Object loadDataListBySelected(String type, Boolean selected);

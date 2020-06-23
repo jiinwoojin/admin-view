@@ -6,7 +6,10 @@ import com.jiin.admin.website.model.ProxyLayerModelV2;
 import com.jiin.admin.website.model.ProxySelectModel;
 import com.jiin.admin.website.model.ProxySourceModelV2;
 import com.jiin.admin.website.view.service.ProxyCacheService;
+import com.jiin.admin.website.view.service.ServerCenterInfoService;
+import com.jiin.admin.website.view.service.ServiceInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,11 +22,20 @@ import java.io.IOException;
 @Controller
 @RequestMapping("proxy")
 public class MVCProxyController {
+    @Value("${project.server-port.mapproxy-port}")
+    private int MAP_PROXY_PORT;
+
     @Autowired
     private ProxyCacheService proxyCacheService;
 
     @Autowired
     private SessionService sessionService;
+
+    @Autowired
+    private ServerCenterInfoService serverCenterInfoService;
+
+    @Autowired
+    private ServiceInfoService serviceInfoService;
 
     @RequestMapping("setting")
     public String pageProxySetting(Model model){
@@ -80,5 +92,20 @@ public class MVCProxyController {
         boolean result = proxyCacheService.setProxyDataSelectByModel(proxySelectModel);
         sessionService.message(result ? "모든 PROXY 정보들이 수정 되었습니다." : "모든 PROXY 정보들을 설정하는 도중 오류가 발생했습니다.");
         return "redirect:setting";
+    }
+
+    @RequestMapping("preview")
+    public String proxyLayerPreview(Model model){
+        model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
+        model.addAttribute("port", MAP_PROXY_PORT);
+        model.addAttribute("proxyLayers", proxyCacheService.loadDataList("LAYERS"));
+        model.addAttribute("proxyYAML", proxyCacheService.loadProxyYamlSetting());
+        return "page/proxy/preview";
+    }
+
+    @RequestMapping("seeding")
+    public String proxySeedingSetting(Model model){
+        model.addAttribute("proxyLayers", proxyCacheService.loadDataList("LAYERS"));
+        return "page/proxy/seeding";
     }
 }
