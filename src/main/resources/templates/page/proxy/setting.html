@@ -26,7 +26,10 @@
                     <a class="nav-link active" id="layer-tab" data-toggle="tab" href="#layer" role="tab" aria-controls="layer" aria-selected="true">Layer</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="source-tab" data-toggle="tab" href="#source" role="tab" aria-controls="source" aria-selected="false">Source</a>
+                    <a class="nav-link" id="source-mapserver-tab" data-toggle="tab" href="#source-mapserver" role="tab" aria-controls="source-mapserver" aria-selected="false">Source (MapServer)</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="source-wms-tab" data-toggle="tab" href="#source-wms" role="tab" aria-controls="source-wms" aria-selected="false">Source (WMS)</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="cache-tab" data-toggle="tab" href="#cache" role="tab" aria-controls="cache" aria-selected="false">Cache</a>
@@ -37,9 +40,12 @@
                     <th:block th:replace="fragments/proxy/html-proxy-layer"></th:block>
                 </div>
 
-                <div class="tab-pane fade" id="source" role="tabpanel" aria-labelledby="source-tab">
-                    <th:block th:replace="fragments/proxy/html-proxy-source"></th:block>
+                <div class="tab-pane fade" id="source-mapserver" role="tabpanel" aria-labelledby="source-mapserver-tab">
+                    <th:block th:replace="fragments/proxy/html-proxy-source-mapserver"></th:block>
+                </div>
 
+                <div class="tab-pane fade" id="source-wms" role="tabpanel" aria-labelledby="source-wms-tab">
+                    <th:block th:replace="fragments/proxy/html-proxy-source-wms"></th:block>
                 </div>
 
                 <div class="tab-pane fade" id="cache" role="tabpanel" aria-labelledby="cache-tab">

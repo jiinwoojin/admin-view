@@ -122,7 +122,7 @@ window.onload = function() {
     });
 
     // Source 데이터 중 모달 생성 시 MapServer 데이터 추출.
-    $('#sourceModal').on('show.bs.modal', function (event) {
+    $('#sourceMapServerModal').on('show.bs.modal', function (event) {
         var mapFile = document.getElementById('mapFile');
         var mapLayer = document.getElementById('mapLayer');
 
@@ -151,7 +151,7 @@ window.onload = function() {
     });
 
     // Source 데이터 중 모달 파기 시 원상 복귀.
-    $('#sourceModal').on('hide.bs.modal', function (event) {
+    $('#sourceMapServerModal').on('hide.bs.modal', function (event) {
         $("select#mapFile option").remove();
         $("select#mapLayer option").remove();
 
@@ -174,13 +174,16 @@ window.onload = function() {
     });
 
     // CACHE 이름이 바뀔 때 마다 경로 설정을 위한 이벤트
-    document.getElementById('cache-name').onchange = function(e){
-        var cacheDirectory = document.getElementById('cache-cacheDirectory');
-        cacheDirectory.value = cacheDirectoryPath + e.target.value + '/';
+    var dom = document.getElementById('cache-name');
+    if(dom) {
+        dom.onchange = function (e) {
+            var cacheDirectory = document.getElementById('cache-cacheDirectory');
+            cacheDirectory.value = cacheDirectoryPath + e.target.value + '/';
+        }
     }
 
     // 각 데이터 별로 DataTables 초기화
-    $('#list_table_source,#list_table_layer,#list_table_cache').each(function(){
+    $('#list_table_sourceMapServer,#list_table_sourceWMS,#list_table_layer,#list_table_cache').each(function(){
         initialize_dataTable(this.id);
     });
 
@@ -198,8 +201,10 @@ function preSubmit(form){
     switch($(form).data('title')){
         case 'layer-form' :
             return confirm && layerRelationValidation();
-        case 'source-form' :
+        case 'source-mapserver-form' :
             return confirm && requestValidation();
+        case 'source-wms-form' :
+            return confirm;
         case 'cache-form' :
             return confirm && cacheRelationValidation();
     }
@@ -256,27 +261,34 @@ function cacheRelationValidation(){
 
 // 생성 버튼 클릭
 function onclick_insert_data(type) {
-    document.getElementById(type + '-name').readOnly = false;
-    document.getElementById(type + '-validate-btn').style.display = 'block';
-    document.getElementById(type + '-validate-text').style.display = 'block';
+    console.log(type);
+    var nameDOM = document.getElementById(type + '-name');
 
-    $('#' + type + 'Modal').modal('show');
-    $('#' + type + '-id').val(0);
-    $('#' + type + '-method').val('INSERT');
+    if(nameDOM) {
+        nameDOM.readOnly = false;
+        document.getElementById(type + '-validate-btn').style.display = 'block';
+        document.getElementById(type + '-validate-text').style.display = 'block';
 
-    if (type === 'source'){
-        $('#source-type').val('mapserver');
-        $('#source-requestMap').val('[none]');
-        $('#source-requestLayers').val('[none]');
-        $('#source-mapServerBinary').val(mapServerBinary);
-        $('#source-mapServerWorkDir').val(dataDirPath + '/temp');
-    }
+        $('#' + type + 'Modal').modal('show');
+        $('#' + type + '-id').val(0);
+        $('#' + type + '-method').val('INSERT');
 
-    if(type === 'cache') {
-        $('#cache-cacheType').val('file');
-        $('#cache-cacheDirectory').val(cacheDirectoryPath);
-        $('#directoryEdit').val(false);
-        document.getElementById('cache-cacheDirectory').readOnly = true;
+        if (type === 'sourceMapServer') {
+            $('#sourceMapServer-type').val('mapserver');
+            $('#sourceMapServer-requestMap').val('[none]');
+            $('#sourceMapServer-requestLayers').val('[none]');
+            $('#sourceMapServer-mapServerBinary').val(mapServerBinary);
+            $('#sourceMapServer-mapServerWorkDir').val(dataDirPath + '/temp');
+        }
+
+        if (type === 'cache') {
+            $('#cache-cacheType').val('file');
+            $('#cache-cacheDirectory').val(cacheDirectoryPath);
+            $('#directoryEdit').val(false);
+            document.getElementById('cache-cacheDirectory').readOnly = true;
+        }
+    } else {
+        toastr.warning('SOURCE 를 YAML 파일에 등록하시길 바랍니다.');
     }
 }
 
@@ -284,23 +296,30 @@ function onclick_insert_data(type) {
 function onclick_update_data(btn){
     var data = $(btn).data();
 
-    document.getElementById(data.obj + '-name').readOnly = true;
-    document.getElementById(data.obj + '-validate-btn').style.display = 'none';
-    document.getElementById(data.obj + '-validate-text').style.display = 'none';
+    console.log(data);
 
-    $('#' + data.obj + 'Modal').modal('show');
-    for(var key in data) {
-        if (key !== 'obj') {
-            $('#' + data.obj + '-' + key).val(data[key]);
-        }
-        if (key === 'requestLayers'){
-            $('#mapLayer_multiple').tagsinput('add', data[key]);
-        }
-    }
+    var nameDOM = document.getElementById(data.obj + '-name');
+    if(nameDOM) {
+        nameDOM.readOnly = true;
+        document.getElementById(data.obj + '-validate-btn').style.display = 'none';
+        document.getElementById(data.obj + '-validate-text').style.display = 'none';
 
-    if(data.obj === 'cache'){
-        $('#directoryEdit').val(false);
-        document.getElementById('cache-cacheDirectory').readOnly = true;
+        $('#' + data.obj + 'Modal').modal('show');
+        for (var key in data) {
+            if (key !== 'obj') {
+                $('#' + data.obj + '-' + key).val(data[key]);
+            }
+            if (key === 'requestLayers') {
+                $('#mapLayer_multiple').tagsinput('add', data[key]);
+            }
+        }
+
+        if (data.obj === 'cache') {
+            $('#directoryEdit').val(false);
+            document.getElementById('cache-cacheDirectory').readOnly = true;
+        }
+    } else {
+        toastr.warning('SOURCE 를 YAML 파일에 등록하시길 바랍니다.');
     }
 }
 

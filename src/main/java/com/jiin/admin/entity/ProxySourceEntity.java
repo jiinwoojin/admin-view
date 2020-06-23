@@ -13,9 +13,11 @@ import javax.persistence.*;
         initialValue = 1,
         allocationSize = 1
 )
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "type")
 @Getter
 @Setter
-public class ProxySourceEntity implements Persistable<Long> {
+public abstract class ProxySourceEntity implements Persistable<Long> {
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
@@ -29,36 +31,6 @@ public class ProxySourceEntity implements Persistable<Long> {
      */
     @Column(name = "NAME", length = 20, nullable = false, unique = true)
     private String name;
-
-    /**
-     * Source 종류
-     */
-    @Column(name = "TYPE", nullable = false)
-    private String type;
-
-    /**
-     * REQUEST MAP
-     */
-    @Column(name = "REQUEST_MAP", nullable = false)
-    private String requestMap;
-
-    /**
-     * REQUEST LAYERS
-     */
-    @Column(name = "REQUEST_LAYERS", nullable = false)
-    private String requestLayers;
-
-    /**
-     * MapServer Binary
-     */
-    @Column(name = "MAP_SERVER_BINARY", nullable = false)
-    private String mapServerBinary;
-
-    /**
-     * MapServer Working Directory
-     */
-    @Column(name = "MAP_SERVER_WORK_DIR", nullable = false)
-    private String mapServerWorkDir;
 
     /**
      * SELECTED BOOL

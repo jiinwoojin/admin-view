@@ -1,22 +1,22 @@
 <div class="py-1">
-    <h3 class="section_tit my-1">소스 관리</h3>
+    <h3 class="section_tit my-1">소스 (MapServer) 관리</h3>
     <div class="text-right my-1">
-        <button type="button" class="btn btn-info btn-sm" onclick="onclick_insert_data('source')">
+        <button type="button" class="btn btn-info btn-sm" onclick="onclick_insert_data('sourceMapServer')">
             <i class="fas fa-plus"></i> 데이터 추가
         </button>
     </div>
 
-    <!-- Data Form Modal - SOURCE 시작 -->
-    <div class="modal fade" id="sourceModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Data Form Modal - SOURCE MAP SERVER 시작 -->
+    <div class="modal fade" id="sourceMapServerModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
-                <form data-title="source-form" th:action="@{/view/proxy/source-save}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)">
-                    <input type="hidden" id="source-id" name="id" value="0" />
-                    <input type="hidden" id="source-method" name="method" value="INSERT" />
+                <form data-title="sourceMapServer-form" th:action="@{/view/proxy/source-mapserver-save}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)">
+                    <input type="hidden" id="sourceMapServer-id" name="id" value="0" />
+                    <input type="hidden" id="sourceMapServer-method" name="method" value="INSERT" />
 
                     <div class="modal-header">
-                        <h4 class="cont_tit">데이터 <span id="source-method-title"></span> - Source</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('source')">
+                        <h4 class="cont_tit">데이터 <span id="sourceMapServer-method-title"></span> - Source (MapServer)</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('sourceMapServer')">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -24,22 +24,22 @@
                     <div class="modal-body">
                         <div class="form-group row">
                             <div class="col-12">
-                                <label for="source-name">리소스 이름 <span class="text-danger">(*)</span></label>
+                                <label for="sourceMapServer-name">리소스 이름 <span class="text-danger">(*)</span></label>
                             </div>
                             <div class="col-12 input-group">
-                                <input type="text" class="form-control" id="source-name" name="name">
+                                <input type="text" class="form-control" id="sourceMapServer-name" name="name">
                                 <div class="input-group-append">
-                                    <span id="source-validate-btn" class="input-group-btn btn btn-primary" onclick="jiCommon.duplicateCheck('PROXYSOURCE','#source-name','#duplicate-check-message-proxy-source')" style="cursor: pointer;">중복확인</span>
+                                    <span id="sourceMapServer-validate-btn" class="input-group-btn btn btn-primary" onclick="jiCommon.duplicateCheck('PROXYSOURCE','#sourceMapServer-name','#duplicate-check-message-proxy-sourceMapServer')" style="cursor: pointer;">중복확인</span>
                                 </div>
                             </div>
-                            <div id="source-validate-text" class="col-12">
-                                <small class="form-text text-muted" id="duplicate-check-message-proxy-source">중복확인을 해주세요.</small>
+                            <div id="sourceMapServer-validate-text" class="col-12">
+                                <small class="form-text text-muted" id="duplicate-check-message-proxy-sourceMapServer">중복확인을 해주세요.</small>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="source-type">리소스 종류 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control" id="source-type" name="type" readonly />
+                            <label for="sourceMapServer-type">리소스 종류 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" id="sourceMapServer-type" name="type" value="mapserver" readonly />
                         </div>
 
                         <div class="form-group">
@@ -50,8 +50,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="source-requestMap">Map 파일 주소 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control" id="source-requestMap" name="requestMap" readonly />
+                            <label for="sourceMapServer-requestMap">Map 파일 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" id="sourceMapServer-requestMap" name="requestMap" readonly />
                         </div>
 
                         <div class="form-group">
@@ -63,18 +63,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="source-requestLayers">요청 Layer <span class="text-info">(*)</span></label>
-                            <input type="text" class="form-control" id="source-requestLayers" name="requestLayers" readonly />
+                            <label for="sourceMapServer-requestLayers">요청 Layer <span class="text-info">(*)</span></label>
+                            <input type="text" class="form-control" id="sourceMapServer-requestLayers" name="requestLayers" readonly />
                         </div>
 
                         <div class="form-group">
-                            <label for="source-mapServerBinary">MapServer 바이러리 주소 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control" id="source-mapServerBinary" name="mapServerBinary" readonly />
+                            <label for="sourceMapServer-mapServerBinary">MapServer 바이러리 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" id="sourceMapServer-mapServerBinary" name="mapServerBinary" readonly />
                         </div>
 
                         <div class="form-group">
-                            <label for="source-mapServerWorkDir">MapServer 작업 주소 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control" id="source-mapServerWorkDir" name="mapServerWorkDir" readonly />
+                            <label for="sourceMapServer-mapServerWorkDir">MapServer 작업 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control" id="sourceMapServer-mapServerWorkDir" name="mapServerWorkDir" readonly />
                         </div>
 
                         <p><span class="text-danger">(*)</span> : 해당 데이터는 반드시 입력 되어야 합니다.</p>
@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="onclick_close('source')">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="onclick_close('sourceMapServer')">
                             <i class="fas fa-times"></i> 취소
                         </button>
                         <button type="submit" class="btn btn-primary">
@@ -96,24 +96,22 @@
     <!-- Data Form Modal - SOURCE 끝 -->
 
     <!-- Data List Table - SOURCE 시작 -->
-    <table id="list_table_source" class="table basic my-1">
+    <table id="list_table_sourceMapServer" class="table basic my-1">
         <thead class="table-info">
         <tr>
             <th scope="col" class="text-center">이름</th>
-            <th scope="col" class="text-center">종류</th>
             <th scope="col" class="text-center">수정 및 삭제</th>
             <th scope="col" class="text-center">설정 적용</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="source : ${ sources }">
+        <tr th:each="source : ${ sources_mapserver }">
             <td class="text-center align-middle" th:text="${ source.name }"></td>
-            <td class="text-center align-middle" th:text="${ source.type }"></td>
             <td class="text-center align-middle">
                 <button
                     type="button"
                     class="btn btn-info btn-circle btn-sm mx-1"
-                    data-obj="source"
+                    data-obj="sourceMapServer"
                     th:data-id="${source.id}"
                     data-method="UPDATE"
                     th:data-name="${source.name}"
@@ -126,7 +124,7 @@
                 >
                     <i class="fas fa-cog"></i>
                 </button>
-                <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/proxy/source-delete?id=' + ${source.id} + '&name=' + ${source.name} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/proxy/source-mapserver-delete?id=' + ${source.id} + '&name=' + ${source.name} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
                     <i class="fas fa-trash"></i>
                 </a>
             </td>
@@ -138,5 +136,5 @@
         </tr>
         </tbody>
     </table>
-    <!-- Data List Table - SOURCE 끝 -->
+    <!-- Data List Table - SOURCE MAP SERVER 끝 -->
 </div>

@@ -1,8 +1,7 @@
 package com.jiin.admin.website.view.service;
 
 import com.jiin.admin.Constants;
-import com.jiin.admin.dto.ProxyCacheDTO;
-import com.jiin.admin.dto.ProxySourceDTO;
+import com.jiin.admin.dto.*;
 import com.jiin.admin.mapper.data.*;
 import com.jiin.admin.website.model.*;
 import com.jiin.admin.website.util.FileSystemUtil;
@@ -114,7 +113,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     @Override
     public String loadProxyYamlSetting() {
         try {
-            String text = FileSystemUtil.fetchFileContext(dataPath + Constants.PROXY_SETTING_FILE_PATH + Constants.PROXY_SETTING_FILE_NAME);
+            String text = FileSystemUtil.fetchFileContext(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME);
             return text;
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
@@ -131,8 +130,10 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         switch(type){
             case "LAYERS" :
                 return proxyLayerMapper.findAll();
-            case "SOURCES" :
-                return proxySourceMapper.findAll();
+            case "SOURCES_MAPSERVER" :
+                return proxySourceMapper.findAllMapServer();
+            case "SOURCES_WMS" :
+                return proxySourceMapper.findAllWMS();
             case "CACHES" :
                 return proxyCacheMapper.findAll();
             default :
@@ -159,73 +160,98 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     }
 
     /**
-     * 각 캐시 정보의 Form 을 초기화 한다.
-     * @param type String
-     */
-    @Override
-    public Object loadDataModel(String type) {
-        switch(type){
-            case "LAYERS" :
-                return new ProxyLayerModel(0L, "", "", new ArrayList<>(), new ArrayList<>());
-            case "SOURCES" :
-                return new ProxySourceModel(0L, "", "mapserver", "[none]", "[none]", mapServerBinary, dataPath + "/tmp");
-            case "CACHES" :
-                return new ProxyCacheModel(0L, "", "file", "", 0, 0, 0, new ArrayList<>());
-            default :
-                return null;
-        }
-    }
-
-    /**
      * 현재 MapProxy 의 yaml 설정 파일에 선택된 데이터 목록을 호출한다.
      * @param
      */
     @Override
     public ProxySelectModel loadProxySetting() {
         return new ProxySelectModel(
-              proxyLayerMapper.findBySelected(true).stream().map(o -> o.getName()).collect(Collectors.toList()),
-              proxySourceMapper.findBySelected(true).stream().map(o -> o.getName()).collect(Collectors.toList()),
-              proxyCacheMapper.findBySelected(true).stream().map(o -> o.getName()).collect(Collectors.toList())
+            proxyLayerMapper.findBySelected(true).stream().map(o -> o.getName()).collect(Collectors.toList()),
+            proxySourceMapper.findBySelected(true).stream().map(o -> o.getName()).collect(Collectors.toList()),
+            proxyCacheMapper.findBySelected(true).stream().map(o -> o.getName()).collect(Collectors.toList())
         );
     }
 
     /**
      * MapProxy 기반 Layer 정보를 저장한다.
-     * @param proxyLayerModelV2 ProxyLayerModelV2
+     * @param proxyLayerModel ProxyLayerModel
      */
     @Override
     @Transactional
-    public boolean saveProxyLayerByModel(ProxyLayerModelV2 proxyLayerModelV2) {
-        switch(proxyLayerModelV2.getMethod()){
+    public boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel) {
+        ProxyLayerDTO layer = proxyLayerMapper.findByName(proxyLayerModel.getName());
+        ProxyLayerDTO dto;
+        switch(proxyLayerModel.getMethod()){
             case "INSERT" :
-                if(proxyLayerMapper.findByName(proxyLayerModelV2.getName()) != null) return false;
+                if(layer != null) return false;
                 long nextIdx = proxyLayerMapper.findNextSeqVal();
-                proxyLayerModelV2.setId(nextIdx);
-                return proxyLayerMapper.insert(ProxyLayerModelV2.convertDTO(proxyLayerModelV2)) > 0 && createRelationWithMainIdAndSubNames("LAYER", "SOURCE", nextIdx, proxyLayerModelV2.getSources()) && createRelationWithMainIdAndSubNames("LAYER", "CACHE", nextIdx, proxyLayerModelV2.getCaches()) && saveYAMLFileByEachList();
+                proxyLayerModel.setId(nextIdx);
+                dto = ProxyLayerModel.convertDTO(proxyLayerModel);
+                dto.setIsDefault(false);
+                dto.setSelected(false);
+                return proxyLayerMapper.insert(dto) > 0 && createRelationWithMainIdAndSubNames("LAYER", "SOURCE", nextIdx, proxyLayerModel.getSources()) && createRelationWithMainIdAndSubNames("LAYER", "CACHE", nextIdx, proxyLayerModel.getCaches()) && saveYAMLFileByEachList();
             case "UPDATE" :
-                if(proxyLayerMapper.findByName(proxyLayerModelV2.getName()) == null) return false;
-                return proxyLayerMapper.update(ProxyLayerModelV2.convertDTO(proxyLayerModelV2)) > 0 && createRelationWithMainIdAndSubNames("LAYER", "SOURCE", proxyLayerModelV2.getId(), proxyLayerModelV2.getSources()) && createRelationWithMainIdAndSubNames("LAYER", "CACHE", proxyLayerModelV2.getId(), proxyLayerModelV2.getCaches()) && saveYAMLFileByEachList();
+                if(layer == null) return false;
+                dto = ProxyLayerModel.convertDTO(proxyLayerModel);
+                dto.setIsDefault(layer.getIsDefault());
+                dto.setSelected(layer.getSelected());
+                return proxyLayerMapper.update(dto) > 0 && createRelationWithMainIdAndSubNames("LAYER", "SOURCE", proxyLayerModel.getId(), proxyLayerModel.getSources()) && createRelationWithMainIdAndSubNames("LAYER", "CACHE", proxyLayerModel.getId(), proxyLayerModel.getCaches()) && saveYAMLFileByEachList();
             default :
                 return false;
         }
     }
 
     /**
-     * MapProxy 기반 Source 정보를 저장한다.
-     * @param proxySourceModelV2 ProxySourceModelV2
+     * MapProxy 기반 Source (MapServer based) 정보를 저장한다.
+     * @param proxySourceMapServerModel ProxySourceMapServerModel
      */
     @Override
-    @Transactional
-    public boolean saveProxySourceByModel(ProxySourceModelV2 proxySourceModelV2) {
-        switch(proxySourceModelV2.getMethod()){
+    public boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel) {
+        ProxySourceDTO root = proxySourceMapper.findByName(proxySourceMapServerModel.getName());
+        ProxySourceMapServerDTO dto;
+        switch(proxySourceMapServerModel.getMethod()){
             case "INSERT" :
-                if(proxySourceMapper.findByName(proxySourceModelV2.getName()) != null) return false;
+                if(root != null) return false;
                 long nextIdx = proxySourceMapper.findNextSeqVal();
-                proxySourceModelV2.setId(nextIdx);
-                return proxySourceMapper.insert(ProxySourceModelV2.convertDTO(proxySourceModelV2)) > 0 && saveYAMLFileByEachList();
+                proxySourceMapServerModel.setId(nextIdx);
+                dto = ProxySourceMapServerModel.convertDTO(proxySourceMapServerModel);
+                dto.setIsDefault(false);
+                dto.setSelected(false);
+                return proxySourceMapper.insert(dto) > 0 && proxySourceMapper.insertMapServer(dto) > 0 && saveYAMLFileByEachList();
             case "UPDATE" :
-                if(proxySourceMapper.findByName(proxySourceModelV2.getName()) == null) return false;
-                return proxySourceMapper.update(ProxySourceModelV2.convertDTO(proxySourceModelV2)) > 0 && saveYAMLFileByEachList();
+                if(root == null) return false;
+                dto = ProxySourceMapServerModel.convertDTO(proxySourceMapServerModel);
+                dto.setIsDefault(root.getIsDefault());
+                dto.setSelected(root.getSelected());
+                return proxySourceMapper.update(dto) > 0 && proxySourceMapper.updateMapServer(dto) > 0 && saveYAMLFileByEachList();
+            default :
+                return false;
+        }
+    }
+
+    /**
+     * MapProxy 기반 Source (WMS based) 정보를 저장한다.
+     * @param proxySourceWMSModel ProxySourceWMSModel
+     */
+    @Override
+    public boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel) {
+        ProxySourceDTO root = proxySourceMapper.findByName(proxySourceWMSModel.getName());
+        ProxySourceWMSDTO dto;
+        switch(proxySourceWMSModel.getMethod()) {
+            case "INSERT" :
+                if (root != null) return false;
+                long nextIdx = proxySourceMapper.findNextSeqVal();
+                proxySourceWMSModel.setId(nextIdx);
+                dto = ProxySourceWMSModel.convertDTO(proxySourceWMSModel);
+                dto.setIsDefault(false);
+                dto.setSelected(false);
+                return proxySourceMapper.insert(dto) > 0 && proxySourceMapper.insertWMS(dto) > 0 && saveYAMLFileByEachList();
+            case "UPDATE" :
+                if (root == null) return false;
+                dto = ProxySourceWMSModel.convertDTO(proxySourceWMSModel);
+                dto.setIsDefault(root.getIsDefault());
+                dto.setSelected(root.getSelected());
+                return proxySourceMapper.update(dto) > 0 && proxySourceMapper.updateWMS(dto) > 0 && saveYAMLFileByEachList();
             default :
                 return false;
         }
@@ -233,20 +259,28 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
 
     /**
      * MapProxy 기반 Cache 정보를 저장한다.
-     * @param proxyCacheModelV2 ProxyCacheModelV2
+     * @param proxyCacheModel ProxyCacheModel
      */
     @Override
     @Transactional
-    public boolean saveProxyCacheByModel(ProxyCacheModelV2 proxyCacheModelV2) {
-        switch(proxyCacheModelV2.getMethod()){
+    public boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel) {
+        ProxyCacheDTO cache = proxyCacheMapper.findByName(proxyCacheModel.getName());
+        ProxyCacheDTO dto;
+        switch(proxyCacheModel.getMethod()){
             case "INSERT" :
-                if(proxyCacheMapper.findByName(proxyCacheModelV2.getName()) != null) return false;
+                if(cache != null) return false;
                 long nextIdx = proxyCacheMapper.findNextSeqVal();
-                proxyCacheModelV2.setId(nextIdx);
-                return proxyCacheMapper.insert(ProxyCacheModelV2.convertDTO(proxyCacheModelV2)) > 0 && createRelationWithMainIdAndSubNames("CACHE", "SOURCE", nextIdx, proxyCacheModelV2.getSources()) && saveYAMLFileByEachList();
+                proxyCacheModel.setId(nextIdx);
+                dto = ProxyCacheModel.convertDTO(proxyCacheModel);
+                dto.setIsDefault(false);
+                dto.setSelected(false);
+                return proxyCacheMapper.insert(dto) > 0 && createRelationWithMainIdAndSubNames("CACHE", "SOURCE", nextIdx, proxyCacheModel.getSources()) && saveYAMLFileByEachList();
             case "UPDATE" :
-                if(proxyCacheMapper.findByName(proxyCacheModelV2.getName()) == null) return false;
-                return proxyCacheMapper.insert(ProxyCacheModelV2.convertDTO(proxyCacheModelV2)) > 0 && createRelationWithMainIdAndSubNames("CACHE", "SOURCE", proxyCacheModelV2.getId(), proxyCacheModelV2.getSources()) && saveYAMLFileByEachList();
+                if(cache == null) return false;
+                dto = ProxyCacheModel.convertDTO(proxyCacheModel);
+                dto.setIsDefault(cache.getIsDefault());
+                dto.setSelected(cache.getSelected());
+                return proxyCacheMapper.update(dto) > 0 && createRelationWithMainIdAndSubNames("CACHE", "SOURCE", proxyCacheModel.getId(), proxyCacheModel.getSources()) && saveYAMLFileByEachList();
             default :
                 return false;
         }
@@ -265,16 +299,27 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 proxyLayerCacheRelationMapper.deleteByLayerId(id);
                 proxyLayerMapper.deleteById(id);
                 return saveYAMLFileByEachList();
-            case "SOURCE" :
+
+            case "SOURCE-MAPSERVER" :
                 proxyLayerSourceRelationMapper.deleteBySourceId(id);
                 proxyCacheSourceRelationMapper.deleteBySourceId(id);
+                proxySourceMapper.deleteByIdMapServer(id);
                 proxySourceMapper.deleteById(id);
                 return saveYAMLFileByEachList();
+
+            case "SOURCE-WMS" :
+                proxyLayerSourceRelationMapper.deleteBySourceId(id);
+                proxyCacheSourceRelationMapper.deleteBySourceId(id);
+                proxySourceMapper.deleteByIdWMS(id);
+                proxySourceMapper.deleteById(id);
+                return saveYAMLFileByEachList();
+
             case "CACHE" :
                 proxyLayerCacheRelationMapper.deleteByCacheId(id);
                 proxyCacheSourceRelationMapper.deleteByCacheId(id);
                 proxyCacheMapper.deleteById(id);
                 return saveYAMLFileByEachList();
+
             default :
                 return false;
         }

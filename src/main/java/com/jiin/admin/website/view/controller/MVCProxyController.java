@@ -1,10 +1,7 @@
 package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.config.SessionService;
-import com.jiin.admin.website.model.ProxyCacheModelV2;
-import com.jiin.admin.website.model.ProxyLayerModelV2;
-import com.jiin.admin.website.model.ProxySelectModel;
-import com.jiin.admin.website.model.ProxySourceModelV2;
+import com.jiin.admin.website.model.*;
 import com.jiin.admin.website.view.service.ProxyCacheService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import com.jiin.admin.website.view.service.ServiceInfoService;
@@ -16,8 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.io.IOException;
 
 @Controller
 @RequestMapping("proxy")
@@ -42,12 +37,9 @@ public class MVCProxyController {
         model.addAttribute("message", sessionService.message());
 
         model.addAttribute("layers", proxyCacheService.loadDataList("LAYERS"));
-        model.addAttribute("sources", proxyCacheService.loadDataList("SOURCES"));
+        model.addAttribute("sources_mapserver", proxyCacheService.loadDataList("SOURCES_MAPSERVER"));
+        model.addAttribute("sources_wms", proxyCacheService.loadDataList("SOURCES_WMS"));
         model.addAttribute("caches", proxyCacheService.loadDataList("CACHES"));
-
-        model.addAttribute("addProxyLayer", proxyCacheService.loadDataModel("LAYERS"));
-        model.addAttribute("addProxySource", proxyCacheService.loadDataModel("SOURCES"));
-        model.addAttribute("addProxyCache", proxyCacheService.loadDataModel("CACHES"));
 
         model.addAttribute("selectSources", proxyCacheService.loadDataListBySelected("SOURCES", true));
         model.addAttribute("selectCaches", proxyCacheService.loadDataListBySelected("CACHES", true));
@@ -60,23 +52,30 @@ public class MVCProxyController {
     }
 
     @RequestMapping(value = "layer-save", method = RequestMethod.POST)
-    public String postLayerSave(ProxyLayerModelV2 proxyLayerModelV2){
-        boolean result = proxyCacheService.saveProxyLayerByModel(proxyLayerModelV2);
-        sessionService.message(String.format("[%s] LAYER 정보 저장에 %s 했습니다.", proxyLayerModelV2.getName(), result ? "성공" : "실패"));
+    public String postLayerSave(ProxyLayerModel proxyLayerModel){
+        boolean result = proxyCacheService.saveProxyLayerByModel(proxyLayerModel);
+        sessionService.message(String.format("[%s] LAYER 정보 저장에 %s 했습니다.", proxyLayerModel.getName(), result ? "성공" : "실패"));
         return "redirect:setting";
     }
 
-    @RequestMapping(value = "source-save", method = RequestMethod.POST)
-    public String postSourceSave(ProxySourceModelV2 proxySourceModelV2){
-        boolean result = proxyCacheService.saveProxySourceByModel(proxySourceModelV2);
-        sessionService.message(String.format("[%s] SOURCE 정보 저장에 %s 했습니다.", proxySourceModelV2.getName(), result ? "성공" : "실패"));
+    @RequestMapping(value = "source-mapserver-save", method = RequestMethod.POST)
+    public String postSourceMapServerSave(ProxySourceMapServerModel proxySourceMapServerModel){
+        boolean result = proxyCacheService.saveProxySourceMapServerByModel(proxySourceMapServerModel);
+        sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다.", proxySourceMapServerModel.getName(), result ? "성공" : "실패"));
+        return "redirect:setting";
+    }
+
+    @RequestMapping(value = "source-wms-save", method = RequestMethod.POST)
+    public String postSourceWMSSave(ProxySourceWMSModel proxySourceWMSModel){
+        boolean result = proxyCacheService.saveProxySourceWMSByModel(proxySourceWMSModel);
+        sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다.", proxySourceWMSModel.getName(), result ? "성공" : "실패"));
         return "redirect:setting";
     }
 
     @RequestMapping(value = "cache-save", method = RequestMethod.POST)
-    public String postCacheSave(ProxyCacheModelV2 proxyCacheModelV2){
-        boolean result = proxyCacheService.saveProxyCacheByModel(proxyCacheModelV2);
-        sessionService.message(String.format("[%s] CACHE 정보 저장에 %s 했습니다.", proxyCacheModelV2.getName(), result ? "성공" : "실패"));
+    public String postCacheSave(ProxyCacheModel proxyCacheModel){
+        boolean result = proxyCacheService.saveProxyCacheByModel(proxyCacheModel);
+        sessionService.message(String.format("[%s] CACHE 정보 저장에 %s 했습니다.", proxyCacheModel.getName(), result ? "성공" : "실패"));
         return "redirect:setting";
     }
 

@@ -29,13 +29,22 @@ public class MapProxyUtil {
         Map<String, Object> serviceMap = new LinkedHashMap<>();
         serviceMap.put("demo", null);
 
+        Map<String, Object> tmsServiceMap = new LinkedHashMap<>();
+        tmsServiceMap.put("origin", "nw");
+        serviceMap.put("tms", tmsServiceMap);
+
         Map<String, Object> wmsServiceMap = new LinkedHashMap<>();
         wmsServiceMap.put("versions", new String[] { "1.1.1", "1.3.0" });
         wmsServiceMap.put("srs", new String[] { "EPSG:4326", "EPSG:900913", "EPSG:3857"});
         wmsServiceMap.put("bbox_srs", new String[] { "EPSG:4326", "EPSG:3857" });
         wmsServiceMap.put("image_formats", new String[] { "image/jpeg", "image/png" });
-
         serviceMap.put("wms", wmsServiceMap);
+
+        Map<String, Object> wmtsServiceMap = new LinkedHashMap<>();
+        wmtsServiceMap.put("restful", true);
+        wmtsServiceMap.put("restful_template", "/{Layer}/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.{Format}");
+        wmtsServiceMap.put("kvp", true);
+        serviceMap.put("wmts", wmtsServiceMap);
 
         return serviceMap;
     }
@@ -95,11 +104,11 @@ public class MapProxyUtil {
 
             depth_main.put("type", source.getType());
 
-            depth_req.put("map", source.getRequestMap());
-            depth_req.put("layers", source.getRequestLayers());
-
-            depth_mapserver.put("binary", source.getMapServerBinary());
-            depth_mapserver.put("working_dir", source.getMapServerWorkDir());
+//            depth_req.put("map", source.getRequestMap());
+//            depth_req.put("layers", source.getRequestLayers());
+//
+//            depth_mapserver.put("binary", source.getMapServerBinary());
+//            depth_mapserver.put("working_dir", source.getMapServerWorkDir());
 
             depth_main.put("req", depth_req);
             depth_main.put("mapserver", depth_mapserver);
