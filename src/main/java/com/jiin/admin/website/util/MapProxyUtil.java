@@ -79,6 +79,8 @@ public class MapProxyUtil {
             Map<String, Object> depth_cache = new LinkedHashMap<>();
 
             depth_main.put("grids", new String[] { "GLOBAL_GEODETIC" });
+            depth_main.put("format", cache.getFormat());
+
             depth_main.put("meta_size", new Integer[] { cache.getMetaSizeX(), cache.getMetaSizeY() });
             depth_main.put("meta_buffer", cache.getMetaBuffer());
 

@@ -24,7 +24,7 @@
         SELECT * FROM _PROXY_LAYER WHERE NAME = #{name}
     </select>
 
-    <select id="findBySelected" resultType="ProxyLayerDTO">
+    <select id="findBySelected" resultMap="layerAndEachList">
         SELECT * FROM _PROXY_LAYER WHERE SELECTED = #{selected}
     </select>
 

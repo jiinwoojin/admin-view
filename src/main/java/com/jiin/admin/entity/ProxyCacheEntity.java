@@ -66,6 +66,12 @@ public class ProxyCacheEntity implements Persistable<Long> {
     private String cacheDirectory;
 
     /**
+     * FORMAT
+     */
+    @Column(name = "FORMAT")
+    private String format;
+
+    /**
      * SELECTED BOOL
      */
     @Column(name = "SELECTED")

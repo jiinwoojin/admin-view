@@ -10,7 +10,8 @@
         <result property="metaBuffer" column="META_BUFFER" />
         <result property="cacheType" column="CACHE_TYPE" />
         <result property="cacheDirectory" column="CACHE_DIRECTORY" />
-        <result property="selected" column="selected" />
+        <result property="format" column="FORMAT" />
+        <result property="selected" column="SELECTED" />
         <result property="isDefault" column="IS_DEFAULT" />
         <collection property="sources" column="{cacheId=ID}" javaType="java.util.ArrayList" ofType="ProxySourceDTO" select="findProxySourceListByCacheId" />
     </resultMap>
@@ -27,18 +28,18 @@
         SELECT * FROM _PROXY_CACHE WHERE NAME = #{name}
     </select>
 
-    <select id="findBySelected" resultType="ProxyCacheDTO">
+    <select id="findBySelected" resultMap="cacheAndEachList">
         SELECT * FROM _PROXY_CACHE WHERE SELECTED = #{selected}
     </select>
 
     <insert id="insert">
-        INSERT INTO _PROXY_CACHE(ID, NAME, META_SIZE_X, META_SIZE_Y, META_BUFFER, CACHE_TYPE, CACHE_DIRECTORY, SELECTED, IS_DEFAULT)
-        VALUES(#{id}, #{name}, #{metaSizeX}, #{metaSizeY}, #{metaBuffer}, #{cacheType}, #{cacheDirectory}, #{selected}, #{isDefault})
+        INSERT INTO _PROXY_CACHE(ID, NAME, META_SIZE_X, META_SIZE_Y, META_BUFFER, CACHE_TYPE, CACHE_DIRECTORY, FORMAT, SELECTED, IS_DEFAULT)
+        VALUES(#{id}, #{name}, #{metaSizeX}, #{metaSizeY}, #{metaBuffer}, #{cacheType}, #{cacheDirectory}, #{format}, #{selected}, #{isDefault})
     </insert>
 
     <update id="update">
         UPDATE _PROXY_CACHE SET
-        NAME = #{name}, META_SIZE_X = #{metaSizeX}, META_SIZE_Y = #{metaSizeY}, META_BUFFER = #{metaBuffer}, CACHE_TYPE = #{cacheType}, CACHE_DIRECTORY = #{cacheDirectory}, SELECTED = #{selected}, IS_DEFAULT = #{isDefault}
+        NAME = #{name}, META_SIZE_X = #{metaSizeX}, META_SIZE_Y = #{metaSizeY}, META_BUFFER = #{metaBuffer}, CACHE_TYPE = #{cacheType}, CACHE_DIRECTORY = #{cacheDirectory}, FORMAT = #{format}, SELECTED = #{selected}, IS_DEFAULT = #{isDefault}
         WHERE ID = #{id}
     </update>
 
