@@ -59,6 +59,16 @@
         SELECT * FROM _PROXY_SOURCE WHERE SELECTED = #{selected}
     </select>
 
+    <select id="findBySelectedMapServer" resultMap="ProxySourceResultMap">
+        SELECT * FROM _PROXY_SOURCE PS LEFT JOIN _PROXY_SOURCE_MAP_SERVER PSMS ON PS.id = PSMS.id
+        WHERE PS.type = 'mapserver' AND PS.SELECTED = #{selected}
+    </select>
+
+    <select id="findBySelectedWMS" resultMap="ProxySourceResultMap">
+        SELECT * FROM _PROXY_SOURCE PS LEFT JOIN _PROXY_SOURCE_WMS PSW ON PS.id = PSW.id
+        WHERE PS.type = 'wms' AND PS.SELECTED = #{selected}
+    </select>
+
     <insert id="insert">
         INSERT INTO _PROXY_SOURCE(ID, NAME, TYPE, SELECTED, IS_DEFAULT)
         VALUES(#{id}, #{name}, #{type}, #{selected}, #{isDefault})

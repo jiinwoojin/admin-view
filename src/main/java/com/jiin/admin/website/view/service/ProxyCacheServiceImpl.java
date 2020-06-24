@@ -54,7 +54,11 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      * @param
      */
     private boolean saveYAMLFileByEachList(){
-        String context = MapProxyUtil.fetchYamlFileContextWithDTO(proxyLayerMapper.findBySelected(true), proxySourceMapper.findBySelected(true), proxyCacheMapper.findBySelected(true));
+        List<ProxySourceMapServerDTO> mapServerDTOs = proxySourceMapper.findBySelectedMapServer(true);
+        List<ProxySourceWMSDTO> wmsDTOs = proxySourceMapper.findBySelectedWMS(true);
+        List<Object> dtos = Stream.of(mapServerDTOs, wmsDTOs).flatMap(o -> o.stream()).collect(Collectors.toList());
+
+        String context = MapProxyUtil.fetchYamlFileContextWithDTO(proxyLayerMapper.findBySelected(true), dtos, proxyCacheMapper.findBySelected(true));
         FileSystemUtil.createAtFile(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME, context);
         return true;
     }
@@ -211,6 +215,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      * @param proxySourceMapServerModel ProxySourceMapServerModel
      */
     @Override
+    @Transactional
     public boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel) {
         ProxySourceDTO root = proxySourceMapper.findByName(proxySourceMapServerModel.getName());
         ProxySourceMapServerDTO dto;
@@ -239,6 +244,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      * @param proxySourceWMSModel ProxySourceWMSModel
      */
     @Override
+    @Transactional
     public boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel) {
         ProxySourceDTO root = proxySourceMapper.findByName(proxySourceWMSModel.getName());
         ProxySourceWMSDTO dto;
