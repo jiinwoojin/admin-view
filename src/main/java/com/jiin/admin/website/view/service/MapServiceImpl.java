@@ -127,6 +127,15 @@ public class MapServiceImpl implements MapService {
     }
 
     /**
+     * REST API 에서 보여질 MAP 선택 기능
+     * @param
+     */
+    @Override
+    public List<MapDTO> loadMapDataList() {
+        return mapMapper.findAll();
+    }
+
+    /**
      * MAP 검색 조건 옵션 목록
      */
     @Override

@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -130,6 +131,10 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         switch(type){
             case "LAYERS" :
                 return proxyLayerMapper.findAll();
+            case "SOURCES" :
+                List<ProxySourceMapServerDTO> mapServerDTOs = proxySourceMapper.findAllMapServer();
+                List<ProxySourceWMSDTO> wmsDTOs = proxySourceMapper.findAllWMS();
+                return Stream.of(mapServerDTOs, wmsDTOs).flatMap(o -> o.stream()).collect(Collectors.toList());
             case "SOURCES_MAPSERVER" :
                 return proxySourceMapper.findAllMapServer();
             case "SOURCES_WMS" :

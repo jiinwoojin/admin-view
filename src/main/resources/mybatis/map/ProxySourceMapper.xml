@@ -35,6 +35,12 @@
         SELECT NEXTVAL('PROXY_SOURCE_SEQ')
     </select>
 
+    <select id="findAll" resultMap="ProxySourceResultMap">
+        SELECT * FROM _PROXY_SOURCE PS
+        LEFT JOIN _PROXY_SOURCE_MAP_SERVER PSMS ON PS.id = PSMS.id
+        LEFT JOIN _PROXY_SOURCE_WMS PSW ON PS.id = PSW.id
+    </select>
+
     <select id="findAllMapServer" resultMap="ProxySourceResultMap">
         SELECT * FROM _PROXY_SOURCE PS LEFT JOIN _PROXY_SOURCE_MAP_SERVER PSMS ON PS.id = PSMS.id
         WHERE PS.type = 'mapserver'

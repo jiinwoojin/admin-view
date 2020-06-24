@@ -37,8 +37,7 @@ public class MVCProxyController {
         model.addAttribute("message", sessionService.message());
 
         model.addAttribute("layers", proxyCacheService.loadDataList("LAYERS"));
-        model.addAttribute("sources_mapserver", proxyCacheService.loadDataList("SOURCES_MAPSERVER"));
-        model.addAttribute("sources_wms", proxyCacheService.loadDataList("SOURCES_WMS"));
+        model.addAttribute("sources", proxyCacheService.loadDataList("SOURCES"));
         model.addAttribute("caches", proxyCacheService.loadDataList("CACHES"));
 
         model.addAttribute("selectSources", proxyCacheService.loadDataListBySelected("SOURCES", true));

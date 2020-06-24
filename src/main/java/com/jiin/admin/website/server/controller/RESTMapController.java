@@ -1,7 +1,7 @@
 package com.jiin.admin.website.server.controller;
 
-import com.jiin.admin.entity.MapEntity;
-import com.jiin.admin.website.view.service.ManageService;
+import com.jiin.admin.dto.MapDTO;
+import com.jiin.admin.website.view.service.MapService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,12 +10,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/map")
-public class MapRestController {
+public class RESTMapController {
     @Resource
-    private ManageService manageService;
+    private MapService mapService;
 
     @RequestMapping("list")
-    public List<MapEntity> findAllMapEntities(){
-        return manageService.getSourceList();
+    public List<MapDTO> findAllMapEntities(){
+        return mapService.loadMapDataList();
     }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface MapService {
+    List<MapDTO> loadMapDataList();
     List<OptionModel> loadSearchByOptionList();
     List<OptionModel> loadOrderByOptionList();
     Map<String, Object> loadDataListAndCountByPaginationModel(MapPageModel mapPageModel);
