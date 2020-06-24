@@ -4,15 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
-import com.jiin.admin.Constants;
 import com.jiin.admin.dto.ProxyCacheDTO;
 import com.jiin.admin.dto.ProxyLayerDTO;
-import com.jiin.admin.dto.ProxySourceDTO;
+import com.jiin.admin.dto.ProxySourceMapServerDTO;
+import com.jiin.admin.dto.ProxySourceWMSDTO;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -54,7 +52,7 @@ public class MapProxyUtil {
      * @param
      * @note JPA Entity 대응 필요, wms_srs (복수), wms_title 등 메타 정보 주입 대응 필요
      */
-    public static String fetchYamlFileContextWithDTO(List<ProxyLayerDTO> layers, List<ProxySourceDTO> sources, List<ProxyCacheDTO> caches) {
+    public static String fetchYamlFileContextWithDTO(List<ProxyLayerDTO> layers, List<Object> sources, List<ProxyCacheDTO> caches) {
         Map<String, Object> yamlModel = new LinkedHashMap<>();
 
         List<Map<String, Object>> layers_y = new ArrayList<>();
@@ -81,6 +79,8 @@ public class MapProxyUtil {
             Map<String, Object> depth_cache = new LinkedHashMap<>();
 
             depth_main.put("grids", new String[] { "GLOBAL_GEODETIC" });
+            depth_main.put("format", cache.getFormat());
+
             depth_main.put("meta_size", new Integer[] { cache.getMetaSizeX(), cache.getMetaSizeY() });
             depth_main.put("meta_buffer", cache.getMetaBuffer());
 
@@ -102,18 +102,39 @@ public class MapProxyUtil {
             Map<String, Object> depth_req = new LinkedHashMap<>();
             Map<String, Object> depth_mapserver = new LinkedHashMap<>();
 
-            depth_main.put("type", source.getType());
+            if(source instanceof ProxySourceMapServerDTO) {
+                ProxySourceMapServerDTO dto = (ProxySourceMapServerDTO) source;
+                depth_main.put("type", dto.getType());
 
-//            depth_req.put("map", source.getRequestMap());
-//            depth_req.put("layers", source.getRequestLayers());
-//
-//            depth_mapserver.put("binary", source.getMapServerBinary());
-//            depth_mapserver.put("working_dir", source.getMapServerWorkDir());
+                depth_req.put("map", dto.getRequestMap());
+                depth_req.put("layers", dto.getRequestLayers());
 
-            depth_main.put("req", depth_req);
-            depth_main.put("mapserver", depth_mapserver);
+                depth_mapserver.put("binary", dto.getMapServerBinary());
+                depth_mapserver.put("working_dir", dto.getMapServerWorkDir());
 
-            sources_y.put(source.getName(), depth_main);
+                depth_main.put("req", depth_req);
+                depth_main.put("mapserver", depth_mapserver);
+
+                sources_y.put(dto.getName(), depth_main);
+            }
+
+            if(source instanceof ProxySourceWMSDTO) {
+                ProxySourceWMSDTO dto = (ProxySourceWMSDTO) source;
+                depth_main.put("type", dto.getType());
+
+                depth_main.put("concurrent_requests", dto.getConcurrentRequests());
+                depth_main.put("wms_opts", new LinkedHashMap<String, Object>(){{ put("version", dto.getWmsOptsVersion()); }});
+                depth_main.put("http", new LinkedHashMap<String, Object>(){{ put("client_timeout", dto.getHttpClientTimeout()); }});
+
+                depth_req.put("url", dto.getRequestURL());
+                depth_req.put("layers", dto.getRequestLayers());
+                depth_req.put("transparent", dto.getRequestTransparent());
+
+                depth_main.put("req", depth_req);
+                depth_main.put("supported_srs", String.format("[\\\'%s\\\']", dto.getSupportedSRS().replace(",", "\\\', \\\'")));
+
+                sources_y.put(dto.getName(), depth_main);
+            }
         });
 
         yamlModel.put("services", loadInitServiceProperties());
@@ -149,10 +170,45 @@ public class MapProxyUtil {
                     context = context.replace("grids: [GLOBAL_GEODETIC]", "grids: [\'GLOBAL_GEODETIC\']");
                     context = context.replace("versions: [1.1.1, 1.3.0]", "versions: [\'1.1.1\', \'1.3.0\']");
                     context = context.replace("image_formats: [image/jpeg, image/png]", "image_formats: [\'image/jpeg\', \'image/png\']");
+
+                    p = Pattern.compile("(\\s\\{).*?(,\\s).*?(,\\s+).*?(\\})");
+                    m = p.matcher(context);
+
+                    while(m.find()){
+                        temp = m.group(0);
+                        temp = temp.replace(m.group(1), "\n    ");
+                        temp = temp.replace(m.group(2), "\n    ");
+                        temp = temp.replace(m.group(3), "\n    ");
+                        temp = temp.replaceFirst("(?s)(.*)" + m.group(4), "$1");
+                        context = context.replace(m.group(0), temp);
+                    }
+
+                    p = Pattern.compile("(\\s\\{).*?:.*?(\\})");
+                    m = p.matcher(context);
+                    while(m.find()){
+                        temp = m.group(0);
+                        temp = temp.replace(m.group(1), "\n    ");
+                        temp = temp.replace(m.group(2), "");
+                        context = context.replace(m.group(0), temp);
+                    }
+
+                    context = context.replace("origin: nw", "origin: \'nw\'");
                     break;
 
                 case "sources" :
                 case "caches" :
+                    p = Pattern.compile("(\\s\\{).*?(,\\s).*?(,\\s+).*?(\\})");
+                    m = p.matcher(context);
+
+                    while(m.find()){
+                        temp = m.group(0);
+                        temp = temp.replace(m.group(1), "\n      ");
+                        temp = temp.replace(m.group(2), "\n      ");
+                        temp = temp.replace(m.group(3), "\n      ");
+                        temp = temp.replace(m.group(4), "");
+                        context = context.replace(m.group(0), temp);
+                    }
+
                     p = Pattern.compile("(\\s\\{).*?(,\\s).*?(\\})");
                     m = p.matcher(context);
                     while(m.find()){
@@ -163,11 +219,22 @@ public class MapProxyUtil {
                         context = context.replace(m.group(0), temp);
                     }
 
+                    p = Pattern.compile("(\\s\\{).*?(\\})");
+                    m = p.matcher(context);
+                    while(m.find()){
+                        temp = m.group(0);
+                        temp = temp.replace(m.group(1), "\n      ");
+                        temp = temp.replace(m.group(2), "");
+                        context = context.replace(m.group(0), temp);
+                    }
+
                     if(key.equals("sources")){
                         context = context.replaceAll("\\'", "");
                     } else {
                         context = context.replace("grids: [GLOBAL_GEODETIC]", "grids: [\'GLOBAL_GEODETIC\']");
                     }
+
+                    context = context.replaceAll("\\\\", "\'");
                     break;
 
                 case "layers" :

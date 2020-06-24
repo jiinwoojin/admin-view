@@ -18,6 +18,7 @@ public class ProxyCacheModel {
     private Integer metaSizeX;
     private Integer metaSizeY;
     private Integer metaBuffer;
+    private String format;
     private List<String> sources;
 
     public ProxyCacheModel(){
@@ -27,7 +28,7 @@ public class ProxyCacheModel {
         this.sources = new ArrayList<>();
     }
 
-    public ProxyCacheModel(long id, String method, String name, String cacheType, String cacheDirectory, Integer metaSizeX, Integer metaSizeY, Integer metaBuffer, List<String> proxySourcesWithCaches){
+    public ProxyCacheModel(long id, String method, String name, String cacheType, String cacheDirectory, Integer metaSizeX, Integer metaSizeY, Integer metaBuffer, String format, List<String> sources){
         this.id = id;
         this.method = method;
         this.name = name;
@@ -36,12 +37,13 @@ public class ProxyCacheModel {
         this.metaSizeX = metaSizeX;
         this.metaSizeY = metaSizeY;
         this.metaBuffer = metaBuffer;
-        this.sources = proxySourcesWithCaches;
+        this.format = format;
+        this.sources = sources;
     }
 
     // convertDTO 에서는 caches 데이터가 무의미해서 new ArrayList() 로 두었다.
     public static ProxyCacheDTO convertDTO(ProxyCacheModel model){
         if(model == null) return null;
-        return new ProxyCacheDTO(model.getId(), model.getName(), model.getMetaSizeX(), model.getMetaSizeY(), model.getMetaBuffer(), new ArrayList(), model.getCacheType(), model.getCacheDirectory(), false, false);
+        return new ProxyCacheDTO(model.getId(), model.getName(), model.getMetaSizeX(), model.getMetaSizeY(), model.getMetaBuffer(), new ArrayList(), model.getCacheType(), model.getCacheDirectory(), model.getFormat(), false, false);
     }
 }

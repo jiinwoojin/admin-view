@@ -182,7 +182,7 @@ window.onload = function() {
         toastr.info(message);
     }
 
-    onchange_source_type(document.getElementById('source-type'));
+    onchange_source_type('#source-type');
 }
 
 // 입력 form Validation
@@ -193,8 +193,13 @@ function preSubmit(form){
         switch($(form).data('title')){
             case 'layer-form' :
                 confirm = nameValidation(form, 'layer-name');
+                break;
             case 'source-form' :
                 confirm = nameValidation(form, 'source-name');
+                break;
+            case 'cache-form' :
+                confirm = nameValidation(form, 'cache-name');
+                break;
             default :
                 confirm = false;
         }
@@ -209,8 +214,6 @@ function preSubmit(form){
                     return sourceMapServerValidation();
                 }
                 if(form.action.includes('wms')) {
-                    var transparent = document.getElementById('source-requestTransparent');
-                    form['requestTransparent'] = transparent.checked;
                     return sourceMapWMSValidation();
                 }
                 return false;
@@ -249,6 +252,7 @@ function layerValidation(){
     }
 }
 
+// Map Server 기반 Source Validation 체크
 function sourceMapServerValidation(){
     var requestMap = $('input[name="requestMap"]').val();
     var requestLayers = $('input[name="requestLayers"]').val();
@@ -262,6 +266,7 @@ function sourceMapServerValidation(){
     } else return true;
 }
 
+// WMS 기반 Source Validation 체크
 function sourceMapWMSValidation(){
     var values = $('#source-requestUrl').val();
     if(values){
@@ -282,6 +287,7 @@ function sourceMapWMSValidation(){
     }
 }
 
+// Cache 데이터 Validation 체크
 function cacheValidation(){
     var values = $('#cache-sources').val();
     if(values.length > 0) return true;
@@ -351,8 +357,30 @@ function onclick_update_data(btn){
         }
 
         if (data.obj === 'source') {
-            var dom = document.getElementById('source-type');
-            onchange_source_type(dom);
+            onchange_source_type('#source-type');
+
+            if(data['type'] === 'wms'){
+                var hidden = document.getElementById('source-requestTransparent');
+                var checkbox = document.getElementById('source-check');
+                hidden.value = data['requestTransparent'];
+                checkbox.checked = data['requestTransparent'];
+
+                var split = data['supportedSrs'].split(',');
+                document.getElementById('source-supportedSrs').value = split.join();
+                for(var i = 0; i < split.length; i++){
+                    switch(split[i]){
+                        case 'EPSG:4326' :
+                            document.getElementById('source-grid1').checked = true;
+                            break;
+                        case 'EPSG:3857' :
+                            document.getElementById('source-grid2').checked = true;
+                            break;
+                        case 'EPSG:900913' :
+                            document.getElementById('source-grid3').checked = true;
+                            break;
+                    }
+                }
+            }
         }
     } else {
         toastr.warning('SOURCE 를 YAML 파일에 등록하시길 바랍니다.');
@@ -371,10 +399,17 @@ function onclick_close(context){
     }
     if(context === 'source') {
         $('#source-type').val('mapserver');
-        onchange_source_type(document.getElementById('source-type'));
+        $('#source-requestTransparent').val(false);
+        $('#source-check').prop("checked", false);
+        for(var i = 1; i <= 3; i++){
+            document.getElementById('source-grid' + i).checked = false;
+        }
+        document.getElementById('source-supportedSrs').value = '';
+        onchange_source_type('#source-type');
     }
 }
 
+// Map Server 파일 (abc.map) 선택 시 MAP 과 LAYER 데이터 채우기.
 function onchange_mapFile_value(){
     var mapFile = document.getElementById("mapFile").value;
     var obj = JSON.parse(mapFile);
@@ -388,6 +423,7 @@ function onchange_mapFile_value(){
     }
 }
 
+// Cache 디렉토리 임의 변경 기능
 function onchange_cache_directory_checkbox(){
     var checkbox = document.getElementById('directoryEdit');
     var directory = document.getElementById('cache-cacheDirectory');
@@ -399,6 +435,7 @@ function onchange_cache_directory_checkbox(){
     }
 }
 
+// Source 타입이 변경될 때 실행되는 메소드
 function onchange_source_type(dom){
     var val = $(dom).val();
     if(val === 'wms'){
@@ -414,4 +451,23 @@ function onchange_source_type(dom){
         $('.wms').hide();
         document.getElementById('source-form').action = CONTEXT + '/view/proxy/source-mapserver-save';
     }
+}
+
+// 체크박스 체크
+function onchange_checkbox_checked(dom){
+    var hidden = document.getElementById('source-requestTransparent');
+    hidden.value = dom.checked;
+}
+
+// GRID 체크박스 체크
+function onchange_checkbox_grid(){
+    var arr = [];
+    for(var i = 1; i <= 3; i++){
+        var checkbox = document.getElementById('source-grid' + i);
+        if(checkbox.checked){
+            arr.push(checkbox.value);
+        }
+    }
+
+    document.getElementById('source-supportedSrs').value = arr.join();
 }

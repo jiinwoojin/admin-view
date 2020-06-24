@@ -17,6 +17,8 @@ public interface ProxySourceMapper {
     List<ProxySourceWMSDTO> findAllWMS();
     ProxySourceDTO findByName(@Param("name") String name);
     List<ProxySourceDTO> findBySelected(@Param("selected") boolean selected);
+    List<ProxySourceMapServerDTO> findBySelectedMapServer(@Param("selected") boolean selected);
+    List<ProxySourceWMSDTO> findBySelectedWMS(@Param("selected") boolean selected);
 
     int insert(ProxySourceDTO proxySourceDTO);
     int insertMapServer(ProxySourceMapServerDTO proxySourceMapServerDTO);

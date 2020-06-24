@@ -42,6 +42,14 @@
                             <input type="text" class="form-control" id="cache-cacheType" name="cacheType" readonly />
                         </div>
 
+                        <div class="form-group">
+                            <label for="cache-cacheType">캐시 파일 포맷 <span class="text-danger">(*)</span></label>
+                            <select class="form-control" id="cache-format" name="format">
+                                <option value="image/jpeg">image/jpeg</option>
+                                <option value="image/png">image/png</option>
+                            </select>
+                        </div>
+
                         <label for="cache-cacheDirectory">캐시 디렉토리 <span class="text-danger">(*)</span></label>
                         <small>캐시 디렉토리는 설정한 이후 값 변경이 불가능합니다.</small>
                         <div class="input-group mb-3">
