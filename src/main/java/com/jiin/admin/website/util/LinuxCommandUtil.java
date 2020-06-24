@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 @Slf4j
 public class LinuxCommandUtil {
@@ -35,5 +37,54 @@ public class LinuxCommandUtil {
             }
         }
         return sb.toString();
+    }
+
+    public static int fetchResultByLinuxCommon(String cmd) {
+        Process process = null;
+        Runtime runtime = Runtime.getRuntime();
+        StringBuffer successOutput = new StringBuffer();
+        StringBuffer errorOutput = new StringBuffer();
+        BufferedReader successBufferReader = null;
+        BufferedReader errorBufferReader = null;
+
+        String line;
+
+        try {
+            process = runtime.exec(new String[]{"/bin/sh", "-c", cmd});
+
+            successBufferReader = new BufferedReader(new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8));
+
+            while ((line = successBufferReader.readLine()) != null) {
+                successOutput.append(line).append(System.lineSeparator());
+            }
+
+            errorBufferReader = new BufferedReader(new InputStreamReader(process.getErrorStream(), StandardCharsets.UTF_8));
+
+            while ((line = errorBufferReader.readLine()) != null) {
+                errorOutput.append(line).append(System.lineSeparator());
+            }
+
+            process.waitFor();
+
+            if (process.exitValue() == 0) {
+                log.info("명령 성공 : " + successOutput.toString());
+                return 0;
+            } else {
+                log.error("명령 실패 : " + errorOutput.toString());
+                return 1;
+            }
+        } catch (IOException | InterruptedException e) {
+            log.error(e.getMessage());
+        } finally {
+            try {
+                Objects.requireNonNull(process).destroy();
+                Objects.requireNonNull(successBufferReader).close();
+                Objects.requireNonNull(errorBufferReader).close();
+            } catch (IOException e) {
+                log.error(e.getMessage());
+            }
+        }
+
+        return 1;   // 실패
     }
 }

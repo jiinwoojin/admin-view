@@ -77,13 +77,55 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO _MAP(ID, NAME, MAP_FILE_PATH, MIN_X, MAX_X, MIN_Y, MAX_Y, UNITS, PROJECTION, DESCRIPTION, IMAGE_TYPE, IS_DEFAULT, REGISTOR_ID, REGISTOR_NAME, REGIST_TIME)
-        VALUES(#{id}, #{name}, #{mapFilePath}, #{minX}, #{maxX}, #{minY}, #{maxY}, #{units}, #{projection}, #{description}, #{imageType}, #{isDefault}, #{registorId}, #{registorName}, #{registTime})
+        INSERT INTO _MAP(ID
+            , NAME
+            , MAP_FILE_PATH
+            , MIN_X
+            , MAX_X
+            , MIN_Y
+            , MAX_Y
+            , UNITS
+            , PROJECTION
+            , DESCRIPTION
+            , IMAGE_TYPE
+            , IS_DEFAULT
+            , REGISTOR_ID
+            , REGISTOR_NAME
+            , REGIST_TIME
+            , VRT_FILE_PATH)
+        VALUES(#{id}
+            , #{name}
+            , #{mapFilePath}
+            , #{minX}
+            , #{maxX}
+            , #{minY}
+            , #{maxY}
+            , #{units}
+            , #{projection}
+            , #{description}
+            , #{imageType}
+            , #{isDefault}
+            , #{registorId}
+            , #{registorName}
+            , #{registTime}
+            , #{vrtFilePath})
     </insert>
 
     <update id="update">
         UPDATE _MAP SET
-        NAME = #{name}, MAP_FILE_PATH = #{mapFilePath}, MIN_X = #{minX}, MAX_X = #{maxX}, MIN_Y = #{minY}, MAX_Y = #{maxY}, UNITS = #{units}, PROJECTION = #{projection}, IMAGE_TYPE = #{imageType}, IS_DEFAULT = #{isDefault}, REGISTOR_ID = #{registorId}, REGISTOR_NAME = #{registorName}, REGIST_TIME = #{registTime}
+            NAME = #{name}
+            , MAP_FILE_PATH = #{mapFilePath}
+            , MIN_X = #{minX}
+            , MAX_X = #{maxX}
+            , MIN_Y = #{minY}
+            , MAX_Y = #{maxY}
+            , UNITS = #{units}
+            , PROJECTION = #{projection}
+            , IMAGE_TYPE = #{imageType}
+            , IS_DEFAULT = #{isDefault}
+            , REGISTOR_ID = #{registorId}
+            , REGISTOR_NAME = #{registorName}
+            , REGIST_TIME = #{registTime}
         WHERE id = #{id}
     </update>
 

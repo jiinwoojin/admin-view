@@ -302,26 +302,36 @@ public class FileSystemUtil {
         }
 
         for(Map<String, String> path : paths) {
-            File file = new File(dataPath + path.get("dataFilePath"));
-            if(loadFileExtensionName(file.getName()).equals("tif")) { // RASTER (TIF) 대응
+            if (path.containsKey("vrtFilePath")) {
+                File file = Paths.get(dataPath, path.get("vrtFilePath")).toFile();
                 try {
-                    File tmpFile = new File(String.format("%s/%s%s", zipPath, filename.replace(".zip", ""), path.get("dataFilePath").replaceFirst(Constants.DATA_PATH, "")));
+                    File tmpFile = Paths.get(zipPath, filename.replace(".zip", ""), "Total.vrt").toFile();
                     copyDirectory(file, tmpFile);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage());
                 }
-            } else { // VECTOR (SHP) 및 CADRG 대응
-                String dirHome = dataPath + Constants.DATA_PATH + "/" + path.get("middleFolder");
-                try {
-                    String[] split = path.get("middleFolder").split("/");
-                    String tmpPath = split.length > 0 ? path.get("middleFolder") : "";
-                    if(split.length > 0){
-                        tmpPath = tmpPath.replaceFirst("(?s)(.*)" + split[split.length - 1], "$1");
+            } else {
+                File file = new File(dataPath + path.get("dataFilePath"));
+                if(loadFileExtensionName(file.getName()).equals("tif")) { // RASTER (TIF) 대응
+                    try {
+                        File tmpFile = new File(String.format("%s/%s%s", zipPath, filename.replace(".zip", ""), path.get("dataFilePath").replaceFirst(Constants.DATA_PATH, "")));
+                        copyDirectory(file, tmpFile);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    File tmpDir = new File(String.format("%s/%s/%s", zipPath, filename.replace(".zip", ""), tmpPath));
-                    copyDirectory(new File(dirHome), tmpDir);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } else { // VECTOR (SHP) 및 CADRG 대응
+                    String dirHome = dataPath + Constants.DATA_PATH + "/" + path.get("middleFolder");
+                    try {
+                        String[] split = path.get("middleFolder").split("/");
+                        String tmpPath = split.length > 0 ? path.get("middleFolder") : "";
+                        if(split.length > 0){
+                            tmpPath = tmpPath.replaceFirst("(?s)(.*)" + split[split.length - 1], "$1");
+                        }
+                        File tmpDir = new File(String.format("%s/%s/%s", zipPath, filename.replace(".zip", ""), tmpPath));
+                        copyDirectory(new File(dirHome), tmpDir);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

@@ -15,6 +15,7 @@ import com.jiin.admin.mapper.data.MapVersionMapper;
 import com.jiin.admin.website.model.MapPageModel;
 import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.util.FileSystemUtil;
+import com.jiin.admin.website.util.GdalUtil;
 import com.jiin.admin.website.util.MapServerUtil;
 import com.jiin.admin.website.view.component.MapVersionManagement;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Slf4j
@@ -207,7 +209,11 @@ public class MapServiceImpl implements MapService {
 
         setCommonProperties(mapDTO);
 
-        if(mapMapper.insert(mapDTO) > 0){
+        if (versionCheck) {
+            mapDTO.setVrtFilePath(Paths.get(Constants.VRT_FILE_PATH, String.format("%s%s", mapDTO.getName(), Constants.VRT_SUFFIX)).toString());
+        }
+
+        if (mapMapper.insert(mapDTO) > 0) {
             // MAP - LAYER 관계 최초 생성
             createRelationByMapIdAndRelationJSON(id, relations);
 
@@ -218,10 +224,14 @@ public class MapServiceImpl implements MapService {
                 FileSystemUtil.createAtFile(mapFilePath, fileContext);
 
                 // 2단계. Version 관리 (선택)
-                if(versionCheck) {
+                if (versionCheck) {
+                    // vrt 생성
+                    GdalUtil.createVrt(dataPath, mapDTO, layers);   // TODO return 값 받아서 처리 해야함
+
+                    // Version set 생성
                     mapVersionManagement.saveMapVersionRecentlyStatus(mapDTO, new ArrayList<>(), layers);
                 }
-            } catch (IOException e){
+            } catch (IOException e) {
                 log.error("ERROR - " + e.getMessage());
                 return false;
             }
@@ -263,7 +273,10 @@ public class MapServiceImpl implements MapService {
                 String fileContext = MapServerUtil.fetchMapFileContextWithDTO(defaultMap, dataPath, mapDTO, layers);
                 FileSystemUtil.createAtFile(mapFilePath, fileContext);
 
-                if(versionCheck){
+                if (versionCheck) {
+                    // vrt 생성
+                    GdalUtil.createVrt(dataPath, mapDTO, layers);   // TODO return 값 받아서 처리 해야함
+
                     mapVersionManagement.setMapLayerListChangeManage(mapDTO, prevLayers, layers);
                 } else {
                     mapVersionManagement.removeVersionWithMapData(selected);
@@ -289,12 +302,18 @@ public class MapServiceImpl implements MapService {
     public boolean removeData(long id) {
         MapDTO selected = mapMapper.findById(id);
         if(selected == null) return false;
+        // TODO 레이어 버전 초기화 필요
         removeRelationByMapId(id); // 현재 MAP, LAYER 종속 관계 삭제
         mapVersionManagement.removeVersionWithMapData(selected); // MAP 버전 폴더 및 DB 삭제
         if(mapMapper.deleteById(id) > 0) {
             try {
                 String mapFilePath = String.format("%s%s", dataPath, selected.getMapFilePath());
                 FileSystemUtil.deleteFile(mapFilePath);
+
+                if (selected.getVrtFilePath() != null) {
+                    String vrtFilePath = String.format("%s%s", dataPath, selected.getVrtFilePath());
+                    FileSystemUtil.deleteFile(vrtFilePath);
+                }
             } catch (IOException e) {
                 log.error("ERROR - " + e.getMessage());
                 return false;

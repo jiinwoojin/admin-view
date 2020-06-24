@@ -26,7 +26,7 @@ public class MapDTO {
 
     private Date updateTime;
 
-    private Double version;
+    private String vrtFilePath;
 
     public MapDTO(){
 

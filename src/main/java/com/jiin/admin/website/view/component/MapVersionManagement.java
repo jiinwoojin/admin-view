@@ -8,6 +8,7 @@ import com.jiin.admin.mapper.data.LayerMapper;
 import com.jiin.admin.mapper.data.MapMapper;
 import com.jiin.admin.mapper.data.MapVersionMapper;
 import com.jiin.admin.website.util.FileSystemUtil;
+import com.jiin.admin.website.util.GdalUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -122,10 +123,22 @@ public class MapVersionManagement {
             List<LayerDTO> tmpLayers = versionMap.getOrDefault(version, new ArrayList<>());
             String savePath = Paths.get(dataPath, Constants.MAP_VERSION_FILE_PATH, mapDTO.getName()).toString();
             String fileName = String.format("%s_V%.1f.zip", mapDTO.getName(), version);
-            File zipFile = FileSystemUtil.saveZipFileWithPaths(dataPath, savePath, fileName, tmpLayers.stream().map(o -> new HashMap<String, String>() {{
+            List<Map<String, String>> paths = tmpLayers.stream().map(o -> new HashMap<String, String>() {{
                 put("dataFilePath", o.getDataFilePath());
                 put("middleFolder", o.getMiddleFolder());
-            }}).collect(Collectors.toList()));
+            }}).collect(Collectors.toList());
+
+            // TODO 정리 필요
+            // vrt 파일이 있을 경우 vrt 파일도 같이 만들어 준다
+            if (mapDTO.getVrtFilePath() != null) {
+                paths.add(new HashMap<String, String>() {
+                    {
+                        put("vrtFilePath", mapDTO.getVrtFilePath());
+                    }
+                });
+            }
+
+            File zipFile = FileSystemUtil.saveZipFileWithPaths(dataPath, savePath, fileName, paths);
             if (zipFile == null) {
                 log.error(fileName + " 파일이 형성되지 않았습니다. 다시 시도 바랍니다.");
             }
@@ -224,7 +237,7 @@ public class MapVersionManagement {
 
         double maxVersion = Constants.DEFAULT_LAYER_VERSION;
         Map<Long, Object> layerMap = new HashMap<>();
-        for(long mapId : versions.stream().map(o -> o.getMapId()).collect(Collectors.toSet())){
+        for(long mapId : versions.stream().map(MapVersionDTO::getMapId).collect(Collectors.toSet())){
             MapDTO map = mapMapper.findById(mapId);
             List<LayerDTO> prevLayers = layerMapper.findByMapId(mapId);
             List<LayerDTO> nextLayers = prevLayers.stream().map(o -> o.getId().equals(layer.getId()) ? layer : o).collect(Collectors.toList());
@@ -247,8 +260,8 @@ public class MapVersionManagement {
             List<LayerDTO> nextLayers = listMap.get("nextLayers");
             List<LayerDTO> pureNewLayers = loadPureNewLayersInNextLayers(prevLayers, nextLayers);
 
-            Set<Double> layerVersions = prevLayers.stream().map(o -> o.getVersion()).collect(Collectors.toSet());
-            Set<Double> mapUsedVersions = mapVersions.stream().map(o -> o.getVersion()).collect(Collectors.toSet());
+            Set<Double> layerVersions = prevLayers.stream().map(LayerDTO::getVersion).collect(Collectors.toSet());
+            Set<Double> mapUsedVersions = mapVersions.stream().map(MapVersionDTO::getVersion).collect(Collectors.toSet());
             for(LayerDTO newLayer : pureNewLayers){
                 if((layerVersions.contains(newLayer.getVersion()) || mapUsedVersions.contains(newLayer.getVersion())) && !savedLayers.contains(newLayer.getId())){
                     newLayer.setVersion(maxVersion);
@@ -265,6 +278,11 @@ public class MapVersionManagement {
         // 3단계. 각 레이어 목록으로 버전 관리를 시작한다.
         for(long mapId : layerMap.keySet()){
             MapDTO map = mapMapper.findById(mapId);
+
+            // vrt 생성 TODO 정리 필요
+            List<LayerDTO> layers = layerMapper.findByMapId(mapId);
+            GdalUtil.createVrt(dataPath, map, layers);
+
             Map<String, List<LayerDTO>> listMap = (Map<String, List<LayerDTO>>) layerMap.get(mapId);
             List<LayerDTO> prevLayers = listMap.get("prevLayers");
             List<LayerDTO> nextLayers = listMap.get("nextLayers");

@@ -40,6 +40,12 @@ public class MapEntity implements Persistable<Long> {
     @Column(name = "MAP_FILE_PATH", length = 254, nullable = false)
     private String mapFilePath;
 
+    /**
+     * VRT 파일 경로
+     */
+    @Column(name = "VRT_FILE_PATH", length = 254)
+    private String vrtFilePath;
+
     @Column(name = "MIN_X", length = 10)
     private String minX;
 
@@ -106,22 +112,11 @@ public class MapEntity implements Persistable<Long> {
     @Column(name = "UPDATE_TIME")
     private Date updateTime;
 
-    /**
-     * 버전 정보
-     */
-    @Column(name = "VERSION", length = 10)
-    private Double version;
-
     @OneToMany(mappedBy = "map", cascade = CascadeType.ALL)
     private Set<MapLayerRelationEntity> mapLayerRelations = new HashSet<>();
 
     @Override
     public boolean isNew() {
         return false;
-    }
-
-    @PrePersist
-    public void prePersist() {
-        this.version = this.version == null ? 1.0 : this.version;
     }
 }

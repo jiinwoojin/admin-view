@@ -56,4 +56,13 @@ public class Constants {
     public static final String MAP_VERSION_FILE_PATH = "/mapsets";
 
     public static final Double DEFAULT_LAYER_VERSION = 1.0;
+
+    /**
+     * VRT 정보
+     */
+    public static final String VRT_FILE_PATH = String.format("%s/%s", DATA_PATH, "vrt");
+
+    public static final String VRT_SUFFIX = ".vrt";
+
+    public static final String TMP_DIR_PATH = "/tmp";
 }
