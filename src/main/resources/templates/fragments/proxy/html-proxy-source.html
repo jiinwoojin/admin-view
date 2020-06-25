@@ -49,15 +49,15 @@
 
                         <!-- Map Server 입력란 시작 -->
                         <div class="form-group mapserver">
-                            <label for="mapFile">MapServer 리소스 : Map 파일 선택 <span class="text-danger">(*)</span></label>
-                            <select class="form-control mapserver" id="mapFile" onchange="onchange_mapFile_value()">
+                            <label for="mapFile-mapserver">MapServer 리소스 : Map 파일 선택 <span class="text-danger">(*)</span></label>
+                            <select class="form-control mapserver" id="mapFile-mapserver" onchange="onchange_mapFile_value('mapFile-mapserver')">
                                 <option value='{ "requestMap" : "[none]", "mapId" : -1 }'>-- Map 파일 선택 --</option>
                             </select>
                         </div>
 
                         <div class="form-group mapserver">
-                            <label for="source-requestMap">Map 파일 주소 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control mapserver" id="source-requestMap" name="requestMap" readonly />
+                            <label for="source-mapserver-requestMap">Map 파일 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control mapserver" id="source-mapserver-requestMap" name="requestMap" readonly />
                         </div>
 
                         <div class="form-group mapserver">
@@ -98,6 +98,19 @@
                         <div class="form-group wms">
                             <label for="source-requestURL">요청 주소 <span class="text-danger">(*)</span></label>
                             <input type="text" class="form-control wms" id="source-requestUrl" name="requestUrl" />
+                        </div>
+
+                        <!-- Map Server 입력란 시작 -->
+                        <div class="form-group wms">
+                            <label for="mapFile-wms">MapServer 리소스 : Map 파일 선택 <span class="text-danger">(*)</span></label>
+                            <select class="form-control wms" id="mapFile-wms" onchange="onchange_mapFile_value('mapFile-wms')">
+                                <option value='{ "requestMap" : "[none]", "mapId" : -1 }'>-- Map 파일 선택 --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group wms">
+                            <label for="source-wms-requestMap">Map 파일 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control wms" id="source-wms-requestMap" name="requestMap" readonly />
                         </div>
 
                         <div class="form-group wms">

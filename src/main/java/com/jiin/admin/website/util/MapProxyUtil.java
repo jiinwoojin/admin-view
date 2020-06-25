@@ -131,6 +131,7 @@ public class MapProxyUtil {
 
                 depth_req.put("url", dto.getRequestURL());
                 depth_req.put("layers", dto.getRequestLayers());
+                depth_req.put("map", dto.getRequestMap());
                 depth_req.put("transparent", dto.getRequestTransparent());
 
                 depth_main.put("req", depth_req);

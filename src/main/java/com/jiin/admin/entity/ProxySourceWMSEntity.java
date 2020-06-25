@@ -24,6 +24,9 @@ public class ProxySourceWMSEntity extends ProxySourceEntity {
     @Column(name = "REQUEST_URL", nullable = false)
     private String requestURL;
 
+    @Column(name = "REQUEST_MAP")
+    private String requestMap;
+
     @Column(name = "REQUEST_LAYERS", nullable = false)
     private String requestLayers;
 

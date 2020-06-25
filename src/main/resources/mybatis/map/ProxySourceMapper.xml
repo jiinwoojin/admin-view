@@ -26,6 +26,7 @@
         <result property="wmsOptsVersion" column="WMS_OPTS_VERSION" />
         <result property="httpClientTimeout" column="HTTP_CLIENT_TIMEOUT" />
         <result property="requestURL" column="REQUEST_URL" />
+        <result property="requestMap" column="REQUEST_MAP" />
         <result property="requestLayers" column="REQUEST_LAYERS" />
         <result property="requestTransparent" column="REQUEST_TRANSPARENT" />
         <result property="supportedSRS" column="SUPPORTED_SRS" />
@@ -80,8 +81,8 @@
     </insert>
 
     <insert id="insertWMS">
-        INSERT INTO _PROXY_SOURCE_WMS(ID, CONCURRENT_REQUESTS, WMS_OPTS_VERSION, HTTP_CLIENT_TIMEOUT, REQUEST_URL, REQUEST_LAYERS, REQUEST_TRANSPARENT, SUPPORTED_SRS)
-        VALUES(#{id}, #{concurrentRequests}, #{wmsOptsVersion}, #{httpClientTimeout}, #{requestURL}, #{requestLayers}, #{requestTransparent}, #{supportedSRS})
+        INSERT INTO _PROXY_SOURCE_WMS(ID, CONCURRENT_REQUESTS, WMS_OPTS_VERSION, HTTP_CLIENT_TIMEOUT, REQUEST_URL, REQUEST_MAP, REQUEST_LAYERS, REQUEST_TRANSPARENT, SUPPORTED_SRS)
+        VALUES(#{id}, #{concurrentRequests}, #{wmsOptsVersion}, #{httpClientTimeout}, #{requestURL}, #{requestMap}, #{requestLayers}, #{requestTransparent}, #{supportedSRS})
     </insert>
 
     <update id="update">
@@ -98,7 +99,7 @@
 
     <update id="updateWMS">
         UPDATE _PROXY_SOURCE_WMS SET
-        CONCURRENT_REQUESTS = #{concurrentRequests}, WMS_OPTS_VERSION = #{wmsOptsVersion}, HTTP_CLIENT_TIMEOUT = #{httpClientTimeout}, REQUEST_URL = #{requestURL}, REQUEST_LAYERS = #{requestLayers}, REQUEST_TRANSPARENT = #{requestTransparent}, SUPPORTED_SRS = #{supportedSRS}
+        CONCURRENT_REQUESTS = #{concurrentRequests}, WMS_OPTS_VERSION = #{wmsOptsVersion}, HTTP_CLIENT_TIMEOUT = #{httpClientTimeout}, REQUEST_URL = #{requestURL}, REQUEST_MAP = #{requestMap}, REQUEST_LAYERS = #{requestLayers}, REQUEST_TRANSPARENT = #{requestTransparent}, SUPPORTED_SRS = #{supportedSRS}
         WHERE ID = #{id}
     </update>
 

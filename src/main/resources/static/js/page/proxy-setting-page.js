@@ -128,39 +128,47 @@ window.onload = function() {
 
     // Source 데이터 중 모달 생성 시 MapServer 데이터 추출.
     $('#sourceModal').on('show.bs.modal', function (event) {
-        var mapFile = document.getElementById('mapFile');
+        var options;
+        $.ajax({
+            url: CONTEXT + '/server/api/map/list',
+            async: false,
+            success: function (data) {
+                options = data;
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
 
-        if (mapFile.options.length === 1) {
-            $.ajax({
-                url: CONTEXT + '/server/api/map/list',
-                success: function (data) {
-                    for (var i = 0; i < data.length; i++) {
-                        var option = document.createElement('option');
-                        option.value = JSON.stringify({requestMap: data[i].mapFilePath, mapName: data[i].name});
-                        option.text = data[i].name + `(${data[i].mapFilePath})`;
+        for(var type of ['mapserver', 'wms']) {
+            var mapFile = document.getElementById('mapFile-' + type);
+            if (options) {
+                for (var i = 0; i < options.length; i++) {
+                    var option = document.createElement('option');
+                    option.value = JSON.stringify({requestMap: options[i].mapFilePath, mapName: options[i].name});
+                    option.text = options[i].name + `(${options[i].mapFilePath})`;
 
-                        mapFile.options.add(option);
-                    }
-                },
-                error: function (e) {
-                    console.log(e);
+                    mapFile.options.add(option);
                 }
-            });
+            }
         }
     });
 
     // Source 데이터 중 모달 파기 시 원상 복귀.
     $('#sourceModal').on('hide.bs.modal', function (event) {
-        $("select#mapFile option").remove();
         $('input[name="requestMap"]').val('[none]');
 
-        var mapFile = document.getElementById('mapFile');
-        var option = document.createElement('option');
-        option.value = JSON.stringify( { requestMap : "[none]", mapId : -1 });
-        option.text = '-- Map 파일 선택 --';
-        mapFile.options.add(option);
+        for(var type of ['mapserver', 'wms']) {
+            $(`select#mapFile-${type} option`).remove();
+            var mapFile = document.getElementById('mapFile-' + type);
+            var option = document.createElement('option');
+            option.value = JSON.stringify({requestMap: "[none]", mapId: -1});
+            option.text = '-- Map 파일 선택 --';
+            mapFile.options.add(option);
+        }
 
         $('#source-requestLayers-mapserver').val('[none]');
+        // wms 에서는 바뀔 수 있으니 우선은 내비둔다.
 
         onclick_close('source');
     });
@@ -466,8 +474,8 @@ function onclick_close(context){
 }
 
 // Map Server 파일 (abc.map) 선택 시 MAP 과 LAYER 데이터 채우기.
-function onchange_mapFile_value(){
-    var mapFile = document.getElementById("mapFile").value;
+function onchange_mapFile_value(id){
+    var mapFile = document.getElementById(id).value;
     var obj = JSON.parse(mapFile);
     if(obj.requestMap === '[none]'){
         toastr.warning('MAP 파일을 선택하세요.');

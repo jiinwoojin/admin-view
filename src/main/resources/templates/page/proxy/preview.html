@@ -11,7 +11,7 @@
         <h2 class="page_tit">조회</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a th:href="@{/view/cache/setting}">서비스 캐시 관리</a>
+                <a th:href="@{/view/proxy/setting}">서비스 캐시 관리</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">조회</li>
         </ol>
@@ -21,7 +21,7 @@
 
 <th:block layout:fragment="content-body-fragment">
 
-    <div id="map_block" class="map_top">
+    <div id="map_block" class="map_top" th:if="${ #lists.size(proxyLayers) > 0 }">
         <!-- 기능 확장 버튼 시작 -->
         <div id="buttons" class="d-flex justify-content-between">
             <button class="btn btn-primary mx-0" data-toggle="modal" data-target="#layerSelect">
@@ -34,7 +34,7 @@
         <!-- // 기능 확장 버튼 종료 -->
     </div>
 
-    <div class="map_area">
+    <div class="map_area" th:if="${ #lists.size(proxyLayers) > 0 }">
         <!-- Openlayers 시작 -->
         <div id="map" class="mb-2" style="width: 100%; height: calc(100vh - 188px);">
         </div>
@@ -55,7 +55,7 @@
                     url: `http://${localMain && localMain.ip}:${port}/service`,
                     params: {
                         'REQUEST' : 'getMap',
-                        'LAYERS' : 'world_k2'
+                        'LAYERS' : '[[${proxyLayers[0].name}]]'
                     }
                 });
 
@@ -67,6 +67,7 @@
                     layers: [layer],
                     target: 'map',
                     view: new ol.View({
+                        projection: 'EPSG:4326',
                         center: ol.proj.transform([127.123294, 37.385117], 'EPSG:4326', 'EPSG:3857'),
                         zoom: 12
                     })
@@ -75,13 +76,28 @@
 
             function onclick_preview_layer(name){
                 layer.setSource(new ol.source.TileWMS({
-                    url: '[[${serviceURL}]]/service',
+                    url: `http://${localMain && localMain.ip}:${port}/service`,
                     params: {
                         'REQUEST' : 'getMap',
                         'LAYERS' : name
                     }
                 }));
             }
+        </script>
+    </div>
+
+    <div class="map_area" th:unless="${ #lists.size(proxyLayers) > 0 }">
+        <div class="text-center">
+            <h1 class="display-4">
+                <i class="fas fa-times-circle"></i> No Data.
+            </h1>
+            <p class="lead">캐시 설정에 등록된 LAYER 가 없습니다. 등록 이후 다시 시도 하시길 바랍니다.</p>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                toastr.info('캐시 LAYER 등록은 서비스 캐시 관리 > 설정 메뉴에서 설정하실 수 있습니다.');
+            });
         </script>
     </div>
 
@@ -157,12 +173,12 @@
 
 <th:block layout:fragment="custom-html-link">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
-    <link rel="stylesheet" th:href="@{/gis/openlayers-4.6.4/ol.css}">
+    <link rel="stylesheet" th:href="@{/gis/openlayers-6.1.1/ol.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
-    <script th:src="@{/gis/openlayers-4.6.4/ol.js}"></script>
+    <script th:src="@{/gis/openlayers-6.1.1/ol.js}"></script>
 </th:block>
 </html>

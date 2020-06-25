@@ -15,6 +15,7 @@ public class ProxySourceWMSModel {
     private String wmsOptsVersion;
     private Integer httpClientTimeout;
     private String requestUrl;
+    private String requestMap;
     private String requestLayers;
     private Boolean requestTransparent;
     private String supportedSrs;
@@ -24,7 +25,7 @@ public class ProxySourceWMSModel {
         this.type = "wms";
     }
 
-    public ProxySourceWMSModel(long id, String name, String type, Integer concurrentRequests, String wmsOptsVersion, Integer httpClientTimeout, String requestURL, String requestLayers, Boolean requestTransparent, String supportedSRS) {
+    public ProxySourceWMSModel(long id, String name, String type, Integer concurrentRequests, String wmsOptsVersion, Integer httpClientTimeout, String requestURL, String requestMap, String requestLayers, Boolean requestTransparent, String supportedSRS) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -32,6 +33,7 @@ public class ProxySourceWMSModel {
         this.wmsOptsVersion = wmsOptsVersion;
         this.httpClientTimeout = httpClientTimeout;
         this.requestUrl = requestURL;
+        this.requestMap = requestMap;
         this.requestLayers = requestLayers;
         this.requestTransparent = requestTransparent;
         this.supportedSrs = supportedSRS;
@@ -39,6 +41,6 @@ public class ProxySourceWMSModel {
 
     public static ProxySourceWMSDTO convertDTO(ProxySourceWMSModel model){
         if(model == null) return null;
-        return new ProxySourceWMSDTO(model.getId(), model.getName(), model.getType(), false, false, model.getConcurrentRequests(), model.getWmsOptsVersion(), model.getHttpClientTimeout(), model.getRequestUrl(), model.getRequestLayers(), model.getRequestTransparent(), model.getSupportedSrs());
+        return new ProxySourceWMSDTO(model.getId(), model.getName(), model.getType(), false, false, model.getConcurrentRequests(), model.getWmsOptsVersion(), model.getHttpClientTimeout(), model.getRequestUrl(), model.getRequestMap(), model.getRequestLayers(), model.getRequestTransparent(), model.getSupportedSrs());
     }
 }
