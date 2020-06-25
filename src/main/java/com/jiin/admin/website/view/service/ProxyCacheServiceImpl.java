@@ -51,7 +51,6 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
 
     /**
      * YAML 파일 내용을 채취한 이후, 해당 디렉토리에 저장힌다.
-     * @param
      */
     private boolean saveYAMLFileByEachList(){
         List<ProxySourceMapServerDTO> mapServerDTOs = proxySourceMapper.findBySelectedMapServer(true);
@@ -118,8 +117,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     @Override
     public String loadProxyYamlSetting() {
         try {
-            String text = FileSystemUtil.fetchFileContext(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME);
-            return text;
+            return FileSystemUtil.fetchFileContext(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME);
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
             return "text";
@@ -170,14 +168,13 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
 
     /**
      * 현재 MapProxy 의 yaml 설정 파일에 선택된 데이터 목록을 호출한다.
-     * @param
      */
     @Override
     public ProxySelectModel loadProxySetting() {
         return new ProxySelectModel(
-            proxyLayerMapper.findBySelected(true).stream().map(o -> o.getName()).collect(Collectors.toList()),
-            proxySourceMapper.findBySelected(true).stream().map(o -> o.getName()).collect(Collectors.toList()),
-            proxyCacheMapper.findBySelected(true).stream().map(o -> o.getName()).collect(Collectors.toList())
+            proxyLayerMapper.findBySelected(true).stream().map(ProxyLayerDTO::getName).collect(Collectors.toList()),
+            proxySourceMapper.findBySelected(true).stream().map(ProxySourceDTO::getName).collect(Collectors.toList()),
+            proxyCacheMapper.findBySelected(true).stream().map(ProxyCacheDTO::getName).collect(Collectors.toList())
         );
     }
 
