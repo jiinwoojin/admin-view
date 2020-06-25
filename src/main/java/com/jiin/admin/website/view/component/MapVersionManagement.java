@@ -65,7 +65,7 @@ public class MapVersionManagement {
         Set<Long> prevIds = prevLayers.stream().map(o -> o.getId()).collect(Collectors.toSet());
         Set<Long> nextIds = nextLayers.stream()
                 .filter(o1 -> prevLayers.stream().filter(o2 -> o2.getId().equals(o1.getId()) && o2.getVersion().equals(o1.getVersion())).count() > 0)
-                .map(o -> o.getId())
+                .map(LayerDTO::getId)
                 .collect(Collectors.toSet());
 
         Set<Long> maintainIds = new HashSet<>(nextIds);
@@ -134,6 +134,7 @@ public class MapVersionManagement {
                 paths.add(new HashMap<String, String>() {
                     {
                         put("vrtFilePath", mapDTO.getVrtFilePath());
+                        put("middleFolder", mapDTO.getName());
                     }
                 });
             }
@@ -279,15 +280,34 @@ public class MapVersionManagement {
         for(long mapId : layerMap.keySet()){
             MapDTO map = mapMapper.findById(mapId);
 
-            // vrt 생성 TODO 정리 필요
-            List<LayerDTO> layers = layerMapper.findByMapId(mapId);
-            GdalUtil.createVrt(dataPath, map, layers);
+            if (map.getVrtFilePath() != null && !map.getVrtFilePath().equalsIgnoreCase("")) {
+                // vrt 생성 TODO 정리 필요
+                List<LayerDTO> layers = layerMapper.findByMapId(mapId);
+
+                if (checkVrt(layers) == 0) {
+                    GdalUtil.createVrt(dataPath, map, layers);
+                } else {
+                    // TODO vrt 파일이 있을경우 삭제 해야함
+                    map.setVrtFilePath(null);
+                    mapMapper.update(map);      // vrt file path 정보가 있을 경우 제거
+                }
+            }
+
 
             Map<String, List<LayerDTO>> listMap = (Map<String, List<LayerDTO>>) layerMap.get(mapId);
             List<LayerDTO> prevLayers = listMap.get("prevLayers");
             List<LayerDTO> nextLayers = listMap.get("nextLayers");
             saveMapVersionRecentlyStatus(map, prevLayers, nextLayers);
         }
+    }
+
+    /**
+     * 해당 레이어에 CADRG 타입의 데이터가 있는지 확인
+     * @param layers layer
+     * @return int
+     */
+    public int checkVrt(List<LayerDTO> layers) {
+        return (int) layers.stream().filter(l -> l.getType().equalsIgnoreCase("CADRG")).count();
     }
 
     /**

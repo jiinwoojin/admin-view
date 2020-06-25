@@ -209,7 +209,7 @@ public class MapServiceImpl implements MapService {
 
         setCommonProperties(mapDTO);
 
-        if (versionCheck) {
+        if (versionCheck && mapVersionManagement.checkVrt(layers) == 0) {
             mapDTO.setVrtFilePath(Paths.get(Constants.VRT_FILE_PATH, String.format("%s%s", mapDTO.getName(), Constants.VRT_SUFFIX)).toString());
         }
 
@@ -225,8 +225,10 @@ public class MapServiceImpl implements MapService {
 
                 // 2단계. Version 관리 (선택)
                 if (versionCheck) {
-                    // vrt 생성
-                    GdalUtil.createVrt(dataPath, mapDTO, layers);   // TODO return 값 받아서 처리 해야함
+                    if (mapDTO.getVrtFilePath() != null && !mapDTO.getVrtFilePath().equalsIgnoreCase("")) {
+                        // vrt 생성
+                        GdalUtil.createVrt(dataPath, mapDTO, layers);   // TODO return 값 받아서 처리 해야함
+                    }
 
                     // Version set 생성
                     mapVersionManagement.saveMapVersionRecentlyStatus(mapDTO, new ArrayList<>(), layers);
@@ -274,8 +276,16 @@ public class MapServiceImpl implements MapService {
                 FileSystemUtil.createAtFile(mapFilePath, fileContext);
 
                 if (versionCheck) {
-                    // vrt 생성
-                    GdalUtil.createVrt(dataPath, mapDTO, layers);   // TODO return 값 받아서 처리 해야함
+                    if (mapVersionManagement.checkVrt(layers) == 0) {
+                        // vrt 생성
+                        GdalUtil.createVrt(dataPath, mapDTO, layers);   // TODO return 값 받아서 처리 해야함
+                    } else {
+                        // TODO vrt 파일이 있을경우 삭제 해야함
+                        if (mapDTO.getVrtFilePath() != null && !mapDTO.getVrtFilePath().equalsIgnoreCase("")) {
+                            mapDTO.setVrtFilePath(null);
+                            mapMapper.update(mapDTO);
+                        }
+                    }
 
                     mapVersionManagement.setMapLayerListChangeManage(mapDTO, prevLayers, layers);
                 } else {

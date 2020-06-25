@@ -305,7 +305,7 @@ public class FileSystemUtil {
             if (path.containsKey("vrtFilePath")) {
                 File file = Paths.get(dataPath, path.get("vrtFilePath")).toFile();
                 try {
-                    File tmpFile = Paths.get(zipPath, filename.replace(".zip", ""), "Total.vrt").toFile();
+                    File tmpFile = Paths.get(zipPath, filename.replace(".zip", ""),path.get("middleFolder"), "Total.vrt").toFile();
                     copyDirectory(file, tmpFile);
                 } catch (IOException e) {
                     log.error(e.getMessage());
