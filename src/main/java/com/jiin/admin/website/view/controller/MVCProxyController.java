@@ -96,7 +96,7 @@ public class MVCProxyController {
     public String proxyLayerPreview(Model model){
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
         model.addAttribute("port", MAP_PROXY_PORT);
-        model.addAttribute("proxyLayers", proxyCacheService.loadDataList("LAYERS"));
+        model.addAttribute("proxyLayers", proxyCacheService.loadDataListBySelected("LAYERS", true));
         model.addAttribute("proxyYAML", proxyCacheService.loadProxyYamlSetting());
         return "page/proxy/preview";
     }

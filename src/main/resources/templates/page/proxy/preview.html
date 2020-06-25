@@ -24,10 +24,28 @@
     <div id="map_block" class="map_top" th:if="${ #lists.size(proxyLayers) > 0 }">
         <!-- 기능 확장 버튼 시작 -->
         <div id="buttons" class="d-flex justify-content-between">
-            <button class="btn btn-primary mx-0" data-toggle="modal" data-target="#layerSelect">
+            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#layerSelect">
                 <i class="fas fa-layer-group"></i> Map Proxy 기반 레이어 선택
             </button>
-            <button class="btn btn-info mx-0" data-toggle="modal" data-target="#yamlPreview">
+
+            <!-- SRS TEST -->
+            <div class="form-group">
+                <select class="form-control form-control-sm" onchange="onchange_projection(this)">
+                    <option value="EPSG:3857">EPSG:3857</option>
+                    <option value="EPSG:4326">EPSG:4326</option>
+                    <option value="EPSG:900913">EPSG:900913</option>
+                </select>
+            </div>
+
+            <!-- FORMAT TEST -->
+            <div class="form-group">
+                <select class="form-control form-control-sm">
+                    <option value="image/png">image/png</option>
+                    <option value="image/jpeg">image/jpeg</option>
+                </select>
+            </div>
+
+            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#yamlPreview">
                 <i class="fas fa-file"></i> Map Proxy YAML 파일 조회
             </button>
         </div>
@@ -68,7 +86,7 @@
                     target: 'map',
                     view: new ol.View({
                         projection: 'EPSG:4326',
-                        center: ol.proj.transform([127.123294, 37.385117], 'EPSG:4326', 'EPSG:3857'),
+                        center: ol.proj.fromLonLat([127.123294, 37.385117]),
                         zoom: 12
                     })
                 });
@@ -82,6 +100,16 @@
                         'LAYERS' : name
                     }
                 }));
+            }
+
+            function onchange_projection(dom){
+                map.setView(
+                    new ol.View({
+                        center: ol.proj.fromLonLat([127.123294, 37.385117]),
+                        extent: map.getView().calculateExtent(map.getSize()),
+                        projection: dom.value
+                    })
+                );
             }
         </script>
     </div>
