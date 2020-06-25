@@ -89,7 +89,7 @@ function initialize_selected_data(){
 function onclick_add_button(id, data){
     var arr = window[id];
     if(arr.includes(data)){
-        alert('이미 설정 목록에 추가 되어 있습니다.');
+        toastr.warning('이미 설정 목록에 추가 되어 있습니다.');
     } else {
         arr.push(data);
         window[id] = arr.slice();
@@ -161,6 +161,16 @@ window.onload = function() {
         mapFile.options.add(option);
 
         $('#source-requestLayers-mapserver').val('[none]');
+
+        onclick_close('source');
+    });
+
+    $('#layerModal').on('hide.bs.modal', function (event) {
+        onclick_close('layer');
+    });
+
+    $('#cacheModal').on('hide.bs.modal', function (event) {
+        onclick_close('cache');
     });
 
     // CACHE 이름이 바뀔 때 마다 경로 설정을 위한 이벤트
@@ -175,6 +185,11 @@ window.onload = function() {
     // 각 데이터 별로 DataTables 초기화
     $('#list_table_layer,#list_table_source,#list_table_cache').each(function(){
         initialize_dataTable(this.id);
+    });
+
+    // DataTables 초기화 (2)
+    $('#cache_sources,#layer_sources,#layer_caches').each(function(){
+        initialize_small_dataTable(this.id);
     });
 
     // SESSION 에 데이터가 있으면, toastr 로 메시지를 띄운다.
@@ -208,7 +223,11 @@ function preSubmit(form){
     if(confirm) {
         switch ($(form).data('title')) {
             case 'layer-form' :
-                return layerValidation();
+                if(layerValidation()) {
+                    form['sources'].value = JSON.parse(form['sources'].value);
+                    form['caches'].value = JSON.parse(form['caches'].value);
+                    return true;
+                } else return false;
             case 'source-form' :
                 if(form.action.includes('mapserver')) {
                     return sourceMapServerValidation();
@@ -218,7 +237,10 @@ function preSubmit(form){
                 }
                 return false;
             case 'cache-form' :
-                return cacheValidation();
+                if(cacheValidation()){
+                    form['sources'].value = JSON.parse(form['sources'].value);
+                    return true;
+                } else return false;
             default :
                 return false;
         }
@@ -239,8 +261,8 @@ function nameValidation(form, field){
 }
 
 function layerValidation(){
-    var proxySources = $('#layer-sources').val();
-    var proxyCaches = $('#layer-caches').val();
+    var proxySources = JSON.parse($('#layer-sources').val());
+    var proxyCaches = JSON.parse($('#layer-caches').val());
     if(proxySources.length > 0 || proxyCaches.length > 0) {
         if(proxySources.filter(o => proxyCaches.includes(o)).length > 0){
             toastr.warning('리소스 이름과 캐시 이름이 같은 값이 있습니다. 각각 다른 이름으로 저장하시길 바랍니다.');
@@ -289,7 +311,7 @@ function sourceMapWMSValidation(){
 
 // Cache 데이터 Validation 체크
 function cacheValidation(){
-    var values = $('#cache-sources').val();
+    var values = JSON.stringify($('#cache-sources').val());
     if(values.length > 0) return true;
     else {
         toastr.warning('캐시 연계 소스의 값을 최소한 1개 선택 하시길 바랍니다.');
@@ -311,6 +333,11 @@ function onclick_insert_data(type) {
         $('#' + type + '-id').val(0);
         $('#' + type + '-method').val('INSERT');
 
+        if (type === 'layer') {
+            $('#layer-sources').val('[]');
+            $('#layer-caches').val('[]');
+        }
+
         if (type === 'source') {
             $('#source-type').val('mapserver');
             $('#source-requestMap').val('[none]');
@@ -323,6 +350,7 @@ function onclick_insert_data(type) {
             $('#cache-cacheType').val('file');
             $('#cache-cacheDirectory').val(cacheDirectoryPath);
             $('#directoryEdit').val(false);
+            $('#cache-sources').val('[]');
             document.getElementById('cache-cacheDirectory').readOnly = true;
         }
     } else {
@@ -351,9 +379,24 @@ function onclick_update_data(btn){
             }
         }
 
+        if (data.obj === 'layer') {
+            var sources = data['sources'];
+            var caches = data['caches'];
+
+            document.getElementById('layer-sources').value = JSON.stringify(sources);
+            document.getElementById('layer-caches').value = JSON.stringify(caches);
+
+            sources.forEach(o => document.getElementById('layerSources_' + o).checked = true);
+            caches.forEach(o => document.getElementById('layerCaches_' + o).checked = true);
+        }
+
         if (data.obj === 'cache') {
             $('#directoryEdit').val(false);
             document.getElementById('cache-cacheDirectory').readOnly = true;
+
+            var sources = data['sources'];
+            document.getElementById('cache-sources').value = JSON.stringify(sources);
+            sources.forEach(o => document.getElementById('cacheSources_' + o).checked = true);
         }
 
         if (data.obj === 'source') {
@@ -393,10 +436,15 @@ function onclick_close(context){
     $(`#${context}-name`).data("check-duplicate", false);
     $(`#duplicate-check-message-proxy-${context}`).text("중복확인을 해주세요.");
 
-    if(context === 'cache'){
-        var cacheDirectory = document.getElementById("cache-cacheDirectory");
-        cacheDirectory.value = cacheDirectoryPath;
+    if(context === 'layer'){
+        for(var dom of $('[id^=layerSources_]')) {
+            dom.checked = false;
+        }
+        for(var dom of $('[id^=layerCaches_]')) {
+            dom.checked = false;
+        }
     }
+
     if(context === 'source') {
         $('#source-type').val('mapserver');
         $('#source-requestTransparent').val(false);
@@ -406,6 +454,14 @@ function onclick_close(context){
         }
         document.getElementById('source-supportedSrs').value = '';
         onchange_source_type('#source-type');
+    }
+
+    if(context === 'cache'){
+        var cacheDirectory = document.getElementById("cache-cacheDirectory");
+        cacheDirectory.value = cacheDirectoryPath;
+        for(var dom of $('[id^=cacheSources_]')) {
+            dom.checked = false;
+        }
     }
 }
 
@@ -470,4 +526,19 @@ function onchange_checkbox_grid(){
     }
 
     document.getElementById('source-supportedSrs').value = arr.join();
+}
+
+// 소스 목록 체크
+function onchange_checkbox_select_data(type, dom, fieldId){
+    var id = dom.id;
+    var name = id.replace(type + '_', '');
+
+    var field = document.getElementById(fieldId);
+    var arr = JSON.parse(field.value);
+    if(!dom.checked) {
+        arr.splice(arr.indexOf(name), 1);
+    } else {
+        arr.push(name);
+    }
+    field.value = JSON.stringify(arr);
 }

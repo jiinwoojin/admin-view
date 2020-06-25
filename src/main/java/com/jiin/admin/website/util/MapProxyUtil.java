@@ -81,8 +81,11 @@ public class MapProxyUtil {
             depth_main.put("grids", new String[] { "GLOBAL_GEODETIC" });
             depth_main.put("format", cache.getFormat());
 
-            depth_main.put("meta_size", new Integer[] { cache.getMetaSizeX(), cache.getMetaSizeY() });
-            depth_main.put("meta_buffer", cache.getMetaBuffer());
+            if(cache.getMetaSizeX() != null && cache.getMetaSizeY() != null)
+                depth_main.put("meta_size", new Integer[] { cache.getMetaSizeX(), cache.getMetaSizeY() });
+
+            if(cache.getMetaBuffer() != null)
+                depth_main.put("meta_buffer", cache.getMetaBuffer());
 
             List<String> sourceNames = new ArrayList<>();
             if(cache.getSources() != null)
