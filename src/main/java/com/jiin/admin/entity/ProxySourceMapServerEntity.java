@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
-@Entity(name = "_PROXY_SOURCE_MAP_SERVER")
+@Entity(name = "_PROXY_SOURCE_MAPSERVER")
 @DiscriminatorValue("mapserver")
 @Getter
 @Setter
