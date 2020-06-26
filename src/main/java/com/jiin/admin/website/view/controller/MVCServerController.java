@@ -33,6 +33,7 @@ public class MVCServerController {
      */
     @RequestMapping("service-info")
     public String pageServiceInfo(Model model){
+        model.addAttribute("services", serviceInfoService.loadGeoContainerInfoList());
         return "page/system/service-info";
     }
 
