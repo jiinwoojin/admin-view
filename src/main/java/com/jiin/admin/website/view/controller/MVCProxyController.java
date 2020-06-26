@@ -86,7 +86,7 @@ public class MVCProxyController {
     }
 
     @RequestMapping(value = "checking-save", method = RequestMethod.POST)
-    public String checkingProxyDataSettings(ProxySelectModel proxySelectModel) {
+    public String checkingProxyDataSettings(ProxySelectRequestModel proxySelectModel) {
         boolean result = proxyCacheService.setProxyDataSelectByModel(proxySelectModel);
         sessionService.message(result ? "모든 PROXY 정보들이 수정 되었습니다." : "모든 PROXY 정보들을 설정하는 도중 오류가 발생했습니다.");
         return "redirect:setting";

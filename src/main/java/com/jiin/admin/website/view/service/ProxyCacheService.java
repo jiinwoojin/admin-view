@@ -11,7 +11,7 @@ public interface ProxyCacheService {
     Object loadDataList(String type);
     Object loadDataListBySelected(String type, Boolean selected);
 
-    ProxySelectModel loadProxySetting();
+    ProxySelectResponseModel loadProxySetting();
 
     boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel);
     boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel);
@@ -20,5 +20,5 @@ public interface ProxyCacheService {
 
     boolean removeProxyDataByIdAndType(long id, String type);
 
-    boolean setProxyDataSelectByModel(ProxySelectModel proxySelectModel);
+    boolean setProxyDataSelectByModel(ProxySelectRequestModel proxySelectModel);
 }

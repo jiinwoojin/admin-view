@@ -164,7 +164,14 @@
                 </a>
             </td>
             <td class="text-center align-middle">
-                <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedCaches', [[${cache.name}]])">
+                <button
+                        th:id="${ 'add_button_' + cache.name }"
+                        class="btn btn-secondary btn-sm btn-circle"
+                        th:data-type="selectedCaches"
+                        th:data-cache="${cache.name}"
+                        th:data-sources="${cache.sourceKeys}"
+                        onclick="onclick_add_button(this)"
+                >
                     <i class="fas fa-plus"></i>
                 </button>
             </td>

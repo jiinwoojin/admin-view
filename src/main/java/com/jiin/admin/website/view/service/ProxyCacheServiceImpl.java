@@ -15,6 +15,7 @@ import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -170,11 +171,18 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      * 현재 MapProxy 의 yaml 설정 파일에 선택된 데이터 목록을 호출한다.
      */
     @Override
-    public ProxySelectModel loadProxySetting() {
-        return new ProxySelectModel(
-            proxyLayerMapper.findBySelected(true).stream().map(ProxyLayerDTO::getName).collect(Collectors.toList()),
+    public ProxySelectResponseModel loadProxySetting() {
+        return new ProxySelectResponseModel(
+            proxyLayerMapper.findBySelected(true).stream().map(o -> new HashMap<String, Object>(){{
+                put("layer", o.getName());
+                put("sources", o.getSources().stream().map(ProxySourceDTO::getName).collect(Collectors.toList()));
+                put("caches", o.getCaches().stream().map(ProxyCacheDTO::getName).collect(Collectors.toList()));
+            }}).collect(Collectors.toList()),
             proxySourceMapper.findBySelected(true).stream().map(ProxySourceDTO::getName).collect(Collectors.toList()),
-            proxyCacheMapper.findBySelected(true).stream().map(ProxyCacheDTO::getName).collect(Collectors.toList())
+            proxyCacheMapper.findBySelected(true).stream().map(o -> new HashMap<String, Object>(){{
+                put("cache", o.getName());
+                put("sources", o.getSources().stream().map(ProxySourceDTO::getName).collect(Collectors.toList()));
+            }}).collect(Collectors.toList())
         );
     }
 
@@ -338,14 +346,20 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      * @param proxySelectModel ProxySelectModel
      */
     @Override
-    public boolean setProxyDataSelectByModel(ProxySelectModel proxySelectModel) {
+    public boolean setProxyDataSelectByModel(ProxySelectRequestModel proxySelectModel) {
         proxyLayerMapper.updateSelectedAllDisabled();
         proxySourceMapper.updateSelectedAllDisabled();
         proxyCacheMapper.updateSelectedAllDisabled();
 
-        if(proxySelectModel.getLayers().size() > 0) proxyLayerMapper.updateSelectedByNameIn(proxySelectModel.getLayers(), true);
-        if(proxySelectModel.getSources().size() > 0) proxySourceMapper.updateSelectedByNameIn(proxySelectModel.getSources(), true);
-        if(proxySelectModel.getCaches().size() > 0) proxyCacheMapper.updateSelectedByNameIn(proxySelectModel.getCaches(), true);
+        if(proxySelectModel.getLayers().size() > 0) {
+            proxyLayerMapper.updateSelectedByNameIn(proxySelectModel.getLayers(), true);
+        }
+        if(proxySelectModel.getSources().size() > 0) {
+            proxySourceMapper.updateSelectedByNameIn(proxySelectModel.getSources(), true);
+        }
+        if(proxySelectModel.getCaches().size() > 0) {
+            proxyCacheMapper.updateSelectedByNameIn(proxySelectModel.getCaches(), true);
+        }
 
         return saveYAMLFileByEachList();
     }

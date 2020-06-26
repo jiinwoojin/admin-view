@@ -194,7 +194,11 @@
                 </a>
             </td>
             <td class="text-center align-middle">
-                <button class="btn btn-secondary btn-sm btn-circle" th:onclick="onclick_add_button('selectedSources', [[${source.name}]])">
+                <button class="btn btn-secondary btn-sm btn-circle"
+                        th:data-type="selectedSources"
+                        th:data-source="${source.name}"
+                        onclick="onclick_add_button(this)"
+                >
                     <i class="fas fa-plus"></i>
                 </button>
             </td>
