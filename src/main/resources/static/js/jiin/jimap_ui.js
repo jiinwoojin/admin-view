@@ -27,6 +27,28 @@ function initialize_dataTable(id) {
     });
 }
 
+// [공통] 가장 작은 DataTables 생성을 위한 문장
+function initialize_small_dataTable(id) {
+    $('#' + id).DataTable({
+        language : {
+            lengthMenu : "자료 길이 _MENU_",
+            zeroRecords : "해당 자료가 존재하지 않습니다.",
+            info : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+            infoEmpty : "해당 자료가 존재하지 않습니다.",
+            infoFiltered : "(총 _TOTAL_ 건)",
+            search : "검색 키워드",
+            paginate : {
+                first : "<<",
+                last : ">>",
+                next : ">",
+                previous : "<"
+            }
+        },
+        pageLength: 5,
+        "lengthMenu": [[5, -1], [5, "모두"]]
+    });
+}
+
 // [공통] 디자인 관련 함수 모음
 $(document).ready(function () {
     // radio check

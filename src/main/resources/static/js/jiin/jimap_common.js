@@ -9,6 +9,18 @@ var CONTEXT = $(ContextPath).attr('data-contextPath') ? $(ContextPath).attr('dat
  * [공통] : 자바스크립트 공통 로직
  */
 var jiCommon = {
+    MAP_SERVER_DOMAIN : '192.168.1.180',
+    MAP_SERVER_PORT : 11100,
+    MAP_SERVER_URL : '',
+    BASE_MAP_LAYER : 'world_k2',
+    MINI_MAP_WHETHER : false,
+    map : undefined,
+    getBaseMapLayer : function getBaseMapLayer() {
+        return this.BASE_MAP_LAYER;
+    },
+    setBaseMapLayer : function setBaseMapLayer(layerName) {
+        this.BASE_MAP_LAYER = layerName;
+    },
     showLoading : function showLoading() {
         $('#loader-wrapper').show();
     },
@@ -19,19 +31,50 @@ var jiCommon = {
     sleep : function sleep(t) {
         return new Promise(resolve => setTimeout(resolve, t));
     },
+    isDigit : function isDigit(code) {
+        return this.isBetween(code, 47, 58);
+    },
+    isNumber : function isNumber(num) {
+        return !isNaN(num) && num !== null && !Array.isArray(num);
+    },
+    /**
+     * [공통] first 와 last 값 사이에 있는지 체크
+     * @param v
+     * @param first
+     * @param last
+     */
+    isBetween : function isBetween(v, first, last) {
+
+    },
+    isObject : function isObject(object) {
+        return (!!object) && (object.constructor === Object);
+    },
     // [공통] 유효성 체크 함수
     valid : {
-        // [공통] MGRS 유효성 확인
-        mgrs : function mgrs(mgrs) {
+        // [공통] MGRS 유효성 검사
+        isValidMgrs : function mgrs(mgrs) {
 
         },
-        // [공통] UTM 유효성 확인
-        utm : function utm(utm) {
+        // [공통] UTM 유효성 감사
+        isValidUtm : function utm(utm) {
 
         },
-        // [공통] 경위도 유효성 확인
-        lonLat : function lonLat(point) {
+        // [공통] 경위도 유효성 검사
+        isValidLonLat : function lonLat(point) {
+            return this.isValidLongitude(point.lon) && this.isValidLatitude(point.lat);
+        },
+        isValidLongitude : function isValidLongitude(lon) {
+            return (this.isNumber(lon) && this.isBetween())
+        },
+        isValidLatitude : function isValidLatitude(lat) {
 
+        },
+        // [공통] polygon 좌표 유효성 검사
+        isValidPolygon : function polygon(coordinates) {
+            var _firstCoord = coordinates[0];
+            var _lastCoord = coordinates[coordinates.length - 1];
+
+            return _firstCoord[0] === _lastCoord[0] && _firstCoord[1] === _lastCoord[1];
         },
         // [공통] 중복 체크 함수
         duplicateCheck : function duplicateCheck(type, targetId, messageId) {
@@ -64,5 +107,16 @@ var jiCommon = {
                 jiCommon.hideLoading();
             });
         }
+    },
+    /**
+     * [공통] 좌표변환
+     */
+    convert : {
+
     }
 };
+
+if (jiCommon.MAP_SERVER_URL === '') {
+    jiCommon.MAP_SERVER_URL = window.location.protocol + '//'
+        + jiCommon.MAP_SERVER_DOMAIN + (jiCommon.MAP_SERVER_PORT !== 0 ? ':' + jiCommon.MAP_SERVER_PORT : '');
+}

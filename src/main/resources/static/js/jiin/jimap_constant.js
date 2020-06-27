@@ -1,6 +1,7 @@
 'use strict';
 
 var jiConstant = {
+    BASE_MAP_ID : 'BASE_MAP',
     /**
      * geometry 타입 정의
      */

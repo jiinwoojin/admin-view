@@ -479,11 +479,12 @@ jiMap.prototype._bindEvents = function _bindEvents() {
  */
 jiMap.prototype._createGeoJsonSource = function _createGeoJsonSource(id) {
     this.addSource(id, {
-        'type' : stmp.SOURCE_TYPE.GEOJSON,
+        'type' : jiConstant.MAPBOX_SOURCE_TYPE.GEOJSON,
         'data' : {
             'type' : 'FeatureCollection',
             'features' : []
-        }
+        },
+        'buffer' : 0
     });
 };
 
@@ -663,6 +664,7 @@ jiMap.prototype._setLayer = function _setLayer(feature) {
     };
 
     _layer.filter.push(['==', 'type', feature.getTypeName()]);
+    _layer.filter.push(['==', '$type', feature.getGeometryType()]);
 
     var _style = this._setLayerStyle(feature);
 

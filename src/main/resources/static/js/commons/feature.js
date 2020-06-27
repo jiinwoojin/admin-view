@@ -111,6 +111,9 @@ jiFeature.prototype = {
 	getSymbol : function getSymbol() {
 		return this.styleInfo.milsymbol.symbol;
 	},
+	getGeometryType : function getGeometryType() {
+		return this.geometryType;
+	},
 	isSymbol : function isSymbol() {
 		return stmp.valid.checkValue(this.styleInfo.milsymbol);
 	},
