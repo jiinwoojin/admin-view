@@ -115,75 +115,57 @@
         </li>
     </ul>
 
-    <ul class="col_list col_xl_6">
-        <li>
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h3 class="section_tit">서버 별 동기화 파일 정보</h3>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fas fa-ellipsis-h"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li>
-                                <a href="#" class="dropdown-item">BO 센터</a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item">O3 센터</a>
-                            </li>
-                            <li>
-                                <a href="#" class="dropdown-item">OO사 센터</a>
-                            </li>
-                        </ul>
-                    </div>
+    <div class="row px-3 py-1">
+        <div class="ibox col-md-12">
+            <div class="ibox-title">
+                <h3 class="section_tit">JIMAP Admin 서버 등록 정보</h3>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
                 </div>
-                <div class="ibox-content">
-                    <div class="card-body">
-                        <canvas id="graph_SYNC_FILES"></canvas>
+            </div>
+            <div class="ibox-content">
+                <div class="card-body">
+                    <div class="text-left">
+                        <p>
+                            서비스 버전 정보 : <span>3.4</span><br/>
+                            JiMap Web Server 와 같이 사용하는 소프트웨어의 라이선스 정보와 버전 정보는 아래를 참고하시길 바랍니다.
+                        </p>
+                        <hr/>
+                        <table id="list_table" class="table table-sm basic">
+                            <thead class="table-info">
+                            <tr>
+                                <th scope="col" class="text-center">소프트웨어 이름</th>
+                                <th scope="col" class="text-center">버전</th>
+                                <th scope="col" class="text-center">라이선스 종류</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="service : ${services}">
+                                <td class="text-center align-middle">
+                                    <span th:text="${ service.container }">
+                                        [CONTAINER NAME]
+                                    </span>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <span th:text="${ service.version }">
+                                        [CONTAINER VERSION]
+                                    </span>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <span th:text="${ service.license }">
+                                        [CONTAINER LICENSE]
+                                    </span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </li>
-
-        <li>
-            <div class="ibox">
-                <div class="ibox-title">
-                    <h3 class="section_tit">JIMAP Admin 서버 등록 정보</h3>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-content">
-                    <div class="card-body">
-                        <div class="text-left">
-                            <p>
-                                서비스 버전 정보 : <span>3.4</span><br/>
-                                연동 센터 : OOO 센터<br/>
-                                연동된 SI 센터 IP : <span>192.168.1.2 / 192.168.1.3 / 192.168.2.3</span><br/>
-                                연동된 N-SI 센터 IP : <span>192.168.1.2 / 192.168.1.3 / 192.168.2.3</span><br/>
-                            </p>
-                            <hr/>
-                            <p>
-                                Map Server 서비스 정보 : <span>WMS (1.0.1)</span><br/>
-                                Map Proxy 서비스 정보 : <span>WMS (1.0.1), TMS (1.0.1)</span><br/>
-                                Tegola 버전 정보 : <span>1.1.1</span><br/>
-                                Mapnik 버전 정보 : <span>1.1.1</span><br/>
-                                Terrain Server 버전 정보 : <span>1.1.1</span><br/>
-                                PostgreSQL 버전 정보 : <span>1.1.1</span><br/>
-                                Syncthing 버전 정보 : <span>1.1.1</span><br/>
-                                Docker 연동 정보 : <span>A Container -> OK (자세히)</span><br/>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ul>
+</div>
+    </div>
 
     <script>
         var chartColors = {
@@ -286,43 +268,6 @@
             }]
         };
 
-        var barChartData_SYNC_FILES = {
-            labels: ['서버 1', '서버 2', '서버 3'],
-            datasets: [{
-                label: '데이터베이스 - 업로드',
-                backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
-                borderColor: chartColors.red,
-                borderWidth: 1,
-                data: [
-                    5, 4, 3
-                ]
-            }, {
-                label: '데이터베이스 - 다운로드',
-                backgroundColor: color(chartColors.pink).alpha(0.5).rgbString(),
-                borderColor: chartColors.pink,
-                borderWidth: 1,
-                data: [
-                    -7, -3, -4
-                ]
-            }, {
-                label: '파일 - 업로드',
-                backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
-                borderColor: chartColors.blue,
-                borderWidth: 1,
-                data: [
-                    9, 5, 8
-                ]
-            }, {
-                label: '파일 - 다운로드',
-                backgroundColor: color(chartColors.skyblue).alpha(0.5).rgbString(),
-                borderColor: chartColors.skyblue,
-                borderWidth: 1,
-                data: [
-                    -9, -5, -8
-                ]
-            }]
-        };
-
         window.onload = function() {
             new Chart(document.getElementById('graph_DATA').getContext('2d'), {
                 type: 'bar',
@@ -393,33 +338,18 @@
                 }
             });
 
-            new Chart(document.getElementById('graph_SYNC_FILES').getContext('2d'), {
-                type: 'horizontalBar',
-                data: barChartData_SYNC_FILES,
-                options: {
-                    responsive: true,
-                    legend: {
-                        position: 'right',
-                    },
-                    title: {
-                        display: true,
-                        text: 'BO 동기화 파일 개수 현황'
-                    },
-                    scales: {
-                        xAxes: [{
-                            ticks: {
-                                suggestedMin: -30,
-                                suggestedMax: 30
-                            }
-                        }]
-                    }
-                }
-            });
+            initialize_small_dataTable('list_table');
         };
     </script>
 </th:block>
 
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+</th:block>
+
 <th:block layout:fragment="custom-html-script">
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/chartJs/Chart.min.js}"></script>
 </th:block>
 </html>

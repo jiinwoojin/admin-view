@@ -10,14 +10,38 @@ function rendering_selected_data(id, data){
 
     if(data.length > 0) {
         for (var i = 0; i < data.length; i++) {
-            dom += `
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    ${data[i]}
-                    <span class="badge badge-warning badge-pill" style="cursor: pointer;" onclick="onclick_remove_button(\'${id}\', \'${data[i]}\')">
-                        <i class="fas fa-trash"></i>
-                    </span>
-                </li>
-            `;
+            switch(id){
+                case 'selectedLayers':
+                    dom += `
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ${data[i].layer}
+                            <span class="badge badge-warning badge-pill" style="cursor: pointer;" id="remove_yaml_layer_${data[i].layer}" data-id="${id}" data-layer="${data[i].layer}" onclick="onclick_remove_button(this)">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </li>
+                    `;
+                    break;
+                case 'selectedSources':
+                    dom += `
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ${data[i]}
+                            <span class="badge badge-warning badge-pill" style="cursor: pointer;" data-id="${id}" data-source="${data[i]}" onclick="onclick_remove_button(this)">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </li>
+                    `;
+                    break;
+                case 'selectedCaches':
+                    dom += `
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            ${data[i].cache}
+                            <span class="badge badge-warning badge-pill" style="cursor: pointer;" id="remove_yaml_cache_${data[i].cache}" data-id="${id}" data-cache="${data[i].cache}" onclick="onclick_remove_button(this)">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </li>
+                    `;
+                    break;
+            }
         }
     } else {
         dom = `
@@ -42,10 +66,9 @@ function submit_selected_data(){
         form.setAttribute("action", CONTEXT + "/view/proxy/checking-save");
 
         var hiddenField = document.createElement("input");
-
         hiddenField.setAttribute("type", "hidden");
         hiddenField.setAttribute("name", "layers");
-        hiddenField.setAttribute("value", selectedLayers);
+        hiddenField.setAttribute("value", selectedLayers.map(o => o.layer));
         form.appendChild(hiddenField);
 
         hiddenField = document.createElement("input");
@@ -57,7 +80,7 @@ function submit_selected_data(){
         hiddenField = document.createElement("input");
         hiddenField.setAttribute("type", "hidden");
         hiddenField.setAttribute("name", "caches");
-        hiddenField.setAttribute("value", selectedCaches);
+        hiddenField.setAttribute("value", selectedCaches.map(o => o.cache));
         form.appendChild(hiddenField);
 
         document.body.appendChild(form);
@@ -86,24 +109,144 @@ function initialize_selected_data(){
 }
 
 // Map Proxy YAML 파일에 데이터를 추가한다.
-function onclick_add_button(id, data){
-    var arr = window[id];
-    if(arr.includes(data)){
-        toastr.warning('이미 설정 목록에 추가 되어 있습니다.');
-    } else {
-        arr.push(data);
-        window[id] = arr.slice();
-        rendering_selected_data(id, window[id]);
+function onclick_add_button(btn){
+    var data = $(btn).data();
+    var arr = window[data.type];
+    switch(data.type){
+        case 'selectedLayers' :
+            var sources = data.sources;
+            var caches = data.caches;
+            var layer = data.layer;
+            if(arr.filter(o => o.layer === layer).length === 0){
+                arr.push({
+                    layer: layer,
+                    sources: sources,
+                    caches: caches
+                });
+                window[data.type] = arr.slice();
+
+                var sourceText = '';
+                for(var source of sources){
+                    var tmpArr = window['selectedSources'];
+                    if(!tmpArr.includes(source)){
+                        tmpArr.push(source);
+                    }
+                    window['selectedSources'] = tmpArr.slice();
+                    sourceText += source + " ";
+                }
+                if(sourceText !== ''){
+                    toastr.info("LAYER 데이터인 " + data.layer + "와 관련된 SOURCE 데이터 " + sourceText + " (들)도 YAML 파일 설정에서 추가 되었습니다.");
+                }
+
+                var cacheText = '';
+                for(var cache of caches){
+                    var tmpArr = window['selectedCaches'];
+                    if(tmpArr.filter(o => o.cache === cache).length === 0){
+                        document.getElementById('add_button_' + cache).click();
+                    }
+                    cacheText += cache + ' ';
+                }
+                if(cacheText !== ''){
+                    toastr.info("LAYER 데이터인 " + data.layer + "와 관련된 CACHE 데이터 " + cacheText + " (들)도 YAML 파일 설정에서 추가 되었습니다.");
+                }
+
+                rendering_selected_data('selectedLayers', window['selectedLayers']);
+                rendering_selected_data('selectedSources', window['selectedSources']);
+            } else {
+                toastr.warning('이미 설정 목록에 추가 되어 있습니다.');
+            }
+            break;
+
+        case 'selectedSources' :
+            if(!arr.includes(data.source)){
+                arr.push(data.source);
+                window[data.type] = arr.slice();
+                rendering_selected_data('selectedSources', window['selectedSources']);
+            } else {
+                toastr.warning('이미 설정 목록에 추가 되어 있습니다.');
+            }
+            break;
+
+        case 'selectedCaches' :
+            var sources = data.sources;
+            var cache = data.cache;
+            if(arr.filter(o => o.cache === cache).length === 0){
+                arr.push({
+                    cache : cache,
+                    sources : sources
+                });
+                window[data.type] = arr.slice();
+
+                var sourceText = '';
+                for(var source of sources){
+                    var tmpArr = window['selectedSources'];
+                    if(!tmpArr.includes(source)){
+                        tmpArr.push(source);
+                    }
+                    window['selectedSources'] = tmpArr.slice();
+                    sourceText += source + " ";
+                }
+                if(sourceText !== ''){
+                    toastr.info("CACHE 데이터인 " + data.cache + "와 관련된 SOURCE 데이터 " + sourceText + " (들)도 YAML 파일 설정에서 추가 되었습니다.");
+                }
+
+                rendering_selected_data('selectedSources', window['selectedSources']);
+                rendering_selected_data('selectedCaches', window['selectedCaches']);
+            } else {
+                toastr.warning('이미 설정 목록에 추가 되어 있습니다.');
+            }
+            break;
     }
 }
 
 // MAp Proxy YAML 파일에 데이터를 삭제한다.
-function onclick_remove_button(id, data){
-    var arr = window[id];
-    var idx = arr.indexOf(data);
-    if (idx > -1) arr.splice(idx, 1);
-    window[id] = arr.slice();
-    rendering_selected_data(id, window[id]);
+function onclick_remove_button(btn){
+    var data = $(btn).data();
+    var arr = window[data.id];
+    switch(data.id){
+        case 'selectedLayers' :
+            var idx = arr.map(o => o.layer).indexOf(data.layer);
+            if (idx > -1) arr.splice(idx, 1);
+            window[data.id] = arr.slice();
+            rendering_selected_data(data.id, window[data.id]);
+            break;
+        case 'selectedSources' :
+            var idx = arr.indexOf(data.source);
+            if (idx > -1) arr.splice(idx, 1);
+            window[data.id] = arr.slice();
+
+            rendering_selected_data(data.id, window[data.id]);
+
+            var layerText = '';
+            for(var layerData of window['selectedLayers']){
+                if(layerData.sources.includes(data.source)){
+                    document.getElementById('remove_yaml_layer_' + layerData.layer).click();
+                    layerText += layerData.layer + ' '
+                }
+            }
+            if(layerText !== '') {
+                toastr.info("SOURCE 데이터인 " + data.source + "와 관련된 LAYER 데이터 " + layerText + " (들)도 YAML 파일 설정에서 해제 되었습니다.");
+            }
+
+            var cacheText = '';
+            for(var cacheData of window['selectedCaches']){
+                if(cacheData.sources.includes(data.source)){
+                    document.getElementById('remove_yaml_cache_' + cacheData.cache).click();
+                    cacheText += cacheData.cache + ' '
+                }
+            }
+            if(cacheText !== '') {
+                toastr.info("SOURCE 데이터인 " + data.source + "와 관련된 CACHE 데이터 " + cacheText + " (들)도 YAML 파일 설정에서 해제 되었습니다.");
+            }
+            break;
+
+        case 'selectedCaches' :
+            var idx = arr.map(o => o.cache).indexOf(data.cache);
+            if (idx > -1) arr.splice(idx, 1);
+            window[data.id] = arr.slice();
+            rendering_selected_data(data.id, window[data.id]);
+            break;
+    }
 }
 
 window.onload = function() {

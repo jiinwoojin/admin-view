@@ -1,6 +1,6 @@
 package com.jiin.admin.website.server.controller;
 
-import com.jiin.admin.website.model.ProxySelectModel;
+import com.jiin.admin.website.model.ProxySelectResponseModel;
 import com.jiin.admin.website.view.service.ProxyCacheService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ public class RESTProxyController {
     private ProxyCacheService proxyCacheService;
 
     @GetMapping("form")
-    public ProxySelectModel getInitializeProxySelectModel(){
+    public ProxySelectResponseModel getInitializeProxySelectModel(){
         return proxyCacheService.loadProxySetting();
     }
 }
