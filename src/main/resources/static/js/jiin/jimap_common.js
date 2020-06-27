@@ -49,6 +49,22 @@ var jiCommon = {
     isObject : function isObject(object) {
         return (!!object) && (object.constructor === Object);
     },
+    /**
+     * [공통] 깊은 복사
+     * @param object
+     * @returns {*}
+     */
+    cloneDeep : function cloneDeep(object) {
+        return _.cloneDeep(object);
+    },
+    /**
+     * [공통] 얕은 복사
+     * @param object
+     * @returns {*}
+     */
+    cloneShallow : function cloneShallow(object) {
+        return _.clone(object);
+    },
     // [공통] 유효성 체크 함수
     valid : {
         // [공통] MGRS 유효성 검사
@@ -75,6 +91,33 @@ var jiCommon = {
             var _lastCoord = coordinates[coordinates.length - 1];
 
             return _firstCoord[0] === _lastCoord[0] && _firstCoord[1] === _lastCoord[1];
+        },
+        /**
+         * [공통]
+         * @param value
+         * @returns {boolean}
+         */
+        checkValue : function checkValue(value) {
+            if (value === null || value === undefined || value === "" || value === '') {
+                return false;
+            } else if (value !== null && typeof value === 'object' && Object.keys(value).length < 1) {
+                return false;
+            } else {
+                return !(Array.isArray(value) && value.length < 1);
+            }
+        },
+        /**
+         * [공통]
+         * @param a
+         * @param b
+         * @returns {*}
+         */
+        defaultValue : function defaultValue(a, b) {
+            if (a !== null && a !== undefined) {
+                return a;
+            }
+
+            return b;
         },
         // [공통] 중복 체크 함수
         duplicateCheck : function duplicateCheck(type, targetId, messageId) {
