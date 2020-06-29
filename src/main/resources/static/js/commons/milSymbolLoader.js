@@ -447,6 +447,49 @@ milSymbolLoader.milsymbolsPreview = function(evt){
         source.setData(sourceData)
     }
 }
+/**
+ * 군대부호 직접그리기
+ * @param sidc
+ * @param points [x,y] or [[x,y]] or [[x1,y1],[x2,y2],[x3,y3]]
+ * ex)
+ * milSymbolLoader.draw("SFG*IGA---H****",[127.02712249755984, 36.992322299618536])
+ * milSymbolLoader.draw("SFG*IGA---H****",[[127.02712249755984, 36.992322299618536]])
+ * milSymbolLoader.draw("GFT-K-----****X",[[126.85958099365331,37.07673435836169],[126.9701309204122,36.99396758638515],[127.05046844482507,37.0153530751237]])
+ */
+milSymbolLoader.draw = function(sidc,points){
+    if(points instanceof Array && points.length === 1 && points[0] instanceof Array){
+        points = [points[0][0], points[0][1]]
+    }
+    var geometryType = null
+    if(points.length === 2 && typeof points[0] == 'number' && typeof points[1] == 'number'){
+        geometryType =  "Point"
+    }else if (points.length >= 2 && points[0] instanceof Array){
+        geometryType =  "LineString"
+    }
+    if(geometryType === null){
+        console.error("좌표정보가 잘못되었습니다.", points)
+    }
+    //
+    window.function_sidc = sidc
+    //
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 3 | 8);
+        return v.toString(16);
+    })
+    //
+    var options = stmp.getMilsymbolOptions()
+    milSymbolLoader.drawMilsymbol(options,true)
+    //
+    var evt = {}
+    evt.features = []
+    evt.features[0] = {}
+    evt.features[0].id = uuid
+    evt.features[0].geometry = {}
+    evt.features[0].geometry.type = geometryType
+    evt.features[0].geometry.coordinates = []
+    evt.features[0].geometry.coordinates = points
+    milSymbolLoader.milsymbolsGenerator(evt)
+}
 milSymbolLoader.milsymbolsGenerator = function(evt){
     var features = evt.features
     var drawId = features[0].id
@@ -457,6 +500,7 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
     var constraint = options._constraint
     var coordinates = milSymbolLoader.map._drawing_milsymbol_coordinates
     var datas = []
+    console.log(geometryType, constraint, coord)
     if(geometryType === "Point"){
         if(constraint === "milSym"){
             var imageData = milSymbolLoader.map._drawing_milsymbol.asCanvas().toDataURL('image/png')
@@ -473,7 +517,7 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
 
             image.src = imageData;
         }else{
-            var cs = document.getElementById('SIDCCODINGSCHEME').value;
+            var cs = milSymbolLoader.getCS(function_sidc)
             drawMsymbol(options._symbol_serial, 'SVG', null, symStd, cs, function_sidc);
             if(jQuery("#svg-draw").length == 0){
                 jQuery("body").css("overflow",'hidden')
@@ -514,7 +558,7 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
         jQuery.each(coord, function(idx, point){
             coordinates.push({x:point[0],y:point[1]})
         })
-        var cs = document.getElementById('SIDCCODINGSCHEME').value;
+        var cs = milSymbolLoader.getCS(function_sidc)
         drawMsymbol(options._symbol_serial, 'geoJSON', null, symStd, cs, function_sidc)
         var geojson = milSymbolLoader.map._drawing_milsymbol._geojson
         var data = JSON.parse(geojson)
@@ -602,7 +646,7 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
                 'text-ignore-placement' : true,
                 "text-size": ['get', 'fontSize'],
                 'text-rotate': ['get','angle'],
-                "text-font": ["Gosanja"]
+                //"text-font": ["Gosanja"]
             },
             paint: {
                 "text-color": ['get', 'fontColor'],
@@ -643,7 +687,7 @@ milSymbolLoader.milsymbolsChangeSourceData = function(sourceData, drawId, drawGe
                         milSymbolLoader.map.addImage(drawId + "-image", image)
                     })
                 }else{
-                    var _cs = document.getElementById('SIDCCODINGSCHEME').value;
+                    var _cs = milSymbolLoader.getCS(window.function_sidc)
                     drawMsymbol(-1, 'SVG', null, window.symStd, _cs, window.function_sidc);
                     if(jQuery("#svg-draw").length == 0){
                         jQuery("body").css("overflow",'hidden')
@@ -698,12 +742,12 @@ milSymbolLoader.milsymbolsChangeSourceData = function(sourceData, drawId, drawGe
  * drawMilsymbol
  * @param options
  */
-milSymbolLoader.drawMilsymbol = function(options){
+milSymbolLoader.drawMilsymbol = function(options, onlySetValue){
     if(options === null || options === undefined){
         toastr.error("MilSymbol options 값이 없습니다.")
         return
     }
-    console.log(options)
+    //console.log(options)
     var symbol = {}
     var sidc = options.SIDC
     if (sidc.charAt(0) === 'W' || sidc.charAt(0) === 'G') {
@@ -724,12 +768,14 @@ milSymbolLoader.drawMilsymbol = function(options){
         symbol.options._max_point = drawInfo.max_point
         symbol.options._draw_type = drawInfo.draw_type
         symbol.options._constraint = drawInfo.constraint
-        if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_2D){
-            // 맵박스
-            milSymbolLoader.drawControl.changeMode(mode)
-        }else if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_3D){
-            // 세슘
-            stmp.mapObject.drawControlMode(mode,symbol.options._constraint)
+        if(onlySetValue !== true){
+            if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_2D){
+                // 맵박스
+                milSymbolLoader.drawControl.changeMode(mode)
+            }else if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_3D){
+                // 세슘
+                stmp.mapObject.drawControlMode(mode,symbol.options._constraint)
+            }
         }
     } else {
         symbol = new ms.Symbol(options) // 심볼생성
@@ -737,16 +783,39 @@ milSymbolLoader.drawMilsymbol = function(options){
         symbol.options._max_point = 1
         symbol.options._draw_type = "Point"
         symbol.options._constraint = "milSym"
-        if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_2D){
-            // 맵박스
-            milSymbolLoader.drawControl.changeMode("draw_point")
-        }else if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_3D){
-            // 세슘
-            stmp.mapObject.drawControlMode("draw_point",symbol.options._constraint)
+        if(onlySetValue !== true){
+            if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_2D){
+                // 맵박스
+                milSymbolLoader.drawControl.changeMode("draw_point")
+            }else if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_3D){
+                // 세슘
+                stmp.mapObject.drawControlMode("draw_point",symbol.options._constraint)
+            }
         }
     }
     symbol.options._symbol_serial = (milSymbolLoader.map._drawing_milsymbol ? milSymbolLoader.map._drawing_milsymbol.options._symbol_serial + 1 : 0)
     // 심볼생성
     milSymbolLoader.map._drawing_milsymbol = symbol
+
     milSymbolLoader.map._drawing_milsymbol_coordinates = []
+}
+/**
+ // S---------***** / 기본군대부호
+ // G*--------****X / 작전활동부호
+ // W-------------- / 기상 및 해양
+ // I-------------- / 신호정보
+ // O*--------***** / 안정화작전
+ // E-------------- / 비상관리
+ // S*Z*------***** / 미식별
+ * @param sidc
+ */
+milSymbolLoader.getCS = function(sidc){
+    var first = sidc.charAt(0)
+    if(first === 'S') return 'S---------*****'
+    else if(first === 'G') return 'G*--------****X'
+    else if(first === 'W') return 'W--------------'
+    else if(first === 'I') return 'I--------------'
+    else if(first === 'O') return 'O*--------*****'
+    else if(first === 'E') return 'E--------------'
+    else return 'S*Z*------*****'
 }
