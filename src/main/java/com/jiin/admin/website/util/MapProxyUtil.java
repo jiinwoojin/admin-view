@@ -145,6 +145,18 @@ public class MapProxyUtil {
         yamlModel.put("layers", layers_y);
         yamlModel.put("caches", caches_y);
         yamlModel.put("sources", sources_y);
+        yamlModel.put("grids", new LinkedHashMap<String, Object>(){{
+            put("osm_grid", new LinkedHashMap<String, Object>(){{
+                put("srs", "EPSG:3857");
+                put("origin", "nw");
+            }});
+        }});
+        yamlModel.put("globals", new LinkedHashMap<String, Object>(){{
+            put("cache", new LinkedHashMap<String, Object>(){{
+                put("base_dir", "/data/jiapp/data_dir/cache");
+                put("lock_dir", "/data/jiapp/data_dir/cache/locks");
+            }});
+        }});
 
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory()
                 .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
@@ -158,7 +170,7 @@ public class MapProxyUtil {
         Yaml yaml = new Yaml(options);
 
         StringBuffer sb = new StringBuffer();
-        for(String key : Arrays.asList("services", "layers", "caches", "sources")){
+        for(String key : Arrays.asList("services", "layers", "caches", "sources", "grids", "globals")){
             StringWriter yamlStr = new StringWriter();
             Map<String, Object> serviceMap = new HashMap<String, Object>() {{
                 put(key, yamlModel.get(key));
@@ -168,6 +180,8 @@ public class MapProxyUtil {
             String temp = null, context = yamlStr.toString();
             Pattern p;
             Matcher m;
+
+
             switch(key) {
                 case "services" :
                     context = context.replace("demo: null", "demo:");
@@ -201,57 +215,90 @@ public class MapProxyUtil {
 
                 case "sources" :
                 case "caches" :
-                    p = Pattern.compile("(\\s\\{).*?(,\\s).*?(,\\s+).*?(\\})");
-                    m = p.matcher(context);
+                    Map<String, Object> keyMap = (Map<String, Object>) yamlModel.get(key);
+                    if(!keyMap.isEmpty()) {
+                        p = Pattern.compile("(\\s\\{).*?(,\\s).*?(,\\s+).*?(\\})");
+                        m = p.matcher(context);
 
-                    while(m.find()){
-                        temp = m.group(0);
-                        temp = temp.replace(m.group(1), "\n      ");
-                        temp = temp.replace(m.group(2), "\n      ");
-                        temp = temp.replace(m.group(3), "\n      ");
-                        temp = temp.replace(m.group(4), "");
-                        context = context.replace(m.group(0), temp);
+                        while (m.find()) {
+                            temp = m.group(0);
+                            temp = temp.replace(m.group(1), "\n      ");
+                            temp = temp.replace(m.group(2), "\n      ");
+                            temp = temp.replace(m.group(3), "\n      ");
+                            temp = temp.replace(m.group(4), "");
+                            context = context.replace(m.group(0), temp);
+                        }
+
+                        p = Pattern.compile("(\\s\\{).*?(,\\s).*?(\\})");
+                        m = p.matcher(context);
+                        while (m.find()) {
+                            temp = m.group(0);
+                            temp = temp.replace(m.group(1), "\n      ");
+                            temp = temp.replace(m.group(2), "\n      ");
+                            temp = temp.replace(m.group(3), "");
+                            context = context.replace(m.group(0), temp);
+                        }
+
+                        p = Pattern.compile("(\\s\\{).*?(\\})");
+                        m = p.matcher(context);
+                        while (m.find()) {
+                            temp = m.group(0);
+                            temp = temp.replace(m.group(1), "\n      ");
+                            temp = temp.replace(m.group(2), "");
+                            context = context.replace(m.group(0), temp);
+                        }
+
+                        if (key.equals("sources")) {
+                            context = context.replaceAll("\\'", "");
+                        } else {
+                            context = context.replace("grids: [GLOBAL_GEODETIC]", "grids: [\'GLOBAL_GEODETIC\']");
+                        }
+
+                        context = context.replaceAll("\\\\", "\'");
+                    } else {
+                        context = String.format("%s : {}\n", key);
                     }
+                    break;
 
+                case "layers" :
+                    List<Map<String, Object>> keyList = (List<Map<String, Object>>) yamlModel.get(key);
+                    if(!keyList.isEmpty()) {
+                        String[] sp = context.split("\\n");
+                        StringBuffer tmp = new StringBuffer();
+                        for (String s : sp) {
+                            tmp.append(String.format("%s%s\n", s.equals("layers:") ? "" : "  ", s));
+                        }
+                        context = tmp.toString();
+                    } else {
+                        context = String.format("%s : []\n", key);
+                    }
+                    break;
+
+                case "grids" :
+                case "globals" :
                     p = Pattern.compile("(\\s\\{).*?(,\\s).*?(\\})");
                     m = p.matcher(context);
                     while(m.find()){
                         temp = m.group(0);
-                        temp = temp.replace(m.group(1), "\n      ");
-                        temp = temp.replace(m.group(2), "\n      ");
+                        temp = temp.replace(m.group(1), "\n    ");
+                        temp = temp.replace(m.group(2), "\n    ");
                         temp = temp.replace(m.group(3), "");
                         context = context.replace(m.group(0), temp);
                     }
 
-                    p = Pattern.compile("(\\s\\{).*?(\\})");
-                    m = p.matcher(context);
-                    while(m.find()){
-                        temp = m.group(0);
-                        temp = temp.replace(m.group(1), "\n      ");
-                        temp = temp.replace(m.group(2), "");
-                        context = context.replace(m.group(0), temp);
+                    if(key.equals("grids")){
+                        context = context.replace("\'EPSG:3857\'", "EPSG:3857");
                     }
 
-                    if(key.equals("sources")){
-                        context = context.replaceAll("\\'", "");
-                    } else {
-                        context = context.replace("grids: [GLOBAL_GEODETIC]", "grids: [\'GLOBAL_GEODETIC\']");
+                    if(key.equals("globals")){
+                        context = context.replaceFirst("/data/jiapp/data_dir/cache", "\'/data/jiapp/data_dir/cache\'");
+                        context = context.replaceFirst("/data/jiapp/data_dir/cache/locks", "\'/data/jiapp/data_dir/cache/locks\'");
                     }
 
-                    context = context.replaceAll("\\\\", "\'");
-                    break;
-
-                case "layers" :
-                    String[] sp = context.split("\\n");
-                    StringBuffer tmp = new StringBuffer();
-                    for(String s : sp){
-                        tmp.append(String.format("%s%s\n", s.equals("layers:") ? "" : "  ", s));
-                    }
-                    context = tmp.toString();
                     break;
             }
 
-            if(!key.equals("sources")) sb.append(context + "\n");
+            if(!key.equals("globals")) sb.append(context + "\n");
             else sb.append(context);
         }
 

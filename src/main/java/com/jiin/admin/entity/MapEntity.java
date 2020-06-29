@@ -46,16 +46,16 @@ public class MapEntity implements Persistable<Long> {
     @Column(name = "VRT_FILE_PATH", length = 254)
     private String vrtFilePath;
 
-    @Column(name = "MIN_X", length = 10)
+    @Column(name = "MIN_X", length = 20)
     private String minX;
 
-    @Column(name = "MAX_X", length = 10)
+    @Column(name = "MAX_X", length = 20)
     private String maxX;
 
-    @Column(name = "MIN_Y", length = 10)
+    @Column(name = "MIN_Y", length = 20)
     private String minY;
 
-    @Column(name = "MAX_Y", length = 10)
+    @Column(name = "MAX_Y", length = 20)
     private String maxY;
 
     /**

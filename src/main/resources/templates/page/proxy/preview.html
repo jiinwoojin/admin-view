@@ -68,7 +68,8 @@
             const serviceURL = `http://${localMain && localMain.ip}:${port}/service`;
 
             var layer = firstLayer;
-            var projection = 'EPSG:4326';
+            // Mapbox 는 BBOX 체계를 3857 를 기준으로 제공한다.
+            var projection = 'EPSG:3857';
             var format = 'image/png';
 
             var map = new mapboxgl.Map({
@@ -81,7 +82,7 @@
             map.addSource('wms-source', {
                 'type': 'raster',
                 'tiles': [
-                    serviceURL + `?REQUEST=getMap&LAYERS=${firstLayer}&version=1.3.0&crs=${projection}&format=${format}&bbox={bbox-epsg-3857}&width=256&height=256&styles=`
+                    serviceURL + `?REQUEST=getMap&LAYERS=${firstLayer}&version=1.3.0&crs=${projection}&srs=${projection}&format=${format}&bbox={bbox-epsg-3857}&width=256&height=256&styles=`
                 ],
                 'tileSize': 256
             });
@@ -107,7 +108,7 @@
                 map.addSource('wms-source', {
                     'type': 'raster',
                     'tiles': [
-                        serviceURL + `?REQUEST=getMap&LAYERS=${layer}&version=1.3.0&crs=${projection}&format=${format}&bbox={bbox-epsg-3857}&width=256&height=256&styles=`
+                        serviceURL + `?REQUEST=getMap&LAYERS=${layer}&version=1.3.0&crs=${projection}&srs=${projection}&format=${format}&bbox={bbox-epsg-3857}&width=256&height=256&styles=`
                     ],
                     'tileSize': 256
                 });

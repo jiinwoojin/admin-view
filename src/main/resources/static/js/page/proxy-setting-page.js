@@ -289,7 +289,7 @@ window.onload = function() {
                 for (var i = 0; i < options.length; i++) {
                     var option = document.createElement('option');
                     option.value = JSON.stringify({requestMap: options[i].mapFilePath, mapName: options[i].name});
-                    option.text = options[i].name + `(${options[i].mapFilePath})`;
+                    option.text = options[i].name;
 
                     mapFile.options.add(option);
                 }
@@ -400,11 +400,11 @@ function preSubmit(form){
 
 // 공통으로 진행될 이름 확인
 function nameValidation(form, field){
-    if(jQuery.isEmptyObject(form[field].value)) {
+    if (jQuery.isEmptyObject(form[field].value)) {
         form[field].focus();
         toastr.warning("이름이 입력되지 않았습니다.");
         return false;
-    }else if(jQuery(form[field]).data("check-duplicate") === false) {
+    } else if (jQuery(form[field]).data("check-duplicate") === false) {
         toastr.warning("이름 중복확인이 되지 않았습니다.");
         return false;
     }
@@ -445,8 +445,9 @@ function sourceMapWMSValidation(){
     if(values){
         var expUrl = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
         if(expUrl.test(values)) {
-            if (values.endsWith("?")) return true;
-            else {
+            if (values.endsWith("?")) {
+                return true;
+            } else {
                 toastr.warning('URL 뒤에는 반드시 ? 를 입력하시길 바랍니다.');
                 return false;
             }
@@ -463,8 +464,9 @@ function sourceMapWMSValidation(){
 // Cache 데이터 Validation 체크
 function cacheValidation(){
     var values = JSON.stringify($('#cache-sources').val());
-    if(values.length > 0) return true;
-    else {
+    if (values.length > 0) {
+        return true;
+    } else {
         toastr.warning('캐시 연계 소스의 값을 최소한 1개 선택 하시길 바랍니다.');
         return false;
     }
@@ -491,10 +493,10 @@ function onclick_insert_data(type) {
 
         if (type === 'source') {
             $('#source-type').val('mapserver');
-            $('#source-requestMap').val('[none]');
-            $('#source-requestLayers').val('[none]');
-            $('#source-mapServerBinary').val(mapServerBinary);
-            $('#source-mapServerWorkDir').val(dataDirPath + '/temp');
+            $('#source-requestMap-mapserver').val('[none]');
+            $('#source-requestLayers-mapserver').val('[none]');
+            $('#source-requestMap-wms').val('[none]');
+            $('#source-requestLayers-wms').val('[none]');
         }
 
         if (type === 'cache') {
@@ -525,7 +527,7 @@ function onclick_update_data(btn){
             if (key !== 'obj') {
                 $('#' + data.obj + '-' + key).val(data[key]);
             }
-            if (key === 'requestLayers') {
+            if (key === 'requestLayers' || key === 'requestMap') {
                 $('#' + data.obj + '-' + key + '-' + data['type']).val(data[key]);
             }
         }
@@ -537,23 +539,24 @@ function onclick_update_data(btn){
             document.getElementById('layer-sources').value = JSON.stringify(sources);
             document.getElementById('layer-caches').value = JSON.stringify(caches);
 
-            sources.forEach(o => document.getElementById('layerSources_' + o).checked = true);
-            caches.forEach(o => document.getElementById('layerCaches_' + o).checked = true);
-        }
-
-        if (data.obj === 'cache') {
-            $('#directoryEdit').val(false);
-            document.getElementById('cache-cacheDirectory').readOnly = true;
-
-            var sources = data['sources'];
-            document.getElementById('cache-sources').value = JSON.stringify(sources);
-            sources.forEach(o => document.getElementById('cacheSources_' + o).checked = true);
+            sources.forEach(o => {
+                var dom = document.getElementById('layerSources_' + o);
+                if (dom) {
+                    dom.checked = true;
+                }
+            });
+            caches.forEach(o => {
+                var dom = document.getElementById('layerCaches_' + o);
+                if (dom) {
+                    dom.checked = true;
+                }
+            });
         }
 
         if (data.obj === 'source') {
             onchange_source_type('#source-type');
 
-            if(data['type'] === 'wms'){
+            if(data['type'] === 'wms') {
                 var hidden = document.getElementById('source-requestTransparent');
                 var checkbox = document.getElementById('source-check');
                 hidden.value = data['requestTransparent'];
@@ -561,8 +564,8 @@ function onclick_update_data(btn){
 
                 var split = data['supportedSrs'].split(',');
                 document.getElementById('source-supportedSrs').value = split.join();
-                for(var i = 0; i < split.length; i++){
-                    switch(split[i]){
+                for (var i = 0; i < split.length; i++) {
+                    switch (split[i]) {
                         case 'EPSG:4326' :
                             document.getElementById('source-grid1').checked = true;
                             break;
@@ -575,6 +578,22 @@ function onclick_update_data(btn){
                     }
                 }
             }
+
+            $('#mapFile' + '-' + data['type']).val(JSON.stringify({requestMap: data['requestMap'].replace(dataDirPath, ''), mapName: data['requestLayers']}));
+        }
+
+        if (data.obj === 'cache') {
+            $('#directoryEdit').val(false);
+            document.getElementById('cache-cacheDirectory').readOnly = true;
+
+            var sources = data['sources'];
+            document.getElementById('cache-sources').value = JSON.stringify(sources);
+            sources.forEach(o => {
+                var dom = document.getElementById('cacheSources_' + o);
+                if (dom) {
+                    dom.checked = true;
+                }
+            });
         }
     } else {
         toastr.warning('SOURCE 를 YAML 파일에 등록하시길 바랍니다.');
@@ -636,9 +655,10 @@ function onchange_cache_directory_checkbox(){
     var directory = document.getElementById('cache-cacheDirectory');
     var name = document.getElementById('cache-name');
     directory.readOnly = !checkbox.checked;
-    if(directory.readOnly){
-        if(name.value.trim() !== '')
+    if (directory.readOnly) {
+        if (name.value.trim() !== '') {
             directory.value = cacheDirectoryPath + name.value + '/';
+        }
     }
 }
 

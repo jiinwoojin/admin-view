@@ -13,8 +13,12 @@
                 <form id="source-form" data-title="source-form" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)">
                     <input type="hidden" id="source-id" name="id" value="0" />
                     <input type="hidden" id="source-method" name="method" value="INSERT" />
+
+                    <input type="hidden" id="source-mapServerBinary" name="mapServerBinary" class="mapserver" th:value="${mapServerBinary}" />
+                    <input type="hidden" id="source-mapServerWorkDir" name="mapServerWorkDir" class="mapserver" th:value="${dataDirectory + '/temp'}" />
+
                     <input type="hidden" id="source-requestTransparent" name="requestTransparent" class="wms" value="false" />
-                    <input type="hidden" id="source-supportedSrs" name="supportedSrs" class="wms" value="false" />
+                    <input type="hidden" id="source-supportedSrs" name="supportedSrs" class="wms" value="" />
 
                     <div class="modal-header">
                         <h4 class="cont_tit">데이터 <span id="source-method-title"></span> - Source</h4>
@@ -50,29 +54,19 @@
                         <!-- Map Server 입력란 시작 -->
                         <div class="form-group mapserver">
                             <label for="mapFile-mapserver">MapServer 리소스 : Map 파일 선택 <span class="text-danger">(*)</span></label>
-                            <select class="form-control mapserver" id="mapFile-mapserver" onchange="onchange_mapFile_value('mapFile-mapserver')">
+                            <select class="form-control mapserver" id="mapFile-mapserver" name="mapFile" onchange="onchange_mapFile_value('mapFile-mapserver')">
                                 <option value='{ "requestMap" : "[none]", "mapId" : -1 }'>-- Map 파일 선택 --</option>
                             </select>
                         </div>
 
                         <div class="form-group mapserver">
-                            <label for="source-mapserver-requestMap">Map 파일 주소 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control mapserver" id="source-mapserver-requestMap" name="requestMap" readonly />
+                            <label for="source-requestMap-mapserver">Map 파일 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control mapserver" id="source-requestMap-mapserver" name="requestMap" readonly />
                         </div>
 
                         <div class="form-group mapserver">
                             <label for="source-requestLayers-mapserver">요청 Layer <span class="text-info">(*)</span></label>
                             <input type="text" class="form-control mapserver" id="source-requestLayers-mapserver" name="requestLayers" readonly />
-                        </div>
-
-                        <div class="form-group mapserver">
-                            <label for="source-mapServerBinary">MapServer 바이러리 주소 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control mapserver" id="source-mapServerBinary" name="mapServerBinary" readonly />
-                        </div>
-
-                        <div class="form-group mapserver">
-                            <label for="source-mapServerWorkDir">MapServer 작업 주소 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control mapserver" id="source-mapServerWorkDir" name="mapServerWorkDir" readonly />
                         </div>
                         <!-- Map Server 입력란 끝 -->
 
@@ -103,19 +97,19 @@
                         <!-- Map Server 입력란 시작 -->
                         <div class="form-group wms">
                             <label for="mapFile-wms">MapServer 리소스 : Map 파일 선택 <span class="text-danger">(*)</span></label>
-                            <select class="form-control wms" id="mapFile-wms" onchange="onchange_mapFile_value('mapFile-wms')">
+                            <select class="form-control wms" id="mapFile-wms" name="mapFile" onchange="onchange_mapFile_value('mapFile-wms')">
                                 <option value='{ "requestMap" : "[none]", "mapId" : -1 }'>-- Map 파일 선택 --</option>
                             </select>
                         </div>
 
                         <div class="form-group wms">
-                            <label for="source-wms-requestMap">Map 파일 주소 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control wms" id="source-wms-requestMap" name="requestMap" readonly />
+                            <label for="source-requestMap-wms">Map 파일 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control wms" id="source-requestMap-wms" name="requestMap" readonly />
                         </div>
 
                         <div class="form-group wms">
                             <label for="source-requestLayers-wms">요청 Layer <span class="text-info">(*)</span></label>
-                            <input type="text" class="form-control wms" id="source-requestLayers-wms" name="requestLayers" />
+                            <input type="text" class="form-control wms" id="source-requestLayers-wms" name="requestLayers" readonly />
                         </div>
 
                         <div class="form-check-inline wms">
@@ -175,10 +169,8 @@
                     data-method="UPDATE"
                     th:data-name="${source.name}"
                     th:data-type="${source.type}"
-                    th:data-request-map="${ source.type == 'mapserver' ? source.requestMap : '[none]' }"
+                    th:data-request-map="${ source.requestMap }"
                     th:data-request-layers="${ source.requestLayers }"
-                    th:data-map-server-binary="${ source.type == 'mapserver' ? source.mapServerBinary : '[none]' }"
-                    th:data-map-server-work-dir="${ source.type == 'mapserver' ? source.mapServerWorkDir : '[none]' }"
                     th:data-concurrent-requests="${ source.type == 'wms' ? source.concurrentRequests : 0 }"
                     th:data-wms-opts-version="${ source.type == 'wms' ? source.wmsOptsVersion : 0 }"
                     th:data-http-client-timeout="${ source.type == 'wms' ? source.httpClientTimeout : 0 }"
