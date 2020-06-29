@@ -453,7 +453,7 @@ milSymbolLoader.milsymbolsPreview = function(evt){
  * @param points [x,y] or [[x,y]] or [[x1,y1],[x2,y2],[x3,y3]]
  * ex)
  * milSymbolLoader.draw("SFG*IGA---H****",[127.02712249755984, 36.992322299618536])
- * milSymbolLoader.draw("SFG*IGA---H****",[[127.02712249755984, 36.992322299618536]])
+ * milSymbolLoader.draw("SFG*IGA---H****",[[127.17818450927143, 37.06413332353205]])
  * milSymbolLoader.draw("GFT-K-----****X",[[126.85958099365331,37.07673435836169],[126.9701309204122,36.99396758638515],[127.05046844482507,37.0153530751237]])
  */
 milSymbolLoader.draw = function(sidc,points){

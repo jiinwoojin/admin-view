@@ -36,6 +36,15 @@ var options = stmp.getMilsymbolOptions()
 milSymbolLoader.drawMilsymbol(options)
 ```
 
+## 직접그리기
+
+    @param1 sidc
+    @param2 points [x,y] or [[x,y]] or [[x1,y1],[x2,y2],[x3,y3]]
+    ex)
+        milSymbolLoader.draw("SFG*IGA---H****",[127.02712249755984, 36.992322299618536])
+        milSymbolLoader.draw("SFG*IGA---H****",[[127.17818450927143, 37.06413332353205]])
+        milSymbolLoader.draw("GFT-K-----****X",[[126.85958099365331,37.07673435836169],[126.9701309204122,36.99396758638515],[127.05046844482507,37.0153530751237]])
+
 ## 필수교체파일
 
     cfsiStmp2DMap.js - 기존 군대부호 관련 함수 milSymbolLoader.js 로 모두 이동 되었습니다.
