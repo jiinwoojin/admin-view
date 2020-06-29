@@ -457,6 +457,10 @@ milSymbolLoader.milsymbolsPreview = function(evt){
  * milSymbolLoader.draw("GFT-K-----****X",[[126.85958099365331,37.07673435836169],[126.9701309204122,36.99396758638515],[127.05046844482507,37.0153530751237]])
  */
 milSymbolLoader.draw = function(sidc,points){
+    if(points === null || points === undefined || points.length === 0){
+        console.warn("좌표정보를 입력해 주세요.")
+        return
+    }
     if(points instanceof Array && points.length === 1 && points[0] instanceof Array){
         points = [points[0][0], points[0][1]]
     }
@@ -468,6 +472,7 @@ milSymbolLoader.draw = function(sidc,points){
     }
     if(geometryType === null){
         console.error("좌표정보가 잘못되었습니다.", points)
+        return
     }
     //
     window.function_sidc = sidc
@@ -500,7 +505,7 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
     var constraint = options._constraint
     var coordinates = milSymbolLoader.map._drawing_milsymbol_coordinates
     var datas = []
-    console.log(geometryType, constraint, coord)
+    //console.log(geometryType, constraint, coord)
     if(geometryType === "Point"){
         if(constraint === "milSym"){
             var imageData = milSymbolLoader.map._drawing_milsymbol.asCanvas().toDataURL('image/png')
