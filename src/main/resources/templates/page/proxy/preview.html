@@ -39,7 +39,7 @@
 
             <!-- FORMAT TEST -->
             <div class="form-group">
-                <select class="form-control form-control-sm">
+                <select class="form-control form-control-sm" onchange="onchange_format(this)">
                     <option value="image/png">image/png</option>
                     <option value="image/jpeg">image/jpeg</option>
                 </select>
@@ -53,63 +53,82 @@
     </div>
 
     <div class="map_area" th:if="${ #lists.size(proxyLayers) > 0 }">
-        <!-- Openlayers 시작 -->
-        <div id="map" class="mb-2" style="width: 100%; height: calc(100vh - 188px);">
+        <!-- Mapbox 시작 -->
+        <div id="map2d" class="mb-2" style="width: 100%; height: calc(100vh - 188px);">
         </div>
-        <!-- // Openlayers 종료 -->
+        <!-- // Mapbox 종료 -->
 
         <script th:inline="javascript">
             var localMain = /*[[ ${local} ]]*/ null;
             var port = /*[[ ${port} ]]*/ 0;
+            var firstLayer = /*[[ ${#lists.size(proxyLayers) > 0 ? proxyLayers[0].name : 'default-layer'} ]]*/ null;
         </script>
 
         <script>
-            var mapSource, layer, map;
+            const serviceURL = `http://${localMain && localMain.ip}:${port}/service`;
+
+            var layer = firstLayer;
+            var projection = 'EPSG:4326';
+            var format = 'image/png';
+
+            var map = new mapboxgl.Map({
+                container: 'map2d',
+                zoom: 10,
+                center: [127, 37],
+                style: '',
+            });
+
+            map.addSource('wms-source', {
+                'type': 'raster',
+                'tiles': [
+                    serviceURL + `?REQUEST=getMap&LAYERS=${firstLayer}&version=1.3.0&crs=${projection}&format=${format}&bbox={bbox-epsg-3857}&width=256&height=256&styles=`
+                ],
+                'tileSize': 256
+            });
+            map.addLayer(
+                {
+                    'id': 'wms-layer',
+                    'type': 'raster',
+                    'source': 'wms-source',
+                    'paint': {}
+                }
+            );
 
             $(document).ready(function() {
                 initialize_dataTable('list_table_layer');
-
-                mapSource = new ol.source.TileWMS({
-                    url: `http://${localMain && localMain.ip}:${port}/service`,
-                    params: {
-                        'REQUEST' : 'getMap',
-                        'LAYERS' : '[[${proxyLayers[0].name}]]'
-                    }
-                });
-
-                layer = new ol.layer.Tile({
-                    source : mapSource
-                });
-
-                map = new ol.Map({
-                    layers: [layer],
-                    target: 'map',
-                    view: new ol.View({
-                        projection: 'EPSG:4326',
-                        center: ol.proj.fromLonLat([127.123294, 37.385117]),
-                        zoom: 12
-                    })
-                });
             });
 
             function onclick_preview_layer(name){
-                layer.setSource(new ol.source.TileWMS({
-                    url: `http://${localMain && localMain.ip}:${port}/service`,
-                    params: {
-                        'REQUEST' : 'getMap',
-                        'LAYERS' : name
+                layer = name;
+
+                map.removeLayer('wms-layer');
+                map.removeSource('wms-source');
+
+                map.addSource('wms-source', {
+                    'type': 'raster',
+                    'tiles': [
+                        serviceURL + `?REQUEST=getMap&LAYERS=${layer}&version=1.3.0&crs=${projection}&format=${format}&bbox={bbox-epsg-3857}&width=256&height=256&styles=`
+                    ],
+                    'tileSize': 256
+                });
+                map.addLayer(
+                    {
+                        'id': 'wms-layer',
+                        'type': 'raster',
+                        'source': 'wms-source',
+                        'paint': {}
                     }
-                }));
+                );
             }
 
             function onchange_projection(dom){
-                map.setView(
-                    new ol.View({
-                        center: ol.proj.fromLonLat([127.123294, 37.385117]),
-                        extent: map.getView().calculateExtent(map.getSize()),
-                        projection: dom.value
-                    })
-                );
+                projection = dom.value;
+                onclick_preview_layer(layer);
+            }
+
+            function onchange_format(dom){
+                format = dom.value;
+                onclick_preview_layer(layer);
             }
         </script>
     </div>
@@ -201,12 +220,17 @@
 
 <th:block layout:fragment="custom-html-link">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
-    <link rel="stylesheet" th:href="@{/gis/openlayers-6.1.1/ol.css}">
+
+    <link rel="stylesheet" th:href="@{/gis/mapboxgl-1.12.0/mapbox-gl.css}">
+    <link rel="stylesheet" th:href="@{/gis/mapboxgl-1.12.0/mapbox-gl-draw.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
-    <script th:src="@{/gis/openlayers-6.1.1/ol.js}"></script>
+
+    <script th:src="@{/gis/mapboxgl-1.12.0/mapbox-gl-unminified.js}"></script>
+    <script th:src="@{/gis/mapboxgl-1.12.0/mapbox-gl-draw-unminified.js}"></script>
+    <script th:src="@{/js/jiin/jimap_mapbox_map.js}"></script>
 </th:block>
 </html>
