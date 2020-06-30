@@ -11,7 +11,19 @@ var JimapMapbox = function JimapMapbox(options) {
     this._map = undefined;
     this._init(options);
 
+    if (!jiCommon.MINI_MAP_WHETHER) {
+        this._map.on('load', function(evt) {
+            jiCommon.map.setZoomRate(10);
+            jiCommon.map.setWheelZoomRate(1);
 
+            milSymbolLoader.init({
+                map : evt.target,
+                function() {
+
+                }
+            })
+        });
+    }
 }
 
 JimapMapbox.prototype.constructor = JimapMapbox;
