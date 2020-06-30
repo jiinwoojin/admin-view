@@ -18,12 +18,12 @@ project:
   mapserver:
     binary: /usr/local/bin/mapserv
   docker-name:    # docker service name
-    mapproxy-name: jiin-mapproxy
-    mapserver-name: jiin-server-1
-    mapnik-name: jiin-server-2
-    height-name: jiin-height
-    rabbitmq-name: celery-rabbitmq
-    nginx-name: jiin-nginx
+    mapproxy-name: jimap_mapproxy
+    mapserver-name: jimap_server_1
+    mapnik-name: jimap_server_2
+    height-name: jimap_height
+    rabbitmq-name: jimap_rabbitmq
+    nginx-name: jimap_nginx
   server-port:    # service port (슬라이드 REF - 변경 가능성 있음.)
     postgresql-osm-port: 5430
     postgresql-basic-port: 5432
