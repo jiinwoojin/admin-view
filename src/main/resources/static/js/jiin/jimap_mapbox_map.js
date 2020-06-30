@@ -21,7 +21,7 @@ var JimapMapbox = function JimapMapbox(options) {
                 function() {
 
                 }
-            })
+            });
         });
     }
 }
@@ -105,71 +105,15 @@ JimapMapbox.prototype = {
      */
     setCenter : function setCenter(center) {
         this._map.setCenter(center)
+    },
+    getExtents : function getExtents() {
+        var extents = this._map.getBounds();
+
+        return {
+            'east' : extents.getEast(),
+            'north' : extents.getNorth(),
+            'south' : extents.getSouth(),
+            'west' : extents.getWest()
+        }
     }
 }
-
-var jimapMapboxPrototypeAccessors = {
-    minZoom : {configurable : true},
-    maxZoom : {configurable : true},
-    event : {configurable : true},
-    layer : {configurable : true}
-}
-
-jimapMapboxPrototypeAccessors.minZoom.get = function() {
-    return this._map.getMinZoom();
-};
-
-jimapMapboxPrototypeAccessors.minZoom.set = function(zoom) {
-    this._map.setMinZoom(zoom);
-};
-
-jimapMapboxPrototypeAccessors.maxZoom.get = function() {
-    return this._map.getMaxZoom();
-};
-
-jimapMapboxPrototypeAccessors.maxZoom.set = function(zoom) {
-    this._map.setMaxZoom(zoom);
-};
-
-/**
- * 이벤트 추가
- * @param type
- * @param event
- */
-jimapMapboxPrototypeAccessors.event.add = function(type, event) {
-
-};
-
-/**
- * 이벤트 제거
- * @param type
- * @param event
- */
-jimapMapboxPrototypeAccessors.event.remove = function(type, event) {
-
-};
-
-/**
- *
- * @param id
- * @returns {string}
- */
-jimapMapboxPrototypeAccessors.layer.get = function(id) {
-    return this._map.getLayer(id);
-};
-
-/**
- * Layer 등록
- */
-jimapMapboxPrototypeAccessors.layer.add = function() {
-
-};
-
-/**
- * Layer 삭제
- */
-jimapMapboxPrototypeAccessors.layer.remove = function() {
-
-};
-
-Object.defineProperties(JimapMapbox.prototype, jimapMapboxPrototypeAccessors);

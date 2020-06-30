@@ -283,7 +283,7 @@
 
                     let contentName;
 
-                    stmp.mapObject.getExtents();
+                    jiCommon.setMapExtents();
 
                     if (_id === 'display-display2d') {
                         contentName = 'mapbox-display';
@@ -676,7 +676,6 @@
         });
     </script>
 
-    <script th:src="@{/js/commons/jsHashMap.js}"></script>
     <script th:src="@{/js/commons/geoTrans.js}"></script>
     <script th:src="@{/js/commons/feature.js}"></script>
     <script th:src="@{/gis/turf-5.1.6/turf.js}"></script>

@@ -9,21 +9,74 @@ var CONTEXT = $(ContextPath).attr('data-contextPath') ? $(ContextPath).attr('dat
  * [공통] : 자바스크립트 공통 로직
  */
 var jiCommon = {
+    /**
+     *
+     */
     MAP_SERVER_DOMAIN : '192.168.1.180',
+    /**
+     *
+     */
     MAP_SERVER_PORT : 11100,
+    /**
+     *
+     */
     MAP_SERVER_URL : '',
+    /**
+     *
+     */
     BASE_MAP_LAYER : 'world_k2',
+    /**
+     *
+     */
     MINI_MAP_WHETHER : false,
+    /**
+     *
+     */
     map : undefined,
+    /**
+     *
+     */
+    mapExtents : undefined,
+    /**
+     *
+     * @returns {string}
+     */
     getBaseMapLayer : function getBaseMapLayer() {
         return this.BASE_MAP_LAYER;
     },
+    /**
+     *
+     * @param layerName
+     */
     setBaseMapLayer : function setBaseMapLayer(layerName) {
         this.BASE_MAP_LAYER = layerName;
     },
+    setMapExtents : function setMapExtents() {
+        var extents = this.map.getExtents();
+
+        if (this.mapExtents === undefined) {
+            this.mapExtents = {};
+        }
+
+        this.mapExtents['east'] = extents.east;
+        this.mapExtents['north'] = extents.north;
+        this.mapExtents['south'] = extents.south;
+        this.mapExtents['west'] = extents.west;
+    },
+    getMapExtents : function getMapExtents() {
+        this.setMapExtents();
+
+        return this.mapExtents;
+    },
+    /**
+     *
+     */
     showLoading : function showLoading() {
         $('#loader-wrapper').show();
     },
+    /**
+     *
+     */
     hideLoading : function hideLoading() {
         $('#loader-wrapper').hide();
     },

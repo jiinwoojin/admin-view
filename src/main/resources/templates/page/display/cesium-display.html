@@ -4,20 +4,25 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/gis/cesium-1.65/Widgets/widgets.css}">
     <script th:src="@{/jquery/jquery-3.4.1.min.js}"></script>
-    <script th:src="@{/gis/cesium-1.65/Cesium.js}"></script>
-    <script th:src="@{/js/commons/cfsiStmp3DMap.js}"></script>
+    <!--<script th:src="@{/gis/cesium-1.65/Cesium.js}"></script>-->
+    <script th:src="@{/gis/cesium-1.70.1/CesiumUnminified/Cesium.js}"></script>
+    <!--<script th:src="@{/js/commons/cfsiStmp3DMap.js}"></script>-->
+    <script th:src="@{/js/jiin/jimap_cesium_map.js}"></script>
 </head>
 <body>
     <div id="map3d" style="height: 100%; width: 100%;"></div>
     <script>
-        stmp.mapObject = new ji3DMap({
+        jiCommon.map = new JimapCesium({
+            container : 'map3d'
+        });
+        /*stmp.mapObject = new ji3DMap({
             container : 'map3d'
         });
 
         if (stmp.getGlobalFeatures().size() > 0) {
             // 2D -> 3D or 3D -> 2D 객체 draw
             stmp.changeMapDrawFeatures();
-        }
+        }*/
     </script>
 </body>
 </html>

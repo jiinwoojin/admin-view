@@ -122,7 +122,7 @@ ji3DMap.prototype.setBaseImagery = function setBaseImagery() {
         layers : stmp.getBaseMapSource(),
         parameters : {
             transparent : 'true',
-            format : 'image/jpeg'
+            format : 'image/png'
         }
     }));
 };

@@ -21,7 +21,7 @@ var jiMap = function jiMap(options) {
     if (!stmp.MINI_MAP) {
         // 지도 로드 완료 시
         this.map.on('load', function(evt) {
-            if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_2D) {
+            if (stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_2D) {
                 // 맵박스
                 stmp.mapObject.setZoomRate(10);             // wheel rate 설정
                 stmp.mapObject.setWheelZoomRate(1);         // wheel rate 설정
@@ -36,7 +36,7 @@ var jiMap = function jiMap(options) {
                 if (stmp.valid.checkValue(options.initFn)) {
                     options.initFn()
                 }
-            })
+            });
         });
         /* GRID area */
         // 그리드 라벨 redraw
