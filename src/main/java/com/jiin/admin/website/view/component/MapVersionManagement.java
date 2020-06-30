@@ -189,7 +189,7 @@ public class MapVersionManagement {
         if(pureNewLayer.size() > 0) {
             nextMaxVersion = Collections.max(pureNewLayer.stream().map(o -> o.getVersion()).collect(Collectors.toSet()));
         }
-        return Math.max(Double.parseDouble(String.format("%.1f", newVersion + 0.1)), nextMaxVersion);
+        return Math.max(Double.parseDouble(String.format("%.1f", newVersion + Constants.ASCEND_LAYER_VERSION)), nextMaxVersion);
     }
 
     /**

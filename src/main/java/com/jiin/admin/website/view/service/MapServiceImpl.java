@@ -309,10 +309,18 @@ public class MapServiceImpl implements MapService {
      * @param id long
      */
     @Override
+    @Transactional
     public boolean removeData(long id) {
         MapDTO selected = mapMapper.findById(id);
+        List<LayerDTO> layers = layerMapper.findByMapId(id);
         if(selected == null) return false;
-        // TODO 레이어 버전 초기화 필요
+
+        // MAP 을 삭제하면, LAYER 버전을 전부 1.0 으로 초기화.
+        layers.forEach(o -> {
+            o.setVersion(Constants.DEFAULT_LAYER_VERSION);
+            layerMapper.update(o);
+        });
+
         removeRelationByMapId(id); // 현재 MAP, LAYER 종속 관계 삭제
         mapVersionManagement.removeVersionWithMapData(selected); // MAP 버전 폴더 및 DB 삭제
         if(mapMapper.deleteById(id) > 0) {

@@ -57,6 +57,8 @@ public class Constants {
 
     public static final Double DEFAULT_LAYER_VERSION = 1.0;
 
+    public static final Double ASCEND_LAYER_VERSION = 0.1;
+
     /**
      * VRT 정보
      */
