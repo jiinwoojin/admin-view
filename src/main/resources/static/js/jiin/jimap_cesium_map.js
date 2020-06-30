@@ -14,17 +14,13 @@ var JimapCesium = function JimapCesium(options) {
     this._init(options);
 }
 
-/**
- * cesium 초기화
- * @param options
- */
-JimapCesium.prototype.init = function init(options) {
-    console.log(jiConstant.GEOMETRY_TYPE.LINESTRING);
-}
-
 JimapCesium.prototype.constructor = JimapCesium;
 
 JimapCesium.prototype = {
+    /**
+     * cesium 초기화
+     * @param options
+     */
     _init : function _init(options) {
         this._map = new Cesium.Viewer(options.container, {
             sceneMode : Cesium.SceneMode.SCENE3D,
@@ -78,6 +74,10 @@ JimapCesium.prototype = {
             map : this._map
         }, null);
     },
+    /**
+     *
+     * @private
+     */
     _setBaseTerrain : function _setBaseTerrain() {
         var terrainProvider = new Cesium.CesiumTerrainProvider({
             url : jiCommon.MAP_SERVER_URL + '/tilesets/dted'
@@ -86,6 +86,10 @@ JimapCesium.prototype = {
         this._map.terrainProvider = terrainProvider;
         this._map.scene.terrainProvider = terrainProvider;
     },
+    /**
+     *
+     * @private
+     */
     _setBaseImagery : function _setBaseImagery() {
         var imageryLayers = this._map.imageryLayers;
         imageryLayers.removeAll();
@@ -101,12 +105,22 @@ JimapCesium.prototype = {
     _updateMaterial : function _updateMaterial() {
 
     },
+    /**
+     *
+     * @param extents
+     */
     moveBounds : function moveBounds(extents) {
         this._map.camera.flyTo({
             destination : Cesium.Rectangle.fromDegrees(extents.west, extents.south, extents.east, extents.north),
             duration : 0
         })
     },
+    /**
+     *
+     * @param lon
+     * @param lat
+     * @param height
+     */
     flyTo : function flyTo(lon, lat, height) {
         if (height === undefined) {
             height = this._map.scene.globe.ellipsoid.cartesianToCartographic(this._map.camera.position).height;
@@ -116,6 +130,10 @@ JimapCesium.prototype = {
             destination : Cesium.Cartesian3.fromDegrees(lon, lat, height)
         });
     },
+    /**
+     *
+     * @returns {{east: *, south: *, north: *, west: *}}
+     */
     getExtents : function getExtents() {
         var extents = new Cesium.Rectangle();
 
@@ -128,7 +146,18 @@ JimapCesium.prototype = {
             'west' : Cesium.Math.toDegrees(extents.west)
         }
     },
-    drawControlMode : function drawControlMode(mone, constraint) {
-
+    /**
+     *
+     * @param mode
+     * @param constraint
+     */
+    drawControlMode : function drawControlMode(mode, constraint) {
+        this._drawControlMode = mode;
+        this._drawControlConstraint = constraint;
+        this._drawControlPoints = [];
+        this._map.screenSpaceEventHandler.removeInputAction(this._leftDoubleClickEvent, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+        if (mode === 'draw_line_string') {
+            this._map.screenSpaceEventHandler.setInputAction(this._leftDoubleClickEvent, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+        }
     }
 }

@@ -555,12 +555,14 @@ ji3DMap.prototype._leftDoubleClickEvent = function _leftDoubleClickEvent(movemen
     obj._drawMilSymbol()
 }
 ji3DMap.prototype._drawMilSymbol = function _drawMilSymbol() {
+    var svgDrawEl = '#svg-draw';
+    var bodyEl = 'body';
     var obj = stmp.mapObject
     var mode = obj._drawControlMode
     var constraint = obj._drawControlConstraint
     var points = obj._drawControlPoints
     obj.map.screenSpaceEventHandler.removeInputAction(this._leftDoubleClickEvent, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
-    if(mode == "draw_point") {
+    if(mode === "draw_point") {
         if(constraint === "milSym"){
             obj.map.entities.add({
                 position: points[0],
@@ -571,13 +573,13 @@ ji3DMap.prototype._drawMilSymbol = function _drawMilSymbol() {
         }else{
             var _cs = document.getElementById('SIDCCODINGSCHEME').value;
             drawMsymbol(-1, 'SVG', null, window.symStd, _cs, window.function_sidc);
-            if(jQuery("#svg-draw").length == 0){
-                jQuery("body").css("overflow",'hidden')
-                jQuery("body").append("<div id='svg-draw'></div>")
+            if($(svgDrawEl).length === 0){
+                $(bodyEl).css("overflow",'hidden')
+                $(bodyEl).append("<div id='svg-draw'></div>")
             }
-            jQuery("#svg-draw").empty()
-            jQuery("#svg-draw").append(stmp.mapObject.map._drawing_milsymbol._svg_symbol.getSVG())
-            html2canvas(jQuery("#svg-draw svg")[0],{backgroundColor: "rgba(0,0,0,0)"}).then(function(canvas){
+            $(svgDrawEl).empty()
+            $(svgDrawEl).append(stmp.mapObject.map._drawing_milsymbol._svg_symbol.getSVG())
+            html2canvas($("#svg-draw svg")[0],{backgroundColor: "rgba(0,0,0,0)"}).then(function(canvas){
                 obj.map.entities.add({
                     position: points[0],
                     billboard: {
@@ -586,9 +588,9 @@ ji3DMap.prototype._drawMilSymbol = function _drawMilSymbol() {
                 })
             })
         }
-    }else if(mode == "draw_line_string") {
+    }else if(mode === "draw_line_string") {
         var coordinates = stmp.mapObject.map._drawing_milsymbol_coordinates
-        jQuery.each(points, function(idx, point){
+        $.each(points, function(idx, point){
             var wgs = Cesium.Ellipsoid.WGS84.cartesianToCartographic(point)
             var lon = Cesium.Math.toDegrees(wgs.longitude)
             var lat = Cesium.Math.toDegrees(wgs.latitude)
@@ -605,16 +607,16 @@ ji3DMap.prototype._drawMilSymbol = function _drawMilSymbol() {
     }
     obj._drawControlMode = null
     obj._drawControlPoints = []
-    if(mode == "draw_line_string") {
+    if(mode === "draw_line_string") {
         var entities = stmp.mapObject.map.entities._entities._array
         var removeTargets = []
-        jQuery.each(entities, function (idx, entity) {
+        $.each(entities, function (idx, entity) {
             if (entity.id && entity.id.indexOf("draw-entities-") > -1) {
                 removeTargets.push(entity)
             }
         })
         console.log(removeTargets)
-        jQuery.each(removeTargets, function (idx, target) {
+        $.each(removeTargets, function (idx, target) {
             stmp.mapObject.map.entities.remove(target)
         })
     }
@@ -626,7 +628,7 @@ ji3DMap.prototype._drawMilSymbol = function _drawMilSymbol() {
  */
 ji3DMap.prototype._rightClickEvent = function _rightClickEvent(movement) {
    var pickedFeature =  stmp.mapObject.map.scene.pick(movement.position);
-    stmp.addREvnet(pickedFeature,movement);
+    stmp.addEvnet(pickedFeature,movement);
 
 };
 
@@ -656,7 +658,7 @@ ji3DMap.prototype.drawControlMode = function drawControlMode(mode,constraint) {
     this._drawControlConstraint = constraint
     this._drawControlPoints = []
     this.map.screenSpaceEventHandler.removeInputAction(this._leftDoubleClickEvent, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
-    if(mode == "draw_line_string") {
+    if(mode === "draw_line_string") {
         this.map.screenSpaceEventHandler.setInputAction(this._leftDoubleClickEvent, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK)
     }
 };

@@ -50,5 +50,8 @@ var jiConstant = {
         FILL_EXTRUSION : 'fill-extrusion',
         HEATMAP : 'heatmap',
         HILLSHADE : 'hillshade'
+    },
+    DRAW_MODE : {
+
     }
 };
