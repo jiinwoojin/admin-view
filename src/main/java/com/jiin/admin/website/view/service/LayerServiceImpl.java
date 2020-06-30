@@ -73,14 +73,14 @@ public class LayerServiceImpl implements LayerService {
         File dataDir = new File(dataDirStr);
         if(!dataDir.exists()) dataDir.mkdirs();
 
-        // 2단계. 레이어 리소스 파일 업로드 뒤 옮기기 (CADRG 아닌 버전 기준)
+        // 2단계. 레이어 리소스 파일 업로드 뒤 옮기기
         String filename = uploadFile.getOriginalFilename();
-        File dataFile = new File(String.format("%s/%s", dataDirStr, uploadFile.getOriginalFilename()));
+        File dataFile = new File(String.format("%s/%s", dataDirStr, filename));
         try {
             uploadFile.transferTo(dataFile);
 
-            // 압축 파일인 경우 (CADRG 혹은 SHP) 에는 파일 압축 해제를 진행해야 한다.
-            if(FileSystemUtil.loadFileExtensionName(filename).equals("zip")){
+            // SHP 파일인 경우에는 파일 압축 해제를 진행해야 한다.
+            if(layerDTO.getType().equals("VECTOR")){
                 FileSystemUtil.decompressZipFile(dataFile);
                 FileSystemUtil.deleteFile(dataFile.getPath()); // 파일 업로드가 완료되면 삭제한다.
             }
@@ -109,14 +109,12 @@ public class LayerServiceImpl implements LayerService {
         try {
             switch(layerDTO.getType()){
                 case "RASTER" :
+                case "CADRG" :
                     FileSystemUtil.deleteFile(dataFilePath);
                     break;
                 case "VECTOR" :
                     String filename = new File(dataFilePath).getName();
                     FileSystemUtil.deleteFile(dataFilePath.replace(String.format("/%s", filename), ""));
-                    break;
-                case "CADRG" :
-                    FileSystemUtil.deleteFile(dataFilePath.replace(Constants.CADRG_DEFAULT_EXECUTE_DIRECTORY + Constants.CADRG_DEFAULT_EXECUTE_FILE, ""));
                     break;
             }
         } catch (IOException e) {
@@ -143,8 +141,8 @@ public class LayerServiceImpl implements LayerService {
     private String loadCommonDataFilePath(LayerDTO layerDTO, MultipartFile uploadData){
         switch(layerDTO.getType()){
             case "CADRG" :
-                // CADRG 인 경우 : /${data-dir}/${MIDDLE-FOLDER}/RPF/A.TOC
-                return String.format("%s%s/%s%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), Constants.CADRG_DEFAULT_EXECUTE_DIRECTORY + Constants.CADRG_DEFAULT_EXECUTE_FILE);
+                // CADRG 인 경우 : /${data-dir}/${MIDDLE-FOLDER}/abc.zip
+                return String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), uploadData.getOriginalFilename());
             case "VECTOR" :
                 // VECTOR 인 경우 : /${data-dir}/${MIDDLE-FOLDER}/abc.shp
                 String shpFile = VectorShapeUtil.loadRealShpFileInZipFile(uploadData);
@@ -265,16 +263,20 @@ public class LayerServiceImpl implements LayerService {
 
         layerDTO.setLayerFilePath(selected.getLayerFilePath());
 
-        boolean isUploaded = (uploadData != null && uploadData.getSize() > 0);
+        boolean isUploaded = !uploadData.isEmpty();
         boolean isChanged = !isUploaded && !layerDTO.getMiddleFolder().equals(selected.getMiddleFolder());
 
-        String dataFilePath = loadCommonDataFilePath(layerDTO, uploadData);
+        String dataFilePath;
+        if(!uploadData.isEmpty()) {
+            dataFilePath = loadCommonDataFilePath(layerDTO, uploadData);
+        } else {
+            dataFilePath = Constants.DATA_PATH + "/" + layerDTO.getMiddleFolder() + selected.getDataFilePath().replace(Constants.DATA_PATH + "/" + selected.getMiddleFolder(), "");
+        }
 
-        layerDTO.setDataFilePath(dataFilePath.replaceAll(dataPath, ""));
         layerDTO.setRegistTime(selected.getRegistTime()); // 추가 시간은 그대로 유지.
         layerDTO.setUpdateTime(new Date());     // update 시간 추가
-
-        layerDTO.setVersion(Double.parseDouble(String.format("%.1f", (layerDTO.getVersion() + 0.1)))); // 버전은 뭐를 하든 0.1 로 높여준다.
+        layerDTO.setVersion(Double.parseDouble(String.format("%.1f", (layerDTO.getVersion() + Constants.ASCEND_LAYER_VERSION)))); // 버전은 뭐를 하든 0.1 로 높여준다.
+        layerDTO.setDataFilePath(dataFilePath.replaceAll(dataPath, ""));
 
         setCommonProperties(layerDTO);
 
@@ -293,14 +295,21 @@ public class LayerServiceImpl implements LayerService {
         // 경로가 바뀌면 위의 로직의 역순서로 진행.
         if(isChanged) {
             // 1단계. 파일을 로컬에 옮긴다.
-            String source = dataPath + selected.getDataFilePath();
-            String target = dataPath + layerDTO.getDataFilePath();
+            String source, target;
 
-            File sourceFile = new File(source.replace(Constants.CADRG_DEFAULT_EXECUTE_FILE, ""));
-            File targetFile = new File(target.replace(Constants.CADRG_DEFAULT_EXECUTE_FILE, ""));
+            if(layerDTO.getType().equals("VECTOR")){
+                source = dataPath + Constants.DATA_PATH + "/" + selected.getMiddleFolder();
+                target = dataPath + Constants.DATA_PATH + "/" + layerDTO.getMiddleFolder();
+            } else {
+                source = dataPath + selected.getDataFilePath();
+                target = dataPath + Constants.DATA_PATH + "/" + layerDTO.getMiddleFolder() + selected.getDataFilePath().replace(Constants.DATA_PATH + "/" + selected.getMiddleFolder(), "");
+            }
 
-            // 레이어 파일 타입이 CADRG ZIP 인 경우 디렉토리 단위를 옮겨야 한다.
-            if(layerDTO.getType().equals("CADRG")) {
+            File sourceFile = new File(source);
+            File targetFile = new File(target);
+
+            // 레이어 파일 타입이 VECTOR 인 경우 디렉토리 단위를 옮겨야 한다. (SHP, SHX, DBF 등)
+            if(layerDTO.getType().equals("VECTOR")) {
                 try {
                     FileUtils.moveDirectory(sourceFile, targetFile);
                 } catch (IOException e) {

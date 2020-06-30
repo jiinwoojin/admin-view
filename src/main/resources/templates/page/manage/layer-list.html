@@ -423,10 +423,10 @@
                         return false;
                     } else if(fileType === 'VECTOR') {
                         handleFile(form, form.action.indexOf("layer-create") > -1 ? 'INSERT' : 'UPDATE');
-                        return false;
+                        return true;
                     } else if(fileType === 'CADRG') {
                         handleFile(form, form.action.indexOf("layer-create") > -1 ? 'INSERT' : 'UPDATE');
-                        return false;
+                        return true;
                     } else return false;
                 } else if (fileName.endsWith('tif') || fileName.endsWith('TIF')){
                     if(fileType !== 'RASTER'){
