@@ -252,30 +252,29 @@
                             <label for="layer-middle_folder">폴더명</label>
                             <input type="text" class="form-control" name="middleFolder" id="layer-middle_folder">
                         </div>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label class="col-form-label" for="layer-type">레이어 종류</label>
-                                <select class="form-control" name="type" id="layer-type">
-                                    <option value="RASTER">Raster</option>
-                                    <option value="VECTOR">Vector</option>
-                                    <option value="CADRG">CADRG</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-8">
-                                <label class="col-form-label" for="___customFile">지도 파일</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="___customFileAddon" style="height: 33.5px;">
-                                            TIFF (RASTER) / ZIP (VECTOR, CADRG)
-                                        </span>
-                                    </div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="___customFile"
-                                               aria-describedby="___customFileAddon" name="data_file">
-                                        <label class="custom-file-label" for="___customFile">파일 선택</label>
-                                    </div>
+                        <div class="form-group">
+                            <label class="col-form-label" for="layer-type">레이어 종류</label>
+                            <select class="form-control" name="type" id="layer-type">
+                                <option value="RASTER">Raster</option>
+                                <option value="VECTOR">Vector</option>
+                                <option value="CADRG">CADRG</option>
+                            </select>
+                        </div>
+                        <div id="map_data_file">
+                            <label class="col-form-label" for="___customFile">지도 파일</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="___customFileAddon" style="height: 33.5px;">
+                                        첨부 파일
+                                    </span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="___customFile"
+                                           aria-describedby="___customFileAddon" name="data_file">
+                                    <label class="custom-file-label" for="___customFile">파일 선택</label>
                                 </div>
                             </div>
+                            <small>RASTER 데이터는 *.tif, CADRG 데이터는 /RPF/A.TOC 파일을 포함한 *.zip 파일, VECTOR 데이터는 *.shp, *.shx, *.dbf 를 포함한 *.zip 파일을 업로드 하시길 바랍니다.</small>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -329,32 +328,30 @@
                             <label for="layer-middle_folder-u">폴더명</label>
                             <input type="text" class="form-control" name="middleFolder" id="layer-middle_folder-u">
                         </div>
-                        <div class="form-group row">
-                            <div class="col-sm-4">
-                                <label class="col-form-label" for="layer-type-u">레이어 종류</label>
-                                <select class="form-control" name="type" id="layer-type-u">
-                                    <option value="RASTER">Raster</option>
-                                    <option value="VECTOR">Vector</option>
-                                    <option value="CADRG">CADRG</option>
-                                </select>
-                            </div>
-                            <div class="col-sm-8">
-                                <label class="col-form-label" for="___customFile_u">지도 파일 <span style="color: blue;">(*)</span></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="___customFileAddon_u" style="height: 33.5px;">
-                                            TIFF (RASTER) / ZIP (VECTOR, CADRG)
-                                        </span>
-                                    </div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="___customFile_u"
-                                               aria-describedby="___customFileAddon" name="data_file">
-                                        <label class="custom-file-label" for="___customFile">파일 선택</label>
-                                    </div>
+                        <div class="form-group">
+                            <label class="col-form-label" for="layer-type-u">레이어 종류</label>
+                            <select class="form-control" name="type" id="layer-type-u">
+                                <option value="RASTER">Raster</option>
+                                <option value="VECTOR">Vector</option>
+                                <option value="CADRG">CADRG</option>
+                            </select>
+                        </div>
+                        <div id="map_data_file_u">
+                            <label class="col-form-label" for="___customFile_u">지도 파일</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="___customFileAddon_u" style="height: 33.5px;">
+                                        첨부 파일
+                                    </span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="___customFile_u"
+                                           aria-describedby="___customFileAddon" name="data_file">
+                                    <label class="custom-file-label" for="___customFile">파일 선택</label>
                                 </div>
                             </div>
+                            <small>RASTER 데이터는 *.tif, CADRG 데이터는 /RPF/A.TOC 파일을 포함한 *.zip 파일, VECTOR 데이터는 *.shp, *.shx, *.dbf 를 포함한 *.zip 파일을 업로드 하시길 바랍니다.</small>
                         </div>
-
                         <p><span style="color: blue;">(*)</span> : 데이터 수정을 진행할 때, 이를 올리지 않으면 아래 파일은 그대로 저장됩니다.</p>
                         <p id="data_file_path"></p>
                     </div>

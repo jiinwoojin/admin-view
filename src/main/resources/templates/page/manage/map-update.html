@@ -30,6 +30,7 @@
         <div class="form-group row">
             <input type="hidden" th:field="*{id}" />
             <input type="hidden" th:field="*{vrtFilePath}" />
+
             <div class="col-6">
                 <div class="form-group">
                     <label for="map-name">지도 이름</label>
@@ -53,13 +54,8 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="map-description">설명</label>
-                    <input type="text" id="map-description" class="form-control" th:field="*{description}">
-                </div>
-            </div>
             <div class="col-3">
                 <div class="form-group">
                     <label for="map-imageType">출력 포맷</label>
@@ -69,38 +65,18 @@
                     </select>
                 </div>
             </div>
+
             <div class="col-3">
-                <div class="form-check">
-                    <label for="map-versionCheck">Version 관리를 진행합니다.</label>
-                    <br/>
-                    <input type="checkbox" class="form-check-inline" id="map-versionCheck" th:checked="${ #lists.size(version.list) > 0 }" style="width: 2.5em; height: 2.5em;" />
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-4">
                 <div class="form-group">
                     <label for="map-projection">투영</label>
-                    <select class="form-control" id="map-projection" th:field="*{projection}">
+                    <select class="form-control" id="map-projection" th:field="*{projection}" onchange="onchange_projection_bounding_box(this)">
                         <option value="epsg:4326">EPSG:4326</option>
                         <option value="epsg:3857">EPSG:3857</option>
                     </select>
                 </div>
             </div>
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="map-units">측정 단위</label>
-                    <select class="form-control" id="map-units" th:field="*{units}">
-                        <option value="DD">DD</option>
-                        <option value="FEET">FEET</option>
-                        <option value="INCHES">INCHES</option>
-                        <option value="KILOMETERS">KILOMETERS</option>
-                        <option value="METERS" selected>METERS</option>
-                        <option value="MILES">MILES</option>
-                        <option value="NAUTICALMILES">NAUTICALMILES</option>
-                    </select>
-                </div>
-            </div>
+
+
             <div class="col-6">
                 <div class="form-group">
                     <label>위도 / 경도 범위</label>
@@ -141,6 +117,37 @@
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="map-description">설명</label>
+                    <input type="text" id="map-description" class="form-control" th:field="*{description}">
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="map-units">측정 단위</label>
+                    <select class="form-control" id="map-units" th:field="*{units}">
+                        <option value="DD">DD</option>
+                        <option value="FEET">FEET</option>
+                        <option value="INCHES">INCHES</option>
+                        <option value="KILOMETERS">KILOMETERS</option>
+                        <option value="METERS" selected>METERS</option>
+                        <option value="MILES">MILES</option>
+                        <option value="NAUTICALMILES">NAUTICALMILES</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-3">
+                <div class="form-check mt-4">
+                    <input type="checkbox" class="form-check-inline" id="map-versionCheck" style="width: 1.5em; height: 1.5em;" th:checked="${ #lists.size(version.list) > 0 }" />
+                    <label for="map-versionCheck">Version 관리 진행 여부</label>
+                </div>
+            </div>
+        </div>
     </form>
 
     <div id="layer-list">
@@ -148,6 +155,9 @@
         <div class="text-right mb-1">
             <button data-toggle="modal" data-target="#layer-add" class="btn btn-sm btn-success mr-1">
                 <i class="fas fa-plus"></i>
+            </button>
+            <button class="btn btn-sm btn-danger mr-1" onclick="onclick_released_all_layers()">
+                <i class="fas fa-trash-alt"></i>
             </button>
         </div>
         <table class="table basic text-center" id="layer_list">
@@ -189,11 +199,11 @@
                                 <th scope="col" class="text-center">버전</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr th:each="layer, index : ${ layers }">
+                            <tbody id="layer_pure_list">
+                            <tr th:each="layer, index : ${ layers }" th:id="${ 'layer-' + layer.id }">
                                 <td class="text-center">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" th:value="${index.index}" onchange="checkLayer(this);">
+                                        <input type="checkbox" th:id="${ 'layer-check-' + layer.id }" class="form-check-input" th:value="${index.index}" onchange="checkLayer(this);">
                                     </div>
                                 </td>
                                 <td class="text-center align-middle" th:text="${ layer.name }"></td>
@@ -204,14 +214,26 @@
                             </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fas fa-times"></i> 취소
-                        </button>
-                        <button type="button" class="btn btn-success" onclick="addLayer();">
-                            <i class="fas fa-plus"></i> 추가
-                        </button>
+                        <hr/>
+                        <div class="d-flex justify-content-between">
+                            <div id="button_list_1">
+                                <button type="button" class="btn btn-primary" onclick="onclick_check_layers(true)">
+                                    <i class="fas fa-check-square"></i> 전체 선택
+                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="onclick_check_layers(false)">
+                                    <i class="fas fa-square"></i> 전체 해제
+                                </button>
+                            </div>
+
+                            <div id="button_list_2">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    <i class="fas fa-times"></i> 취소
+                                </button>
+                                <button id="layer_add_btn" type="button" class="btn btn-success" onclick="addLayer();">
+                                    <i class="fas fa-plus"></i> 추가
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -219,7 +241,9 @@
     </div>
     <script th:inline="javascript">
         var message = /*[[ ${message} ]]*/ null;
+
         var table = null;
+
         /*<![CDATA[*/
         var layers = [[${layers}]];
         /*]]>*/
@@ -236,16 +260,21 @@
 
         function layerInitialize() {
             var layers = /*[[ ${selectLayers} ]]*/ null;
+
             $('#layer_list').DataTable().destroy();
+            $('#list_table').DataTable().destroy();
+
             for (var [key, value] of Object.entries(layers)) {
                 var id = value.id;
 
                 if (drawLayer[id] === undefined) {
                     createTableData(key, value);
                 }
+
+                $('#layer-check-' + id).click();
             }
 
-            tableReroad();
+            $('#layer_add_btn').click();
 
             var layerTable = document.querySelector('#layer_list').tBodies;
             var layers = [];
@@ -255,8 +284,8 @@
                 layer.order = Number(value.children[0].innerHTML);
                 layers.push(layer);
             }
+
             document.querySelector('#layerList').value = JSON.stringify(layers);
-            console.log(JSON.stringify(layers))
         }
 
         $(document).ready(function() {
@@ -292,10 +321,10 @@
             if (jQuery.isEmptyObject(form['name'].value)) {
                 form['name'].focus();
                 toastr.warning("이름이 입력되지 않았습니다.");
-                return
+                return;
             } else if (jQuery(form['name']).data("check-duplicate") === false) {
                 toastr.warning("이름 중복확인이 되지 않았습니다.");
-                return
+                return;
             }
 
             if (Object.keys(drawLayer).length === 0) {
@@ -303,6 +332,11 @@
                 return;
             } else {
                 setLayer();
+            }
+
+            if ($('td[id^=layer-released-]').length > 1000) {
+                toastr.warning('LAYER 의 개수는 1000 개 까지 등록할 수 있습니다.');
+                return;
             }
 
             if (confirm("[ " + form['name'].value + " ] Map 을 수정 하시겠습니까?")) {
@@ -318,7 +352,6 @@
 
         function setLayer() {
             var layerTable = document.querySelector('#layer_list').tBodies;
-            console.log(layerTable);
 
             // layerList
             var layers = [];
@@ -329,8 +362,6 @@
 
                 layers.push(layer);
             }
-
-            console.log(layers);
 
             document.querySelector('#layerList').value = JSON.stringify(layers);
         }
@@ -349,6 +380,7 @@
         function addLayer() {
             if (Object.keys(checkLayers).length > 0) {
                 $('#layer_list').DataTable().destroy();
+                $('#list_table').DataTable().destroy();
                 for (var [key, value] of Object.entries(checkLayers)) {
                     var id = value.id;
 
@@ -358,14 +390,25 @@
                 }
             }
 
-            tableReroad();
+            var pureList = document.getElementById('layer_pure_list');
+            if(pureList){
+                for(var id in drawLayer){
+                    var tr = document.getElementById('layer-' + id);
+                    if (tr) {
+                        pureList.removeChild(tr);
+                    }
+                }
+            }
+
+            tableReload('layer_list');
+            tableReload('list_table');
 
             $('#layer-add').modal('hide');
         }
 
-        function tableReroad() {
-            layerTable = $('#layer_list').DataTable({
-                rowReorder: true,
+        function tableReload(id) {
+            $('#' + id).DataTable({
+                rowReorder: id === 'layer_list',
                 stateSave: true
             });
         }
@@ -430,10 +473,12 @@
             tr.appendChild(versionTd);
 
             var deleteTd = document.createElement('td');
+            deleteTd.id = 'layer-released-' + layer.id;
             deleteTd.onclick = deleteLayer;
             deleteTd.className = 'text-center align-middle';
 
-            var deleteSpan = document.createElement('span');
+            var deleteSpan = document.createElement('button');
+            deleteSpan.type = 'button';
             deleteSpan.className = 'btn btn-danger';
             deleteSpan.innerHTML = '<i class="fas fa-trash"></i>';
             deleteTd.appendChild(deleteSpan);
@@ -447,6 +492,7 @@
 
         function deleteLayer() {
             $('#layer_list').DataTable().destroy();
+            $('#list_table').DataTable().destroy();
 
             var row = this.parentNode;
 
@@ -462,12 +508,78 @@
 
             layerCount--;
 
-            tableReroad();
+            var layer = {};
+            var index = -1;
+            for(var i in checkLayers){
+                var obj = checkLayers[i];
+                if(obj.id === layerId * 1){
+                    layer = checkLayers[i];
+                    index = i;
+                    delete checkLayers[i];
+                    break;
+                }
+            }
+
+            if(index >= 0 && layer) {
+                var pureList = document.getElementById('layer_pure_list');
+                if (pureList) {
+                    var tr = `
+                        <tr id="layer-${layer.id}">
+                            <td class="text-center">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="layer-check-${layer.id}" value="${index}" onchange="checkLayer(this);" />
+                                </div>
+                            </td>
+                            <td class="text-center align-middle">${layer.name}</td>
+                            <td class="text-center align-middle">${layer.type}</td>
+                            <td class="text-center align-middle">${layer.projection}</td>
+                            <td class="text-center align-middle">${layer.description}</td>
+                            <td class="text-center align-middle">${layer.version}</td>
+                        </tr>
+                    `;
+                    pureList.innerHTML = pureList.innerHTML + tr;
+                }
+            }
+
+            tableReload('layer_list');
+            tableReload('list_table');
         }
 
         function onclick_download(){
             var dataFilePath = $('#map-version').val();
             location.href = CONTEXT + '/view/manage/zip-download?zipPathFile=' + (dataFilePath && dataFilePath.replace("\\", "/"));
+        }
+
+        function onclick_check_layers(checked){
+            $('input[id^=layer-check-]').each(function() {
+                if($(this).is(":checked") !== checked) {
+                    $(this).click();
+                }
+            });
+        }
+
+        function onclick_released_all_layers(){
+            if (confirm('현재까지 선택한 모든 레이어들을 해제합니다. 계속 하시겠습니까?')) {
+                $('td[id^=layer-released-]').each(function () {
+                    $(this).click();
+                });
+            }
+        }
+
+        function onchange_projection_bounding_box(dom){
+            var projection = $(dom).val();
+            if(projection === 'epsg:4326'){
+                $('#map-minx').val(-180);
+                $('#map-miny').val(-90);
+                $('#map-maxx').val(180);
+                $('#map-maxy').val(90);
+            }
+            if(projection === 'epsg:3857'){
+                $('#map-minx').val(-20026376.39);
+                $('#map-miny').val(-20048966.10);
+                $('#map-maxx').val(20026376.39);
+                $('#map-maxy').val(20048966.10);
+            }
         }
     </script>
 </th:block>
