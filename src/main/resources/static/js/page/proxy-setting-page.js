@@ -89,7 +89,7 @@ window.onload = function() {
     }
 
     // 각 데이터 별로 DataTables 초기화
-    $('#list_table_layer,#list_table_source,#list_table_cache').each(function(){
+    $('#list_table_layer,#list_table_source,#list_table_cache,#list_table_global').each(function(){
         initialize_dataTable(this.id);
     });
 
@@ -616,12 +616,13 @@ function onclick_close(context){
     }
 
     if(context === 'source') {
-        $('#source-type').val('mapserver');
+        $('#source-type').val('wms');
         $('#source-requestTransparent').val(false);
         $('#source-check').prop("checked", false);
         for(var i = 1; i <= 3; i++){
             document.getElementById('source-grid' + i).checked = false;
         }
+        document.getElementById('source-requestUrl').value = mapServerAddress;
         document.getElementById('source-supportedSrs').value = '';
         onchange_source_type('#source-type');
     }
@@ -712,4 +713,14 @@ function onchange_checkbox_select_data(type, dom, fieldId){
         arr.push(name);
     }
     field.value = JSON.stringify(arr);
+}
+
+// GLOBAL 테이블 추가
+function onclick_global_row_add(){
+
+}
+
+// GLOBAL 테이블 삭제
+function onclick_global_row_remove(id){
+
 }

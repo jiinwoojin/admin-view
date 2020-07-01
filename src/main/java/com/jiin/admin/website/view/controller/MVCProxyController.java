@@ -1,10 +1,15 @@
 package com.jiin.admin.website.view.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.config.SessionService;
+import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.*;
 import com.jiin.admin.website.view.service.ProxyCacheService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import com.jiin.admin.website.view.service.ServiceInfoService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -14,11 +19,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
 @Controller
 @RequestMapping("proxy")
 public class MVCProxyController {
     @Value("${project.server-port.mapproxy-port}")
     private int MAP_PROXY_PORT;
+
+    @Value("${project.server-port.mapserver-port}")
+    private int MAP_SERVER_PORT;
 
     @Autowired
     private ProxyCacheService proxyCacheService;
@@ -34,12 +46,16 @@ public class MVCProxyController {
 
     @RequestMapping("setting")
     public String pageProxySetting(Model model){
+        ServerCenterInfo info = serverCenterInfoService.loadLocalInfoData();
+
         model.addAttribute("message", sessionService.message());
 
         model.addAttribute("layers", proxyCacheService.loadDataList("LAYERS"));
         model.addAttribute("sources", proxyCacheService.loadDataList("SOURCES"));
         model.addAttribute("caches", proxyCacheService.loadDataList("CACHES"));
+        model.addAttribute("globals", proxyCacheService.loadDataList("GLOBALS"));
 
+        model.addAttribute("mapServerAddress", String.format("http://%s:%d/mapserver/cgi-bin/mapserv?", (info != null) ? info.getIp() : "127.0.0.1", MAP_SERVER_PORT));
         model.addAttribute("selectSources", proxyCacheService.loadDataListBySelected("SOURCES", true));
         model.addAttribute("selectCaches", proxyCacheService.loadDataListBySelected("CACHES", true));
 
@@ -75,6 +91,22 @@ public class MVCProxyController {
     public String postCacheSave(ProxyCacheModel proxyCacheModel){
         boolean result = proxyCacheService.saveProxyCacheByModel(proxyCacheModel);
         sessionService.message(String.format("[%s] CACHE 정보 저장에 %s 했습니다.", proxyCacheModel.getName(), result ? "성공" : "실패"));
+        return "redirect:setting";
+    }
+
+    @RequestMapping(value = "global-save", method = RequestMethod.POST)
+    public String postGlobalSave(@RequestParam String json){
+        ObjectMapper mapper = new ObjectMapper();
+        List<ProxyGlobalModel> list = new ArrayList<>();
+        try {
+            list = mapper.readValue(json, new TypeReference<List<ProxyGlobalModel>>() {});
+        } catch (JsonProcessingException e) {
+            log.error("ERROR - " + e.getMessage());
+            sessionService.message("GLOBAL 변수들을 수정하는 도중 오류가 발생했습니다.");
+            return "redirect:setting";
+        }
+
+        sessionService.message(String.format("GLOBAL 정보 저장에 %s 했습니다.", proxyCacheService.saveProxyGlobalByModelList(list) ? "성공" : "실패"));
         return "redirect:setting";
     }
 

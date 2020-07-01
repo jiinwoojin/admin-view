@@ -79,8 +79,8 @@
                         <div class="form-group wms">
                             <label for="source-wmsOptsVersion">WMS 적용 버전<span class="text-danger">(*)</span></label>
                             <select class="form-control wms" id="source-wmsOptsVersion" name="wmsOptsVersion">
-                                <option value="1.1.1">1.1.1</option>
                                 <option value="1.3.0">1.3.0</option>
+                                <option value="1.1.1">1.1.1</option>
                             </select>
                         </div>
 
@@ -90,8 +90,8 @@
                         </div>
 
                         <div class="form-group wms">
-                            <label for="source-requestURL">요청 주소 <span class="text-danger">(*)</span></label>
-                            <input type="text" class="form-control wms" id="source-requestUrl" name="requestUrl" />
+                            <label for="source-requestUrl">요청 주소 <span class="text-danger">(*)</span></label>
+                            <input type="text" class="form-control wms" id="source-requestUrl" name="requestUrl" th:value="${mapServerAddress}" readonly />
                         </div>
 
                         <!-- Map Server 입력란 시작 -->
@@ -175,7 +175,6 @@
                     th:data-concurrent-requests="${ source.type == 'wms' ? source.concurrentRequests : 0 }"
                     th:data-wms-opts-version="${ source.type == 'wms' ? source.wmsOptsVersion : 0 }"
                     th:data-http-client-timeout="${ source.type == 'wms' ? source.httpClientTimeout : 0 }"
-                    th:data-request-url="${ source.type == 'wms' ? source.requestURL : '' }"
                     th:data-request-transparent="${ source.type == 'wms' ? source.requestTransparent : false }"
                     th:data-supported-srs="${ source.type == 'wms' ? source.supportedSRS : '' }"
                     onclick="onclick_update_data(this)"

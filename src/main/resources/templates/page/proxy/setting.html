@@ -19,6 +19,8 @@
 </nav>
 
 <th:block layout:fragment="content-body-fragment">
+    <th:block th:replace="fragments/proxy/html-proxy-global"></th:block>
+
     <div class="row">
         <div class="col-xl-6">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -109,6 +111,7 @@
     <!-- // 선택 목록 View 종료 -->
 
     <script>
+        var mapServerAddress = '[[${mapServerAddress}]]';
         var cacheDirectoryPath = '[[${proxyCacheDirectory}]]';
         var dataDirPath = '[[${dataDirectory}]]';
         var mapServerBinary = '[[${mapServerBinary}]]';

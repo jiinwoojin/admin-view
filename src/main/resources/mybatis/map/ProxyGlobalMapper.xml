@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiin.admin.mapper.data.ProxyGlobalMapper">
+    <select id="findNextSeqVal" resultType="long">
+        SELECT NEXTVAL('PROXY_GLOBAL_SEQ')
+    </select>
+
+    <select id="findAll" resultType="ProxyGlobalDTO">
+        SELECT * FROM _PROXY_GLOBAL
+    </select>
+
+    <insert id="insert">
+        INSERT INTO _PROXY_GLOBAL(ID, KEY, VALUE)
+        VALUES(#{id}, #{key}, #{value})
+    </insert>
+
+    <update id="update">
+        UPDATE _PROXY_GLOBAL SET
+        KEY = #{key}, VALUE = #{value}
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM _PROXY_GLOBAL WHERE ID = #{id}
+    </delete>
+
+    <delete id="deleteByIdListNotIn">
+        DELETE FROM _PROXY_GLOBAL
+        WHERE ID NOT IN
+        <foreach collection="ids" item="id" index="index" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
+

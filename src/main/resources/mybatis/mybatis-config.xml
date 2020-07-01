@@ -33,6 +33,7 @@
 		<typeAlias alias="ProxySourceMapServerDTO" type="com.jiin.admin.dto.ProxySourceMapServerDTO" />
 		<typeAlias alias="ProxySourceWMSDTO" type="com.jiin.admin.dto.ProxySourceWMSDTO" />
 		<typeAlias alias="ProxyCacheDTO" type="com.jiin.admin.dto.ProxyCacheDTO" />
+		<typeAlias alias="ProxyGlobalDTO" type="com.jiin.admin.dto.ProxyGlobalDTO" />
 		<typeAlias alias="PLSRelationDTO" type="com.jiin.admin.dto.ProxyLayerSourceRelationDTO" />
 		<typeAlias alias="PLCRelationDTO" type="com.jiin.admin.dto.ProxyLayerCacheRelationDTO" />
 		<typeAlias alias="PCSRelationDTO" type="com.jiin.admin.dto.ProxyCacheSourceRelationDTO" />

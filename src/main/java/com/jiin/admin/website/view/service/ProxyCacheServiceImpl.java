@@ -14,9 +14,7 @@ import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -40,6 +38,9 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
 
     @Resource
     private ProxyCacheMapper proxyCacheMapper;
+
+    @Resource
+    private ProxyGlobalMapper proxyGlobalMapper;
 
     @Resource
     private ProxyLayerSourceRelationMapper proxyLayerSourceRelationMapper;
@@ -144,6 +145,8 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 return proxySourceMapper.findAllWMS();
             case "CACHES" :
                 return proxyCacheMapper.findAll();
+            case "GLOBALS" :
+                return proxyGlobalMapper.findAll();
             default :
                 return new ArrayList<>();
         }
@@ -300,6 +303,31 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
             default :
                 return false;
         }
+    }
+
+    @Override
+    @Transactional
+    public boolean saveProxyGlobalByModelList(List<ProxyGlobalModel> proxyGlobalModels) {
+        int count = 0;
+        Set<Long> retainIds = new HashSet<>(); // 이전 목록에서 남길 ID 를 모아둔다.
+        for(ProxyGlobalModel model : proxyGlobalModels){
+            // Inserting
+            if(model.getId().equals(0L)){
+                long nextId = proxyGlobalMapper.findNextSeqVal();
+                model.setId(nextId);
+                retainIds.add(nextId);
+                count += proxyGlobalMapper.insert(ProxyGlobalModel.convertDTO(model));
+            } else { // Updating
+                retainIds.add(model.getId());
+                count += proxyGlobalMapper.update(ProxyGlobalModel.convertDTO(model));
+            }
+        }
+
+        if(retainIds.size() > 0) {
+            proxyGlobalMapper.deleteByIdListNotIn(retainIds);
+        }
+
+        return count == proxyGlobalModels.size();
     }
 
     /**
