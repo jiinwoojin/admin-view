@@ -38,12 +38,12 @@
 
     <select id="findAll" resultMap="ProxySourceResultMap">
         SELECT * FROM _PROXY_SOURCE PS
-        LEFT JOIN _PROXY_SOURCE_MAP_SERVER PSMS ON PS.id = PSMS.id
+        LEFT JOIN _PROXY_SOURCE_MAPSERVER PSMS ON PS.id = PSMS.id
         LEFT JOIN _PROXY_SOURCE_WMS PSW ON PS.id = PSW.id
     </select>
 
     <select id="findAllMapServer" resultMap="ProxySourceResultMap">
-        SELECT * FROM _PROXY_SOURCE PS LEFT JOIN _PROXY_SOURCE_MAP_SERVER PSMS ON PS.id = PSMS.id
+        SELECT * FROM _PROXY_SOURCE PS LEFT JOIN _PROXY_SOURCE_MAPSERVER PSMS ON PS.id = PSMS.id
         WHERE PS.type = 'mapserver'
     </select>
 
@@ -61,7 +61,7 @@
     </select>
 
     <select id="findBySelectedMapServer" resultMap="ProxySourceResultMap">
-        SELECT * FROM _PROXY_SOURCE PS LEFT JOIN _PROXY_SOURCE_MAP_SERVER PSMS ON PS.id = PSMS.id
+        SELECT * FROM _PROXY_SOURCE PS LEFT JOIN _PROXY_SOURCE_MAPSERVER PSMS ON PS.id = PSMS.id
         WHERE PS.type = 'mapserver' AND PS.SELECTED = #{selected}
     </select>
 
@@ -76,7 +76,7 @@
     </insert>
 
     <insert id="insertMapServer">
-        INSERT INTO _PROXY_SOURCE_MAP_SERVER(ID, REQUEST_MAP, REQUEST_LAYERS, MAP_SERVER_BINARY, MAP_SERVER_WORK_DIR)
+        INSERT INTO _PROXY_SOURCE_MAPSERVER(ID, REQUEST_MAP, REQUEST_LAYERS, MAP_SERVER_BINARY, MAP_SERVER_WORK_DIR)
         VALUES(#{id}, #{requestMap}, #{requestLayers}, #{mapServerBinary}, #{mapServerWorkDir})
     </insert>
 
@@ -92,7 +92,7 @@
     </update>
 
     <update id="updateMapServer">
-        UPDATE _PROXY_SOURCE_MAP_SERVER SET
+        UPDATE _PROXY_SOURCE_MAPSERVER SET
         REQUEST_MAP = #{requestMap}, REQUEST_LAYERS = #{requestLayers}, MAP_SERVER_BINARY = #{mapServerBinary}, MAP_SERVER_WORK_DIR = #{mapServerWorkDir}
         WHERE ID = #{id}
     </update>
@@ -122,7 +122,7 @@
     </delete>
 
     <delete id="deleteByIdMapServer">
-        DELETE FROM _PROXY_SOURCE_MAP_SERVER WHERE id = #{id}
+        DELETE FROM _PROXY_SOURCE_MAPSERVER WHERE id = #{id}
     </delete>
 
     <delete id="deleteByIdWMS">
