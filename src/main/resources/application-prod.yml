@@ -2,14 +2,14 @@ project:
   datasource:
     base:
       driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://192.168.1.171:9999/mims
+      url: jdbc:postgresql://192.168.1.162:9999/mims
       username: jiapp
       password: jiapp
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
       mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
     map:
       driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://192.168.1.171:9999/mims
+      url: jdbc:postgresql://192.168.1.162:9999/mims
       username: jiapp
       password: jiapp
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
@@ -56,5 +56,5 @@ logging:
     org.mybatis: INFO
     com.zaxxer: INFO
   file:
-    name: /data/jiapp/data_dir/logs/admin_log.log
+    name: /log/jiapp/admin_log.log
     max-size: 50MB
