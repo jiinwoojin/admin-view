@@ -139,7 +139,7 @@
 
             <div id="map_config_button">
                 <!-- LAYER 추가 버튼 -->
-                <button data-toggle="modal" data-target="#layer-create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                <button data-toggle="modal" data-target="#layer-create-modal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                     <i class="fas fa-plus fa-sm text-white-50"></i> LAYER 추가
                 </button>
             </div>
@@ -173,7 +173,7 @@
                             </a>
                         </block>
                         <block th:remove="tag" th:unless="${ layer.isDefault() }">
-                            <a class="btn btn-sm btn-circle btn-info mx-1" data-toggle="modal" href="#layer-update" data-target="#layer-update"
+                            <a class="btn btn-sm btn-circle btn-info mx-1" data-toggle="modal" href="#layer-update-modal" data-target="#layer-update-modal"
                                th:data-id="${ layer.id }"
                                th:data-version="${ layer.version }"
                                th:data-name="${ layer.name }"
@@ -212,10 +212,10 @@
     </div>
 
     <!-- LAYER 추가 Modal -->
-    <div class="modal fade" id="layer-create" tabindex="-1" role="dialog" aria-labelledby="insert-layer" aria-hidden="true">
+    <div class="modal fade" id="layer-create-modal" tabindex="-1" role="dialog" aria-labelledby="insert-layer" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form th:action="@{/view/manage/layer-create}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this);" enctype="multipart/form-data">
+                <form id="layer-create" accept-charset="utf-8" onsubmit="return preSubmit(this);" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h5 class="modal-title" id="insert-layer">LAYER 추가</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -290,12 +290,11 @@
         </div>
     </div>
 
-
     <!-- LAYER 수정 Modal -->
-    <div class="modal fade" id="layer-update" tabindex="-1" role="dialog" aria-labelledby="update-layer" aria-hidden="true">
+    <div class="modal fade" id="layer-update-modal" tabindex="-1" role="dialog" aria-labelledby="update-layer-modal" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
-                <form th:action="@{/view/manage/layer-update}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this);" enctype="multipart/form-data">
+                <form id="layer-update" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this);" enctype="multipart/form-data">
                     <div class="modal-header">
                         <h5 class="modal-title" id="update-layer">LAYER 수정</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -368,12 +367,42 @@
         </div>
     </div>
 
+    <style>
+        .ui-progressbar-value {
+            background-color: #18a689;
+        }
+        .ui-progressbar {
+            height: 1em;
+        }
+    </style>
+
+    <!-- File Upload Loading Modal -->
+    <div class="modal fade" id="file-upload-modal" tabindex="-1" role="dialog" aria-labelledby="file-upload-modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">업로드 진행률</h4>
+                </div>
+                <div class="modal-body">
+                    <h3 class="section-tit" id="progress-label">0 % 진행 중...</h3>
+                    <div id="progressbar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script th:inline="javascript">
         var message = /*[[ ${message} ]]*/ null;
         var table = null;
         $(document).ready(function() {
             if (!jQuery.isEmptyObject(message)) {
                 toastr.info(message);
+            } else {
+                var tmpMessage = sessionStorage.getItem('message');
+                if(tmpMessage){
+                    toastr.info(tmpMessage);
+                    sessionStorage.removeItem('message');
+                }
             }
 
             $('#layer-name').change(function() {
@@ -392,6 +421,52 @@
             });
             $("#eDate").datepicker({
                 format:'yyyy-mm-dd'
+            });
+
+            var progressBar = $("#progressbar");
+            var progressLabel = $("#progress-label");
+
+            progressBar.progressbar({
+                value: false,
+                change: function() {
+                    progressLabel.text(progressBar.progressbar("value") + "%");
+                },
+                complete: function() {
+                    progressLabel.text("LAYER 파일 생성 작업이 완료 되었습니다.");
+                }
+            });
+
+
+            $('#layer-create').ajaxForm({
+                url: `${CONTEXT}/view/manage/layer-create`,
+                type: 'POST',
+                beforeSubmit: function(arr, $form, options) {
+                    $('#file-upload-modal').modal('show');
+                    progressBar.progressbar( "value", 0 );
+                },
+                uploadProgress: function(event, position, total, percentComplete) {
+                    progressBar.progressbar( "value", percentComplete );
+                },
+                success: function(text, status, xhr, element) {
+                    sessionStorage.setItem('message', `LAYER [${ document.getElementById('layer-name').value }] 추가 ${ (status === 'success') ? '성공' : '실패' } 하였습니다.`);
+                    window.location.href = CONTEXT + '/view/manage/layer-list' + window.location.search;
+                }
+            });
+
+            $('#layer-update').ajaxForm({
+                url: `${CONTEXT}/view/manage/layer-update`,
+                type: 'POST',
+                beforeSubmit: function(arr, $form, options) {
+                    $('#file-upload-modal').modal('show');
+                    progressBar.progressbar( "value", 0 );
+                },
+                uploadProgress: function(event, position, total, percentComplete) {
+                    progressBar.progressbar( "value", percentComplete );
+                },
+                success: function(text, status, xhr, element) {
+                    sessionStorage.setItem('message', `LAYER [${ document.getElementById('layer-name-u').value }] 수정 ${ (status === 'success') ? '성공' : '실패' } 하였습니다.`);
+                    window.location.href = CONTEXT + '/view/manage/layer-list' + window.location.search;
+                }
             });
         });
 
@@ -419,10 +494,10 @@
                         toastr.warning('ZIP 파일은 VECTOR 및 CADRG 타입만 업로드 가능합니다.');
                         return false;
                     } else if(fileType === 'VECTOR') {
-                        handleFile(form, form.action.indexOf("layer-create") > -1 ? 'INSERT' : 'UPDATE');
+                        handleFile(form, $(form).attr('id') === "layer-create" > -1 ? 'INSERT' : 'UPDATE');
                         return true;
                     } else if(fileType === 'CADRG') {
-                        handleFile(form, form.action.indexOf("layer-create") > -1 ? 'INSERT' : 'UPDATE');
+                        handleFile(form, $(form).attr('id') === "layer-create" > -1 ? 'INSERT' : 'UPDATE');
                         return true;
                     } else return false;
                 } else if (fileName.endsWith('tif') || fileName.endsWith('TIF')){
@@ -440,7 +515,7 @@
         function handleFile(form, type) {
             var file = document.getElementsByName('data_file')[type === 'INSERT' ? 0 : 1].files[0];
             if(file) {
-                var type = $('#layer-type').val();
+                var type = $('#layer-type' + (type === 'INSERT') ? "" : "-u").val();
                 var zipMain = new JSZip();
                 if (type === 'VECTOR') {
                     zipMain.loadAsync(file)
@@ -462,7 +537,8 @@
                             } else {
                                 form.submit();
                             };
-                        });
+                        }
+                    );
                 }
 
                 if (type === 'CADRG') {
@@ -502,12 +578,16 @@
         }
 
         function preSubmit(form) {
-            var action = form.action;
-            if (action.indexOf("layer-create") > -1) {
-                return addLayer(form) && validateMiddleFolder(form) && validateFile(form);
-            } else if(action.indexOf("layer-update") > -1) {
-                return validateMiddleFolder(form) && validateFile(form);
-            } else return false;
+            var id = $(form).attr('id');
+            console.log(id)
+            switch(id){
+                case "layer-create" :
+                    return addLayer(form) && validateMiddleFolder(form) && validateFile(form);
+                case "layer-update" :
+                    return validateMiddleFolder(form) && validateFile(form);
+                default :
+                    return false;
+            }
         }
 
         function delLayer(ths, layerName, layerId) {
@@ -571,7 +651,7 @@
             }
         }
 
-        jQuery("#layer-create").on("shown.bs.modal", function(e) {
+        jQuery("#layer-create-modal").on("shown.bs.modal", function(e) {
             var btn = e.relatedTarget;
             var target = jQuery(btn).data("target");
             var popup = jQuery(target);
@@ -582,7 +662,7 @@
             popup.find("[name='middle_folder']").val('');
         });
 
-        jQuery("#layer-update").on("shown.bs.modal", function(e) {
+        jQuery("#layer-update-modal").on("shown.bs.modal", function(e) {
             var btn = e.relatedTarget;
 
             var layerId = jQuery(btn).data('id');
@@ -666,11 +746,14 @@
 <th:block layout:fragment="custom-html-link">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/datapicker/datepicker3.css}">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/daterangepicker/daterangepicker-bs3.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/daterangepicker/daterangepicker.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/jszip/jszip.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jquery-form/jquery.form.min.js}"></script>
 </th:block>
 </html>

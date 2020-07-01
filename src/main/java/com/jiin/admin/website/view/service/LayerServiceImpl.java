@@ -229,7 +229,7 @@ public class LayerServiceImpl implements LayerService {
 
         layerDTO.setRegistTime(date);
         layerDTO.setUpdateTime(date);
-        layerDTO.setVersion(Constants.DEFAULT_LAYER_VERSION);     // 기본 1.0
+        layerDTO.setVersion(Double.parseDouble(String.format("%.1f", Constants.DEFAULT_LAYER_VERSION)));     // 기본 1.0
         setCommonProperties(layerDTO);
 
         if(layerMapper.insert(layerDTO) > 0){
@@ -263,11 +263,11 @@ public class LayerServiceImpl implements LayerService {
 
         layerDTO.setLayerFilePath(selected.getLayerFilePath());
 
-        boolean isUploaded = !uploadData.isEmpty();
+        boolean isUploaded = (uploadData != null);
         boolean isChanged = !isUploaded && !layerDTO.getMiddleFolder().equals(selected.getMiddleFolder());
 
         String dataFilePath;
-        if(!uploadData.isEmpty()) {
+        if(isUploaded) {
             dataFilePath = loadCommonDataFilePath(layerDTO, uploadData);
         } else {
             dataFilePath = Constants.DATA_PATH + "/" + layerDTO.getMiddleFolder() + selected.getDataFilePath().replace(Constants.DATA_PATH + "/" + selected.getMiddleFolder(), "");

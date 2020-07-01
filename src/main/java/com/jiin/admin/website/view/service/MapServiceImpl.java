@@ -319,7 +319,7 @@ public class MapServiceImpl implements MapService {
         List<MapVersionDTO> mapVersions = mapVersionMapper.findByLayerId(id);
         if (!mapVersions.isEmpty()) {
             layers.forEach(o -> {
-                o.setVersion(Constants.DEFAULT_LAYER_VERSION);
+                o.setVersion(Double.parseDouble(String.format("%.1f", Constants.DEFAULT_LAYER_VERSION)));
                 layerMapper.update(o);
             });
         }

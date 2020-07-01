@@ -53,7 +53,7 @@ public class MVCLayerController {
      * @Param layerPage
      */
     @PostMapping("layer-update")
-    public String postLayerUpdate(LayerDTO layerDTO, @RequestParam("data_file") MultipartFile dataFile, LayerPageModel layerPageModel){
+    public String postLayerUpdate(LayerDTO layerDTO, @RequestParam(value = "data_file", required = false) MultipartFile dataFile, LayerPageModel layerPageModel){
         boolean result = layerService.setData(layerDTO, dataFile);
         session.message(String.format("LAYER [%s] 수정 %s하였습니다.", layerDTO.getName(), (result ? "성공" : "실패")));
         return String.format("redirect:layer-list?%s", layerPageModel.getQueryString());
