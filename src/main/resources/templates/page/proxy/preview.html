@@ -28,15 +28,6 @@
                 <i class="fas fa-layer-group"></i> Map Proxy 기반 레이어 선택
             </button>
 
-            <!-- SRS TEST -->
-            <div class="form-group">
-                <select class="form-control form-control-sm" onchange="onchange_projection(this)">
-                    <option value="EPSG:3857">EPSG:3857</option>
-                    <option value="EPSG:4326">EPSG:4326</option>
-                    <option value="EPSG:900913">EPSG:900913</option>
-                </select>
-            </div>
-
             <!-- FORMAT TEST -->
             <div class="form-group">
                 <select class="form-control form-control-sm" onchange="onchange_format(this)">
@@ -120,11 +111,6 @@
                         'paint': {}
                     }
                 );
-            }
-
-            function onchange_projection(dom){
-                projection = dom.value;
-                onclick_preview_layer(layer);
             }
 
             function onchange_format(dom){

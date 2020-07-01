@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface ServerCenterInfoService {
-    List<ServerCenterInfo> loadRemoteList();
-    List<ServerCenterInfo> loadSameCenterList();
-    Map<String, Object> loadDataMapZoneBase();
-    ServerCenterInfo loadLocalInfoData();
     String[] loadZoneList();
     String[] loadKindList();
+    List<ServerCenterInfo> loadRemoteList();
+    List<ServerCenterInfo> loadNeighborList();
+    Map<String, Object> loadDataMapZoneBase();
+    ServerCenterInfo loadLocalInfoData();
     boolean loadDataHasInFile(String name);
     boolean saveLocalData(ServerCenterInfoModel model);
     boolean saveRemoteData(ServerCenterInfoModel model);

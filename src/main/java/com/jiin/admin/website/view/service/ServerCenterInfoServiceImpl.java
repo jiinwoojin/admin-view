@@ -160,7 +160,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
      * 같은 센터 (kind, zone) 안에 있는 서버 정보 목록들을 불러온다.
      */
     @Override
-    public List<ServerCenterInfo> loadSameCenterList() {
+    public List<ServerCenterInfo> loadNeighborList() {
         ServerCenterInfo local = this.loadLocalInfoData();
         return this.loadDataListAtYAMLFile().stream()
                 .filter(o -> o.getZone().equals(local.getZone()) && o.getKind().equals(local.getKind()))

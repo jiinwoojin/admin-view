@@ -21,6 +21,7 @@ public class ProxyCacheDTO { // MyBatis Based DTO
     private String cacheType;
     private String cacheDirectory;
     private String format;
+    private String grids;
     private Boolean selected;
     private Boolean isDefault;
 
@@ -28,7 +29,7 @@ public class ProxyCacheDTO { // MyBatis Based DTO
         this.sources = new ArrayList<>();
     }
 
-    public ProxyCacheDTO(Long id, String name, Integer metaSizeX, Integer metaSizeY, Integer metaBuffer, List<ProxySourceDTO> sources, String cacheType, String cacheDirectory, String format, Boolean selected, Boolean isDefault){
+    public ProxyCacheDTO(Long id, String name, Integer metaSizeX, Integer metaSizeY, Integer metaBuffer, List<ProxySourceDTO> sources, String cacheType, String cacheDirectory, String format, String grids, Boolean selected, Boolean isDefault){
         this.id = id;
         this.name = name;
         this.metaSizeX = metaSizeX;
@@ -38,6 +39,7 @@ public class ProxyCacheDTO { // MyBatis Based DTO
         this.cacheType = cacheType;
         this.cacheDirectory = cacheDirectory;
         this.format = format;
+        this.grids = grids;
         this.selected = selected;
         this.isDefault = isDefault;
     }

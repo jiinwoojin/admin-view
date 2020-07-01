@@ -76,26 +76,29 @@ public class MapProxyUtil {
 
         caches.forEach(cache -> {
             Map<String, Object> depth_main = new LinkedHashMap<>();
-            Map<String, Object> depth_cache = new LinkedHashMap<>();
 
-            depth_main.put("grids", new String[] { "GLOBAL_GEODETIC" });
+            depth_main.put("grids", new String[] { cache.getGrids() });
             depth_main.put("format", cache.getFormat());
-
-            if(cache.getMetaSizeX() != null && cache.getMetaSizeY() != null)
-                depth_main.put("meta_size", new Integer[] { cache.getMetaSizeX(), cache.getMetaSizeY() });
-
-            if(cache.getMetaBuffer() != null)
-                depth_main.put("meta_buffer", cache.getMetaBuffer());
 
             List<String> sourceNames = new ArrayList<>();
             if(cache.getSources() != null)
                 cache.getSources().stream().forEach(s -> sourceNames.add(s.getName()));
             depth_main.put("sources", sourceNames);
 
-            depth_cache.put("type", cache.getCacheType());
-            depth_cache.put("directory", cache.getCacheDirectory());
+            // 우선 Meta 값들을 입력 하게 되면 나오게끔은 설정.
+            // 그러나 안 입력하면 굳이 안 나오게끔도 설정 했음.
+            if(cache.getMetaSizeX() != null && cache.getMetaSizeY() != null)
+                depth_main.put("meta_size", new Integer[] { cache.getMetaSizeX(), cache.getMetaSizeY() });
 
-            depth_main.put("cache", depth_cache);
+            if(cache.getMetaBuffer() != null)
+                depth_main.put("meta_buffer", cache.getMetaBuffer());
+
+            // Cache 값은 우선 배제할 것. (DB 에서는 Not Null 제약 조건만 빼 둘 계획)
+            // Map<String, Object> depth_cache = new LinkedHashMap<>();
+            // depth_cache.put("type", cache.getCacheType());
+            // depth_cache.put("directory", cache.getCacheDirectory());
+
+            // depth_main.put("cache", depth_cache);
 
             caches_y.put(cache.getName(), depth_main);
         });
@@ -181,7 +184,6 @@ public class MapProxyUtil {
             Pattern p;
             Matcher m;
 
-
             switch(key) {
                 case "services" :
                     context = context.replace("demo: null", "demo:");
@@ -250,8 +252,6 @@ public class MapProxyUtil {
 
                         if (key.equals("sources")) {
                             context = context.replaceAll("\\'", "");
-                        } else {
-                            context = context.replace("grids: [GLOBAL_GEODETIC]", "grids: [\'GLOBAL_GEODETIC\']");
                         }
 
                         context = context.replaceAll("\\\\", "\'");

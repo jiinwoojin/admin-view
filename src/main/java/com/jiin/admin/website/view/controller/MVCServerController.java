@@ -67,7 +67,7 @@ public class MVCServerController {
     @RequestMapping("service-address")
     public String pageServiceAddressConfig(Model model){
         model.addAttribute("connections", serverCenterInfoService.loadRemoteList());
-        model.addAttribute("neighbors", serverCenterInfoService.loadSameCenterList());
+        model.addAttribute("neighbors", serverCenterInfoService.loadNeighborList());
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
         model.addAttribute("kinds", serverCenterInfoService.loadKindList());
         model.addAttribute("zones", serverCenterInfoService.loadZoneList());

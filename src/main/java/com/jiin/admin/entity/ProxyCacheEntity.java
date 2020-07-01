@@ -33,19 +33,19 @@ public class ProxyCacheEntity implements Persistable<Long> {
     private String name;
 
     /**
-     * META SIZE X Side
+     * META SIZE X Side : 당분간 Not Null 제약 해제
      */
     @Column(name = "META_SIZE_X")
     private Integer metaSizeX;
 
     /**
-     * META SIZE Y Side
+     * META SIZE Y Side : 당분간 Not Null 제약 해제
      */
     @Column(name = "META_SIZE_Y")
     private Integer metaSizeY;
 
     /**
-     * META BUFFER
+     * META BUFFER : 당분간 Not Null 제약 해제
      */
     @Column(name = "META_BUFFER")
     private Integer metaBuffer;
@@ -54,15 +54,15 @@ public class ProxyCacheEntity implements Persistable<Long> {
     private List<ProxyCacheSourceRelationEntity> sources;
 
     /**
-     * CACHE TYPE
+     * CACHE TYPE : 당분간 Not Null 제약 해제
      */
-    @Column(name = "CACHE_TYPE", nullable = false)
+    @Column(name = "CACHE_TYPE")
     private String cacheType;
 
     /**
-     * CACHE DIRECTORY
+     * CACHE DIRECTORY : 당분간 Not Null 제약 해제
      */
-    @Column(name = "CACHE_DIRECTORY", nullable = false)
+    @Column(name = "CACHE_DIRECTORY")
     private String cacheDirectory;
 
     /**
@@ -70,6 +70,12 @@ public class ProxyCacheEntity implements Persistable<Long> {
      */
     @Column(name = "FORMAT")
     private String format;
+
+    /**
+     * GRIDS
+     */
+    @Column(name = "GRIDS")
+    private String grids;
 
     /**
      * SELECTED BOOL

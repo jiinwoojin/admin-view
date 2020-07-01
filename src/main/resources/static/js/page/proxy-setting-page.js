@@ -4,6 +4,108 @@ var selectedLayers = [];
 var selectedCaches = [];
 var selectedSources = [];
 
+window.onload = function() {
+    // 선택 데이터 초기화 (서버에서 받음)
+    initialize_selected_data();
+
+    // 입력 Form 초기화
+    $('#layer-name').change(function() {
+        $('#layer-name').data("check-duplicate",false);
+        $('#duplicate-check-message-proxy-layer').text("중복확인을 해주세요.");
+    });
+
+    $('#source-name').change(function() {
+        $('#source-name').data("check-duplicate",false);
+        $('#duplicate-check-message-proxy-source').text("중복확인을 해주세요.");
+    });
+
+    $('#cache-name').change(function() {
+        $('#cache-name').data("check-duplicate",false);
+        $('#duplicate-check-message-proxy-cache').text("중복확인을 해주세요.");
+    });
+
+    // Source 데이터 중 모달 생성 시 MapServer 데이터 추출.
+    $('#sourceModal').on('show.bs.modal', function (event) {
+        var options;
+        $.ajax({
+            url: CONTEXT + '/server/api/map/list',
+            async: false,
+            success: function (data) {
+                options = data;
+            },
+            error: function (e) {
+                console.log(e);
+            }
+        });
+
+        for(var type of ['mapserver', 'wms']) {
+            var mapFile = document.getElementById('mapFile-' + type);
+            if (options) {
+                for (var i = 0; i < options.length; i++) {
+                    var option = document.createElement('option');
+                    option.value = JSON.stringify({requestMap: options[i].mapFilePath, mapName: options[i].name});
+                    option.text = options[i].name;
+
+                    mapFile.options.add(option);
+                }
+            }
+        }
+    });
+
+    // Source 데이터 중 모달 파기 시 원상 복귀.
+    $('#sourceModal').on('hide.bs.modal', function (event) {
+        $('input[name="requestMap"]').val('[none]');
+
+        for(var type of ['mapserver', 'wms']) {
+            $(`select#mapFile-${type} option`).remove();
+            var mapFile = document.getElementById('mapFile-' + type);
+            var option = document.createElement('option');
+            option.value = JSON.stringify({requestMap: "[none]", mapId: -1});
+            option.text = '-- Map 파일 선택 --';
+            mapFile.options.add(option);
+        }
+
+        $('#source-requestLayers-mapserver').val('[none]');
+        // wms 에서는 바뀔 수 있으니 우선은 내비둔다.
+
+        onclick_close('source');
+    });
+
+    $('#layerModal').on('hide.bs.modal', function (event) {
+        onclick_close('layer');
+    });
+
+    $('#cacheModal').on('hide.bs.modal', function (event) {
+        onclick_close('cache');
+    });
+
+    // CACHE 이름이 바뀔 때 마다 경로 설정을 위한 이벤트
+    var dom = document.getElementById('cache-name');
+    if(dom) {
+        dom.onchange = function (e) {
+            var cacheDirectory = document.getElementById('cache-cacheDirectory');
+            cacheDirectory.value = cacheDirectoryPath + e.target.value + '/';
+        }
+    }
+
+    // 각 데이터 별로 DataTables 초기화
+    $('#list_table_layer,#list_table_source,#list_table_cache').each(function(){
+        initialize_dataTable(this.id);
+    });
+
+    // DataTables 초기화 (2)
+    $('#cache_sources,#layer_sources,#layer_caches').each(function(){
+        initialize_small_dataTable(this.id);
+    });
+
+    // SESSION 에 데이터가 있으면, toastr 로 메시지를 띄운다.
+    if(message){
+        toastr.info(message);
+    }
+
+    onchange_source_type('#source-type');
+}
+
 // Map Proxy YAML 파일에 등록된 데이터들을 렌더링한다.
 function rendering_selected_data(id, data){
     var dom = ''
@@ -249,108 +351,6 @@ function onclick_remove_button(btn){
     }
 }
 
-window.onload = function() {
-    // 선택 데이터 초기화 (서버에서 받음)
-    initialize_selected_data();
-
-    // 입력 Form 초기화
-    $('#layer-name').change(function() {
-        $('#layer-name').data("check-duplicate",false);
-        $('#duplicate-check-message-proxy-layer').text("중복확인을 해주세요.");
-    });
-
-    $('#source-name').change(function() {
-        $('#source-name').data("check-duplicate",false);
-        $('#duplicate-check-message-proxy-source').text("중복확인을 해주세요.");
-    });
-
-    $('#cache-name').change(function() {
-        $('#cache-name').data("check-duplicate",false);
-        $('#duplicate-check-message-proxy-cache').text("중복확인을 해주세요.");
-    });
-
-    // Source 데이터 중 모달 생성 시 MapServer 데이터 추출.
-    $('#sourceModal').on('show.bs.modal', function (event) {
-        var options;
-        $.ajax({
-            url: CONTEXT + '/server/api/map/list',
-            async: false,
-            success: function (data) {
-                options = data;
-            },
-            error: function (e) {
-                console.log(e);
-            }
-        });
-
-        for(var type of ['mapserver', 'wms']) {
-            var mapFile = document.getElementById('mapFile-' + type);
-            if (options) {
-                for (var i = 0; i < options.length; i++) {
-                    var option = document.createElement('option');
-                    option.value = JSON.stringify({requestMap: options[i].mapFilePath, mapName: options[i].name});
-                    option.text = options[i].name;
-
-                    mapFile.options.add(option);
-                }
-            }
-        }
-    });
-
-    // Source 데이터 중 모달 파기 시 원상 복귀.
-    $('#sourceModal').on('hide.bs.modal', function (event) {
-        $('input[name="requestMap"]').val('[none]');
-
-        for(var type of ['mapserver', 'wms']) {
-            $(`select#mapFile-${type} option`).remove();
-            var mapFile = document.getElementById('mapFile-' + type);
-            var option = document.createElement('option');
-            option.value = JSON.stringify({requestMap: "[none]", mapId: -1});
-            option.text = '-- Map 파일 선택 --';
-            mapFile.options.add(option);
-        }
-
-        $('#source-requestLayers-mapserver').val('[none]');
-        // wms 에서는 바뀔 수 있으니 우선은 내비둔다.
-
-        onclick_close('source');
-    });
-
-    $('#layerModal').on('hide.bs.modal', function (event) {
-        onclick_close('layer');
-    });
-
-    $('#cacheModal').on('hide.bs.modal', function (event) {
-        onclick_close('cache');
-    });
-
-    // CACHE 이름이 바뀔 때 마다 경로 설정을 위한 이벤트
-    var dom = document.getElementById('cache-name');
-    if(dom) {
-        dom.onchange = function (e) {
-            var cacheDirectory = document.getElementById('cache-cacheDirectory');
-            cacheDirectory.value = cacheDirectoryPath + e.target.value + '/';
-        }
-    }
-
-    // 각 데이터 별로 DataTables 초기화
-    $('#list_table_layer,#list_table_source,#list_table_cache').each(function(){
-        initialize_dataTable(this.id);
-    });
-
-    // DataTables 초기화 (2)
-    $('#cache_sources,#layer_sources,#layer_caches').each(function(){
-        initialize_small_dataTable(this.id);
-    });
-
-    // SESSION 에 데이터가 있으면, toastr 로 메시지를 띄운다.
-    if(message){
-        toastr.info(message);
-    }
-
-    onchange_source_type('#source-type');
-}
-
 // 입력 form Validation
 function preSubmit(form){
     var method = form['method'].value;
@@ -492,7 +492,7 @@ function onclick_insert_data(type) {
         }
 
         if (type === 'source') {
-            $('#source-type').val('mapserver');
+            $('#source-type').val('wms');
             $('#source-requestMap-mapserver').val('[none]');
             $('#source-requestLayers-mapserver').val('[none]');
             $('#source-requestMap-wms').val('[none]');
@@ -500,9 +500,9 @@ function onclick_insert_data(type) {
         }
 
         if (type === 'cache') {
-            $('#cache-cacheType').val('file');
-            $('#cache-cacheDirectory').val(cacheDirectoryPath);
-            $('#directoryEdit').val(false);
+            //$('#cache-cacheType').val('file');
+            //$('#cache-cacheDirectory').val(cacheDirectoryPath);
+            //$('#directoryEdit').val(false);
             $('#cache-sources').val('[]');
             document.getElementById('cache-cacheDirectory').readOnly = true;
         }
@@ -583,8 +583,8 @@ function onclick_update_data(btn){
         }
 
         if (data.obj === 'cache') {
-            $('#directoryEdit').val(false);
-            document.getElementById('cache-cacheDirectory').readOnly = true;
+            //$('#directoryEdit').val(false);
+            //document.getElementById('cache-cacheDirectory').readOnly = true;
 
             var sources = data['sources'];
             document.getElementById('cache-sources').value = JSON.stringify(sources);
@@ -627,8 +627,8 @@ function onclick_close(context){
     }
 
     if(context === 'cache'){
-        var cacheDirectory = document.getElementById("cache-cacheDirectory");
-        cacheDirectory.value = cacheDirectoryPath;
+        //var cacheDirectory = document.getElementById("cache-cacheDirectory");
+        //cacheDirectory.value = cacheDirectoryPath;
         for(var dom of $('[id^=cacheSources_]')) {
             dom.checked = false;
         }
@@ -649,18 +649,18 @@ function onchange_mapFile_value(id){
     }
 }
 
-// Cache 디렉토리 임의 변경 기능
-function onchange_cache_directory_checkbox(){
-    var checkbox = document.getElementById('directoryEdit');
-    var directory = document.getElementById('cache-cacheDirectory');
-    var name = document.getElementById('cache-name');
-    directory.readOnly = !checkbox.checked;
-    if (directory.readOnly) {
-        if (name.value.trim() !== '') {
-            directory.value = cacheDirectoryPath + name.value + '/';
-        }
-    }
-}
+// Cache 디렉토리 임의 변경 기능 : 필요 없어짐
+// function onchange_cache_directory_checkbox(){
+//     var checkbox = document.getElementById('directoryEdit');
+//     var directory = document.getElementById('cache-cacheDirectory');
+//     var name = document.getElementById('cache-name');
+//     directory.readOnly = !checkbox.checked;
+//     if (directory.readOnly) {
+//         if (name.value.trim() !== '') {
+//             directory.value = cacheDirectoryPath + name.value + '/';
+//         }
+//     }
+// }
 
 // Source 타입이 변경될 때 실행되는 메소드
 function onchange_source_type(dom){
