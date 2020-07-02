@@ -118,7 +118,7 @@ function ajax_request_server(ip, port, zone){
         contentType: 'application/json',
         success: function (status) {
             var data = status;
-            var pattern_data = /Active\sconnections:\s\d/;
+            var pattern_data = /Active\sconnections:\s\d+/;
             var res = pattern_data.exec(data);
             if(Array.isArray(res)){
                 var num = res[0] && res[0].replace('Active connections: ', '');
