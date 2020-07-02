@@ -13,7 +13,7 @@ var ji3DMap = function ji3DMap(options) {
     this.map.scene.globe.showGroundAtmosphere = false;
     this.map.scene.globe.showWaterEffect = true;
 
-    this.minHeight = -74777.0;
+    this.minHeight = -7477.0;
     this.maxHeight = 8777.0;
     this.shadingUniforms = {};
 

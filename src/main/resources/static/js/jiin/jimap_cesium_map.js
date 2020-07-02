@@ -7,11 +7,14 @@ var JimapCesium = function JimapCesium(options) {
     }
 
     this._map = undefined;
-    this._minHeight = -74777.0;
+    this._minHeight = -414.0;
     this._maxHeight = 8777.0;
     this._shadingUniforms = {};
+    this._contourUniforms = {};
 
     this._init(options);
+
+    this._updateMaterial();
 }
 
 JimapCesium.prototype.constructor = JimapCesium;
@@ -80,11 +83,15 @@ JimapCesium.prototype = {
      */
     _setBaseTerrain : function _setBaseTerrain() {
         var terrainProvider = new Cesium.CesiumTerrainProvider({
-            url : jiCommon.MAP_SERVER_URL + '/tilesets/dted'
+            url : jiCommon.MAP_SERVER_URL + '/tilesets/lv2',
+            //requestWaterMask : true,
+            requestVertexNormals : true
         });
 
         this._map.terrainProvider = terrainProvider;
         this._map.scene.terrainProvider = terrainProvider;
+
+        //this._map.scene.globe.enableLighting = true;
     },
     /**
      *
@@ -98,12 +105,50 @@ JimapCesium.prototype = {
             layers : jiCommon.getBaseMapLayer(),
             parameters : {
                 transparent : 'true',
-                format : 'image/png'
+                format : 'image/png',
+                tiled : true
             }
         }));
     },
     _updateMaterial : function _updateMaterial() {
+        var material = Cesium.Material.fromType('ElevationRamp');
+        this._shadingUniforms = material.uniforms;
+        this._shadingUniforms.minimumHeight = -7477.0;
+        this._shadingUniforms.maximumHeight = 0.0;
+        this._shadingUniforms.image = this._getColorRamp();
 
+        this._map.scene.globe.material = material;
+    },
+    _getColorRamp : function _getColorRamp() {
+        var ramp = document.createElement('canvas');
+        ramp.width = 100;
+        ramp.height = 1;
+        var ctx = ramp.getContext('2d');
+
+        var values = [0.0, 0.012, 0.12, 0.18, 0.25, 0.31, 0.37, 0.43, 0.5, 0.56, 0.62, 0.68, 0.75, 0.80, 0.83, 1];
+
+        var grd = ctx.createLinearGradient(0, 0, 100, 0);
+        grd.addColorStop(values[0], '#000075'); //Navy
+        grd.addColorStop(values[1], '#f032e6'); //Magenta
+        grd.addColorStop(values[2], '#911eb4'); //Purple
+        grd.addColorStop(values[3], '#4363d8'); //Blue
+        grd.addColorStop(values[4], '#42d4f4'); //Cyan
+        grd.addColorStop(values[5], '#3cb44b'); //Green
+        grd.addColorStop(values[6], '#bfef45'); //Lime
+        grd.addColorStop(values[7], '#a9a9a9'); //Grey
+        grd.addColorStop(values[8], '#ffe119'); //Yellow
+        grd.addColorStop(values[9], '#f58231'); //Orange
+        grd.addColorStop(values[10], '#e6194B'); //Red
+        grd.addColorStop(values[11], '#800000'); //Maroon
+        grd.addColorStop(values[12], '#9A6324'); //Brown
+        grd.addColorStop(values[13], '#808000'); //Olive
+        grd.addColorStop(values[14], '#27AA00'); //Dark Green
+        grd.addColorStop(values[15], '#a9a9a900'); //Transparent
+
+        ctx.fillStyle = grd;
+        ctx.fillRect(0, 0, 100, 1);
+
+        return ramp;
     },
     /**
      *
