@@ -1,15 +1,15 @@
 package com.jiin.admin.website.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
-import com.jiin.admin.dto.ProxyCacheDTO;
-import com.jiin.admin.dto.ProxyLayerDTO;
-import com.jiin.admin.dto.ProxySourceMapServerDTO;
-import com.jiin.admin.dto.ProxySourceWMSDTO;
+import com.jiin.admin.dto.*;
+import lombok.extern.slf4j.Slf4j;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
+import pl.jalokim.propertiestojson.util.PropertiesToJsonConverter;
 
 import java.io.StringWriter;
 import java.util.*;
@@ -17,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // MapProxy 기반 파일 작성 메소드 모음
+@Slf4j
 public class MapProxyUtil {
     /**
      * MapProxy YAML 파일 중 services 에 해당하는 초기 설정 값을 가져온다.
@@ -52,7 +53,7 @@ public class MapProxyUtil {
      * @param
      * @note JPA Entity 대응 필요, wms_srs (복수), wms_title 등 메타 정보 주입 대응 필요
      */
-    public static String fetchYamlFileContextWithDTO(List<ProxyLayerDTO> layers, List<Object> sources, List<ProxyCacheDTO> caches) {
+    public static String fetchYamlFileContextWithDTO(List<ProxyLayerDTO> layers, List<Object> sources, List<ProxyCacheDTO> caches, List<ProxyGlobalDTO> globals) {
         Map<String, Object> yamlModel = new LinkedHashMap<>();
 
         List<Map<String, Object>> layers_y = new ArrayList<>();
@@ -144,6 +145,21 @@ public class MapProxyUtil {
             }
         });
 
+        Properties properties = new Properties();
+        for (ProxyGlobalDTO global : globals) {
+            properties.put(global.getKey(), global.getValue());
+        }
+
+        String json = new PropertiesToJsonConverter().convertToJson(properties);
+        ObjectMapper mapper = new ObjectMapper();
+
+        Map<String, Object> globals_y = null;
+        try {
+            globals_y = mapper.readValue(json, Map.class);
+        } catch (JsonProcessingException e) {
+            log.error("ERROR - " + e.getMessage());
+        }
+
         yamlModel.put("services", loadInitServiceProperties());
         yamlModel.put("layers", layers_y);
         yamlModel.put("caches", caches_y);
@@ -154,14 +170,9 @@ public class MapProxyUtil {
                 put("origin", "nw");
             }});
         }});
-        yamlModel.put("globals", new LinkedHashMap<String, Object>(){{
-            put("cache", new LinkedHashMap<String, Object>(){{
-                put("base_dir", "/data/jiapp/data_dir/cache");
-                put("lock_dir", "/data/jiapp/data_dir/cache/locks");
-            }});
-        }});
+        yamlModel.put("globals", globals_y);
 
-        ObjectMapper mapper = new ObjectMapper(new YAMLFactory()
+        mapper = new ObjectMapper(new YAMLFactory()
                 .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
                 .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES)
         );
@@ -275,7 +286,6 @@ public class MapProxyUtil {
                     break;
 
                 case "grids" :
-                case "globals" :
                     p = Pattern.compile("(\\s\\{).*?(,\\s).*?(\\})");
                     m = p.matcher(context);
                     while(m.find()){
@@ -290,9 +300,22 @@ public class MapProxyUtil {
                         context = context.replace("\'EPSG:3857\'", "EPSG:3857");
                     }
 
-                    if(key.equals("globals")){
-                        context = context.replaceFirst("/data/jiapp/data_dir/cache", "\'/data/jiapp/data_dir/cache\'");
-                        context = context.replaceFirst("/data/jiapp/data_dir/cache/locks", "\'/data/jiapp/data_dir/cache/locks\'");
+//                    if(key.equals("globals")){
+//                        context = context.replaceFirst("/data/jiapp/data_dir/cache", "\'/data/jiapp/data_dir/cache\'");
+//                        context = context.replaceFirst("/data/jiapp/data_dir/cache/locks", "\'/data/jiapp/data_dir/cache/locks\'");
+//                    }
+                    break;
+
+                // TODO : globals 에서 쓰이는 { a : bcd, ... , } 와 같은 문자열 처리 방안을 개행으로 고치기 위한 방법 조사 필요.
+                case "globals" :
+                    p = Pattern.compile("(\\s\\{).*?(,\\s).*?(\\})");
+                    m = p.matcher(context);
+                    while(m.find()){
+                        temp = m.group(0);
+                        temp = temp.replace(m.group(1), "\n      ");
+                        temp = temp.replace(m.group(2), "\n      ");
+                        temp = temp.replace(m.group(3), "");
+                        context = context.replace(m.group(0), temp);
                     }
 
                     break;

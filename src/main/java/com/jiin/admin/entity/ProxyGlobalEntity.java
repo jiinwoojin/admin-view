@@ -18,7 +18,7 @@ public class ProxyGlobalEntity {
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "PROXY_GLOBAL_SEQ"
+            generator = "PROXY_GLOBAL_SEQ_GEN"
     )
     @Column(name = "ID")
     private Long id;

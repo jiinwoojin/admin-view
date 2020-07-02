@@ -4,6 +4,8 @@ var selectedLayers = [];
 var selectedCaches = [];
 var selectedSources = [];
 
+var globalTable;
+
 window.onload = function() {
     // 선택 데이터 초기화 (서버에서 받음)
     initialize_selected_data();
@@ -104,6 +106,26 @@ window.onload = function() {
     }
 
     onchange_source_type('#source-type');
+
+    globalTable = $('#list_table_global').DataTable({
+        language : {
+            lengthMenu : "자료 길이 _MENU_",
+            zeroRecords : "해당 자료가 존재하지 않습니다.",
+            info : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
+            infoEmpty : "해당 자료가 존재하지 않습니다.",
+            infoFiltered : "(총 _TOTAL_ 건)",
+            search : "검색 키워드",
+            paginate : {
+                first : "<<",
+                last : ">>",
+                next : ">",
+                previous : "<"
+            }
+        },
+        pageLength: 5,
+        destroy: true,
+        "lengthMenu": [[5, -1], [5, "모두"]]
+    });
 }
 
 // Map Proxy YAML 파일에 등록된 데이터들을 렌더링한다.
@@ -717,10 +739,85 @@ function onchange_checkbox_select_data(type, dom, fieldId){
 
 // GLOBAL 테이블 추가
 function onclick_global_row_add(){
-
+    if(globalTable){
+        globalTable.row.add([
+            '<input type="text" class="form-control" value="" />',
+            '<input type="text" class="form-control" value="" />',
+            `<button class="btn btn-danger btn-sm btn-circle" type="button" onclick="onclick_global_row_remove(this)">
+                <i class="fas fa-trash"></i>
+             </button>`
+        ]).draw(false);
+    }
 }
 
 // GLOBAL 테이블 삭제
-function onclick_global_row_remove(id){
+function onclick_global_row_remove(btn){
+    if(globalTable) {
+        var tr = btn.parentNode.parentNode;
+        console.log(tr.tagName)
+        if (tr && (tr.tagName === 'TR' || tr.tagName === 'tr')) {
+            globalTable.row(btn.parentNode.parentNode).remove().draw(false);
+        }
+    }
+}
 
+// GLOBAL 테이블 제출
+function onsubmit_global_table(form){
+    if (globalTable) {
+        var data = document.getElementById('global-row-list').children;
+
+        var keys = [];
+        var result = [];
+        for (var tr of data) {
+            var input = tr.querySelectorAll('input');
+            if(input.length === 2) {
+                var inputK = input[0];
+                var inputV = input[1];
+                if (keys.includes(inputK.value)) {
+                    toastr.warning('GLOBAL KEY ' + inputK.value + ' 값이 중복 됩니다. KEY 값은 단일 값만 저장할 수 있습니다.');
+                    return false;
+                } else if (inputK.value === '' && inputK.value.trim() === ''){
+                    toastr.warning('GLOBAL KEY 값은 빈 값으로 설정할 수 없습니다.');
+                    return false;
+                } else if (inputV.value === '' && inputV.value.trim() === ''){
+                    toastr.warning('GLOBAL VALUE 값은 빈 값으로 설정할 수 없습니다.');
+                    return false;
+                } else {
+                    result.push({
+                        id: 0,
+                        key: inputK.value,
+                        value: inputV.value
+                    });
+                    keys.push(inputK.value);
+                }
+            }
+        }
+
+        var hidden = document.createElement('input');
+        hidden.name = 'json';
+        hidden.value = JSON.stringify(result);
+        hidden.type = 'hidden';
+
+        form.appendChild(hidden);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// GLOBAL 테이블 저장 취소
+function onclick_global_cancel(){
+    if(globalTable){
+        globalTable.clear().draw();
+
+        for(var global of globals){
+            globalTable.row.add([
+                `<input type="text" class="form-control" value="${global.key}" />`,
+                `<input type="text" class="form-control" value="${global.value}" />`,
+                `<button class="btn btn-danger btn-sm btn-circle" type="button" onclick="onclick_global_row_remove(this)">
+                    <i class="fas fa-trash"></i>
+                 </button>`
+            ]).draw(false);
+        }
+    }
 }

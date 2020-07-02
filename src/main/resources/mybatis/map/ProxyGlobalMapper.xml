@@ -15,22 +15,8 @@
         VALUES(#{id}, #{key}, #{value})
     </insert>
 
-    <update id="update">
-        UPDATE _PROXY_GLOBAL SET
-        KEY = #{key}, VALUE = #{value}
-        WHERE ID = #{id}
-    </update>
-
-    <delete id="deleteById">
-        DELETE FROM _PROXY_GLOBAL WHERE ID = #{id}
-    </delete>
-
-    <delete id="deleteByIdListNotIn">
+    <delete id="deleteAll">
         DELETE FROM _PROXY_GLOBAL
-        WHERE ID NOT IN
-        <foreach collection="ids" item="id" index="index" separator="," open="(" close=")">
-            #{id}
-        </foreach>
     </delete>
 </mapper>
 

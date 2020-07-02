@@ -59,7 +59,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         List<ProxySourceWMSDTO> wmsDTOs = proxySourceMapper.findBySelectedWMS(true);
         List<Object> dtos = Stream.of(mapServerDTOs, wmsDTOs).flatMap(o -> o.stream()).collect(Collectors.toList());
 
-        String context = MapProxyUtil.fetchYamlFileContextWithDTO(proxyLayerMapper.findBySelected(true), dtos, proxyCacheMapper.findBySelected(true));
+        String context = MapProxyUtil.fetchYamlFileContextWithDTO(proxyLayerMapper.findBySelected(true), dtos, proxyCacheMapper.findBySelected(true), proxyGlobalMapper.findAll());
         FileSystemUtil.createAtFile(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME, context);
         return true;
     }
@@ -308,26 +308,17 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     @Override
     @Transactional
     public boolean saveProxyGlobalByModelList(List<ProxyGlobalModel> proxyGlobalModels) {
+        if (proxyGlobalModels.stream().map(ProxyGlobalModel::getKey).distinct().count() != proxyGlobalModels.stream().count()) {
+            return false;
+        }
+        proxyGlobalMapper.deleteAll();
         int count = 0;
-        Set<Long> retainIds = new HashSet<>(); // 이전 목록에서 남길 ID 를 모아둔다.
-        for(ProxyGlobalModel model : proxyGlobalModels){
-            // Inserting
-            if(model.getId().equals(0L)){
-                long nextId = proxyGlobalMapper.findNextSeqVal();
-                model.setId(nextId);
-                retainIds.add(nextId);
-                count += proxyGlobalMapper.insert(ProxyGlobalModel.convertDTO(model));
-            } else { // Updating
-                retainIds.add(model.getId());
-                count += proxyGlobalMapper.update(ProxyGlobalModel.convertDTO(model));
-            }
+        for (ProxyGlobalModel model : proxyGlobalModels) {
+            long nextId = proxyGlobalMapper.findNextSeqVal();
+            model.setId(nextId);
+            count += proxyGlobalMapper.insert(ProxyGlobalModel.convertDTO(model));
         }
-
-        if(retainIds.size() > 0) {
-            proxyGlobalMapper.deleteByIdListNotIn(retainIds);
-        }
-
-        return count == proxyGlobalModels.size();
+        return count == proxyGlobalModels.size() && saveYAMLFileByEachList();
     }
 
     /**

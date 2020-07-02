@@ -110,12 +110,13 @@
     </div>
     <!-- // 선택 목록 View 종료 -->
 
-    <script>
+    <script th:inline="javascript">
         var mapServerAddress = '[[${mapServerAddress}]]';
         var cacheDirectoryPath = '[[${proxyCacheDirectory}]]';
         var dataDirPath = '[[${dataDirectory}]]';
         var mapServerBinary = '[[${mapServerBinary}]]';
         var message = '[[${message}]]';
+        var globals = /*[[ ${globals} ]]*/ [];
     </script>
 </th:block>
 
