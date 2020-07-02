@@ -651,7 +651,7 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
                 'text-ignore-placement' : true,
                 "text-size": ['get', 'fontSize'],
                 'text-rotate': ['get','angle'],
-                //"text-font": ["Gosanja"]
+                "text-font": ["Gosanja"]
             },
             paint: {
                 "text-color": ['get', 'fontColor'],
