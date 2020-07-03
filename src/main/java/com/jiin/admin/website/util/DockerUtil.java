@@ -1,10 +1,10 @@
 package com.jiin.admin.website.util;
 
 import com.amihaiemil.docker.Container;
-import com.amihaiemil.docker.Containers;
 import com.amihaiemil.docker.Docker;
 import com.amihaiemil.docker.UnixDocker;
 import lombok.extern.slf4j.Slf4j;
+import org.thymeleaf.util.StringUtils;
 
 import javax.json.JsonObject;
 import java.io.File;
@@ -103,5 +103,38 @@ public class DockerUtil {
                 }
             }
         }
+    }
+    /**
+     * docker list
+     * @param filter 필터링
+     * @return
+     */
+    public static List dockerContainers(String filter) {
+        // 실행 / docker ps -a --format "table {{.ID}}\t{{.Image}}"
+        String[] fileds = new String[]{"ID","Image","Command","CreatedAt","RunningFor","Ports","Status","Size","Names","Labels","Mounts","Networks"};
+        String separator = "#";
+        String command = "docker ps -a ";
+        if(!StringUtils.isEmpty(filter)){
+            command += "--filter name=" + filter + " ";
+        }
+        command += "--format \"table {{.";
+        command += String.join("}}"+separator+"{{.",fileds);
+        command += "}}\"";
+        log.info(command);
+        List<String> result = LinuxCommandUtil.fetchResultByLinuxCommonToList(command);
+        List<Map> datas = new ArrayList<Map>();
+        for(String line:result){
+            String[] dataArr = line.split(separator);
+            if(dataArr[0].equalsIgnoreCase("CONTAINER ID")){
+                continue;
+            }
+            Map dataMap= new HashMap();
+            int index = 0;
+            for(String data:dataArr){
+                dataMap.put(fileds[index++],data.trim());
+            }
+            datas.add(dataMap);
+        }
+        return datas;
     }
 }

@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Slf4j
@@ -86,5 +88,61 @@ public class LinuxCommandUtil {
         }
 
         return 1;   // 실패
+    }
+
+
+    /**
+     *
+     * @param cmd
+     * @return
+     */
+    public static List fetchResultByLinuxCommonToList(String cmd) {
+        Process process = null;
+        Runtime runtime = Runtime.getRuntime();
+        List successOutput = new ArrayList();
+        StringBuilder errorOutput = new StringBuilder();
+        BufferedReader successBufferReader = null;
+        BufferedReader errorBufferReader = null;
+        String line;
+        List<String> lst = new ArrayList<>();
+        if (System.getProperty("os.name").contains("Windows")) {
+            lst.add("cmd");
+            lst.add("/c");
+        } else {
+            lst.add("/bin/sh");
+            lst.add("-c");
+        }
+        lst.add(cmd); // set command
+        String[] array = lst.toArray(new String[lst.size()]);
+        try {
+            process = runtime.exec(array);
+            successBufferReader = new BufferedReader(new InputStreamReader(process.getInputStream(), "EUC-KR"));
+            while ((line = successBufferReader.readLine()) != null) {
+                successOutput.add(line);
+            }
+            errorBufferReader = new BufferedReader(new InputStreamReader(process.getErrorStream(), "EUC-KR"));
+            while ((line = errorBufferReader.readLine()) != null) {
+                errorOutput.append(line).append(System.getProperty("line.separator"));
+            }
+            process.waitFor();
+            if (process.exitValue() != 0) {
+                log.error("Command Line 비정상 종료");
+                log.error(errorOutput.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                assert process != null;
+                process.destroy();
+                if (successBufferReader != null) successBufferReader.close();
+                if (errorBufferReader != null) errorBufferReader.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+        return successOutput;
     }
 }

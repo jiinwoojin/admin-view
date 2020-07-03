@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.config.SessionService;
 import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.*;
+import com.jiin.admin.website.util.DockerUtil;
 import com.jiin.admin.website.view.service.ProxyCacheService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import com.jiin.admin.website.view.service.ServiceInfoService;
@@ -135,7 +136,7 @@ public class MVCProxyController {
 
     @RequestMapping("seeding")
     public String proxySeedingSetting(Model model){
-        model.addAttribute("proxyLayers", proxyCacheService.loadDataList("LAYERS"));
+        model.addAttribute("dockerCacheContainers", DockerUtil.dockerContainers("jimap"));
         return "page/proxy/seeding";
     }
 }
