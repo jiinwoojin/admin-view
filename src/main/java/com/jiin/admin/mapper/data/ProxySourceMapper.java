@@ -25,12 +25,14 @@ public interface ProxySourceMapper {
     int insertWMS(ProxySourceWMSDTO proxySourceWMSDTO);
 
     int update(ProxySourceDTO proxySourceDTO);
+    int updateByName(ProxySourceDTO proxySourceDTO);
     int updateMapServer(ProxySourceMapServerDTO proxySourceMapServerDTO);
     int updateWMS(ProxySourceWMSDTO proxySourceWMSDTO);
     int updateSelectedByNameIn(@Param("names") List<String> names, @Param("selected") boolean selected);
     int updateSelectedAllDisabled();
 
     int deleteById(@Param("id") long id);
+    int deleteByName(@Param("name") String name);
     int deleteByIdMapServer(@Param("id") long id);
     int deleteByIdWMS(@Param("id") long id);
 }

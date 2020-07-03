@@ -91,6 +91,12 @@
         WHERE ID = #{id}
     </update>
 
+    <update id="updateByName">
+        UPDATE _PROXY_SOURCE SET
+        TYPE = #{type}, SELECTED = #{selected}, IS_DEFAULT = #{isDefault}
+        WHERE NAME = #{name}
+    </update>
+
     <update id="updateMapServer">
         UPDATE _PROXY_SOURCE_MAPSERVER SET
         REQUEST_MAP = #{requestMap}, REQUEST_LAYERS = #{requestLayers}, MAP_SERVER_BINARY = #{mapServerBinary}, MAP_SERVER_WORK_DIR = #{mapServerWorkDir}
@@ -118,14 +124,18 @@
     </update>
 
     <delete id="deleteById">
-        DELETE FROM _PROXY_SOURCE WHERE id = #{id}
+        DELETE FROM _PROXY_SOURCE WHERE ID = #{id}
+    </delete>
+
+    <delete id="deleteByName">
+        DELETE FROM _PROXY_SOURCE WHERE NAME = #{name}
     </delete>
 
     <delete id="deleteByIdMapServer">
-        DELETE FROM _PROXY_SOURCE_MAPSERVER WHERE id = #{id}
+        DELETE FROM _PROXY_SOURCE_MAPSERVER WHERE ID = #{id}
     </delete>
 
     <delete id="deleteByIdWMS">
-        DELETE FROM _PROXY_SOURCE_WMS WHERE id = #{id}
+        DELETE FROM _PROXY_SOURCE_WMS WHERE ID = #{id}
     </delete>
 </mapper>

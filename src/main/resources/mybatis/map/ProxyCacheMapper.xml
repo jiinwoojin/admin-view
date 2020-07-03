@@ -44,6 +44,12 @@
         WHERE ID = #{id}
     </update>
 
+    <update id="updateByName">
+        UPDATE _PROXY_CACHE SET
+        META_SIZE_X = #{metaSizeX}, META_SIZE_Y = #{metaSizeY}, META_BUFFER = #{metaBuffer}, CACHE_TYPE = #{cacheType}, CACHE_DIRECTORY = #{cacheDirectory}, FORMAT = #{format}, GRIDS = #{grids}, SELECTED = #{selected}, IS_DEFAULT = #{isDefault}
+        WHERE NAME = #{name}
+    </update>
+
     <update id="updateSelectedByNameIn">
         UPDATE _PROXY_CACHE SET
         SELECTED = #{selected}
@@ -60,6 +66,10 @@
 
     <delete id="deleteById">
         DELETE FROM _PROXY_CACHE WHERE ID = #{id}
+    </delete>
+
+    <delete id="deleteByName">
+        DELETE FROM _PROXY_CACHE WHERE NAME = #{name}
     </delete>
 
     <!-- Mapper 인터페이스에 없지만 내부에서 사용되기 때문에 지우지 말 것. -->

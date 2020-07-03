@@ -39,6 +39,12 @@
         WHERE ID = #{id}
     </update>
 
+    <update id="updateByName">
+        UPDATE _PROXY_LAYER SET
+        TITLE = #{title}, SELECTED = #{selected}, IS_DEFAULT = #{isDefault}
+        WHERE NAME = #{name}
+    </update>
+
     <update id="updateSelectedByNameIn">
         UPDATE _PROXY_LAYER SET
         SELECTED = #{selected}
@@ -55,6 +61,10 @@
 
     <delete id="deleteById">
         DELETE FROM _PROXY_LAYER WHERE ID = #{id}
+    </delete>
+
+    <delete id="deleteByName">
+        DELETE FROM _PROXY_LAYER WHERE NAME = #{name}
     </delete>
 
     <!-- Mapper 인터페이스에 없지만 내부에서 사용되기 때문에 지우지 말 것. (1) -->

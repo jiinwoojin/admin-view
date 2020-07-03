@@ -150,7 +150,7 @@
         <tbody>
         <tr th:each="cache : ${ caches }">
             <td class="text-center align-middle" th:text="${ cache.name }"></td>
-            <td class="text-center align-middle" th:text="${ cache.cacheType }"></td>
+            <td class="text-center align-middle" th:text="${ 'file' }"></td>
             <td class="text-center align-middle">
                 <button
                     type="button"
@@ -169,7 +169,7 @@
                 >
                     <i class="fas fa-cog"></i>
                 </button>
-                <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/proxy/cache-delete?id=' + ${cache.id} + '&name=' + ${cache.name} }" onclick="return confirm('삭제를 진행 하시겠습니까?')">
+                <a class="btn btn-danger btn-circle btn-sm text-white mx-1" th:onclick="onclick_delete_data('cache', [[${cache.id}]], [[${cache.name}]])">
                     <i class="fas fa-trash"></i>
                 </a>
             </td>

@@ -195,7 +195,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     @Transactional
-    public boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel) {
+    public boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel, boolean synced) {
         ProxyLayerDTO layer = proxyLayerMapper.findByName(proxyLayerModel.getName());
         ProxyLayerDTO dto;
         switch(proxyLayerModel.getMethod()){
@@ -212,7 +212,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 dto = ProxyLayerModel.convertDTO(proxyLayerModel);
                 dto.setIsDefault(layer.getIsDefault());
                 dto.setSelected(layer.getSelected());
-                return proxyLayerMapper.update(dto) > 0 && createRelationWithMainIdAndSubNames("LAYER", "SOURCE", proxyLayerModel.getId(), proxyLayerModel.getSources()) && createRelationWithMainIdAndSubNames("LAYER", "CACHE", proxyLayerModel.getId(), proxyLayerModel.getCaches()) && saveYAMLFileByEachList();
+                return synced ? (proxyLayerMapper.updateByName(dto) > 0) : (proxyLayerMapper.update(dto) > 0) && createRelationWithMainIdAndSubNames("LAYER", "SOURCE", layer.getId(), proxyLayerModel.getSources()) && createRelationWithMainIdAndSubNames("LAYER", "CACHE", layer.getId(), proxyLayerModel.getCaches()) && saveYAMLFileByEachList();
             default :
                 return false;
         }
@@ -224,7 +224,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     @Transactional
-    public boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel) {
+    public boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel, boolean synced) {
         ProxySourceDTO root = proxySourceMapper.findByName(proxySourceMapServerModel.getName());
         ProxySourceMapServerDTO dto;
         switch(proxySourceMapServerModel.getMethod()){
@@ -239,6 +239,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
             case "UPDATE" :
                 if(root == null) return false;
                 dto = ProxySourceMapServerModel.convertDTO(proxySourceMapServerModel);
+                dto.setId(root.getId());
                 dto.setIsDefault(root.getIsDefault());
                 dto.setSelected(root.getSelected());
                 return proxySourceMapper.update(dto) > 0 && proxySourceMapper.updateMapServer(dto) > 0 && saveYAMLFileByEachList();
@@ -253,7 +254,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     @Transactional
-    public boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel) {
+    public boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel, boolean synced) {
         ProxySourceDTO root = proxySourceMapper.findByName(proxySourceWMSModel.getName());
         ProxySourceWMSDTO dto;
         switch(proxySourceWMSModel.getMethod()) {
@@ -268,6 +269,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
             case "UPDATE" :
                 if (root == null) return false;
                 dto = ProxySourceWMSModel.convertDTO(proxySourceWMSModel);
+                dto.setId(root.getId());
                 dto.setIsDefault(root.getIsDefault());
                 dto.setSelected(root.getSelected());
                 return proxySourceMapper.update(dto) > 0 && proxySourceMapper.updateWMS(dto) > 0 && saveYAMLFileByEachList();
@@ -282,7 +284,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     @Transactional
-    public boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel) {
+    public boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel, boolean synced) {
         ProxyCacheDTO cache = proxyCacheMapper.findByName(proxyCacheModel.getName());
         ProxyCacheDTO dto;
         switch(proxyCacheModel.getMethod()){
@@ -299,7 +301,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 dto = ProxyCacheModel.convertDTO(proxyCacheModel);
                 dto.setIsDefault(cache.getIsDefault());
                 dto.setSelected(cache.getSelected());
-                return proxyCacheMapper.update(dto) > 0 && createRelationWithMainIdAndSubNames("CACHE", "SOURCE", proxyCacheModel.getId(), proxyCacheModel.getSources()) && saveYAMLFileByEachList();
+                return synced ? (proxyCacheMapper.updateByName(dto) > 0) : (proxyCacheMapper.update(dto) > 0) && createRelationWithMainIdAndSubNames("CACHE", "SOURCE", cache.getId(), proxyCacheModel.getSources()) && saveYAMLFileByEachList();
             default :
                 return false;
         }
@@ -354,6 +356,39 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 proxyCacheSourceRelationMapper.deleteByCacheId(id);
                 proxyCacheMapper.deleteById(id);
                 return saveYAMLFileByEachList();
+
+            default :
+                return false;
+        }
+    }
+
+    @Override
+    public boolean removeProxyDataByNameAndType(String name, String type) {
+        switch(type.toUpperCase()){
+            case "LAYER" :
+                ProxyLayerDTO layerDTO = proxyLayerMapper.findByName(name);
+                if (layerDTO == null) {
+                    return false;
+                } else {
+                    return removeProxyDataByIdAndType(layerDTO.getId(), type);
+                }
+
+            case "SOURCE-MAPSERVER" :
+            case "SOURCE-WMS" :
+                ProxySourceDTO sourceDTO = proxySourceMapper.findByName(name);
+                if (sourceDTO == null) {
+                    return false;
+                } else {
+                    return removeProxyDataByIdAndType(sourceDTO.getId(), type);
+                }
+
+            case "CACHE" :
+                ProxyCacheDTO cacheDTO = proxyCacheMapper.findByName(name);
+                if (cacheDTO == null) {
+                    return false;
+                } else {
+                    return removeProxyDataByIdAndType(cacheDTO.getId(), type);
+                }
 
             default :
                 return false;

@@ -42,20 +42,18 @@ public class MVCProxyController {
     @Autowired
     private ServerCenterInfoService serverCenterInfoService;
 
-    @Autowired
-    private ServiceInfoService serviceInfoService;
-
     @RequestMapping("setting")
     public String pageProxySetting(Model model){
         ServerCenterInfo info = serverCenterInfoService.loadLocalInfoData();
-
         model.addAttribute("message", sessionService.message());
+        model.addAttribute("neighbors", serverCenterInfoService.loadNeighborList());
 
         model.addAttribute("layers", proxyCacheService.loadDataList("LAYERS"));
         model.addAttribute("sources", proxyCacheService.loadDataList("SOURCES"));
         model.addAttribute("caches", proxyCacheService.loadDataList("CACHES"));
         model.addAttribute("globals", proxyCacheService.loadDataList("GLOBALS"));
 
+        model.addAttribute("mapServerPort", MAP_SERVER_PORT);
         model.addAttribute("mapServerAddress", String.format("http://%s:%d/mapserver/cgi-bin/mapserv?", (info != null) ? info.getIp() : "127.0.0.1", MAP_SERVER_PORT));
         model.addAttribute("selectSources", proxyCacheService.loadDataListBySelected("SOURCES", true));
         model.addAttribute("selectCaches", proxyCacheService.loadDataListBySelected("CACHES", true));
@@ -69,28 +67,28 @@ public class MVCProxyController {
 
     @RequestMapping(value = "layer-save", method = RequestMethod.POST)
     public String postLayerSave(ProxyLayerModel proxyLayerModel){
-        boolean result = proxyCacheService.saveProxyLayerByModel(proxyLayerModel);
+        boolean result = proxyCacheService.saveProxyLayerByModel(proxyLayerModel, false);
         sessionService.message(String.format("[%s] LAYER 정보 저장에 %s 했습니다.", proxyLayerModel.getName(), result ? "성공" : "실패"));
-        return "redirect:setting";
-    }
-
-    @RequestMapping(value = "source-mapserver-save", method = RequestMethod.POST)
-    public String postSourceMapServerSave(ProxySourceMapServerModel proxySourceMapServerModel){
-        boolean result = proxyCacheService.saveProxySourceMapServerByModel(proxySourceMapServerModel);
-        sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다.", proxySourceMapServerModel.getName(), result ? "성공" : "실패"));
         return "redirect:setting";
     }
 
     @RequestMapping(value = "source-wms-save", method = RequestMethod.POST)
     public String postSourceWMSSave(ProxySourceWMSModel proxySourceWMSModel){
-        boolean result = proxyCacheService.saveProxySourceWMSByModel(proxySourceWMSModel);
+        boolean result = proxyCacheService.saveProxySourceWMSByModel(proxySourceWMSModel, false);
         sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다.", proxySourceWMSModel.getName(), result ? "성공" : "실패"));
+        return "redirect:setting";
+    }
+
+    @RequestMapping(value = "source-mapserver-save", method = RequestMethod.POST)
+    public String postSourceMapServerSave(ProxySourceMapServerModel proxySourceMapServerModel){
+        boolean result = proxyCacheService.saveProxySourceMapServerByModel(proxySourceMapServerModel, false);
+        sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다.", proxySourceMapServerModel.getName(), result ? "성공" : "실패"));
         return "redirect:setting";
     }
 
     @RequestMapping(value = "cache-save", method = RequestMethod.POST)
     public String postCacheSave(ProxyCacheModel proxyCacheModel){
-        boolean result = proxyCacheService.saveProxyCacheByModel(proxyCacheModel);
+        boolean result = proxyCacheService.saveProxyCacheByModel(proxyCacheModel, false);
         sessionService.message(String.format("[%s] CACHE 정보 저장에 %s 했습니다.", proxyCacheModel.getName(), result ? "성공" : "실패"));
         return "redirect:setting";
     }
