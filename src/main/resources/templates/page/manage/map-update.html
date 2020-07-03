@@ -43,7 +43,7 @@
                     <label for="map-version">적용 버전</label>
                     <div class="input-group">
                         <select class="form-control" id="map-version">
-                            <option th:each="ver : ${ version.list }" th:text="${ ver.version }" th:value="${ ver.zipFilePath }" />
+                            <option th:each="ver : ${ version.list }" th:text="${ ver.version }" th:value="${ ver.zipFilePath }"></option>
                         </select>
                         <div class="input-group-append">
                             <button class="btn btn-info" type="button" onclick="onclick_download()">
@@ -60,8 +60,8 @@
                 <div class="form-group">
                     <label for="map-imageType">출력 포맷</label>
                     <select class="form-control" id="map-imageType" th:field="*{imageType}">
-                        <option value="jpeg">jpeg</option>
                         <option value="png">png</option>
+                        <option value="jpeg">jpeg</option>
                     </select>
                 </div>
             </div>
