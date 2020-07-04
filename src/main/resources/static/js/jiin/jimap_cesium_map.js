@@ -55,6 +55,43 @@ JimapCesium.prototype = {
 
         this._map.scene.globe = new Cesium.Globe(Cesium.Ellipsoid.WGS84);
 
+        this._minPitch = -Cesium.Math.PI_OVER_TWO;
+        this._maxPitch = 0;
+        this._minHeight = 50;
+
+        var that = this;
+
+        this._map.camera.changed.addEventListener(function() {
+            if (that._map.camera._suspendTerrainAdjustment && that._map.scene.mode === Cesium.SceneMode.SCENE3D) {
+                that._map.camera._suspendTerrainAdjustment = false;
+                that._map.camera._adjustHeightForTerrain();
+            }
+
+            var pitch = that._map.camera.pitch;
+
+            if (pitch > that._maxPitch || pitch < that._minPitch) {
+                that._map.scene.screenSpaceCameraController.enableTilt = false;
+
+                if (pitch > that._maxPitch) {
+                    pitch = that._maxPitch;
+                } else if (pitch < that._minPitch) {
+                    pitch = that._minPitch;
+                }
+
+                let destination = Cesium.Cartesian3.fromRadians(
+                    that._map.camera.positionCartographic.longitude,
+                    that._map.camera.positionCartographic.latitude,
+                    Math.max(that._map.camera.positionCartographic.height, that._minHeight));
+
+                that._map.camera.setView({
+                    destination : destination,
+                    orientation : {pitch : pitch}
+                });
+
+                that._map.scene.screenSpaceCameraController.enableTilt = true;
+            }
+        });
+
         this._map.scene.globe.showGroundAtmosphere = false;
         this._map.scene.globe.showWaterEffect = true;
 

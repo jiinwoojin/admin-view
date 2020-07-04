@@ -10,6 +10,43 @@ var ji3DMap = function ji3DMap(options) {
 
     this.map.scene.globe = new Cesium.Globe(Cesium.Ellipsoid.WGS84);
 
+    this._minPitch = -Cesium.Math.PI_OVER_TWO;
+    this._maxPitch = 0;
+    this._minHeight = 50;
+
+    var that = this;
+
+    this.map.camera.changed.addEventListener(function() {
+        if (that.map.camera._suspendTerrainAdjustment && that.map.scene.mode === Cesium.SceneMode.SCENE3D) {
+            that.map.camera._suspendTerrainAdjustment = false;
+            that.map.camera._adjustHeightForTerrain();
+        }
+
+        var pitch = that.map.camera.pitch;
+
+        if (pitch > that.maxPitch || pitch < that.minPitch) {
+            that.map.scene.screenSpaceCameraController.enableTilt = false;
+
+            if (pitch > that.maxPitch) {
+                pitch = that.maxPitch;
+            } else if (pitch < that.minPitch) {
+                pitch = that.minPitch;
+            }
+
+            let destination = Cesium.Cartesian3.fromRadians(
+                that.map.camera.positionCartographic.longitude,
+                that.map.camera.positionCartographic.latitude,
+                Math.max(that.map.camera.positionCartographic.height, that.minHeight));
+
+            that.map.camera.setView({
+                destination : destination,
+                orientation : {pitch : pitch}
+            });
+
+            that.map.scene.screenSpaceCameraController.enableTilt = true;
+        }
+    });
+
     this.map.scene.globe.showGroundAtmosphere = false;
     this.map.scene.globe.showWaterEffect = true;
 
