@@ -42,6 +42,7 @@ function msg_initialize_svr_info(zone, msg){
     document.getElementById(zone + '_availableMemory').innerHTML = msg == 'LOADING' ? '<i class="fas fa-spin fa-spinner"></i>' : '<i class="fas fa-question"></i>';
     document.getElementById(zone + '_usedCapacity').innerHTML = msg == 'LOADING' ? '<i class="fas fa-spin fa-spinner"></i>' : '<i class="fas fa-question"></i>';
     document.getElementById(zone + '_cpuUsage').innerHTML = msg == 'LOADING' ? '<i class="fas fa-spin fa-spinner"></i>' : '<i class="fas fa-question"></i>';
+    document.getElementById(zone + '_connections').innerHTML = msg == 'LOADING' ? '<i class="fas fa-spin fa-spinner"></i>' : '<i class="fas fa-question"></i>';
 
     document.getElementById(zone + '_serverName').className = (msg === 'UNKNOWN') ? 'text-danger' : 'text-warning';
     document.getElementById(zone + '_serverName').innerText = msg == 'LOADING' ? 'LOADING...' : 'LOAD ERROR!';
@@ -80,7 +81,7 @@ function ajax_request_server(ip, port, zone){
         success: function (connection) {
             if(connection){
                 for(var k in connection){
-                    if(!k.endsWith('status') && !k.endsWith('connections')) {
+                    if(!k.endsWith('status')) {
                         document.getElementById(zone + '_' + k).innerHTML = `<span>${connection[k]}</span>`;
                     } else {
                         switch(connection[k]){
@@ -109,33 +110,6 @@ function ajax_request_server(ip, port, zone){
         },
         beforeSend: function(){
             msg_initialize_svr_info(zone, 'LOADING');
-        }
-    });
-
-    $.ajax({
-        url: `https://${ip}/nginx_status`,
-        type: 'GET',
-        contentType: 'application/json',
-        success: function (status) {
-            var data = status;
-            var pattern_data = /Active\sconnections:\s\d+/;
-            var res = pattern_data.exec(data);
-            if(Array.isArray(res)){
-                var num = res[0] && res[0].replace('Active connections: ', '');
-                if(!Number.isNaN(num)) {
-                    document.getElementById(zone + '_connections').innerHTML = `<span>${num}</span>`;
-                } else {
-                    document.getElementById(zone + '_connections').innerHTML = '<i class="fas fa-question"></i>';
-                }
-            } else {
-                document.getElementById(zone + '_connections').innerHTML = '<i class="fas fa-question"></i>';
-            }
-        },
-        error: function(e){
-            document.getElementById(zone + '_connections').innerHTML = '<i class="fas fa-question"></i>';
-        },
-        beforeSend: function(){
-            document.getElementById(zone + '_connections').innerHTML = '<i class="fas fa-spin fa-spinner"></i>';
         }
     });
 

@@ -24,6 +24,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Service
@@ -70,7 +72,7 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
     private ServerCenterInfo loadLocalServerInfo() throws IOException {
         String path = dataPath + Constants.SERVER_INFO_FILE_PATH + "/" + Constants.SERVER_INFO_FILE_NAME;
         Map<String, Object> map = YAMLFileUtil.fetchMapByYAMLFile(new File(path));
-        return ServerCenterInfo.convertDTO("local", (Map<String, Object>) map.get("local"));
+        return ServerCenterInfo.convertDTO(String.format("%s-%s-%s", map.get("zone"), map.get("kind"), map.get("name")), (Map<String, Object>) map.get("local"));
     }
 
     /**
@@ -130,16 +132,19 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
 
         // 사용자 접속 정보 (NGINX 로 대체)
         sp.setConnections(-1);
-    /*
-        String connections = LinuxCommandUtil.fetchShellContextByLinuxCommand("who | awk \'END{print NR}\'");
-        if(connections != null){
-            sp.setConnections(Long.parseLong(connections.trim()));
-        } else {
-            errCnt += 1;
+        String nginxConnections = LinuxCommandUtil.fetchShellContextByLinuxCommand(String.format("curl -k -L https://%s/nginx_status", localInfo.getIp()));
+        Pattern p = Pattern.compile("Active connections: ([0-9]*)");
+        Matcher m = p.matcher(nginxConnections);
+        while(m.find()){
+            String tmp = m.group(1);
+            if(tmp != null){
+                sp.setConnections(Long.parseLong(tmp));
+            } else {
+                errCnt += 1;
+            }
         }
-    */
 
-        if(errCnt == 4){
+        if(errCnt == 5){
             sp.setStatus("OFF");
         } else if(errCnt != 0){
             sp.setStatus("ERROR");
