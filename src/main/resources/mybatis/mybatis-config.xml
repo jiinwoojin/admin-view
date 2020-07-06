@@ -41,5 +41,8 @@
 		<!-- Account Based DTO -->
  		<typeAlias alias="AccountDTO" type="com.jiin.admin.dto.AccountDTO" />
 		<typeAlias alias="RoleDTO" type="com.jiin.admin.dto.RoleDTO" />
+
+		<!-- Docker Container Based DTO -->
+		<typeAlias alias="ContainerHistoryDTO" type="com.jiin.admin.dto.ContainerHistoryDTO" />
 	</typeAliases>
 </configuration>

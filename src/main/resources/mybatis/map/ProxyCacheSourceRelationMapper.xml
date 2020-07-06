@@ -6,8 +6,16 @@
         <selectKey keyProperty="id" resultType="long" order="BEFORE">
             SELECT NEXTVAL('PROXY_CACHE_SOURCE_SEQ')
         </selectKey>
-        INSERT INTO _PROXY_CACHE_SOURCE_RELATION(ID, CACHE_ID, SOURCE_ID)
-        VALUES(#{id}, #{mainId}, #{subId})
+        INSERT INTO _PROXY_CACHE_SOURCE_RELATION(
+            ID,
+            CACHE_ID,
+            SOURCE_ID
+        )
+        VALUES(
+            #{id},
+            #{mainId},
+            #{subId}
+        )
     </insert>
 
     <delete id="deleteByCacheId">

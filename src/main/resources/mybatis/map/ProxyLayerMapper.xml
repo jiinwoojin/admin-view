@@ -29,19 +29,36 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO _PROXY_LAYER(ID, NAME, TITLE, SELECTED, IS_DEFAULT)
-        VALUES(#{id}, #{name}, #{title}, #{selected}, #{isDefault})
+        INSERT INTO _PROXY_LAYER(
+            ID,
+            NAME,
+            TITLE,
+            SELECTED,
+            IS_DEFAULT
+        )
+        VALUES(
+            #{id},
+            #{name},
+            #{title},
+            #{selected},
+            #{isDefault}
+        )
     </insert>
 
     <update id="update">
         UPDATE _PROXY_LAYER SET
-        NAME = #{name}, TITLE = #{title}, SELECTED = #{selected}, IS_DEFAULT = #{isDefault}
+            NAME = #{name},
+            TITLE = #{title},
+            SELECTED = #{selected},
+            IS_DEFAULT = #{isDefault}
         WHERE ID = #{id}
     </update>
 
     <update id="updateByName">
         UPDATE _PROXY_LAYER SET
-        TITLE = #{title}, SELECTED = #{selected}, IS_DEFAULT = #{isDefault}
+            TITLE = #{title},
+            SELECTED = #{selected},
+            IS_DEFAULT = #{isDefault}
         WHERE NAME = #{name}
     </update>
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiin.admin.mapper.data.ContainerHistoryMapper">
+    <select id="findNextSeqVal" resultType="long">
+        SELECT NEXTVAL('MAP_SEQ')
+    </select>
+
+    <select id="findAll" resultType="ContainerHistoryDTO">
+        SELECT * FROM _CONTAINER_HISTORY
+        ORDER BY WORKED_DATE DESC
+    </select>
+
+    <insert id="insert">
+        INSERT INTO _CONTAINER_HISTORY(
+            ID,
+            NAME,
+            COMMAND,
+            SUCCEED,
+            WORKED_USER,
+            WORKED_DATE
+        )
+        VALUES(
+            #{id},
+            #{name},
+            #{command},
+            #{succeed},
+            #{workedUser},
+            #{workedDate}
+        )
+    </insert>
+
+    <delete id="deleteAll">
+        DELETE FROM _CONTAINER_HISTORY
+    </delete>
+</mapper>

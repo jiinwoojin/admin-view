@@ -11,8 +11,16 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO _PROXY_GLOBAL(ID, KEY, VALUE)
-        VALUES(#{id}, #{key}, #{value})
+        INSERT INTO _PROXY_GLOBAL(
+            ID,
+            KEY,
+            VALUE
+        )
+        VALUES(
+            #{id},
+            #{key},
+            #{value}
+        )
     </insert>
 
     <delete id="deleteAll">

@@ -3,10 +3,9 @@ package com.jiin.admin.website.view.controller;
 import com.jiin.admin.config.SessionService;
 import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.ServerCenterInfoModel;
+import com.jiin.admin.website.view.service.ContainerInfoService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
-import com.jiin.admin.website.view.service.ServiceInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +21,7 @@ public class MVCServerController {
     private ServerCenterInfoService serverCenterInfoService;
 
     @Autowired
-    private ServiceInfoService serviceInfoService;
+    private ContainerInfoService containerInfoService;
 
     @Autowired
     private SessionService sessionService;
@@ -33,7 +32,7 @@ public class MVCServerController {
      */
     @RequestMapping("service-info")
     public String pageServiceInfo(Model model){
-        model.addAttribute("services", serviceInfoService.loadGeoContainerInfoList());
+        model.addAttribute("services", containerInfoService.loadGeoContainerInfoList());
         return "page/system/service-info";
     }
 
@@ -44,8 +43,9 @@ public class MVCServerController {
     @RequestMapping("service-manage")
     public String pageServiceManagement(Model model){
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
-        model.addAttribute("serviceMap", serviceInfoService.loadGeoServiceMap());
+        model.addAttribute("serviceMap", containerInfoService.loadGeoServiceMap());
         model.addAttribute("message", sessionService.message());
+        model.addAttribute("histories", containerInfoService.loadContainerHistoryList());
         return "page/system/service-manage";
     }
 
@@ -56,7 +56,22 @@ public class MVCServerController {
     @RequestMapping("service-execute")
     public String linkServiceControlByNameAndMethod(@RequestParam String name, @RequestParam String method) {
         sessionService.message(String.format("[%s] 서비스의 [%s] 명령을 시작합니다.", name, method));
-        serviceInfoService.executeGeoServiceByNameAndMethod(name, method);
+        containerInfoService.executeGeoServiceByNameAndMethod(name, method);
+        return "redirect:service-manage";
+    }
+
+    /**
+     * Container 작동 내역 기록을 전부 삭제하는 링크
+     * @param
+     */
+    @RequestMapping("history-clean")
+    public String linkHistoryClean() {
+        boolean completed = containerInfoService.removeAllContainerHistoryData();
+        if (completed) {
+            sessionService.message("현재 시점 이전의 모든 작동 내역 기록들이 삭제 되었습니다.");
+        } else {
+            sessionService.message("현재 시점 이전의 데이터가 존재하지 않아 삭제 작업을 진행하지 않았습니다.");
+        }
         return "redirect:service-manage";
     }
 

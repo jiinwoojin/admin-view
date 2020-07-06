@@ -2,6 +2,7 @@ package com.jiin.admin.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 
@@ -14,7 +15,7 @@ import javax.persistence.*;
 )
 @Getter
 @Setter
-public class ProxyGlobalEntity {
+public class ProxyGlobalEntity implements Persistable<Long> {
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
@@ -35,4 +36,8 @@ public class ProxyGlobalEntity {
     @Column(name = "VALUE", length = 65535, nullable = false)
     private String value;
 
+    @Override
+    public boolean isNew() {
+        return false;
+    }
 }
