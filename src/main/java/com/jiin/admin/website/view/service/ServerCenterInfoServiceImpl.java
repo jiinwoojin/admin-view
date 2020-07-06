@@ -194,7 +194,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         Map<String, Object> map = this.loadMapDataAtYAMLFile();
         Map<String, Object> local = (Map<String, Object>) map.get("local");
 
-        return (map != null) ? ServerCenterInfo.convertDTO((String) local.get("key"), local) : null;
+        return (map != null) ? ServerCenterInfo.convertDTO(String.format("%s-%s-%s", local.get("zone"), local.get("kind"), local.get("name")), local) : null;
     }
 
     /**
@@ -216,6 +216,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     @Override
     public boolean saveLocalData(ServerCenterInfoModel model) {
         List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
+        model.setKey(String.format("%s-%s-%s", model.getZone(), model.getKind(), model.getName()));
         return this.saveServerInfosAtYAMLFile(ServerCenterInfoModel.convertDTO(model), infos);
     }
 
@@ -230,11 +231,20 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
         switch(model.getMethod()){
             case "INSERT" :
+                model.setKey(String.format("%s-%s-%s", model.getZone(), model.getKind(), model.getName()));
                 infos.add(ServerCenterInfoModel.convertDTO(model));
                 return this.saveServerInfosAtYAMLFile(this.loadLocalInfoData(), infos);
             case "UPDATE" :
                 infos = infos.stream().filter(Objects::nonNull)
-                        .map(o -> o.getKey().equals(model.getKey()) ? ServerCenterInfoModel.convertDTO(model) : o)
+                        .map(o -> {
+                            if (o.getKey().equals(model.getKey())) {
+                                ServerCenterInfo newInfo = new ServerCenterInfo(model.getKey(), model.getName(), model.getIp(), model.getZone(), model.getKind(), model.getDescription());
+                                newInfo.setKey(String.format("%s-%s-%s", model.getZone(), model.getKind(), model.getName()));
+                                return newInfo;
+                            } else {
+                                return o;
+                            }
+                        })
                         .collect(Collectors.toList());
                 return this.saveServerInfosAtYAMLFile(this.loadLocalInfoData(), infos);
             default :

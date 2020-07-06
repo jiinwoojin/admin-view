@@ -21,430 +21,457 @@
 </th:block>
 
 <th:block layout:fragment="content-body-fragment">
-    <div class="row">
-        <!-- 서버 주소 선택 시작 -->
-        <div class="col-md-6">
-            <h3 class="section-tit my-2">서버 주소 선택</h3>
-            <div class="text-right mb-2">
-                <button type="button" class="btn btn-primary" onclick="onclick_initialize_button('INSERT')">
-                    <i class="fas fa-plus"></i> 서버 추가
-                </button>
+    <div id="service-address-view-exist" th:if="${ local != null }">
+        <div class="row">
+            <!-- 서버 주소 선택 시작 -->
+            <div class="col-md-6">
+                <h3 class="section-tit my-2">서버 주소 선택</h3>
+                <div class="text-right mb-2">
+                    <button type="button" class="btn btn-primary" onclick="onclick_initialize_button('INSERT')">
+                        <i class="fas fa-plus"></i> 서버 추가
+                    </button>
+                </div>
+
+                <table id="list_table" class="table table-sm basic my-1">
+                    <thead class="table-info">
+                    <tr>
+                        <th scope="col" class="text-center">IP 주소</th>
+                        <th scope="col" class="text-center">호스트 이름</th>
+                        <th scope="col" class="text-center">서버 ZONE</th>
+                        <th scope="col" class="text-center">서버 종류</th>
+                        <th scope="col" class="text-center">수정 및 삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="connection : ${ connections }">
+                        <td class="text-center align-middle" th:text="${connection.ip}" th:id="${ 'remove-ip-' + connection.key }">[IP 주소]</td>
+                        <td class="text-center align-middle" th:text="${connection.name}">[호스트 이름]</td>
+                        <td class="text-center align-middle" th:switch="${connection.zone}">
+                            <span th:text="${'B1'}" th:case="B1" th:id="${ 'remove-zone-' + connection.key }"></span>
+                            <span th:text="${'U3'}" th:case="U3" th:id="${ 'remove-zone-' + connection.key }"></span>
+                            <span th:text="${'GOC'}" th:case="GOC" th:id="${ 'remove-zone-' + connection.key }"></span>
+                        </td>
+                        <td class="text-center align-middle" th:switch="${connection.kind}">
+                            <span th:text="${'SI'}" th:case="SI" th:id="${ 'remove-kind-' + connection.key }"></span>
+                            <span th:text="${'NSI'}" th:case="NSI" th:id="${ 'remove-kind-' + connection.key }"></span>
+                            <span th:text="${'CDS'}" th:case="CDS" th:id="${ 'remove-kind-' + connection.key }"></span>
+                        </td>
+                        <td class="text-center align-middle">
+                            <button th:id="${ 'connectUpdate_' + connection.key }" class="btn btn-info btn-circle btn-sm mx-1" type="button"
+                                    th:onclick="onclick_server_address_edit([[${connection.key}]])"
+                                    th:data-name="${connection.name}"
+                                    th:data-zone="${connection.zone}"
+                                    th:data-kind="${connection.kind}"
+                                    th:data-ip="${connection.ip}"
+                                    th:data-description="${connection.description}"
+                                    th:data-key="${connection.key}"
+                            >
+                                <i class="fas fa-cog"></i>
+                            </button>
+                            <a class="btn btn-danger btn-circle btn-sm mx-1" type="button" th:href="@{ '/view/server/remove-server?key=' + ${connection.key} }" th:onclick="return onclick_remove_server([[${connection.key}]])">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
+            <!-- // 서버 주소 선택 종료 -->
 
-            <table id="list_table" class="table table-sm basic my-1">
-                <thead class="table-info">
-                <tr>
-                    <th scope="col" class="text-center">KEY</th>
-                    <th scope="col" class="text-center">IP 주소</th>
-                    <th scope="col" class="text-center">호스트 이름</th>
-                    <th scope="col" class="text-center">서버 ZONE</th>
-                    <th scope="col" class="text-center">서버 종류</th>
-                    <th scope="col" class="text-center">수정 및 삭제</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="connection : ${ connections }">
-                    <td class="text-center align-middle" th:text="${connection.key}">[KEY 값]</td>
-                    <td class="text-center align-middle" th:text="${connection.ip}" th:id="${ 'remove-ip-' + connection.key }">[IP 주소]</td>
-                    <td class="text-center align-middle" th:text="${connection.name}">[호스트 이름]</td>
-                    <td class="text-center align-middle" th:switch="${connection.zone}">
-                        <span th:text="${'B1'}" th:case="B1" th:id="${ 'remove-zone-' + connection.key }"></span>
-                        <span th:text="${'U3'}" th:case="U3" th:id="${ 'remove-zone-' + connection.key }"></span>
-                        <span th:text="${'GOC'}" th:case="GOC" th:id="${ 'remove-zone-' + connection.key }"></span>
-                    </td>
-                    <td class="text-center align-middle" th:switch="${connection.kind}">
-                        <span th:text="${'SI'}" th:case="SI" th:id="${ 'remove-kind-' + connection.key }"></span>
-                        <span th:text="${'NSI'}" th:case="NSI" th:id="${ 'remove-kind-' + connection.key }"></span>
-                        <span th:text="${'CDS'}" th:case="CDS" th:id="${ 'remove-kind-' + connection.key }"></span>
-                    </td>
-                    <td class="text-center align-middle">
-                        <button th:id="${ 'connectUpdate_' + connection.key }" class="btn btn-info btn-circle btn-sm mx-1" type="button"
-                                th:onclick="onclick_server_address_edit([[${connection.key}]])"
-                                th:data-name="${connection.name}"
-                                th:data-zone="${connection.zone}"
-                                th:data-kind="${connection.kind}"
-                                th:data-ip="${connection.ip}"
-                                th:data-description="${connection.description}"
-                                th:data-key="${connection.key}"
-                        >
-                            <i class="fas fa-cog"></i>
+            <!-- 서버 주소 편집 시작 -->
+            <div class="col-md-6">
+                <form id="svr-local-form" method="post" accept-charset="utf-8" action="local-save" onsubmit="return onsubmit_duplex('local')">
+                    <h3 class="section-tit my-2">로컬 서버 설정</h3>
+                    <div class="form-row mb-1">
+                        <input type="hidden" id="local-key" name="key" th:value="${local.key}" />
+
+                        <div class="col-6 mb-1">
+                            <label for="local-name">호스트 이름</label>
+                            <input type="text" class="form-control" id="local-name" name="name" th:value="${local.name}" readonly  />
+                        </div>
+
+                        <div class="col-6 mb-1">
+                            <label for="local-zone">서버 ZONE</label>
+                            <select class="form-control" id="local-zone" name="zone" th:value="${local.zone}" disabled>
+                                <option th:each="zone : ${ zones }" th:value="${zone}" th:text="${zone == 'GOC' ? '지작사' : zone}" />
+                            </select>
+                        </div>
+
+                        <div class="col-6 mb-1">
+                            <label for="local-kind">서버 종류</label>
+                            <select class="form-control" id="local-kind" name="kind" th:value="${local.kind}" disabled>
+                                <option th:each="kind : ${ kinds }" th:value="${kind}" th:text="${kind == 'NSI' ? 'N-SI' : kind}" />
+                            </select>
+                        </div>
+
+                        <div class="col-6 mb-1">
+                            <label for="local-ip">IP 주소</label>
+                            <input type="text" class="form-control" id="local-ip" name="ip" th:value="${local.ip}" readonly />
+                        </div>
+
+                        <div class="col-12 mb-1">
+                            <label for="local-description">서버 부가 설명</label>
+                            <input type="text" class="form-control" id="local-description" name="description" th:value="${local.description}" readonly />
+                        </div>
+                    </div>
+
+                    <div class="text-right mt-1">
+                        <button id="setting-btn-local" type="button" class="btn btn-info" onclick="onclick_local_edit_button()">
+                            <i class="fas fa-cog"></i> 설정
                         </button>
-                        <a class="btn btn-danger btn-circle btn-sm mx-1" type="button" th:href="@{ '/view/server/remove-server?key=' + ${connection.key} }" th:onclick="return onclick_remove_server([[${connection.key}]])">
-                            <i class="fas fa-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+
+                        <button id="save-btn-local" type="submit" class="btn btn-primary" disabled>
+                            <i class="fas fa-save"></i> 저장
+                        </button>
+                    </div>
+                </form>
+
+                <hr/>
+
+                <form id="svr-remote-form" method="post" accept-charset="utf-8" action="remote-save" onsubmit="return onsubmit_duplex('remote')">
+                    <h3 class="section-tit my-2">연동 서버 관리<span id="remote-method"></span></h3>
+                    <input type="hidden" id="svr-method" name="method" />
+                    <input type="hidden" id="remote-key" name="key" />
+                    <div class="form-row mb-1">
+                        <div class="col-6 mb-1">
+                            <label for="remote-name">호스트 이름</label>
+                            <input type="text" class="form-control" id="remote-name" name="name" readonly />
+                        </div>
+
+                        <div class="col-6 mb-1">
+                            <label for="remote-zone">서버 ZONE</label>
+                            <select class="form-control" id="remote-zone" name="zone" disabled>
+                                <option th:each="zone : ${ zones }" th:value="${zone}" th:text="${zone == 'GOC' ? '지작사' : zone}" />
+                            </select>
+                        </div>
+
+                        <div class="col-6 mb-1">
+                            <label for="remote-kind">서버 종류</label>
+                            <select class="form-control" id="remote-kind" name="kind" disabled>
+                                <option th:each="kind : ${ kinds }" th:value="${kind}" th:text="${kind == 'NSI' ? 'N-SI' : kind}" />
+                            </select>
+                        </div>
+
+                        <div class="col-6 mb-1">
+                            <label for="remote-ip">IP 주소 이름</label>
+                            <input type="text" class="form-control" id="remote-ip" name="ip" readonly />
+                        </div>
+
+                        <div class="col-12 mb-1">
+                            <label for="remote-description">서버 부가 설명</label>
+                            <input type="text" class="form-control" id="remote-description" name="description" readonly />
+                        </div>
+                    </div>
+
+                    <div class="text-right mt-1">
+                        <button id="cancel-btn-remote" type="button" class="btn btn-secondary" onclick="return onclick_initialize_button('cancel')" disabled>
+                            <i class="fas fa-times"></i> 취소
+                        </button>
+
+                        <button id="save-btn-remote" type="submit" class="btn btn-primary" disabled>
+                            <i class="fas fa-save"></i> 저장
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- // 서버 주소 편집 종료 -->
+
         </div>
-        <!-- // 서버 주소 선택 종료 -->
 
-        <!-- 서버 주소 편집 시작 -->
-        <div class="col-md-6">
-            <form id="svr-local-form" method="post" accept-charset="utf-8" action="local-save" onsubmit="return onsubmit_duplex('local')">
-                <h3 class="section-tit my-2">로컬 서버 설정</h3>
-                <div class="form-row mb-1">
-                    <div class="col-6 mb-1">
-                        <label for="remote-key">KEY</label>
-                        <input type="text" class="form-control" id="local-key" name="key" th:value="${local.key}" readonly />
-                    </div>
+        <script th:inline="javascript">
+            var message = /*[[ ${message} ]]*/ null;
+            var localMain = /*[[ ${local} ]]*/ null;
+            var connections = /*[[ ${connections} ]]*/ [];
+            var neighbors = /*[[ ${neighbors} ]]*/ [];
+            var localEditable = false;
+        </script>
+        <script>
+            $(document).ready(function() {
+                if (!$.isEmptyObject(message)) {
+                    toastr.info(message);
+                }
 
-                    <div class="col-6 mb-1">
-                        <label for="local-name">호스트 이름</label>
-                        <input type="text" class="form-control" id="local-name" name="name" th:value="${local.name}" readonly  />
-                    </div>
+                if(sessionStorage.hasOwnProperty("duplex")){
+                    toastr.info(sessionStorage.getItem("duplex"));
+                    sessionStorage.removeItem("duplex");
+                }
 
-                    <div class="col-6 mb-1">
-                        <label for="local-zone">서버 ZONE</label>
-                        <select class="form-control" id="local-zone" name="zone" th:value="${local.zone}" disabled>
-                            <option th:each="zone : ${ zones }" th:value="${zone}" th:text="${zone == 'GOC' ? '지작사' : zone}" />
-                        </select>
-                    </div>
+                $('#local-zone').val(localMain.zone);
+                $('#local-kind').val(localMain.kind);
 
-                    <div class="col-6 mb-1">
-                        <label for="local-kind">서버 종류</label>
-                        <select class="form-control" id="local-kind" name="kind" th:value="${local.kind}" disabled>
-                            <option th:each="kind : ${ kinds }" th:value="${kind}" th:text="${kind == 'NSI' ? 'N-SI' : kind}" />
-                        </select>
-                    </div>
+                initialize_dataTable('list_table');
+            });
 
-                    <div class="col-6 mb-1">
-                        <label for="local-ip">IP 주소</label>
-                        <input type="text" class="form-control" id="local-ip" name="ip" th:value="${local.ip}" readonly />
-                    </div>
+            // 로컬 서버 주소 편집 버튼 클릭 시 실행되는 함수
+            function onclick_local_edit_button(){
+                localEditable = !localEditable;
 
-                    <div class="col-6 mb-1">
-                        <label for="local-description">서버 부가 설명</label>
-                        <input type="text" class="form-control" id="local-description" name="description" th:value="${local.description}" readonly />
-                    </div>
-                </div>
+                document.getElementById('save-btn-local').disabled = !localEditable;
 
-                <div class="text-right mt-1">
-                    <button id="setting-btn-local" type="button" class="btn btn-info" onclick="onclick_local_edit_button()">
-                        <i class="fas fa-cog"></i> 설정
-                    </button>
+                if(localEditable){
+                    document.getElementById('setting-btn-local').className = "btn btn-secondary";
+                    document.getElementById('setting-btn-local').innerHTML = '<i class="fas fa-times"></i> 취소';
+                } else {
+                    document.getElementById('setting-btn-local').className = "btn btn-info";
+                    document.getElementById('setting-btn-local').innerHTML = '<i class="fas fa-cog"></i> 설정';
+                }
 
-                    <button id="save-btn-local" type="submit" class="btn btn-primary" disabled>
-                        <i class="fas fa-save"></i> 저장
-                    </button>
-                </div>
-            </form>
+                var serverZone = document.getElementById('local-zone');
+                var serverKind = document.getElementById('local-kind');
+                serverZone.disabled = !localEditable;
+                serverKind.disabled = !localEditable;
 
+                for(var dom of $('[id^=local]')){
+                    var i = dom.id;
+                    if(!i.endsWith('zone') && !i.endsWith('kind') && !i.endsWith('key')){
+                        if(!localEditable) dom.value = localMain[i.replace('local-', '')];
+                        dom.readOnly = !localEditable;
+                    }
+                }
 
-            <hr/>
-
-            <form id="svr-remote-form" method="post" accept-charset="utf-8" action="remote-save" onsubmit="return onsubmit_duplex('remote')">
-                <h3 class="section-tit my-2">연동 서버 관리</h3>
-                <input type="hidden" id="svr-method" name="method" />
-                <div class="form-row mb-1">
-                    <div class="col-6 mb-1">
-                        <label for="remote-key">KEY</label>
-                        <input type="text" class="form-control" id="remote-key" name="key" readonly />
-                    </div>
-
-                    <div class="col-6 mb-1">
-                        <label for="remote-name">호스트 이름</label>
-                        <input type="text" class="form-control" id="remote-name" name="name" readonly />
-                    </div>
-
-                    <div class="col-6 mb-1">
-                        <label for="remote-zone">서버 ZONE</label>
-                        <select class="form-control" id="remote-zone" name="zone" disabled>
-                            <option th:each="zone : ${ zones }" th:value="${zone}" th:text="${zone == 'GOC' ? '지작사' : zone}" />
-                        </select>
-                    </div>
-
-                    <div class="col-6 mb-1">
-                        <label for="remote-kind">서버 종류</label>
-                        <select class="form-control" id="remote-kind" name="kind" disabled>
-                            <option th:each="kind : ${ kinds }" th:value="${kind}" th:text="${kind == 'NSI' ? 'N-SI' : kind}" />
-                        </select>
-                    </div>
-
-                    <div class="col-6 mb-1">
-                        <label for="remote-ip">IP 주소 이름</label>
-                        <input type="text" class="form-control" id="remote-ip" name="ip" readonly />
-                    </div>
-
-                    <div class="col-6 mb-1">
-                        <label for="remote-description">서버 부가 설명</label>
-                        <input type="text" class="form-control" id="remote-description" name="description" readonly />
-                    </div>
-                </div>
-
-                <div class="text-right mt-1">
-                    <button id="cancel-btn-remote" type="button" class="btn btn-secondary" onclick="return onclick_initialize_button('cancel')" disabled>
-                        <i class="fas fa-times"></i> 취소
-                    </button>
-
-                    <button id="save-btn-remote" type="submit" class="btn btn-primary" disabled>
-                        <i class="fas fa-save"></i> 저장
-                    </button>
-                </div>
-            </form>
-        </div>
-        <!-- // 서버 주소 편집 종료 -->
-
-    </div>
-
-    <script th:inline="javascript">
-        var message = /*[[ ${message} ]]*/ null;
-        var localMain = /*[[ ${local} ]]*/ null;
-        var connections = /*[[ ${connections} ]]*/ [];
-        var neighbors = /*[[ ${neighbors} ]]*/ [];
-        var localEditable = false;
-    </script>
-    <script>
-        $(document).ready(function() {
-            if (!$.isEmptyObject(message)) {
-                toastr.info(message);
-            }
-
-            if(sessionStorage.hasOwnProperty("duplex")){
-                toastr.info(sessionStorage.getItem("duplex"));
-                sessionStorage.removeItem("duplex");
-            }
-
-            $('#local-zone').val(localMain.zone);
-            $('#local-kind').val(localMain.kind);
-
-            initialize_dataTable('list_table');
-        });
-
-        // 로컬 서버 주소 편집 버튼 클릭 시 실행되는 함수
-        function onclick_local_edit_button(){
-            localEditable = !localEditable;
-
-            document.getElementById('save-btn-local').disabled = !localEditable;
-
-            if(localEditable){
-                document.getElementById('setting-btn-local').className = "btn btn-secondary";
-                document.getElementById('setting-btn-local').innerHTML = '<i class="fas fa-times"></i> 취소';
-            } else {
-                document.getElementById('setting-btn-local').className = "btn btn-info";
-                document.getElementById('setting-btn-local').innerHTML = '<i class="fas fa-cog"></i> 설정';
-            }
-
-            var serverZone = document.getElementById('local-zone');
-            var serverKind = document.getElementById('local-kind');
-            serverZone.disabled = !localEditable;
-            serverKind.disabled = !localEditable;
-
-            for(var dom of $('[id^=local]')){
-                var i = dom.id;
-                if(!i.endsWith('zone') && !i.endsWith('kind') && !i.endsWith('key')){
-                    if(!localEditable) dom.value = localMain[i.replace('local-', '')];
-                    dom.readOnly = !localEditable;
+                if(!localEditable){
+                    document.getElementById('local-zone').value = localMain && localMain.zone;
+                    document.getElementById('local-kind').value = localMain && localMain.kind;
                 }
             }
 
-            if(!localEditable){
-                document.getElementById('local-zone').value = localMain && localMain.zone;
-                document.getElementById('local-kind').value = localMain && localMain.kind;
-            }
-        }
+            // 연동 서버 주소 편집 버튼 클릭 시 실행되는 함수
+            function onclick_server_address_edit(key){
+                $('#svr-method').val('UPDATE');
+                document.getElementById('remote-method').innerText = '- 수정';
 
-        // 연동 서버 주소 편집 버튼 클릭 시 실행되는 함수
-        function onclick_server_address_edit(key){
-            $('#svr-method').val('UPDATE');
+                document.getElementById('cancel-btn-remote').disabled = false;
+                document.getElementById('save-btn-remote').disabled = false;
 
-            document.getElementById('cancel-btn-remote').disabled = false;
-            document.getElementById('save-btn-remote').disabled = false;
+                var btn = $("#connectUpdate_" + key);
+                document.getElementById('remote-ip').value = btn.data('ip');
+                document.getElementById('remote-name').value = btn.data('name');
+                document.getElementById('remote-zone').value = btn.data('zone');
+                document.getElementById('remote-kind').value = btn.data('kind');
+                document.getElementById('remote-description').value = btn.data('description');
+                document.getElementById('remote-key').value = btn.data('key');
 
-            var btn = $("#connectUpdate_" + key);
-            document.getElementById('remote-ip').value = btn.data('ip');
-            document.getElementById('remote-name').value = btn.data('name');
-            document.getElementById('remote-zone').value = btn.data('zone');
-            document.getElementById('remote-kind').value = btn.data('kind');
-            document.getElementById('remote-description').value = btn.data('description');
-            document.getElementById('remote-key').value = btn.data('key');
+                var serverZone = document.getElementById('remote-zone');
+                var serverKind = document.getElementById('remote-kind');
+                serverZone.disabled = false;
+                serverKind.disabled = false;
 
-            var serverZone = document.getElementById('remote-zone');
-            var serverKind = document.getElementById('remote-kind');
-            serverZone.disabled = false;
-            serverKind.disabled = false;
-
-            // 서버 관련 Field Read Only 해제
-            for(var dom of $('[id^=remote]')){
-                var i = dom.id;
-                if(!i.endsWith('zone') && !i.endsWith('kind') && !i.endsWith('key')){
-                    dom.readOnly = false;
+                // 서버 관련 Field Read Only 해제
+                for(var dom of $('[id^=remote]')){
+                    var i = dom.id;
+                    if(!i.endsWith('zone') && !i.endsWith('kind') && !i.endsWith('key')){
+                        dom.readOnly = false;
+                    }
                 }
             }
-        }
 
-        // 상황에 따른 버튼 상태 초기화
-        function onclick_initialize_button(type){
-            $('#svr-method').val((type === 'cancel') ? 'NONE' : 'INSERT');
+            // 상황에 따른 버튼 상태 초기화
+            function onclick_initialize_button(type){
+                $('#svr-method').val((type === 'cancel') ? 'NONE' : 'INSERT');
 
-            document.getElementById('cancel-btn-remote').disabled = (type === 'cancel');
-            document.getElementById('save-btn-remote').disabled = (type === 'cancel');
+                document.getElementById('remote-method').innerText = (type === 'cancel') ? '' : '- 추가';
+                document.getElementById('cancel-btn-remote').disabled = (type === 'cancel');
+                document.getElementById('save-btn-remote').disabled = (type === 'cancel');
 
-            document.getElementById('remote-zone').value = 'B1';
-            document.getElementById('remote-kind').value = 'SI';
+                document.getElementById('remote-zone').value = 'B1';
+                document.getElementById('remote-kind').value = 'SI';
 
-            var serverZone = document.getElementById('remote-zone');
-            var serverKind = document.getElementById('remote-kind');
-            serverZone.disabled = (type === 'cancel');
-            serverKind.disabled = (type === 'cancel');
+                var serverZone = document.getElementById('remote-zone');
+                var serverKind = document.getElementById('remote-kind');
+                serverZone.disabled = (type === 'cancel');
+                serverKind.disabled = (type === 'cancel');
 
-            for(var dom of $('[id^=remote]')){
-                var i = dom.id;
-                if(!i.endsWith('zone') && !i.endsWith('kind')){
-                    dom.value = '';
-                    dom.readOnly = (type === 'cancel');
+                for(var dom of $('[id^=remote]')){
+                    var i = dom.id;
+                    if(!i.endsWith('zone') && !i.endsWith('kind')){
+                        dom.value = '';
+                        dom.readOnly = (type === 'cancel');
+                    }
                 }
             }
-        }
 
-        function onsubmit_duplex(area){
-            if(area === 'local'){
-                update_duplex_rest(area);
-                return true;
-            } else {
-                var method = document.getElementById('svr-method').value;
-                switch(method){
-                    case 'INSERT' :
-                        create_duplex_rest();
-                        return true;
-                    case 'UPDATE' :
+            function onsubmit_duplex(area){
+                var key;
+                if(area === 'local'){
+                    key = `${document.getElementById('local-zone').value}-${document.getElementById('local-kind').value}-${document.getElementById('local-name').value}`;
+                    if (!contains_key_validate(key)) {
                         update_duplex_rest(area);
                         return true;
-                    default :
-                        return false;
-                }
-            }
-        }
-
-        function onclick_remove_server(key){
-            if(confirm('서버 [' + key + '] 삭제를 진행 하시겠습니까?')){
-                remove_duplex_rest(key);
-                return true;
-            } else return false;
-        }
-
-        // REMOTE 추가 이중화 (로컬 저장 이후, 상대편에게 로컬 정보 제공. 같은 센터 데이터를 추가하면 단일 연결만 되게끔 해결.)
-        function create_duplex_rest(){
-            var count = 0;
-            var errorKeys = '';
-            var area = 'remote';
-            var newServer = {
-                key: document.getElementById(`${area}-key`).value,
-                name: document.getElementById(`${area}-name`).value,
-                ip: document.getElementById(`${area}-ip`).value,
-                zone: document.getElementById(`${area}-zone`).value,
-                kind: document.getElementById(`${area}-kind`).value,
-                description: document.getElementById(`${area}-description`).value
-            };
-
-            if(newServer.ip !== localMain.ip && newServer.zone === localMain.zone && newServer.kind === localMain.kind){
-                neighbors.push(newServer);
-            }
-
-            neighbors.forEach(o => $.ajax({
-                url: (window.location.protocol === 'https:') ? `https://${o.ip}${CONTEXT}/view/server/create-duplex` : `http://${o.ip}:11110${CONTEXT}/view/server/create-duplex`,
-                type: 'post',
-                data: (newServer.kind === o.kind && newServer.zone === o.zone) ? JSON.stringify(localMain) : JSON.stringify(newServer),
-                contentType: "application/json",
-                async: false,
-                success: function(res){
-                    if(res && res.result){
-                        count += 1;
                     } else {
-                        errorKeys += (o.key + ' ');
+                        toastr.warning('연동되어 있는 서버 목록 중에 같은 타입, 종류, 호스트 이름이 있습니다. 다시 작성하시길 바랍니다.');
+                        return false;
+
                     }
-                },
-                error: function(e){
-                    errorKeys += (o.key + ' ');
+                } else {
+                    var method = document.getElementById('svr-method').value;
+                    switch(method) {
+                        case 'INSERT' :
+                            var newKey = `${document.getElementById('remote-zone').value}-${document.getElementById('remote-kind').value}-${document.getElementById('remote-name').value}`;
+                            if (!contains_key_validate(newKey)) {
+                                create_duplex_rest();
+                            } else {
+                                toastr.warning('연동되어 있는 서버 목록 중에 같은 타입, 종류, 호스트 이름이 있습니다. 다시 작성하시길 바랍니다.');
+                                return false;
+                            }
+                            return true;
+                        case 'UPDATE' :
+                            var key = document.getElementById('remote-key').value;
+                            if (contains_key_validate(key)) {
+                                update_duplex_rest(area);
+                            } else {
+                                toastr.warning('연동되어 있는 서버 목록 중에 같은 타입, 종류, 호스트 이름이 존재하지 않습니다. 다시 작성하시길 바랍니다.');
+                                return false;
+                            }
+                            return true;
+                        default :
+                            return false;
+                    }
                 }
-            }));
+            }
 
-            sessionStorage.setItem('duplex', `${localMain.key} 서버와 연관된 ${neighbors.length} 개 서버 추가 이중화 작업 중 ${count} 개 성공. \r\n 실패 서버 목록 : ${errorKeys}`);
-        }
+            function onclick_remove_server(key){
+                if(confirm('서버 [' + key + '] 삭제를 진행 하시겠습니까?')){
+                    remove_duplex_rest(key);
+                    return true;
+                } else return false;
+            }
 
-        // REMOTE 수정 이중화 (목록 호출 이후, 같은 센터 (zone, kind) 에 있는 수정된 데이터를 제공한다.)
-        function update_duplex_rest(area){
-            var count = 0;
-            var errorKeys = '';
-            neighbors.forEach(o => $.ajax({
-                url: (window.location.protocol === 'https:') ? `https://${o.ip}${CONTEXT}/view/server/update-duplex` : `http://${o.ip}:11110${CONTEXT}/view/server/update-duplex`,
-                type: 'post',
-                data: JSON.stringify({
+            // REMOTE 추가 이중화 (로컬 저장 이후, 상대편에게 로컬 정보 제공. 같은 센터 데이터를 추가하면 단일 연결만 되게끔 해결.)
+            function create_duplex_rest(){
+                var count = 0;
+                var errorKeys = '';
+                var area = 'remote';
+                var newServer = {
                     key: document.getElementById(`${area}-key`).value,
                     name: document.getElementById(`${area}-name`).value,
                     ip: document.getElementById(`${area}-ip`).value,
                     zone: document.getElementById(`${area}-zone`).value,
                     kind: document.getElementById(`${area}-kind`).value,
                     description: document.getElementById(`${area}-description`).value
-                }),
-                contentType: "application/json",
-                async: false,
-                success: function(res){
-                    if(res && res.result){
-                        count += 1;
-                    } else {
-                        errorKeys += (o.key + ' ');
-                    }
-                },
-                error: function(e){
-                    errorKeys += (o.key + ' ');
+                };
+
+                if(newServer.ip !== localMain.ip && newServer.zone === localMain.zone && newServer.kind === localMain.kind){
+                    neighbors.push(newServer);
                 }
-            }));
-            sessionStorage.setItem('duplex', `${localMain.key} 서버와 연관된 ${neighbors.length} 개 서버 수정 이중화 작업 중 ${count} 개 성공. \r\n 실패 서버 목록 : ${errorKeys}`);
-        }
 
-        // REMOTE 삭제 이중화 (같은 센터에 존재하는 경우 단일 삭제로 처리. 센터 아웃 버튼 필요?)
-        function remove_duplex_rest(key){
-            var removeZone = document.getElementById('remove-zone-' + key).innerText;
-            var removeKind = document.getElementById('remove-kind-' + key).innerText;
-            var removeIP = document.getElementById('remove-ip-' + key).innerText;
-
-            if(removeZone === localMain.zone && removeKind === localMain.kind) {
-                $.ajax({
-                    url: (window.location.protocol === 'https:') ? `https://${removeIP}${CONTEXT}/view/server/remove-duplex` : `http://${removeIP}:11110${CONTEXT}/view/server/remove-duplex`,
-                    type: 'post',
-                    data: JSON.stringify({
-                        key: localMain.key
-                    }),
-                    contentType: "application/json",
-                    async: true,
-                    success: function (res) {
-                        if (res && res.result) {
-                            sessionStorage.setItem('duplex', `${localMain.key} 서버와 ${key} 서버 삭제 이중화 작업 성공!`);
-                        } else {
-                            sessionStorage.setItem('duplex', `${localMain.key} 서버와 ${key} 서버 삭제 이중화 작업 실패! 모순된 데이터 보유 확인 필요.`);
-                        }
-                    },
-                    error: function (e) {
-                        sessionStorage.setItem('duplex', `${localMain.key} 서버와 ${key} 서버 삭제 이중화 작업 중 오류 발생!`);
-                    }
-                });
-            } else {
-                var count = 0;
-                var errorKeys = '';
                 neighbors.forEach(o => $.ajax({
-                    url: (window.location.protocol === 'https:') ? `https://${o.ip}${CONTEXT}/view/server/remove-duplex` : `http://${o.ip}:11110${CONTEXT}/view/server/remove-duplex`,
+                    url: (window.location.protocol === 'https:') ? `https://${o.ip}${CONTEXT}/view/server/create-duplex` : `http://${o.ip}:11110${CONTEXT}/view/server/create-duplex`,
                     type: 'post',
-                    data: JSON.stringify({
-                        key: key
-                    }),
+                    data: (newServer.kind === o.kind && newServer.zone === o.zone) ? JSON.stringify(localMain) : JSON.stringify(newServer),
                     contentType: "application/json",
-                    async: true,
-                    success: function (res) {
-                        if (res && res.result) {
+                    async: false,
+                    success: function(res){
+                        if(res && res.result){
                             count += 1;
                         } else {
                             errorKeys += (o.key + ' ');
                         }
                     },
-                    error: function (e) {
+                    error: function(e){
                         errorKeys += (o.key + ' ');
                     }
                 }));
-                sessionStorage.setItem('duplex', `${localMain.key} 서버와 연관된 ${neighbors.length} 개 서버 삭제 이중화 작업 중 ${count} 개 성공. \r\n 실패 서버 목록 : ${errorKeys}`);
+
+                sessionStorage.setItem('duplex', `${localMain.key} 서버와 연관된 ${neighbors.length} 개 서버 추가 이중화 작업 중 ${count} 개 성공. \r\n 실패 서버 목록 : ${errorKeys}`);
             }
-        }
-    </script>
+
+            // REMOTE 수정 이중화 (목록 호출 이후, 같은 센터 (zone, kind) 에 있는 수정된 데이터를 제공한다.)
+            function update_duplex_rest(area){
+                var count = 0;
+                var errorKeys = '';
+                neighbors.forEach(o => $.ajax({
+                    url: (window.location.protocol === 'https:') ? `https://${o.ip}${CONTEXT}/view/server/update-duplex` : `http://${o.ip}:11110${CONTEXT}/view/server/update-duplex`,
+                    type: 'post',
+                    data: JSON.stringify({
+                        key: document.getElementById(`${area}-key`).value,
+                        name: document.getElementById(`${area}-name`).value,
+                        ip: document.getElementById(`${area}-ip`).value,
+                        zone: document.getElementById(`${area}-zone`).value,
+                        kind: document.getElementById(`${area}-kind`).value,
+                        description: document.getElementById(`${area}-description`).value
+                    }),
+                    contentType: "application/json",
+                    async: false,
+                    success: function(res){
+                        if(res && res.result){
+                            count += 1;
+                        } else {
+                            errorKeys += (o.key + ' ');
+                        }
+                    },
+                    error: function(e){
+                        errorKeys += (o.key + ' ');
+                    }
+                }));
+                sessionStorage.setItem('duplex', `${localMain.key} 서버와 연관된 ${neighbors.length} 개 서버 수정 이중화 작업 중 ${count} 개 성공. \r\n 실패 서버 목록 : ${errorKeys}`);
+            }
+
+            // REMOTE 삭제 이중화 (같은 센터에 존재하는 경우 단일 삭제로 처리. 센터 아웃 버튼 필요?)
+            function remove_duplex_rest(key){
+                var removeZone = document.getElementById('remove-zone-' + key).innerText;
+                var removeKind = document.getElementById('remove-kind-' + key).innerText;
+                var removeIP = document.getElementById('remove-ip-' + key).innerText;
+
+                if(removeZone === localMain.zone && removeKind === localMain.kind) {
+                    $.ajax({
+                        url: (window.location.protocol === 'https:') ? `https://${removeIP}${CONTEXT}/view/server/remove-duplex` : `http://${removeIP}:11110${CONTEXT}/view/server/remove-duplex`,
+                        type: 'post',
+                        data: JSON.stringify({
+                            key: localMain.key
+                        }),
+                        contentType: "application/json",
+                        async: true,
+                        success: function (res) {
+                            if (res && res.result) {
+                                sessionStorage.setItem('duplex', `${localMain.key} 서버와 ${key} 서버 삭제 이중화 작업 성공!`);
+                            } else {
+                                sessionStorage.setItem('duplex', `${localMain.key} 서버와 ${key} 서버 삭제 이중화 작업 실패! 모순된 데이터 보유 확인 필요.`);
+                            }
+                        },
+                        error: function (e) {
+                            sessionStorage.setItem('duplex', `${localMain.key} 서버와 ${key} 서버 삭제 이중화 작업 중 오류 발생!`);
+                        }
+                    });
+                } else {
+                    var count = 0;
+                    var errorKeys = '';
+                    neighbors.forEach(o => $.ajax({
+                        url: (window.location.protocol === 'https:') ? `https://${o.ip}${CONTEXT}/view/server/remove-duplex` : `http://${o.ip}:11110${CONTEXT}/view/server/remove-duplex`,
+                        type: 'post',
+                        data: JSON.stringify({
+                            key: key
+                        }),
+                        contentType: "application/json",
+                        async: true,
+                        success: function (res) {
+                            if (res && res.result) {
+                                count += 1;
+                            } else {
+                                errorKeys += (o.key + ' ');
+                            }
+                        },
+                        error: function (e) {
+                            errorKeys += (o.key + ' ');
+                        }
+                    }));
+                    sessionStorage.setItem('duplex', `${localMain.key} 서버와 연관된 ${neighbors.length} 개 서버 삭제 이중화 작업 중 ${count} 개 성공. \r\n 실패 서버 목록 : ${errorKeys}`);
+                }
+            }
+
+            // 현재 연동된 연결 리스트 중에 해당 key 가 포함되어 있는지 확인한다.
+            function contains_key_validate(key){
+                for(var server of connections){
+                    if (server.key === key) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        </script>
+    </div>
+    <div id="service-address-view-non-exist" th:unless="${ local != null }">
+
+    </div>
 </th:block>
 
 <th:block layout:fragment="custom-html-link">

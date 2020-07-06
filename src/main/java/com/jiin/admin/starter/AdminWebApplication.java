@@ -2,7 +2,6 @@ package com.jiin.admin.starter;
 
 
 import com.jiin.admin.config.BootingService;
-import com.jiin.admin.website.util.RandomUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
