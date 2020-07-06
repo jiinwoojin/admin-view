@@ -180,8 +180,8 @@
                                 </div>
                                 <div role="tabpanel" th:id="${ zone + '_SERVER_TAB2' }" class="tab-pane fade show">
                                     <div class="panel-body">
-                                        <dl class="row mb-1" th:each="service : ${ { 'MapServer', 'MapProxy', 'Ji-in Height', 'Mapnik', 'NGINX', 'RabbitMQ' } }">
-                                            <dt class="col-sm-4 text-sm-right" th:text="${ service + ' :' }">MapServer :</dt>
+                                        <dl class="row mb-1" th:each="service : ${ { 'MapServer', 'MapProxy', 'Ji-in Height', 'Mapnik', 'Nginx', 'RabbitMQ' } }">
+                                            <dt class="col-sm-4 text-sm-right" th:text="${ service + ' :' }"></dt>
                                             <dd class="col-sm-4 text-sm-center">
                                                 <span th:id="${ zone + '_geo_service_text_' + geoMap.get(service).name }">UNKNOWN</span>
                                             </dd>

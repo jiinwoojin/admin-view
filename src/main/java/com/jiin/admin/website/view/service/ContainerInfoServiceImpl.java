@@ -123,7 +123,7 @@ public class ContainerInfoServiceImpl implements ContainerInfoService {
             put("Ji-in Height", new GeoContainerInfo(HEIGHT_NAME, "UNKNOWN", 0));
             put("RabbitMQ", new GeoContainerInfo(RABBIT_MQ_NAME, "UNKNOWN", 0));
             put("Mapnik", new GeoContainerInfo(MAPNIK_NAME, "UNKNOWN", 0));
-            put("NGINX", new GeoContainerInfo(NGINX_NAME, "UNKNOWN", 0));
+            put("Nginx", new GeoContainerInfo(NGINX_NAME, "UNKNOWN", 0));
             put("PostgreSQL OSM", new GeoContainerInfo("postgresql_osm", "UNKNOWN", POSTGRESQL_OSM_PORT));
             put("PostgreSQL Basic", new GeoContainerInfo("postgresql_basic", "UNKNOWN", POSTGRESQL_BASIC_PORT));
             put("PGPool", new GeoContainerInfo("pgpool2", "UNKNOWN", PG_POOL_PORT));

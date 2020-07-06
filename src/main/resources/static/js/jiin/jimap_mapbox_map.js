@@ -46,7 +46,7 @@ JimapMapbox.prototype = {
             bounds : options.bounds || undefined,
             zoom : options.zoom || 10,
             maxZoom : options.maxZoom || 20,
-            minZoom : options.minZoom || 0,
+            minZoom : options.minZoom || 2,
             preserveDrawingBuffer : true,
             dragRotate : options.dragRotate === undefined ? true : options.dragRotate,
             dragPan : options.dragPan === undefined ? true : options.dragPan,

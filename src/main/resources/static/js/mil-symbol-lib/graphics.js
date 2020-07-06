@@ -60,6 +60,7 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 	symbolCode = sidc;
 
 	var code = SymbolUtilities.getBasicSymbolID(sidc);
+	var mapProperties = getMapProperties(); //20200309
 	var coordinates = []
 	if(milSymbolLoader && milSymbolLoader.map && milSymbolLoader.map._drawing_milsymbol_coordinates){
 		coordinates = milSymbolLoader.map._drawing_milsymbol_coordinates
@@ -99,7 +100,7 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 			}
 		}
 
-		if(format == 'SVG'){
+		if(format === 'SVG'){
 			var size = document.getElementById("Size").value;
 			var keepUnitRatio = false;
 			var drawAsIcon = false;
@@ -111,14 +112,34 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 
 			//var lineColor = document.getElementById("MonoColor")[document.getElementById("MonoColor").selectedIndex].value;
 			var lineColor = SymbolUtilities.getLineColorOfAffiliation(code).toHexString(false);//20200303
-			if(lineColor != ''){
-				modifiers.LINECOLOR = lineColor;
+			var alpha = 255;
+			if(mapProperties.FillOpacity !== '' ) {//20200309
+				alpha = mapProperties.FillOpacity*255;//milSymbol은 0~1, singlePointer는 0~255. web은 milSymbol 기준
+			}
+			if(mapProperties.MonoColor1 !== '') {//20200309
+				if (mapProperties.MonoColor1 === 'transparent') {
+					modifiers.LINECOLOR = mapProperties.MonoColor1;
+				}else{
+					modifiers.LINECOLOR = convertHex(mapProperties.MonoColor1, alpha);
+				}
+			}else if(lineColor !== ''){
+				modifiers.LINECOLOR = convertHex(lineColor, alpha);
+			}
+			if(mapProperties.MonoColor2 !== '') {
+				if (mapProperties.MonoColor2 === 'transparent') {
+					modifiers.FILLCOLOR = mapProperties.MonoColor2;
+				}else{
+					modifiers.FILLCOLOR = convertHex(mapProperties.MonoColor2, alpha);
+				}
+			}
+			if(mapProperties.StrokeWidth !== '' ) {//20200309 opensource에 처리로직 없음.
+				modifiers.LINEWIDTH = mapProperties.StrokeWidth;
 			}
 		}
 		var coordData = setCoordinates(coordinates);
 		controlPoints = coordData.controlPoints;
 		// scale 유사값
-		if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_2D){
+		if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_2D){
 			// 맵박스
 			var zoom = Math.floor(milSymbolLoader.map.getZoom())
 			var res = {
@@ -145,7 +166,7 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 				20: 0.075
 			}
 			scale = (300000000 - 10000) / res[0] * res[(zoom)]
-		}else if(stmp.PRESENT_MAP_KIND == stmp.MAP_KIND.MAP_3D){
+		}else if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_3D){
 			// 세슘
 			var xmin = 999999999, ymin = 999999999, xmax = 0, ymax = 0
 			for(var idx in coordinates){
@@ -165,11 +186,11 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 			//console.log(coordinates, extent, res, dpi)
 		}
 	}
-	if(format != undefined){
+	if(format !== undefined){
 		milSymbolLoader.map._drawing_milsymbol._svg_symbol = null
 		milSymbolLoader.map._drawing_milsymbol._geojson = null
 		milSymbolLoader.map._drawing_milsymbol._modifiers = null
-		if(format == 'SVG'){
+		if(format === 'SVG'){
 			milSymbolLoader.map._drawing_milsymbol._svg_symbol = armyc2.c2sd.renderer.MilStdSVGRenderer.Render(symbolCode,modifiers); // Save Graphics symbol
 			milSymbolLoader.map._drawing_milsymbol._geojson = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);
 		} else {
@@ -184,10 +205,38 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 	} else {
 		// 작전활동부호 미리보기 이미지
 		var symbolDef = SymbolDefTable.getSymbolDef(code, symStd);
-		if(symbolDef != null && symbolDef != undefined){
-			if(symbolDef['minPoints'] > 0){
+		if(symbolDef !== null && symbolDef !== undefined){
+			/*if (symbolDef['minPoints'] > 0){
 				modifiers.SIZE = document.getElementById("Size").value;
 				var si = armyc2.c2sd.renderer.MilStdSVGRenderer.Render(symbolCode,modifiers);
+				document.getElementById("ImageSymbol").style.width = si.getSVGBounds().getWidth()*(3/2) +'px';
+				document.getElementById("ImageSymbol").style.height = si.getSVGBounds().getHeight()*(3/2) +'px';
+				document.getElementById("ImageSymbol").src = si.getSVGDataURI();
+			}*/
+			if(symbolDef['minPoints'] > 0){
+				//modifiers.SIZE = document.getElementById("Size").value;
+				//20200310 미리보기 관련 수정
+				modifiers.SIZE = mapProperties.Size;
+				if (mapProperties.FillOpacity !== '' ) {//20200309
+					alpha = mapProperties.FillOpacity*255;//milSymbol은 0~1, singlePointer는 0~255. web은 milSymbol 기준
+				}
+				modifiers.ALPHA = alpha;
+				if (mapProperties.MonoColor1 !== '') {
+					modifiers.LINECOLOR = mapProperties.MonoColor1;
+				} else {
+					modifiers.LINECOLOR = "#000000";
+				}
+				if (mapProperties.MonoColor2 !== '') {
+					modifiers.FILLCOLOR = mapProperties.MonoColor2;
+				}
+				if (mapProperties.StrokeWidth !== '') {
+					modifiers.LINEWIDTH = mapProperties.StrokeWidth;
+				}
+				//20200310
+				//MilStdSVGRenderer.Render의 경우 투명도와 color를 분리해서 받고
+				//최종svg생성 단계 TacticalGraphicSVGRenderer.getSVG(...) 에서는 투명도를 활용하지 않고 있다.
+				var si = armyc2.c2sd.renderer.MilStdSVGRenderer.Render(symbolCode,modifiers);
+
 				document.getElementById("ImageSymbol").style.width = si.getSVGBounds().getWidth()*(3/2) +'px';
 				document.getElementById("ImageSymbol").style.height = si.getSVGBounds().getHeight()*(3/2) +'px';
 				document.getElementById("ImageSymbol").src = si.getSVGDataURI();
@@ -206,7 +255,7 @@ function setCoordinates(coordinates){
 	var maxX = 0;
 	var maxY = 0;
 
-	if(coordinates.length == 1){
+	if(coordinates.length === 1){
 		coordData.controlPoints += coordinates[0].x + ',' + coordinates[0].y;
 	} else {
 		for(var i = 0; i < coordinates.length; i ++){

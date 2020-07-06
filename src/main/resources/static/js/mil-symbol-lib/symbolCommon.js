@@ -75,7 +75,8 @@ function drawSymbol(){
 	
 	var cs = document.getElementById('SIDCCODINGSCHEME').value;
 	var SUB_mod = document.getElementsByClassName('SUB_mod');
-
+	var sidc = document.getElementById('SIDC').value;//20200313
+	monoColorSetting(sidc);//20200313
 	if(cs.charAt(0) == 'G' || cs.charAt(0) == 'W'){
 		document.getElementById('ImageSymbol').src = '';
 		if ( $('input:checkbox[id=MonoColorChk]').is(':checked') ) {//20200304
@@ -99,7 +100,60 @@ function drawSymbol(){
 	}
 }
 
+function monoColorSetting(sidc){//20200313
+	//cs로 property 받아오기
+	if ( sidc !== "") {
+		var searchData = milcodeChange(sidc);
+		JSONfile = CONTEXT + '/json/milsym/'+searchData.charAt(0)+'.json';
+		var property = "";
+		$.ajax({
+			url: JSONfile,
+			dataType: 'json',
+			async: false,
+			success: function(data){
+				$.each(Object.keys(data), function(index, item) {
+					var milItem = data[item];
+					if (milItem.MIL_CODE === searchData) {
+						milCode = milItem.MIL_CODE;
+						property = milItem.PROPERTIES.split('.');
+						return false;
+					}
+				});
+			}
+		});
 
+		for (var i = 0; i < property.length; i++) {
+			if (property[i].length === 3 && property[i].charAt(0) === 'E') {
+				//E10 => E : MonoColor, charAt(1) : MonoColor1, charAt(2) : MonoColor2
+				// 0 : display:none, 1 : normal, 2 : readonly
+				if ( $('input:checkbox[id=MonoColorChk]').is(':checked') ) {
+					if ( property[i].charAt(1) === '1') {
+						$('.MonoColor1').removeAttr('style');
+						if (property[i].charAt(2) === '1') {
+							$('.MonoColor2').removeAttr('style');
+						} else if (property[i].charAt(2) === '2') {
+							//ICOPS에서 설정은 열리는데 색상 적용이 안되는 경우를 구분하여 disable처리
+							$('.MonoColor2').removeAttr('style');
+							$('.MonoColor2').addClass("-disable");
+							$('#MonoColor2').val("");
+						} else {
+							$('.MonoColor2').attr('style', "display:none;");
+							$('.MonoColor2').removeClass("-disable");
+							$('#MonoColor2').val("");
+						}
+					} else {
+						if (property[i].charAt(2) === '1') {//IN (2.2.2.4.18, 2.2.2.4.28) E01
+							//특이한 경우. 실제 MonoColor2를 가지고 운용해야 하지만
+							//open source가 MonoColor1을 따라가는 구조라서 크게 수정하지 않기 위해 MonoColor1 사용
+							$('.MonoColor1').removeAttr('style');
+							$('.MonoColor2').attr('style', "display:none;");
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
 //-------------------------------------------------------------------------------------------------------------------------------
 /** 
