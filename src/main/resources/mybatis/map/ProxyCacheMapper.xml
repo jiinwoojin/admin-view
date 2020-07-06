@@ -34,19 +34,60 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO _PROXY_CACHE(ID, NAME, META_SIZE_X, META_SIZE_Y, META_BUFFER, CACHE_TYPE, CACHE_DIRECTORY, FORMAT, GRIDS, SELECTED, IS_DEFAULT)
-        VALUES(#{id}, #{name}, #{metaSizeX}, #{metaSizeY}, #{metaBuffer}, #{cacheType}, #{cacheDirectory}, #{format}, #{grids}, #{selected}, #{isDefault})
+        INSERT INTO _PROXY_CACHE(
+            ID,
+            NAME,
+            META_SIZE_X,
+            META_SIZE_Y,
+            META_BUFFER,
+            CACHE_TYPE,
+            CACHE_DIRECTORY,
+            FORMAT,
+            GRIDS,
+            SELECTED,
+            IS_DEFAULT
+        )
+        VALUES(
+            #{id},
+            #{name},
+            #{metaSizeX},
+            #{metaSizeY},
+            #{metaBuffer},
+            #{cacheType},
+            #{cacheDirectory},
+            #{format},
+            #{grids},
+            #{selected},
+            #{isDefault}
+        )
     </insert>
 
     <update id="update">
         UPDATE _PROXY_CACHE SET
-        NAME = #{name}, META_SIZE_X = #{metaSizeX}, META_SIZE_Y = #{metaSizeY}, META_BUFFER = #{metaBuffer}, CACHE_TYPE = #{cacheType}, CACHE_DIRECTORY = #{cacheDirectory}, FORMAT = #{format}, GRIDS = #{grids}, SELECTED = #{selected}, IS_DEFAULT = #{isDefault}
+            NAME = #{name},
+            META_SIZE_X = #{metaSizeX},
+            META_SIZE_Y = #{metaSizeY},
+            META_BUFFER = #{metaBuffer},
+            CACHE_TYPE = #{cacheType},
+            CACHE_DIRECTORY = #{cacheDirectory},
+            FORMAT = #{format},
+            GRIDS = #{grids},
+            SELECTED = #{selected},
+            IS_DEFAULT = #{isDefault}
         WHERE ID = #{id}
     </update>
 
     <update id="updateByName">
         UPDATE _PROXY_CACHE SET
-        META_SIZE_X = #{metaSizeX}, META_SIZE_Y = #{metaSizeY}, META_BUFFER = #{metaBuffer}, CACHE_TYPE = #{cacheType}, CACHE_DIRECTORY = #{cacheDirectory}, FORMAT = #{format}, GRIDS = #{grids}, SELECTED = #{selected}, IS_DEFAULT = #{isDefault}
+            META_SIZE_X = #{metaSizeX},
+            META_SIZE_Y = #{metaSizeY},
+            META_BUFFER = #{metaBuffer},
+            CACHE_TYPE = #{cacheType},
+            CACHE_DIRECTORY = #{cacheDirectory},
+            FORMAT = #{format},
+            GRIDS = #{grids},
+            SELECTED = #{selected},
+            IS_DEFAULT = #{isDefault}
         WHERE NAME = #{name}
     </update>
 

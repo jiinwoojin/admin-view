@@ -6,8 +6,18 @@
         <selectKey keyProperty="id" resultType="long" order="BEFORE">
             SELECT NEXTVAL('MAP_LAYER_SEQ')
         </selectKey>
-        INSERT INTO _MAP_LAYER_RELATION(ID, LAYER_ORDER, MAP_ID, LAYER_ID)
-        VALUES(#{id}, #{layerOrder}, #{mapId}, #{layerId})
+        INSERT INTO _MAP_LAYER_RELATION(
+            ID,
+            LAYER_ORDER,
+            MAP_ID,
+            LAYER_ID
+        )
+        VALUES(
+            #{id},
+            #{layerOrder},
+            #{mapId},
+            #{layerId}
+        )
     </insert>
 
     <delete id="deleteByMapId">

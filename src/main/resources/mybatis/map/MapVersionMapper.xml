@@ -18,8 +18,8 @@
     </select>
 
     <select id="findByMapIdAndLayerRecently" resultType="MapVersionDTO">
-        SELECT * FROM _MAP_VERSION M LEFT JOIN _MAP_LAYER_VERSION L
-        ON L.MAP_VERSION_ID = M.ID
+        SELECT * FROM _MAP_VERSION M
+        LEFT JOIN _MAP_LAYER_VERSION L ON L.MAP_VERSION_ID = M.ID
         WHERE M.MAP_ID = #{mapId} AND L.MAP_LAYER_ID = #{layerId}
         ORDER BY M.VERSION DESC LIMIT 1
     </select>
@@ -43,18 +43,42 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO _MAP_VERSION(ID, MAP_ID, VERSION, ZIP_FILE_PATH, ZIP_FILE_SIZE, UPLOAD_DATE)
-        VALUES(#{id}, #{mapId}, #{version}, #{zipFilePath}, #{zipFileSize}, #{uploadDate})
+        INSERT INTO _MAP_VERSION(
+            ID,
+            MAP_ID,
+            VERSION,
+            ZIP_FILE_PATH,
+            ZIP_FILE_SIZE,
+            UPLOAD_DATE
+        )
+        VALUES(
+            #{id},
+            #{mapId},
+            #{version},
+            #{zipFilePath},
+            #{zipFileSize},
+            #{uploadDate}
+        )
     </insert>
 
     <insert id="insertRelate">
-        INSERT INTO _MAP_LAYER_VERSION(MAP_VERSION_ID, MAP_LAYER_ID)
-        VALUES(#{mapVersionId}, #{mapLayerId})
+        INSERT INTO _MAP_LAYER_VERSION(
+            MAP_VERSION_ID,
+            MAP_LAYER_ID
+        )
+        VALUES(
+            #{mapVersionId},
+            #{mapLayerId}
+        )
     </insert>
 
     <update id="update">
         UPDATE _MAP_VERSION SET
-        MAP_ID = #{mapId}, VERSION = #{version}, ZIP_FILE_PATH = #{zipFilePath}, ZIP_FILE_SIZE = #{zipFileSize}, UPLOAD_DATE = #{uploadDate}
+            MAP_ID = #{mapId},
+            VERSION = #{version},
+            ZIP_FILE_PATH = #{zipFilePath},
+            ZIP_FILE_SIZE = #{zipFileSize},
+            UPLOAD_DATE = #{uploadDate}
         WHERE ID = #{id}
     </update>
 

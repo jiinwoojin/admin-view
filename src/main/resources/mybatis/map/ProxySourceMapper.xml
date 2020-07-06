@@ -43,12 +43,14 @@
     </select>
 
     <select id="findAllMapServer" resultMap="ProxySourceResultMap">
-        SELECT * FROM _PROXY_SOURCE PS LEFT JOIN _PROXY_SOURCE_MAPSERVER PSMS ON PS.id = PSMS.id
+        SELECT * FROM _PROXY_SOURCE PS
+        LEFT JOIN _PROXY_SOURCE_MAPSERVER PSMS ON PS.id = PSMS.id
         WHERE PS.type = 'mapserver'
     </select>
 
     <select id="findAllWMS" resultMap="ProxySourceResultMap">
-        SELECT PS.*, PSW.* FROM _PROXY_SOURCE PS LEFT JOIN _PROXY_SOURCE_WMS PSW ON PS.id = PSW.id
+        SELECT PS.*, PSW.* FROM _PROXY_SOURCE PS
+        LEFT JOIN _PROXY_SOURCE_WMS PSW ON PS.id = PSW.id
         WHERE PS.type = 'wms'
     </select>
 
@@ -61,51 +63,112 @@
     </select>
 
     <select id="findBySelectedMapServer" resultMap="ProxySourceResultMap">
-        SELECT * FROM _PROXY_SOURCE PS LEFT JOIN _PROXY_SOURCE_MAPSERVER PSMS ON PS.id = PSMS.id
+        SELECT * FROM _PROXY_SOURCE PS
+        LEFT JOIN _PROXY_SOURCE_MAPSERVER PSMS ON PS.id = PSMS.id
         WHERE PS.type = 'mapserver' AND PS.SELECTED = #{selected}
     </select>
 
     <select id="findBySelectedWMS" resultMap="ProxySourceResultMap">
-        SELECT * FROM _PROXY_SOURCE PS LEFT JOIN _PROXY_SOURCE_WMS PSW ON PS.id = PSW.id
+        SELECT * FROM _PROXY_SOURCE PS
+        LEFT JOIN _PROXY_SOURCE_WMS PSW ON PS.id = PSW.id
         WHERE PS.type = 'wms' AND PS.SELECTED = #{selected}
     </select>
 
     <insert id="insert">
-        INSERT INTO _PROXY_SOURCE(ID, NAME, TYPE, SELECTED, IS_DEFAULT)
-        VALUES(#{id}, #{name}, #{type}, #{selected}, #{isDefault})
+        INSERT INTO _PROXY_SOURCE(
+            ID,
+            NAME,
+            TYPE,
+            SELECTED,
+            IS_DEFAULT
+        )
+        VALUES(
+            #{id},
+            #{name},
+            #{type},
+            #{selected},
+            #{isDefault}
+        )
     </insert>
 
     <insert id="insertMapServer">
-        INSERT INTO _PROXY_SOURCE_MAPSERVER(ID, REQUEST_MAP, REQUEST_LAYERS, MAP_SERVER_BINARY, MAP_SERVER_WORK_DIR)
-        VALUES(#{id}, #{requestMap}, #{requestLayers}, #{mapServerBinary}, #{mapServerWorkDir})
+        INSERT INTO _PROXY_SOURCE_MAPSERVER(
+            ID,
+            REQUEST_MAP,
+            REQUEST_LAYERS,
+            MAP_SERVER_BINARY,
+            MAP_SERVER_WORK_DIR
+        )
+        VALUES(
+            #{id},
+            #{requestMap},
+            #{requestLayers},
+            #{mapServerBinary},
+            #{mapServerWorkDir}
+        )
     </insert>
 
     <insert id="insertWMS">
-        INSERT INTO _PROXY_SOURCE_WMS(ID, CONCURRENT_REQUESTS, WMS_OPTS_VERSION, HTTP_CLIENT_TIMEOUT, REQUEST_URL, REQUEST_MAP, REQUEST_LAYERS, REQUEST_TRANSPARENT, SUPPORTED_SRS)
-        VALUES(#{id}, #{concurrentRequests}, #{wmsOptsVersion}, #{httpClientTimeout}, #{requestURL}, #{requestMap}, #{requestLayers}, #{requestTransparent}, #{supportedSRS})
+        INSERT INTO _PROXY_SOURCE_WMS(
+            ID,
+            CONCURRENT_REQUESTS,
+            WMS_OPTS_VERSION,
+            HTTP_CLIENT_TIMEOUT,
+            REQUEST_URL,
+            REQUEST_MAP,
+            REQUEST_LAYERS,
+            REQUEST_TRANSPARENT,
+            SUPPORTED_SRS
+        )
+        VALUES(
+            #{id},
+            #{concurrentRequests},
+            #{wmsOptsVersion},
+            #{httpClientTimeout},
+            #{requestURL},
+            #{requestMap},
+            #{requestLayers},
+            #{requestTransparent},
+            #{supportedSRS}
+        )
     </insert>
 
     <update id="update">
         UPDATE _PROXY_SOURCE SET
-        NAME = #{name}, TYPE = #{type}, SELECTED = #{selected}, IS_DEFAULT = #{isDefault}
+            NAME = #{name},
+            TYPE = #{type},
+            SELECTED = #{selected},
+            IS_DEFAULT = #{isDefault}
         WHERE ID = #{id}
     </update>
 
     <update id="updateByName">
         UPDATE _PROXY_SOURCE SET
-        TYPE = #{type}, SELECTED = #{selected}, IS_DEFAULT = #{isDefault}
+            TYPE = #{type},
+            SELECTED = #{selected},
+            IS_DEFAULT = #{isDefault}
         WHERE NAME = #{name}
     </update>
 
     <update id="updateMapServer">
         UPDATE _PROXY_SOURCE_MAPSERVER SET
-        REQUEST_MAP = #{requestMap}, REQUEST_LAYERS = #{requestLayers}, MAP_SERVER_BINARY = #{mapServerBinary}, MAP_SERVER_WORK_DIR = #{mapServerWorkDir}
+            REQUEST_MAP = #{requestMap},
+            REQUEST_LAYERS = #{requestLayers},
+            MAP_SERVER_BINARY = #{mapServerBinary},
+            MAP_SERVER_WORK_DIR = #{mapServerWorkDir}
         WHERE ID = #{id}
     </update>
 
     <update id="updateWMS">
         UPDATE _PROXY_SOURCE_WMS SET
-        CONCURRENT_REQUESTS = #{concurrentRequests}, WMS_OPTS_VERSION = #{wmsOptsVersion}, HTTP_CLIENT_TIMEOUT = #{httpClientTimeout}, REQUEST_URL = #{requestURL}, REQUEST_MAP = #{requestMap}, REQUEST_LAYERS = #{requestLayers}, REQUEST_TRANSPARENT = #{requestTransparent}, SUPPORTED_SRS = #{supportedSRS}
+            CONCURRENT_REQUESTS = #{concurrentRequests},
+            WMS_OPTS_VERSION = #{wmsOptsVersion},
+            HTTP_CLIENT_TIMEOUT = #{httpClientTimeout},
+            REQUEST_URL = #{requestURL},
+            REQUEST_MAP = #{requestMap},
+            REQUEST_LAYERS = #{requestLayers},
+            REQUEST_TRANSPARENT = #{requestTransparent},
+            SUPPORTED_SRS = #{supportedSRS}
         WHERE ID = #{id}
     </update>
 

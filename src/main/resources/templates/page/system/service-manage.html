@@ -34,7 +34,7 @@
                             <p th:text="${serviceMap.get(service).status}" th:id="${ 'service-status-text-' + serviceMap.get(service).name }"></p>
                         </div>
                         <div class="text-center">
-                            <button th:id="${ 'service_refresh_' + serviceMap.get(service).name }" class="btn btn-primary btn-sm px-1" th:onclick="onclick_status_refresh([[${serviceMap.get(service).name}]],[[${local.ip}]],[[${serviceMap.get(service).port}]])">
+                            <button th:id="${ 'service-refresh-' + serviceMap.get(service).name }" class="btn btn-primary btn-sm px-1" th:onclick="onclick_status_refresh([[${serviceMap.get(service).name}]],[[${local.ip}]],[[${serviceMap.get(service).port}]])">
                                 <i class="fas fa-sync"></i>
                             </button>
 
@@ -94,210 +94,168 @@
     <!-- // 서버 상태 조회 종료 -->
 
     <!-- 서버 작동 내역 조회 시작 -->
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="shutdown-tab" data-toggle="tab" href="#shutdown" role="tab" aria-controls="shutdown" aria-selected="true">
-                서비스 종료
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="restart-tab" data-toggle="tab" href="#restart" role="tab" aria-controls="restart" aria-selected="false">
-                서비스 재부팅
-            </a>
-        </li>
-    </ul>
-
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="shutdown" role="tabpanel" aria-labelledby="shutdown-tab">
-            <div class="py-1">
-                <h2 class="my-2">서비스 종료 기록</h2>
-                <table id="list_table_shutdown" class="table table-sm basic">
-                    <thead class="table-info">
-                    <tr>
-                        <th scope="col" class="text-center">서비스</th>
-                        <th scope="col" class="text-center">종료 시간</th>
-                        <th scope="col" class="text-center">진행자</th>
-                        <th scope="col" class="text-center">진행 결과</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="text-center">Map Server</td>
-                        <td class="text-center">2020-04-24 11:00:00</td>
-                        <td class="text-center">ADMIN</td>
-                        <td class="text-center">
-                            <i class="fas fa-check-circle"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">Map Proxy</td>
-                        <td class="text-center">2020-04-23 11:00:00</td>
-                        <td class="text-center">ADMIN</td>
-                        <td class="text-center">
-                            <i class="fas fa-times-circle"></i>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="py-1">
+        <h2 class="section_tit">서비스 작동 내역 조회</h2>
+        <div class="text-right my-1">
+            <button class="btn btn-sm btn-danger" type="button" onclick="onclick_remove_all_history()">
+                <i class="fas fa-trash"></i> 전체 삭제
+            </button>
         </div>
+        <table id="list_table_shutdown" class="table table-sm basic">
+            <thead class="table-info">
+            <tr>
+                <th scope="col" class="text-center">서비스 이름</th>
+                <th scope="col" class="text-center">서비스 명령어</th>
+                <th scope="col" class="text-center">성공 여부</th>
+                <th scope="col" class="text-center">작동자</th>
+                <th scope="col" class="text-center">작동 시간</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="history : ${ histories }">
+                <td class="text-center align-middle" th:text="${history.name}"></td>
+                <td class="text-center align-middle" th:text="${history.command}"></td>
+                <td class="text-center align-middle">
+                    <i class="fas fa-check-circle text-info" th:if="${history.succeed}"></i>
+                    <i class="fas fa-times-circle text-danger" th:unless="${history.succeed}"></i>
+                </td>
+                <td class="text-center align-middle" th:text="${history.workedUser}"></td>
+                <td class="text-center align-middle" th:text="${#dates.format(history.workedDate, 'yyyy-MM-dd HH:mm')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-        <div class="tab-pane fade" id="restart" role="tabpanel" aria-labelledby="restart-tab">
-            <div class="py-1">
-                <h2 class="my-2">서비스 재시작 기록</h2>
-                <table id="list_table_restart" class="table table-sm basic">
-                    <thead class="table-info">
-                    <tr>
-                        <th scope="col" class="text-center">서비스</th>
-                        <th scope="col" class="text-center">종료 시간</th>
-                        <th scope="col" class="text-center">진행자</th>
-                        <th scope="col" class="text-center">진행 결과</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td class="text-center align-middle">Map Server</td>
-                        <td class="text-center align-middle">2020-04-24 11:00:00</td>
-                        <td class="text-center align-middle">ADMIN</td>
-                        <td class="text-center align-middle">
-                            <i class="fas fa-check-circle"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center align-middle">Map Proxy</td>
-                        <td class="text-center align-middle">2020-04-23 11:00:00</td>
-                        <td class="text-center align-middle">ADMIN</td>
-                        <td class="text-center align-middle">
-                            <i class="fas fa-times-circle"></i>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <script th:inline="javascript">
+        var localMain = /*[[ ${local} ]]*/ null;
+        var message = /*[[ ${message} ]]*/ null;
+    </script>
 
-        <script th:inline="javascript">
-            var localMain = /*[[ ${local} ]]*/ null;
-            var message = /*[[ ${message} ]]*/ null;
-        </script>
+    <script>
+        $(document).ready(function() {
+            if (!jQuery.isEmptyObject(message)) {
+                toastr.info(message);
+            }
 
-        <script>
-            $(document).ready(function() {
-                if (!jQuery.isEmptyObject(message)) {
-                    toastr.info(message);
-                }
-
-                $('#list_table_shutdown,#list_table_restart').each(function () {
-                    initialize_dataTable(this.id);
-                });
-
-                $('#carousel').slick({
-                    infinite: true,
-                    slidesToShow: 6,
-                    slidesToScroll: 6,
-                    responsive: [
-                        {
-                            breakpoint: 1440,
-                            settings: {
-                                slidesToShow: 3,
-                                slidesToScroll: 3
-                            }
-                        }
-                    ]
-                });
-
-                for(var dom of $('[id^=service_refresh_]')){
-                    dom.click();
-                }
+            $('#list_table_shutdown,#list_table_restart').each(function () {
+                initialize_dataTable(this.id);
             });
 
-            function display_initialize(service, type){
-                var dom_icon = document.getElementById('service-status-icon-' + service);
-                var dom_text = document.getElementById('service-status-text-' + service);
-                var dom_title = document.getElementById('service-status-title-' + service);
-
-                dom_text.innerText = type;
-                dom_text.className = '';
-                dom_title.className = '';
-                dom_icon.className = (type === 'LOADING') ? 'h1 fas fa-spin fa-spinner' : 'h1 fas fa-question';
-
-                if(type === 'UNKNOWN') {
-                    $(`#service-start-${service}`).prop('disabled', false);
-                    $(`#service-stop-${service}`).prop('disabled', true);
-                }
-            }
-
-            function onclick_status_refresh(service, ip, port){
-                $.ajax({
-                    url: (port !== 0) ? `${CONTEXT}/server/api/service/extension-check?ip=${ip}&port=${port}` : `${CONTEXT}/server/api/service/docker-check?name=${service}`,
-                    type: 'GET',
-                    contentType: 'application/json',
-                    success: function(status){
-                        var dom_icon = document.getElementById('service-status-icon-' + service);
-                        var dom_text = document.getElementById('service-status-text-' + service);
-                        var dom_title = document.getElementById('service-status-title-' + service);
-
-                        var res = status.result && status.result.toUpperCase();
-                        dom_text.innerText = res ? res : 'UNKNOWN';
-
-                        var res = status.result.toUpperCase();
-                        switch(res){
-                            case 'CREATED':
-                            case 'RUNNING':
-                            case 'RESTARTING':
-                                dom_icon.className = (res === 'CREATED') ? 'h1 fas fa-plus-square text-info' : (res === 'RUNNING') ? 'h1 fas fa-check text-info' : 'h1 fas fa-sync text-warning';
-                                dom_text.className = 'text-info';
-                                dom_title.className = 'text-info';
-                                $(`#service-start-${service}`).prop('disabled', true);
-                                $(`#service-stop-${service}`).prop('disabled', false);
-                                break;
-                            case 'PAUSED':
-                                dom_icon.className = 'h1 fas fa-pause text-warning';
-                                dom_text.className = 'text-warning';
-                                dom_title.className = 'text-warning';
-                                $(`#service-start-${service}`).prop('disabled', true);
-                                $(`#service-stop-${service}`).prop('disabled', false);
-                                break;
-                            case 'REMOVING':
-                            case 'EXITED':
-                            case 'DEAD':
-                                dom_icon.className = 'h1 fas fa-times-circle text-danger';
-                                dom_text.className = 'text-danger';
-                                dom_title.className = 'text-danger';
-                                $(`#service-start-${service}`).prop('disabled', false);
-                                $(`#service-stop-${service}`).prop('disabled', true);
-                                break;
-                            default :
-                                dom_icon.className = 'h1 fas fa-question';
-                                dom_text.innerText = 'UNKNOWN';
-                                dom_text.className = '';
-                                dom_title.className = '';
-                                $(`#service-start-${service}`).prop('disabled', false);
-                                $(`#service-stop-${service}`).prop('disabled', true);
-                                break;
+            $('#carousel').slick({
+                infinite: true,
+                slidesToShow: 6,
+                slidesToScroll: 6,
+                responsive: [
+                    {
+                        breakpoint: 1440,
+                        settings: {
+                            slidesToShow: 3,
+                            slidesToScroll: 3
                         }
-                    },
-                    error: function(e){
-                        display_initialize(service, 'UNKNOWN');
-                    },
-                    beforeSend: function(){
-                        display_initialize(service, 'LOADING');
                     }
-                });
+                ]
+            });
+
+            for(var dom of $('[id^=service-refresh-]')){
+                dom.click();
             }
+        });
 
-            function onclick_service_execute(btn){
-                var method = $(btn).data('method');
-                var link = CONTEXT + $(btn).data('link');
-                var service = $(btn).data('service');
+        function display_initialize(service, type){
+            var dom_icon = document.getElementById('service-status-icon-' + service);
+            var dom_text = document.getElementById('service-status-text-' + service);
+            var dom_title = document.getElementById('service-status-title-' + service);
 
-                var question = service + " 서비스를 " + (method === 'START' ? '가동' : method === 'RESTART' ? '재가동' : '정지') + '합니다. 계속 하시겠습니까?';
-                if(confirm(question)){
-                    window.location.href = link;
+            dom_text.innerText = type;
+            dom_text.className = (type === 'LOADING') ? '' : 'text-danger';
+            dom_title.className = (type === 'LOADING') ? '' : 'text-danger';
+            dom_icon.className = (type === 'LOADING') ? 'h1 fas fa-spin fa-spinner' : 'h1 fas fa-exclamation-triangle text-danger';
+
+            if(type === 'ERROR') {
+                $(`#service-refresh-${service}`).prop('disabled', true);
+                $(`#service-start-${service}`).prop('disabled', true);
+                $(`#service-stop-${service}`).prop('disabled', true);
+                $(`#service-restart-${service}`).prop('disabled', true);
+            }
+        }
+
+        function onclick_status_refresh(service, ip, port){
+            $.ajax({
+                url: (port !== 0) ? `${CONTEXT}/server/api/service/extension-check?ip=${ip}&port=${port}` : `${CONTEXT}/server/api/service/docker-check?name=${service}`,
+                type: 'GET',
+                contentType: 'application/json',
+                success: function(status){
+                    var dom_icon = document.getElementById('service-status-icon-' + service);
+                    var dom_text = document.getElementById('service-status-text-' + service);
+                    var dom_title = document.getElementById('service-status-title-' + service);
+
+                    var res = status.result && status.result.toUpperCase();
+                    dom_text.innerText = res ? res : 'UNKNOWN';
+
+                    var res = status.result.toUpperCase();
+                    switch(res){
+                        case 'CREATED':
+                        case 'RUNNING':
+                        case 'RESTARTING':
+                            dom_icon.className = (res === 'CREATED') ? 'h1 fas fa-plus-square text-info' : (res === 'RUNNING') ? 'h1 fas fa-check text-info' : 'h1 fas fa-sync text-warning';
+                            dom_text.className = 'text-info';
+                            dom_title.className = 'text-info';
+                            $(`#service-start-${service}`).prop('disabled', true);
+                            $(`#service-stop-${service}`).prop('disabled', false);
+                            break;
+                        case 'PAUSED':
+                            dom_icon.className = 'h1 fas fa-pause text-warning';
+                            dom_text.className = 'text-warning';
+                            dom_title.className = 'text-warning';
+                            $(`#service-start-${service}`).prop('disabled', true);
+                            $(`#service-stop-${service}`).prop('disabled', false);
+                            break;
+                        case 'REMOVING':
+                        case 'EXITED':
+                        case 'DEAD':
+                            dom_icon.className = 'h1 fas fa-times-circle text-danger';
+                            dom_text.className = 'text-danger';
+                            dom_title.className = 'text-danger';
+                            $(`#service-start-${service}`).prop('disabled', false);
+                            $(`#service-stop-${service}`).prop('disabled', true);
+                            break;
+                        default :
+                            dom_icon.className = 'h1 fas fa-question';
+                            dom_text.innerText = 'UNKNOWN';
+                            dom_text.className = '';
+                            dom_title.className = '';
+                            $(`#service-start-${service}`).prop('disabled', true);
+                            $(`#service-stop-${service}`).prop('disabled', true);
+                            $(`#service-restart-${service}`).prop('disabled', true);
+                            break;
+                    }
+                },
+                error: function(e){
+                    display_initialize(service, 'ERROR');
+                },
+                beforeSend: function(){
+                    display_initialize(service, 'LOADING');
                 }
+            });
+        }
+
+        function onclick_service_execute(btn){
+            var method = $(btn).data('method');
+            var link = CONTEXT + $(btn).data('link');
+            var service = $(btn).data('service');
+
+            var question = service + " 서비스를 " + (method === 'START' ? '가동' : method === 'RESTART' ? '재가동' : '정지') + '합니다. 계속 하시겠습니까?';
+            if(confirm(question)){
+                window.location.href = link;
             }
-        </script>
-    </div>
+        }
+
+        function onclick_remove_all_history(){
+            if ( confirm('현재까지 생성된 작동 내역들을 전부 삭제합니다. 계속 하시겠습니까?')) {
+                window.location.href = CONTEXT + '/view/server/history-clean';
+            }
+        }
+    </script>
     <!-- // 서버 작동 내역 조회 종료 -->
 </th:block>
 
