@@ -575,8 +575,10 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
             if(feature.geometry.type === "Point"){
                 feature.properties.type = "Label"
                 feature.properties.labelOffset = [feature.properties.labelXOffset,feature.properties.labelYOffset]
+                feature.properties.labelAlign = (feature.properties.labelAlign === "right" ? "right" : feature.properties.labelAlign === "left" ? "left" : feature.properties.labelAlign === "center" ? "center" : "center")
             }
         })
+        //console.log(data.features)
         datas = datas.concat(data.features);
     }
     // draw milsymbol
@@ -639,10 +641,10 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
     }
 
     // 라벨 레이어
-    var labelLayer = milSymbolLoader.map.getLayer('milsymbols-layer-label')
-    if(labelLayer === undefined){
+    var labelLayerLeft = milSymbolLoader.map.getLayer('milsymbols-layer-label-left')
+    if(labelLayerLeft === undefined){
         milSymbolLoader.map.addLayer({
-            id: 'milsymbols-layer-label',
+            id: 'milsymbols-layer-label-left',
             type: 'symbol',
             source: source.id,
             layout: {
@@ -651,6 +653,7 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
                 'text-ignore-placement' : true,
                 "text-size": ['get', 'fontSize'],
                 'text-rotate': ['get','angle'],
+                'text-variable-anchor': ['left','top'],
                 "text-font": ["Gosanja"]
             },
             paint: {
@@ -658,7 +661,53 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
                 "text-halo-color": ['get', 'labelOutlineColor'],
                 "text-halo-width": ['get', 'labelOutlineWidth'],
             },
-            filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Label']]
+            filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Label'], ["==", "labelAlign", 'left']]
+        },"gl-draw-polygon-fill-inactive.cold")
+    }
+    var labelLayerRight = milSymbolLoader.map.getLayer('milsymbols-layer-label-right')
+    if(labelLayerRight === undefined){
+        milSymbolLoader.map.addLayer({
+            id: 'milsymbols-layer-label-right',
+            type: 'symbol',
+            source: source.id,
+            layout: {
+                'text-field': ['get', 'label'],
+                'text-allow-overlap' : true,
+                'text-ignore-placement' : true,
+                "text-size": ['get', 'fontSize'],
+                'text-rotate': ['get','angle'],
+                'text-variable-anchor': ['right','bottom'],
+                "text-font": ["Gosanja"]
+            },
+            paint: {
+                "text-color": ['get', 'fontColor'],
+                "text-halo-color": ['get', 'labelOutlineColor'],
+                "text-halo-width": ['get', 'labelOutlineWidth'],
+            },
+            filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Label'], ["==", "labelAlign", 'right']]
+        },"gl-draw-polygon-fill-inactive.cold")
+    }
+    var labelLayerCenter = milSymbolLoader.map.getLayer('milsymbols-layer-label-center')
+    if(labelLayerCenter === undefined){
+        milSymbolLoader.map.addLayer({
+            id: 'milsymbols-layer-label-center',
+            type: 'symbol',
+            source: source.id,
+            layout: {
+                'text-field': ['get', 'label'],
+                'text-allow-overlap' : true,
+                'text-ignore-placement' : true,
+                "text-size": ['get', 'fontSize'],
+                'text-rotate': ['get','angle'],
+                'text-variable-anchor': ['center'],
+                "text-font": ["Gosanja"]
+            },
+            paint: {
+                "text-color": ['get', 'fontColor'],
+                "text-halo-color": ['get', 'labelOutlineColor'],
+                "text-halo-width": ['get', 'labelOutlineWidth'],
+            },
+            filter: ["all", ['==', '$type', 'Point'], ["==", "type", 'Label'], ["==", "labelAlign", 'center']]
         },"gl-draw-polygon-fill-inactive.cold")
     }
 }

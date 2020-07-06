@@ -200,6 +200,17 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 				// 색상변경
 				milSymbolLoader.map._drawing_milsymbol._geojson = milSymbolLoader.map._drawing_milsymbol._geojson.replace("#FF0000","#000000")
 			}
+			if(symbolCode === "GFF-LCF---****X"){
+				// 작전활동부호-화력지원-선-지휘통제선-화력지원협조선
+				// 라벨변경
+				milSymbolLoader.map._drawing_milsymbol._geojson = milSymbolLoader.map._drawing_milsymbol._geojson
+					.replace("\"  FSCL\"","\"AAA\"").replace(/\"  FSCL\"/gi,"\"BBB\"").replace(/\" FSCL\"/gi,"\"BBB\"")
+					.replace(/\"PL \"/gi,"\"CCC\"").replace(/\" PL\"/gi,"\"DDD\"")
+					.replace(/\"AAA\"/gi,"\"   PL\"")
+					.replace(/\"BBB\"/gi,"\"PL   \"")
+					.replace(/\"CCC\"/gi,"\"FSCL\"")
+					.replace(/\"DDD\"/gi,"\"FSCL\"")
+			}
 			milSymbolLoader.map._drawing_milsymbol._modifiers = modifiers;
 		}
 	} else {
