@@ -3232,7 +3232,7 @@
                 if (instruction[i].hasOwnProperty("clipPath")) {
                   ctx.restore();
                 }
-                if (ctx.globalAlpha != 1) ctx.globalAlpha = 1; //We never have transparent strokes
+                //if (ctx.globalAlpha != 1) ctx.globalAlpha = 1; //We never have transparent strokes //20200311 add comments
                 if (
                   typeof instruction[i].stroke === "undefined" ||
                   (typeof instruction[i].stroke !== "undefined" &&
@@ -3248,7 +3248,7 @@
                       instruction[i].fill)
                   )
                     ctx.fill();
-                  if (ctx.globalAlpha != 1) ctx.globalAlpha = 1;
+                  //if (ctx.globalAlpha != 1) ctx.globalAlpha = 1;	//20200311  add comments
                   if (
                     typeof instruction[i].stroke === "undefined" ||
                     (typeof instruction[i].stroke !== "undefined" &&
@@ -3349,7 +3349,8 @@
             ctx.lineJoin = "miter";
           }
           if (typeof instruction[i].fillopacity !== "undefined") {
-            ctx.globalAlpha = 1;
+            //ctx.globalAlpha = 1; //20200311 add comments
+            ctx.globalAlpha = instruction[i].fillopacity; //20200311 code replacement
           }
         }
       }
@@ -3460,7 +3461,7 @@
                   (instruction[i].fill ? instruction[i].fill : "none") +
                   '" ';
               if (typeof instruction[i].fillopacity !== "undefined")
-                svg += 'fill-opacity="' + instruction[i].fillopacity + '" ';
+                svg += 'opacity="' + instruction[i].fillopacity + '" '; //20200311 fill-opacity->opacity
               svg += ">";
               switch (instruction[i].type) {
                 case "path":
@@ -3997,6 +3998,10 @@
         console.warn(this.isValid(true));
       }
 
+    //20200311 source add
+    for (var j in this.drawInstructions) {
+      this.drawInstructions[j].fillopacity = this.style.fillOpacity;
+    }
     return this;
   }
 

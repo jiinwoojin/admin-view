@@ -891,6 +891,9 @@ function setMapProperties(mapProperties, milCode){//20200304
 						$this.addClass("-active");
 					}
 				}
+				if ( propVal === '') {
+					propVal = '#000000';//20200309 init value setting add
+				}
 				$('#'+propNm).closest(".colorList").find(".mil-colorpicker,.mil-colorpicker--transparent").colorpicker('setValue',propVal);
 			}
 		}else{
