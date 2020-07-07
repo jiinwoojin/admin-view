@@ -142,6 +142,11 @@
                 <button data-toggle="modal" data-target="#layer-create-modal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                     <i class="fas fa-plus fa-sm text-white-50"></i> LAYER 추가
                 </button>
+
+                <!-- LAYER EXCEL 업로드 버튼 -->
+                <button data-toggle="modal" data-target="#excel-upload-modal" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm">
+                    <i class="fas fa-file-excel fa-sm text-white-50"></i> LAYER EXCEL 업로드
+                </button>
             </div>
         </div>
     </div>
@@ -390,6 +395,47 @@
             </div>
         </div>
     </div>
+
+    <!-- Excel Upload Modal -->
+    <div class="modal fade" id="excel-upload-modal" tabindex="-1" role="dialog" aria-labelledby="excel-upload-modal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">LAYER EXCEL 파일 업로드</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <form id="excel-upload" method="post" action="layer-excel-upload" accept-charset="utf-8" enctype="multipart/form-data">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="___customFileAddonExcel" style="height: 33.5px;">
+                                    Excel 파일
+                                </span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="___customFileExcel"
+                                       aria-describedby="___customFileAddonExcel" name="excelFile">
+                                <label class="custom-file-label" for="___customFileExcel">파일 선택</label>
+                            </div>
+                            <small>제공하는 Excel 의 확장자는 *.xlsx (2010 버전 이후) 입니다.</small>
+                            <hr/>
+                            <div class="text-right">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                    <i class="fas fa-times"></i> 취소
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-save"></i> 저장
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <script th:inline="javascript">
         var message = /*[[ ${message} ]]*/ null;

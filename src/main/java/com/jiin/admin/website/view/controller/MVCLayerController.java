@@ -3,6 +3,8 @@ package com.jiin.admin.website.view.controller;
 import com.jiin.admin.config.SessionService;
 import com.jiin.admin.dto.LayerDTO;
 import com.jiin.admin.website.model.LayerPageModel;
+import com.jiin.admin.website.model.LayerRowModel;
+import com.jiin.admin.website.util.SpreadSheetUtil;
 import com.jiin.admin.website.view.service.LayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Controller
 @RequestMapping("manage")
@@ -67,5 +70,16 @@ public class MVCLayerController {
     @PostMapping("layer-delete")
     public boolean restLayerDelete(@RequestParam long layerId){
         return layerService.removeData(layerId);
+    }
+
+    /**
+     * Layer Excel 업로드
+     * @Param file MultipartFile
+     */
+    @PostMapping("layer-excel-upload")
+    public String postLayerExcelUpload(@RequestParam("excelFile") MultipartFile excelFile, LayerPageModel layerPageModel){
+        List<LayerRowModel> rows = SpreadSheetUtil.loadLayerRowModelListBySpreadSheet(excelFile);
+        System.out.println(rows);
+        return String.format("redirect:layer-list?%s", layerPageModel.getQueryString());
     }
 }

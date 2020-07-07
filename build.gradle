@@ -63,6 +63,7 @@ dependencies {
     compile('commons-fileupload:commons-fileupload:1.4')
     compile('commons-io:commons-io:2.6')
     compile('org.apache.poi:poi:4.1.2')
+    compile('org.apache.poi:poi-ooxml:4.1.2') // 강인성 Layer 엑셀 업로드를 위한 추가
     compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.4.1')
     compile('com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.3')
     //compile gradleApi()
