@@ -8,6 +8,7 @@ import com.jiin.admin.mapper.data.LayerMapper;
 import com.jiin.admin.mapper.data.MapLayerRelationMapper;
 import com.jiin.admin.mapper.data.MapVersionMapper;
 import com.jiin.admin.website.model.LayerPageModel;
+import com.jiin.admin.website.model.LayerRowModel;
 import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.MapServerUtil;
@@ -141,8 +142,11 @@ public class LayerServiceImpl implements LayerService {
     private String loadCommonDataFilePath(LayerDTO layerDTO, MultipartFile uploadData){
         switch(layerDTO.getType()){
             case "CADRG" :
+            case "RASTER" :
                 // CADRG 인 경우 : /${data-dir}/${MIDDLE-FOLDER}/abc.zip
+                // RASTER 인 경우 : /${data-dir}/${MIDDLE-FOLDER}/abc.tif
                 return String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), uploadData.getOriginalFilename());
+
             case "VECTOR" :
                 // VECTOR 인 경우 : /${data-dir}/${MIDDLE-FOLDER}/abc.shp
                 String shpFile = VectorShapeUtil.loadRealShpFileInZipFile(uploadData);
@@ -155,8 +159,25 @@ public class LayerServiceImpl implements LayerService {
                     return "NONE";
                 }
                 return String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), shpFile);
-            case "RASTER" : // RASTER 인 경우 : /${data-dir}/${MIDDLE-FOLDER}/abc.tif
-                return String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), uploadData.getOriginalFilename());
+
+            default :
+                return "NONE";
+        }
+    }
+
+    /**
+     * dataFilePath 를 구해주는 메소드 : FOR Excel Upload (Raster : abc.tif, Vector : abc.shp, Cadrg : abc.zip)
+     * @param layerDTO LayerDTO
+     */
+    private String loadCommonDataFilePath(LayerDTO layerDTO, String filename){
+        switch(layerDTO.getType()){
+            case "CADRG" :
+            case "RASTER" :
+            case "VECTOR" :
+                // CADRG 인 경우 : /${data-dir}/${MIDDLE-FOLDER}/abc.zip
+                // RASTER 인 경우 : /${data-dir}/${MIDDLE-FOLDER}/abc.tif
+                // VECTOR 인 경우 : /${data-dir}/${MIDDLE-FOLDER}/abc.shp (모두 압축 해제 되어 있다고 가정)
+                return String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, layerDTO.getMiddleFolder(), filename);
             default :
                 return "NONE";
         }
@@ -393,5 +414,60 @@ public class LayerServiceImpl implements LayerService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Map<String, Integer> saveMultipleDataByModelList(List<LayerRowModel> models) {
+        int success = 0;
+        int failure = 0;
+
+        for(LayerRowModel model : models){
+            if(layerMapper.findByName(model.getName()) == null) {
+                LayerDTO dto = LayerRowModel.convertDTO(model);
+                String dataFilePath = loadCommonDataFilePath(dto, model.getFilename());
+
+                if (!dataFilePath.equals("NONE")) {
+                    if (new File(dataFilePath).exists()) { // 파일 존재 여부
+                        Date date = new Date();
+
+                        String layFilePath = String.format("%s%s/%s%s", dataPath, Constants.LAY_FILE_PATH, dto.getName(), Constants.LAY_SUFFIX);
+                        dto.setLayerFilePath(layFilePath.replaceAll(dataPath, ""));
+                        dto.setDataFilePath(dataFilePath.replaceAll(dataPath, ""));
+                        dto.setDefault(false);
+
+                        dto.setRegistTime(date);
+                        dto.setUpdateTime(date);
+                        dto.setVersion(Double.parseDouble(String.format("%.1f", Constants.DEFAULT_LAYER_VERSION)));     // 기본 1.0
+
+                        setCommonProperties(dto);
+
+                        if(layerMapper.insert(dto) > 0){
+                            try {
+                                String fileContext = MapServerUtil.fetchLayerFileContextWithDTO(defaultLayer, dataPath, dto);
+                                FileSystemUtil.createAtFile(layFilePath, fileContext);
+                            } catch (IOException e) {
+                                log.error("ERROR - " + e.getMessage());
+                                failure += 1;
+                                continue;
+                            }
+
+                            log.info(dto.getName() + " LAY 파일 생성 성공했습니다.");
+                            success += 1;
+                        }
+                    } else {
+                        failure += 1;
+                    }
+                } else {
+                    failure += 1;
+                }
+            } else {
+                failure += 1;
+            }
+        }
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("success", success);
+        map.put("failure", failure);
+        return map;
     }
 }

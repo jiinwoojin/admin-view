@@ -2,12 +2,14 @@ package com.jiin.admin.website.util;
 
 import com.jiin.admin.website.model.LayerRowModel;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -18,7 +20,96 @@ import java.util.List;
 // Excel 버전은 2010 이후를 기준으로 한다.
 @Slf4j
 public class SpreadSheetUtil {
-    private static final List<String> LAYER_FIELDS = Arrays.asList("name", "description", "projection", "middleFolder", "type", "originalDataPath");
+    private static final List<String> LAYER_FIELDS = Arrays.asList("name", "description", "projection", "type", "middleFolder", "filename");
+
+    // COLUMN 윗 테두리 색상 : Excel 테이블
+    private static CellStyle createTableHeadStyle(Workbook workbook){
+        CellStyle style = workbook.createCellStyle();
+
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setFillForegroundColor(IndexedColors.PALE_BLUE.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+        style.setBorderTop(BorderStyle.THIN);
+        style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderBottom(BorderStyle.THIN);
+        style.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderLeft(BorderStyle.THIN);
+        style.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+        style.setBorderRight(BorderStyle.THIN);
+        style.setRightBorderColor(IndexedColors.BLACK.getIndex());
+
+        return style;
+    }
+
+    /**
+     * LAYER Model Excel 파일을 기재하기 위한 SAMPLE XLSX 파일을 생성한다.
+     * @param
+     */
+    public static Workbook loadLayerRowModelSampleFile(){
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        XSSFSheet sheet = workbook.createSheet();
+
+        XSSFRow row = sheet.createRow(0);
+
+        for(int i = 0; i < 6; i++){
+            sheet.setColumnWidth(i, 7500);
+        }
+
+        CellStyle style = createTableHeadStyle(workbook);
+
+        XSSFCell cell;
+        cell = row.createCell(0);
+        cell.setCellValue("LAYER 이름");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(1);
+        cell.setCellValue("LAYER 제원");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(2);
+        cell.setCellValue("좌표계 (투영)");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(3);
+        cell.setCellValue("LAYER 종류");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(4);
+        cell.setCellValue("폴더 경로");
+        cell.setCellStyle(style);
+
+        cell = row.createCell(5);
+        cell.setCellValue("파일 이름");
+        cell.setCellStyle(style);
+
+        row = sheet.createRow(1);
+
+        cell = row.createCell(0);
+        cell.setCellValue("[LAYER 이름]");
+
+        cell = row.createCell(1);
+        cell.setCellValue("[LAYER 제원]");
+
+        cell = row.createCell(2);
+        cell.setCellValue("[EPSG:4326 or EPSG:3857]");
+
+        cell = row.createCell(3);
+        cell.setCellValue("[RASTER,VECTOR,CADRG]");
+
+        cell = row.createCell(4);
+        cell.setCellValue("[맨 앞과 뒤에 / 를 제외하고 입력]");
+
+        cell = row.createCell(5);
+        cell.setCellValue("[실존하는 파일 (tif,shp,zip)]");
+
+        return workbook;
+    }
+
+    /**
+     * 업로드한 Excel 파일을 받 뒤에 해당 LAYER Model 목록을 반환한다.
+     * @param file MultipartFile
+     */
     public static List<LayerRowModel> loadLayerRowModelListBySpreadSheet(MultipartFile file){
         if (file == null) {
             return new ArrayList<>();
@@ -58,4 +149,5 @@ public class SpreadSheetUtil {
             }
         }
     }
+
 }

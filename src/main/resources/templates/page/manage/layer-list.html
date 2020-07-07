@@ -407,8 +407,8 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="input-group">
-                        <form id="excel-upload" method="post" action="layer-excel-upload" accept-charset="utf-8" enctype="multipart/form-data">
+                    <form id="excel-upload" method="post" action="layer-excel-upload" accept-charset="utf-8" enctype="multipart/form-data">
+                        <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="___customFileAddonExcel" style="height: 33.5px;">
                                     Excel 파일
@@ -419,9 +419,21 @@
                                        aria-describedby="___customFileAddonExcel" name="excelFile">
                                 <label class="custom-file-label" for="___customFileExcel">파일 선택</label>
                             </div>
-                            <small>제공하는 Excel 의 확장자는 *.xlsx (2010 버전 이후) 입니다.</small>
-                            <hr/>
-                            <div class="text-right">
+                        </div>
+                        <p class="my-1">
+                            - 제공하는 Excel 의 확장자는 *.xlsx (2010 버전 이후) 입니다.<br/>
+                            - 지도 데이터 타입 및 파일 이름에는 RASTER (TIFF 파일), VECTOR (SHP 파일), CADRG (ZIP 파일) 을 작성하시면 됩니다.<br/>
+                            - EXCEL 파일 폴더명 및 지도 파일 데이터 이름은 메뉴얼에 기재된 디렉토리 안에 포함되어 있어야 등록이 가능합니다.<br/>
+                            - SAMPLE 파일을 입력할 때, 2번 행에 있는 대괄호 내용들은 지우고 작성하시길 바랍니다.
+                        </p>
+                        <hr/>
+                        <div class="d-flex justify-content-around">
+                            <div id="download-btn">
+                                <a class="btn btn-info" th:href="@{/view/manage/excel-sample-download}">
+                                    <i class="fas fa-file-download"></i> SAMPLE 파일 다운로드
+                                </a>
+                            </div>
+                            <div id="modal-btn">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
                                     <i class="fas fa-times"></i> 취소
                                 </button>
@@ -429,8 +441,8 @@
                                     <i class="fas fa-save"></i> 저장
                                 </button>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
