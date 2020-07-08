@@ -417,9 +417,9 @@ public class LayerServiceImpl implements LayerService {
     }
 
     @Override
+    // TODO : 관심사가 같은 코드에 대해 여러 번 작성하는 일이 생기면 안 된다. 개선할 수 있는 방법을 생각해보자.
     public Map<String, Integer> saveMultipleDataByModelList(List<LayerRowModel> models) {
         int success = 0;
-        int failure = 0;
 
         for(LayerRowModel model : models){
             if(layerMapper.findByName(model.getName()) == null) {
@@ -441,33 +441,34 @@ public class LayerServiceImpl implements LayerService {
 
                         setCommonProperties(dto);
 
-                        if(layerMapper.insert(dto) > 0){
+                        if (layerMapper.insert(dto) > 0) {
                             try {
                                 String fileContext = MapServerUtil.fetchLayerFileContextWithDTO(defaultLayer, dataPath, dto);
                                 FileSystemUtil.createAtFile(layFilePath, fileContext);
                             } catch (IOException e) {
                                 log.error("ERROR - " + e.getMessage());
-                                failure += 1;
-                                continue;
                             }
 
                             log.info(dto.getName() + " LAY 파일 생성 성공했습니다.");
                             success += 1;
+
+                            // 비록 지도 데이터는 서버에 바로 올리지만, 권한이 755 로 되어있진 않는 문제가 생겨서 이를 추가로 작성.
+                            if(!FileSystemUtil.isWindowOS()){
+                                String middleFirst = dto.getMiddleFolder().split("/")[0];
+                                try {
+                                    FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.DATA_PATH + String.format("/%s", middleFirst)));
+                                } catch (IOException e) {
+                                    log.error("ERROR - " + e.getMessage());
+                                }
+                            }
                         }
-                    } else {
-                        failure += 1;
                     }
-                } else {
-                    failure += 1;
                 }
-            } else {
-                failure += 1;
             }
         }
 
         Map<String, Integer> map = new HashMap<>();
         map.put("success", success);
-        map.put("failure", failure);
         return map;
     }
 }

@@ -86,7 +86,9 @@ public class MVCLayerController {
     public String postLayerExcelUpload(@RequestParam("excelFile") MultipartFile excelFile, LayerPageModel layerPageModel){
         List<LayerRowModel> rows = SpreadSheetUtil.loadLayerRowModelListBySpreadSheet(excelFile);
         Map<String, Integer> map = layerService.saveMultipleDataByModelList(rows);
-        session.message(String.format("EXCEL 파일에 기재된 LAYER 목록 %s 개 중 %s 개 성공, %s 개 실패 했습니다.", rows.size(), map.get("success"), map.get("failure")));
+        int success = map.getOrDefault("success", 0);
+        int size = rows.size();
+        session.message(String.format("EXCEL 파일에 기재된 LAYER 목록 %s 개 중 %s 개 성공, %s 개 실패 했습니다.", size, success, size - success));
         return String.format("redirect:layer-list?%s", layerPageModel.getQueryString());
     }
 
