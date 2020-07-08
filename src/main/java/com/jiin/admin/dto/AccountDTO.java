@@ -16,7 +16,7 @@ public class AccountDTO {
     @JsonIgnore
     private String password;
 
-    public AccountDTO(){
+    public AccountDTO() {
 
     }
 

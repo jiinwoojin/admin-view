@@ -15,7 +15,7 @@ public class RESTCheckController {
     private CheckService service;
 
     @PostMapping("duplicate")
-    public boolean duplicate(@RequestParam("type") String type, @RequestParam("name") String name){
+    public boolean duplicate(@RequestParam("type") String type, @RequestParam("name") String name) {
         return service.checkDuplicate(type, name);
     }
 }

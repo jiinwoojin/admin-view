@@ -14,7 +14,7 @@ public class GeoDockerContainerInfo extends GeoContainerInfo {
     private Date startTime;
     private Date finishTime;
 
-    public GeoDockerContainerInfo(){
+    public GeoDockerContainerInfo() {
         super("UNKNOWN", "UNKNOWN", 0);
         this.run = false;
         this.restart = false;

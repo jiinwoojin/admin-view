@@ -14,7 +14,7 @@ public class MapPageModel extends PageModel {
     private String iType; // Image Type (png, jpeg)
     private String units; // Unit (KM, MILEs, FEETs etc)
 
-    public MapPageModel(){
+    public MapPageModel() {
         super();
         this.sDate = "";
         this.eDate = "";
@@ -22,7 +22,7 @@ public class MapPageModel extends PageModel {
         this.iType = "ALL"; // Default Value
     }
 
-    public MapPageModel(int pg, int sz, int ob, int sb, String st, String sDate, String eDate, String iType, String units){
+    public MapPageModel(int pg, int sz, int ob, int sb, String st, String sDate, String eDate, String iType, String units) {
         super(pg, sz, ob, sb, st);
         this.sDate = sDate;
         this.eDate = eDate;
@@ -35,7 +35,7 @@ public class MapPageModel extends PageModel {
         try {
             String temp = (super.getSt() == null) ? "" : URLEncoder.encode(super.getSt(), "UTF-8");
             url = String.format("pg=%d&sz=%d&ob=%d&sb=%d&st=%s&sDate=%s&eDate=%s&iType=%s&units=%s", super.getPg(), super.getSz(), super.getOb(), super.getSb(), temp, this.sDate, this.eDate, this.iType, this.units);
-        } catch (UnsupportedEncodingException e){
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
         return url;

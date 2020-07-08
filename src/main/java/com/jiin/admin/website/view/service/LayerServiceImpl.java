@@ -68,11 +68,11 @@ public class LayerServiceImpl implements LayerService {
      * 새로운 LAYER 업로드 파일을 로컬에 옮기고 처리하기
      * @param layerDTO LayerDTO, uploadFile MultipartFile
      */
-    private void transferNewUploadFile(LayerDTO layerDTO, MultipartFile uploadFile){
+    private void transferNewUploadFile(LayerDTO layerDTO, MultipartFile uploadFile) {
         // 1단계. 레이어 리소스 파일 디렉토리 생성
         String dataDirStr = dataPath + Constants.DATA_PATH + "/" + layerDTO.getMiddleFolder();
         File dataDir = new File(dataDirStr);
-        if(!dataDir.exists()) dataDir.mkdirs();
+        if (!dataDir.exists()) dataDir.mkdirs();
 
         // 2단계. 레이어 리소스 파일 업로드 뒤 옮기기
         String filename = uploadFile.getOriginalFilename();
@@ -81,7 +81,7 @@ public class LayerServiceImpl implements LayerService {
             uploadFile.transferTo(dataFile);
 
             // SHP 파일인 경우에는 파일 압축 해제를 진행해야 한다.
-            if(layerDTO.getType().equals("VECTOR")){
+            if (layerDTO.getType().equals("VECTOR")) {
                 FileSystemUtil.decompressZipFile(dataFile);
                 FileSystemUtil.deleteFile(dataFile.getPath()); // 파일 업로드가 완료되면 삭제한다.
             }
@@ -90,7 +90,7 @@ public class LayerServiceImpl implements LayerService {
         }
 
         // 3단계. DATA 폴더 하단부로 755 권한 설정.
-        if(!FileSystemUtil.isWindowOS()) {
+        if (!FileSystemUtil.isWindowOS()) {
             try {
                 String middleFirst = layerDTO.getMiddleFolder().split("/")[0];
                 FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.DATA_PATH + String.format("/%s", middleFirst)));
@@ -105,10 +105,10 @@ public class LayerServiceImpl implements LayerService {
      * LAYER 리소스 파일을 삭제한다.
      * @param layerDTO LayerDTO
      */
-    private void removeLayerResourceFile(LayerDTO layerDTO){
+    private void removeLayerResourceFile(LayerDTO layerDTO) {
         String dataFilePath = dataPath + layerDTO.getDataFilePath();
         try {
-            switch(layerDTO.getType()){
+            switch(layerDTO.getType()) {
                 case "RASTER" :
                 case "CADRG" :
                     FileSystemUtil.deleteFile(dataFilePath);
@@ -127,7 +127,7 @@ public class LayerServiceImpl implements LayerService {
      * LAYER 데이터 중 추가 및 삭제 시 공통으로 설정할 수 있는 로직 정리
      * @param layerDTO LayerDTO
      */
-    private void setCommonProperties(LayerDTO layerDTO){
+    private void setCommonProperties(LayerDTO layerDTO) {
         // TODO : 굳이 setter 안 쓰고, Builder 를 사용해서 한 번에 실행하는 방법이 있을까? - Builder 패턴 알아볼 것
         String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         layerDTO.setRegistorId(loginUser);
@@ -139,8 +139,8 @@ public class LayerServiceImpl implements LayerService {
      * 실제 경로에 저장할 dataFilePath 를 구해주는 메소드
      * @param layerDTO LayerDTO
      */
-    private String loadCommonDataFilePath(LayerDTO layerDTO, MultipartFile uploadData){
-        switch(layerDTO.getType()){
+    private String loadCommonDataFilePath(LayerDTO layerDTO, MultipartFile uploadData) {
+        switch(layerDTO.getType()) {
             case "CADRG" :
             case "RASTER" :
                 // CADRG 인 경우 : /${data-dir}/${MIDDLE-FOLDER}/abc.zip
@@ -150,11 +150,11 @@ public class LayerServiceImpl implements LayerService {
             case "VECTOR" :
                 // VECTOR 인 경우 : /${data-dir}/${MIDDLE-FOLDER}/abc.shp
                 String shpFile = VectorShapeUtil.loadRealShpFileInZipFile(uploadData);
-                if(shpFile.equals("NONE")) {
+                if (shpFile.equals("NONE")) {
                     log.error("VECTOR ZIP 파일에는 *.SHP 파일이 꼭 포함되어 있어야 합니다.");
                     return "NONE";
                 }
-                if(!VectorShapeUtil.confirmIsZipFileContainsSHPFile(uploadData)) {
+                if (!VectorShapeUtil.confirmIsZipFileContainsSHPFile(uploadData)) {
                     log.error("VECTOR ZIP 파일에는 *.SHP, *.SHX, *.DBF 파일이 동봉되어 있어야 합니다.");
                     return "NONE";
                 }
@@ -169,8 +169,8 @@ public class LayerServiceImpl implements LayerService {
      * dataFilePath 를 구해주는 메소드 : FOR Excel Upload (Raster : abc.tif, Vector : abc.shp, Cadrg : abc.zip)
      * @param layerDTO LayerDTO
      */
-    private String loadCommonDataFilePath(LayerDTO layerDTO, String filename){
-        switch(layerDTO.getType()){
+    private String loadCommonDataFilePath(LayerDTO layerDTO, String filename) {
+        switch(layerDTO.getType()) {
             case "CADRG" :
             case "RASTER" :
             case "VECTOR" :
@@ -205,7 +205,7 @@ public class LayerServiceImpl implements LayerService {
      */
     @Override
     public Map<String, Object> loadDataListAndCountByPaginationModel(LayerPageModel layerPageModel) {
-        return new HashMap<String, Object>(){{
+        return new HashMap<String, Object>() {{
             put("data", layerMapper.findByPageModel(layerPageModel));
             put("count", layerMapper.countByPageModel(layerPageModel));
         }};
@@ -234,15 +234,15 @@ public class LayerServiceImpl implements LayerService {
      */
     @Override
     public boolean createData(LayerDTO layerDTO, MultipartFile uploadData) {
-        if(layerMapper.findByName(layerDTO.getName()) != null) return false;
-        if(uploadData == null || uploadData.getSize() <= 0) return false;
+        if (layerMapper.findByName(layerDTO.getName()) != null) return false;
+        if (uploadData == null || uploadData.getSize() <= 0) return false;
 
         Date date = new Date();
         String layFilePath = String.format("%s%s/%s%s", dataPath, Constants.LAY_FILE_PATH, layerDTO.getName(), Constants.LAY_SUFFIX);
 
         String dataFilePath = loadCommonDataFilePath(layerDTO, uploadData);
 
-        if(dataFilePath.equals("NONE")) return false;
+        if (dataFilePath.equals("NONE")) return false;
 
         layerDTO.setLayerFilePath(layFilePath.replaceAll(dataPath, ""));
         layerDTO.setDataFilePath(dataFilePath.replaceAll(dataPath, ""));
@@ -253,7 +253,7 @@ public class LayerServiceImpl implements LayerService {
         layerDTO.setVersion(Double.parseDouble(String.format("%.1f", Constants.DEFAULT_LAYER_VERSION)));     // 기본 1.0
         setCommonProperties(layerDTO);
 
-        if(layerMapper.insert(layerDTO) > 0){
+        if (layerMapper.insert(layerDTO) > 0) {
             // 1단계. DB 생성 이후 파일을 로컬에 옮긴다.
             transferNewUploadFile(layerDTO, uploadData);
 
@@ -280,7 +280,7 @@ public class LayerServiceImpl implements LayerService {
     @Override
     public boolean setData(LayerDTO layerDTO, MultipartFile uploadData) {
         LayerDTO selected = layerMapper.findByName(layerDTO.getName());
-        if(selected == null) return false;
+        if (selected == null) return false;
 
         layerDTO.setLayerFilePath(selected.getLayerFilePath());
 
@@ -288,7 +288,7 @@ public class LayerServiceImpl implements LayerService {
         boolean isChanged = !isUploaded && !layerDTO.getMiddleFolder().equals(selected.getMiddleFolder());
 
         String dataFilePath;
-        if(isUploaded) {
+        if (isUploaded) {
             dataFilePath = loadCommonDataFilePath(layerDTO, uploadData);
         } else {
             dataFilePath = Constants.DATA_PATH + "/" + layerDTO.getMiddleFolder() + selected.getDataFilePath().replace(Constants.DATA_PATH + "/" + selected.getMiddleFolder(), "");
@@ -303,10 +303,10 @@ public class LayerServiceImpl implements LayerService {
 
         String layFilePath = String.format("%s%s", dataPath, selected.getLayerFilePath());
 
-        if(dataFilePath.equals("NONE")) return false;
+        if (dataFilePath.equals("NONE")) return false;
 
         // 새로운 파일이 업로드 되거나 중간 디렉토리가 교체 되었다면...
-        if(isUploaded) {
+        if (isUploaded) {
             // 1단계. DB 갱신 이후 기존 레이어 리소스 파일 삭제
             removeLayerResourceFile(selected);
             // 2단계. 파일을 로컬에 옮긴다.
@@ -314,11 +314,11 @@ public class LayerServiceImpl implements LayerService {
         }
 
         // 경로가 바뀌면 위의 로직의 역순서로 진행.
-        if(isChanged) {
+        if (isChanged) {
             // 1단계. 파일을 로컬에 옮긴다.
             String source, target;
 
-            if(layerDTO.getType().equals("VECTOR")){
+            if (layerDTO.getType().equals("VECTOR")) {
                 source = dataPath + Constants.DATA_PATH + "/" + selected.getMiddleFolder();
                 target = dataPath + Constants.DATA_PATH + "/" + layerDTO.getMiddleFolder();
             } else {
@@ -330,7 +330,7 @@ public class LayerServiceImpl implements LayerService {
             File targetFile = new File(target);
 
             // 레이어 파일 타입이 VECTOR 인 경우 디렉토리 단위를 옮겨야 한다. (SHP, SHX, DBF 등)
-            if(layerDTO.getType().equals("VECTOR")) {
+            if (layerDTO.getType().equals("VECTOR")) {
                 try {
                     FileUtils.moveDirectory(sourceFile, targetFile);
                 } catch (IOException e) {
@@ -345,7 +345,7 @@ public class LayerServiceImpl implements LayerService {
                 removeLayerResourceFile(selected);
             }
 
-            if(!FileSystemUtil.isWindowOS()) {
+            if (!FileSystemUtil.isWindowOS()) {
                 // 디렉토리 변경이 끝나면 모든 권한을 755 로 설정.
                 try {
                     String middleFirst = layerDTO.getMiddleFolder().split("/")[0];
@@ -359,7 +359,7 @@ public class LayerServiceImpl implements LayerService {
         // 레이어 수정 전에 Map Version 관리도 추가 반영.
         mapVersionManagement.setLayerUpdateManage(layerDTO);
 
-        if(layerMapper.update(layerDTO) > 0) {
+        if (layerMapper.update(layerDTO) > 0) {
             // *.lay 파일 생성
             try {
                 String fileContext = MapServerUtil.fetchLayerFileContextWithDTO(defaultLayer, dataPath, layerDTO);
@@ -383,15 +383,15 @@ public class LayerServiceImpl implements LayerService {
     @Override
     public boolean removeData(long id) {
         LayerDTO selected = layerMapper.findById(id);
-        if(selected == null) return false;
+        if (selected == null) return false;
 
         mapLayerRelationMapper.deleteByLayerId(id);
 
         // 레이어 삭제 전에 Map Version 관리도 추가 반영.
         List<MapVersionDTO> mapVersions = mapVersionMapper.findByLayerId(id);
-        if(mapVersions.size() > 0) mapVersionManagement.setLayerRemoveManage(selected);
+        if (mapVersions.size() > 0) mapVersionManagement.setLayerRemoveManage(selected);
 
-        if(layerMapper.deleteById(id) > 0){
+        if (layerMapper.deleteById(id) > 0) {
             // 1단계. 리소스 파일 삭제
             removeLayerResourceFile(selected);
 
@@ -421,8 +421,8 @@ public class LayerServiceImpl implements LayerService {
     public Map<String, Integer> saveMultipleDataByModelList(List<LayerRowModel> models) {
         int success = 0;
 
-        for(LayerRowModel model : models){
-            if(layerMapper.findByName(model.getName()) == null) {
+        for (LayerRowModel model : models) {
+            if (layerMapper.findByName(model.getName()) == null) {
                 LayerDTO dto = LayerRowModel.convertDTO(model);
                 String dataFilePath = loadCommonDataFilePath(dto, model.getFilename());
 
@@ -453,7 +453,7 @@ public class LayerServiceImpl implements LayerService {
                             success += 1;
 
                             // 비록 지도 데이터는 서버에 바로 올리지만, 권한이 755 로 되어있진 않는 문제가 생겨서 이를 추가로 작성.
-                            if(!FileSystemUtil.isWindowOS()){
+                            if (!FileSystemUtil.isWindowOS()) {
                                 String middleFirst = dto.getMiddleFolder().split("/")[0];
                                 try {
                                     FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.DATA_PATH + String.format("/%s", middleFirst)));

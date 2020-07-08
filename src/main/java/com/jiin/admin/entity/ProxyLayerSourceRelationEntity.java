@@ -37,7 +37,7 @@ public class ProxyLayerSourceRelationEntity implements Serializable {
     @JoinColumn
     private ProxySourceEntity source;
 
-    public ProxyLayerSourceRelationEntity(){
+    public ProxyLayerSourceRelationEntity() {
 
     }
 

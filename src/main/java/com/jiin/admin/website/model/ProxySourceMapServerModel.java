@@ -16,12 +16,12 @@ public class ProxySourceMapServerModel {
     private String mapServerBinary;
     private String mapServerWorkDir;
 
-    public ProxySourceMapServerModel(){
+    public ProxySourceMapServerModel() {
         this.method = "INSERT";
         this.type = "mapserver";
     }
 
-    public ProxySourceMapServerModel(long id, String name, String type, String requestMap, String requestLayers, String mapServerBinary, String mapServerWorkDir){
+    public ProxySourceMapServerModel(long id, String name, String type, String requestMap, String requestLayers, String mapServerBinary, String mapServerWorkDir) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -31,8 +31,8 @@ public class ProxySourceMapServerModel {
         this.mapServerWorkDir = mapServerWorkDir;
     }
 
-    public static ProxySourceMapServerDTO convertDTO(ProxySourceMapServerModel model){
-        if(model == null) return null;
+    public static ProxySourceMapServerDTO convertDTO(ProxySourceMapServerModel model) {
+        if (model == null) return null;
         return new ProxySourceMapServerDTO(model.getId(), model.getName(), model.getType(), false, false, model.getRequestMap(), model.getRequestLayers(), model.getMapServerBinary(), model.getMapServerWorkDir());
     }
 }

@@ -11,7 +11,7 @@ public class ProxySourceMapServerDTO extends ProxySourceDTO {
     private String mapServerBinary;
     private String mapServerWorkDir;
 
-    public ProxySourceMapServerDTO(){
+    public ProxySourceMapServerDTO() {
         super();
     }
 

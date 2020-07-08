@@ -46,37 +46,37 @@ public class RESTTestController {
     private ProxyCacheMapper proxyCacheMapper;
 
     @GetMapping("map-list")
-    public List<MapDTO> getMapDTOList(){
+    public List<MapDTO> getMapDTOList() {
         return mapMapper.findAll();
     }
 
     @GetMapping("map-list-page-model")
-    public Map<String, Object> getMapDTOListByPageModel(MapPageModel mapPageModel){
+    public Map<String, Object> getMapDTOListByPageModel(MapPageModel mapPageModel) {
         return mapService.loadDataListAndCountByPaginationModel(mapPageModel);
     }
 
     @GetMapping("layer-list-page-model")
-    public Map<String, Object> getLayerDTOListByPageModel(LayerPageModel layerPageModel){
+    public Map<String, Object> getLayerDTOListByPageModel(LayerPageModel layerPageModel) {
         return layerService.loadDataListAndCountByPaginationModel(layerPageModel);
     }
 
     @GetMapping("layer-list")
-    public List<LayerDTO> getLayerDTOList(){
+    public List<LayerDTO> getLayerDTOList() {
         return layerMapper.findAll();
     }
 
     @GetMapping("symbol-list")
-    public List<SymbolPositionDTO> getSymbolPositionDTOList(){
+    public List<SymbolPositionDTO> getSymbolPositionDTOList() {
         return symbolPositionMapper.findAll();
     }
 
     @GetMapping("proxy-layer-list")
-    public List<ProxyLayerDTO> getProxyLayerDTOList(){
+    public List<ProxyLayerDTO> getProxyLayerDTOList() {
         return proxyLayerMapper.findAll();
     }
 
     @GetMapping("proxy-cache-list")
-    public List<ProxyCacheDTO> getProxyCacheDTOList(){
+    public List<ProxyCacheDTO> getProxyCacheDTOList() {
         return proxyCacheMapper.findAll();
     }
 

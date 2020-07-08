@@ -67,10 +67,10 @@ public class BootingService {
 
         File file = new File(jsonDir);
 
-        if(!file.exists()) return;
+        if (!file.exists()) return;
 
         Map<String, Object> data = mapper.readValue(file, new TypeReference<Map<String, Object>>() {});
-        for(String key : data.keySet()){
+        for (String key : data.keySet()) {
             Map<String, Integer> map = (Map<String, Integer>) data.get(key);
 
             Integer height = map.getOrDefault("height", -1);
@@ -79,10 +79,10 @@ public class BootingService {
             Integer xPos = map.getOrDefault("x", -1);
             Integer yPos = map.getOrDefault("y", -1);
 
-            if(height < 0 || width < 0 || pixelRatio < 0 || xPos < 0 || yPos < 0) continue;
+            if (height < 0 || width < 0 || pixelRatio < 0 || xPos < 0 || yPos < 0) continue;
 
             SymbolPositionEntity entity = symbolMapper.findPositionBySymbolName(key);
-            if(entity == null) {
+            if (entity == null) {
                 symbolMapper.insertWithSymbolPositionModel(
                     new SymbolPositionModel(0L, key, height, width, pixelRatio, xPos, yPos)
                 );
@@ -91,7 +91,7 @@ public class BootingService {
 
 //        entityManager.createQuery("DELETE FROM " + MapSymbol.class.getAnnotation(Entity.class).name()).executeUpdate();
 //        int i = 0;
-//        while(i++ < 10){
+//        while (i++ < 10) {
 //            MapSymbol symbol = new MapSymbol();
 //            symbol.setName("테스트");
 //            symbol.setCode("SYMBOL" + i);
@@ -129,21 +129,21 @@ public class BootingService {
         Map caches = (Map) mapproxy.get("caches");
         Map sources = (Map) mapproxy.get("sources");
         Map<String,MapSource> entity = new HashMap();
-        for(Object key : sources.keySet()){
+        for (Object key : sources.keySet()) {
             Map sourceMap = (Map) sources.get(key);
             Map sourceReqMap = (Map) sourceMap.get("req");
             MapSource source = new MapSource();
             source.setDefault(true); // default
             source.setName((String) key);
             source.setType((String) sourceMap.get("type"));
-            if(sourceReqMap != null){
+            if (sourceReqMap != null) {
                 source.setMapPath((String) sourceReqMap.get("map"));
                 source.setLayers("world"); // TODO : 추출작업 필요
             }
-            for(Object cacheKey : caches.keySet()){
+            for (Object cacheKey : caches.keySet()) {
                 Map cacheMap = (Map) caches.get(cacheKey);
                 List<String> cacheSources = (List<String>) cacheMap.get("sources");
-                if(cacheSources.contains(key)){
+                if (cacheSources.contains(key)) {
                     source.setUseCache(true);
                     source.setCacheName((String) cacheKey);
                     break;
@@ -155,14 +155,14 @@ public class BootingService {
             entityManager.persist(source);
             entity.put(source.isUseCache() ? source.getCacheName() : source.getName(),source);
         }
-        for(Map o : layers){
+        for (Map o : layers) {
             MapLayer layer = new MapLayer();
             layer.setDefault(true); // default
             layer.setName((String) o.get("name"));
             layer.setTitle((String) o.get("title"));
             List<String> sourceStrs = (List) o.get("sources");
             List<MapSource> sourceEntity = new ArrayList<>();
-            for(String sourceStr : sourceStrs){
+            for (String sourceStr : sourceStrs) {
                 sourceEntity.add(entity.get(sourceStr));
             }
             //layer.setSource(sourceEntity);
@@ -182,30 +182,30 @@ public class BootingService {
         // Map Server 에서 MAP 데이터 중 isDefault 가 true 인 데이터들만 YAML 파일에 초기화 하는 로직.
         /*
         Map<String, Object> settingMap = mapProxyYamlComponent.getMapProxyYamlFileMapObject();
-        if(settingMap != null){
+        if (settingMap != null) {
             List<Map<String, Object>> layers = (ArrayList<Map<String, Object>>) settingMap.getOrDefault("layers", null);
             Map<String, Object> sources = (Map<String, Object>) settingMap.getOrDefault("sources", null);
 
-            if(layers == null || sources == null) return;
+            if (layers == null || sources == null) return;
 
             // MapProxy sources 데이터 초기화
-            for(String key : sources.keySet()){
+            for (String key : sources.keySet()) {
                 Map<String, Object> source = (Map<String, Object>) sources.getOrDefault(key, null);
 
-                if(source != null){
+                if (source != null) {
                     MapEntity mapEntity = manageMapper.findMapEntityByName(key);
                     List<LayerEntity> layerEntities = manageMapper.findLayerEntitiesByMapId(mapEntity.getId());
 
-                    if(mapEntity != null) {
+                    if (mapEntity != null) {
                         ProxySourceModel model = new ProxySourceModel(0L, key, "mapserver", dataPath + mapEntity.getMapFilePath(), null, mapServerBinary, dataPath);
                         List<String> defaultLayer = new ArrayList<>();
-                        for(LayerEntity layer : layerEntities){
-                            if(layer.isDefault()){
+                        for (LayerEntity layer : layerEntities) {
+                            if (layer.isDefault()) {
                                 defaultLayer.add(layer.getName());
                             }
                         }
 
-                        if(defaultLayer.size() > 0) {
+                        if (defaultLayer.size() > 0) {
                             model.setRequestLayers(defaultLayer.stream().collect(Collectors.joining()));
                             if (checkMapper.countDuplicate(ProxySourceEntity.class.getAnnotation(Entity.class).name(), key) > 0) {
                                 cacheMapper.updateProxySourceInitWithModel(model);
@@ -225,12 +225,12 @@ public class BootingService {
     }
 
     @Transactional
-    public void initializeAccounts(){
-        if(checkMapper.countDuplicateAccount("admin") < 1){
+    public void initializeAccounts() {
+        if (checkMapper.countDuplicateAccount("admin") < 1) {
             RoleEntity adminRole = accountMapper.findRoleByTitle("ADMIN");
             accountMapper.insertAccount(new AccountDTO(null, "admin", "10e090c7f6089da649cd9649052fcfa9e8bdd1a73734453334cb98fcdde0", "관리자", "admin@ji-in.com", adminRole.getId()));
         }
-        if(checkMapper.countDuplicateAccount("user") < 1){
+        if (checkMapper.countDuplicateAccount("user") < 1) {
             RoleEntity userRole = accountMapper.findRoleByTitle("USER");
             accountMapper.insertAccount(new AccountDTO(null, "user", "10e090c7f6089da649cd9649052fcfa9e8bdd1a73734453334cb98fcdde0", "사용자", "user@ji-in.com", userRole.getId()));
         }
@@ -238,11 +238,11 @@ public class BootingService {
 
 
     @Transactional
-    public void initializeRoles(){
-        if(checkMapper.countDuplicateRole("ADMIN") < 1){
+    public void initializeRoles() {
+        if (checkMapper.countDuplicateRole("ADMIN") < 1) {
             accountMapper.insertRole(new RoleEntity(null, "ADMIN", "관리자", true, true, true, true, true));
         }
-        if(checkMapper.countDuplicateRole("USER") < 1){
+        if (checkMapper.countDuplicateRole("USER") < 1) {
             accountMapper.insertRole(new RoleEntity(null, "USER", "일반 사용자", false, false, false, false, false));
         }
     }

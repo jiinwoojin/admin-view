@@ -16,7 +16,7 @@ public class AccountRestController {
     private AccountService accountService;
 
     @GetMapping("list")
-    public List<AccountEntity> accountListJSON(){
+    public List<AccountEntity> accountListJSON() {
         return accountService.findAllAccounts();
     }
 }

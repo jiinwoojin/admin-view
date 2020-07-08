@@ -12,11 +12,11 @@ public class AccountModel {
     private String name;
     private String email;
 
-    public AccountModel(){
+    public AccountModel() {
 
     }
 
-    public AccountModel(String username, String password1, String password2, String name, String email){
+    public AccountModel(String username, String password1, String password2, String name, String email) {
         this.username = username;
         this.password1 = password1;
         this.password2 = password2;

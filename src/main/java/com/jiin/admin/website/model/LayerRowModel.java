@@ -14,7 +14,7 @@ public class LayerRowModel {
     private String middleFolder;
     private String filename;
 
-    public LayerRowModel(){
+    public LayerRowModel() {
 
     }
 
@@ -27,8 +27,8 @@ public class LayerRowModel {
         this.filename = filename;
     }
 
-    public static LayerDTO convertDTO(LayerRowModel model){
-        if(model == null) return null;
+    public static LayerDTO convertDTO(LayerRowModel model) {
+        if (model == null) return null;
         return new LayerDTO(0L, model.getName(), model.getDescription(), model.getProjection().toLowerCase(), model.getMiddleFolder(), model.getType());
     }
 }

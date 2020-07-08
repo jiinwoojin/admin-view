@@ -19,7 +19,7 @@ public class DockerUtil {
      * Unix 기반 Docker 를 가져온다. (Windows 는 TCP 환경 이외에 사용 불가.)
      * @param
      */
-    private static Docker fetchDefaultDocker(){
+    private static Docker fetchDefaultDocker() {
         return new UnixDocker(new File("/var/run/docker.sock"));
     }
 
@@ -27,7 +27,7 @@ public class DockerUtil {
      * Docker 에 있는 모든 Container 를 가져온다. 상태가 어떻게 됐든 간에.
      * @param
      */
-    private static List<Container> fetchAllContainers(){
+    private static List<Container> fetchAllContainers() {
         final Docker docker = fetchDefaultDocker();
         final Iterator<Container> iter = docker.containers().all();
 
@@ -39,10 +39,10 @@ public class DockerUtil {
      * 현재 Docker 가 가지고 있는 Container 들의 정보 중 일부를 반환한다.
      * @param
      */
-    public static List<Map<String, JsonObject>> fetchContainerMetaInfoByProperty(String property){
+    public static List<Map<String, JsonObject>> fetchContainerMetaInfoByProperty(String property) {
         List<Container> containers = fetchAllContainers();
         List<Map<String, JsonObject>> list = new ArrayList<>();
-        for(final Container container : containers){
+        for (final Container container : containers) {
             try {
                 JsonObject json = container.inspect();
                 String key = json.getString("Name");
@@ -63,12 +63,12 @@ public class DockerUtil {
      */
     public static JsonObject loadContainerByNameAndProperty(String name, String property) throws IOException {
         List<Container> containers = fetchAllContainers();
-        for(final Container container : containers){
+        for (final Container container : containers) {
             JsonObject json = container.inspect();
             String ctnName = json.getString("Name");
             ctnName = ctnName.replace("/", "");
 
-            if(ctnName.equalsIgnoreCase(name)) {
+            if (ctnName.equalsIgnoreCase(name)) {
                 return json.getJsonObject(property);
             }
         }
@@ -82,12 +82,12 @@ public class DockerUtil {
      */
     public static void executeContainerByNameAndMethod(String name, String method) throws IOException {
         List<Container> containers = fetchAllContainers();
-        for(final Container container : containers){
+        for (final Container container : containers) {
             JsonObject json = container.inspect();
             String ctnName = json.getString("Name");
             ctnName = ctnName.replace("/", "");
-            if(ctnName.equalsIgnoreCase(name)){
-                switch(method){
+            if (ctnName.equalsIgnoreCase(name)) {
+                switch(method) {
                     case "START" :
                         container.start();
                         return;
@@ -114,7 +114,7 @@ public class DockerUtil {
         String[] fileds = new String[]{"ID","Image","Command","CreatedAt","RunningFor","Ports","Status","Size","Names","Labels","Mounts","Networks"};
         String separator = "#";
         String command = "docker ps -a ";
-        if(!StringUtils.isEmpty(filter)){
+        if (!StringUtils.isEmpty(filter)) {
             command += "--filter name=" + filter + " ";
         }
         command += "--format \"table {{.";
@@ -123,14 +123,14 @@ public class DockerUtil {
         log.info(command);
         List<String> result = LinuxCommandUtil.fetchResultByLinuxCommonToList(command);
         List<Map> datas = new ArrayList<Map>();
-        for(String line:result){
+        for (String line:result) {
             String[] dataArr = line.split(separator);
-            if(dataArr[0].equalsIgnoreCase("CONTAINER ID")){
+            if (dataArr[0].equalsIgnoreCase("CONTAINER ID")) {
                 continue;
             }
             Map dataMap= new HashMap();
             int index = 0;
-            for(String data:dataArr){
+            for (String data:dataArr) {
                 dataMap.put(fileds[index++],data.trim());
             }
             datas.add(dataMap);

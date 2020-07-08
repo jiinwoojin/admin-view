@@ -16,29 +16,29 @@ public class CheckService {
     public boolean checkDuplicate(String type, String name) {
         String tableName;
 
-        if(type.equalsIgnoreCase("layer")){
+        if (type.equalsIgnoreCase("layer")) {
             tableName = LayerEntity.class.getAnnotation(Entity.class).name();
-        } else if(type.equalsIgnoreCase("map")){
+        } else if (type.equalsIgnoreCase("map")) {
             tableName = MapEntity.class.getAnnotation(Entity.class).name();
-        } else if(type.equalsIgnoreCase("proxylayer")){
+        } else if (type.equalsIgnoreCase("proxylayer")) {
             tableName = ProxyLayerEntity.class.getAnnotation(Entity.class).name();
-        } else if(type.equalsIgnoreCase("proxysource")){
+        } else if (type.equalsIgnoreCase("proxysource")) {
             tableName = ProxySourceEntity.class.getAnnotation(Entity.class).name();
-        } else if(type.equalsIgnoreCase("proxycache")){
+        } else if (type.equalsIgnoreCase("proxycache")) {
             tableName = ProxyCacheEntity.class.getAnnotation(Entity.class).name();
-        } else if(type.equalsIgnoreCase("account")){
+        } else if (type.equalsIgnoreCase("account")) {
             tableName = AccountEntity.class.getAnnotation(Entity.class).name();
-        } else if(type.equalsIgnoreCase("role")){
+        } else if (type.equalsIgnoreCase("role")) {
             tableName = RoleEntity.class.getAnnotation(Entity.class).name();
         } else {
             tableName = null;
         }
 
-        if(tableName != null) {
+        if (tableName != null) {
             int count;
-            if(tableName.equalsIgnoreCase("_ACCOUNT")) {
+            if (tableName.equalsIgnoreCase("_ACCOUNT")) {
                 count = mapper.countDuplicateAccount(name);
-            } else if(tableName.equalsIgnoreCase("_ROLE")) {
+            } else if (tableName.equalsIgnoreCase("_ROLE")) {
                 count = mapper.countDuplicateRole(name);
             } else {
                 count = mapper.countDuplicate(tableName, name);

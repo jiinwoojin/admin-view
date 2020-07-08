@@ -56,7 +56,7 @@ public class ProxyLayerEntity implements Persistable<Long> {
     @Column(name = "IS_DEFAULT")
     private Boolean isDefault;
 
-    public ProxyLayerEntity(){
+    public ProxyLayerEntity() {
         this.sources = new ArrayList<>();
     }
 

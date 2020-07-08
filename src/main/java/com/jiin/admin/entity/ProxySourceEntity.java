@@ -44,7 +44,7 @@ public abstract class ProxySourceEntity implements Persistable<Long> {
     @Column(name = "IS_DEFAULT")
     private Boolean isDefault;
 
-    public ProxySourceEntity(){
+    public ProxySourceEntity() {
 
     }
 

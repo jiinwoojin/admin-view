@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     // Resource 접속 인가 확인 배제.
     @Override
-    public void configure(WebSecurity web){
+    public void configure(WebSecurity web) {
         web.ignoring().antMatchers(
             "/css/**",
             "/gis/**",

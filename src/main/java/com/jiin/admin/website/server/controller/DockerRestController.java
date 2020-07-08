@@ -13,7 +13,7 @@ public class DockerRestController {
     private DockerService service;
 
     @PostMapping("reload")
-    public boolean reload(){
+    public boolean reload() {
         return service.restart();
     }
 }

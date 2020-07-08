@@ -26,9 +26,9 @@ public class YAMLFileUtil {
      * 설정 기반 MAP 데이터를 YAML 파일 내용으로 변환한다.
      * @Param map Map
      */
-    public static String fetchYAMLStringByMap(Map<String, Object> map, String type){
+    public static String fetchYAMLStringByMap(Map<String, Object> map, String type) {
         DumperOptions options = new DumperOptions();
-        switch(type){
+        switch(type) {
             case "AUTO" :
                 options.setDefaultFlowStyle(DumperOptions.FlowStyle.AUTO);
                 break;

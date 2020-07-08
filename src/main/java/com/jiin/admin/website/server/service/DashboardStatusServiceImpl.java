@@ -98,9 +98,9 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
         // RAM 정보
         // 2번 : 전체, 3번 : 사용, 7번 : 사용 가능 (단위 : MB)
         String cpuRes = LinuxCommandUtil.fetchShellContextByLinuxCommand("free -m | awk \'NR == 2 {print $2,$3,$7}\'");
-        if(cpuRes != null){
+        if (cpuRes != null) {
             String[] split = cpuRes.split(" ");
-            if(split.length == 3) {
+            if (split.length == 3) {
                 sp.setTotalMemory(Long.parseLong(split[0].trim()));
                 sp.setUsedMemory(Long.parseLong(split[1].trim()));
                 sp.setAvailableMemory(Long.parseLong(split[2].trim()));
@@ -112,9 +112,9 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
         // Disk 정보
         // 2번 : 전체, 3번 : 사용, 4번 : 나머지 (단위 : GB)
         String diskRes = LinuxCommandUtil.fetchShellContextByLinuxCommand("df -P | grep -v ^Filesystem | awk \'{sum_tot += $2; sum_used += $3; sum_rem += $4} END { print sum_tot/1024/1024, sum_used/1024/1024, sum_rem/1024/1024 }\'");
-        if(diskRes != null){
+        if (diskRes != null) {
             String[] split = diskRes.split(" ");
-            if(split.length > 0) {
+            if (split.length > 0) {
                 sp.setTotalCapacity(Double.parseDouble(split[0].trim()));
                 sp.setUsedCapacity(Double.parseDouble(split[1].trim()));
             } else {
@@ -124,7 +124,7 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
 
         // CPU 정보
         String cpuUsage = LinuxCommandUtil.fetchShellContextByLinuxCommand("mpstat | tail -1 | awk \'{print 100-$NF}\'");
-        if(cpuUsage != null){
+        if (cpuUsage != null) {
             sp.setCpuUsage(Double.parseDouble(cpuUsage.trim()));
         } else {
             errCnt += 1;
@@ -135,18 +135,18 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
         String nginxConnections = LinuxCommandUtil.fetchShellContextByLinuxCommand(String.format("curl -k -L https://%s/nginx_status", localInfo.getIp()));
         Pattern p = Pattern.compile("Active connections: ([0-9]*)");
         Matcher m = p.matcher(nginxConnections);
-        while(m.find()){
+        while (m.find()) {
             String tmp = m.group(1);
-            if(tmp != null){
+            if (tmp != null) {
                 sp.setConnections(Long.parseLong(tmp));
             } else {
                 errCnt += 1;
             }
         }
 
-        if(errCnt == 5){
+        if (errCnt == 5) {
             sp.setStatus("OFF");
-        } else if(errCnt != 0){
+        } else if (errCnt != 0) {
             sp.setStatus("ERROR");
         } else {
             sp.setStatus("ON");
@@ -163,12 +163,12 @@ public class DashboardStatusServiceImpl implements DashboardStatusService {
     public Map<String, GeoDockerContainerInfo> loadGeoDockerContainerStatus() {
         Map<String, GeoDockerContainerInfo> map = new HashMap<>();
         List<Map<String, JsonObject>> containers = DockerUtil.fetchContainerMetaInfoByProperty("State");
-        for(Map<String, JsonObject> ctn : containers){
-            if(ctn.containsKey("/" + MAP_PROXY_NAME) || ctn.containsKey("/" + MAP_SERVER_NAME) || ctn.containsKey("/" + MAPNIK_NAME) || ctn.containsKey("/" + HEIGHT_NAME) || ctn.containsKey("/" + RABBIT_MQ_NAME) || ctn.containsKey("/" + NGINX_NAME)) {
+        for (Map<String, JsonObject> ctn : containers) {
+            if (ctn.containsKey("/" + MAP_PROXY_NAME) || ctn.containsKey("/" + MAP_SERVER_NAME) || ctn.containsKey("/" + MAPNIK_NAME) || ctn.containsKey("/" + HEIGHT_NAME) || ctn.containsKey("/" + RABBIT_MQ_NAME) || ctn.containsKey("/" + NGINX_NAME)) {
                 String utcPattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'";
                 SimpleDateFormat sdf = new SimpleDateFormat(utcPattern);
 
-                for(String ctnKey : ctn.keySet()){
+                for (String ctnKey : ctn.keySet()) {
                     String key = ctnKey.replace("/", "");
                     key = key.toLowerCase();
                     JsonObject json = ctn.get(ctnKey);

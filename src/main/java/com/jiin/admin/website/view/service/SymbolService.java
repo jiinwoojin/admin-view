@@ -32,7 +32,7 @@ public class SymbolService {
     /**
      * SYMBOL 정렬 조건 옵션 목록
      */
-    public List<OptionModel> symbolOrderByOptions(){
+    public List<OptionModel> symbolOrderByOptions() {
         return Arrays.asList(
             new OptionModel("-- 정렬 방식 선택 --", 0),
             new OptionModel("이름 순서 정렬", 1),
@@ -44,7 +44,7 @@ public class SymbolService {
         );
     }
 
-    public Map<String, Object> findSymbolPositionsByPagination(int pg, int sz, int ob, String st){
+    public Map<String, Object> findSymbolPositionsByPagination(int pg, int sz, int ob, String st) {
         final Sort[] sorts = {
             Sort.by("id"),
             Sort.by("name"),
@@ -79,7 +79,7 @@ public class SymbolService {
         FileReader reader = new FileReader(jsonDir);
         BufferedReader bufReader = new BufferedReader(reader);
         String line = "";
-        while((line = bufReader.readLine()) != null){
+        while((line = bufReader.readLine()) != null) {
             sb.append(line + "\n");
         }
 
@@ -91,7 +91,7 @@ public class SymbolService {
         String imageDir = path + "/GSSSymbol.png";
 
         File image = new File(imageDir);
-        if(!image.exists()) return null;
+        if (!image.exists()) return null;
 
         InputStream is = new FileInputStream(image);
         BufferedImage bi = ImageIO.read(is);
@@ -107,7 +107,7 @@ public class SymbolService {
         String imageDir = path + "/GSSSymbol.png";
 
         File image = new File(imageDir);
-        if(!image.exists()) return null;
+        if (!image.exists()) return null;
 
         InputStream is = new FileInputStream(image);
         BufferedImage bi = ImageIO.read(is);

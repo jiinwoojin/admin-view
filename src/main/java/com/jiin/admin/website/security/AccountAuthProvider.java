@@ -24,11 +24,11 @@ public class AccountAuthProvider implements AuthenticationProvider {
         return authenticate(username, password);
     }
 
-    public Authentication authenticate(String username, String password){
+    public Authentication authenticate(String username, String password) {
         AccountEntity account = accountService.findByUsername(username);
         String passwd = EncryptUtil.encrypt(password, EncryptUtil.SHA256);
-        if(account == null) return null;
-        if(!account.getPassword().equals(passwd)) return null;
+        if (account == null) return null;
+        if (!account.getPassword().equals(passwd)) return null;
         return new AccountAuthentication(username, passwd, account.getAuthorities(), account);
     }
 
@@ -41,16 +41,16 @@ public class AccountAuthProvider implements AuthenticationProvider {
         private static final long serialVersionUID = 1L;
         private AccountEntity account;
 
-        public AccountAuthentication(String username, String password, Collection<? extends GrantedAuthority> collection, AccountEntity account){
+        public AccountAuthentication(String username, String password, Collection<? extends GrantedAuthority> collection, AccountEntity account) {
             super(username, password, collection);
             this.account = account;
         }
 
-        public AccountEntity getAccount(){
+        public AccountEntity getAccount() {
             return this.account;
         }
 
-        public void setAccount(AccountEntity account){
+        public void setAccount(AccountEntity account) {
             this.account = account;
         }
     }

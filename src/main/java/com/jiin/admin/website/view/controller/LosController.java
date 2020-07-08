@@ -135,7 +135,7 @@ public class LosController {
                 cnt++;
             }
 
-            if(cnt > -1) {
+            if (cnt > -1) {
 
                 //이미지 url
                 String url = minioClient.presignedGetObject(param.get("buckets").toString(), param.get("fileNm").toString(), 1);

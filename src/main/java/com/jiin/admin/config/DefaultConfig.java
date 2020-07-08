@@ -29,7 +29,7 @@ public class DefaultConfig {
     }
 
     @Bean
-    public ErrorProperties errorProperties(){
+    public ErrorProperties errorProperties() {
         return new ErrorProperties();
     }
 }

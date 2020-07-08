@@ -24,7 +24,7 @@ public class ServerBasicPerformance {
     // 접속자 수
     private long connections;
 
-    public ServerBasicPerformance(){
+    public ServerBasicPerformance() {
         this.serverName = "UNKNOWN";
         this.usedMemory = -1L;
         this.totalMemory = -1L;

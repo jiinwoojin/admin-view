@@ -23,7 +23,7 @@ public class SpreadSheetUtil {
     private static final List<String> LAYER_FIELDS = Arrays.asList("name", "description", "projection", "type", "middleFolder", "filename");
 
     // COLUMN 윗 테두리 색상 : Excel 테이블
-    private static CellStyle createTableHeadStyle(Workbook workbook){
+    private static CellStyle createTableHeadStyle(Workbook workbook) {
         CellStyle style = workbook.createCellStyle();
 
         style.setAlignment(HorizontalAlignment.CENTER);
@@ -46,13 +46,13 @@ public class SpreadSheetUtil {
      * LAYER Model Excel 파일을 기재하기 위한 SAMPLE XLSX 파일을 생성한다.
      * @param
      */
-    public static Workbook loadLayerRowModelSampleFile(){
+    public static Workbook loadLayerRowModelSampleFile() {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet();
 
         XSSFRow row = sheet.createRow(0);
 
-        for(int i = 0; i < 6; i++){
+        for (int i = 0; i < 6; i++) {
             sheet.setColumnWidth(i, 7500);
         }
 
@@ -110,7 +110,7 @@ public class SpreadSheetUtil {
      * 업로드한 Excel 파일을 받 뒤에 해당 LAYER Model 목록을 반환한다.
      * @param file MultipartFile
      */
-    public static List<LayerRowModel> loadLayerRowModelListBySpreadSheet(MultipartFile file){
+    public static List<LayerRowModel> loadLayerRowModelListBySpreadSheet(MultipartFile file) {
         if (file == null) {
             return new ArrayList<>();
         }
@@ -123,16 +123,16 @@ public class SpreadSheetUtil {
             try {
                 XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
                 XSSFSheet sheet = workbook.getSheetAt(0);
-                for(int i = 1; i <= sheet.getLastRowNum(); i++){
+                for (int i = 1; i <= sheet.getLastRowNum(); i++) {
                     XSSFRow row = sheet.getRow(i);
                     if (row != null) {
                         LayerRowModel model = new LayerRowModel();
                         Class clazz = model.getClass();
                         XSSFCell cell;
                         String context;
-                        for(int j = 0; j < LAYER_FIELDS.size(); j++){
+                        for (int j = 0; j < LAYER_FIELDS.size(); j++) {
                             cell = row.getCell(j);
-                            if(cell != null){
+                            if (cell != null) {
                                 context = cell.getStringCellValue();
                                 Field field = clazz.getDeclaredField(LAYER_FIELDS.get(j));
                                 field.setAccessible(true);

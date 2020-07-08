@@ -10,11 +10,11 @@ public class GeoBasicContainerInfo {
     private String version;
     private String license;
 
-    public GeoBasicContainerInfo(){
+    public GeoBasicContainerInfo() {
 
     }
 
-    public GeoBasicContainerInfo(String container, String version, String license){
+    public GeoBasicContainerInfo(String container, String version, String license) {
         this.container = container;
         this.version = version;
         this.license = license;

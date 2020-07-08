@@ -15,11 +15,11 @@ public class ContainerHistoryDTO {
     private String workedUser;
     private Date workedDate;
 
-    public ContainerHistoryDTO(){
+    public ContainerHistoryDTO() {
 
     }
 
-    public ContainerHistoryDTO(Long id, String name, String command, Boolean succeed, String workedUser, Date workedDate){
+    public ContainerHistoryDTO(Long id, String name, String command, Boolean succeed, String workedUser, Date workedDate) {
         this.id = id;
         this.name = name;
         this.command = command;

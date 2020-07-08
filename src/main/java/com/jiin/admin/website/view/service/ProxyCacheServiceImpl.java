@@ -54,7 +54,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     /**
      * YAML 파일 내용을 채취한 이후, 해당 디렉토리에 저장힌다.
      */
-    private boolean saveYAMLFileByEachList(){
+    private boolean saveYAMLFileByEachList() {
         List<ProxySourceMapServerDTO> mapServerDTOs = proxySourceMapper.findBySelectedMapServer(true);
         List<ProxySourceWMSDTO> wmsDTOs = proxySourceMapper.findBySelectedWMS(true);
         List<Object> dtos = Stream.of(mapServerDTOs, wmsDTOs).flatMap(o -> o.stream()).collect(Collectors.toList());
@@ -68,27 +68,27 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      * 각 해당하는 Relation 을 생성한다.
      * @param mainType String, subType String, mainId long, subNames List : String
      */
-    private boolean createRelationWithMainIdAndSubNames(String mainType, String subType, long mainId, List<String> subNames){
+    private boolean createRelationWithMainIdAndSubNames(String mainType, String subType, long mainId, List<String> subNames) {
         int cnt = subNames.size();
-        if(mainType.equals("LAYER") && subType.equals("SOURCE")){
+        if (mainType.equals("LAYER") && subType.equals("SOURCE")) {
             proxyLayerSourceRelationMapper.deleteByLayerId(mainId);
-            for(String key : subNames) {
+            for (String key : subNames) {
                 ProxySourceDTO subData = proxySourceMapper.findByName(key);
                 if (subData != null) {
                     cnt -= proxyLayerSourceRelationMapper.insertByRelationModel(new RelationModel(0L, mainId, subData.getId()));
                 }
             }
-        } else if(mainType.equals("LAYER") && subType.equals("CACHE")){
+        } else if (mainType.equals("LAYER") && subType.equals("CACHE")) {
             proxyLayerCacheRelationMapper.deleteByLayerId(mainId);
-            for(String key : subNames) {
+            for (String key : subNames) {
                 ProxyCacheDTO subData = proxyCacheMapper.findByName(key);
                 if (subData != null) {
                     cnt -= proxyLayerCacheRelationMapper.insertByRelationModel(new RelationModel(0L, mainId, subData.getId()));
                 }
             }
-        } else if(mainType.equals("CACHE") && subType.equals("SOURCE")){
+        } else if (mainType.equals("CACHE") && subType.equals("SOURCE")) {
             proxyCacheSourceRelationMapper.deleteByCacheId(mainId);
-            for(String key : subNames) {
+            for (String key : subNames) {
                 ProxySourceDTO subData = proxySourceMapper.findByName(key);
                 if (subData != null) {
                     cnt -= proxyCacheSourceRelationMapper.insertByRelationModel(new RelationModel(0L, mainId, subData.getId()));
@@ -132,7 +132,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     public Object loadDataList(String type) {
-        switch(type){
+        switch(type) {
             case "LAYERS" :
                 return proxyLayerMapper.findAll();
             case "SOURCES" :
@@ -158,7 +158,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     public Object loadDataListBySelected(String type, Boolean selected) {
-        switch(type){
+        switch(type) {
             case "LAYERS" :
                 return proxyLayerMapper.findBySelected(selected);
             case "SOURCES" :
@@ -176,13 +176,13 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     @Override
     public ProxySelectResponseModel loadProxySetting() {
         return new ProxySelectResponseModel(
-            proxyLayerMapper.findBySelected(true).stream().map(o -> new HashMap<String, Object>(){{
+            proxyLayerMapper.findBySelected(true).stream().map(o -> new HashMap<String, Object>() {{
                 put("layer", o.getName());
                 put("sources", o.getSources().stream().map(ProxySourceDTO::getName).collect(Collectors.toList()));
                 put("caches", o.getCaches().stream().map(ProxyCacheDTO::getName).collect(Collectors.toList()));
             }}).collect(Collectors.toList()),
             proxySourceMapper.findBySelected(true).stream().map(ProxySourceDTO::getName).collect(Collectors.toList()),
-            proxyCacheMapper.findBySelected(true).stream().map(o -> new HashMap<String, Object>(){{
+            proxyCacheMapper.findBySelected(true).stream().map(o -> new HashMap<String, Object>() {{
                 put("cache", o.getName());
                 put("sources", o.getSources().stream().map(ProxySourceDTO::getName).collect(Collectors.toList()));
             }}).collect(Collectors.toList())
@@ -198,9 +198,9 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     public boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel, boolean synced) {
         ProxyLayerDTO layer = proxyLayerMapper.findByName(proxyLayerModel.getName());
         ProxyLayerDTO dto;
-        switch(proxyLayerModel.getMethod()){
+        switch(proxyLayerModel.getMethod()) {
             case "INSERT" :
-                if(layer != null) return false;
+                if (layer != null) return false;
                 long nextIdx = proxyLayerMapper.findNextSeqVal();
                 proxyLayerModel.setId(nextIdx);
                 dto = ProxyLayerModel.convertDTO(proxyLayerModel);
@@ -208,7 +208,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 dto.setSelected(false);
                 return proxyLayerMapper.insert(dto) > 0 && createRelationWithMainIdAndSubNames("LAYER", "SOURCE", nextIdx, proxyLayerModel.getSources()) && createRelationWithMainIdAndSubNames("LAYER", "CACHE", nextIdx, proxyLayerModel.getCaches()) && saveYAMLFileByEachList();
             case "UPDATE" :
-                if(layer == null) return false;
+                if (layer == null) return false;
                 dto = ProxyLayerModel.convertDTO(proxyLayerModel);
                 dto.setIsDefault(layer.getIsDefault());
                 dto.setSelected(layer.getSelected());
@@ -227,9 +227,9 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     public boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel, boolean synced) {
         ProxySourceDTO root = proxySourceMapper.findByName(proxySourceMapServerModel.getName());
         ProxySourceMapServerDTO dto;
-        switch(proxySourceMapServerModel.getMethod()){
+        switch(proxySourceMapServerModel.getMethod()) {
             case "INSERT" :
-                if(root != null) return false;
+                if (root != null) return false;
                 long nextIdx = proxySourceMapper.findNextSeqVal();
                 proxySourceMapServerModel.setId(nextIdx);
                 dto = ProxySourceMapServerModel.convertDTO(proxySourceMapServerModel);
@@ -237,7 +237,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 dto.setSelected(false);
                 return proxySourceMapper.insert(dto) > 0 && proxySourceMapper.insertMapServer(dto) > 0 && saveYAMLFileByEachList();
             case "UPDATE" :
-                if(root == null) return false;
+                if (root == null) return false;
                 dto = ProxySourceMapServerModel.convertDTO(proxySourceMapServerModel);
                 dto.setId(root.getId());
                 dto.setIsDefault(root.getIsDefault());
@@ -287,9 +287,9 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     public boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel, boolean synced) {
         ProxyCacheDTO cache = proxyCacheMapper.findByName(proxyCacheModel.getName());
         ProxyCacheDTO dto;
-        switch(proxyCacheModel.getMethod()){
+        switch(proxyCacheModel.getMethod()) {
             case "INSERT" :
-                if(cache != null) return false;
+                if (cache != null) return false;
                 long nextIdx = proxyCacheMapper.findNextSeqVal();
                 proxyCacheModel.setId(nextIdx);
                 dto = ProxyCacheModel.convertDTO(proxyCacheModel);
@@ -297,7 +297,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 dto.setSelected(false);
                 return proxyCacheMapper.insert(dto) > 0 && createRelationWithMainIdAndSubNames("CACHE", "SOURCE", nextIdx, proxyCacheModel.getSources()) && saveYAMLFileByEachList();
             case "UPDATE" :
-                if(cache == null) return false;
+                if (cache == null) return false;
                 dto = ProxyCacheModel.convertDTO(proxyCacheModel);
                 dto.setIsDefault(cache.getIsDefault());
                 dto.setSelected(cache.getSelected());
@@ -330,7 +330,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     @Override
     @Transactional
     public boolean removeProxyDataByIdAndType(long id, String type) {
-        switch(type.toUpperCase()){
+        switch(type.toUpperCase()) {
             case "LAYER" :
                 proxyLayerSourceRelationMapper.deleteByLayerId(id);
                 proxyLayerCacheRelationMapper.deleteByLayerId(id);
@@ -364,7 +364,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
 
     @Override
     public boolean removeProxyDataByNameAndType(String name, String type) {
-        switch(type.toUpperCase()){
+        switch(type.toUpperCase()) {
             case "LAYER" :
                 ProxyLayerDTO layerDTO = proxyLayerMapper.findByName(name);
                 if (layerDTO == null) {
@@ -405,13 +405,13 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         proxySourceMapper.updateSelectedAllDisabled();
         proxyCacheMapper.updateSelectedAllDisabled();
 
-        if(proxySelectModel.getLayers().size() > 0) {
+        if (proxySelectModel.getLayers().size() > 0) {
             proxyLayerMapper.updateSelectedByNameIn(proxySelectModel.getLayers(), true);
         }
-        if(proxySelectModel.getSources().size() > 0) {
+        if (proxySelectModel.getSources().size() > 0) {
             proxySourceMapper.updateSelectedByNameIn(proxySelectModel.getSources(), true);
         }
-        if(proxySelectModel.getCaches().size() > 0) {
+        if (proxySelectModel.getCaches().size() > 0) {
             proxyCacheMapper.updateSelectedByNameIn(proxySelectModel.getCaches(), true);
         }
 

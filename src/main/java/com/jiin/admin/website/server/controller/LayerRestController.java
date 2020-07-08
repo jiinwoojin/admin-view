@@ -23,7 +23,7 @@ public class LayerRestController {
     private ManageService manageService;
 
     @PostMapping("load-tegola-config")
-    public Map loadTegolaConfig(){
+    public Map loadTegolaConfig() {
         return tgservice.loadTegolaConfig();
     }
 
@@ -33,17 +33,17 @@ public class LayerRestController {
     }
 
     @GetMapping("options/ob")
-    public List<OptionModel> orderByOptions(){
+    public List<OptionModel> orderByOptions() {
         return manageService.layerOrderByOptions();
     }
 
     @GetMapping("options/sb")
-    public List<OptionModel> searchByOptions(){
+    public List<OptionModel> searchByOptions() {
         return manageService.layerSearchByOptions();
     }
 
     @GetMapping("search-by-map-id/{mapId}")
-    public List<LayerEntity> findByMapId(@PathVariable long mapId){
+    public List<LayerEntity> findByMapId(@PathVariable long mapId) {
         return manageService.findLayerEntitiesByMapId(mapId);
     }
 }

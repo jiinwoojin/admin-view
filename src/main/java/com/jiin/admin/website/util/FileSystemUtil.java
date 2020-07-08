@@ -24,7 +24,7 @@ public class FileSystemUtil {
     /**
      * 운영체제가 Windows 인지 확인하는 함수
      */
-    public static boolean isWindowOS(){
+    public static boolean isWindowOS() {
         return System.getProperty("os.name").toLowerCase().contains("win");
     }
 
@@ -32,11 +32,11 @@ public class FileSystemUtil {
      * 수치를 받으면 이진수 배열로 만들어 주는 함수
      * @Param value int
      */
-    public static boolean[] getBinaryNumberArrayByInteger(int value){
-        if(value < 0) return null;
+    public static boolean[] getBinaryNumberArrayByInteger(int value) {
+        if (value < 0) return null;
         int idx = 2;
         boolean[] array = new boolean[3];
-        while(idx >= 0){
+        while (idx >= 0) {
             array[idx] = value % 2 == 1;
             value /= 2;
             idx -= 1;
@@ -60,23 +60,23 @@ public class FileSystemUtil {
 
         boolean[] arr;
         Set<PosixFilePermission> permissionSet = Files.readAttributes(file, PosixFileAttributes.class).permissions();
-        for(String key : map.keySet()){
+        for (String key : map.keySet()) {
             arr = getBinaryNumberArrayByInteger(map.get(key));
-            switch(key){
+            switch(key) {
                 case "own" :
-                    if(arr[0]) permissionSet.add(PosixFilePermission.OWNER_READ);
-                    if(arr[1]) permissionSet.add(PosixFilePermission.OWNER_WRITE);
-                    if(arr[2]) permissionSet.add(PosixFilePermission.OWNER_EXECUTE);
+                    if (arr[0]) permissionSet.add(PosixFilePermission.OWNER_READ);
+                    if (arr[1]) permissionSet.add(PosixFilePermission.OWNER_WRITE);
+                    if (arr[2]) permissionSet.add(PosixFilePermission.OWNER_EXECUTE);
                     break;
                 case "group" :
-                    if(arr[0]) permissionSet.add(PosixFilePermission.GROUP_READ);
-                    if(arr[1]) permissionSet.add(PosixFilePermission.GROUP_WRITE);
-                    if(arr[2]) permissionSet.add(PosixFilePermission.GROUP_EXECUTE);
+                    if (arr[0]) permissionSet.add(PosixFilePermission.GROUP_READ);
+                    if (arr[1]) permissionSet.add(PosixFilePermission.GROUP_WRITE);
+                    if (arr[2]) permissionSet.add(PosixFilePermission.GROUP_EXECUTE);
                     break;
                 case "other" :
-                    if(arr[0]) permissionSet.add(PosixFilePermission.OTHERS_READ);
-                    if(arr[1]) permissionSet.add(PosixFilePermission.OTHERS_WRITE);
-                    if(arr[2]) permissionSet.add(PosixFilePermission.OTHERS_EXECUTE);
+                    if (arr[0]) permissionSet.add(PosixFilePermission.OTHERS_READ);
+                    if (arr[1]) permissionSet.add(PosixFilePermission.OTHERS_WRITE);
+                    if (arr[2]) permissionSet.add(PosixFilePermission.OTHERS_EXECUTE);
                     break;
             }
         }
@@ -98,11 +98,11 @@ public class FileSystemUtil {
      * @throws IOException ioexception
      */
     public static void setFileDefaultPermissionsWithFileDirectory(File file) throws IOException {
-        if(!file.exists()) return;
+        if (!file.exists()) return;
         setFileDefaultPermissions(file.toPath());
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            for(File f : files){
+            for (File f : files) {
                 setFileDefaultPermissionsWithFileDirectory(f);
             }
         }
@@ -140,7 +140,7 @@ public class FileSystemUtil {
         }
 
         File file = new File(filePath);
-        if(!file.exists()) {
+        if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
@@ -183,7 +183,7 @@ public class FileSystemUtil {
             FileUtils.forceDelete(FileUtils.getFile(filePath));
         } else {
             File directory = new File(filePath);
-            if(directory.exists()) {
+            if (directory.exists()) {
                 File[] children = directory.listFiles();
                 for (File file : children) {
                     if (file.isFile()) {
@@ -202,7 +202,7 @@ public class FileSystemUtil {
      * 파일 이동
      * @param beforePath 파일 경로, newPath 파일 경로
      */
-    public static void moveFile(String beforePath, String newPath){
+    public static void moveFile(String beforePath, String newPath) {
         File bFile = new File(beforePath);
         String fileName = bFile.getName();
 
@@ -218,17 +218,17 @@ public class FileSystemUtil {
      * ZIP 파일 압축 해제
      * @param zipFile File, directory String
      */
-    public static void decompressZipFile(File zipFile){
+    public static void decompressZipFile(File zipFile) {
         String directory = zipFile.getParent();
         try(
             FileInputStream fis = new FileInputStream(zipFile);
             ZipInputStream zis = new ZipInputStream(fis);
-        ){
+        ) {
             ZipEntry entry;
-            while((entry = zis.getNextEntry()) != null){
+            while ((entry = zis.getNextEntry()) != null) {
                 String filename = entry.getName();
                 File file = new File(directory, filename);
-                if(entry.isDirectory()){
+                if (entry.isDirectory()) {
                     file.mkdirs();
                 } else {
                     saveFileInZipStream(file, zis);
@@ -246,11 +246,11 @@ public class FileSystemUtil {
      */
     private static void saveFileInZipStream(File file, ZipInputStream zis) {
         File parent = new File(file.getParent());
-        if(!parent.exists()) parent.mkdirs();
-        try(FileOutputStream fos = new FileOutputStream(file)){
+        if (!parent.exists()) parent.mkdirs();
+        try(FileOutputStream fos = new FileOutputStream(file)) {
             byte[] buffer = new byte[1024];
             int size = 0;
-            while((size = zis.read(buffer)) > 0){
+            while ((size = zis.read(buffer)) > 0) {
                 fos.write(buffer, 0, size);
             }
         } catch (IOException e) {
@@ -263,7 +263,7 @@ public class FileSystemUtil {
      * @param from File, to File
      */
     private static void copyDirectory(File from, File to) throws IOException {
-        if(from.isFile()) {
+        if (from.isFile()) {
             FileUtils.copyFile(from, to);
         } else {
             FileUtils.copyDirectoryToDirectory(from, to);
@@ -274,7 +274,7 @@ public class FileSystemUtil {
      * 파일 확장자 추출
      * @Param filename String
      */
-    public static String loadFileExtensionName(String filename){
+    public static String loadFileExtensionName(String filename) {
         String[] split = filename.split("\\.");
         return split[split.length - 1].toLowerCase();
     }
@@ -283,15 +283,15 @@ public class FileSystemUtil {
      * ZIP 파일 생성 메소드
      * @param dataPath String, zipPath String, filename String, paths List of Strings
      */
-    public static File saveZipFileWithPaths(String dataPath, String zipPath, String filename, List<Map<String, String>> paths){
+    public static File saveZipFileWithPaths(String dataPath, String zipPath, String filename, List<Map<String, String>> paths) {
         // 처음에는 ZIP 파일 존재 여부를 확인한다.
         File zipFile = Paths.get(zipPath, filename).toFile();
-        if(zipFile.exists()) {
+        if (zipFile.exists()) {
             try {
                 decompressZipFile(zipFile);
                 deleteFile(zipFile.getPath());
-                for(File file : new File(zipPath).listFiles()){
-                    if(file.isDirectory()){
+                for (File file : new File(zipPath).listFiles()) {
+                    if (file.isDirectory()) {
                         copyDirectory(file, new File(String.format("%s/%s", zipPath, filename.replace(".zip", ""))));
                         deleteFile(file.getPath());
                     }
@@ -301,7 +301,7 @@ public class FileSystemUtil {
             }
         }
 
-        for(Map<String, String> path : paths) {
+        for (Map<String, String> path : paths) {
             if (path.containsKey("vrtFilePath")) {
                 File file = Paths.get(dataPath, path.get("vrtFilePath")).toFile();
                 try {
@@ -312,7 +312,7 @@ public class FileSystemUtil {
                 }
             } else {
                 File file = new File(dataPath + path.get("dataFilePath"));
-                if(loadFileExtensionName(file.getName()).equals("tif")) { // RASTER (TIF) 대응
+                if (loadFileExtensionName(file.getName()).equals("tif")) { // RASTER (TIF) 대응
                     try {
                         File tmpFile = new File(String.format("%s/%s%s", zipPath, filename.replace(".zip", ""), path.get("dataFilePath").replaceFirst(Constants.DATA_PATH, "")));
                         copyDirectory(file, tmpFile);
@@ -324,7 +324,7 @@ public class FileSystemUtil {
                     try {
                         String[] split = path.get("middleFolder").split("/");
                         String tmpPath = split.length > 0 ? path.get("middleFolder") : "";
-                        if(split.length > 0){
+                        if (split.length > 0) {
                             tmpPath = tmpPath.replaceFirst("(?s)(.*)" + split[split.length - 1], "$1");
                         }
                         File tmpDir = new File(String.format("%s/%s/%s", zipPath, filename.replace(".zip", ""), tmpPath));
@@ -341,7 +341,7 @@ public class FileSystemUtil {
             ZipOutputStream zipOut = new ZipOutputStream(fos);
             File fileToZip = new File(zipPath + "/" + filename.replace(".zip", ""));
 
-            for(File file : fileToZip.listFiles()) {
+            for (File file : fileToZip.listFiles()) {
                 zipFile(file, file.getName(), zipOut);
             }
 

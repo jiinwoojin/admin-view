@@ -20,7 +20,7 @@ public class ProxySourceWMSModel {
     private Boolean requestTransparent;
     private String supportedSrs;
 
-    public ProxySourceWMSModel(){
+    public ProxySourceWMSModel() {
         this.method = "INSERT";
         this.type = "wms";
     }
@@ -39,8 +39,8 @@ public class ProxySourceWMSModel {
         this.supportedSrs = supportedSRS;
     }
 
-    public static ProxySourceWMSDTO convertDTO(ProxySourceWMSModel model){
-        if(model == null) return null;
+    public static ProxySourceWMSDTO convertDTO(ProxySourceWMSModel model) {
+        if (model == null) return null;
         return new ProxySourceWMSDTO(model.getId(), model.getName(), model.getType(), false, false, model.getConcurrentRequests(), model.getWmsOptsVersion(), model.getHttpClientTimeout(), model.getRequestUrl(), model.getRequestMap(), model.getRequestLayers(), model.getRequestTransparent(), model.getSupportedSrs());
     }
 }

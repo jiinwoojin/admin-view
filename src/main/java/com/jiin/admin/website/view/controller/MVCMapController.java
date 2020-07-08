@@ -39,7 +39,7 @@ public class MVCMapController {
      * @param model Model, mapPageModel MapPageModel
      */
     @RequestMapping("map-list")
-    public String pageMapList(Model model, MapPageModel mapPageModel){
+    public String pageMapList(Model model, MapPageModel mapPageModel) {
         model.addAttribute("resMap", mapService.loadDataListAndCountByPaginationModel(mapPageModel));
         model.addAttribute("obList", mapService.loadOrderByOptionList());
         model.addAttribute("sbList", mapService.loadSearchByOptionList());
@@ -53,7 +53,7 @@ public class MVCMapController {
      * @param model Model, mapDTO MapDTO, mapPageModel MapPageModel
      */
     @RequestMapping("map-create")
-    public String pageMapCreate(Model model, @ModelAttribute MapDTO mapDTO, MapPageModel mapPageModel){
+    public String pageMapCreate(Model model, @ModelAttribute MapDTO mapDTO, MapPageModel mapPageModel) {
         model.addAttribute("layers", layerService.loadDataList());
         model.addAttribute("qs", mapPageModel.getQueryString());
 
@@ -76,7 +76,7 @@ public class MVCMapController {
      * @param model Model, id long, mapDTO MapDTO, mapPageModel MapPageModel
      */
     @RequestMapping("map-update")
-    public String pageMapUpdate(Model model, @RequestParam long id, MapPageModel mapPageModel){
+    public String pageMapUpdate(Model model, @RequestParam long id, MapPageModel mapPageModel) {
         model.addAttribute("mapDTO", mapService.loadDataById(id));
         model.addAttribute("version", mapService.loadVersionInfoListById(id));
         model.addAttribute("selectLayers", layerService.loadDataListByMapId(id));
@@ -91,14 +91,14 @@ public class MVCMapController {
      * @param zipPathFile String, response HttpServletResponse
      */
     @RequestMapping("zip-download")
-    public void pageMapVersionZipDownload(@RequestParam("zipPathFile") String zipPathFile, HttpServletResponse response){
+    public void pageMapVersionZipDownload(@RequestParam("zipPathFile") String zipPathFile, HttpServletResponse response) {
         File file = new File(dataPath + zipPathFile);
-        if(file.isFile()) {
+        if (file.isFile()) {
             response.setContentType("application/octet-stream");
             response.setContentLength((int) file.length());
             response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\";");
             response.setHeader("Content-Transfer-Encoding", "binary");
-            try(BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream())){
+            try(BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream())) {
                 output.write(Files.readAllBytes(file.toPath()));
             } catch (IOException e) {
                 e.printStackTrace();

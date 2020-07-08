@@ -14,7 +14,7 @@ public class SymbolPositionDTO {
     private Integer xPos;
     private Integer yPos;
 
-    public SymbolPositionDTO(){
+    public SymbolPositionDTO() {
 
     }
 }

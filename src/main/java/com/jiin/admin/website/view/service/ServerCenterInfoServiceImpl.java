@@ -27,7 +27,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     /**
      * 배열의 인덱스를 바꾸는 메소드
      */
-    private void swap(String[] arr, int a, int b){
+    private void swap(String[] arr, int a, int b) {
         String tmp = arr[a];
         arr[a] = arr[b];
         arr[b] = tmp;
@@ -64,14 +64,14 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     /**
      * YAML 파일을 기반으로 서버 설정 목록을 생성한다.
      */
-    private List<ServerCenterInfo> loadDataListAtYAMLFile(){
+    private List<ServerCenterInfo> loadDataListAtYAMLFile() {
         Map<String, Object> map = this.loadMapDataAtYAMLFile();
-        if(map == null) return new ArrayList<>();
-        if(map.containsKey("remote")) {
+        if (map == null) return new ArrayList<>();
+        if (map.containsKey("remote")) {
             List<ServerCenterInfo> list = new ArrayList<>();
             Map<String, Object> remoteMap = (Map<String, Object>) map.get("remote");
-            for(String key : remoteMap.keySet()){
-                if(!key.equals("count"))
+            for (String key : remoteMap.keySet()) {
+                if (!key.equals("count"))
                     list.add(ServerCenterInfo.convertDTO(key, (Map<String, Object>) remoteMap.get(key)));
             }
             return list;
@@ -82,9 +82,9 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
      * YAML 파일에 서버 정보 데이터들을 저장해서 YAML 파일을 재작성한다.
      * @param remotes List of ServerCenterInfo
      */
-    private boolean saveServerInfosAtYAMLFile(ServerCenterInfo local, List<ServerCenterInfo> remotes){
+    private boolean saveServerInfosAtYAMLFile(ServerCenterInfo local, List<ServerCenterInfo> remotes) {
         Map<String, Object> map = this.loadMapDataAtYAMLFile();
-        if(map == null) return false;
+        if (map == null) return false;
 
         String mainPath = dataPath + Constants.SERVER_INFO_FILE_PATH + "/" + Constants.SERVER_INFO_FILE_NAME;
 
@@ -120,13 +120,13 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     public String[] loadZoneList() {
         Map<String, Object> map = this.loadMapDataAtYAMLFile();
         ServerCenterInfo local = this.loadLocalInfoData();
-        if(map == null) return new String[0];
+        if (map == null) return new String[0];
         else {
             Map<String, Object> configMap = (Map<String, Object>) map.get("config");
             String zones = (String) configMap.get("zone");
             String[] zoneArray = zones.split(",");
-            if(local.getZone().equalsIgnoreCase("U3")) swap(zoneArray, 0, 1);
-            if(local.getZone().equalsIgnoreCase("GOC")) {
+            if (local.getZone().equalsIgnoreCase("U3")) swap(zoneArray, 0, 1);
+            if (local.getZone().equalsIgnoreCase("GOC")) {
                 swap(zoneArray, 0, 2);
                 swap(zoneArray, 1, 2);
             }
@@ -140,7 +140,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     @Override
     public String[] loadKindList() {
         Map<String, Object> map = this.loadMapDataAtYAMLFile();
-        if(map == null) return new String[0];
+        if (map == null) return new String[0];
         else {
             Map<String, Object> configMap = (Map<String, Object>) map.get("config");
             String kinds = (String) configMap.get("kind");
@@ -175,10 +175,10 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         List<ServerCenterInfo> servers = this.loadDataListAtYAMLFile();
 
         ServerCenterInfo local = this.loadLocalInfoData();
-        if(local != null) servers.add(0, local);
+        if (local != null) servers.add(0, local);
 
         Map<String, Object> map = new LinkedHashMap<>();
-        for(ServerCenterInfo server : servers){
+        for (ServerCenterInfo server : servers) {
             List<ServerCenterInfo> tmpList = (List<ServerCenterInfo>) map.getOrDefault(server.getZone(), new ArrayList<ServerCenterInfo>());
             tmpList.add(server);
             map.put(server.getZone(), tmpList);
@@ -227,9 +227,9 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     @Override
     public boolean saveRemoteData(ServerCenterInfoModel model) {
         ServerCenterInfo local = this.loadLocalInfoData();
-        if(model.getKey().equals(local.getKey())) return this.saveLocalData(model);
+        if (model.getKey().equals(local.getKey())) return this.saveLocalData(model);
         List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
-        switch(model.getMethod()){
+        switch(model.getMethod()) {
             case "INSERT" :
                 model.setKey(String.format("%s-%s-%s", model.getZone(), model.getKind(), model.getName()));
                 infos.add(ServerCenterInfoModel.convertDTO(model));
@@ -258,7 +258,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
      */
     @Override
     public boolean removeDataByKey(String key) {
-        if(!this.loadDataHasInFile(key)) return false;
+        if (!this.loadDataHasInFile(key)) return false;
         List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
         infos = infos.stream().filter(o -> !o.getKey().equals(key))
                 .collect(Collectors.toList());

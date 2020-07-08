@@ -13,7 +13,7 @@ import java.util.Map;
 @RequestMapping("api/service")
 public class RESTServiceController {
     @PostMapping("extension-check")
-    public Map<String, Object> getExtensionCheckByIpAndPort(@RequestBody Map<String, Object> param){
+    public Map<String, Object> getExtensionCheckByIpAndPort(@RequestBody Map<String, Object> param) {
         return new HashMap<String, Object>() {{
             put("result", SocketUtil.loadIsTcpPortOpen((String) param.get("ip"), (Integer) param.get("port")) ? "RUNNING" : "DEAD");
         }};
@@ -23,7 +23,7 @@ public class RESTServiceController {
     public Map<String, Object> getDockerCheckWithByContainerName(@RequestParam String name) throws IOException {
         JsonObject json = DockerUtil.loadContainerByNameAndProperty(name, "State");
         return new HashMap<String, Object>() {{
-            if(json != null) {
+            if (json != null) {
                 put("result", json.getJsonString("Status").getString().toUpperCase());
             } else {
                 put("result", "UNKNOWN");

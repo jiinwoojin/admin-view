@@ -14,7 +14,7 @@ public class MVCAccountController {
     private AccountService accountService;
 
     @RequestMapping("list")
-    public String accountListViewPage(Model model){
+    public String accountListViewPage(Model model) {
         // 모든 회원 정보 조회 : 서버 사이드 AJAX 미적용. 향후 개발 시, Pagination 기반으로 쿼리 속도 향상 필요 여부 확인.
         model.addAttribute("accounts", accountService.findAllAccounts());
         model.addAttribute("roles", accountService.findAllRoles());
@@ -22,16 +22,16 @@ public class MVCAccountController {
     }
 
     @RequestMapping("change-role/{username}/{roleId}")
-    public String accountRoleChangeLink(Model model, @PathVariable String username, @PathVariable long roleId){
-        if(accountService.updateAccountRole(username, roleId))
+    public String accountRoleChangeLink(Model model, @PathVariable String username, @PathVariable long roleId) {
+        if (accountService.updateAccountRole(username, roleId))
             return "redirect:../../list";
         else
             return "redirect:../../list?error";
     }
 
     @RequestMapping("delete-account/{username}")
-    public String authDeleteLink(Model model, @PathVariable String username){
-        if(accountService.deleteAccountWithUsername(username)) {
+    public String authDeleteLink(Model model, @PathVariable String username) {
+        if (accountService.deleteAccountWithUsername(username)) {
             return "redirect:../list";
         } else return "redirect:../list?error";
     }

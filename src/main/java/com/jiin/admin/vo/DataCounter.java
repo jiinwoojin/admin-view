@@ -23,7 +23,7 @@ public class DataCounter {
     private long cachesSelectedProxyCount;
     private List<Map<String, Long>> userCount;
 
-    public DataCounter(){
+    public DataCounter() {
         this.userCount = new ArrayList<>();
     }
 

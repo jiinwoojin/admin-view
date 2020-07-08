@@ -37,7 +37,7 @@ public class ProxyCacheSourceRelationEntity implements Serializable {
     @JoinColumn
     private ProxySourceEntity source;
 
-    public ProxyCacheSourceRelationEntity(){
+    public ProxyCacheSourceRelationEntity() {
 
     }
 

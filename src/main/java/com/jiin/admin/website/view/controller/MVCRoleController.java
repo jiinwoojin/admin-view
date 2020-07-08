@@ -16,29 +16,29 @@ public class MVCRoleController {
     private AccountService accountService;
 
     @RequestMapping("list")
-    public String roleListView(Model model){
+    public String roleListView(Model model) {
         model.addAttribute("roles", accountService.findAllRoles());
         model.addAttribute("roleModel", new RoleModel());
         return "page/role/list";
     }
 
     @RequestMapping(value = "add-role", method = RequestMethod.POST)
-    public String roleInsertRedirect(Model model, RoleModel role){
-        if(accountService.createRoleWithModel(role)) {
+    public String roleInsertRedirect(Model model, RoleModel role) {
+        if (accountService.createRoleWithModel(role)) {
             return "redirect:list";
         } else return "redirect:list?error";
     }
 
     @RequestMapping(value = "update-role", method = RequestMethod.POST)
-    public String roleUpdateRedirect(Model model, RoleModel role){
-        if(accountService.updateRoleWithModel(role)){
+    public String roleUpdateRedirect(Model model, RoleModel role) {
+        if (accountService.updateRoleWithModel(role)) {
             return "redirect:list";
         } else return "redirect:list?error";
     }
 
     @RequestMapping("delete-role/{id}")
-    public String roleDeleteLink(Model model, @PathVariable long id){
-        if(accountService.deleteRoleById(id)) {
+    public String roleDeleteLink(Model model, @PathVariable long id) {
+        if (accountService.deleteRoleById(id)) {
             return "redirect:../list";
         } else return "redirect:../list?error";
     }

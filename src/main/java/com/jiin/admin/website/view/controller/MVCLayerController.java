@@ -38,7 +38,7 @@ public class MVCLayerController {
      * @param model Model, layerPageModel LayerPageModel
      */
     @RequestMapping("layer-list")
-    private String pageLayerList(Model model, LayerPageModel layerPageModel){
+    private String pageLayerList(Model model, LayerPageModel layerPageModel) {
         model.addAttribute("resMap", layerService.loadDataListAndCountByPaginationModel(layerPageModel));
         model.addAttribute("obList", layerService.loadOrderByOptionList());
         model.addAttribute("sbList", layerService.loadSearchByOptionList());
@@ -51,7 +51,7 @@ public class MVCLayerController {
      * @Param layerPageModel LayerPageModel, dataFile MultipartFile, layerPageModel LayerPageModel
      */
     @PostMapping("layer-create")
-    public String postLayerCreate(LayerDTO layerDTO, @RequestParam("data_file") MultipartFile dataFile, LayerPageModel layerPageModel){
+    public String postLayerCreate(LayerDTO layerDTO, @RequestParam("data_file") MultipartFile dataFile, LayerPageModel layerPageModel) {
         boolean result = layerService.createData(layerDTO, dataFile);
         session.message(String.format("LAYER [%s] 추가 %s하였습니다.", layerDTO.getName(), (result ? "성공" : "실패")));
         return String.format("redirect:layer-list?%s", layerPageModel.getQueryString());
@@ -62,7 +62,7 @@ public class MVCLayerController {
      * @Param layerPage
      */
     @PostMapping("layer-update")
-    public String postLayerUpdate(LayerDTO layerDTO, @RequestParam(value = "data_file", required = false) MultipartFile dataFile, LayerPageModel layerPageModel){
+    public String postLayerUpdate(LayerDTO layerDTO, @RequestParam(value = "data_file", required = false) MultipartFile dataFile, LayerPageModel layerPageModel) {
         boolean result = layerService.setData(layerDTO, dataFile);
         session.message(String.format("LAYER [%s] 수정 %s하였습니다.", layerDTO.getName(), (result ? "성공" : "실패")));
         return String.format("redirect:layer-list?%s", layerPageModel.getQueryString());
@@ -74,7 +74,7 @@ public class MVCLayerController {
      */
     @ResponseBody
     @PostMapping("layer-delete")
-    public boolean restLayerDelete(@RequestParam long layerId){
+    public boolean restLayerDelete(@RequestParam long layerId) {
         return layerService.removeData(layerId);
     }
 
@@ -83,7 +83,7 @@ public class MVCLayerController {
      * @Param file MultipartFile
      */
     @PostMapping("layer-excel-upload")
-    public String postLayerExcelUpload(@RequestParam("excelFile") MultipartFile excelFile, LayerPageModel layerPageModel){
+    public String postLayerExcelUpload(@RequestParam("excelFile") MultipartFile excelFile, LayerPageModel layerPageModel) {
         List<LayerRowModel> rows = SpreadSheetUtil.loadLayerRowModelListBySpreadSheet(excelFile);
         Map<String, Integer> map = layerService.saveMultipleDataByModelList(rows);
         int success = map.getOrDefault("success", 0);
@@ -97,11 +97,11 @@ public class MVCLayerController {
      * @Param
      */
     @GetMapping("excel-sample-download")
-    public void linkExcelSampleDownload(HttpServletResponse response){
+    public void linkExcelSampleDownload(HttpServletResponse response) {
         Workbook workbook = SpreadSheetUtil.loadLayerRowModelSampleFile();
         response.setHeader("Content-Disposition", "attachment; filename=\"sample-layer-register.xlsx\";");
         response.setContentType("application/vnd.ms-excel");
-        try(BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream())){
+        try(BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream())) {
             workbook.write(output);
             output.flush();
         } catch (IOException e) {

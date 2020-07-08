@@ -61,7 +61,7 @@ public class ManageService {
         map.setRegistorName(loginUser);
         map.setRegistTime(new Date());
 
-        List<Map<String, Object>> orderLayerList = new ObjectMapper().readValue(layerList, new TypeReference<LinkedList<Map<String, Object>>>(){});
+        List<Map<String, Object>> orderLayerList = new ObjectMapper().readValue(layerList, new TypeReference<LinkedList<Map<String, Object>>>() {});
         for (java.util.Map<String, Object> orderLayer : orderLayerList) {
             LayerEntity layer = entityManager.find(LayerEntity.class, Long.parseLong(String.valueOf(orderLayer.get("layerId"))));
             MapLayerRelationEntity mapLayerRelation = new MapLayerRelationEntity();
@@ -82,10 +82,10 @@ public class ManageService {
      */
     private void writeMapFileContext(MapEntity map, String layerList) throws IOException {
         StringBuilder layerBuilder = new StringBuilder();
-        List<Map<String, Object>> orderLayerList = new ObjectMapper().readValue(layerList, new TypeReference<LinkedList<Map<String, Object>>>(){});
+        List<Map<String, Object>> orderLayerList = new ObjectMapper().readValue(layerList, new TypeReference<LinkedList<Map<String, Object>>>() {});
         for (java.util.Map<String, Object> orderLayer : orderLayerList) {
             LayerEntity layer = entityManager.find(LayerEntity.class, Long.parseLong(String.valueOf(orderLayer.get("layerId"))));
-            if(layer != null) {
+            if (layer != null) {
                 layerBuilder.append("  INCLUDE \"./layer/").append(layer.getName()).append(Constants.LAY_SUFFIX).append("\"");
                 layerBuilder.append(System.lineSeparator());
             }
@@ -150,7 +150,7 @@ public class ManageService {
     /**
      * MAP 검색 조건 옵션 목록
      */
-    public List<OptionModel> mapSearchByOptions(){
+    public List<OptionModel> mapSearchByOptions() {
         return Arrays.asList(
             new OptionModel("-- 검색 키워드 선택 --", 0),
             new OptionModel("MAP 이름", 1),
@@ -162,7 +162,7 @@ public class ManageService {
     /**
      * MAP 정렬 조건 옵션 목록
      */
-    public List<OptionModel> mapOrderByOptions(){
+    public List<OptionModel> mapOrderByOptions() {
         return Arrays.asList(
             new OptionModel("-- 정렬 방식 선택 --", 0),
             new OptionModel("ID 순서 정렬", 1),
@@ -174,7 +174,7 @@ public class ManageService {
     /**
      * MAP 정렬 조건 옵션 목록
      */
-    public MapEntity findMapEntityById(Long id){
+    public MapEntity findMapEntityById(Long id) {
         return entityManager.find(MapEntity.class, id);
     }
 
@@ -190,7 +190,7 @@ public class ManageService {
             Sort.by("regist_time").descending()
         };
 
-        if(mapPageModel.getSb() == 3)
+        if (mapPageModel.getSb() == 3)
             mapPageModel.setSt(mapPageModel.getSt() != null ? mapPageModel.getSt().toLowerCase() : "");
 
         List<MapEntity> sbRes = mapper.findMapEntitiesByPaginationModel(mapPageModel);
@@ -217,7 +217,7 @@ public class ManageService {
     @Transactional
     public boolean addMap(MapEntity map, String layerList) throws IOException {
         MapEntity entity = mapper.findMapEntityByName(map.getName());
-        if(entity != null) {
+        if (entity != null) {
             return false;
         } else {
             this.mapEntitySupplement(map, layerList);
@@ -235,7 +235,7 @@ public class ManageService {
     @Transactional
     public boolean updateMap(MapEntity map, String layerList) throws IOException {
         MapEntity entity = mapper.findMapEntityByName(map.getName());
-        if(entity == null) {
+        if (entity == null) {
             return false;
         } else {
             mapper.deleteLayerRelationsByMapId(map.getId());
@@ -285,12 +285,12 @@ public class ManageService {
         String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         LayerEntity layer = entityManager.find(LayerEntity.class, id);
-        if(layer == null) {
+        if (layer == null) {
             layer = new LayerEntity();
         }
 
-        if(data_file != null && data_file.getSize() > 0){
-            if(method.equalsIgnoreCase("UPDATE")){
+        if (data_file != null && data_file.getSize() > 0) {
+            if (method.equalsIgnoreCase("UPDATE")) {
                 String dataFilePath = dataPath + layer.getDataFilePath();
                 try {
                     FileSystemUtil.deleteFile(dataFilePath);
@@ -311,7 +311,7 @@ public class ManageService {
             dataFile = new File(filePath);
             data_file.transferTo(dataFile);
 
-            if(!System.getProperty("os.name").toLowerCase().contains("win")) FileSystemUtil.setFileDefaultPermissions(dataFile.toPath());
+            if (!System.getProperty("os.name").toLowerCase().contains("win")) FileSystemUtil.setFileDefaultPermissions(dataFile.toPath());
         }
 
         layer.setDefault(false);
@@ -374,14 +374,14 @@ public class ManageService {
      * MAP 레이어가 가진 LAYER 데이터 목록 조회
      * @param mapId long
      */
-    public List<LayerEntity> findLayerEntitiesByMapId(long mapId){
+    public List<LayerEntity> findLayerEntitiesByMapId(long mapId) {
         return mapper.findLayerEntitiesByMapId(mapId);
     }
 
     /**
      * LAYER 검색 조건 옵션 목록
      */
-    public List<OptionModel> layerSearchByOptions(){
+    public List<OptionModel> layerSearchByOptions() {
         return Arrays.asList(
             new OptionModel("-- 검색 키워드 선택 --", 0),
             new OptionModel("레이어 이름", 1),
@@ -393,7 +393,7 @@ public class ManageService {
     /**
      * LAYER 정렬 조건 옵션 목록
      */
-    public List<OptionModel> layerOrderByOptions(){
+    public List<OptionModel> layerOrderByOptions() {
         return Arrays.asList(
             new OptionModel("-- 정렬 방식 선택 --", 0),
             new OptionModel("ID 순서 정렬", 1),
@@ -414,7 +414,7 @@ public class ManageService {
                 Sort.by("regist_time").descending(),
         };
 
-        if(layerPageModel.getSb() == 3)
+        if (layerPageModel.getSb() == 3)
             layerPageModel.setSt(layerPageModel.getSt() != null ? layerPageModel.getSt().toLowerCase() : "");
 
         List<LayerEntity> sbRes = mapper.findLayerEntitiesByPaginationModel(layerPageModel);
@@ -450,7 +450,7 @@ public class ManageService {
         log.info("Data Folder : " + dataPath + Constants.DATA_PATH + "/" + middle_folder);
 
         LayerEntity l = mapper.findLayerEntityByName(name);
-        if(l == null){
+        if (l == null) {
             LayerEntity layer = this.layerEntitySupplement("INSERT", 0L, name, description, projection, middle_folder, type, data_file);
             entityManager.persist(layer);
             this.writeLayFileContext(layer);
@@ -478,9 +478,9 @@ public class ManageService {
 
         LayerEntity l = mapper.findLayerEntityByName(name);
         String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(l != null){
+        if (l != null) {
             LayerEntity layer;
-            if(!data_file.isEmpty()) {
+            if (!data_file.isEmpty()) {
                 layer = this.layerEntitySupplement("UPDATE", id, name, description, projection, middle_folder, type, data_file);
             } else {
                 layer = new LayerEntity();
@@ -546,12 +546,12 @@ public class ManageService {
     // 사용 가능성이 미비하여 아래에 기재.
     private File findMapFile(File destDir) {
         File[] files = destDir.listFiles();
-        for(File file : files){
-            if(file.getName().lastIndexOf(".map") > -1){
+        for (File file : files) {
+            if (file.getName().lastIndexOf(".map") > -1) {
                 return file;
-            }else if(file.isDirectory()){
+            }else if (file.isDirectory()) {
                 File f = findMapFile(file);
-                if(f != null){
+                if (f != null) {
                     return f;
                 }
             }

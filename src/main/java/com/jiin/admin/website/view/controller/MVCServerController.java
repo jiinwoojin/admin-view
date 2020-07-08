@@ -31,7 +31,7 @@ public class MVCServerController {
      * @param model Model
      */
     @RequestMapping("service-info")
-    public String pageServiceInfo(Model model){
+    public String pageServiceInfo(Model model) {
         model.addAttribute("services", containerInfoService.loadGeoContainerInfoList());
         return "page/system/service-info";
     }
@@ -41,7 +41,7 @@ public class MVCServerController {
      * @param model Model
      */
     @RequestMapping("service-manage")
-    public String pageServiceManagement(Model model){
+    public String pageServiceManagement(Model model) {
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
         model.addAttribute("serviceMap", containerInfoService.loadGeoServiceMap());
         model.addAttribute("message", sessionService.message());
@@ -80,7 +80,7 @@ public class MVCServerController {
      * @param model Model
      */
     @RequestMapping("service-address")
-    public String pageServiceAddressConfig(Model model){
+    public String pageServiceAddressConfig(Model model) {
         model.addAttribute("connections", serverCenterInfoService.loadRemoteList());
         model.addAttribute("neighbors", serverCenterInfoService.loadNeighborList());
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
@@ -117,7 +117,7 @@ public class MVCServerController {
      * @param key String
      */
     @RequestMapping("remove-server")
-    public String linkRemoveServerByKey(@RequestParam String key){
+    public String linkRemoveServerByKey(@RequestParam String key) {
         boolean result = serverCenterInfoService.removeDataByKey(key);
         sessionService.message(String.format("REMOTE SERVER INFO [%s] 삭제 %s 하였습니다.", key, (result ? "성공" : "실패")));
         return "redirect:service-address";
@@ -129,7 +129,7 @@ public class MVCServerController {
      */
     @ResponseBody
     @RequestMapping("remote-list")
-    public List<ServerCenterInfo> getRemoteServerList(){
+    public List<ServerCenterInfo> getRemoteServerList() {
         List<ServerCenterInfo> list = serverCenterInfoService.loadRemoteList();
         list.add(0, serverCenterInfoService.loadLocalInfoData());
         return list;
@@ -141,7 +141,7 @@ public class MVCServerController {
      */
     @ResponseBody
     @RequestMapping(value = "create-duplex", method = RequestMethod.POST)
-    public Map<String, Object> postCreateDuplexWithServerVO(@RequestBody ServerCenterInfo serverCenterInfo){
+    public Map<String, Object> postCreateDuplexWithServerVO(@RequestBody ServerCenterInfo serverCenterInfo) {
         return new HashMap<String, Object>() {{
             put("result", serverCenterInfoService.saveRemoteData(ServerCenterInfoModel.convertModel("INSERT", serverCenterInfo)));
         }};
@@ -153,10 +153,10 @@ public class MVCServerController {
      */
     @ResponseBody
     @RequestMapping(value = "update-duplex", method = RequestMethod.POST)
-    public Map<String, Object> postUpdateDuplexWithServer(@RequestBody ServerCenterInfo serverCenterInfo){
+    public Map<String, Object> postUpdateDuplexWithServer(@RequestBody ServerCenterInfo serverCenterInfo) {
         ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
         return new HashMap<String, Object>() {{
-            if(local.getKey().equals(serverCenterInfo.getKey())){
+            if (local.getKey().equals(serverCenterInfo.getKey())) {
                 put("result", serverCenterInfoService.saveLocalData(ServerCenterInfoModel.convertModel("UPDATE", serverCenterInfo)));
             } else {
                 put("result", serverCenterInfoService.saveRemoteData(ServerCenterInfoModel.convertModel("UPDATE", serverCenterInfo)));
@@ -170,7 +170,7 @@ public class MVCServerController {
      */
     @ResponseBody
     @RequestMapping(value = "remove-duplex", method = RequestMethod.POST)
-    public Map<String, Object> postDeleteDuplexWithServerKey(@RequestBody Map<String, String> map){
+    public Map<String, Object> postDeleteDuplexWithServerKey(@RequestBody Map<String, String> map) {
         return new HashMap<String, Object>() {{
             put("result", serverCenterInfoService.removeDataByKey(map.get("key")));
         }};
@@ -181,7 +181,7 @@ public class MVCServerController {
      * @param
      */
     @RequestMapping("log-manage")
-    public String pageLogManagement(){
+    public String pageLogManagement() {
         return "page/system/log-manage";
     }
 }

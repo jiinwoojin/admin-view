@@ -25,12 +25,12 @@ public class RESTDashboardController {
     private DashboardStatusService dashboardStatusService;
 
     @GetMapping("performance")
-    public ServerBasicPerformance getLocalBasicPerformanceJSON(){
+    public ServerBasicPerformance getLocalBasicPerformanceJSON() {
         return dashboardStatusService.loadLocalBasicPerformance();
     }
 
     @GetMapping("service-status")
-    public Map<String, GeoDockerContainerInfo> getGeoServiceStatusJSON(){
+    public Map<String, GeoDockerContainerInfo> getGeoServiceStatusJSON() {
         return dashboardStatusService.loadGeoDockerContainerStatus();
     }
 

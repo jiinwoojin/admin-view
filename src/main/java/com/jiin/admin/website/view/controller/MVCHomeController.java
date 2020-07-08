@@ -23,7 +23,7 @@ public class MVCHomeController {
     private ContainerInfoService containerInfoService;
 
     @RequestMapping(value = { "guest", "user" })
-    public String homeMainPageForGuest(Model model){
+    public String homeMainPageForGuest(Model model) {
         model.addAttribute("counter", dataCountService.loadDataCounter());
         model.addAttribute("serverMap", serverCenterInfoService.loadDataMapZoneBase());
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());

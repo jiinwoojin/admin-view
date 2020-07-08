@@ -14,13 +14,13 @@ public class ProxySelectResponseModel {
     private List<String> sources;
     private List<Map<String, Object>> caches;
 
-    public ProxySelectResponseModel(){
+    public ProxySelectResponseModel() {
         this.layers = new ArrayList<>();
         this.sources = new ArrayList<>();
         this.caches = new ArrayList<>();
     }
 
-    public ProxySelectResponseModel(List<Map<String, Object>> layers, List<String> sources, List<Map<String, Object>> caches){
+    public ProxySelectResponseModel(List<Map<String, Object>> layers, List<String> sources, List<Map<String, Object>> caches) {
         this.layers = layers;
         this.sources = sources;
         this.caches = caches;

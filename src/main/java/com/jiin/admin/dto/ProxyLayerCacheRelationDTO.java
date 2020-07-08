@@ -10,7 +10,7 @@ public class ProxyLayerCacheRelationDTO {
     private Long layerId;
     private Long cacheId;
 
-    public ProxyLayerCacheRelationDTO(){
+    public ProxyLayerCacheRelationDTO() {
 
     }
 
