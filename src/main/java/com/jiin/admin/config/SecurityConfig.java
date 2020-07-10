@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/view/welcome.jiin").permitAll()
                 .antMatchers("/view/auth/edit").authenticated()
                 .antMatchers("/view/auth/**").permitAll()
-                .antMatchers("/view/home/guest").anonymous()
+                .antMatchers("/view/home/dashboard").permitAll()
                 .antMatchers("/view/server/remote-list").permitAll()
                 .antMatchers("/view/server/create-duplex").permitAll()
                 .antMatchers("/view/server/update-duplex").permitAll()
@@ -89,13 +89,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/view/auth/login")
                 .loginProcessingUrl("/view/auth/login_process")
                 .failureUrl("/view/auth/login?error")
-                .defaultSuccessUrl("/view/home/user", true)
                 .usernameParameter("username")
                 .passwordParameter("password");
 
         http.logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/view/auth/logout_process"))
-                .logoutSuccessUrl("/view/home/guest")
+                .logoutSuccessUrl("/view/home/dashboard")
                 .invalidateHttpSession(true);
 
         http.authenticationProvider(accountAuthProvider);

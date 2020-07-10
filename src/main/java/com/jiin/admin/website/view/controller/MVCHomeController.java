@@ -22,7 +22,7 @@ public class MVCHomeController {
     @Autowired
     private ContainerInfoService containerInfoService;
 
-    @RequestMapping(value = { "guest", "user" })
+    @RequestMapping("dashboard")
     public String homeMainPageForGuest(Model model) {
         model.addAttribute("counter", dataCountService.loadDataCounter());
         model.addAttribute("serverMap", serverCenterInfoService.loadDataMapZoneBase());
