@@ -19,6 +19,7 @@ import com.jiin.admin.website.util.GdalUtil;
 import com.jiin.admin.website.util.MapServerUtil;
 import com.jiin.admin.website.view.component.MapVersionManagement;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -225,7 +226,7 @@ public class MapServiceImpl implements MapService {
 
                 // 2단계. Version 관리 (선택)
                 if (versionCheck) {
-                    if (mapDTO.getVrtFilePath() != null && !mapDTO.getVrtFilePath().equalsIgnoreCase("")) {
+                    if (!StringUtils.isBlank(mapDTO.getVrtFilePath())) {
                         // vrt 생성
                         GdalUtil.createVrt(dataPath, mapDTO, layers);   // TODO return 값 받아서 처리 해야함
                     }
@@ -281,7 +282,7 @@ public class MapServiceImpl implements MapService {
                         GdalUtil.createVrt(dataPath, mapDTO, layers);   // TODO return 값 받아서 처리 해야함
                     } else {
                         // TODO vrt 파일이 있을경우 삭제 해야함
-                        if (mapDTO.getVrtFilePath() != null && !mapDTO.getVrtFilePath().equalsIgnoreCase("")) {
+                        if (!StringUtils.isBlank(mapDTO.getVrtFilePath())) {
                             mapDTO.setVrtFilePath(null);
                             mapMapper.update(mapDTO);
                         }
@@ -328,10 +329,12 @@ public class MapServiceImpl implements MapService {
         mapVersionManagement.removeVersionWithMapData(selected); // MAP 버전 폴더 및 DB 삭제
         if (mapMapper.deleteById(id) > 0) {
             try {
-                String mapFilePath = String.format("%s%s", dataPath, selected.getMapFilePath());
-                FileSystemUtil.deleteFile(mapFilePath);
+                if (!StringUtils.isBlank(selected.getMapFilePath())) {
+                    String mapFilePath = String.format("%s%s", dataPath, selected.getMapFilePath());
+                    FileSystemUtil.deleteFile(mapFilePath);
+                }
 
-                if (selected.getVrtFilePath() != null) {
+                if (!StringUtils.isBlank(selected.getVrtFilePath())) {
                     String vrtFilePath = String.format("%s%s", dataPath, selected.getVrtFilePath());
                     FileSystemUtil.deleteFile(vrtFilePath);
                 }

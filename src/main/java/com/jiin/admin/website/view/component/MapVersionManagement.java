@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import pl.jalokim.utils.string.StringUtils;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
@@ -49,7 +50,9 @@ public class MapVersionManagement {
                 mapVersionMapper.deleteById(version.getId());
                 String filePath = dataPath + version.getZipFilePath();
                 try {
-                    FileSystemUtil.deleteFile(filePath);
+                    if(!StringUtils.isBlank(filePath)) {
+                        FileSystemUtil.deleteFile(filePath);
+                    }
                 } catch (IOException e) {
                     log.error("ERROR - " + e.getMessage());
                 }
@@ -323,7 +326,9 @@ public class MapVersionManagement {
             if (mapVersionMapper.countLayersByMapVersionId(version.getId()) == 0) {
                 mapVersionMapper.deleteById(version.getId());
                 try {
-                    FileSystemUtil.deleteFile(dataPath + version.getZipFilePath());
+                    if(!StringUtils.isBlank(version.getZipFilePath())) {
+                        FileSystemUtil.deleteFile(dataPath + version.getZipFilePath());
+                    }
                 } catch (IOException e) {
                     log.error("ERROR - " + e.getMessage());
                 }
