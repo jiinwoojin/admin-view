@@ -3,6 +3,7 @@ package com.jiin.admin.website.view.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jiin.admin.Constants;
 import com.jiin.admin.config.SessionService;
 import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.*;
@@ -43,7 +44,6 @@ public class MVCProxyController {
 
     @RequestMapping("setting")
     public String pageProxySetting(Model model) {
-        ServerCenterInfo info = serverCenterInfoService.loadLocalInfoData();
         model.addAttribute("message", sessionService.message());
         model.addAttribute("neighbors", serverCenterInfoService.loadNeighborList());
 
@@ -53,9 +53,7 @@ public class MVCProxyController {
         model.addAttribute("globals", proxyCacheService.loadDataList("GLOBALS"));
 
         model.addAttribute("mapServerPort", MAP_SERVER_PORT);
-        model.addAttribute("mapServerAddress", String.format("http://%s:%d/mapserver/cgi-bin/mapserv?", (info != null) ? info.getIp() : "127.0.0.1", MAP_SERVER_PORT));
-        model.addAttribute("selectSources", proxyCacheService.loadDataListBySelected("SOURCES", true));
-        model.addAttribute("selectCaches", proxyCacheService.loadDataListBySelected("CACHES", true));
+        model.addAttribute("mapServerAddress", Constants.MAP_SERVER_WMS_URL);
 
         model.addAttribute("proxyCacheDirectory", proxyCacheService.loadProxyCacheMainDir());
         model.addAttribute("dataDirectory", proxyCacheService.loadDataDir());
@@ -73,7 +71,7 @@ public class MVCProxyController {
 
     @RequestMapping(value = "source-wms-save", method = RequestMethod.POST)
     public String postSourceWMSSave(ProxySourceWMSModel proxySourceWMSModel) {
-        boolean result = proxyCacheService.saveProxySourceWMSByModel(proxySourceWMSModel, false);
+        boolean result = proxyCacheService.saveProxySourceWMSByModel(proxySourceWMSModel, serverCenterInfoService.loadLocalInfoData(), false);
         sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다.", proxySourceWMSModel.getName(), result ? "성공" : "실패"));
         return "redirect:setting";
     }

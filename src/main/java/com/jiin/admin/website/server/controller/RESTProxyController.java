@@ -2,6 +2,7 @@ package com.jiin.admin.website.server.controller;
 
 import com.jiin.admin.website.model.*;
 import com.jiin.admin.website.view.service.ProxyCacheService;
+import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,9 @@ import java.util.Map;
 public class RESTProxyController {
     @Resource
     private ProxyCacheService proxyCacheService;
+
+    @Resource
+    private ServerCenterInfoService serverCenterInfoService;
 
     @GetMapping("form")
     public ProxySelectResponseModel getInitializeProxySelectModel() {
@@ -34,7 +38,7 @@ public class RESTProxyController {
     @PostMapping("sync/source-wms-save")
     public Map<String, Object> postSyncSourceWMSSave(@RequestBody ProxySourceWMSModel proxySourceWMSModel) {
         return new HashMap<String, Object>() {{
-            put("result", proxyCacheService.saveProxySourceWMSByModel(proxySourceWMSModel, true));
+            put("result", proxyCacheService.saveProxySourceWMSByModel(proxySourceWMSModel, serverCenterInfoService.loadLocalInfoData(), true));
         }};
     }
 
