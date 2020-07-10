@@ -1,5 +1,6 @@
 package com.jiin.admin.website.util;
 
+import com.jiin.admin.Constants;
 import com.jiin.admin.website.model.LayerRowModel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
@@ -9,7 +10,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ import java.util.Arrays;
 import java.util.List;
 
 // Layer Excel Upload 기능을 구현하기 위한 클래스
-// Excel 버전은 2010 이후를 기준으로 한다.
+// Excel 버전은 2007 이후를 기준으로 한다.
 @Slf4j
 public class SpreadSheetUtil {
-    private static final List<String> LAYER_FIELDS = Arrays.asList("name", "description", "projection", "type", "middleFolder", "filename");
+    private static final List<String> LAYER_FIELDS = Arrays.asList("name", "description", "projection", "type", "dataFileFullPath");
 
     // COLUMN 윗 테두리 색상 : Excel 테이블
     private static CellStyle createTableHeadStyle(Workbook workbook) {
@@ -46,14 +46,18 @@ public class SpreadSheetUtil {
      * LAYER Model Excel 파일을 기재하기 위한 SAMPLE XLSX 파일을 생성한다.
      * @param
      */
-    public static Workbook loadLayerRowModelSampleFile() {
+    public static Workbook loadLayerRowModelSampleFile(String dataPath) {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet();
 
         XSSFRow row = sheet.createRow(0);
 
-        for (int i = 0; i < 6; i++) {
-            sheet.setColumnWidth(i, 7500);
+        for (int i = 0; i < LAYER_FIELDS.size(); i++) {
+            if (i < LAYER_FIELDS.size() - 1) {
+                sheet.setColumnWidth(i, 7500);
+            } else {
+                sheet.setColumnWidth(i, 15000);
+            }
         }
 
         CellStyle style = createTableHeadStyle(workbook);
@@ -76,11 +80,7 @@ public class SpreadSheetUtil {
         cell.setCellStyle(style);
 
         cell = row.createCell(4);
-        cell.setCellValue("폴더 경로");
-        cell.setCellStyle(style);
-
-        cell = row.createCell(5);
-        cell.setCellValue("파일 이름");
+        cell.setCellValue("파일 경로");
         cell.setCellStyle(style);
 
         row = sheet.createRow(1);
@@ -98,10 +98,7 @@ public class SpreadSheetUtil {
         cell.setCellValue("[RASTER,VECTOR,CADRG]");
 
         cell = row.createCell(4);
-        cell.setCellValue("[맨 앞과 뒤에 / 를 제외하고 입력]");
-
-        cell = row.createCell(5);
-        cell.setCellValue("[실존하는 파일 (tif,shp,zip)]");
+        cell.setCellValue(String.format("[실존하는 파일 경로 : %s 안에 있는 경로를 기준으로 입력.]", dataPath + Constants.DATA_PATH));
 
         return workbook;
     }
@@ -117,6 +114,8 @@ public class SpreadSheetUtil {
 
         String fileExt = FileSystemUtil.loadFileExtensionName(file.getOriginalFilename());
         List<LayerRowModel> rows = new ArrayList<>();
+
+        // Excel 2007 버전 까지만 제공.
         if (!fileExt.equalsIgnoreCase("xlsx")) {
             return rows;
         } else {

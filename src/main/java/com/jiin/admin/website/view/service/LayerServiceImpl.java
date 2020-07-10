@@ -422,44 +422,44 @@ public class LayerServiceImpl implements LayerService {
         int success = 0;
 
         for (LayerRowModel model : models) {
+            if (!model.getDataFileFullPath().startsWith(dataPath)) {
+                continue;
+            }
             if (layerMapper.findByName(model.getName()) == null) {
-                LayerDTO dto = LayerRowModel.convertDTO(model);
-                String dataFilePath = loadCommonDataFilePath(dto, model.getFilename());
+                LayerDTO dto = LayerRowModel.convertDTO(model, dataPath);
 
-                if (!dataFilePath.equals("NONE")) {
-                    if (new File(dataFilePath).exists()) { // 파일 존재 여부
-                        Date date = new Date();
+                if (new File(model.getDataFileFullPath()).exists()) { // 파일 존재 여부
+                    Date date = new Date();
 
-                        String layFilePath = String.format("%s%s/%s%s", dataPath, Constants.LAY_FILE_PATH, dto.getName(), Constants.LAY_SUFFIX);
-                        dto.setLayerFilePath(layFilePath.replaceAll(dataPath, ""));
-                        dto.setDataFilePath(dataFilePath.replaceAll(dataPath, ""));
-                        dto.setDefault(false);
+                    String layFilePath = String.format("%s%s/%s%s", dataPath, Constants.LAY_FILE_PATH, dto.getName(), Constants.LAY_SUFFIX);
+                    dto.setLayerFilePath(layFilePath.replaceAll(dataPath, ""));
+                    dto.setDataFilePath(model.getDataFileFullPath().replaceAll(dataPath, ""));
+                    dto.setDefault(false);
 
-                        dto.setRegistTime(date);
-                        dto.setUpdateTime(date);
-                        dto.setVersion(Double.parseDouble(String.format("%.1f", Constants.DEFAULT_LAYER_VERSION)));     // 기본 1.0
+                    dto.setRegistTime(date);
+                    dto.setUpdateTime(date);
+                    dto.setVersion(Double.parseDouble(String.format("%.1f", Constants.DEFAULT_LAYER_VERSION)));     // 기본 1.0
 
-                        setCommonProperties(dto);
+                    setCommonProperties(dto);
 
-                        if (layerMapper.insert(dto) > 0) {
+                    if (layerMapper.insert(dto) > 0) {
+                        try {
+                            String fileContext = MapServerUtil.fetchLayerFileContextWithDTO(defaultLayer, dataPath, dto);
+                            FileSystemUtil.createAtFile(layFilePath, fileContext);
+                        } catch (IOException e) {
+                            log.error("ERROR - " + e.getMessage());
+                        }
+
+                        log.info(dto.getName() + " LAY 파일 생성 성공했습니다.");
+                        success += 1;
+
+                        // 비록 지도 데이터는 서버에 바로 올리지만, 권한이 755 로 되어있진 않는 문제가 생겨서 이를 추가로 작성.
+                        if (!FileSystemUtil.isWindowOS()) {
+                            String middleFirst = dto.getMiddleFolder().split("/")[0];
                             try {
-                                String fileContext = MapServerUtil.fetchLayerFileContextWithDTO(defaultLayer, dataPath, dto);
-                                FileSystemUtil.createAtFile(layFilePath, fileContext);
+                                FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.DATA_PATH + String.format("/%s", middleFirst)));
                             } catch (IOException e) {
                                 log.error("ERROR - " + e.getMessage());
-                            }
-
-                            log.info(dto.getName() + " LAY 파일 생성 성공했습니다.");
-                            success += 1;
-
-                            // 비록 지도 데이터는 서버에 바로 올리지만, 권한이 755 로 되어있진 않는 문제가 생겨서 이를 추가로 작성.
-                            if (!FileSystemUtil.isWindowOS()) {
-                                String middleFirst = dto.getMiddleFolder().split("/")[0];
-                                try {
-                                    FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.DATA_PATH + String.format("/%s", middleFirst)));
-                                } catch (IOException e) {
-                                    log.error("ERROR - " + e.getMessage());
-                                }
                             }
                         }
                     }

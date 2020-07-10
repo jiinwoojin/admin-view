@@ -9,6 +9,7 @@ import com.jiin.admin.website.view.service.LayerService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("manage")
 public class MVCLayerController {
+    @Value("${project.data-path}")
+    private String dataPath;
+
     @Autowired
     private LayerService layerService;
 
@@ -98,7 +102,7 @@ public class MVCLayerController {
      */
     @GetMapping("excel-sample-download")
     public void linkExcelSampleDownload(HttpServletResponse response) {
-        Workbook workbook = SpreadSheetUtil.loadLayerRowModelSampleFile();
+        Workbook workbook = SpreadSheetUtil.loadLayerRowModelSampleFile(dataPath);
         response.setHeader("Content-Disposition", "attachment; filename=\"sample-layer-register.xlsx\";");
         response.setContentType("application/vnd.ms-excel");
         try(BufferedOutputStream output = new BufferedOutputStream(response.getOutputStream())) {
