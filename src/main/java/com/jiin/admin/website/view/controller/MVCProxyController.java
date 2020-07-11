@@ -182,6 +182,11 @@ public class MVCProxyController {
         return infos;
     }
 
+    /**
+     * docker run -it -d --rm --user 1001:1000 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name jimap_seed jiinwoojin/jimap_mapproxy mapproxy-seed -f /data/jiapp/data_dir/proxy/mapproxy.yaml -s /data/jiapp/data_dir/proxy/seed.yaml -c 4 --seed ALL
+     * @param param
+     * @return
+     */
     @ResponseBody
     @RequestMapping("seeding-setting")
     public Map proxySeedingSetting(@RequestParam Map param){
