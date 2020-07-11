@@ -47,7 +47,7 @@ public class MapServerUtil {
                 line = line.replaceAll("WMS_SRS_VALUE", map.getProjection());
             } else if (line.contains("LAYER_INCLUDE")) {
                 StringBuffer sb = new StringBuffer();
-                for(LayerDTO layer : layers){
+                for (LayerDTO layer : layers) {
                     sb.append("  INCLUDE \"./layer/").append(layer.getName()).append(Constants.LAY_SUFFIX).append("\"");
                     sb.append(System.lineSeparator());
                 }
@@ -98,9 +98,9 @@ public class MapServerUtil {
      */
     public static void removeLayerIncludeSyntaxInMapFiles(String mapFilePath, String layer) throws IOException {
         File dir = new File(mapFilePath);
-        if(dir.isDirectory()){
-            for(File file : dir.listFiles()){
-                if(file.getName().lastIndexOf(".map") > -1){
+        if (dir.isDirectory()) {
+            for (File file : dir.listFiles()) {
+                if (file.getName().lastIndexOf(".map") > -1) {
                     String filePath = mapFilePath + "/" + file.getName();
                     String context = FileSystemUtil.fetchFileContext(filePath);
                     context = context.replace(String.format("%s  INCLUDE \"./layer/%s%s\"", System.lineSeparator(), layer, Constants.LAY_SUFFIX), "");

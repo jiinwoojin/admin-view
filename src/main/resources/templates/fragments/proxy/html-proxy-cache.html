@@ -17,7 +17,7 @@
                     </button>
                 </div>
 
-                <div class="modal-body" th:if="${ #lists.size(selectSources) > 0 }">
+                <div class="modal-body" th:if="${ #lists.size(sources) > 0 }">
                     <form data-title="cache-form" th:action="@{/view/proxy/cache-save}" method="post" accept-charset="utf-8" onsubmit="return preSubmit(this)">
                         <input type="hidden" id="cache-id" name="id" value="0" />
                         <input type="hidden" id="cache-method" name="method" value="INSERT" />
@@ -46,8 +46,8 @@
                         <div class="form-group">
                             <label for="cache-format">캐시 파일 포맷 <span class="text-danger">(*)</span></label>
                             <select class="form-control" id="cache-format" name="format">
-                                <option value="image/jpeg">image/jpeg</option>
                                 <option value="image/png">image/png</option>
+                                <option value="image/jpeg">image/jpeg</option>
                             </select>
                         </div>
 
@@ -97,7 +97,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="source : ${selectSources}">
+                                <tr th:each="source : ${sources}">
                                     <td class="text-center">
                                         <div class="form-check">
                                             <input type="checkbox" class="form-check-input" style="width: 1em;" th:id="${ 'cacheSources_' + source.name }" onchange="onchange_checkbox_select_data('cacheSources', this, 'cache-sources')" />
@@ -124,7 +124,7 @@
                     </form>
                 </div>
 
-                <div class="modal-body" th:unless="${ #lists.size(selectSources) > 0 }">
+                <div class="modal-body" th:unless="${ #lists.size(sources) > 0 }">
                     <div class="jumbotron">
                         <h1 class="display-4">
                             <i class="fas fa-times-circle"></i> Error

@@ -10,11 +10,11 @@ public class RelationModel {
     private long mainId;
     private long subId;
 
-    public RelationModel(){
+    public RelationModel() {
 
     }
 
-    public RelationModel(long id, long mainId, long subId){
+    public RelationModel(long id, long mainId, long subId) {
         this.id = id;
         this.mainId = mainId;
         this.subId = subId;

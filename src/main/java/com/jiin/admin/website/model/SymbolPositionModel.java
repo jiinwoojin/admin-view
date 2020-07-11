@@ -14,7 +14,7 @@ public class SymbolPositionModel {
     private Integer xPos;
     private Integer yPos;
 
-    public SymbolPositionModel(){
+    public SymbolPositionModel() {
 
     }
 

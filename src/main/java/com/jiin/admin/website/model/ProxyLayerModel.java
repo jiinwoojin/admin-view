@@ -17,14 +17,14 @@ public class ProxyLayerModel {
     private List<String> sources;
     private List<String> caches;
 
-    public ProxyLayerModel(){
+    public ProxyLayerModel() {
         this.id = 0L;
         this.method = "INSERT";
         this.sources = new ArrayList<>();
         this.caches = new ArrayList<>();
     }
 
-    public ProxyLayerModel(long id, String method, String name, String title, List<String> sources, List<String> caches){
+    public ProxyLayerModel(long id, String method, String name, String title, List<String> sources, List<String> caches) {
         this.id = id;
         this.method = method;
         this.name = name;
@@ -34,8 +34,8 @@ public class ProxyLayerModel {
     }
 
     // convertDTO 에서는 sources, caches 데이터가 무의미해서 new ArrayList() 로 두었다.
-    public static ProxyLayerDTO convertDTO(ProxyLayerModel model){
-        if(model == null) return null;
+    public static ProxyLayerDTO convertDTO(ProxyLayerModel model) {
+        if (model == null) return null;
         return new ProxyLayerDTO(model.getId(), model.getName(), model.getTitle(), new ArrayList<>(), new ArrayList<>(), false, false);
     }
 }

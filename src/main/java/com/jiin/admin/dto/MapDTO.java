@@ -28,7 +28,7 @@ public class MapDTO {
 
     private String vrtFilePath;
 
-    public MapDTO(){
+    public MapDTO() {
 
     }
 }

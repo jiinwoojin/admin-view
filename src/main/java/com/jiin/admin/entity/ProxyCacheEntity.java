@@ -89,7 +89,7 @@ public class ProxyCacheEntity implements Persistable<Long> {
     @Column(name = "IS_DEFAULT")
     private Boolean isDefault;
 
-    public ProxyCacheEntity(){
+    public ProxyCacheEntity() {
         this.sources = new ArrayList<>();
     }
 

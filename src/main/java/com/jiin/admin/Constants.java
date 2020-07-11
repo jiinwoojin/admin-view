@@ -29,6 +29,8 @@ public class Constants {
 
     public static final String MAP_SUFFIX = ".map";
 
+    public static final String MAP_SERVER_WMS_URL = "mapserver/cgi-bin/mapserv?";
+
     /**
      * PROXY YAML 파일 경로
      */
@@ -39,7 +41,7 @@ public class Constants {
     public static final String PROXY_CACHE_DIRECTORY = "/cache";
 
     /**
-     * PROXY SEDD YAML 정보
+     * PROXY SEED YAML 정보
      */
     public static final String SEED_SETTING_FILE_NAME = "seed.yaml";
 

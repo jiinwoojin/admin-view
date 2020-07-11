@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import pl.jalokim.utils.string.StringUtils;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
@@ -41,15 +42,17 @@ public class MapVersionManagement {
      * 버전 정리 중 높은 버전 (예를 들어 가장 높은 버전 레이어를 하나 삭제할 때) 이 포함되어 있으면 정리하는 메소드
      * @param map MapDTO, baseVersion double
      */
-    private void cleanCurrentVersionData(MapDTO map, double baseVersion){
+    private void cleanCurrentVersionData(MapDTO map, double baseVersion) {
         List<MapVersionDTO> versions = mapVersionMapper.findByMapId(map.getId());
-        for(MapVersionDTO version : versions){
-            if(version.getVersion() > baseVersion){
+        for (MapVersionDTO version : versions) {
+            if (version.getVersion() > baseVersion) {
                 mapVersionMapper.deleteRelateByVersionId(version.getId());
                 mapVersionMapper.deleteById(version.getId());
                 String filePath = dataPath + version.getZipFilePath();
                 try {
-                    FileSystemUtil.deleteFile(filePath);
+                    if(!StringUtils.isBlank(filePath)) {
+                        FileSystemUtil.deleteFile(filePath);
+                    }
                 } catch (IOException e) {
                     log.error("ERROR - " + e.getMessage());
                 }
@@ -61,7 +64,7 @@ public class MapVersionManagement {
      * 새로 저장할 LAYER 중에 순수 새롭게 저장될 레이어만 보낸다.
      * @param prevLayers LayerDTO, nextLayers LayerDTO
      */
-    private List<LayerDTO> loadPureNewLayersInNextLayers(List<LayerDTO> prevLayers, List<LayerDTO> nextLayers){
+    private List<LayerDTO> loadPureNewLayersInNextLayers(List<LayerDTO> prevLayers, List<LayerDTO> nextLayers) {
         Set<Long> prevIds = prevLayers.stream().map(o -> o.getId()).collect(Collectors.toSet());
         Set<Long> nextIds = nextLayers.stream()
                 .filter(o1 -> prevLayers.stream().filter(o2 -> o2.getId().equals(o1.getId()) && o2.getVersion().equals(o1.getVersion())).count() > 0)
@@ -78,7 +81,7 @@ public class MapVersionManagement {
      * 레이어들 중에서 가장 큰 버전을 가져온다.
      * @param layers List Of Layers
      */
-    private Double loadMaximumVersionAtLayerList(List<LayerDTO> layers){
+    private Double loadMaximumVersionAtLayerList(List<LayerDTO> layers) {
         return Collections.max(layers.stream().filter(o -> o.getVersion() != null).map(LayerDTO::getVersion).collect(Collectors.toSet()));
     }
 
@@ -86,7 +89,7 @@ public class MapVersionManagement {
      * 레이어들 중에서 버전들의 집합체를 불러온다.
      * @param layers List Of Layers
      */
-    private Set<Double> loadVersionSetAtLayerList(List<LayerDTO> layers){
+    private Set<Double> loadVersionSetAtLayerList(List<LayerDTO> layers) {
         return layers.stream().filter(o -> o.getVersion() != null).map(LayerDTO::getVersion).collect(Collectors.toSet());
     }
 
@@ -100,26 +103,26 @@ public class MapVersionManagement {
 
         // 종속된 LAYER 중 가장 신 버전이 삭제 되어 버전이 낮아지는 경우에 실행되는 메소드.
         MapVersionDTO current = mapVersionMapper.findByMapIdRecently(mapDTO.getId());
-        if(current != null) {
-            if(newVersion < current.getVersion()) {
+        if (current != null) {
+            if (newVersion < current.getVersion()) {
                 cleanCurrentVersionData(mapDTO, newVersion);
             }
         }
 
         // 아래 문장은 1.9 -> 2.0, 2.9 -> 3.0 등으로 넘어갈 때 모든 버전 데이터를 삭제하기 위한 로직에서 활용하면 될 것이다...
-        if(newVersion == Math.ceil(newVersion)){
+        if (newVersion == Math.ceil(newVersion)) {
             log.info("새로운 버전이 정수이기 때문에 초기화 됩니다.");
         }
 
         List<LayerDTO> pureNewLayers = loadPureNewLayersInNextLayers(prevLayers, nextLayers);
         Map<Double, List<LayerDTO>> versionMap = new HashMap<>();
-        for(LayerDTO layer : pureNewLayers){
+        for (LayerDTO layer : pureNewLayers) {
             List<LayerDTO> tmpLayers = versionMap.getOrDefault(layer.getVersion(), new ArrayList<>());
             tmpLayers.add(layer);
             versionMap.put(layer.getVersion(), tmpLayers);
         }
 
-        for(Double version : versionMap.keySet()){
+        for (Double version : versionMap.keySet()) {
             List<LayerDTO> tmpLayers = versionMap.getOrDefault(version, new ArrayList<>());
             String savePath = Paths.get(dataPath, Constants.MAP_VERSION_FILE_PATH, mapDTO.getName()).toString();
             String fileName = String.format("%s_V%.1f.zip", mapDTO.getName(), version);
@@ -167,7 +170,7 @@ public class MapVersionManagement {
             }
         }
 
-        if(!FileSystemUtil.isWindowOS()){
+        if (!FileSystemUtil.isWindowOS()) {
             // MAP VERSION 과정이 끝나면 모든 권한을 755 로 설정.
             try {
                 FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(new File(dataPath + Constants.MAP_VERSION_FILE_PATH + String.format("/%s", mapDTO.getName())));
@@ -181,12 +184,12 @@ public class MapVersionManagement {
      * 변경되는 레이어들에 대해 새로 부여할 버전을 계산한다.
      * @param prevLayers List Of Layers, newLayers List Of Layers
      */
-    public double calculateMapVersionInNextLayers(MapDTO map, List<LayerDTO> prevLayers, List<LayerDTO> nextLayers){
+    public double calculateMapVersionInNextLayers(MapDTO map, List<LayerDTO> prevLayers, List<LayerDTO> nextLayers) {
         MapVersionDTO current = mapVersionMapper.findByMapIdRecently(map.getId());
         List<LayerDTO> pureNewLayer = loadPureNewLayersInNextLayers(prevLayers, nextLayers);
         double newVersion = (current == null) ? Constants.DEFAULT_LAYER_VERSION : current.getVersion();
         double nextMaxVersion = Constants.DEFAULT_LAYER_VERSION;
-        if(pureNewLayer.size() > 0) {
+        if (pureNewLayer.size() > 0) {
             nextMaxVersion = Collections.max(pureNewLayer.stream().map(o -> o.getVersion()).collect(Collectors.toSet()));
         }
         return Math.max(Double.parseDouble(String.format("%.1f", newVersion + Constants.ASCEND_LAYER_VERSION)), nextMaxVersion);
@@ -197,8 +200,8 @@ public class MapVersionManagement {
      * @param map MapDTO
      */
     @Transactional
-    public void removeVersionWithMapData(MapDTO map){
-        for(MapVersionDTO version : mapVersionMapper.findByMapId(map.getId())){
+    public void removeVersionWithMapData(MapDTO map) {
+        for (MapVersionDTO version : mapVersionMapper.findByMapId(map.getId())) {
             mapVersionMapper.deleteRelateByVersionId(version.getId());
         }
         mapVersionMapper.deleteByMapId(map.getId());
@@ -215,11 +218,11 @@ public class MapVersionManagement {
      * @param map MapDTO, prevLayers List of Layers, nextLayers List of Layers
      */
     @Transactional
-    public void setMapLayerListChangeManage(MapDTO map, List<LayerDTO> prevLayers, List<LayerDTO> nextLayers){
+    public void setMapLayerListChangeManage(MapDTO map, List<LayerDTO> prevLayers, List<LayerDTO> nextLayers) {
         double newVersion = calculateMapVersionInNextLayers(map, prevLayers, nextLayers);
         List<LayerDTO> pureNewLayers = loadPureNewLayersInNextLayers(prevLayers, nextLayers);
         List<LayerDTO> newLayers = new ArrayList<>(nextLayers);
-        for(LayerDTO layer : pureNewLayers){
+        for (LayerDTO layer : pureNewLayers) {
             layer.setVersion(newVersion);
             layerMapper.update(layer);
             setLayerUpdateManage(layer);
@@ -233,12 +236,12 @@ public class MapVersionManagement {
      * @param layer LayerDTO
      */
     @Transactional
-    public void setLayerUpdateManage(LayerDTO layer){
+    public void setLayerUpdateManage(LayerDTO layer) {
         List<MapVersionDTO> versions = mapVersionMapper.findByLayerId(layer.getId());
 
         double maxVersion = Constants.DEFAULT_LAYER_VERSION;
         Map<Long, Object> layerMap = new HashMap<>();
-        for(long mapId : versions.stream().map(MapVersionDTO::getMapId).collect(Collectors.toSet())){
+        for (long mapId : versions.stream().map(MapVersionDTO::getMapId).collect(Collectors.toSet())) {
             MapDTO map = mapMapper.findById(mapId);
             List<LayerDTO> prevLayers = layerMapper.findByMapId(mapId);
             List<LayerDTO> nextLayers = prevLayers.stream().map(o -> o.getId().equals(layer.getId()) ? layer : o).collect(Collectors.toList());
@@ -254,7 +257,7 @@ public class MapVersionManagement {
 
         // 2단계. 큰 버전을 각 레이어에 설정한다.
         Set<Long> savedLayers = new HashSet<>();
-        for(long mapId : layerMap.keySet()){
+        for (long mapId : layerMap.keySet()) {
             List<MapVersionDTO> mapVersions = mapVersionMapper.findByMapId(mapId);
             Map<String, List<LayerDTO>> listMap = (Map<String, List<LayerDTO>>) layerMap.get(mapId);
             List<LayerDTO> prevLayers = listMap.get("prevLayers");
@@ -263,8 +266,8 @@ public class MapVersionManagement {
 
             Set<Double> layerVersions = prevLayers.stream().map(LayerDTO::getVersion).collect(Collectors.toSet());
             Set<Double> mapUsedVersions = mapVersions.stream().map(MapVersionDTO::getVersion).collect(Collectors.toSet());
-            for(LayerDTO newLayer : pureNewLayers){
-                if((layerVersions.contains(newLayer.getVersion()) || mapUsedVersions.contains(newLayer.getVersion())) && !savedLayers.contains(newLayer.getId())){
+            for (LayerDTO newLayer : pureNewLayers) {
+                if ((layerVersions.contains(newLayer.getVersion()) || mapUsedVersions.contains(newLayer.getVersion())) && !savedLayers.contains(newLayer.getId())) {
                     newLayer.setVersion(maxVersion);
                     layerMapper.update(newLayer);
                     savedLayers.add(newLayer.getId());
@@ -277,7 +280,7 @@ public class MapVersionManagement {
         }
 
         // 3단계. 각 레이어 목록으로 버전 관리를 시작한다.
-        for(long mapId : layerMap.keySet()){
+        for (long mapId : layerMap.keySet()) {
             MapDTO map = mapMapper.findById(mapId);
 
             if (map.getVrtFilePath() != null && !map.getVrtFilePath().equalsIgnoreCase("")) {
@@ -315,15 +318,17 @@ public class MapVersionManagement {
      * @param layer LayerDTO
      */
     @Transactional
-    public void setLayerRemoveManage(LayerDTO layer){
+    public void setLayerRemoveManage(LayerDTO layer) {
         List<MapVersionDTO> versions = mapVersionMapper.findByLayerId(layer.getId());
         mapVersionMapper.deleteRelateByLayerId(layer.getId());
-        for(MapVersionDTO version : versions){
+        for (MapVersionDTO version : versions) {
             // 만약 버전 종속 레이어가 없는 경우에는 맵 버전도 삭제. 아닌 경우에는 삭제 뒤 버전 재조정 작업을 진행.
-            if(mapVersionMapper.countLayersByMapVersionId(version.getId()) == 0) {
+            if (mapVersionMapper.countLayersByMapVersionId(version.getId()) == 0) {
                 mapVersionMapper.deleteById(version.getId());
                 try {
-                    FileSystemUtil.deleteFile(dataPath + version.getZipFilePath());
+                    if(!StringUtils.isBlank(version.getZipFilePath())) {
+                        FileSystemUtil.deleteFile(dataPath + version.getZipFilePath());
+                    }
                 } catch (IOException e) {
                     log.error("ERROR - " + e.getMessage());
                 }

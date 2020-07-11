@@ -65,7 +65,7 @@ public class RoleEntity {
     @Column(name = "ACCOUNT_MANAGE", nullable = false)
     private Boolean accountManage;
 
-    public RoleEntity(){
+    public RoleEntity() {
 
     }
 

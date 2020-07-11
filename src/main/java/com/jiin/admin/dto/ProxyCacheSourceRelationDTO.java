@@ -10,7 +10,7 @@ public class ProxyCacheSourceRelationDTO {
     private Long cacheId;
     private Long sourceId;
 
-    public ProxyCacheSourceRelationDTO(){
+    public ProxyCacheSourceRelationDTO() {
 
     }
 

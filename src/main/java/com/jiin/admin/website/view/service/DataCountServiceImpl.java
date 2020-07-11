@@ -17,7 +17,7 @@ public class DataCountServiceImpl implements DataCountService {
      * 대시보드 화면에 데이터 카운트 결과를 반환한다.
      * @param
      */
-    public DataCounter loadDataCounter(){
+    public DataCounter loadDataCounter() {
         DataCounter dataCounter = new DataCounter();
         dataCounter.setMapCount(countMapper.countByTableName(MapEntity.class.getAnnotation(Entity.class).name()));
         dataCounter.setSymbolCount(countMapper.countByTableName(MapSymbol.class.getAnnotation(Entity.class).name()));

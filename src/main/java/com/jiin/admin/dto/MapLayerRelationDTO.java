@@ -11,7 +11,7 @@ public class MapLayerRelationDTO {
     private Long layerId;
     private Integer layerOrder;
 
-    public MapLayerRelationDTO(){
+    public MapLayerRelationDTO() {
 
     }
 

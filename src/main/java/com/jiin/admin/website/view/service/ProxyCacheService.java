@@ -1,5 +1,6 @@
 package com.jiin.admin.website.view.service;
 
+import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface ProxyCacheService {
 
     boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel, boolean synced);
     boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel, boolean synced);
-    boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel, boolean synced);
+    boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel, ServerCenterInfo local, boolean synced);
     boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel, boolean synced);
     boolean saveProxyGlobalByModelList(List<ProxyGlobalModel> proxyGlobalModels);
     boolean removeProxyDataByIdAndType(long id, String type);

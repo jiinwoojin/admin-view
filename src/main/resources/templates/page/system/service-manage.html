@@ -180,63 +180,88 @@
         }
 
         function onclick_status_refresh(service, ip, port){
-            $.ajax({
-                url: (port !== 0) ? `${CONTEXT}/server/api/service/extension-check?ip=${ip}&port=${port}` : `${CONTEXT}/server/api/service/docker-check?name=${service}`,
-                type: 'GET',
-                contentType: 'application/json',
-                success: function(status){
-                    var dom_icon = document.getElementById('service-status-icon-' + service);
-                    var dom_text = document.getElementById('service-status-text-' + service);
-                    var dom_title = document.getElementById('service-status-title-' + service);
+            var successFunc = function(status){
+                var dom_icon = document.getElementById('service-status-icon-' + service);
+                var dom_text = document.getElementById('service-status-text-' + service);
+                var dom_title = document.getElementById('service-status-title-' + service);
 
-                    var res = status.result && status.result.toUpperCase();
-                    dom_text.innerText = res ? res : 'UNKNOWN';
+                var res = status.result && status.result.toUpperCase();
+                dom_text.innerText = res ? res : 'UNKNOWN';
 
-                    var res = status.result.toUpperCase();
-                    switch(res){
-                        case 'CREATED':
-                        case 'RUNNING':
-                        case 'RESTARTING':
-                            dom_icon.className = (res === 'CREATED') ? 'h1 fas fa-plus-square text-info' : (res === 'RUNNING') ? 'h1 fas fa-check text-info' : 'h1 fas fa-sync text-warning';
-                            dom_text.className = 'text-info';
-                            dom_title.className = 'text-info';
-                            $(`#service-start-${service}`).prop('disabled', true);
-                            $(`#service-stop-${service}`).prop('disabled', false);
-                            break;
-                        case 'PAUSED':
-                            dom_icon.className = 'h1 fas fa-pause text-warning';
-                            dom_text.className = 'text-warning';
-                            dom_title.className = 'text-warning';
-                            $(`#service-start-${service}`).prop('disabled', true);
-                            $(`#service-stop-${service}`).prop('disabled', false);
-                            break;
-                        case 'REMOVING':
-                        case 'EXITED':
-                        case 'DEAD':
-                            dom_icon.className = 'h1 fas fa-times-circle text-danger';
-                            dom_text.className = 'text-danger';
-                            dom_title.className = 'text-danger';
-                            $(`#service-start-${service}`).prop('disabled', false);
-                            $(`#service-stop-${service}`).prop('disabled', true);
-                            break;
-                        default :
-                            dom_icon.className = 'h1 fas fa-question';
-                            dom_text.innerText = 'UNKNOWN';
-                            dom_text.className = '';
-                            dom_title.className = '';
-                            $(`#service-start-${service}`).prop('disabled', true);
-                            $(`#service-stop-${service}`).prop('disabled', true);
-                            $(`#service-restart-${service}`).prop('disabled', true);
-                            break;
-                    }
-                },
-                error: function(e){
-                    display_initialize(service, 'ERROR');
-                },
-                beforeSend: function(){
-                    display_initialize(service, 'LOADING');
+                var res = status.result.toUpperCase();
+                switch(res){
+                    case 'CREATED':
+                    case 'RUNNING':
+                    case 'RESTARTING':
+                        dom_icon.className = (res === 'CREATED') ? 'h1 fas fa-plus-square text-info' : (res === 'RUNNING') ? 'h1 fas fa-check text-info' : 'h1 fas fa-sync text-warning';
+                        dom_text.className = 'text-info';
+                        dom_title.className = 'text-info';
+                        $(`#service-start-${service}`).prop('disabled', true);
+                        $(`#service-stop-${service}`).prop('disabled', false);
+                        break;
+                    case 'PAUSED':
+                        dom_icon.className = 'h1 fas fa-pause text-warning';
+                        dom_text.className = 'text-warning';
+                        dom_title.className = 'text-warning';
+                        $(`#service-start-${service}`).prop('disabled', true);
+                        $(`#service-stop-${service}`).prop('disabled', false);
+                        break;
+                    case 'REMOVING':
+                    case 'EXITED':
+                    case 'DEAD':
+                        dom_icon.className = 'h1 fas fa-times-circle text-danger';
+                        dom_text.className = 'text-danger';
+                        dom_title.className = 'text-danger';
+                        $(`#service-start-${service}`).prop('disabled', false);
+                        $(`#service-stop-${service}`).prop('disabled', true);
+                        break;
+                    default :
+                        dom_icon.className = 'h1 fas fa-question';
+                        dom_text.innerText = 'UNKNOWN';
+                        dom_text.className = '';
+                        dom_title.className = '';
+                        $(`#service-start-${service}`).prop('disabled', true);
+                        $(`#service-stop-${service}`).prop('disabled', true);
+                        $(`#service-restart-${service}`).prop('disabled', true);
+                        break;
                 }
-            });
+            };
+
+            if(port === 0) {
+                $.ajax({
+                    url: `${CONTEXT}/server/api/service/docker-check?name=${service}`,
+                    type: 'GET',
+                    contentType: 'application/json',
+                    success: function (status) {
+                        successFunc(status)
+                    },
+                    error: function (e) {
+                        display_initialize(service, 'ERROR');
+                    },
+                    beforeSend: function () {
+                        display_initialize(service, 'LOADING');
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: `${CONTEXT}/server/api/service/extension-check`,
+                    type: 'POST',
+                    data: JSON.stringify({
+                        ip: ip,
+                        port: port
+                    }),
+                    contentType: 'application/json',
+                    success: function (status) {
+                        successFunc(status)
+                    },
+                    error: function (e) {
+                        display_initialize(service, 'ERROR');
+                    },
+                    beforeSend: function () {
+                        display_initialize(service, 'LOADING');
+                    }
+                });
+            }
         }
 
         function onclick_service_execute(btn){

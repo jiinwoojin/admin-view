@@ -36,7 +36,7 @@ public class ProxyLayerCacheRelationEntity {
     @JoinColumn
     private ProxyCacheEntity cache;
 
-    public ProxyLayerCacheRelationEntity(){
+    public ProxyLayerCacheRelationEntity() {
 
     }
 

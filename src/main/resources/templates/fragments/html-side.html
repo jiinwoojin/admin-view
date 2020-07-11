@@ -3,7 +3,7 @@
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
-                    <a title="홈으로" th:href="@{/view/home/guest}" sec:authorize="!isAuthenticated()">
+                    <a title="홈으로" th:href="@{/view/home/dashboard}" sec:authorize="!isAuthenticated()">
                         <h1>
                             <i class="h1 fas fa-globe-asia text-white"></i> JIMAP
                         </h1>
@@ -12,7 +12,7 @@
                         </span>
                     </a>
 
-                    <a title="홈으로" th:href="@{/view/home/user}" sec:authorize="isAuthenticated()">
+                    <a title="홈으로" th:href="@{/view/home/dashboard}" sec:authorize="isAuthenticated()">
                         <h1>
                             <i class="h1 fas fa-globe-asia text-white"></i> JIMAP
                         </h1>

@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("sync")
 public class MVCSyncController {
     @RequestMapping("database")
-    public String serviceShutdownPage(Model model){
+    public String serviceShutdownPage(Model model) {
         return "page/sync/database";
     }
 
     @RequestMapping("file")
-    public String serviceRestartPage(Model model){
+    public String serviceRestartPage(Model model) {
         return "page/sync/file";
     }
 }

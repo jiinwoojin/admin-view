@@ -10,7 +10,7 @@ public class ProxyLayerSourceRelationDTO {
     private Long layerId;
     private Long sourceId;
 
-    public ProxyLayerSourceRelationDTO(){
+    public ProxyLayerSourceRelationDTO() {
 
     }
 

@@ -32,13 +32,13 @@
                         <tbody id="global-row-list">
                         <tr th:each="global : ${ globals }">
                             <td class="text-center align-middle">
-                                <input type="text" class="form-control" th:value="${global.key}" />
+                                <input type="text" class="form-control" th:value="${global.key}" th:readonly="${global.key == 'cache.base_dir' || global.key == 'cache.lock_dir'}" />
                             </td>
                             <td class="text-center align-middle">
                                 <input type="text" class="form-control" th:value="${global.value}" />
                             </td>
                             <td class="text-center align-middle" >
-                                <button class="btn btn-danger btn-sm btn-circle" type="button" onclick="onclick_global_row_remove(this)">
+                                <button class="btn btn-danger btn-sm btn-circle" type="button" onclick="onclick_global_row_remove(this)" th:disabled="${global.key == 'cache.base_dir' || global.key == 'cache.lock_dir'}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>

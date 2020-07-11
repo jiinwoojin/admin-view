@@ -45,11 +45,11 @@ public class AccountEntity implements Serializable, UserDetails {
     @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    public AccountEntity(){
+    public AccountEntity() {
 
     }
 
-    public AccountEntity(Long id, String username, String password, String name, String email, RoleEntity role){
+    public AccountEntity(Long id, String username, String password, String name, String email, RoleEntity role) {
         this.id = id;
         this.username = username;
         this.password = password;

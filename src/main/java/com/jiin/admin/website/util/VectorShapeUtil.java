@@ -23,16 +23,16 @@ public class VectorShapeUtil {
      * ZIP 파일을 받은 이후, 맨 상단부에 기재한 확장자 파일들을 모두 가지고 있는지 점검한다.
      * @Param file MultipartFile
      */
-    public static boolean confirmIsZipFileContainsSHPFile(MultipartFile file){
+    public static boolean confirmIsZipFileContainsSHPFile(MultipartFile file) {
         String zipFilename = file.getOriginalFilename();
-        if(FileSystemUtil.loadFileExtensionName(zipFilename).equals("zip")) {
+        if (FileSystemUtil.loadFileExtensionName(zipFilename).equals("zip")) {
             try (ZipInputStream zis = new ZipInputStream(file.getInputStream())) {
                 ZipEntry entry;
                 Set<String> checked = new HashSet<>();
-                while((entry = zis.getNextEntry()) != null){
+                while((entry = zis.getNextEntry()) != null) {
                     String entryFilename = entry.getName();
                     checked.add(FileSystemUtil.loadFileExtensionName(entryFilename));
-                    if(checked.containsAll(shapeFileExtensions)) return true;
+                    if (checked.containsAll(shapeFileExtensions)) return true;
                 }
                 return false;
             } catch(IOException e) {
@@ -48,14 +48,14 @@ public class VectorShapeUtil {
      * 단, ZIP 파일에는 어떠한 디렉토리가 있으면 안 된다.
      * @Param file MultipartFile
      */
-    public static String loadRealShpFileInZipFile(MultipartFile file){
+    public static String loadRealShpFileInZipFile(MultipartFile file) {
         String zipFilename = file.getOriginalFilename();
-        if(FileSystemUtil.loadFileExtensionName(zipFilename).equals("zip")) {
+        if (FileSystemUtil.loadFileExtensionName(zipFilename).equals("zip")) {
             try (ZipInputStream zis = new ZipInputStream(file.getInputStream())) {
                 ZipEntry entry;
-                while((entry = zis.getNextEntry()) != null){
+                while((entry = zis.getNextEntry()) != null) {
                     String entryFilename = entry.getName();
-                    if(FileSystemUtil.loadFileExtensionName(entryFilename).equals("shp")) return entryFilename;
+                    if (FileSystemUtil.loadFileExtensionName(entryFilename).equals("shp")) return entryFilename;
                 }
             } catch(IOException e) {
                 log.error("ERROR - " + e.getMessage());

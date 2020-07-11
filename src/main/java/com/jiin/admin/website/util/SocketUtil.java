@@ -14,7 +14,7 @@ public class SocketUtil {
      * TCP 포트를 기반으로 개방 여부를 확인한다.
      * @param host String, port int
      */
-    public static boolean loadIsTcpPortOpen(String host, int port){
+    public static boolean loadIsTcpPortOpen(String host, int port) {
         try {
             new Socket(host, port).close();
             return true;
@@ -31,7 +31,7 @@ public class SocketUtil {
      * UDP 포트를 기반으로 개방 여부를 확인한다. (Syncthing UDP 확인 대비)
      * @param port int
      */
-    public static boolean loadIsUdpPortOpen(int port){
+    public static boolean loadIsUdpPortOpen(int port) {
         try {
             new DatagramSocket(port).close();
             return true;

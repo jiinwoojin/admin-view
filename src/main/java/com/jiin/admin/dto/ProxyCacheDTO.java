@@ -25,11 +25,11 @@ public class ProxyCacheDTO { // MyBatis Based DTO
     private Boolean selected;
     private Boolean isDefault;
 
-    public ProxyCacheDTO(){
+    public ProxyCacheDTO() {
         this.sources = new ArrayList<>();
     }
 
-    public ProxyCacheDTO(Long id, String name, Integer metaSizeX, Integer metaSizeY, Integer metaBuffer, List<ProxySourceDTO> sources, String cacheType, String cacheDirectory, String format, String grids, Boolean selected, Boolean isDefault){
+    public ProxyCacheDTO(Long id, String name, Integer metaSizeX, Integer metaSizeY, Integer metaBuffer, List<ProxySourceDTO> sources, String cacheType, String cacheDirectory, String format, String grids, Boolean selected, Boolean isDefault) {
         this.id = id;
         this.name = name;
         this.metaSizeX = metaSizeX;
@@ -45,7 +45,7 @@ public class ProxyCacheDTO { // MyBatis Based DTO
     }
 
     public String getSourceKeys() throws JsonProcessingException {
-        if(this.sources == null) return "[]";
+        if (this.sources == null) return "[]";
         else {
             ObjectMapper obj = new ObjectMapper();
             return obj.writeValueAsString(this.sources.stream().map(o -> o.getName()).collect(Collectors.toList()));

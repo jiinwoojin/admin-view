@@ -11,7 +11,7 @@ public class ProxyGlobalModel {
     private String key;
     private String value;
 
-    public ProxyGlobalModel(){
+    public ProxyGlobalModel() {
 
     }
 
@@ -21,8 +21,8 @@ public class ProxyGlobalModel {
         this.value = value;
     }
 
-    public static ProxyGlobalDTO convertDTO(ProxyGlobalModel model){
-        if(model == null) return null;
+    public static ProxyGlobalDTO convertDTO(ProxyGlobalModel model) {
+        if (model == null) return null;
         else {
             return new ProxyGlobalDTO(model.getId(), model.getKey(), model.getValue());
         }

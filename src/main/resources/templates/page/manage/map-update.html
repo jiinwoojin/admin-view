@@ -351,14 +351,18 @@
         }
 
         function setLayer() {
-            var layerTable = document.querySelector('#layer_list').tBodies;
+            var layerTable = $('#layer_list').DataTable();
 
-            // layerList
+            var layerDataList = layerTable.rows().data();
+            var layerDataCount = layerDataList.length;
+
             var layers = [];
-            for (var value of layerTable[0].rows) {
+
+            for (var i = 0; i < layerDataCount; i++) {
+                var layerData = layerDataList[i];
                 var layer = {};
-                layer.layerId = value.querySelector('input').value;
-                layer.order = Number(value.children[0].innerHTML);
+                layer.layerId = $(layerData[1])[0].querySelector('input').value;
+                layer.order = layerData[0];
 
                 layers.push(layer);
             }

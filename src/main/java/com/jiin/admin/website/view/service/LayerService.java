@@ -2,6 +2,7 @@ package com.jiin.admin.website.view.service;
 
 import com.jiin.admin.dto.LayerDTO;
 import com.jiin.admin.website.model.LayerPageModel;
+import com.jiin.admin.website.model.LayerRowModel;
 import com.jiin.admin.website.model.OptionModel;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,4 +20,6 @@ public interface LayerService {
     boolean createData(LayerDTO layerDTO, MultipartFile uploadData);
     boolean setData(LayerDTO layerDTO, MultipartFile uploadData);
     boolean removeData(long id);
+
+    Map<String, Integer> saveMultipleDataByModelList(List<LayerRowModel> models);
 }

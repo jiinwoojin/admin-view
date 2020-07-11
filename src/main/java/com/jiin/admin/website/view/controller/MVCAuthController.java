@@ -17,21 +17,21 @@ public class MVCAuthController {
 
     // 회원 로그인 페이지
     @RequestMapping("login")
-    public String authLoginPage(Model model){
+    public String authLoginPage(Model model) {
         return "page/auth/login";
     }
 
     // 회원 가입 페이지
     @RequestMapping("sign")
-    public String authSignUpPage(Model model){
+    public String authSignUpPage(Model model) {
         model.addAttribute("account", new AccountModel());
         return "page/auth/sign";
     }
 
     // 회원 가입 실행 Request
     @RequestMapping(value = "sign", method = RequestMethod.POST)
-    public String authSignUpRedirect(Model model, AccountModel accountModel){
-        if(accountService.createAccountWithModel(accountModel)) {
+    public String authSignUpRedirect(Model model, AccountModel accountModel) {
+        if (accountService.createAccountWithModel(accountModel)) {
             return "redirect:login";
         } else {
             return "redirect:sign?error";
@@ -47,8 +47,8 @@ public class MVCAuthController {
 
     // 회원 정보 수정 Request
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public String authEditRedirect(Model model, AccountModel accountModel){
-        if(accountService.updateAccountWithModel(accountModel)) {
+    public String authEditRedirect(Model model, AccountModel accountModel) {
+        if (accountService.updateAccountWithModel(accountModel)) {
             return "redirect:../home/user";
         } else {
             return "redirect:edit?error";

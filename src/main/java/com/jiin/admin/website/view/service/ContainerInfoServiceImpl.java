@@ -62,7 +62,7 @@ public class ContainerInfoServiceImpl implements ContainerInfoService {
      * Container 의 원래 소프트웨어 이름을 가져온다.
      * @param name String
      */
-    private String loadGISSoftwareNameByContainerName(String name){
+    private String loadGISSoftwareNameByContainerName(String name) {
         if (name.equalsIgnoreCase(MAP_SERVER_NAME)) {
             return "MapServer";
         } else if (name.equalsIgnoreCase(MAP_PROXY_NAME)) {
@@ -141,10 +141,10 @@ public class ContainerInfoServiceImpl implements ContainerInfoService {
     public void executeGeoServiceByNameAndMethod(String name, String command) {
         String workedUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         // Docker Container 대응
-        if(name.equalsIgnoreCase(MAP_SERVER_NAME) || name.equalsIgnoreCase(MAP_PROXY_NAME) || name.equalsIgnoreCase(MAPNIK_NAME) || name.equalsIgnoreCase(HEIGHT_NAME) || name.equalsIgnoreCase(RABBIT_MQ_NAME) || name.equalsIgnoreCase(NGINX_NAME)){
+        if (name.equalsIgnoreCase(MAP_SERVER_NAME) || name.equalsIgnoreCase(MAP_PROXY_NAME) || name.equalsIgnoreCase(MAPNIK_NAME) || name.equalsIgnoreCase(HEIGHT_NAME) || name.equalsIgnoreCase(RABBIT_MQ_NAME) || name.equalsIgnoreCase(NGINX_NAME)) {
             try {
                 DockerUtil.executeContainerByNameAndMethod(name, command);
-                if(command.equalsIgnoreCase("START") || command.equalsIgnoreCase("STOP")){
+                if (command.equalsIgnoreCase("START") || command.equalsIgnoreCase("STOP")) {
                     containerHistoryMapper.insert(new ContainerHistoryDTO(
                         containerHistoryMapper.findNextSeqVal(),
                         loadGISSoftwareNameByContainerName(name),
@@ -156,7 +156,7 @@ public class ContainerInfoServiceImpl implements ContainerInfoService {
                 }
             } catch (IOException e) {
                 log.error("ERROR - " + e.getMessage());
-                if(command.equalsIgnoreCase("START") || command.equalsIgnoreCase("STOP")){
+                if (command.equalsIgnoreCase("START") || command.equalsIgnoreCase("STOP")) {
                     containerHistoryMapper.insert(new ContainerHistoryDTO(
                         containerHistoryMapper.findNextSeqVal(),
                         loadGISSoftwareNameByContainerName(name),

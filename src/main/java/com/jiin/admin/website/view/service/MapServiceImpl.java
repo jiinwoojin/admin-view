@@ -19,6 +19,7 @@ import com.jiin.admin.website.util.GdalUtil;
 import com.jiin.admin.website.util.MapServerUtil;
 import com.jiin.admin.website.view.component.MapVersionManagement;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -73,20 +74,20 @@ public class MapServiceImpl implements MapService {
      * @param relations String JSON
      */
     private List<LayerDTO> loadLayersByRelationJSON(String relations) throws JsonProcessingException {
-        List<Map<String, Object>> orderLayerList = new ObjectMapper().readValue(relations, new TypeReference<LinkedList<Map<String, Object>>>(){});
+        List<Map<String, Object>> orderLayerList = new ObjectMapper().readValue(relations, new TypeReference<LinkedList<Map<String, Object>>>() {});
         TreeMap<Integer, Long> layerMap = new TreeMap<>();
-        for(Map<String, Object> orderLayer : orderLayerList){
+        for (Map<String, Object> orderLayer : orderLayerList) {
             long layerId = Long.parseLong(String.valueOf(orderLayer.get("layerId")));
             int layerOrder = Integer.parseInt(String.valueOf(orderLayer.get("order")));
             layerMap.put(layerOrder, layerId);
         }
 
         List<LayerDTO> layers = new ArrayList<>();
-        for(int order : layerMap.keySet()){
+        for (int order : layerMap.keySet()) {
             long id = layerMap.getOrDefault(order, -1L);
-            if(id != -1L) {
+            if (id != -1L) {
                 LayerDTO layer = layerMapper.findById(id);
-                if(layer != null) layers.add(layer);
+                if (layer != null) layers.add(layer);
             }
         }
         return layers;
@@ -97,7 +98,7 @@ public class MapServiceImpl implements MapService {
      * MAP 데이터 중 추가 및 삭제 시 공통으로 설정할 수 있는 로직 정리
      * @param mapDTO MapDTO
      */
-    private void setCommonProperties(MapDTO mapDTO){
+    private void setCommonProperties(MapDTO mapDTO) {
         // TODO : 굳이 setter 안 쓰고, Builder 를 사용해서 한 번에 실행하는 방법이 있을까? - Builder 패턴 알아볼 것
         String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         mapDTO.setRegistorId(loginUser);
@@ -110,12 +111,12 @@ public class MapServiceImpl implements MapService {
      * @param mapId long, relations String JSON
      */
     private boolean createRelationByMapIdAndRelationJSON(long mapId, String relations) throws JsonProcessingException {
-        List<Map<String, Object>> orderLayerList = new ObjectMapper().readValue(relations, new TypeReference<LinkedList<Map<String, Object>>>(){});
+        List<Map<String, Object>> orderLayerList = new ObjectMapper().readValue(relations, new TypeReference<LinkedList<Map<String, Object>>>() {});
         for (Map<String, Object> orderLayer : orderLayerList) {
             long layerId = Long.parseLong(String.valueOf(orderLayer.get("layerId")));
             int layerOrder = Integer.parseInt(String.valueOf(orderLayer.get("order")));
             MapLayerRelationDTO relation = new MapLayerRelationDTO(0L, mapId, layerId, layerOrder);
-            if(mapLayerRelationMapper.insert(relation) < 1) return false;
+            if (mapLayerRelationMapper.insert(relation) < 1) return false;
         }
         return true;
     }
@@ -124,7 +125,7 @@ public class MapServiceImpl implements MapService {
      * MAP 데이터와 LAYER 데이터와의 연동 관계 삭제
      * @param mapId long
      */
-    private boolean removeRelationByMapId(long mapId){
+    private boolean removeRelationByMapId(long mapId) {
         return mapLayerRelationMapper.deleteByMapId(mapId) > 0;
     }
 
@@ -161,13 +162,13 @@ public class MapServiceImpl implements MapService {
     public Map<String, Object> loadDataListAndCountByPaginationModel(MapPageModel mapPageModel) {
         List<MapDTO> data = mapMapper.findByPageModel(mapPageModel);
         Map<Long, Double> versionMap = new HashMap<>();
-        for(MapDTO map : data){
+        for (MapDTO map : data) {
             MapVersionDTO version = mapVersionMapper.findByMapIdRecently(map.getId());
-            if(version != null) {
+            if (version != null) {
                 versionMap.put(map.getId(), version.getVersion());
             }
         }
-        return new HashMap<String, Object>(){{
+        return new HashMap<String, Object>() {{
             put("data", data);
             put("count", mapMapper.countByPageModel(mapPageModel));
             put("versionMap", versionMap);
@@ -176,7 +177,7 @@ public class MapServiceImpl implements MapService {
 
     @Override
     public Map<String, Object> loadVersionInfoListById(long id) {
-        return new HashMap<String, Object>(){{
+        return new HashMap<String, Object>() {{
             put("list", mapVersionMapper.findByMapId(id));
         }};
     }
@@ -197,7 +198,7 @@ public class MapServiceImpl implements MapService {
     @Override
     @Transactional
     public boolean createData(MapDTO mapDTO, String relations, boolean versionCheck) throws JsonProcessingException {
-        if(mapMapper.findByName(mapDTO.getName()) != null) return false;
+        if (mapMapper.findByName(mapDTO.getName()) != null) return false;
 
         long id = mapMapper.findNextSeqVal();
         String mapFilePath = String.format("%s%s/%s%s", dataPath, Constants.MAP_FILE_PATH, mapDTO.getName(), Constants.MAP_SUFFIX);
@@ -225,7 +226,7 @@ public class MapServiceImpl implements MapService {
 
                 // 2단계. Version 관리 (선택)
                 if (versionCheck) {
-                    if (mapDTO.getVrtFilePath() != null && !mapDTO.getVrtFilePath().equalsIgnoreCase("")) {
+                    if (!StringUtils.isBlank(mapDTO.getVrtFilePath())) {
                         // vrt 생성
                         GdalUtil.createVrt(dataPath, mapDTO, layers);   // TODO return 값 받아서 처리 해야함
                     }
@@ -257,13 +258,13 @@ public class MapServiceImpl implements MapService {
         List<LayerDTO> prevLayers = layerMapper.findByMapId(selected.getId());
         List<LayerDTO> layers = loadLayersByRelationJSON(relations);
 
-        if(selected == null) return false;
+        if (selected == null) return false;
 
         mapDTO.setMapFilePath(selected.getMapFilePath()); // 이름은 변동할 수 없으니 현재까지 저장된 디렉토리를 그대로 유지.
 
         setCommonProperties(mapDTO);
 
-        if(mapMapper.update(mapDTO) > 0) {
+        if (mapMapper.update(mapDTO) > 0) {
             // MAP - LAYER Relation 설정
             removeRelationByMapId(mapDTO.getId());
             createRelationByMapIdAndRelationJSON(mapDTO.getId(), relations);
@@ -281,7 +282,7 @@ public class MapServiceImpl implements MapService {
                         GdalUtil.createVrt(dataPath, mapDTO, layers);   // TODO return 값 받아서 처리 해야함
                     } else {
                         // TODO vrt 파일이 있을경우 삭제 해야함
-                        if (mapDTO.getVrtFilePath() != null && !mapDTO.getVrtFilePath().equalsIgnoreCase("")) {
+                        if (!StringUtils.isBlank(mapDTO.getVrtFilePath())) {
                             mapDTO.setVrtFilePath(null);
                             mapMapper.update(mapDTO);
                         }
@@ -292,7 +293,7 @@ public class MapServiceImpl implements MapService {
                     mapVersionManagement.removeVersionWithMapData(selected);
                 }
 
-            } catch (IOException e){
+            } catch (IOException e) {
                 log.error("ERROR - " + e.getMessage());
                 return false;
             }
@@ -313,7 +314,7 @@ public class MapServiceImpl implements MapService {
     public boolean removeData(long id) {
         MapDTO selected = mapMapper.findById(id);
         List<LayerDTO> layers = layerMapper.findByMapId(id);
-        if(selected == null) return false;
+        if (selected == null) return false;
 
         // MAP 을 삭제하면, LAYER 버전을 전부 1.0 으로 초기화. (단 버전을 관리할 때.)
         List<MapVersionDTO> mapVersions = mapVersionMapper.findByLayerId(id);
@@ -326,12 +327,14 @@ public class MapServiceImpl implements MapService {
 
         removeRelationByMapId(id); // 현재 MAP, LAYER 종속 관계 삭제
         mapVersionManagement.removeVersionWithMapData(selected); // MAP 버전 폴더 및 DB 삭제
-        if(mapMapper.deleteById(id) > 0) {
+        if (mapMapper.deleteById(id) > 0) {
             try {
-                String mapFilePath = String.format("%s%s", dataPath, selected.getMapFilePath());
-                FileSystemUtil.deleteFile(mapFilePath);
+                if (!StringUtils.isBlank(selected.getMapFilePath())) {
+                    String mapFilePath = String.format("%s%s", dataPath, selected.getMapFilePath());
+                    FileSystemUtil.deleteFile(mapFilePath);
+                }
 
-                if (selected.getVrtFilePath() != null) {
+                if (!StringUtils.isBlank(selected.getVrtFilePath())) {
                     String vrtFilePath = String.format("%s%s", dataPath, selected.getVrtFilePath());
                     FileSystemUtil.deleteFile(vrtFilePath);
                 }

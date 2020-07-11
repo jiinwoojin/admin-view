@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("display")
 public class MVCDisplayController {
     @RequestMapping("2d-map")
-    public String twoDimensionDisplayView(Model model){
+    public String twoDimensionDisplayView(Model model) {
         return "page/display/2d-map";
     }
 
     @RequestMapping("3d-map")
-    public String threeDimensionDisplayView(Model model){
+    public String threeDimensionDisplayView(Model model) {
         return "page/display/3d-map";
     }
 
     @RequestMapping("ol-display")
-    public String openlayersDisplayView(Model model){
+    public String openlayersDisplayView(Model model) {
         return "page/display/ol-display";
     }
 
@@ -28,13 +28,13 @@ public class MVCDisplayController {
     }
 
     @RequestMapping("cesium-display")
-    public String cesiumDisplayView(Model model){
+    public String cesiumDisplayView(Model model) {
         return "page/display/cesium-display";
     }
 
     // 상황도 도시 (Openlayers)
     @RequestMapping("symbol-map")
-    public String symbolizeDisplayView(Model model){
+    public String symbolizeDisplayView(Model model) {
         return "page/display/symbol-map";
     }
 
@@ -46,7 +46,7 @@ public class MVCDisplayController {
 
     // 가시화 지도 (ol-ext or Mapbox JS)
     @RequestMapping("ext-map")
-    public String extensionVisualizeDisplayView(Model model){
+    public String extensionVisualizeDisplayView(Model model) {
         return "page/display/ext-map";
     }
 }

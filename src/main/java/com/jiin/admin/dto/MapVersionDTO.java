@@ -15,7 +15,7 @@ public class MapVersionDTO {
     private Long zipFileSize;
     private Date uploadDate;
 
-    public MapVersionDTO(){
+    public MapVersionDTO() {
         this.version = 1.0;
     }
 

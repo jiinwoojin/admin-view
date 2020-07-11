@@ -15,7 +15,7 @@ public class ProxySourceWMSDTO extends ProxySourceDTO {
     private Boolean requestTransparent;
     private String supportedSRS;
 
-    public ProxySourceWMSDTO(){
+    public ProxySourceWMSDTO() {
         super();
     }
 

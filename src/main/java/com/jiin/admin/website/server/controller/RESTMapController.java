@@ -15,7 +15,7 @@ public class RESTMapController {
     private MapService mapService;
 
     @RequestMapping("list")
-    public List<MapDTO> findAllMapEntities(){
+    public List<MapDTO> findAllMapEntities() {
         return mapService.loadMapDataList();
     }
 }

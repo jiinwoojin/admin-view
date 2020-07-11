@@ -14,11 +14,11 @@ public class RoleModel {
     private boolean cacheManage;
     private boolean accountManage;
 
-    public RoleModel(){
+    public RoleModel() {
 
     }
 
-    public RoleModel(String title, String label, boolean mapBasic, boolean mapManage, boolean layerManage, boolean cacheManage, boolean accountManage){
+    public RoleModel(String title, String label, boolean mapBasic, boolean mapManage, boolean layerManage, boolean cacheManage, boolean accountManage) {
         this.title = title;
         this.label = label;
         this.mapBasic = mapBasic;

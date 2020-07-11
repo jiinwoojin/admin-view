@@ -24,7 +24,7 @@ public class MapProxyUtil {
      * @param
      * @note JPA Entity 대응 필요, wms_srs (복수), wms_title 등 메타 정보 주입 대응 필요
      */
-    private static Map<String, Object> loadInitServiceProperties(){
+    private static Map<String, Object> loadInitServiceProperties() {
         Map<String, Object> serviceMap = new LinkedHashMap<>();
         serviceMap.put("demo", null);
 
@@ -66,9 +66,9 @@ public class MapProxyUtil {
             l.put("title", layer.getTitle());
 
             List<String> sourceNames = new ArrayList<>();
-            if(layer.getSources() != null)
+            if (layer.getSources() != null)
                 layer.getSources().stream().forEach(s -> sourceNames.add(s.getName()));
-            if(layer.getCaches() != null)
+            if (layer.getCaches() != null)
                 layer.getCaches().stream().forEach(c -> sourceNames.add(c.getName()));
             l.put("sources", sourceNames.stream().toArray(String[]::new));
 
@@ -82,16 +82,16 @@ public class MapProxyUtil {
             depth_main.put("format", cache.getFormat());
 
             List<String> sourceNames = new ArrayList<>();
-            if(cache.getSources() != null)
+            if (cache.getSources() != null)
                 cache.getSources().stream().forEach(s -> sourceNames.add(s.getName()));
             depth_main.put("sources", sourceNames);
 
             // 우선 Meta 값들을 입력 하게 되면 나오게끔은 설정.
             // 그러나 안 입력하면 굳이 안 나오게끔도 설정 했음.
-            if(cache.getMetaSizeX() != null && cache.getMetaSizeY() != null)
+            if (cache.getMetaSizeX() != null && cache.getMetaSizeY() != null)
                 depth_main.put("meta_size", new Integer[] { cache.getMetaSizeX(), cache.getMetaSizeY() });
 
-            if(cache.getMetaBuffer() != null)
+            if (cache.getMetaBuffer() != null)
                 depth_main.put("meta_buffer", cache.getMetaBuffer());
 
             // Cache 값은 우선 배제할 것. (DB 에서는 Not Null 제약 조건만 빼 둘 계획)
@@ -109,7 +109,7 @@ public class MapProxyUtil {
             Map<String, Object> depth_req = new LinkedHashMap<>();
             Map<String, Object> depth_mapserver = new LinkedHashMap<>();
 
-            if(source instanceof ProxySourceMapServerDTO) {
+            if (source instanceof ProxySourceMapServerDTO) {
                 ProxySourceMapServerDTO dto = (ProxySourceMapServerDTO) source;
                 depth_main.put("type", dto.getType());
 
@@ -125,13 +125,13 @@ public class MapProxyUtil {
                 sources_y.put(dto.getName(), depth_main);
             }
 
-            if(source instanceof ProxySourceWMSDTO) {
+            if (source instanceof ProxySourceWMSDTO) {
                 ProxySourceWMSDTO dto = (ProxySourceWMSDTO) source;
                 depth_main.put("type", dto.getType());
 
                 depth_main.put("concurrent_requests", dto.getConcurrentRequests());
-                depth_main.put("wms_opts", new LinkedHashMap<String, Object>(){{ put("version", dto.getWmsOptsVersion()); }});
-                depth_main.put("http", new LinkedHashMap<String, Object>(){{ put("client_timeout", dto.getHttpClientTimeout()); }});
+                depth_main.put("wms_opts", new LinkedHashMap<String, Object>() {{ put("version", dto.getWmsOptsVersion()); }});
+                depth_main.put("http", new LinkedHashMap<String, Object>() {{ put("client_timeout", dto.getHttpClientTimeout()); }});
 
                 depth_req.put("url", dto.getRequestURL());
                 depth_req.put("layers", dto.getRequestLayers());
@@ -164,8 +164,8 @@ public class MapProxyUtil {
         yamlModel.put("layers", layers_y);
         yamlModel.put("caches", caches_y);
         yamlModel.put("sources", sources_y);
-        yamlModel.put("grids", new LinkedHashMap<String, Object>(){{
-            put("osm_grid", new LinkedHashMap<String, Object>(){{
+        yamlModel.put("grids", new LinkedHashMap<String, Object>() {{
+            put("osm_grid", new LinkedHashMap<String, Object>() {{
                 put("srs", "EPSG:3857");
                 put("origin", "nw");
             }});
@@ -184,7 +184,7 @@ public class MapProxyUtil {
         Yaml yaml = new Yaml(options);
 
         StringBuffer sb = new StringBuffer();
-        for(String key : Arrays.asList("services", "layers", "caches", "sources", "grids", "globals")){
+        for (String key : Arrays.asList("services", "layers", "caches", "sources", "grids", "globals")) {
             StringWriter yamlStr = new StringWriter();
             Map<String, Object> serviceMap = new HashMap<String, Object>() {{
                 put(key, yamlModel.get(key));
@@ -205,7 +205,7 @@ public class MapProxyUtil {
                     p = Pattern.compile("(\\s\\{).*?(,\\s).*?(,\\s+).*?(\\})");
                     m = p.matcher(context);
 
-                    while(m.find()){
+                    while (m.find()) {
                         temp = m.group(0);
                         temp = temp.replace(m.group(1), "\n    ");
                         temp = temp.replace(m.group(2), "\n    ");
@@ -216,7 +216,7 @@ public class MapProxyUtil {
 
                     p = Pattern.compile("(\\s\\{).*?:.*?(\\})");
                     m = p.matcher(context);
-                    while(m.find()){
+                    while (m.find()) {
                         temp = m.group(0);
                         temp = temp.replace(m.group(1), "\n    ");
                         temp = temp.replace(m.group(2), "");
@@ -229,7 +229,7 @@ public class MapProxyUtil {
                 case "sources" :
                 case "caches" :
                     Map<String, Object> keyMap = (Map<String, Object>) yamlModel.get(key);
-                    if(!keyMap.isEmpty()) {
+                    if (!keyMap.isEmpty()) {
                         p = Pattern.compile("(\\s\\{).*?(,\\s).*?(,\\s+).*?(\\})");
                         m = p.matcher(context);
 
@@ -273,7 +273,7 @@ public class MapProxyUtil {
 
                 case "layers" :
                     List<Map<String, Object>> keyList = (List<Map<String, Object>>) yamlModel.get(key);
-                    if(!keyList.isEmpty()) {
+                    if (!keyList.isEmpty()) {
                         String[] sp = context.split("\\n");
                         StringBuffer tmp = new StringBuffer();
                         for (String s : sp) {
@@ -288,7 +288,7 @@ public class MapProxyUtil {
                 case "grids" :
                     p = Pattern.compile("(\\s\\{).*?(,\\s).*?(\\})");
                     m = p.matcher(context);
-                    while(m.find()){
+                    while (m.find()) {
                         temp = m.group(0);
                         temp = temp.replace(m.group(1), "\n    ");
                         temp = temp.replace(m.group(2), "\n    ");
@@ -296,11 +296,11 @@ public class MapProxyUtil {
                         context = context.replace(m.group(0), temp);
                     }
 
-                    if(key.equals("grids")){
+                    if (key.equals("grids")) {
                         context = context.replace("\'EPSG:3857\'", "EPSG:3857");
                     }
 
-//                    if(key.equals("globals")){
+//                    if (key.equals("globals")) {
 //                        context = context.replaceFirst("/data/jiapp/data_dir/cache", "\'/data/jiapp/data_dir/cache\'");
 //                        context = context.replaceFirst("/data/jiapp/data_dir/cache/locks", "\'/data/jiapp/data_dir/cache/locks\'");
 //                    }
@@ -310,7 +310,7 @@ public class MapProxyUtil {
                 case "globals" :
                     p = Pattern.compile("(\\s\\{).*?(,\\s).*?(\\})");
                     m = p.matcher(context);
-                    while(m.find()){
+                    while (m.find()) {
                         temp = m.group(0);
                         temp = temp.replace(m.group(1), "\n      ");
                         temp = temp.replace(m.group(2), "\n      ");
@@ -321,7 +321,7 @@ public class MapProxyUtil {
                     break;
             }
 
-            if(!key.equals("globals")) sb.append(context + "\n");
+            if (!key.equals("globals")) sb.append(context + "\n");
             else sb.append(context);
         }
 

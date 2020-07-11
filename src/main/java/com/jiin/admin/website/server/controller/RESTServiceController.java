@@ -2,10 +2,7 @@ package com.jiin.admin.website.server.controller;
 
 import com.jiin.admin.website.util.DockerUtil;
 import com.jiin.admin.website.util.SocketUtil;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.json.JsonObject;
 import java.io.IOException;
@@ -15,10 +12,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("api/service")
 public class RESTServiceController {
-    @GetMapping("extension-check")
-    public Map<String, Object> getExtensionCheckByIpAndPort(@RequestParam String ip, @RequestParam int port){
+    @PostMapping("extension-check")
+    public Map<String, Object> getExtensionCheckByIpAndPort(@RequestBody Map<String, Object> param) {
         return new HashMap<String, Object>() {{
-            put("result", SocketUtil.loadIsTcpPortOpen(ip, port) ? "RUNNING" : "DEAD");
+            put("result", SocketUtil.loadIsTcpPortOpen((String) param.get("ip"), (Integer) param.get("port")) ? "RUNNING" : "DEAD");
         }};
     }
 
@@ -26,7 +23,7 @@ public class RESTServiceController {
     public Map<String, Object> getDockerCheckWithByContainerName(@RequestParam String name) throws IOException {
         JsonObject json = DockerUtil.loadContainerByNameAndProperty(name, "State");
         return new HashMap<String, Object>() {{
-            if(json != null) {
+            if (json != null) {
                 put("result", json.getJsonString("Status").getString().toUpperCase());
             } else {
                 put("result", "UNKNOWN");

@@ -16,6 +16,6 @@ import java.io.IOException;
 public class RootController {
     @RequestMapping(value="/", method = RequestMethod.GET)
     public void welcome(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(request.getContextPath() + "/" + AdminViewServlet.CONTEXT_PATH + "/home/guest");
+        response.sendRedirect(request.getContextPath() + "/" + AdminViewServlet.CONTEXT_PATH + "/home/dashboard");
     }
 }

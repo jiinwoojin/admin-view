@@ -16,7 +16,7 @@ public class SynchronizeBasicInfo {
     private String withSyncDBStatus;
     private String withSyncFileStatus;
 
-    public SynchronizeBasicInfo(){
+    public SynchronizeBasicInfo() {
         this.serverName = "UNKNOWN";
         this.pgsqlOSMStatus = "UNKNOWN";
         this.pgsqlBasicStatus = "UNKNOWN";

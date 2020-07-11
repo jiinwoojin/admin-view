@@ -17,17 +17,17 @@ public abstract class PageModel {
 
     private int recordCount;
 
-    public PageModel(){
+    public PageModel() {
         this.pg = 1;
         this.sz = 8;
     }
 
-    public PageModel(int sz){
+    public PageModel(int sz) {
         this.pg = 1;
         this.sz = sz;
     }
 
-    public PageModel(int pg, int sz, int ob, int sb, String st){
+    public PageModel(int pg, int sz, int ob, int sb, String st) {
         this.pg = pg;
         this.sz = sz;
         this.ob = ob;

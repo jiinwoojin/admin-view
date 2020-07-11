@@ -126,14 +126,17 @@ window.onload = function() {
         destroy: true,
         "lengthMenu": [[5, -1], [5, "모두"]]
     });
+
+    var savedTab = sessionStorage.getItem("tab");
+    if (['layer', 'source', 'cache'].includes(savedTab)) {
+        $(`#${savedTab}-tab`).click();
+        sessionStorage.removeItem("tab");
+    }
 }
 
 // 같은 ZONE, TYPE 에 있는 서버에게 동기화를 요청하는 REST API
 function neighbor_synchronize_ajax(url, type, data, successMsg, failureMsg){
     for(var server of neighbors) {
-        if(url.includes('source-wms')){
-            data.requestUrl = `http://${server.ip}:${mapServerPort}/mapserver/cgi-bin/mapserv?`;
-        }
         $.ajax({
             url: `${(window.location.protocol === 'https:') ? 'https://' : 'http://'}${server.ip}${(window.location.protocol === 'https:') ? '' : ':11110'}${CONTEXT}${url}`,
             type: type,
@@ -158,7 +161,7 @@ function neighbor_synchronize_ajax(url, type, data, successMsg, failureMsg){
 
 // Map Proxy YAML 파일에 등록된 데이터들을 렌더링한다.
 function rendering_selected_data(id, data){
-    var dom = ''
+    var dom = '';
 
     if(data.length > 0) {
         for (var i = 0; i < data.length; i++) {
@@ -211,6 +214,21 @@ function rendering_selected_data(id, data){
 
 // Map Proxy YAML 파일에 등록할 데이터들을 저장한다.
 function submit_selected_data(){
+    if(selectedSources.length == 0){
+        toastr.warning('최소한 1개 이상의 SOURCE 를 선택하세요.');
+        return false;
+    }
+
+    if(selectedLayers.length == 0){
+        toastr.warning('최소한 1개 이상의 LAYER 를 선택하세요.');
+        return false;
+    }
+
+    if(selectedCaches.length == 0){
+        toastr.warning('최소한 1개 이상의 CACHE 를 선택하세요.');
+        return false;
+    }
+
     if(confirm('현재 선택한 목록들을 Map Proxy 설정에 저장합니다. 계속 진행 하시겠습니까?')){
         var form = document.createElement("form");
         form.setAttribute("charset", "UTF-8");
@@ -250,8 +268,6 @@ function submit_selected_data(){
 
         document.body.appendChild(form);
         form.submit();
-
-
     }
 }
 
@@ -454,6 +470,7 @@ function preSubmit(form){
                     );
                     form['sources'].value = JSON.parse(form['sources'].value);
                     form['caches'].value = JSON.parse(form['caches'].value);
+                    sessionStorage.setItem('tab', 'layer');
                     return true;
                 } else {
                     return false;
@@ -461,28 +478,25 @@ function preSubmit(form){
 
             case 'source-form' :
                 if(form.action.includes('wms')) {
-                    if(sourceMapWMSValidation()){
-                        neighbor_synchronize_ajax('/server/api/proxy/sync/source-wms-save', 'POST', {
-                                id: $('#source-id').val(),
-                                name: $('#source-name').val(),
-                                type: $('#source-type').val(),
-                                method: $('#source-method').val(),
-                                concurrentRequests: $('#source-concurrentRequests').val(),
-                                wmsOptsVersion: $('#source-wmsOptsVersion').val(),
-                                httpClientTimeout: $('#source-httpClientTimeout').val(),
-                                requestUrl: '',
-                                requestMap: $('#source-requestMap-wms').val(),
-                                requestLayers: $('#source-requestLayers-wms').val(),
-                                requestTransparent: $('#source-requestTransparent').val(),
-                                supportedSrs: $('#source-supportedSrs').val(),
-                            },
-                            `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행 했습니다.`,
-                            `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행하지 못 했습니다.`,
-                        );
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    neighbor_synchronize_ajax('/server/api/proxy/sync/source-wms-save', 'POST', {
+                            id: $('#source-id').val(),
+                            name: $('#source-name').val(),
+                            type: $('#source-type').val(),
+                            method: $('#source-method').val(),
+                            concurrentRequests: $('#source-concurrentRequests').val(),
+                            wmsOptsVersion: $('#source-wmsOptsVersion').val(),
+                            httpClientTimeout: $('#source-httpClientTimeout').val(),
+                            requestUrl: '',
+                            requestMap: $('#source-requestMap-wms').val(),
+                            requestLayers: $('#source-requestLayers-wms').val(),
+                            requestTransparent: $('#source-requestTransparent').val(),
+                            supportedSrs: $('#source-supportedSrs').val(),
+                        },
+                        `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행 했습니다.`,
+                        `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행하지 못 했습니다.`,
+                    );
+                    sessionStorage.setItem('tab', 'source');
+                    return true;
                 }
 
                 if(form.action.includes('mapserver')) {
@@ -500,6 +514,7 @@ function preSubmit(form){
                             `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행 했습니다.`,
                             `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행하지 못 했습니다.`,
                         );
+                        sessionStorage.setItem('tab', 'source');
                         return true;
                     } else {
                         return false;
@@ -527,6 +542,7 @@ function preSubmit(form){
                         `CACHE ${$('#cache-name').val()} 자료의 동기화를 진행하지 못 했습니다.`,
                     );
                     form['sources'].value = JSON.parse(form['sources'].value);
+                    sessionStorage.setItem('tab', 'cache');
                     return true;
                 } else {
                     return false;
@@ -581,28 +597,6 @@ function sourceMapServerValidation(){
     } else return true;
 }
 
-// WMS 기반 Source Validation 체크
-function sourceMapWMSValidation(){
-    var values = $('#source-requestUrl').val();
-    if(values){
-        var expUrl = /(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}/gi;
-        if(expUrl.test(values)) {
-            if (values.endsWith("?")) {
-                return true;
-            } else {
-                toastr.warning('URL 뒤에는 반드시 ? 를 입력하시길 바랍니다.');
-                return false;
-            }
-        } else {
-            toastr.warning('URL 형식을 확인하시길 바랍니다.');
-            return false;
-        }
-    } else {
-        toastr.warning('URL 를 반드시 입력하세요.');
-        return false;
-    }
-}
-
 // Cache 데이터 Validation 체크
 function cacheValidation(){
     var values = JSON.stringify($('#cache-sources').val());
@@ -623,6 +617,7 @@ function onclick_delete_data(type, id, name){
 `${type.toUpperCase()} 데이터 ${name} 자료의 삭제 동기화를 진행하지 못 했습니다.`,
         );
         window.location.href = `${CONTEXT}/view/proxy/${type}-delete?id=${id}&name=${name}`;
+        sessionStorage.setItem('tab', type);
     }
 }
 
@@ -651,6 +646,10 @@ function onclick_insert_data(type) {
             $('#source-requestLayers-mapserver').val('[none]');
             $('#source-requestMap-wms').val('[none]');
             $('#source-requestLayers-wms').val('[none]');
+            for(var i = 1; i <= 3; i++){
+                document.getElementById('source-grid' + i).checked = true;
+            }
+            onchange_checkbox_grid();
         }
 
         if (type === 'cache') {
@@ -774,10 +773,14 @@ function onclick_close(context){
         $('#source-requestTransparent').val(false);
         $('#source-check').prop("checked", false);
         for(var i = 1; i <= 3; i++){
-            document.getElementById('source-grid' + i).checked = false;
+            document.getElementById('source-grid' + i).checked = true;
         }
+        onchange_checkbox_grid();
+
         document.getElementById('source-requestUrl').value = mapServerAddress;
         document.getElementById('source-supportedSrs').value = '';
+        $('#source-httpClientTimeout').val(600);
+        $('#source-concurrentRequests').val(4);
         onchange_source_type('#source-type');
     }
 

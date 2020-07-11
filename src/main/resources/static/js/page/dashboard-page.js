@@ -173,11 +173,14 @@ function ajax_request_server(ip, port, zone){
 // 공통으로 부를 ajax - sync part
 function ajax_request_sync(ip, port, zone){
     $.ajax({
-        url: (window.location.protocol === 'https:') ?
-            `https://${ip}${CONTEXT}/server/api/dashboard/sync-basic-status?remoteIp=${ip}&remoteBasicDBPort=${pgSQLBasicPort}&remoteFilePort=${syncthingPort}` :
-            `http://${ip}:${port}${CONTEXT}/server/api/dashboard/sync-basic-status?remoteIp=${ip}&remoteBasicDBPort=${pgSQLBasicPort}&remoteFilePort=${syncthingPort}`,
-        type: 'GET',
+        url: (window.location.protocol === 'https:') ? `https://${ip}${CONTEXT}/server/api/dashboard/sync-basic-status` : `http://${ip}:${port}${CONTEXT}/server/api/dashboard/sync-basic-status`,
+        type: 'POST',
         contentType: 'application/json',
+        data: JSON.stringify({
+            remoteIp : ip,
+            remoteBasicDBPort: pgSQLBasicPort,
+            remoteFilePort: syncthingPort
+        }),
         success: function (status) {
             if(status){
                 for(var k in status){

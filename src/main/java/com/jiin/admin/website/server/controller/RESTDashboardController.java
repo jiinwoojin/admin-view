@@ -6,10 +6,7 @@ import com.jiin.admin.vo.SynchronizeBasicInfo;
 import com.jiin.admin.website.server.service.DashboardStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Map;
@@ -28,17 +25,17 @@ public class RESTDashboardController {
     private DashboardStatusService dashboardStatusService;
 
     @GetMapping("performance")
-    public ServerBasicPerformance getLocalBasicPerformanceJSON(){
+    public ServerBasicPerformance getLocalBasicPerformanceJSON() {
         return dashboardStatusService.loadLocalBasicPerformance();
     }
 
     @GetMapping("service-status")
-    public Map<String, GeoDockerContainerInfo> getGeoServiceStatusJSON(){
+    public Map<String, GeoDockerContainerInfo> getGeoServiceStatusJSON() {
         return dashboardStatusService.loadGeoDockerContainerStatus();
     }
 
-    @GetMapping("sync-basic-status")
-    public SynchronizeBasicInfo getSynchronizeBasicInfoJSON(@RequestParam String remoteIp, @RequestParam Integer remoteBasicDBPort, @RequestParam Integer remoteFilePort) {
-        return dashboardStatusService.loadSyncBasicStatus(remoteIp, Optional.of(remoteBasicDBPort).orElse(POSTGRE_SQL_BASIC_PORT), Optional.of(remoteFilePort).orElse(SYNCTHING_PORT));
+    @PostMapping("sync-basic-status")
+    public SynchronizeBasicInfo getSynchronizeBasicInfoJSON(@RequestBody Map<String, Object> param) {
+        return dashboardStatusService.loadSyncBasicStatus((String) param.get("remoteIp"), Optional.of((Integer) param.get("remoteBasicDBPort")).orElse(POSTGRE_SQL_BASIC_PORT), Optional.of((Integer) param.get("remoteFilePort")).orElse(SYNCTHING_PORT));
     }
 }

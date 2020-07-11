@@ -13,7 +13,7 @@ public class ProxySelectRequestModel {
     private List<String> sources;
     private List<String> caches;
 
-    public ProxySelectRequestModel(){
+    public ProxySelectRequestModel() {
         this.layers = new ArrayList<>();
         this.sources = new ArrayList<>();
         this.caches = new ArrayList<>();

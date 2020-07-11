@@ -15,7 +15,7 @@ public class RoleDTO {
     private Boolean cacheManage;
     private Boolean accountManage;
 
-    public RoleDTO(){
+    public RoleDTO() {
 
     }
 

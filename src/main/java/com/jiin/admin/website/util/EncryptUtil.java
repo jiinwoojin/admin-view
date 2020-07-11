@@ -18,7 +18,7 @@ public class EncryptUtil {
             md.reset();
             byte[] digested = md.digest(bytes);
             StringBuffer sb = new StringBuffer();
-            for(int i = 0; i < digested.length; i++)
+            for (int i = 0; i < digested.length; i++)
                 sb.append(Integer.toHexString(0xff & digested[i]));
             return sb.toString();
         } catch (NoSuchAlgorithmException e) {

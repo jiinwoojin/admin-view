@@ -43,7 +43,7 @@ public class DockerService {
                 System.out.println(">> read > " + line);
             }
             return true;
-        }catch (Exception e){
+        }catch (Exception e) {
             System.out.println(">> error > " + e.getMessage());
             return false;
         }
@@ -63,7 +63,7 @@ public class DockerService {
                 .createQuery("SELECT T FROM " + LayerEntity.class.getAnnotation(Entity.class).name() + " T WHERE IS_DEFAULT = false", LayerEntity.class)
                 .getResultList();
         mapproxy.get("layers");
-        for(LayerEntity o:dbLayers){
+        for (LayerEntity o:dbLayers) {
             Map map = new LinkedHashMap();
             map.put("name",o.getName());
             //map.put("title",o.getTitle());
@@ -74,7 +74,7 @@ public class DockerService {
         List<MapEntity> dbSources = entityManager
                 .createQuery("SELECT T FROM " + MapEntity.class.getAnnotation(Entity.class).name() + " T WHERE IS_DEFAULT = false", MapEntity.class)
                 .getResultList();
-        for(MapEntity o:dbSources){
+        for (MapEntity o:dbSources) {
             /*Map sourceMap = new LinkedHashMap();
             Map sourceReqMap = new LinkedHashMap();
             Map sourceTypeMap = new LinkedHashMap();
@@ -82,7 +82,7 @@ public class DockerService {
             sourceReqMap.put("mapPath",o.getMapPath());
             sourceReqMap.put("layers","world"); // TODO : 추출작업 필요
             sourceMap.put("req",sourceReqMap);
-            if(o.getType().equals("mapserver")){
+            if (o.getType().equals("mapserver")) {
                 sourceTypeMap.put("binary",mapserverBinary);
                 sourceTypeMap.put("working_dir",dataPath + "/tmp");
                 sourceMap.put(o.getType(),sourceTypeMap);

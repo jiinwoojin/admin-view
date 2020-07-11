@@ -25,7 +25,16 @@ public class LayerDTO {
 
     private Double version;
 
-    public LayerDTO(){
+    public LayerDTO() {
 
+    }
+
+    public LayerDTO(Long id, String name, String description, String projection, String middleFolder, String type) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.projection = projection;
+        this.middleFolder = middleFolder;
+        this.type = type;
     }
 }
