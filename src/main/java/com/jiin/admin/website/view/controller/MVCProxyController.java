@@ -14,13 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -31,6 +31,12 @@ public class MVCProxyController {
 
     @Value("${project.server-port.mapserver-port}")
     private int MAP_SERVER_PORT;
+
+    @Value("${project.docker-name.seed-name-prefix}")
+    private String DOCKER_SEED_NAME_PREFIX;
+
+    @Value("${spring.profiles.active}")
+    private String activeProfile;
 
     @Autowired
     private ProxyCacheService proxyCacheService;
@@ -131,9 +137,57 @@ public class MVCProxyController {
         return "page/proxy/preview";
     }
 
+    /**
+     * docker run -it -d --rm --user 1001:1000 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name jimap_seed jiinwoojin/jimap_mapproxy mapproxy-seed -f /data/jiapp/data_dir/proxy/mapproxy.yaml -s /data/jiapp/data_dir/proxy/seed.yaml -c 4 --seed ALL
+     * @param model
+     * @return
+     */
     @RequestMapping("seeding")
-    public String proxySeedingSetting(Model model){
-        model.addAttribute("dockerCacheContainers", DockerUtil.dockerContainers("jimap"));
+    public String proxySeeding(Model model){
+        List<Map> containers = DockerUtil.dockerContainers(DOCKER_SEED_NAME_PREFIX);
+        List<Map> seeds = new ArrayList<>();
+        for(Map container : containers){
+            if(container.get("Names").toString().startsWith(DOCKER_SEED_NAME_PREFIX)){
+                seeds.add(container);
+            }
+        }
+        model.addAttribute("seedContainers", seeds);
         return "page/proxy/seeding";
+    }
+
+    /**
+     * [14:03:36] 13  75.44% 140.97656, 43.24219, 141.32812, 43.59375 (8593072 tiles)
+     * @param names
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("seeding-info")
+    public List<Map> proxySeedingInfo(@RequestParam("SEEDNAME") String[] names){
+        String[] fields = new String[]{"TIME","LEVEL","PER","XMIN","YMIN","XMAX","YMAX","TILES_CNT"};
+        List<Map> infos = new ArrayList<>();
+        for(String name : names){
+            String lastlog = DockerUtil.logLastline(name);
+            // DEV
+            if(activeProfile.equals("outside")) lastlog = "[14:03:36] 13  75.44% 140.97656, 43.24219, 141.32812, 43.59375 (8593072 tiles)";
+            String[] logs = lastlog.split(" ");
+            int idx = 0;
+            Map info = new HashMap();
+            for(String log : logs){
+                if(!StringUtils.isEmpty(log)){
+                    info.put(fields[idx++],log);
+                }
+                if(idx == fields.length)
+                    break;
+            }
+            infos.add(info);
+        }
+        return infos;
+    }
+
+    @ResponseBody
+    @RequestMapping("seeding-setting")
+    public Map proxySeedingSetting(@RequestParam Map param){
+
+        return param;
     }
 }

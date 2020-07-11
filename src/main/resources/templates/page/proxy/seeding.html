@@ -19,157 +19,149 @@
 
 <th:block layout:fragment="content-body-fragment">
     <div class="row">
-        <div class="col-xl-12">
-            <h3 class="section_tit">캐시 - 맵 데이터 목록</h3>
-            <table id="list_table" class="table table-sm basic">
-                <thead class="table-info">
-                <tr>
-                    <th scope="col" class="text-center nowrap">NAMES</th>
-                    <th scope="col" class="text-center nowrap">CONTAINER ID</th>
-                    <th scope="col" class="text-center nowrap">IMAGE</th>
-                    <th scope="col" class="text-center nowrap">PORTS</th>
-                    <th scope="col" class="text-center nowrap">STATUS</th>
-                    <th scope="col" class="text-center nowrap">CREATED</th>
-                    <th scope="col" class="text-center nowrap">설정</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="docker : ${ dockerCacheContainers }">
-                    <td class="text-center align-middle" th:text="${ docker.Names }"></td>
-                    <td class="text-center align-middle" th:text="${ docker.ID }"></td>
-                    <td class="text-center align-middle" th:text="${ docker.Image }"></td>
-                    <td class="text-center align-middle" th:text="${ docker.Ports }"></td>
-                    <td class="text-center align-middle" th:text="${ docker.Status }"></td>
-                    <td class="text-center align-middle" th:text="${ docker.CreatedAt }"></td>
-                    <td class="text-center align-middle">
-                        <button class="btn btn-info btn-sm btn-circle mx-1" type="button" onclick="alert('시작')">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        <button class="btn btn-primary btn-sm btn-circle mx-1" type="button" onclick="alert('종료')">
-                            <i class="fas fa-stop"></i>
-                        </button>
-                        <button class="btn btn-success btn-sm btn-circle mx-1" type="button" data-toggle="modal" data-target="#seed_setting">
-                            <i class="fas fa-cog"></i>
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <hr/>
-    <div class="row">
-        <div class="col-xl-12">
-            <h3 class="section_tit">SEED 진행 내역</h3>
-            <div id="seed_history">
-                <div class="form-group">
-                    <label for="layer_name">맵 이름</label>
-                    <input class="form-control form-control-sm" id="layer_name" name="layer_name" value="world_k2_lay" readonly />
+        <div class="col-xl-4">
+            <h3 class="section_tit">Seed 생성</h3>
+            <form id="layer-create" accept-charset="utf-8" onsubmit="return preSubmit(this);" enctype="multipart/form-data">
+                <div class="form-group row">
+                    <div class="col-12">
+                        <label for="layer-name">SEED 인덱스(Dokcer 이름)</label>
+                    </div>
+                    <div class="col-12 input-group">
+                        <input type="text" class="form-control" name="name" id="layer-name">
+                    </div>
+                    <div class="col-12">
+                        <small class="form-text text-muted">미입력시 자동생성 됩니다.</small>
+                        <small class="form-text text-muted">Docker 이름 중복시 교체됩니다.</small>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="layer_name">캐시 Dir</label>
-                    <input class="form-control form-control-sm" id="cache_dir" name="cache_dir" value="/data/jiapp/data_dir/cache/world_k2_cache/" readonly />
+                <div class="form-group row">
+                    <div class="col-6">
+                        <label>Cache</label>
+                        <input type="text" class="form-control" name="cache" value="basic">
+                    </div>
+                    <div class="col-6">
+                        <label>Coverage</label>
+                        <input type="text" class="form-control" name="coverage" value="korea">
+                    </div>
                 </div>
-                <table id="list_table_history" class="table table-sm basic">
-                    <thead class="table-info">
-                    <tr>
-                        <th scope="col" class="text-center">포맷 종류</th>
-                        <th scope="col" class="text-center">Grid 셋</th>
-                        <th scope="col" class="text-center">진행 시간</th>
-                        <th scope="col" class="text-center">저장 폴더</th>
-                        <th scope="col" class="text-center">삭제</th>
-                    </tr>
-                    </thead>
-                    <tbody id="history_context">
-                    <tr>
-                        <td class="text-center align-middle">image/png</td>
-                        <td class="text-center align-middle">EPSG:4326</td>
-                        <td class="text-center align-middle">2020/04/23 11:11:11</td>
-                        <td class="text-center align-middle">20200423_111111_png_4326</td>
-                        <td class="text-center align-middle">
-                            <button class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="text-center align-middle">image/png</td>
-                        <td class="text-center align-middle">EPSG:3857</td>
-                        <td class="text-center align-middle">2020/04/23 10:10:10</td>
-                        <td class="text-center align-middle">20200423_101010_png_3857</td>
-                        <td class="text-center align-middle">
-                            <button class="btn btn-danger btn-circle btn-sm">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+                <div class="form-group row">
+                    <div class="col-6">
+                        <label>Level From</label>
+                        <input type="text" class="form-control" name="levelFrom" value="11">
+                    </div>
+                    <div class="col-6">
+                        <label>Level To</label>
+                        <input type="text" class="form-control" name="levelTo" value="14">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-6">
+                        <label>타일갱신기준시간(hour)</label>
+                        <input type="text" class="form-control" name="refreshBefore" value="1">
+                        <small class="form-text text-muted">미입력시 존재하는 타일은 갱신되지 않습니다.</small>
+                    </div>
+                    <div class="col-6">
+                        <label>투영</label>
+                        <select class="form-control" name="projection">
+                            <option value="epsg:4326" selected="selected">EPSG:4326</option>
+                            <option value="epsg:3857">EPSG:3857</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-12">영역(위경도)</label>
+                    <div class="col-3">
+                        <label>xmin</label>
+                        <input type="text" class="form-control" name="xmin" value="100">
+                    </div>
+                    <div class="col-3">
+                        <label>ymin</label>
+                        <input type="text" class="form-control" name="ymin" value="0">
+                    </div>
+                    <div class="col-3">
+                        <label>xmax</label>
+                        <input type="text" class="form-control" name="xmax" value="160">
+                    </div>
+                    <div class="col-3">
+                        <label>ymax</label>
+                        <input type="text" class="form-control" name="ymax" value="70">
+                    </div>
+                </div>
+                <div class="text-right">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="initialize_selected_data()">
+                        <i class="fas fa-sync"></i> 초기화
+                    </button>
 
-    <div class="modal fade" id="seed_setting" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">SEED 설정 - world_k2_lay</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="submit_selected_data()">
+                        <i class="fas fa-save"></i> 생성
                     </button>
                 </div>
-                <form method="post">
-                    <div class="modal-body">
+            </form>
+        </div>
+        <div class="col-xl-8">
+            <div class="row">
+                <div class="col-xl-12">
+                    <h3 class="section_tit">Seed 컨테이너 목록</h3>
+                    <table id="list_table" class="table table-sm basic">
+                        <thead class="table-info">
+                        <tr>
+                            <th scope="col" class="text-center nowrap">NAMES</th>
+                            <th scope="col" class="text-center nowrap">CONTAINER ID</th>
+                            <th scope="col" class="text-center nowrap">IMAGE</th>
+                            <th scope="col" class="text-center nowrap">PORTS</th>
+                            <th scope="col" class="text-center nowrap">STATUS</th>
+                            <th scope="col" class="text-center nowrap">CREATED</th>
+                            <th scope="col" class="text-center nowrap">STOP</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="seed : ${ seedContainers }">
+                            <td class="text-center align-middle" th:text="${ seed.Names }"></td>
+                            <td class="text-center align-middle" th:text="${ seed.ID }"></td>
+                            <td class="text-center align-middle" th:text="${ seed.Image }"></td>
+                            <td class="text-center align-middle" th:text="${ seed.Ports }"></td>
+                            <td class="text-center align-middle" th:text="${ seed.Status }"></td>
+                            <td class="text-center align-middle" th:text="${ seed.CreatedAt }"></td>
+                            <td class="text-center align-middle">
+                                <button class="btn btn-danger btn-sm btn-circle mx-1" type="button" onclick="alert('종료')">
+                                    <i class="fas fa-stop"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr style="width: 100%;"/>
+                <div class="col-xl-12">
+                    <h3 class="section_tit">SEED 진행 내역</h3>
+                    <div>
                         <div class="form-group">
-                            <label for="seeding_interval">SEED 진행 주기</label>
-                            <input class="form-control form-control-sm" id="seeding_interval" value="3600" readonly />
+                            <label for="layer_name">맵 이름</label>
+                            <input class="form-control form-control-sm" id="layer_name" name="layer_name" value="world_k2_lay" readonly />
                         </div>
-                        <h6 class="mt-2">지원 포맷</h6>
-                        <div class="form-check">
-                            <input class="form-check-input i-checks" type="checkbox" id="support_png">&nbsp;&nbsp;
-                            <label class="form-check-label" for="support_png">
-                                image/png
-                            </label>
+                        <div class="form-group">
+                            <label for="layer_name">캐시 Dir</label>
+                            <input class="form-control form-control-sm" id="cache_dir" name="cache_dir" value="/data/jiapp/data_dir/cache/world_k2_cache/" readonly />
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input i-checks" type="checkbox" id="support_jpeg">&nbsp;&nbsp;
-                            <label class="form-check-label" for="support_jpeg">
-                                image/jpeg
-                            </label>
-                        </div>
-                        <h6 class="mt-2">지원 Grid 셋</h6>
-                        <div class="form-check">
-                            <input class="form-check-input i-checks" type="checkbox" id="support_epsg_1">&nbsp;&nbsp;
-                            <label class="form-check-label" for="support_epsg_1">
-                                EPSG:4326
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input i-checks" type="checkbox" id="support_epsg_2">&nbsp;&nbsp;
-                            <label class="form-check-label" for="support_epsg_2">
-                                EPSG:900913
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input i-checks" type="checkbox" id="support_epsg_3">&nbsp;&nbsp;
-                            <label class="form-check-label" for="support_epsg_3">
-                                EPSG:3857
-                            </label>
+                        <div class="form-group row">
+                            <div class="col-xl-4">
+                                <label for="layer_name">경과시간</label>
+                                <input class="form-control form-control-sm text-right"  value="100" readonly />
+                            </div>
+                            <div class="col-xl-4">
+                                <label for="layer_name">퍼센트(%)</label>
+                                <input class="form-control form-control-sm text-right"  value="76.25" readonly />
+                            </div>
+                            <div class="col-xl-4">
+                                <label for="layer_name">처리타일수</label>
+                                <input class="form-control form-control-sm text-right"  value="132112" readonly />
+                            </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> 저장
-                        </button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                            <i class="fas fa-times"></i> 닫기
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
-
     <script>
         $(document).ready(function() {
             $('#list_table').each(function () {
