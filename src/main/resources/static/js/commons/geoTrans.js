@@ -95,6 +95,16 @@ geoTrans.isDigit = function isDigit(code) {
 };
 
 /**
+ * char 체크
+ * @param c
+ * @returns {boolean}
+ */
+geoTrans.isLetter = function isLetter(c) {
+    var code = c.charCodeAt(0);
+    return !(!(code >= 65 && code <= 90) || (code >= 97 && code <= 122));
+}
+
+/**
  * Functions for parsing and representing degrees / minutes / seconds.
  * @type {{}}
  */
@@ -1258,146 +1268,207 @@ geoTrans.GeoRef.geoRefToLonLat = function geoRefToLonLat(geoRef) {
 };
 
 geoTrans.Gars = {};
-geoTrans.Gars.garsToLonLat = function garsToLonLat(gars) {
-    var GARS_MINIMUM = 5;
-    var GARS_MAXIMUM = 7;
-    var LETTER_A_OFFSET = 65;
-    var MIN_PER_DEG = 60;
-    var ll = [];
 
-    // A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6, H = 7
-    var LETTER_I = 8;
-    // J = 9, K = 10, L = 11, M = 12, N = 13
-    var LETTER_O = 14;
-    // P = 15, Q = 16, R = 17, S = 18, T = 19, U = 20, V = 21, W = 22, X = 23, Y = 24, Z = 25
+geoTrans.Gars.GARS_MINIMUM = 5;     // Minimum number of chars for GARS
+geoTrans.Gars.GARS_MAXIMUM = 7;     // Minimum number of chars for GARS
+geoTrans.Gars.LETTER_A_OFFSET = 65; // Letter A offset in character set
+geoTrans.Gars.MIN_PER_DEG = 60;     // Number of minutes per degree
+geoTrans.Gars.LETTER_I = 8;         // ARRAY INDEX FOR LETTER I
+geoTrans.Gars.LETTER_O = 14;        // ARRAY INDEX FOR LETTER O
+geoTrans.Gars._1 = '1';
+geoTrans.Gars._2 = '2';
+geoTrans.Gars._3 = '3';
+geoTrans.Gars._4 = '4';
+geoTrans.Gars._5 = '5';
+geoTrans.Gars._6 = '6';
+geoTrans.Gars._7 = '7';
+geoTrans.Gars._8 = '8';
+geoTrans.Gars._9 = '9';
 
-    var _1 = '1';
-    var _2 = '2';
-    var _3 = '3';
-    var _4 = '4';
-    var _5 = '5';
-    var _6 = '6';
-    var _7 = '7';
-    var _8 = '8';
-    var _9 = '9';
-
+geoTrans.Gars._basicCalculation = function _basicCalculation(gars) {
     var lat = 0;
     var lon = 1;
     var gars_length = gars.length;
 
-    if((gars_length < GARS_MINIMUM) || (gars_length > GARS_MAXIMUM)){
-        ll[0] = -360;
-        return ll;
+    if ((gars_length < this.GARS_MINIMUM) || (gars_length > this.GARS_MAXIMUM)) {
+        return [-360];
     }
-    var index = 0;
-    var ew_string = "";
 
-    while(geoTrans.isDigit(gars.charCodeAt(index))){
+    var ew_string = '';
+    var index = 0;
+    while (geoTrans.isDigit(gars.charCodeAt(index))) {
         ew_string += gars.charAt(index);
         index++;
     }
 
-    if(index !== 3){
-        ll[0] = -360;
-        return ll;
+    // Error Checking longitude band, must be 3 digits
+    if (index !== 3) {
+        return [-360];
     }
 
+    // Get 30 minute east/west value, 1 ~ 720
     var ew_value;
     ew_value = Number(ew_string);
 
-    var letter = [];
+    var letter = ' ';
     letter = gars.charAt(index);
+    // The latitude band must be a letter
+    if (!geoTrans.isLetter(letter)) {
+        return [-360];
+    }
 
-    var ns_str=[];
-    ns_str[0]=letter.charCodeAt(0) - LETTER_A_OFFSET;
+    // Get first 30 minute north/south letter, A ~ Q
+    var ns_str = [];
+    ns_str[0] = letter.charCodeAt(0) - this.LETTER_A_OFFSET;
     letter = gars.charAt(++index);
-    ns_str[1] = letter.charCodeAt(0) - LETTER_A_OFFSET;
+    // The latitude band must be a letter
+    if (!geoTrans.isLetter(letter)) {
+        return [-360];
+    }
+
+    // Get second 30 minute north/south letter, A ~ Z
+    ns_str[1] = letter.charCodeAt(0) - this.LETTER_A_OFFSET;
 
     var _15_minute_value = 0;
     var _5_minute_value = 0;
     if (index + 1 < gars_length) {
+        // Get 15 minute quadrant value 1 ~ 4
         _15_minute_value = gars.charAt(++index);
-        if (!geoTrans.isDigit(gars.charCodeAt(index)) || _15_minute_value < _1 || _15_minute_value > _4) {
-            ll[0] = null;
-            ll[0] = -360;
-            return ll;
+        if (!geoTrans.isDigit(_15_minute_value.charCodeAt(0)) || _15_minute_value < this._1 || _15_minute_value > this._4) {
+            return [-360];
         } else {
             if (index + 1 < gars_length) {
+                // Get 5 minute quadrant value 1 ~ 9
                 _5_minute_value = gars.charAt(++index);
-                if(!geoTrans.isDigit(gars.charCodeAt(index)) || _5_minute_value < _1 || _5_minute_value > _9) {
-                    ll[0] = -360;
-                    return ll;
+                if (!geoTrans.isDigit(_5_minute_value.charCodeAt(0)) || _5_minute_value < this._1 || _5_minute_value > this._9) {
+                    return [-360];
                 }
             }
         }
     }
 
     var longitude = (((ew_value - 1.0) / 2.0) - 180.0);
-    if (ns_str[0] >= LETTER_O) {
+    // Letter I and O are invalid
+    if (ns_str[0] >= this.LETTER_O) {
         ns_str[0]--;
     }
-    if (ns_str[0] >= LETTER_I) {
+    if (ns_str[0] >= this.LETTER_I) {
         ns_str[0]--;
     }
-    if (ns_str[1] >= LETTER_O) {
+
+    if (ns_str[1] >= this.LETTER_O) {
         ns_str[1]--;
     }
-    if (ns_str[1] >= LETTER_I) {
+    if (ns_str[1] >= this.LETTER_I) {
         ns_str[1]--;
     }
-    var latitude = (-90.0 + (ns_str[0] * 12.0)) + (ns_str[1] / 2.0);
 
-    var lat_minites = 0.0;
-    var lon_minites = 0.0;
+    var latitude = ((-90.0 + (ns_str[0] * 12.0)) + (ns_str[1] / 2.0));
 
-    if (_15_minute_value === '1') {
-        lat_minites = 15.0;
-    } else if (_15_minute_value === '4') {
-        lat_minites =15.0;
-    } else if (_15_minute_value === '2') {
-        lat_minites =15.0;
-        lon_minites =15.0;
+    var lat_minutes = 0.0;
+    var lon_minutes = 0.0;
+
+    switch (_15_minute_value) {
+        case '1':
+            lat_minutes = 15.0;
+            break;
+        case '4':
+            lon_minutes = 15.0;
+            break;
+        case '2':
+            lat_minutes = 15.0;
+            lon_minutes = 15.0;
+            break;
     }
 
-    if (_5_minute_value === '4') {
-        lat_minites += 5.0;
-    } else if (_5_minute_value === '1') {
-        lat_minites += 10.0;
-    } else if (_5_minute_value === '8') {
-        lat_minites += 5.0;
-    } else if (_5_minute_value === '5') {
-        lon_minites += 5.0;
-        lat_minites += 5.0;
-    } else if (_5_minute_value === '2') {
-        lat_minites += 10.0;
-        lon_minites += 5.0;
-    } else if (_5_minute_value === '9') {
-        lon_minites += 10.0;
-    } else if (_5_minute_value === '6') {
-        lat_minites += 5.0;
-        lon_minites += 10.0;
-    } else if (_5_minute_value === '3') {
-        lat_minites += 10.0;
-        lon_minites += 10.0;
+    switch (_5_minute_value) {
+        case '4':
+            lat_minutes += 5.0;
+            break;
+        case '1':
+            lat_minutes += 10.0;
+            break;
+        case '8':
+            lon_minutes += 5.0;
+            break;
+        case '5':
+            lon_minutes += 5.0;
+            lat_minutes += 5.0;
+            break;
+        case '2':
+            lon_minutes += 5.0;
+            lat_minutes += 10.0;
+            break;
+        case '9':
+            lon_minutes += 10.0;
+            break;
+        case '6':
+            lon_minutes += 10.0;
+            lat_minutes += 5.0;
+            break;
+        case '3':
+            lon_minutes += 10.0;
+            lat_minutes += 10.0;
+            break;
     }
 
-    if (_5_minute_value !== '0') {
-        lat_minites += 2.5;
-        lon_minites += 2.5;
-    } else if (_15_minute_value !== '0') {
-        lat_minites += 7.5;
-        lon_minites += 7.5;
+    return {
+        'latitude' : latitude,
+        'longitude' : longitude,
+        'lat_minutes' : lat_minutes,
+        'lon_minutes' : lon_minutes,
+        '_5_minute_value' : _5_minute_value,
+        '_15_minute_value' : _15_minute_value
+    }
+};
+
+geoTrans.Gars.garsToLonLat = function garsToLonLat(gars) {
+    var basic = this._basicCalculation(gars);
+
+    if (basic._5_minute_value !== '0') {
+        basic.lat_minutes += 2.5;
+        basic.lon_minutes += 2.5;
+    } else if (basic._15_minute_value !== '0') {
+        basic.lat_minutes += 7.5;
+        basic.lon_minutes += 7.5;
     } else {
-        lat_minites += 15.0;
-        lon_minites += 15.0;
+        basic.lat_minutes += 15.0;
+        basic.lon_minutes += 15.0;
     }
 
-    latitude += lat_minites / MIN_PER_DEG;
-    longitude += lon_minites / MIN_PER_DEG;
-    ll[0] = longitude;
-    ll[1] = latitude;
+    basic.latitude += basic.lat_minutes / this.MIN_PER_DEG;
+    basic.longitude += basic.lon_minutes / this.MIN_PER_DEG;
 
-    return new geoTrans.LatLon(longitude, latitude);
+    return new geoTrans.LatLon(basic.longitude, basic.latitude);
+};
+
+geoTrans.Gars.garsToLonLatArray = function garsToLonLatArray(gars) {
+    var ll = [];
+    var coords = {};
+    var basic = this._basicCalculation(gars);
+
+    // lower left coordinates
+    ll[0] = basic.latitude + basic.lat_minutes / this.MIN_PER_DEG;
+    ll[1] = basic.longitude + basic.lon_minutes / this.MIN_PER_DEG;
+    coords.leftBottom = new geoTrans.LatLon(ll[1], ll[0]);
+
+    if (basic._5_minute_value !== 0) {
+        basic.lat_minutes += 5.0;
+        basic.lon_minutes += 5.0;
+    } else if (basic._15_minute_value !== 0) {
+        basic.lat_minutes += 15.0;
+        basic.lon_minutes += 15.0;
+    } else {
+        basic.lat_minutes += 30.0;
+        basic.lon_minutes += 30.0;
+    }
+
+    ll[2] = basic.latitude + basic.lat_minutes / this.MIN_PER_DEG;
+    ll[3] = basic.longitude + basic.lon_minutes / this.MIN_PER_DEG;
+
+    coords.rightTop = new geoTrans.LatLon(ll[3], ll[2]);
+
+    return coords;
 };
 
 geoTrans.Gars.lonLatToGars = function lonLatToGars(lon, lat, precision) {

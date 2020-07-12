@@ -208,7 +208,36 @@ var jiCommon = {
      * [공통] 좌표변환
      */
     convert : {
+        /**
+         * Gars -> 경위도
+         * @param gars - '608LS47'
+         * var lonLat = jiCommon.convert.garsToLonLat('608LS47');
+         */
+        garsToLonLat : function garsToLonLat(gars) {
+            return geoTrans.Gars.garsToLonLat(gars);
+        },
+        /**
+         * Gars -> 경위도 polygon
+         * @param gars - '608LS47'
+         */
+        garsToPolygon : function garsToPolygon(gars) {
+            var coords = geoTrans.Gars.garsToLonLatArray(gars);
 
+            var leftBottom = coords.leftBottom;
+            var rightTop = coords.rightTop;
+
+            var leftTop = new geoTrans.LatLon(leftBottom.lon, rightTop.lat);
+            var rightBottom = new geoTrans.LatLon(rightTop.lon, leftBottom.lat);
+
+            var coordinates = [];
+            coordinates.push([leftTop.lon, leftTop.lat]);
+            coordinates.push([rightTop.lon, rightTop.lat]);
+            coordinates.push([rightBottom.lon, rightBottom.lat]);
+            coordinates.push([leftBottom.lon, leftBottom.lat]);
+            coordinates.push([leftTop.lon, leftTop.lat]);
+
+            return new Geometry.Polygon(coordinates).getCoordinates();
+        }
     }
 };
 
