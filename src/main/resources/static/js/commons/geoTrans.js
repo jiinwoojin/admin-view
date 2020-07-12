@@ -1286,8 +1286,6 @@ geoTrans.Gars._8 = '8';
 geoTrans.Gars._9 = '9';
 
 geoTrans.Gars._basicCalculation = function _basicCalculation(gars) {
-    var lat = 0;
-    var lon = 1;
     var gars_length = gars.length;
 
     if ((gars_length < this.GARS_MINIMUM) || (gars_length > this.GARS_MAXIMUM)) {
@@ -1310,7 +1308,7 @@ geoTrans.Gars._basicCalculation = function _basicCalculation(gars) {
     var ew_value;
     ew_value = Number(ew_string);
 
-    var letter = ' ';
+    var letter;
     letter = gars.charAt(index);
     // The latitude band must be a letter
     if (!geoTrans.isLetter(letter)) {
