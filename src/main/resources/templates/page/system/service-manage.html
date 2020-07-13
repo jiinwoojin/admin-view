@@ -18,73 +18,81 @@
 
 <th:block layout:fragment="content-body-fragment">
     <!-- 서버 상태 조회 시작 -->
-    <div class="row justify-content-md-center">
+    <div id="service-manage-zone">
+        <h2 class="section_tit">서비스 상태 조회 및 관리</h2>
         <div class="col-lg-12">
-            <h3 class="text-center section_tit">
-                서비스 상태 조회 및 관리
-            </h3>
-            <div id="carousel">
-                <div th:each="service : ${serviceMap.keySet()}">
-                    <div class="ibox-content mx-1">
-                        <div class="text-sm font-weight-bold mb-1 text-center">
-                            <i class="h1 fas fa-question" th:id="${ 'service-status-icon-' + serviceMap.get(service).name }"></i>
-                        </div>
-                        <div class="text-sm font-weight-bold mb-1 text-center">
-                            <p><b th:text="${service}" th:id="${ 'service-status-title-' + serviceMap.get(service).name }"></b></p>
-                            <p th:text="${serviceMap.get(service).status}" th:id="${ 'service-status-text-' + serviceMap.get(service).name }"></p>
-                        </div>
-                        <div class="text-center">
-                            <button th:id="${ 'service-refresh-' + serviceMap.get(service).name }" class="btn btn-primary btn-sm px-1" th:onclick="onclick_status_refresh([[${serviceMap.get(service).name}]],[[${local.ip}]],[[${serviceMap.get(service).port}]])">
-                                <i class="fas fa-sync"></i>
-                            </button>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li th:each="connection, idx : ${connections}" class="nav-item">
+                    <a th:class="${ idx.index == 0 ? 'nav-link active' : 'nav-link' }" th:id="${'tab' + idx.index}" data-toggle="tab" th:href="${'#' + connection.key}" role="tab" th:text="${connection.name}"></a>
+                </li>
+            </ul>
 
-                            <!-- docker container 전용 버튼 -->
-                            <block th:remove="tag" th:if="${ serviceMap.get(service).port == 0 }">
-                                <button
-                                    th:id="${ 'service-start-' + serviceMap.get(service).name }"
-                                    class="btn btn-info btn-sm px-1"
-                                    th:data-service="${ service }"
-                                    th:data-link="${ '/view/server/service-execute?method=START&name=' + serviceMap.get(service).name  }"
-                                    data-method="START"
-                                    onclick="onclick_service_execute(this)"
-                                >
-                                    <i class="fas fa-play-circle"></i>
-                                </button>
-                                <button
-                                    th:id="${ 'service-stop-' + serviceMap.get(service).name }"
-                                    class="btn btn-danger btn-sm px-1"
-                                    th:data-service="${ service }"
-                                    th:data-link="${ '/view/server/service-execute?method=STOP&name=' + serviceMap.get(service).name }"
-                                    data-method="STOP"
-                                    onclick="onclick_service_execute(this)"
-                                >
-                                    <i class="fas fa-stop-circle"></i>
-                                </button>
-                                <button
-                                    th:id="${ 'service-restart-' + serviceMap.get(service).name }"
-                                    class="btn btn-warning btn-sm px-1"
-                                    th:data-service="${ service }"
-                                    th:data-link="${ '/view/server/service-execute?method=RESTART&name=' + serviceMap.get(service).name }"
-                                    data-method="RESTART"
-                                    onclick="onclick_service_execute(this)"
-                                >
-                                    <i class="fas fa-reply"></i>
-                                </button>
-                            </block>
+            <div class="tab-content" id="service-manage-view">
+                <div th:each="connection, idx : ${connections}" th:class="${ idx.index == 0 ? 'tab-pane fade show active' : 'tab-pane fade' }" th:id="${connection.key}" role="tabpanel">
+                    <div th:id="${ 'carousel-' + idx.index }" class="my-1">
+                        <div th:each="service : ${serviceMap.keySet()}">
+                            <div class="ibox-content mx-1">
+                                <div class="text-sm font-weight-bold mb-1 text-center">
+                                    <i class="h1 fas fa-question" th:id="${ 'service-status-icon-' + serviceMap.get(service).name + '-' + idx.index }"></i>
+                                </div>
+                                <div class="text-sm font-weight-bold mb-1 text-center">
+                                    <p><b th:text="${service}" th:id="${ 'service-status-title-' + serviceMap.get(service).name + '-' + idx.index }"></b></p>
+                                    <p th:text="${serviceMap.get(service).status}" th:id="${ 'service-status-text-' + serviceMap.get(service).name + '-' + idx.index }"></p>
+                                </div>
+                                <div class="text-center">
+                                    <button th:id="${ 'service-refresh-' + serviceMap.get(service).name + '-' + idx.index }" class="btn btn-primary btn-sm px-1" th:onclick="onclick_status_refresh([[${serviceMap.get(service).name}]],[[${connection.ip}]],[[${serviceMap.get(service).port}]],[[${idx.index}]])">
+                                        <i class="fas fa-sync"></i>
+                                    </button>
 
-                            <!-- 나머지 전용 버튼 -->
-                            <block th:remove="tag" th:unless="${ serviceMap.get(service).port == 0 }">
-                                <button
-                                    th:id="${ 'service-restart-' + serviceMap.get(service).name }"
-                                    class="btn btn-warning btn-sm px-1"
-                                    th:data-service="${ service }"
-                                    th:data-link="${ '/view/server/service-execute?method=RESTART&name=' + serviceMap.get(service).name }"
-                                    th:data-method="RESTART"
-                                    onclick="onclick_service_execute(this)"
-                                >
-                                    <i class="fas fa-reply"></i>
-                                </button>
-                            </block>
+                                    <!-- docker container 전용 버튼 -->
+                                    <block th:remove="tag" th:if="${ serviceMap.get(service).port == 0 }">
+                                        <button
+                                                th:id="${ 'service-start-' + serviceMap.get(service).name + '-' + idx.index }"
+                                                class="btn btn-info btn-sm px-1"
+                                                th:data-service="${ service }"
+                                                th:data-link="${ '/view/server/service-execute?method=START&name=' + serviceMap.get(service).name  }"
+                                                data-method="START"
+                                                onclick="onclick_service_execute(this)"
+                                        >
+                                            <i class="fas fa-play-circle"></i>
+                                        </button>
+                                        <button
+                                                th:id="${ 'service-stop-' + serviceMap.get(service).name + '-' + idx.index }"
+                                                class="btn btn-danger btn-sm px-1"
+                                                th:data-service="${ service }"
+                                                th:data-link="${ '/view/server/service-execute?method=STOP&name=' + serviceMap.get(service).name }"
+                                                data-method="STOP"
+                                                onclick="onclick_service_execute(this)"
+                                        >
+                                            <i class="fas fa-stop-circle"></i>
+                                        </button>
+                                        <button
+                                                th:id="${ 'service-restart-' + serviceMap.get(service).name + '-' + idx.index }"
+                                                class="btn btn-warning btn-sm px-1"
+                                                th:data-service="${ service }"
+                                                th:data-link="${ '/view/server/service-execute?method=RESTART&name=' + serviceMap.get(service).name }"
+                                                data-method="RESTART"
+                                                onclick="onclick_service_execute(this)"
+                                        >
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                    </block>
+
+                                    <!-- 나머지 전용 버튼 -->
+                                    <block th:remove="tag" th:unless="${ serviceMap.get(service).port == 0 }">
+                                        <button
+                                                th:id="${ 'service-restart-' + serviceMap.get(service).name + '-' + idx.index }"
+                                                class="btn btn-warning btn-sm px-1"
+                                                th:data-service="${ service }"
+                                                th:data-link="${ '/view/server/service-execute?method=RESTART&name=' + serviceMap.get(service).name }"
+                                                th:data-method="RESTART"
+                                                onclick="onclick_service_execute(this)"
+                                        >
+                                            <i class="fas fa-reply"></i>
+                                        </button>
+                                    </block>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -105,7 +113,7 @@
             <thead class="table-info">
             <tr>
                 <th scope="col" class="text-center">서비스 이름</th>
-                <th scope="col" class="text-center">서비스 명령어</th>
+                <th scope="col" class="text-center">실행 서버 및 명령어</th>
                 <th scope="col" class="text-center">성공 여부</th>
                 <th scope="col" class="text-center">작동자</th>
                 <th scope="col" class="text-center">작동 시간</th>
@@ -129,6 +137,7 @@
     <script th:inline="javascript">
         var localMain = /*[[ ${local} ]]*/ null;
         var message = /*[[ ${message} ]]*/ null;
+        var connections = /*[[ ${connections} ]]*/ [];
     </script>
 
     <script>
@@ -141,19 +150,42 @@
                 initialize_dataTable(this.id);
             });
 
-            $('#carousel').slick({
-                infinite: true,
-                slidesToShow: 6,
-                slidesToScroll: 6,
-                responsive: [
-                    {
-                        breakpoint: 1440,
-                        settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 3
+            if (connections.length > 0) {
+                $('#carousel-0').slick({
+                    infinite: true,
+                    slidesToShow: 6,
+                    slidesToScroll: 6,
+                    responsive: [
+                        {
+                            breakpoint: 1440,
+                            settings: {
+                                slidesToShow: 3,
+                                slidesToScroll: 3
+                            }
                         }
-                    }
-                ]
+                    ]
+                });
+            }
+
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                var id = e.target && e.target.id;
+                var idx = id.replace('tab', '');
+                if (!$('#carousel-' + idx).hasClass('slick-initialized')) {
+                    $('#carousel-' + idx).slick({
+                        infinite: true,
+                        slidesToShow: 6,
+                        slidesToScroll: 6,
+                        responsive: [
+                            {
+                                breakpoint: 1440,
+                                settings: {
+                                    slidesToShow: 3,
+                                    slidesToScroll: 3
+                                }
+                            }
+                        ]
+                    });
+                }
             });
 
             for(var dom of $('[id^=service-refresh-]')){
@@ -161,10 +193,10 @@
             }
         });
 
-        function display_initialize(service, type){
-            var dom_icon = document.getElementById('service-status-icon-' + service);
-            var dom_text = document.getElementById('service-status-text-' + service);
-            var dom_title = document.getElementById('service-status-title-' + service);
+        function display_initialize(service, type, idx){
+            var dom_icon = document.getElementById('service-status-icon-' + service + '-' + idx);
+            var dom_text = document.getElementById('service-status-text-' + service + '-' + idx);
+            var dom_title = document.getElementById('service-status-title-' + service + '-' + idx);
 
             dom_text.innerText = type;
             dom_text.className = (type === 'LOADING') ? '' : 'text-danger';
@@ -172,23 +204,21 @@
             dom_icon.className = (type === 'LOADING') ? 'h1 fas fa-spin fa-spinner' : 'h1 fas fa-exclamation-triangle text-danger';
 
             if(type === 'ERROR') {
-                $(`#service-refresh-${service}`).prop('disabled', true);
-                $(`#service-start-${service}`).prop('disabled', true);
-                $(`#service-stop-${service}`).prop('disabled', true);
-                $(`#service-restart-${service}`).prop('disabled', true);
+                $(`#service-refresh-${service}-${idx}`).prop('disabled', true);
+                $(`#service-start-${service}-${idx}`).prop('disabled', true);
+                $(`#service-stop-${service}-${idx}`).prop('disabled', true);
+                $(`#service-restart-${service}-${idx}`).prop('disabled', true);
             }
         }
 
-        function onclick_status_refresh(service, ip, port){
+        function onclick_status_refresh(service, ip, port, idx){
             var successFunc = function(status){
-                var dom_icon = document.getElementById('service-status-icon-' + service);
-                var dom_text = document.getElementById('service-status-text-' + service);
-                var dom_title = document.getElementById('service-status-title-' + service);
+                var dom_icon = document.getElementById('service-status-icon-' + service + '-' + idx);
+                var dom_text = document.getElementById('service-status-text-' + service + '-' + idx);
+                var dom_title = document.getElementById('service-status-title-' + service + '-' + idx);
 
                 var res = status.result && status.result.toUpperCase();
                 dom_text.innerText = res ? res : 'UNKNOWN';
-
-                var res = status.result.toUpperCase();
                 switch(res){
                     case 'CREATED':
                     case 'RUNNING':
@@ -196,15 +226,15 @@
                         dom_icon.className = (res === 'CREATED') ? 'h1 fas fa-plus-square text-info' : (res === 'RUNNING') ? 'h1 fas fa-check text-info' : 'h1 fas fa-sync text-warning';
                         dom_text.className = 'text-info';
                         dom_title.className = 'text-info';
-                        $(`#service-start-${service}`).prop('disabled', true);
-                        $(`#service-stop-${service}`).prop('disabled', false);
+                        $(`#service-start-${service}-${idx}`).prop('disabled', true);
+                        $(`#service-stop-${service}-${idx}`).prop('disabled', false);
                         break;
                     case 'PAUSED':
                         dom_icon.className = 'h1 fas fa-pause text-warning';
                         dom_text.className = 'text-warning';
                         dom_title.className = 'text-warning';
-                        $(`#service-start-${service}`).prop('disabled', true);
-                        $(`#service-stop-${service}`).prop('disabled', false);
+                        $(`#service-start-${service}-${idx}`).prop('disabled', true);
+                        $(`#service-stop-${service}-${idx}`).prop('disabled', false);
                         break;
                     case 'REMOVING':
                     case 'EXITED':
@@ -212,34 +242,38 @@
                         dom_icon.className = 'h1 fas fa-times-circle text-danger';
                         dom_text.className = 'text-danger';
                         dom_title.className = 'text-danger';
-                        $(`#service-start-${service}`).prop('disabled', false);
-                        $(`#service-stop-${service}`).prop('disabled', true);
+                        $(`#service-start-${service}-${idx}`).prop('disabled', false);
+                        $(`#service-stop-${service}-${idx}`).prop('disabled', true);
                         break;
                     default :
                         dom_icon.className = 'h1 fas fa-question';
                         dom_text.innerText = 'UNKNOWN';
                         dom_text.className = '';
                         dom_title.className = '';
-                        $(`#service-start-${service}`).prop('disabled', true);
-                        $(`#service-stop-${service}`).prop('disabled', true);
-                        $(`#service-restart-${service}`).prop('disabled', true);
+                        $(`#service-start-${service}-${idx}`).prop('disabled', true);
+                        $(`#service-stop-${service}-${idx}`).prop('disabled', true);
+                        $(`#service-restart-${service}-${idx}`).prop('disabled', true);
                         break;
                 }
             };
 
             if(port === 0) {
                 $.ajax({
-                    url: `${CONTEXT}/server/api/service/docker-check?name=${service}`,
-                    type: 'GET',
+                    url: `${CONTEXT}/server/api/service/remote-docker-check`,
+                    type: 'POST',
+                    data: JSON.stringify({
+                        ip: ip,
+                        name: service
+                    }),
                     contentType: 'application/json',
                     success: function (status) {
-                        successFunc(status)
+                        successFunc(status);
                     },
                     error: function (e) {
-                        display_initialize(service, 'ERROR');
+                        display_initialize(service, 'ERROR', idx);
                     },
                     beforeSend: function () {
-                        display_initialize(service, 'LOADING');
+                        display_initialize(service, 'LOADING', idx);
                     }
                 });
             } else {
@@ -255,10 +289,10 @@
                         successFunc(status)
                     },
                     error: function (e) {
-                        display_initialize(service, 'ERROR');
+                        display_initialize(service, 'ERROR', idx);
                     },
                     beforeSend: function () {
-                        display_initialize(service, 'LOADING');
+                        display_initialize(service, 'LOADING', idx);
                     }
                 });
             }
@@ -276,7 +310,7 @@
         }
 
         function onclick_remove_all_history(){
-            if ( confirm('현재까지 생성된 작동 내역들을 전부 삭제합니다. 계속 하시겠습니까?')) {
+            if (confirm('현재까지 생성된 작동 내역들을 전부 삭제합니다. 계속 하시겠습니까?')) {
                 window.location.href = CONTEXT + '/view/server/history-clean';
             }
         }

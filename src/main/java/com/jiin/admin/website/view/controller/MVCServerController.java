@@ -42,10 +42,16 @@ public class MVCServerController {
      */
     @RequestMapping("service-manage")
     public String pageServiceManagement(Model model) {
-        model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+        List<ServerCenterInfo> neighbors = serverCenterInfoService.loadNeighborList();
+        neighbors.add(0, local);
+
+        model.addAttribute("local", local);
         model.addAttribute("serviceMap", containerInfoService.loadGeoServiceMap());
         model.addAttribute("message", sessionService.message());
         model.addAttribute("histories", containerInfoService.loadContainerHistoryList());
+        model.addAttribute("connections", neighbors);
+
         return "page/system/service-manage";
     }
 
@@ -58,6 +64,18 @@ public class MVCServerController {
         sessionService.message(String.format("[%s] 서비스의 [%s] 명령을 시작합니다.", name, method));
         containerInfoService.executeGeoServiceByNameAndMethod(name, method);
         return "redirect:service-manage";
+    }
+
+    /**
+     * Docker Container 실행 및 일반 서비스 실행을 위한 REST API
+     * @param name String, method String
+     */
+    @RequestMapping(value = "service-execute", method = RequestMethod.POST)
+    public Map<String, Object> restServiceControlByNameAndMethod(@RequestParam String name, @RequestParam String method) {
+        containerInfoService.executeGeoServiceByNameAndMethod(name, method);
+        return new HashMap<String, Object>(){{
+             put("message", String.format("[%s] 서비스의 [%s] 명령을 시작합니다.", name, method));
+        }};
     }
 
     /**

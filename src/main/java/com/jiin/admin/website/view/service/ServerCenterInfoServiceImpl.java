@@ -25,7 +25,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     private String dataPath;
 
     /**
-     * 서버 설정 기반 YAML 파일을 불러온다.1
+     * 서버 설정 기반 YAML 파일을 불러온다.
      */
     private File loadServerConfigYAMLFile() throws IOException {
         File file = Paths.get(dataPath, Constants.SERVER_INFO_FILE_PATH, Constants.SERVER_INFO_FILE_NAME).toFile();
