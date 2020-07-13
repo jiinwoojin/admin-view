@@ -1,0 +1,20 @@
+seeds:
+  basic_seed:
+    caches: [basic]
+    coverages: [korea]
+    levels:
+      from: 11
+      to: 14
+    refresh_before:
+      hours: 1
+
+#cleanups:
+#  basic_cleanup:
+#    caches: [basic]
+#    remove_before:
+#      minutes: 1
+
+coverages:
+  korea:
+    bbox: [100, 0, 160, 70]
+    srs: 'EPSG:4326'

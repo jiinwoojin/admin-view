@@ -14,7 +14,7 @@ project:
       password: postgres
       mybatis-configPath: classpath:/mybatis/mybatis-config.xml
       mybatis-mapperLocations: classpath:mybatis/map/**/*.xml
-  data-path: /Users/PIG/SourceTree/admin-view/data/data_dir
+  data-path: /Users/neutti/Dev/Projects/admin-view/data/data_dir
   mapserver:
     binary: /usr/local/bin/mapserv
   docker-name:    # docker service name
@@ -24,6 +24,7 @@ project:
     mapnik-name: jimap_server_2
     height-name: jimap_height
     rabbitmq-name: jimap_rabbitmq
+    seed-name-prefix: docker-tutorial
   server-port:    # service port (슬라이드 REF - 변경 가능성 있음.)
     postgresql-osm-port: 5430
     postgresql-basic-port: 5432
@@ -48,13 +49,7 @@ logging:
     console: "%blue(%-5level) %yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %clr([%t]){green} %cyan(%logger[%method:%line]) - %magenta(%msg%n)"
     file: "%blue(%-5level) %yellow(%d{yyyy-MM-dd HH:mm:ss.SSS}) %clr([%t]){green} %cyan(%logger[%method:%line]) - %magenta(%msg%n)"
   level:
-    root: ERROR
-    com.jiin.admin: DEBUG
-    org.springframework: DEBUG
-    org.hibernate: DEBUG
-    org.thymeleaf: DEBUG
-    org.mybatis: DEBUG
-    com.zaxxer: DEBUG
+    root: INFO
   file:
     name: /data/jiapp/data_dir/logs/admin_log.log
     max-size: 50MB

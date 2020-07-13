@@ -105,12 +105,12 @@ public class DockerUtil {
         }
     }
     /**
-     * docker list
+     * 목록조회
+     * docker ps -a --format "table {{.ID}}\t{{.Image}}"
      * @param filter 필터링
      * @return
      */
-    public static List dockerContainers(String filter) {
-        // 실행 / docker ps -a --format "table {{.ID}}\t{{.Image}}"
+    public static List<Map> dockerContainers(String filter) {
         String[] fileds = new String[]{"ID","Image","Command","CreatedAt","RunningFor","Ports","Status","Size","Names","Labels","Mounts","Networks"};
         String separator = "#";
         String command = "docker ps -a ";
@@ -136,5 +136,22 @@ public class DockerUtil {
             datas.add(dataMap);
         }
         return datas;
+    }
+
+    /**
+     * 로그 마지막줄 조회
+     * docker logs --tail 1 jimap_seed
+     * @param name
+     * @return
+     */
+    public static String logLastline(String name) {
+        String command = "docker logs --tail 1 " + name;
+        log.info(command);
+        List<String> result = LinuxCommandUtil.fetchResultByLinuxCommonToList(command);
+        if(result.size() == 0){
+            return "";
+        }else{
+            return result.get(0);
+        }
     }
 }

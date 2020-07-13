@@ -6,15 +6,15 @@ var geoTrans = {};
  * Ellipsoid parameters; major axis (a), minor axis (b), and flattening (f) for each ellipsoid.
  */
 geoTrans.ellipsoid = {
-    WGS84:         { a: 6378137,     b: 6356752.314245, f: 1/298.257223563 },
-    Airy1830:      { a: 6377563.396, b: 6356256.909,    f: 1/299.3249646   },
-    AiryModified:  { a: 6377340.189, b: 6356034.448,    f: 1/299.3249646   },
-    Bessel1841:    { a: 6377397.155, b: 6356078.962818, f: 1/299.1528128   },
-    Clarke1866:    { a: 6378206.4,   b: 6356583.8,      f: 1/294.978698214 },
-    Clarke1880IGN: { a: 6378249.2,   b: 6356515.0,      f: 1/293.466021294 },
-    GRS80:         { a: 6378137,     b: 6356752.314140, f: 1/298.257222101 },
-    Intl1924:      { a: 6378388,     b: 6356911.946,    f: 1/297           }, // aka Hayford
-    WGS72:         { a: 6378135,     b: 6356750.5,      f: 1/298.26        }
+    WGS84:         { a: 6378137,     b: 6356752.314245, f: 1 / 298.257223563 },
+    Airy1830:      { a: 6377563.396, b: 6356256.909,    f: 1 / 299.3249646   },
+    AiryModified:  { a: 6377340.189, b: 6356034.448,    f: 1 / 299.3249646   },
+    Bessel1841:    { a: 6377397.155, b: 6356078.962818, f: 1 / 299.1528128   },
+    Clarke1866:    { a: 6378206.4,   b: 6356583.8,      f: 1 / 294.978698214 },
+    Clarke1880IGN: { a: 6378249.2,   b: 6356515.0,      f: 1 / 293.466021294 },
+    GRS80:         { a: 6378137,     b: 6356752.314140, f: 1 / 298.257222101 },
+    Intl1924:      { a: 6378388,     b: 6356911.946,    f: 1 / 297           }, // aka Hayford
+    WGS72:         { a: 6378135,     b: 6356750.5,      f: 1 / 298.26        }
 };
 
 /**
@@ -93,6 +93,16 @@ geoTrans.letterArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L',
 geoTrans.isDigit = function isDigit(code) {
     return code > 47 && code < 58;
 };
+
+/**
+ * char 체크
+ * @param c
+ * @returns {boolean}
+ */
+geoTrans.isLetter = function isLetter(c) {
+    var code = c.charCodeAt(0);
+    return !(!(code >= 65 && code <= 90) || (code >= 97 && code <= 122));
+}
 
 /**
  * Functions for parsing and representing degrees / minutes / seconds.
@@ -542,7 +552,7 @@ geoTrans.Vector3d.prototype.toString = function toString(precision) {
  * @constructor
  * @param {number|string}       lon - Longitude in degrees.
  * @param {number|string}       lat - Geodetic latitude in degrees.
- * @param {geoTrans.datum} [datum=WGS84] - Datum this point is defined within.
+ * @param {{transform: number[], ellipsoid: {a: number, b: number, f: number}}} [datum=WGS84] - Datum this point is defined within.
  *
  * @example
  *     var p1 = new LatLon(128, 37, LatLon.datum.WGS84);
@@ -636,7 +646,7 @@ geoTrans.LatLon.prototype.toUtm = function toUtm() {
 
     var falseEasting = 500e3, falseNorthing = 10000e3;
 
-    var zone = Math.floor((this.lon+180)/6) + 1; // longitudinal zone
+    var zone = Math.floor((this.lon + 180) / 6) + 1; // longitudinal zone
     var λ0 = ((zone-1)*6 - 180 + 3).toRadians(); // longitude of central meridian
 
     // ---- handle Norway/Svalbard exceptions
@@ -663,35 +673,35 @@ geoTrans.LatLon.prototype.toUtm = function toUtm() {
 
     // ---- easting, northing: Karney 2011 Eq 7-14, 29, 35:
 
-    var e = Math.sqrt(f*(2-f)); // eccentricity
+    var e = Math.sqrt(f * (2 - f)); // eccentricity
     var n = f / (2 - f);        // 3rd flattening
-    var n2 = n*n, n3 = n*n2, n4 = n*n3, n5 = n*n4, n6 = n*n5; // TODO: compare Horner-form accuracy?
+    var n2 = n * n, n3 = n * n2, n4 = n * n3, n5 = n * n4, n6 = n * n5; // TODO: compare Horner-form accuracy?
 
     var cosλ = Math.cos(λ), sinλ = Math.sin(λ), tanλ = Math.tan(λ);
 
     var τ = Math.tan(φ); // τ ≡ tanφ, τʹ ≡ tanφʹ; prime (ʹ) indicates angles on the conformal sphere
-    var σ = Math.sinh(e*Math.atanh(e*τ/Math.sqrt(1+τ*τ)));
+    var σ = Math.sinh(e * Math.atanh(e * τ / Math.sqrt(1 + τ * τ)));
 
-    var τʹ = τ*Math.sqrt(1+σ*σ) - σ*Math.sqrt(1+τ*τ);
+    var τʹ = τ * Math.sqrt(1 + σ * σ) - σ * Math.sqrt(1 + τ * τ);
 
     var ξʹ = Math.atan2(τʹ, cosλ);
-    var ηʹ = Math.asinh(sinλ / Math.sqrt(τʹ*τʹ + cosλ*cosλ));
+    var ηʹ = Math.asinh(sinλ / Math.sqrt(τʹ * τʹ + cosλ * cosλ));
 
     var A = a/(1+n) * (1 + 1/4*n2 + 1/64*n4 + 1/256*n6); // 2πA is the circumference of a meridian
 
     var α = [ null, // note α is one-based array (6th order Krüger expressions)
-        1/2*n - 2/3*n2 + 5/16*n3 +   41/180*n4 -     127/288*n5 +      7891/37800*n6,
-        13/48*n2 -  3/5*n3 + 557/1440*n4 +     281/630*n5 - 1983433/1935360*n6,
-        61/240*n3 -  103/140*n4 + 15061/26880*n5 +   167603/181440*n6,
-        49561/161280*n4 -     179/168*n5 + 6601661/7257600*n6,
-        34729/80640*n5 - 3418889/1995840*n6,
-        212378941/319334400*n6 ];
+        1 / 2 * n - 2 / 3 * n2 + 5 / 16 * n3 +   41 / 180 * n4 -     127 / 288 * n5 +      7891 / 37800 * n6,
+        13 / 48 * n2 -  3 / 5 * n3 + 557 / 1440 * n4 +     281 / 630 * n5 - 1983433 / 1935360 * n6,
+        61 / 240 * n3 -  103 / 140 * n4 + 15061 / 26880 * n5 +   167603 / 181440 * n6,
+        49561 / 161280 * n4 -     179 / 168 * n5 + 6601661 / 7257600 * n6,
+        34729 / 80640 * n5 - 3418889 / 1995840 * n6,
+        212378941 / 319334400 * n6 ];
 
     var ξ = ξʹ;
-    for (var j=1; j<=6; j++) ξ += α[j] * Math.sin(2*j*ξʹ) * Math.cosh(2*j*ηʹ);
+    for (var j = 1; j <= 6; j++) ξ += α[j] * Math.sin(2 * j * ξʹ) * Math.cosh(2 * j * ηʹ);
 
     var η = ηʹ;
-    for (var j=1; j<=6; j++) η += α[j] * Math.cos(2*j*ξʹ) * Math.sinh(2*j*ηʹ);
+    for (var j = 1; j <= 6; j++) η += α[j] * Math.cos(2 * j * ξʹ) * Math.sinh(2 * j * ηʹ);
 
     var x = k0 * A * η;
     var y = k0 * A * ξ;
@@ -699,11 +709,11 @@ geoTrans.LatLon.prototype.toUtm = function toUtm() {
     // ---- convergence: Karney 2011 Eq 23, 24
 
     var pʹ = 1;
-    for (var j=1; j<=6; j++) pʹ += 2*j*α[j] * Math.cos(2*j*ξʹ) * Math.cosh(2*j*ηʹ);
+    for (var j = 1; j <= 6; j++) pʹ += 2 * j * α[j] * Math.cos(2 * j * ξʹ) * Math.cosh(2 * j * ηʹ);
     var qʹ = 0;
-    for (var j=1; j<=6; j++) qʹ += 2*j*α[j] * Math.sin(2*j*ξʹ) * Math.sinh(2*j*ηʹ);
+    for (var j = 1; j <= 6; j++) qʹ += 2 * j * α[j] * Math.sin(2 * j * ξʹ) * Math.sinh(2 * j * ηʹ);
 
-    var γʹ = Math.atan(τʹ / Math.sqrt(1+τʹ*τʹ)*tanλ);
+    var γʹ = Math.atan(τʹ / Math.sqrt(1 + τʹ * τʹ) * tanλ);
     var γʺ = Math.atan2(qʹ, pʹ);
 
     var γ = γʹ + γʺ;
@@ -711,8 +721,8 @@ geoTrans.LatLon.prototype.toUtm = function toUtm() {
     // ---- scale: Karney 2011 Eq 25
 
     var sinφ = Math.sin(φ);
-    var kʹ = Math.sqrt(1 - e*e*sinφ*sinφ) * Math.sqrt(1 + τ*τ) / Math.sqrt(τʹ*τʹ + cosλ*cosλ);
-    var kʺ = A / a * Math.sqrt(pʹ*pʹ + qʹ*qʹ);
+    var kʹ = Math.sqrt(1 - e * e * sinφ * sinφ) * Math.sqrt(1 + τ * τ) / Math.sqrt(τʹ * τʹ + cosλ * cosλ);
+    var kʺ = A / a * Math.sqrt(pʹ * pʹ + qʹ * qʹ);
 
     var k = k0 * kʹ * kʺ;
 
@@ -753,7 +763,7 @@ geoTrans.LatLon.prototype.toString = function toString(format, dp) {
  * @param  {string} hemisphere - N for northern hemisphere, S for southern hemisphere.
  * @param  {number} easting - Easting in metres from false easting (-500km from central meridian).
  * @param  {number} northing - Northing in metres from equator (N) or from false northing -10,000km (S).
- * @param  {LatLon.datum} [datum=WGS84] - Datum UTM coordinate is based on.
+ * @param  {{transform: number[], ellipsoid: {a: number, b: number, f: number}}} [datum=WGS84] - Datum UTM coordinate is based on.
  * @param  {null|number} [convergence] - Meridian convergence (bearing of grid north clockwise from true
  *                  north), in degrees
  * @param  {number|null} [scale] - Grid scale factor
@@ -796,7 +806,7 @@ geoTrans.Utm = function Utm(zone, hemisphere, easting, northing, datum, converge
  *  - northing.
  *
  * @param   {string|[]} utmCoord - UTM coordinate (WGS 84).
- * @param   {geoTrans.datum}  [datum=WGS84] - Datum coordinate is defined in (default WGS 84).
+ * @param   {{transform: number[], ellipsoid: {a: number, b: number, f: number}}}  [datum=WGS84] - Datum coordinate is defined in (default WGS 84).
  * @returns {geoTrans.Utm|boolean}
  * @throws  {Error}  Invalid UTM coordinate.
  *
@@ -866,40 +876,40 @@ geoTrans.Utm.prototype.toLatLonE = function toLatLonE() {
 
     // ---- from Karney 2011 Eq 15-22, 36:
 
-    var e = Math.sqrt(f*(2-f)); // eccentricity
+    var e = Math.sqrt(f * (2 - f)); // eccentricity
     var n = f / (2 - f);        // 3rd flattening
-    var n2 = n*n, n3 = n*n2, n4 = n*n3, n5 = n*n4, n6 = n*n5;
+    var n2 = n * n, n3 = n * n2, n4 = n * n3, n5 = n * n4, n6 = n * n5;
 
-    var A = a/(1+n) * (1 + 1/4*n2 + 1/64*n4 + 1/256*n6); // 2πA is the circumference of a meridian
+    var A = a / (1 + n) * (1 + 1 / 4 * n2 + 1 / 64 * n4 + 1 / 256 * n6); // 2πA is the circumference of a meridian
 
-    var η = x / (k0*A);
-    var ξ = y / (k0*A);
+    var η = x / (k0 * A);
+    var ξ = y / (k0 * A);
 
     var β = [ null, // note β is one-based array (6th order Krüger expressions)
-        1/2*n - 2/3*n2 + 37/96*n3 -    1/360*n4 -   81/512*n5 +    96199/604800*n6,
-        1/48*n2 +  1/15*n3 - 437/1440*n4 +   46/105*n5 - 1118711/3870720*n6,
-        17/480*n3 -   37/840*n4 - 209/4480*n5 +      5569/90720*n6,
-        4397/161280*n4 -   11/504*n5 -  830251/7257600*n6,
-        4583/161280*n5 -  108847/3991680*n6,
-        20648693/638668800*n6 ];
+        1 / 2 * n - 2 / 3 * n2 + 37 / 96 * n3 -    1 / 360 * n4 -   81 / 512 * n5 +    96199 / 604800 * n6,
+        1 / 48 * n2 +  1 / 15 * n3 - 437 / 1440 * n4 +   46 / 105 * n5 - 1118711 / 3870720 * n6,
+        17 / 480 * n3 -   37 / 840 * n4 - 209 / 4480 * n5 +      5569 / 90720 * n6,
+        4397 / 161280 * n4 -   11 / 504 * n5 -  830251 / 7257600 * n6,
+        4583 / 161280 * n5 -  108847 / 3991680 * n6,
+        20648693 / 638668800 * n6 ];
 
     var ξʹ = ξ;
-    for (var j=1; j<=6; j++) ξʹ -= β[j] * Math.sin(2*j*ξ) * Math.cosh(2*j*η);
+    for (var j = 1; j <= 6; j++) ξʹ -= β[j] * Math.sin(2 * j * ξ) * Math.cosh(2 * j * η);
 
     var ηʹ = η;
-    for (var j=1; j<=6; j++) ηʹ -= β[j] * Math.cos(2*j*ξ) * Math.sinh(2*j*η);
+    for (var j = 1; j <= 6; j++) ηʹ -= β[j] * Math.cos(2 * j * ξ) * Math.sinh(2 * j * η);
 
     var sinhηʹ = Math.sinh(ηʹ);
     var sinξʹ = Math.sin(ξʹ), cosξʹ = Math.cos(ξʹ);
 
-    var τʹ = sinξʹ / Math.sqrt(sinhηʹ*sinhηʹ + cosξʹ*cosξʹ);
+    var τʹ = sinξʹ / Math.sqrt(sinhηʹ * sinhηʹ + cosξʹ * cosξʹ);
 
     var τi = τʹ;
     do {
-        var σi = Math.sinh(e*Math.atanh(e*τi/Math.sqrt(1+τi*τi)));
-        var τiʹ = τi * Math.sqrt(1+σi*σi) - σi * Math.sqrt(1+τi*τi);
-        var δτi = (τʹ - τiʹ)/Math.sqrt(1+τiʹ*τiʹ)
-            * (1 + (1-e*e)*τi*τi) / ((1-e*e)*Math.sqrt(1+τi*τi));
+        var σi = Math.sinh(e * Math.atanh(e * τi / Math.sqrt(1 + τi * τi)));
+        var τiʹ = τi * Math.sqrt(1 + σi * σi) - σi * Math.sqrt(1 + τi * τi);
+        var δτi = (τʹ - τiʹ) / Math.sqrt(1 + τiʹ * τiʹ)
+            * (1 + (1 - e * e) * τi * τi) / ((1 - e * e) * Math.sqrt(1 + τi * τi));
         τi += δτi;
     } while (Math.abs(δτi) > 1e-12); // using IEEE 754 δτi -> 0 after 2-3 iterations
     // note relatively large convergence test as δτi toggles on ±1.12e-16 for eg 31 N 400000 5000000
@@ -912,9 +922,9 @@ geoTrans.Utm.prototype.toLatLonE = function toLatLonE() {
     // ---- convergence: Karney 2011 Eq 26, 27
 
     var p = 1;
-    for (var j=1; j<=6; j++) p -= 2*j*β[j] * Math.cos(2*j*ξ) * Math.cosh(2*j*η);
+    for (var j = 1; j <= 6; j++) p -= 2 * j * β[j] * Math.cos(2 * j * ξ) * Math.cosh(2 * j * η);
     var q = 0;
-    for (var j=1; j<=6; j++) q += 2*j*β[j] * Math.sin(2*j*ξ) * Math.sinh(2*j*η);
+    for (var j = 1; j <= 6; j++) q += 2 * j * β[j] * Math.sin(2 * j * ξ) * Math.sinh(2 * j * η);
 
     var γʹ = Math.atan(Math.tan(ξʹ) * Math.tanh(ηʹ));
     var γʺ = Math.atan2(q, p);
@@ -924,14 +934,14 @@ geoTrans.Utm.prototype.toLatLonE = function toLatLonE() {
     // ---- scale: Karney 2011 Eq 28
 
     var sinφ = Math.sin(φ);
-    var kʹ = Math.sqrt(1 - e*e*sinφ*sinφ) * Math.sqrt(1 + τ*τ) * Math.sqrt(sinhηʹ*sinhηʹ + cosξʹ*cosξʹ);
-    var kʺ = A / a / Math.sqrt(p*p + q*q);
+    var kʹ = Math.sqrt(1 - e * e * sinφ * sinφ) * Math.sqrt(1 + τ * τ) * Math.sqrt(sinhηʹ * sinhηʹ + cosξʹ * cosξʹ);
+    var kʺ = A / a / Math.sqrt(p * p + q * q);
 
     var k = k0 * kʹ * kʺ;
 
     // ------------
 
-    var λ0 = ((z-1)*6 - 180 + 3).toRadians(); // longitude of central meridian
+    var λ0 = ((z - 1) * 6 - 180 + 3).toRadians(); // longitude of central meridian
     λ += λ0; // move λ from zonal to global coordinates
 
     // round to reasonable precision
@@ -967,15 +977,15 @@ geoTrans.Utm.prototype.toMgrs = function toMgrs() {
     // convert UTM to lat/long to get latitude to determine band
     var latlong = this.toLatLonE();
     // grid zones are 8° tall, 0°N is 10th band
-    var band = geoTrans.latBands.charAt(Math.floor(latlong.lat/8+10)); // latitude band
+    var band = geoTrans.latBands.charAt(Math.floor(latlong.lat / 8 + 10)); // latitude band
 
     // columns in zone 1 are A-H, zone 2 J-R, zone 3 S-Z, then repeating every 3rd zone
     var col = Math.floor(this.easting / 100e3);
-    var e100k = geoTrans.e100kLetters[(zone-1)%3].charAt(col-1); // col-1 since 1*100e3 -> A (index 0), 2*100e3 -> B (index 1), etc.
+    var e100k = geoTrans.e100kLetters[(zone - 1) % 3].charAt(col - 1); // col-1 since 1*100e3 -> A (index 0), 2*100e3 -> B (index 1), etc.
 
     // rows in even zones are A-V, in odd zones are F-E
     var row = Math.floor(this.northing / 100e3) % 20;
-    var n100k = geoTrans.n100kLetters[(zone-1)%2].charAt(row);
+    var n100k = geoTrans.n100kLetters[(zone - 1) % 2].charAt(row);
 
     // truncate easting/northing to within 100km grid square
     var easting = this.easting % 100e3;
@@ -1024,7 +1034,7 @@ geoTrans.Utm.prototype.toString = function toString(digits) {
  * @param  {string} n100k - Second letter (N) of 100km grid square.
  * @param  {number} easting - Easting in metres within 100km grid square.
  * @param  {number} northing - Northing in metres within 100km grid square.
- * @param  {geoTrans.datum} [datum=WGS84] - Datum UTM coordinate is based on.
+ * @param  {{transform: number[], ellipsoid: {a: number, b: number, f: number}}} [datum=WGS84] - Datum UTM coordinate is based on.
  * @throws {Error}  Invalid MGRS grid reference.
  *
  * @example
@@ -1075,7 +1085,7 @@ geoTrans.Mgrs.parse = function parse(mgrsGridRef) {
     // check for military-style grid reference with no separators
     if (!mgrsGridRef.match(/\s/)) {
         var en = mgrsGridRef.slice(5); // get easting/northing following zone/band/100ksq
-        en = en.slice(0, en.length/2)+' '+en.slice(-en.length/2); // separate easting/northing
+        en = en.slice(0, en.length / 2)+' '+en.slice(-en.length / 2); // separate easting/northing
         mgrsGridRef = mgrsGridRef.slice(0, 3)+' '+mgrsGridRef.slice(3, 5)+' '+en; // insert spaces
     }
 
@@ -1124,19 +1134,19 @@ geoTrans.Mgrs.prototype.toUtm = function toUtm() {
     var hemisphere = band>='N' ? 'N' : 'S';
 
     // get easting specified by e100k
-    var col = geoTrans.e100kLetters[(zone-1)%3].indexOf(e100k) + 1; // index+1 since A (index 0) -> 1*100e3, B (index 1) -> 2*100e3, etc.
+    var col = geoTrans.e100kLetters[(zone - 1) % 3].indexOf(e100k) + 1; // index+1 since A (index 0) -> 1*100e3, B (index 1) -> 2*100e3, etc.
     var e100kNum = col * 100e3; // e100k in metres
 
     // get northing specified by n100k
-    var row = geoTrans.n100kLetters[(zone-1)%2].indexOf(n100k);
+    var row = geoTrans.n100kLetters[(zone - 1) % 2].indexOf(n100k);
     var n100kNum = row * 100e3; // n100k in metres
 
     // get latitude of (bottom of) band
-    var latBand = (geoTrans.latBands.indexOf(band)-10)*8;
+    var latBand = (geoTrans.latBands.indexOf(band) - 10) * 8;
 
     // northing of bottom of band, extended to include entirety of bottommost 100km square
     // (100km square boundaries are aligned with 100km UTM northing intervals)
-    var nBand = Math.floor(new geoTrans.LatLon(0, latBand).toUtm().northing/100e3)*100e3;
+    var nBand = Math.floor(new geoTrans.LatLon(0, latBand).toUtm().northing / 100e3) * 100e3;
     // 100km grid square row letters repeat every 2,000km north; add enough 2,000km blocks to get
     // into required band
     var n2M = 0; // northing of 2,000km block
@@ -1167,27 +1177,27 @@ geoTrans.Mgrs.prototype.toString = function toString(digits) {
     digits = (digits === undefined) ? 10 : Number(digits);
     if ([ 2,4,6,8,10 ].indexOf(digits) === -1) throw new Error('Invalid precision ‘' + digits + '’');
 
-    var zone = ('00'+this.zone).slice(-2); // ensure leading zero
+    var zone = ('00' + this.zone).slice(-2); // ensure leading zero
     var band = this.band;
 
     var e100k = this.e100k;
     var n100k = this.n100k;
 
     // truncate to required precision
-    var eRounded = Math.floor(this.easting/Math.pow(10, 5-digits/2));
-    var nRounded = Math.floor(this.northing/Math.pow(10, 5-digits/2));
+    var eRounded = Math.floor(this.easting/Math.pow(10, 5 - digits / 2));
+    var nRounded = Math.floor(this.northing/Math.pow(10, 5 - digits / 2));
 
     // ensure leading zeros
-    var easting = ('00000'+eRounded).slice(-digits/2);
-    var northing = ('00000'+nRounded).slice(-digits/2);
+    var easting = ('00000' + eRounded).slice(-digits / 2);
+    var northing = ('00000' + nRounded).slice(-digits / 2);
 
     return zone + band + ' ' + e100k + n100k + ' '  + easting + ' ' + northing;
 };
 
 geoTrans.GeoRef = {};
 geoTrans.GeoRef.lonLatToGeoRef = function lonLatToGeoRef(lon, lat) {
-    var geoRef1 = '';
-    var geoRef2 = '';
+    var geoRef1;
+    var geoRef2;
 
     if (lon > 0) {
         geoRef1 = geoTrans.lonDigits1[Math.floor(lon / 15)];
@@ -1204,7 +1214,7 @@ geoTrans.GeoRef.lonLatToGeoRef = function lonLatToGeoRef(lon, lat) {
     geoRef2 = geoTrans.latlonDigit[Math.floor(Math.abs(lon) % 15)];
     geoRef2 += geoTrans.latlonDigit[Math.floor(Math.abs(lat) % 15)];
 
-    var digit8 = '';
+    var digit8;
 
     var latlon = new geoTrans.LatLon(Number(lon).toFixed(6), Number(lat).toFixed(6));
 
@@ -1222,8 +1232,8 @@ geoTrans.GeoRef.lonLatToGeoRef = function lonLatToGeoRef(lon, lat) {
 };
 
 geoTrans.GeoRef.geoRefToLonLat = function geoRefToLonLat(geoRef) {
-    var lat = '';
-    var lon = '';
+    var lat;
+    var lon;
 
     var geoRef1 = geoRef.charAt(0);
     var geoRef2 = geoRef.charAt(1);
@@ -1258,146 +1268,205 @@ geoTrans.GeoRef.geoRefToLonLat = function geoRefToLonLat(geoRef) {
 };
 
 geoTrans.Gars = {};
-geoTrans.Gars.garsToLonLat = function garsToLonLat(gars) {
-    var GARS_MINIMUM = 5;
-    var GARS_MAXIMUM = 7;
-    var LETTER_A_OFFSET = 65;
-    var MIN_PER_DEG = 60;
-    var ll = [];
 
-    // A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6, H = 7
-    var LETTER_I = 8;
-    // J = 9, K = 10, L = 11, M = 12, N = 13
-    var LETTER_O = 14;
-    // P = 15, Q = 16, R = 17, S = 18, T = 19, U = 20, V = 21, W = 22, X = 23, Y = 24, Z = 25
+geoTrans.Gars.GARS_MINIMUM = 5;     // Minimum number of chars for GARS
+geoTrans.Gars.GARS_MAXIMUM = 7;     // Minimum number of chars for GARS
+geoTrans.Gars.LETTER_A_OFFSET = 65; // Letter A offset in character set
+geoTrans.Gars.MIN_PER_DEG = 60;     // Number of minutes per degree
+geoTrans.Gars.LETTER_I = 8;         // ARRAY INDEX FOR LETTER I
+geoTrans.Gars.LETTER_O = 14;        // ARRAY INDEX FOR LETTER O
+geoTrans.Gars._1 = '1';
+geoTrans.Gars._2 = '2';
+geoTrans.Gars._3 = '3';
+geoTrans.Gars._4 = '4';
+geoTrans.Gars._5 = '5';
+geoTrans.Gars._6 = '6';
+geoTrans.Gars._7 = '7';
+geoTrans.Gars._8 = '8';
+geoTrans.Gars._9 = '9';
 
-    var _1 = '1';
-    var _2 = '2';
-    var _3 = '3';
-    var _4 = '4';
-    var _5 = '5';
-    var _6 = '6';
-    var _7 = '7';
-    var _8 = '8';
-    var _9 = '9';
-
-    var lat = 0;
-    var lon = 1;
+geoTrans.Gars._basicCalculation = function _basicCalculation(gars) {
     var gars_length = gars.length;
 
-    if((gars_length < GARS_MINIMUM) || (gars_length > GARS_MAXIMUM)){
-        ll[0] = -360;
-        return ll;
+    if ((gars_length < this.GARS_MINIMUM) || (gars_length > this.GARS_MAXIMUM)) {
+        return [-360];
     }
-    var index = 0;
-    var ew_string = "";
 
-    while(geoTrans.isDigit(gars.charCodeAt(index))){
+    var ew_string = '';
+    var index = 0;
+    while (geoTrans.isDigit(gars.charCodeAt(index))) {
         ew_string += gars.charAt(index);
         index++;
     }
 
-    if(index !== 3){
-        ll[0] = -360;
-        return ll;
+    // Error Checking longitude band, must be 3 digits
+    if (index !== 3) {
+        return [-360];
     }
 
+    // Get 30 minute east/west value, 1 ~ 720
     var ew_value;
     ew_value = Number(ew_string);
 
-    var letter = [];
+    var letter;
     letter = gars.charAt(index);
+    // The latitude band must be a letter
+    if (!geoTrans.isLetter(letter)) {
+        return [-360];
+    }
 
-    var ns_str=[];
-    ns_str[0]=letter.charCodeAt(0) - LETTER_A_OFFSET;
+    // Get first 30 minute north/south letter, A ~ Q
+    var ns_str = [];
+    ns_str[0] = letter.charCodeAt(0) - this.LETTER_A_OFFSET;
     letter = gars.charAt(++index);
-    ns_str[1] = letter.charCodeAt(0) - LETTER_A_OFFSET;
+    // The latitude band must be a letter
+    if (!geoTrans.isLetter(letter)) {
+        return [-360];
+    }
+
+    // Get second 30 minute north/south letter, A ~ Z
+    ns_str[1] = letter.charCodeAt(0) - this.LETTER_A_OFFSET;
 
     var _15_minute_value = 0;
     var _5_minute_value = 0;
     if (index + 1 < gars_length) {
+        // Get 15 minute quadrant value 1 ~ 4
         _15_minute_value = gars.charAt(++index);
-        if (!geoTrans.isDigit(gars.charCodeAt(index)) || _15_minute_value < _1 || _15_minute_value > _4) {
-            ll[0] = null;
-            ll[0] = -360;
-            return ll;
+        if (!geoTrans.isDigit(_15_minute_value.charCodeAt(0)) || _15_minute_value < this._1 || _15_minute_value > this._4) {
+            return [-360];
         } else {
             if (index + 1 < gars_length) {
+                // Get 5 minute quadrant value 1 ~ 9
                 _5_minute_value = gars.charAt(++index);
-                if(!geoTrans.isDigit(gars.charCodeAt(index)) || _5_minute_value < _1 || _5_minute_value > _9) {
-                    ll[0] = -360;
-                    return ll;
+                if (!geoTrans.isDigit(_5_minute_value.charCodeAt(0)) || _5_minute_value < this._1 || _5_minute_value > this._9) {
+                    return [-360];
                 }
             }
         }
     }
 
     var longitude = (((ew_value - 1.0) / 2.0) - 180.0);
-    if (ns_str[0] >= LETTER_O) {
+    // Letter I and O are invalid
+    if (ns_str[0] >= this.LETTER_O) {
         ns_str[0]--;
     }
-    if (ns_str[0] >= LETTER_I) {
+    if (ns_str[0] >= this.LETTER_I) {
         ns_str[0]--;
     }
-    if (ns_str[1] >= LETTER_O) {
+
+    if (ns_str[1] >= this.LETTER_O) {
         ns_str[1]--;
     }
-    if (ns_str[1] >= LETTER_I) {
+    if (ns_str[1] >= this.LETTER_I) {
         ns_str[1]--;
     }
-    var latitude = (-90.0 + (ns_str[0] * 12.0)) + (ns_str[1] / 2.0);
 
-    var lat_minites = 0.0;
-    var lon_minites = 0.0;
+    var latitude = ((-90.0 + (ns_str[0] * 12.0)) + (ns_str[1] / 2.0));
 
-    if (_15_minute_value === '1') {
-        lat_minites = 15.0;
-    } else if (_15_minute_value === '4') {
-        lat_minites =15.0;
-    } else if (_15_minute_value === '2') {
-        lat_minites =15.0;
-        lon_minites =15.0;
+    var lat_minutes = 0.0;
+    var lon_minutes = 0.0;
+
+    switch (_15_minute_value) {
+        case '1':
+            lat_minutes = 15.0;
+            break;
+        case '4':
+            lon_minutes = 15.0;
+            break;
+        case '2':
+            lat_minutes = 15.0;
+            lon_minutes = 15.0;
+            break;
     }
 
-    if (_5_minute_value === '4') {
-        lat_minites += 5.0;
-    } else if (_5_minute_value === '1') {
-        lat_minites += 10.0;
-    } else if (_5_minute_value === '8') {
-        lat_minites += 5.0;
-    } else if (_5_minute_value === '5') {
-        lon_minites += 5.0;
-        lat_minites += 5.0;
-    } else if (_5_minute_value === '2') {
-        lat_minites += 10.0;
-        lon_minites += 5.0;
-    } else if (_5_minute_value === '9') {
-        lon_minites += 10.0;
-    } else if (_5_minute_value === '6') {
-        lat_minites += 5.0;
-        lon_minites += 10.0;
-    } else if (_5_minute_value === '3') {
-        lat_minites += 10.0;
-        lon_minites += 10.0;
+    switch (_5_minute_value) {
+        case '4':
+            lat_minutes += 5.0;
+            break;
+        case '1':
+            lat_minutes += 10.0;
+            break;
+        case '8':
+            lon_minutes += 5.0;
+            break;
+        case '5':
+            lon_minutes += 5.0;
+            lat_minutes += 5.0;
+            break;
+        case '2':
+            lon_minutes += 5.0;
+            lat_minutes += 10.0;
+            break;
+        case '9':
+            lon_minutes += 10.0;
+            break;
+        case '6':
+            lon_minutes += 10.0;
+            lat_minutes += 5.0;
+            break;
+        case '3':
+            lon_minutes += 10.0;
+            lat_minutes += 10.0;
+            break;
     }
 
-    if (_5_minute_value !== '0') {
-        lat_minites += 2.5;
-        lon_minites += 2.5;
-    } else if (_15_minute_value !== '0') {
-        lat_minites += 7.5;
-        lon_minites += 7.5;
+    return {
+        'latitude' : latitude,
+        'longitude' : longitude,
+        'lat_minutes' : lat_minutes,
+        'lon_minutes' : lon_minutes,
+        '_5_minute_value' : _5_minute_value,
+        '_15_minute_value' : _15_minute_value
+    }
+};
+
+geoTrans.Gars.garsToLonLat = function garsToLonLat(gars) {
+    var basic = this._basicCalculation(gars);
+
+    if (basic._5_minute_value !== '0') {
+        basic.lat_minutes += 2.5;
+        basic.lon_minutes += 2.5;
+    } else if (basic._15_minute_value !== '0') {
+        basic.lat_minutes += 7.5;
+        basic.lon_minutes += 7.5;
     } else {
-        lat_minites += 15.0;
-        lon_minites += 15.0;
+        basic.lat_minutes += 15.0;
+        basic.lon_minutes += 15.0;
     }
 
-    latitude += lat_minites / MIN_PER_DEG;
-    longitude += lon_minites / MIN_PER_DEG;
-    ll[0] = longitude;
-    ll[1] = latitude;
+    basic.latitude += basic.lat_minutes / this.MIN_PER_DEG;
+    basic.longitude += basic.lon_minutes / this.MIN_PER_DEG;
 
-    return new geoTrans.LatLon(longitude, latitude);
+    return new geoTrans.LatLon(basic.longitude, basic.latitude);
+};
+
+geoTrans.Gars.garsToLonLatArray = function garsToLonLatArray(gars) {
+    var ll = [];
+    var coords = {};
+    var basic = this._basicCalculation(gars);
+
+    // lower left coordinates
+    ll[0] = basic.latitude + basic.lat_minutes / this.MIN_PER_DEG;
+    ll[1] = basic.longitude + basic.lon_minutes / this.MIN_PER_DEG;
+    coords.leftBottom = new geoTrans.LatLon(ll[1], ll[0]);
+
+    if (basic._5_minute_value !== 0) {
+        basic.lat_minutes += 5.0;
+        basic.lon_minutes += 5.0;
+    } else if (basic._15_minute_value !== 0) {
+        basic.lat_minutes += 15.0;
+        basic.lon_minutes += 15.0;
+    } else {
+        basic.lat_minutes += 30.0;
+        basic.lon_minutes += 30.0;
+    }
+
+    ll[2] = basic.latitude + basic.lat_minutes / this.MIN_PER_DEG;
+    ll[3] = basic.longitude + basic.lon_minutes / this.MIN_PER_DEG;
+
+    coords.rightTop = new geoTrans.LatLon(ll[3], ll[2]);
+
+    return coords;
 };
 
 geoTrans.Gars.lonLatToGars = function lonLatToGars(lon, lat, precision) {
