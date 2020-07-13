@@ -46,15 +46,11 @@
                     <tr th:each="connection : ${ connections }">
                         <td class="text-center align-middle" th:text="${connection.ip}" th:id="${ 'remove-ip-' + connection.key }">[IP 주소]</td>
                         <td class="text-center align-middle" th:text="${connection.name}">[호스트 이름]</td>
-                        <td class="text-center align-middle" th:switch="${connection.zone}">
-                            <span th:text="${'B1'}" th:case="B1" th:id="${ 'remove-zone-' + connection.key }"></span>
-                            <span th:text="${'U3'}" th:case="U3" th:id="${ 'remove-zone-' + connection.key }"></span>
-                            <span th:text="${'GOC'}" th:case="GOC" th:id="${ 'remove-zone-' + connection.key }"></span>
+                        <td class="text-center align-middle">
+                            <span th:text="${ connection.zone == 'GOC' ? '지작사' : connection.zone }" th:id="${ 'remove-zone-' + connection.key }"></span>
                         </td>
                         <td class="text-center align-middle" th:switch="${connection.kind}">
-                            <span th:text="${'SI'}" th:case="SI" th:id="${ 'remove-kind-' + connection.key }"></span>
-                            <span th:text="${'NSI'}" th:case="NSI" th:id="${ 'remove-kind-' + connection.key }"></span>
-                            <span th:text="${'CDS'}" th:case="CDS" th:id="${ 'remove-kind-' + connection.key }"></span>
+                            <span th:text="${ connection.kind == 'NSI' ? 'N-SI' : connection.kind }" th:id="${ 'remove-kind-' + connection.key }"></span>
                         </td>
                         <td class="text-center align-middle">
                             <button th:id="${ 'connectUpdate_' + connection.key }" class="btn btn-info btn-circle btn-sm mx-1" type="button"
@@ -273,11 +269,12 @@
                 document.getElementById('cancel-btn-remote').disabled = (type === 'cancel');
                 document.getElementById('save-btn-remote').disabled = (type === 'cancel');
 
-                document.getElementById('remote-zone').value = 'B1';
-                document.getElementById('remote-kind').value = 'SI';
-
                 var serverZone = document.getElementById('remote-zone');
                 var serverKind = document.getElementById('remote-kind');
+
+                serverZone.value = localMain && localMain.zone;
+                serverKind.value = localMain && localMain.kind;
+
                 serverZone.disabled = (type === 'cancel');
                 serverKind.disabled = (type === 'cancel');
 
@@ -469,8 +466,13 @@
             }
         </script>
     </div>
-    <div id="service-address-view-non-exist" th:unless="${ local != null }">
-
+    <div class="jumbotron jumbotron-fluid" th:unless="${ local != null }">
+        <div class="container">
+            <h1 class="display-4">
+                <i class="fas fa-times-circle"></i> Not Working...
+            </h1>
+            <p class="lead">YAML 파일에 설정된 LOCAL 데이터가 작성되지 않았습니다. 다시 시도 바랍니다.</p>
+        </div>
     </div>
 </th:block>
 

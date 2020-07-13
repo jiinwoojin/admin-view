@@ -350,7 +350,6 @@
                 </div>
             </div>
 
-
             <div class="col-sm-12" th:unless="${ zones.length > 0 }">
                 <div class="ibox">
                     <div class="ibox-title">
@@ -377,7 +376,17 @@
     <script th:inline="javascript">
         var pgSQLBasicPort = /*[[${geoMap.get("PostgreSQL Basic").port}]]*/ 0;
         var syncthingPort = /*[[${geoMap.get("Syncthing").port}]]*/ 0;
+        var zones = /*[[${zones}]]*/ [];
     </script>
+</th:block>
+
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/slick/slick.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/slick/slick-theme.css}">
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/design-park/resource/library/js/plugins/slick/slick.min.js}"></script>
     <script th:src="@{/js/page/dashboard-page.js}"></script>
 </th:block>
 </html>

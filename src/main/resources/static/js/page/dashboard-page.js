@@ -1,12 +1,10 @@
 // [JS 로직] 홈 - 대시보드 페이지
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
-    find_by_center_refresh_server('B1');
-    find_by_center_refresh_server('U3');
-    find_by_center_refresh_server('GOC');
-    find_by_center_refresh_sync('B1');
-    find_by_center_refresh_sync('U3');
-    find_by_center_refresh_sync('GOC');
+    for (var zone of zones) {
+        find_by_center_refresh_server(zone);
+        find_by_center_refresh_sync(zone);
+    }
 });
 
 // 센터 별 초기화를 위한 함수이다. - 서버 관련
@@ -209,58 +207,40 @@ function ajax_request_sync(ip, port, zone){
 // 버튼과 셀렉트 폼과 같이 사용.
 function onchange_refresh_server(dom){
     var val = dom.value;
-
-    var center;
-    // 버튼과 셀렉트 둘 다 id 는 센터로 시작한다.
-    if(dom.id.startsWith('B1')){
-        center = 'B1';
-    } else if(dom.id.startsWith('U3')){
-        center = 'U3';
-    } else {
-        center = 'GOC';
-    }
+    var zone = dom.id.split('_')[0];
 
     // 버튼일 때를 대비한다.
     if(!val){
-        val = document.getElementById(center + "_change_server").value;
+        val = document.getElementById(zone + "_change_server").value;
     }
 
     if(val !== '') {
         var split = val.split('|');
         var ip = split[2];
 
-        $('#' + center + '_SERVER_PILL1').tab('show');
+        $('#' + zone + '_SERVER_PILL1').tab('show');
 
-        ajax_request_server(ip, 11110, center);
+        ajax_request_server(ip, 11110, zone);
     }
 }
 
 // 버튼과 셀렉트 폼과 같이 사용.
 function onchange_refresh_sync(dom){
     var val = dom.value;
-
-    var center;
-    // 버튼과 셀렉트 둘 다 id 는 센터로 시작한다.
-    if(dom.id.startsWith('B1')){
-        center = 'B1';
-    } else if(dom.id.startsWith('U3')){
-        center = 'U3';
-    } else {
-        center = 'GOC';
-    }
+    var zone = dom.id.split('_')[0];
 
     // 버튼일 때를 대비한다.
     if(!val){
-        val = document.getElementById(center + "_change_sync").value;
+        val = document.getElementById(zone + "_change_sync").value;
     }
 
     if(val !== '') {
         var split = val.split('|');
         var ip = split[2];
 
-        $('#' + center + '_SYNC_PILL1').tab('show');
+        $('#' + zone + '_SYNC_PILL1').tab('show');
 
-        ajax_request_sync(ip, 11110, center);
+        ajax_request_sync(ip, 11110, zone);
     }
 }
 

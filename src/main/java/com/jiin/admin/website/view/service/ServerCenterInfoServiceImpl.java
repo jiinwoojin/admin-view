@@ -25,16 +25,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     private String dataPath;
 
     /**
-     * 배열의 인덱스를 바꾸는 메소드
-     */
-    private void swap(String[] arr, int a, int b) {
-        String tmp = arr[a];
-        arr[a] = arr[b];
-        arr[b] = tmp;
-    }
-
-    /**
-     * 서버 설정 기반 YAML 파일을 불러온다.
+     * 서버 설정 기반 YAML 파일을 불러온다.1
      */
     private File loadServerConfigYAMLFile() throws IOException {
         File file = Paths.get(dataPath, Constants.SERVER_INFO_FILE_PATH, Constants.SERVER_INFO_FILE_NAME).toFile();
@@ -124,12 +115,15 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         else {
             Map<String, Object> configMap = (Map<String, Object>) map.get("config");
             String zones = (String) configMap.get("zone");
+
             String[] zoneArray = zones.split(",");
-            if (local.getZone().equalsIgnoreCase("U3")) swap(zoneArray, 0, 1);
-            if (local.getZone().equalsIgnoreCase("GOC")) {
-                swap(zoneArray, 0, 2);
-                swap(zoneArray, 1, 2);
+            List<String> list = Arrays.stream(zoneArray).collect(Collectors.toList());
+            int idx = list.indexOf(local.getZone());
+            if(idx >= 0 && idx < list.size()){
+                list.remove(idx);
+                list.add(0, local.getZone());
             }
+
             return zoneArray;
         }
     }
