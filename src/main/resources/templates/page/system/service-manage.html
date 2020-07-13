@@ -50,8 +50,9 @@
                                                 th:id="${ 'service-start-' + serviceMap.get(service).name + '-' + idx.index }"
                                                 class="btn btn-info btn-sm px-1"
                                                 th:data-service="${ service }"
-                                                th:data-link="${ '/view/server/service-execute?method=START&name=' + serviceMap.get(service).name  }"
+                                                th:data-service-key="${ serviceMap.get(service).name }"
                                                 data-method="START"
+                                                th:data-index="${idx.index}"
                                                 onclick="onclick_service_execute(this)"
                                         >
                                             <i class="fas fa-play-circle"></i>
@@ -60,8 +61,9 @@
                                                 th:id="${ 'service-stop-' + serviceMap.get(service).name + '-' + idx.index }"
                                                 class="btn btn-danger btn-sm px-1"
                                                 th:data-service="${ service }"
-                                                th:data-link="${ '/view/server/service-execute?method=STOP&name=' + serviceMap.get(service).name }"
+                                                th:data-service-key="${ serviceMap.get(service).name }"
                                                 data-method="STOP"
+                                                th:data-index="${idx.index}"
                                                 onclick="onclick_service_execute(this)"
                                         >
                                             <i class="fas fa-stop-circle"></i>
@@ -70,8 +72,9 @@
                                                 th:id="${ 'service-restart-' + serviceMap.get(service).name + '-' + idx.index }"
                                                 class="btn btn-warning btn-sm px-1"
                                                 th:data-service="${ service }"
-                                                th:data-link="${ '/view/server/service-execute?method=RESTART&name=' + serviceMap.get(service).name }"
+                                                th:data-service-key="${ serviceMap.get(service).name }"
                                                 data-method="RESTART"
+                                                th:data-index="${idx.index}"
                                                 onclick="onclick_service_execute(this)"
                                         >
                                             <i class="fas fa-reply"></i>
@@ -84,8 +87,9 @@
                                                 th:id="${ 'service-restart-' + serviceMap.get(service).name + '-' + idx.index }"
                                                 class="btn btn-warning btn-sm px-1"
                                                 th:data-service="${ service }"
-                                                th:data-link="${ '/view/server/service-execute?method=RESTART&name=' + serviceMap.get(service).name }"
-                                                th:data-method="RESTART"
+                                                th:data-service-key="${ serviceMap.get(service).name }"
+                                                data-method="RESTART"
+                                                th:data-index="${idx.index}"
                                                 onclick="onclick_service_execute(this)"
                                         >
                                             <i class="fas fa-reply"></i>
@@ -300,12 +304,33 @@
 
         function onclick_service_execute(btn){
             var method = $(btn).data('method');
-            var link = CONTEXT + $(btn).data('link');
+            var index = $(btn).data('index');
             var service = $(btn).data('service');
+            var serviceKey = $(btn).data('serviceKey');
 
             var question = service + " 서비스를 " + (method === 'START' ? '가동' : method === 'RESTART' ? '재가동' : '정지') + '합니다. 계속 하시겠습니까?';
             if(confirm(question)){
-                window.location.href = link;
+                $.ajax({
+                    url: `${CONTEXT}/view/server/remote-service-execute`,
+                    type: 'POST',
+                    data: JSON.stringify({
+                        ip: connections[index].ip,
+                        name: serviceKey,
+                        method: method
+                    }),
+                    contentType: 'application/json',
+                    success: function (res) {
+                        if(res && res.result){
+                            window.location.reload();
+                        }
+                    },
+                    error: function (e) {
+                        display_initialize(serviceKey, 'ERROR', index);
+                    },
+                    beforeSend: function () {
+                        display_initialize(serviceKey, 'LOADING', index);
+                    }
+                });
             }
         }
 

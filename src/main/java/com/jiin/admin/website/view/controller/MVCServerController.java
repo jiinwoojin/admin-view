@@ -1,15 +1,20 @@
 package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.config.SessionService;
+import com.jiin.admin.servlet.AdminServerServlet;
+import com.jiin.admin.servlet.AdminViewServlet;
 import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.ServerCenterInfoModel;
+import com.jiin.admin.website.util.RestClientUtil;
 import com.jiin.admin.website.view.service.ContainerInfoService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +22,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("server")
 public class MVCServerController {
+    @Value("${server.servlet.context-path}")
+    private String CONTEXT_PATH;
+
     @Autowired
     private ServerCenterInfoService serverCenterInfoService;
 
@@ -68,14 +76,32 @@ public class MVCServerController {
 
     /**
      * Docker Container 실행 및 일반 서비스 실행을 위한 REST API
-     * @param name String, method String
+     * @param param Map of String, String
      */
     @RequestMapping(value = "service-execute", method = RequestMethod.POST)
-    public Map<String, Object> restServiceControlByNameAndMethod(@RequestParam String name, @RequestParam String method) {
+    @ResponseBody
+    public Map<String, Object> restServiceControlByNameAndMethod(@RequestBody Map<String, Object> param) {
+        String name = (String) param.get("name");
+        String method = (String) param.get("method");
         containerInfoService.executeGeoServiceByNameAndMethod(name, method);
         return new HashMap<String, Object>(){{
-             put("message", String.format("[%s] 서비스의 [%s] 명령을 시작합니다.", name, method));
+            put("result", true);
         }};
+    }
+
+    @RequestMapping(value = "remote-service-execute", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> postDockerCheckByIpAndContainerName(HttpServletRequest request, @RequestBody Map<String, Object> param) {
+        String ip = (String) param.get("ip");
+        String name = (String) param.get("name");
+        String method = (String) param.get("method");
+        String path = String.format("%s/%s/server/service-execute", CONTEXT_PATH, AdminViewServlet.CONTEXT_PATH);
+
+        sessionService.message(String.format("[%s] 서비스의 [%s] 명령을 시작합니다.", name, method));
+        return RestClientUtil.postREST(request.isSecure(), ip, path, new HashMap<String, String>(){{
+            put("name", name);
+            put("method", method);
+        }});
     }
 
     /**

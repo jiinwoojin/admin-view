@@ -1,23 +1,23 @@
 package com.jiin.admin.website.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -44,13 +44,12 @@ public class RestClientUtil {
         HttpClient client = HttpClientBuilder.create().build();
         HttpPost post = new HttpPost(String.format("%s://%s%s", secured ? "https" : "http", secured ? ip : ip + ":11110", path));
 
-        List<NameValuePair> params = new ArrayList<>();
-        for(String key : data.keySet()){
-            params.add(new BasicNameValuePair(key, data.get(key)));
-        }
-
+        ObjectMapper mapper = new ObjectMapper();
         try {
-            post.setEntity(new UrlEncodedFormEntity(params));
+            post.setHeader(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+            post.setEntity(new StringEntity(mapper.writeValueAsString(data)));
+        } catch (JsonProcessingException e) {
+            log.error("ERROR - " + e.getMessage());
         } catch (UnsupportedEncodingException e) {
             log.error("ERROR - " + e.getMessage());
         }
@@ -60,7 +59,6 @@ public class RestClientUtil {
             if(response.getStatusLine().getStatusCode() == 200){
                 ResponseHandler<String> handler = new BasicResponseHandler();
                 String body = handler.handleResponse(response);
-                ObjectMapper mapper = new ObjectMapper();
                 return mapper.readValue(body, Map.class);
             }
         } catch (IOException e) {
