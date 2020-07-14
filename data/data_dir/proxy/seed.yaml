@@ -3,16 +3,10 @@ seeds:
     caches: [basic]
     coverages: [korea]
     levels:
-      from: 11
-      to: 14
+      from: 0
+      to: 16
     refresh_before:
       hours: 1
-
-#cleanups:
-#  basic_cleanup:
-#    caches: [basic]
-#    remove_before:
-#      minutes: 1
 
 coverages:
   korea:

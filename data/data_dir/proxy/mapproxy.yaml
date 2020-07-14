@@ -1,39 +1,62 @@
 services:
-  demo: null
+  demo:
+  tms:
+    origin: 'nw'
   wms:
-    versions: [1.1.1, 1.3.0]
+    versions: ['1.1.1', '1.3.0']
     srs: ['EPSG:4326', 'EPSG:900913', 'EPSG:3857']
     bbox_srs: ['EPSG:4326', 'EPSG:3857']
-    image_formats: [image/jpeg, image/png]
+    image_formats: ['image/jpeg', 'image/png']
+  wmts:
+    restful: true
+    restful_template: '/{Layer}/{TileMatrixSet}/{TileMatrix}/{TileCol}/{TileRow}.{Format}'
+    kvp: true
+
 layers:
-- name: world_k2
-  title: K2 World Map
-  sources: [world_k2_cache]
-- name: world_k2_test
-  title: K2 World Map Test
-  sources: [world_k2_test_cache]
-- name: sample
-  title: 테스트 레이어
-  sources: []
+  - name: basic
+    title: basic
+    sources: [basic]
+
 caches:
-  world_k2_cache:
+  basic:
     grids: [GLOBAL_GEODETIC]
-    meta_size: [1, 1]
-    meta_buffer: 0
-    sources: [world_k2]
-    cache: {type: file, directory: /data/jiserver/data_dir/cache/world_k2/}
-  world_k2_test_cache:
-    grids: [GLOBAL_GEODETIC]
-    meta_size: [1, 1]
-    meta_buffer: 0
-    sources: [world_k2_test]
-    cache: {type: file, directory: /data/jiserver/data_dir/cache/world_k2/}
+    format: image/png
+    sources: [world, k2]
+
 sources:
-  world_k2:
-    type: mapserver
-    req: {map: /data/jiserver/data_dir/mapserver/world_k2/world_k2.map, layers: world}
-    mapserver: {binary: /usr/local/bin/mapserv, working_dir: /data/jiserver/data_dir/tmp}
-  world_k2_test:
-    type: mapserver
-    req: {map: /data/jiserver/data_dir/mapserver/world_k2/world_k2.map, layers: world}
-    mapserver: {binary: /usr/local/bin/mapserv, working_dir: /data/jiserver/data_dir/tmp}
+  world:
+    type: wms
+    concurrent_requests: 4
+    wms_opts:
+      version: 1.3.0
+    http:
+      client_timeout: 600
+    req:
+      url: http://192.168.1.141:11130/mapserver/cgi-bin/mapserv?
+      layers: world
+      map: /data/jiapp/data_dir/mapserver/world.map
+      transparent: true
+    supported_srs: ['EPSG:4326', 'EPSG:3857', 'EPSG:900913']
+  k2:
+    type: wms
+    concurrent_requests: 4
+    wms_opts:
+      version: 1.3.0
+    http:
+      client_timeout: 600
+    req:
+      url: http://192.168.1.141:11130/mapserver/cgi-bin/mapserv?
+      layers: k2
+      map: /data/jiapp/data_dir/mapserver/k2.map
+      transparent: true
+    supported_srs: ['EPSG:4326', 'EPSG:3857', 'EPSG:900913']
+
+grids:
+  osm_grid:
+    srs: EPSG:3857
+    origin: nw
+
+globals:
+  cache:
+      base_dir: /data/jiapp/data_dir/cache
+      lock_dir: /data/jiapp/data_dir/cache/locks
