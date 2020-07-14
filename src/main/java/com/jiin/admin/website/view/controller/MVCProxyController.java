@@ -8,6 +8,7 @@ import com.jiin.admin.config.SessionService;
 import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.*;
 import com.jiin.admin.website.util.DockerUtil;
+import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.YAMLFileUtil;
 import com.jiin.admin.website.view.service.ProxyCacheService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Slf4j
@@ -170,7 +173,6 @@ public class MVCProxyController {
 
     /**
      * [14:03:36] 13  75.44% 140.97656, 43.24219, 141.32812, 43.59375 (8593072 tiles)
-     * @param names
      * @return
      */
     @ResponseBody
@@ -192,11 +194,17 @@ public class MVCProxyController {
             if(idx == fields.length)
                 break;
         }
-        Map<String, Object> mapproxyInfo = YAMLFileUtil.fetchMapByYAMLFile(new File(dataPath + "/proxy/mapproxy.yaml"));
-        Map<String, Object> seedInfo = YAMLFileUtil.fetchMapByYAMLFile(new File(dataPath + "/proxy/seed-" + seedName + ".yaml"));
-        container.put("MAPPROXY",mapproxyInfo);
-        container.put("SEED",seedInfo);
         container.put("LOGS",lastlogMap);
+        File mapproxy = new File(dataPath + "/proxy/mapproxy.yaml");
+        if(mapproxy.exists()){
+            Map<String, Object> mapproxyInfo = YAMLFileUtil.fetchMapByYAMLFile(mapproxy);
+            container.put("MAPPROXY",mapproxyInfo);
+        }
+        File seed = new File(dataPath + "/proxy/seed-" + seedName + ".yaml");
+        if(seed.exists()){
+            Map<String, Object> seedInfo = YAMLFileUtil.fetchMapByYAMLFile(seed);
+            container.put("SEED",seedInfo);
+        }
         return container;
     }
 
@@ -227,6 +235,30 @@ public class MVCProxyController {
     @ResponseBody
     @RequestMapping("seeding-stop")
     public Map proxySeedingStop(@RequestParam("SEEDNAME") String name) throws IOException {
+        // *.map IMAGEPATH 삭제
+        Map<String, Object> mapproxyInfo = YAMLFileUtil.fetchMapByYAMLFile(new File(dataPath + "/proxy/mapproxy.yaml"));
+        LinkedHashMap sources = (LinkedHashMap) mapproxyInfo.get("sources");
+        List<String> tmpDirs = new ArrayList();
+        Set keys = sources.keySet();
+        for(Object key:keys){
+            Map<String, Object> source = (Map<String, Object>) sources.get(key);
+            Map<String, Object> req = (Map<String, Object>) source.get("req");
+            String mapPath = (String) req.get("map");
+            if(Files.exists(Paths.get(mapPath))){
+                List<String> lines = FileSystemUtil.fetchFileContextToList(mapPath);
+                for(String line:lines){
+                    if(line.contains("IMAGEPATH")){
+                        tmpDirs.add(line.replace("IMAGEPATH","").replaceAll("\"","").trim());
+                    }
+                }
+            }
+        }
+        for(String tmpDir:tmpDirs){
+            if(Files.exists(Paths.get(tmpDir))){
+                // TODO: 삭제여부 확인후 주석해
+                // FileSystemUtil.deleteFile(tmpDir); 제
+            }
+        }
         Map info = new HashMap();
         info.put("RESULT",DockerUtil.removeSeed(name,dataPath));
         return info;
