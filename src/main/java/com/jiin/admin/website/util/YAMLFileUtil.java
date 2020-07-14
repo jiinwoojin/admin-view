@@ -27,6 +27,10 @@ public class YAMLFileUtil {
      * @Param map Map
      */
     public static String fetchYAMLStringByMap(Map<String, Object> map, String type) {
+        return fetchYAMLStringByMap(map,type,false);
+    }
+
+    public static String fetchYAMLStringByMap(Map map, String type, boolean prettyFlow) {
         DumperOptions options = new DumperOptions();
         switch(type) {
             case "AUTO" :
@@ -39,6 +43,7 @@ public class YAMLFileUtil {
                 options.setDefaultFlowStyle(DumperOptions.FlowStyle.FLOW);
                 break;
         }
+        options.setPrettyFlow(prettyFlow);
         Yaml yaml = new Yaml(options);
         return yaml.dump(map);
     }

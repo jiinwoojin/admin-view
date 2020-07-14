@@ -24,6 +24,7 @@ project:
     height-name: jimap_height
     rabbitmq-name: jimap_rabbitmq
     nginx-name: jimap_nginx
+    default-seed-name: jimap_seed-tutorial
     seed-name-prefix: jimap_seed
   server-port:    # service port (슬라이드 REF - 변경 가능성 있음.)
     postgresql-osm-port: 5430

@@ -139,6 +139,75 @@ public class DockerUtil {
     }
 
     /**
+     * Seed Docker 제거
+     * docker rm jimap_seed_123128131232
+     * @return
+     */
+    public static String removeSeed(String seedName, String dataPath) throws IOException {
+        String command = "docker rm " + seedName;
+        List<String> resultMap = LinuxCommandUtil.fetchResultByLinuxCommonToList(command);
+        String result = resultMap.get(0);
+        if(result.equals(seedName)){ //SUCCESS
+            String seedpath = dataPath + "/proxy/seed-" + seedName + ".yaml";
+            FileSystemUtil.deleteFile(seedpath);
+        }
+        return result;
+    }
+
+    /**
+     * Seed Docker 생성
+     * @return
+     */
+    public static String runSeed(Map param) throws IOException {
+        // create seed.yaml
+        String dataPath = (String) param.get("DATA_PATH");
+        String seedName = (String) param.get("SEED_NAME");
+        Map seed = new LinkedHashMap();
+        Map seeds = new LinkedHashMap();
+        Map basic_seed = new LinkedHashMap();
+        String[] caches = new String[]{(String) param.get("cache")};
+        String[] coveragesArr = new String[]{(String) param.get("coverage")};
+        Map levels = new LinkedHashMap();
+        levels.put("from",Integer.parseInt((String) param.get("levelFrom")));
+        levels.put("to",Integer.parseInt((String) param.get("levelTo")));
+        Map refresh_before = new LinkedHashMap();
+        levels.put("hours",Integer.parseInt((String) param.get("refreshBefore")));
+        basic_seed.put("caches",caches);
+        basic_seed.put("coverages",coveragesArr);
+        basic_seed.put("levels",levels);
+        basic_seed.put("refresh_before",refresh_before);
+        seed.put("basic_seed",basic_seed);
+        Map coverages = new LinkedHashMap();
+        Integer[] bbox = new Integer[]{
+                Integer.parseInt((String) param.get("xmin")),
+                Integer.parseInt((String) param.get("ymin")),
+                Integer.parseInt((String) param.get("xmax")),
+                Integer.parseInt((String) param.get("ymax"))
+        };
+        Map coverage = new LinkedHashMap();
+        coverage.put("bbox",bbox);
+        coverage.put("srs",param.get("projection"));
+        coverages.put(param.get("coverage"),coverage);
+        seed.put("coverages",coverages);
+        //{seeds={basic_seed={caches=[basic], coverages=[korea], levels={from=11, to=14}, refresh_before={hours=1}}}, coverages={korea={bbox=[100, 0, 160, 70], srs=EPSG:4326}}}
+        String context = YAMLFileUtil.fetchYAMLStringByMap(seed, "AUTO");
+        String mapproxypath = dataPath + "/proxy/mapproxy.yaml";
+        String seedpath = dataPath + "/proxy/seed-" + seedName + ".yaml";
+        FileSystemUtil.createAtFile(seedpath, context);
+        // run docker
+        // docker run -it -d --rm --user 1001:1000 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name jimap_seed jiinwoojin/jimap_mapproxy mapproxy-seed -f /data/jiapp/data_dir/proxy/mapproxy.yaml -s /data/jiapp/data_dir/proxy/seed.yaml -c 4 --seed ALL
+        String command = "docker run -it --rm --user 1001:1000 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name [SEED_NAME] jiinwoojin/jimap_mapproxy mapproxy-seed -f [MAPPROXY.YAML] -s [SEED.YAML] -c 4 --seed ALL";
+        command = command.replace("[SEED_NAME]",seedName);
+        command = command.replace("[MAPPROXY.YAML]",mapproxypath);
+        command = command.replace("[SEED.YAML]",seedpath);
+        List<String> result = LinuxCommandUtil.fetchResultByLinuxCommonToList(command);
+        if(result.size() == 0){
+            return "";
+        }else{
+            return result.get(0);
+        }
+    }
+    /**
      * 로그 마지막줄 조회
      * docker logs --tail 1 jimap_seed
      * @param name
@@ -154,4 +223,6 @@ public class DockerUtil {
             return result.get(0);
         }
     }
+
+
 }

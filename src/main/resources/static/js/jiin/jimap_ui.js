@@ -8,23 +8,26 @@
  */
 
 // [공통] 간단한 DataTables 생성을 위한 문장
-function initialize_dataTable(id) {
-    $('#' + id).DataTable({
-        language : {
-            lengthMenu : "자료 길이 _MENU_",
+function initialize_dataTable(id, _options) {
+    var options = _options
+    if(options === undefined || options === null){
+        options = {}
+    }
+    options.language = {
+        lengthMenu : "자료 길이 _MENU_",
             zeroRecords : "해당 자료가 존재하지 않습니다.",
             info : "_PAGES_ 페이지 중 _PAGE_ 페이지 / 총 _MAX_ 건",
             infoEmpty : "해당 자료가 존재하지 않습니다.",
             infoFiltered : "(총 _TOTAL_ 건)",
             search : "검색 키워드",
             paginate : {
-                first : "<<",
+            first : "<<",
                 last : ">>",
                 next : ">",
                 previous : "<"
-            }
         }
-    });
+    }
+    $('#' + id).DataTable(options);
 }
 
 // [공통] 가장 작은 DataTables 생성을 위한 문장

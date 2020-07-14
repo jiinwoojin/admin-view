@@ -21,17 +21,16 @@
     <div class="row">
         <div class="col-xl-4">
             <h3 class="section_tit">Seed 생성</h3>
-            <form id="layer-create" accept-charset="utf-8" onsubmit="return preSubmit(this);" enctype="multipart/form-data">
+            <form id="seed-create" accept-charset="utf-8" onsubmit="return preSubmit(this);" enctype="multipart/form-data">
                 <div class="form-group row">
                     <div class="col-12">
-                        <label for="layer-name">SEED 인덱스(Dokcer 이름)</label>
+                        <label>SEED 인덱스(Dokcer 이름)</label>
                     </div>
                     <div class="col-12 input-group">
-                        <input type="text" class="form-control" name="name" id="layer-name">
+                        <input type="text" class="form-control" disabled th:value="${ seedName + '-자동생성(인덱스)'} ">
                     </div>
                     <div class="col-12">
-                        <small class="form-text text-muted">미입력시 자동생성 됩니다.</small>
-                        <small class="form-text text-muted">Docker 이름 중복시 교체됩니다.</small>
+                        <small class="form-text text-muted">자동생성 됩니다.</small>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -88,12 +87,12 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="initialize_selected_data()">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="fn_initialize_seed_param()">
                         <i class="fas fa-sync"></i> 초기화
                     </button>
 
-                    <button type="button" class="btn btn-primary btn-sm" onclick="submit_selected_data()">
-                        <i class="fas fa-save"></i> 생성
+                    <button type="button" class="btn btn-primary btn-sm" onclick="fn_seed_create()">
+                        <i class="fas fa-save"></i> 추가생성
                     </button>
                 </div>
             </form>
@@ -116,14 +115,20 @@
                         </thead>
                         <tbody>
                         <tr th:each="seed : ${ seedContainers }">
-                            <td class="text-center align-middle" th:text="${ seed.Names }"></td>
-                            <td class="text-center align-middle" th:text="${ seed.ID }"></td>
-                            <td class="text-center align-middle" th:text="${ seed.Image }"></td>
-                            <td class="text-center align-middle" th:text="${ seed.Ports }"></td>
-                            <td class="text-center align-middle" th:text="${ seed.Status }"></td>
-                            <td class="text-center align-middle" th:text="${ seed.CreatedAt }"></td>
-                            <td class="text-center align-middle">
-                                <button class="btn btn-danger btn-sm btn-circle mx-1" type="button" onclick="alert('종료')">
+                            <td th:text="${ seed.Names }"></td>
+                            <td th:text="${ seed.ID }"></td>
+                            <td th:text="${ seed.Image }"></td>
+                            <td th:text="${ seed.Ports }"></td>
+                            <td th:text="${ seed.Status }"></td>
+                            <td th:text="${ seed.CreatedAt }"></td>
+                            <td>
+                                <button class="btn btn-warning btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_view([[${seed.Names}]])">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button th:if="${ seed.DEFAULT == true}" class="btn btn-success btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_reload([[${seed.Names}]])">
+                                    <i class="fas fa-server"></i>
+                                </button>
+                                <button th:if="${ seed.DEFAULT == false}" class="btn btn-danger btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_remove([[${seed.Names}]])">
                                     <i class="fas fa-stop"></i>
                                 </button>
                             </td>
@@ -132,42 +137,181 @@
                     </table>
                 </div>
                 <hr style="width: 100%;"/>
-                <div class="col-xl-12">
+                <form class="col-xl-12" id="detail-form">
                     <h3 class="section_tit">Seed 진행 내역</h3>
                     <div>
                         <div class="form-group">
-                            <label for="layer_name">맵 이름</label>
-                            <input class="form-control form-control-sm" id="layer_name" name="layer_name" value="world_k2_lay" readonly />
+                            <label>Seed 이름</label>
+                            <input class="form-control form-control-sm" name="seed_name" readonly />
                         </div>
-                        <div class="form-group">
-                            <label for="layer_name">캐시 Dir</label>
-                            <input class="form-control form-control-sm" id="cache_dir" name="cache_dir" value="/data/jiapp/data_dir/cache/world_k2_cache/" readonly />
+                        <div class="form-group mt-2">
+                            <label>진행영역</label>
+                            <div class="col-12 row m-0 p-0">
+                                <div class="col-4 p-0">
+                                    <label>크기</label>
+                                    <input class="form-control form-control-sm text-right" name="size" readonly />
+                                </div>
+                                <div class="col-2">
+                                    <label>XMIN</label>
+                                    <input class="form-control form-control-sm text-right" name="xmin" readonly />
+                                </div>
+                                <div class="col-2">
+                                    <label>YMIN</label>
+                                    <input class="form-control form-control-sm text-right" name="ymin" readonly />
+                                </div>
+                                <div class="col-2">
+                                    <label>XMAX</label>
+                                    <input class="form-control form-control-sm text-right" name="xmax" readonly />
+                                </div>
+                                <div class="col-2">
+                                    <label>YMAX</label>
+                                    <input class="form-control form-control-sm text-right" name="ymax" readonly />
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group row">
-                            <div class="col-xl-4">
-                                <label for="layer_name">경과시간</label>
-                                <input class="form-control form-control-sm text-right"  value="100" readonly />
+                            <div class="col-3">
+                                <label>경과시간</label>
+                                <input class="form-control form-control-sm text-right"  name="time" readonly />
                             </div>
-                            <div class="col-xl-4">
-                                <label for="layer_name">퍼센트(%)</label>
-                                <input class="form-control form-control-sm text-right"  value="76.25" readonly />
+                            <div class="col-3">
+                                <label>레벨</label>
+                                <input class="form-control form-control-sm text-right"  name="level" readonly />
                             </div>
-                            <div class="col-xl-4">
-                                <label for="layer_name">처리타일수</label>
-                                <input class="form-control form-control-sm text-right"  value="132112" readonly />
+                            <div class="col-3">
+                                <label>퍼센트(%)</label>
+                                <input class="form-control form-control-sm text-right"  name="per" readonly />
+                            </div>
+                            <div class="col-3">
+                                <label>처리타일수</label>
+                                <input class="form-control form-control-sm text-right"  name="tile_count" readonly />
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
     <script>
         $(document).ready(function() {
             $('#list_table').each(function () {
-                initialize_dataTable(this.id);
+                initialize_dataTable(this.id, {columnDefs: [
+                        { targets: 0, className: "text-center" },
+                        { targets: 1, className: "text-center" },
+                        { targets: 2, className: "text-center" },
+                        { targets: 3, className: "text-center" },
+                        { targets: 4, className: "text-center" },
+                        { targets: 5, className: "text-center" },
+                        { targets: 6, className: "text-center text-nowrap" },
+                    ]});
             })
         });
+        // Map Proxy YAML 파일에 저장된 내용들을 불러온다.
+        function fn_initialize_seed_param(){
+            $.ajax({
+                url: CONTEXT + '/server/api/proxy/form',
+                type: 'get',
+                success: function(data){
+                    window['selectedLayers'] = data.layers;
+                    window['selectedCaches'] = data.caches;
+                    window['selectedSources'] = data.sources;
+
+                    rendering_selected_data("selectedLayers",  window['selectedLayers']);
+                    rendering_selected_data("selectedSources",  window['selectedSources']);
+                    rendering_selected_data("selectedCaches",  window['selectedCaches']);
+                },
+                error: function(e){
+                    console.log(e);
+                }
+            });
+        }
+        function fn_seed_create(){
+            if(confirm("Seed를 생성하시겠습니까?")){
+                $.ajax({
+                    url: CONTEXT + '/view/proxy/seeding-create',
+                    type: 'get',
+                    data: jQuery("#seed-create").serialize(),
+                    success: function(data){
+                        if(data.RESULT == ''){
+                            alert("Seed 생성에 실패하였습니다.")
+                        }else{
+                            var table = $('#list_table').DataTable();
+                            table.row.add([
+                                data.Names,
+                                data.ID,
+                                data.Image,
+                                data.Ports,
+                                data.Status,
+                                data.CreatedAt,
+                                '<button class="btn btn-success btn-sm btn-circle mx-1" type="button" onclick="fn_seed_view(\''+data.Names+'\')"><i class="fas fa-eye"></i></button>' +
+                                '<button class="btn btn-danger btn-sm btn-circle mx-1" type="button" onclick="fn_seed_remove(\''+data.Names+'\')"><i class="fas fa-stop"></i></button>'
+                            ]).draw( false );
+                            alert("Seed 생성에 성공하였습니다.")
+                        }
+                    },
+                    error: function(e){
+                        console.error(e)
+                        alert("Seed 생성에 실패하였습니다.")
+                    }
+                });
+            }
+        }
+        function fn_seed_remove(seedName){
+            if(confirm("Seed를 제거하시겠습니까?")){
+                $.ajax({
+                    url: CONTEXT + '/view/proxy/seeding-stop',
+                    type: 'get',
+                    data: {SEEDNAME : seedName},
+                    success: function(data){
+                        if(data.RESULT == ''){
+                            alert("Seed 제거에 실패하였습니다.")
+                        }else{
+                            var table = $('#list_table').DataTable();
+                            var datas = table.data()
+                            jQuery.each(datas, function(idx,item){
+                                if(seedName == new String(item[0])){
+                                    table.row(idx).remove().draw( false )
+                                }
+                            })
+                            alert("Seed 제거에 성공하였습니다.")
+                        }
+                    },
+                    error: function(e){
+                        console.error(e)
+                        alert("Seed 제거에 실패하였습니다.")
+                    }
+                });
+            }
+        }
+        function fn_seed_reload(seedName){
+            if(confirm("기본 Seed를 재시작 하시겠습니까?")){
+
+            }
+        }
+        function fn_seed_view(seedName){
+            $.ajax({
+                url: CONTEXT + '/view/proxy/seeding-info',
+                type: 'get',
+                data: {SEEDNAME : seedName},
+                success: function(data){
+                    console.log(data)
+                    var form = document.getElementById("detail-form")
+                    form.seed_name.value = data.Names
+                    form.size.value = data.Size
+                    form.xmin.value = data.LOGS.XMIN.replace(",","")
+                    form.ymin.value = data.LOGS.YMIN.replace(",","")
+                    form.xmax.value = data.LOGS.XMAX.replace(",","")
+                    form.ymax.value = data.LOGS.YMAX.replace(",","")
+                    form.level.value = data.LOGS.LEVEL
+                    form.time.value = data.RunningFor
+                    form.per.value = data.LOGS.PER
+                    form.tile_count.value = data.LOGS.TILES_CNT.replace("(","")
+                },
+                error: function(e){
+                    console.error(e)
+                }
+            });
+        }
     </script>
 </th:block>
 
