@@ -458,6 +458,10 @@ Geometry.MultiLineString = function MultiLineString() {
  * @constructor
  */
 Geometry.Polygon = function Polygon(coordinates) {
+	if (!(this instanceof Polygon)) {
+		throw new Error('new 로 생성해야 함.');
+	}
+
 	if (!coordinates) {
 		throw new Error('좌표값이 없습니다.');
 	}

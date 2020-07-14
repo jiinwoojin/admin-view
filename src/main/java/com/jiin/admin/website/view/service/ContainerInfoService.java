@@ -3,6 +3,7 @@ package com.jiin.admin.website.view.service;
 import com.jiin.admin.dto.ContainerHistoryDTO;
 import com.jiin.admin.vo.GeoBasicContainerInfo;
 import com.jiin.admin.vo.GeoContainerInfo;
+import com.jiin.admin.website.model.ContainerExecuteModel;
 
 import java.util.List;
 import java.util.Map;
@@ -12,5 +13,5 @@ public interface ContainerInfoService {
     boolean removeAllContainerHistoryData();
     List<GeoBasicContainerInfo> loadGeoContainerInfoList();
     Map<String, GeoContainerInfo> loadGeoServiceMap();
-    void executeGeoServiceByNameAndMethod(String name, String method);
+    void executeGeoServiceByContainerExecuteModel(ContainerExecuteModel containerExecuteModel);
 }

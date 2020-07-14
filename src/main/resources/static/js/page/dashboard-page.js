@@ -1,12 +1,10 @@
 // [JS 로직] 홈 - 대시보드 페이지
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
-    find_by_center_refresh_server('B1');
-    find_by_center_refresh_server('U3');
-    find_by_center_refresh_server('GOC');
-    find_by_center_refresh_sync('B1');
-    find_by_center_refresh_sync('U3');
-    find_by_center_refresh_sync('GOC');
+    for (var zone of zones) {
+        find_by_center_refresh_server(zone);
+        find_by_center_refresh_sync(zone);
+    }
 });
 
 // 센터 별 초기화를 위한 함수이다. - 서버 관련
@@ -75,9 +73,12 @@ function msg_initialize_sync_info(zone, msg){
 // 공통으로 부를 ajax - server part
 function ajax_request_server(ip, port, zone){
     $.ajax({
-        url: (window.location.protocol === 'https:') ? `https://${ip}${CONTEXT}/server/api/dashboard/performance` : `http://${ip}:${port}${CONTEXT}/server/api/dashboard/performance`,
-        type: 'GET',
+        url: `${CONTEXT}/server/api/dashboard/remote-performance`,
+        type: 'POST',
         contentType: 'application/json',
+        data: JSON.stringify({
+            ip : ip
+        }),
         success: function (connection) {
             if(connection){
                 for(var k in connection){
@@ -114,9 +115,12 @@ function ajax_request_server(ip, port, zone){
     });
 
     $.ajax({
-        url: (window.location.protocol === 'https:') ? `https://${ip}${CONTEXT}/server/api/dashboard/service-status` : `http://${ip}:${port}${CONTEXT}/server/api/dashboard/service-status`,
-        type: 'GET',
+        url: `${CONTEXT}/server/api/dashboard/remote-service-status`,
+        type: 'POST',
         contentType: 'application/json',
+        data: JSON.stringify({
+            ip : ip
+        }),
         success: function (status) {
             if(status){
                 var visited = [];
@@ -173,30 +177,30 @@ function ajax_request_server(ip, port, zone){
 // 공통으로 부를 ajax - sync part
 function ajax_request_sync(ip, port, zone){
     $.ajax({
-        url: (window.location.protocol === 'https:') ? `https://${ip}${CONTEXT}/server/api/dashboard/sync-basic-status` : `http://${ip}:${port}${CONTEXT}/server/api/dashboard/sync-basic-status`,
+        url: `${CONTEXT}/server/api/dashboard/remote-sync-basic-status`,
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({
-            remoteIp : ip,
-            remoteBasicDBPort: pgSQLBasicPort,
-            remoteFilePort: syncthingPort
+            ip : ip,
+            remoteBasicDBPort: `${pgSQLBasicPort}`,
+            remoteFilePort: `${syncthingPort}`
         }),
         success: function (status) {
             if(status){
                 for(var k in status){
-                        if(!k.endsWith('serverName')) {
+                    if(!k.endsWith('serverName')) {
                             document.getElementById(zone + '_sync_basic_' + k).className = (status[k] === 'RUNNING') ? 'fas fa-check text-info' : (status[k] === 'DEAD') ? 'fas fa-times-circle text-danger' : 'fas fa-question';
-                        } else {
-                            document.getElementById(zone + '_syncStatus').className = 'text-info';
-                            document.getElementById(zone + '_syncStatus').className = 'text-info';
-                            document.getElementById(zone + '_syncStatus').innerHTML = '<i class="fas fa-check-circle"></i>';
+                    } else {
+                        document.getElementById(zone + '_syncStatus').className = 'text-info';
+                        document.getElementById(zone + '_syncStatus').className = 'text-info';
+                        document.getElementById(zone + '_syncStatus').innerHTML = '<i class="fas fa-check-circle"></i>';
 
-                            document.getElementById(zone + '_syncName').className = 'text-info';
-                            document.getElementById(zone + '_syncName').innerText = status[k];
-                        }
+                        document.getElementById(zone + '_syncName').className = 'text-info';
+                        document.getElementById(zone + '_syncName').innerText = status[k];
                     }
                 }
-            },
+            }
+        },
         error: function(e){
             msg_initialize_sync_info(zone, 'UNKNOWN');
         },
@@ -209,58 +213,40 @@ function ajax_request_sync(ip, port, zone){
 // 버튼과 셀렉트 폼과 같이 사용.
 function onchange_refresh_server(dom){
     var val = dom.value;
-
-    var center;
-    // 버튼과 셀렉트 둘 다 id 는 센터로 시작한다.
-    if(dom.id.startsWith('B1')){
-        center = 'B1';
-    } else if(dom.id.startsWith('U3')){
-        center = 'U3';
-    } else {
-        center = 'GOC';
-    }
+    var zone = dom.id.split('_')[0];
 
     // 버튼일 때를 대비한다.
     if(!val){
-        val = document.getElementById(center + "_change_server").value;
+        val = document.getElementById(zone + "_change_server").value;
     }
 
     if(val !== '') {
         var split = val.split('|');
         var ip = split[2];
 
-        $('#' + center + '_SERVER_PILL1').tab('show');
+        $('#' + zone + '_SERVER_PILL1').tab('show');
 
-        ajax_request_server(ip, 11110, center);
+        ajax_request_server(ip, 11110, zone);
     }
 }
 
 // 버튼과 셀렉트 폼과 같이 사용.
 function onchange_refresh_sync(dom){
     var val = dom.value;
-
-    var center;
-    // 버튼과 셀렉트 둘 다 id 는 센터로 시작한다.
-    if(dom.id.startsWith('B1')){
-        center = 'B1';
-    } else if(dom.id.startsWith('U3')){
-        center = 'U3';
-    } else {
-        center = 'GOC';
-    }
+    var zone = dom.id.split('_')[0];
 
     // 버튼일 때를 대비한다.
     if(!val){
-        val = document.getElementById(center + "_change_sync").value;
+        val = document.getElementById(zone + "_change_sync").value;
     }
 
     if(val !== '') {
         var split = val.split('|');
         var ip = split[2];
 
-        $('#' + center + '_SYNC_PILL1').tab('show');
+        $('#' + zone + '_SYNC_PILL1').tab('show');
 
-        ajax_request_sync(ip, 11110, center);
+        ajax_request_sync(ip, 11110, zone);
     }
 }
 

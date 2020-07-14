@@ -5,10 +5,12 @@ import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.ServerCenterInfoModel;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.YAMLFileUtil;
+import com.jiin.admin.website.view.component.HostnameRefreshComponent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -24,14 +26,8 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
     @Value("${project.data-path}")
     private String dataPath;
 
-    /**
-     * 배열의 인덱스를 바꾸는 메소드
-     */
-    private void swap(String[] arr, int a, int b) {
-        String tmp = arr[a];
-        arr[a] = arr[b];
-        arr[b] = tmp;
-    }
+    @Resource
+    private HostnameRefreshComponent hostnameRefreshComponent;
 
     /**
      * 서버 설정 기반 YAML 파일을 불러온다.
@@ -124,12 +120,15 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
         else {
             Map<String, Object> configMap = (Map<String, Object>) map.get("config");
             String zones = (String) configMap.get("zone");
+
             String[] zoneArray = zones.split(",");
-            if (local.getZone().equalsIgnoreCase("U3")) swap(zoneArray, 0, 1);
-            if (local.getZone().equalsIgnoreCase("GOC")) {
-                swap(zoneArray, 0, 2);
-                swap(zoneArray, 1, 2);
+            List<String> list = Arrays.stream(zoneArray).collect(Collectors.toList());
+            int idx = list.indexOf(local.getZone());
+            if(idx >= 0 && idx < list.size()){
+                list.remove(idx);
+                list.add(0, local.getZone());
             }
+
             return zoneArray;
         }
     }
@@ -215,8 +214,12 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
      */
     @Override
     public boolean saveLocalData(ServerCenterInfoModel model) {
+        ServerCenterInfo local = this.loadLocalInfoData();
         List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
         model.setKey(String.format("%s-%s-%s", model.getZone(), model.getKind(), model.getName()));
+        if (!model.getName().equals(local.getName())) {
+            hostnameRefreshComponent.setHostnameInContainerHistoryList(local.getName(), model.getName());
+        }
         return this.saveServerInfosAtYAMLFile(ServerCenterInfoModel.convertDTO(model), infos);
     }
 
@@ -240,6 +243,9 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
                             if (o.getKey().equals(model.getKey())) {
                                 ServerCenterInfo newInfo = new ServerCenterInfo(model.getKey(), model.getName(), model.getIp(), model.getZone(), model.getKind(), model.getDescription());
                                 newInfo.setKey(String.format("%s-%s-%s", model.getZone(), model.getKind(), model.getName()));
+                                if (!o.getName().equals(newInfo.getName())) {
+                                    hostnameRefreshComponent.setHostnameInContainerHistoryList(o.getName(), newInfo.getName());
+                                }
                                 return newInfo;
                             } else {
                                 return o;

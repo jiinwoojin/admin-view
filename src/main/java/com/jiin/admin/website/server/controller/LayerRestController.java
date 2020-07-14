@@ -1,10 +1,10 @@
 package com.jiin.admin.website.server.controller;
 
-import com.jiin.admin.entity.LayerEntity;
+import com.jiin.admin.dto.LayerDTO;
 import com.jiin.admin.website.model.LayerPageModel;
 import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.server.service.TegolaService;
-import com.jiin.admin.website.view.service.ManageService;
+import com.jiin.admin.website.view.service.LayerService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -20,7 +20,7 @@ public class LayerRestController {
     private TegolaService tgservice;
 
     @Resource
-    private ManageService manageService;
+    private LayerService layerService;
 
     @PostMapping("load-tegola-config")
     public Map loadTegolaConfig() {
@@ -29,21 +29,21 @@ public class LayerRestController {
 
     @GetMapping("list")
     public Map<String, Object> layerList(LayerPageModel pagination) throws ParseException {
-        return manageService.getLayerListByPaginationModel(pagination);
+        return layerService.loadDataListAndCountByPaginationModel(pagination);
     }
 
     @GetMapping("options/ob")
     public List<OptionModel> orderByOptions() {
-        return manageService.layerOrderByOptions();
+        return layerService.loadOrderByOptionList();
     }
 
     @GetMapping("options/sb")
     public List<OptionModel> searchByOptions() {
-        return manageService.layerSearchByOptions();
+        return layerService.loadSearchByOptionList();
     }
 
     @GetMapping("search-by-map-id/{mapId}")
-    public List<LayerEntity> findByMapId(@PathVariable long mapId) {
-        return manageService.findLayerEntitiesByMapId(mapId);
+    public List<LayerDTO> findByMapId(@PathVariable long mapId) {
+        return layerService.loadDataListByMapId(mapId);
     }
 }

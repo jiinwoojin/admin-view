@@ -115,57 +115,57 @@
         </li>
     </ul>
 
-    <div class="row px-3 py-1">
-        <div class="ibox col-md-12">
-            <div class="ibox-title">
-                <h3 class="section_tit">JIMAP Admin 서버 등록 정보</h3>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="ibox-content">
-                <div class="card-body">
-                    <div class="text-left">
-                        <p>
-                            서비스 버전 정보 : <span>3.4</span><br/>
-                            JiMap Web Server 와 같이 사용하는 소프트웨어의 라이선스 정보와 버전 정보는 아래를 참고하시길 바랍니다.
-                        </p>
-                        <hr/>
-                        <table id="list_table" class="table table-sm basic">
-                            <thead class="table-info">
-                            <tr>
-                                <th scope="col" class="text-center">소프트웨어 이름</th>
-                                <th scope="col" class="text-center">버전</th>
-                                <th scope="col" class="text-center">라이선스 종류</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="service : ${services}">
-                                <td class="text-center align-middle">
-                                    <span th:text="${ service.container }">
-                                        [CONTAINER NAME]
-                                    </span>
-                                </td>
-                                <td class="text-center align-middle">
-                                    <span th:text="${ service.version }">
-                                        [CONTAINER VERSION]
-                                    </span>
-                                </td>
-                                <td class="text-center align-middle">
-                                    <span th:text="${ service.license }">
-                                        [CONTAINER LICENSE]
-                                    </span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-</div>
-    </div>
+<!--    <div class="row px-3 py-1">-->
+<!--        <div class="ibox col-md-12">-->
+<!--            <div class="ibox-title">-->
+<!--                <h3 class="section_tit">JIMAP Admin 서버 등록 정보</h3>-->
+<!--                <div class="ibox-tools">-->
+<!--                    <a class="collapse-link">-->
+<!--                        <i class="fa fa-chevron-up"></i>-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="ibox-content">-->
+<!--                <div class="card-body">-->
+<!--                    <div class="text-left">-->
+<!--                        <p>-->
+<!--                            서비스 버전 정보 : <span>3.4</span><br/>-->
+<!--                            JiMap Web Server 와 같이 사용하는 소프트웨어의 라이선스 정보와 버전 정보는 아래를 참고하시길 바랍니다.-->
+<!--                        </p>-->
+<!--                        <hr/>-->
+<!--                        <table id="list_table" class="table table-sm basic">-->
+<!--                            <thead class="table-info">-->
+<!--                            <tr>-->
+<!--                                <th scope="col" class="text-center">소프트웨어 이름</th>-->
+<!--                                <th scope="col" class="text-center">버전</th>-->
+<!--                                <th scope="col" class="text-center">라이선스 종류</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr th:each="service : ${services}">-->
+<!--                                <td class="text-center align-middle">-->
+<!--                                    <span th:text="${ service.container }">-->
+<!--                                        [CONTAINER NAME]-->
+<!--                                    </span>-->
+<!--                                </td>-->
+<!--                                <td class="text-center align-middle">-->
+<!--                                    <span th:text="${ service.version }">-->
+<!--                                        [CONTAINER VERSION]-->
+<!--                                    </span>-->
+<!--                                </td>-->
+<!--                                <td class="text-center align-middle">-->
+<!--                                    <span th:text="${ service.license }">-->
+<!--                                        [CONTAINER LICENSE]-->
+<!--                                    </span>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <script>
         var chartColors = {

@@ -29,7 +29,7 @@ milSymbolLoader.init = function(param, callback){
     milSymbolLoader.callback = callback
     if(milSymbolLoader.isComplete === false){
         milSymbolLoader.loadScript([
-            "milsymbol.js",
+            "milsymbol.development.js",
             "savm-bc.js",
             "symbol.js",
             "symbolCommon.js",

@@ -1,15 +1,21 @@
 package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.config.SessionService;
+import com.jiin.admin.servlet.AdminViewServlet;
 import com.jiin.admin.vo.ServerCenterInfo;
+import com.jiin.admin.website.model.ContainerExecuteModel;
 import com.jiin.admin.website.model.ServerCenterInfoModel;
+import com.jiin.admin.website.util.RestClientUtil;
 import com.jiin.admin.website.view.service.ContainerInfoService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +23,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("server")
 public class MVCServerController {
+    @Value("${server.servlet.context-path}")
+    private String CONTEXT_PATH;
+
     @Autowired
     private ServerCenterInfoService serverCenterInfoService;
 
@@ -42,22 +51,54 @@ public class MVCServerController {
      */
     @RequestMapping("service-manage")
     public String pageServiceManagement(Model model) {
-        model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+        List<ServerCenterInfo> neighbors = serverCenterInfoService.loadNeighborList();
+        neighbors.add(0, local);
+
+        model.addAttribute("local", local);
         model.addAttribute("serviceMap", containerInfoService.loadGeoServiceMap());
         model.addAttribute("message", sessionService.message());
         model.addAttribute("histories", containerInfoService.loadContainerHistoryList());
+        model.addAttribute("connections", neighbors);
+
         return "page/system/service-manage";
     }
 
     /**
-     * Docker Container 실행 (시작, 종료, 재시작) 및 일반 서비스 실행 (재시작) 을 위한 링크
-     * @param name String, method String
+     * Docker Container 실행 및 일반 서비스 실행을 위한 REST API
+     * @param param Map of String, String
      */
-    @RequestMapping("service-execute")
-    public String linkServiceControlByNameAndMethod(@RequestParam String name, @RequestParam String method) {
-        sessionService.message(String.format("[%s] 서비스의 [%s] 명령을 시작합니다.", name, method));
-        containerInfoService.executeGeoServiceByNameAndMethod(name, method);
-        return "redirect:service-manage";
+    @RequestMapping(value = "service-execute", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> restServiceControlByNameAndMethod(@RequestBody Map<String, Object> param) {
+        ContainerExecuteModel model = ContainerExecuteModel.convertToModel(param);
+        containerInfoService.executeGeoServiceByContainerExecuteModel(model);
+        return new HashMap<String, Object>() {{
+            put("result", model != null);
+        }};
+    }
+
+    /**
+     * Local 에서 Docker Container 실행 및 일반 서비스 실행을 위한 REST API
+     * @param param request HttpServletRequest, param Map of String, Object
+     */
+    @RequestMapping(value = "remote-service-execute", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> postDockerCheckByIpAndContainerName(HttpServletRequest request, @RequestBody Map<String, Object> param) {
+        String ip = (String) param.get("ip");
+        String path = String.format("%s/%s/server/service-execute", CONTEXT_PATH, AdminViewServlet.CONTEXT_PATH);
+
+        String name = (String) param.get("name");
+        String method = (String) param.get("method");
+        String hostname = (String) param.get("hostname");
+
+        sessionService.message(String.format("[%s] 서버 - [%s] 서비스의 [%s] 명령을 시작합니다.", hostname, name, method));
+        return RestClientUtil.postREST(request.isSecure(), ip, path, new HashMap<String, String>(){{
+            put("service", name);
+            put("command", method);
+            put("hostname", hostname);
+            put("user", (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        }});
     }
 
     /**
