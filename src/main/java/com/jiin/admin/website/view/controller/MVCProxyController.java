@@ -255,8 +255,8 @@ public class MVCProxyController {
         }
         for(String tmpDir:tmpDirs){
             if(Files.exists(Paths.get(tmpDir))){
-                // TODO: 삭제여부 확인후 주석해
-                // FileSystemUtil.deleteFile(tmpDir); 제
+                // TODO: 삭제여부 확인후 주석해제
+                // FileSystemUtil.deleteFile(tmpDir); 
             }
         }
         Map info = new HashMap();
