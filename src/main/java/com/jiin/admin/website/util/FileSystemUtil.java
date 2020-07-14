@@ -10,10 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.PosixFileAttributes;
 import java.nio.file.attribute.PosixFilePermission;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -122,6 +119,21 @@ public class FileSystemUtil {
             fileContext.append(System.lineSeparator());
         }
         return fileContext.toString();
+    }
+
+    /**
+     * 파일 내용 불러오기
+     * @param filePath String
+     * @throws IOException ioexception
+     */
+    public static List<String> fetchFileContextToList(String filePath) throws IOException {
+        List<String> fileContext = new ArrayList<>();
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            fileContext.add(line);
+        }
+        return fileContext;
     }
 
     /**
