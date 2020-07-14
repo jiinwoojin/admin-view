@@ -4,6 +4,7 @@ import com.jiin.admin.dto.ContainerHistoryDTO;
 import com.jiin.admin.mapper.data.ContainerHistoryMapper;
 import com.jiin.admin.vo.GeoBasicContainerInfo;
 import com.jiin.admin.vo.GeoContainerInfo;
+import com.jiin.admin.website.model.ContainerExecuteModel;
 import com.jiin.admin.website.util.DockerUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -134,23 +135,25 @@ public class ContainerInfoServiceImpl implements ContainerInfoService {
     }
 
     /**
-     * 서비스 이름과 기능을 입력해서 해당 서비스에 대한 명령을 실행한다.
-     * @param
+     * 서비스 이름과 기능, 호스트 네임을 입력해서 해당 서비스에 대한 명령을 실행한다.
+     * @param model ContainerExecuteModel
      */
     @Override
-    public void executeGeoServiceByNameAndMethod(String name, String command) {
-        String workedUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public void executeGeoServiceByContainerExecuteModel(ContainerExecuteModel model) {
+        String service = model.getService();
+        String command = model.getCommand();
         // Docker Container 대응
-        if (name.equalsIgnoreCase(MAP_SERVER_NAME) || name.equalsIgnoreCase(MAP_PROXY_NAME) || name.equalsIgnoreCase(MAPNIK_NAME) || name.equalsIgnoreCase(HEIGHT_NAME) || name.equalsIgnoreCase(RABBIT_MQ_NAME) || name.equalsIgnoreCase(NGINX_NAME)) {
+        if (service.equalsIgnoreCase(MAP_SERVER_NAME) || service.equalsIgnoreCase(MAP_PROXY_NAME) || service.equalsIgnoreCase(MAPNIK_NAME) || service.equalsIgnoreCase(HEIGHT_NAME) || service.equalsIgnoreCase(RABBIT_MQ_NAME) || service.equalsIgnoreCase(NGINX_NAME)) {
             try {
-                DockerUtil.executeContainerByNameAndMethod(name, command);
+                DockerUtil.executeContainerByNameAndMethod(service, command);
                 if (command.equalsIgnoreCase("START") || command.equalsIgnoreCase("STOP")) {
                     containerHistoryMapper.insert(new ContainerHistoryDTO(
                         containerHistoryMapper.findNextSeqVal(),
-                        loadGISSoftwareNameByContainerName(name),
+                        loadGISSoftwareNameByContainerName(service),
                         command,
                         true,
-                        workedUser,
+                        model.getHostname(),
+                        model.getUser(),
                         new Date()
                     ));
                 }
@@ -159,10 +162,11 @@ public class ContainerInfoServiceImpl implements ContainerInfoService {
                 if (command.equalsIgnoreCase("START") || command.equalsIgnoreCase("STOP")) {
                     containerHistoryMapper.insert(new ContainerHistoryDTO(
                         containerHistoryMapper.findNextSeqVal(),
-                        loadGISSoftwareNameByContainerName(name),
+                        loadGISSoftwareNameByContainerName(service),
                         command,
                         false,
-                        workedUser,
+                        model.getHostname(),
+                        model.getUser(),
                         new Date()
                     ));
                 }

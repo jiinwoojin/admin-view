@@ -37,7 +37,11 @@ public class ContainerHistoryEntity implements Persistable<Long> {
     @Column(name = "SUCCEED", nullable = false)
     private Boolean succeed;
 
-    // 진행자
+    // 명령어 진행 서버 호스트 이름
+    @Column(name = "WORKED_HOSTNAME")
+    private String workedHostname;
+
+    // 명령어 진행 회원
     @Column(name = "WORKED_USER", nullable = false)
     private String workedUser;
 

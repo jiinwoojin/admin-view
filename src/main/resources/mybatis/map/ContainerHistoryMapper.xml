@@ -17,6 +17,7 @@
             NAME,
             COMMAND,
             SUCCEED,
+            WORKED_HOSTNAME,
             WORKED_USER,
             WORKED_DATE
         )
@@ -25,6 +26,7 @@
             #{name},
             #{command},
             #{succeed},
+            #{workedHostname},
             #{workedUser},
             #{workedDate}
         )
