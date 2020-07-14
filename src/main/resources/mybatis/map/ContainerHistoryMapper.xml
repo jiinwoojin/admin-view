@@ -32,6 +32,12 @@
         )
     </insert>
 
+    <update id="updateHostnameData">
+        UPDATE _CONTAINER_HISTORY SET
+        WORKED_HOSTNAME = #{after}
+        WHERE WORKED_HOSTNAME = #{before}
+    </update>
+
     <delete id="deleteAll">
         DELETE FROM _CONTAINER_HISTORY
     </delete>

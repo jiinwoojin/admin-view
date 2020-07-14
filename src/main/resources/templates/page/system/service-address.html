@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
 
-<!-- https://www.pgpool.net/docs/pgpoolAdmin/en/config.html : PGPool 2 설정 파일 Ref. -->
 <th:block layout:fragment="content-title-fragment">
     <h1 class="h3 mb-0 text-gray-800">서비스 주소 관리</h1>
 </th:block>
@@ -219,8 +218,10 @@
 
                 for(var dom of $('[id^=local]')){
                     var i = dom.id;
-                    if(!i.endsWith('zone') && !i.endsWith('kind') && !i.endsWith('key')){
-                        if(!localEditable) dom.value = localMain[i.replace('local-', '')];
+                    if (!i.endsWith('zone') && !i.endsWith('kind') && !i.endsWith('key')) {
+                        if (!localEditable) {
+                            dom.value = localMain[i.replace('local-', '')];
+                        }
                         dom.readOnly = !localEditable;
                     }
                 }
@@ -297,7 +298,6 @@
                     } else {
                         toastr.warning('연동되어 있는 서버 목록 중에 같은 타입, 종류, 호스트 이름이 있습니다. 다시 작성하시길 바랍니다.');
                         return false;
-
                     }
                 } else {
                     var method = document.getElementById('svr-method').value;

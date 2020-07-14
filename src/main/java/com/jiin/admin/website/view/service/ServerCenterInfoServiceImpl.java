@@ -5,10 +5,12 @@ import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.ServerCenterInfoModel;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.YAMLFileUtil;
+import com.jiin.admin.website.view.component.HostnameRefreshComponent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -23,6 +25,9 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
 
     @Value("${project.data-path}")
     private String dataPath;
+
+    @Resource
+    private HostnameRefreshComponent hostnameRefreshComponent;
 
     /**
      * 서버 설정 기반 YAML 파일을 불러온다.
@@ -209,8 +214,12 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
      */
     @Override
     public boolean saveLocalData(ServerCenterInfoModel model) {
+        ServerCenterInfo local = this.loadLocalInfoData();
         List<ServerCenterInfo> infos = this.loadDataListAtYAMLFile();
         model.setKey(String.format("%s-%s-%s", model.getZone(), model.getKind(), model.getName()));
+        if (!model.getName().equals(local.getName())) {
+            hostnameRefreshComponent.setHostnameInContainerHistoryList(local.getName(), model.getName());
+        }
         return this.saveServerInfosAtYAMLFile(ServerCenterInfoModel.convertDTO(model), infos);
     }
 
@@ -234,6 +243,9 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
                             if (o.getKey().equals(model.getKey())) {
                                 ServerCenterInfo newInfo = new ServerCenterInfo(model.getKey(), model.getName(), model.getIp(), model.getZone(), model.getKind(), model.getDescription());
                                 newInfo.setKey(String.format("%s-%s-%s", model.getZone(), model.getKind(), model.getName()));
+                                if (!o.getName().equals(newInfo.getName())) {
+                                    hostnameRefreshComponent.setHostnameInContainerHistoryList(o.getName(), newInfo.getName());
+                                }
                                 return newInfo;
                             } else {
                                 return o;
