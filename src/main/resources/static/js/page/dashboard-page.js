@@ -73,9 +73,12 @@ function msg_initialize_sync_info(zone, msg){
 // 공통으로 부를 ajax - server part
 function ajax_request_server(ip, port, zone){
     $.ajax({
-        url: (window.location.protocol === 'https:') ? `https://${ip}${CONTEXT}/server/api/dashboard/performance` : `http://${ip}:${port}${CONTEXT}/server/api/dashboard/performance`,
-        type: 'GET',
+        url: `${CONTEXT}/server/api/dashboard/remote-performance`,
+        type: 'POST',
         contentType: 'application/json',
+        data: JSON.stringify({
+            ip : ip
+        }),
         success: function (connection) {
             if(connection){
                 for(var k in connection){
@@ -112,9 +115,12 @@ function ajax_request_server(ip, port, zone){
     });
 
     $.ajax({
-        url: (window.location.protocol === 'https:') ? `https://${ip}${CONTEXT}/server/api/dashboard/service-status` : `http://${ip}:${port}${CONTEXT}/server/api/dashboard/service-status`,
-        type: 'GET',
+        url: `${CONTEXT}/server/api/dashboard/remote-service-status`,
+        type: 'POST',
         contentType: 'application/json',
+        data: JSON.stringify({
+            ip : ip
+        }),
         success: function (status) {
             if(status){
                 var visited = [];
@@ -171,30 +177,30 @@ function ajax_request_server(ip, port, zone){
 // 공통으로 부를 ajax - sync part
 function ajax_request_sync(ip, port, zone){
     $.ajax({
-        url: (window.location.protocol === 'https:') ? `https://${ip}${CONTEXT}/server/api/dashboard/sync-basic-status` : `http://${ip}:${port}${CONTEXT}/server/api/dashboard/sync-basic-status`,
+        url: `${CONTEXT}/server/api/dashboard/remote-sync-basic-status`,
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({
-            remoteIp : ip,
-            remoteBasicDBPort: pgSQLBasicPort,
-            remoteFilePort: syncthingPort
+            ip : ip,
+            remoteBasicDBPort: `${pgSQLBasicPort}`,
+            remoteFilePort: `${syncthingPort}`
         }),
         success: function (status) {
             if(status){
                 for(var k in status){
-                        if(!k.endsWith('serverName')) {
+                    if(!k.endsWith('serverName')) {
                             document.getElementById(zone + '_sync_basic_' + k).className = (status[k] === 'RUNNING') ? 'fas fa-check text-info' : (status[k] === 'DEAD') ? 'fas fa-times-circle text-danger' : 'fas fa-question';
-                        } else {
-                            document.getElementById(zone + '_syncStatus').className = 'text-info';
-                            document.getElementById(zone + '_syncStatus').className = 'text-info';
-                            document.getElementById(zone + '_syncStatus').innerHTML = '<i class="fas fa-check-circle"></i>';
+                    } else {
+                        document.getElementById(zone + '_syncStatus').className = 'text-info';
+                        document.getElementById(zone + '_syncStatus').className = 'text-info';
+                        document.getElementById(zone + '_syncStatus').innerHTML = '<i class="fas fa-check-circle"></i>';
 
-                            document.getElementById(zone + '_syncName').className = 'text-info';
-                            document.getElementById(zone + '_syncName').innerText = status[k];
-                        }
+                        document.getElementById(zone + '_syncName').className = 'text-info';
+                        document.getElementById(zone + '_syncName').innerText = status[k];
                     }
                 }
-            },
+            }
+        },
         error: function(e){
             msg_initialize_sync_info(zone, 'UNKNOWN');
         },

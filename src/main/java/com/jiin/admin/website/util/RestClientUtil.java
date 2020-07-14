@@ -3,10 +3,10 @@ package com.jiin.admin.website.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -24,7 +24,12 @@ import java.util.Map;
 public class RestClientUtil {
     public static Map<String, Object> getREST(boolean secured, String ip, String path, String query){
         HttpClient client = HttpClientBuilder.create().build();
-        HttpGet get = new HttpGet(String.format("%s://%s%s?%s", secured ? "https" : "http", secured ? ip : ip + ":11110", path, query));
+        HttpGet get;
+        if(!StringUtils.isBlank(query)) {
+            get = new HttpGet(String.format("%s://%s%s?%s", secured ? "https" : "http", secured ? ip : ip + ":11110", path, query));
+        } else {
+            get = new HttpGet(String.format("%s://%s%s", secured ? "https" : "http", secured ? ip : ip + ":11110", path));
+        }
         try {
             HttpResponse response = client.execute(get);
             if(response.getStatusLine().getStatusCode() == 200){
