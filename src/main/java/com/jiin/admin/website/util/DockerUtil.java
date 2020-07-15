@@ -171,7 +171,7 @@ public class DockerUtil {
         levels.put("from",Integer.parseInt((String) param.get("levelFrom")));
         levels.put("to",Integer.parseInt((String) param.get("levelTo")));
         Map refresh_before = new LinkedHashMap();
-        levels.put("hours",Integer.parseInt((String) param.get("refreshBefore")));
+        refresh_before.put("hours",Integer.parseInt((String) param.get("refreshBefore")));
         basic_seed.put("caches",caches);
         basic_seed.put("coverages",coveragesArr);
         basic_seed.put("levels",levels);

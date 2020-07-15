@@ -236,6 +236,7 @@ public class MVCProxyController {
     @RequestMapping("seeding-stop")
     public Map proxySeedingStop(@RequestParam("SEEDNAME") String name) throws IOException {
         // *.map IMAGEPATH 삭제
+        /*
         Map<String, Object> mapproxyInfo = YAMLFileUtil.fetchMapByYAMLFile(new File(dataPath + "/proxy/mapproxy.yaml"));
         LinkedHashMap sources = (LinkedHashMap) mapproxyInfo.get("sources");
         List<String> tmpDirs = new ArrayList();
@@ -256,9 +257,10 @@ public class MVCProxyController {
         for(String tmpDir:tmpDirs){
             if(Files.exists(Paths.get(tmpDir))){
                 // TODO: 삭제여부 확인후 주석해제
-                // FileSystemUtil.deleteFile(tmpDir); 
+                // FileSystemUtil.deleteFile(tmpDir);
             }
         }
+        */
         Map info = new HashMap();
         info.put("RESULT",DockerUtil.removeSeed(name,dataPath));
         return info;
