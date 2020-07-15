@@ -935,8 +935,8 @@ function onsubmit_global_table(form){
         form.appendChild(hidden);
 
         neighbor_synchronize_ajax(`/server/api/proxy/sync/global-save`, 'POST', result,
-    '모든 GLOBAL 데이터 자료의 동기화를 진행 했습니다.',
-    '모든 GLOBAL 데이터 자료의 동기화를 진행하지 못 했습니다.',
+            '모든 GLOBAL 데이터 자료의 동기화를 진행 했습니다.',
+            '모든 GLOBAL 데이터 자료의 동기화를 진행하지 못 했습니다.',
         );
 
         return true;

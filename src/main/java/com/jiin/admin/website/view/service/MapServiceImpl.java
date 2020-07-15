@@ -103,7 +103,6 @@ public class MapServiceImpl implements MapService {
         String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         mapDTO.setRegistorId(loginUser);
         mapDTO.setRegistorName(loginUser);
-        mapDTO.setRegistTime(new Date());
     }
 
     /**
@@ -207,6 +206,7 @@ public class MapServiceImpl implements MapService {
         mapDTO.setId(id);
         mapDTO.setMapFilePath(mapFilePath.replaceAll(dataPath, ""));
         mapDTO.setDefault(false);
+        mapDTO.setRegistTime(new Date());
 
         setCommonProperties(mapDTO);
 
@@ -260,7 +260,9 @@ public class MapServiceImpl implements MapService {
 
         if (selected == null) return false;
 
+        mapDTO.setRegistTime(selected.getRegistTime()); // 기존 등록 시간을 저장한다.
         mapDTO.setMapFilePath(selected.getMapFilePath()); // 이름은 변동할 수 없으니 현재까지 저장된 디렉토리를 그대로 유지.
+        mapDTO.setUpdateTime(new Date());
 
         setCommonProperties(mapDTO);
 
