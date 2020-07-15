@@ -130,8 +130,8 @@ window.onload = function() {
     var savedTab = sessionStorage.getItem("tab");
     if (['layer', 'source', 'cache'].includes(savedTab)) {
         $(`#${savedTab}-tab`).click();
-        sessionStorage.removeItem("tab");
     }
+    sessionStorage.removeItem("tab");
 }
 
 // 같은 ZONE, TYPE 에 있는 서버에게 동기화를 요청하는 REST API
@@ -170,9 +170,12 @@ function rendering_selected_data(id, data){
                     dom += `
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             ${data[i].layer}
-                            <span class="badge badge-warning badge-pill" style="cursor: pointer;" id="remove_yaml_layer_${data[i].layer}" data-id="${id}" data-layer="${data[i].layer}" onclick="onclick_remove_button(this)">
-                                <i class="fas fa-trash"></i>
-                            </span>
+                            ${
+                                (data[i].layer === 'world_layer') ? '' : 
+                                    `<span class="badge badge-warning badge-pill" style="cursor: pointer;" id="remove_yaml_layer_${data[i].layer}" data-id="${id}" data-layer="${data[i].layer}" onclick="onclick_remove_button(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </span>`
+                            }
                         </li>
                     `;
                     break;
@@ -180,9 +183,12 @@ function rendering_selected_data(id, data){
                     dom += `
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             ${data[i]}
-                            <span class="badge badge-warning badge-pill" style="cursor: pointer;" data-id="${id}" data-source="${data[i]}" onclick="onclick_remove_button(this)">
-                                <i class="fas fa-trash"></i>
-                            </span>
+                            ${
+                                (data[i] === 'world') ? '' : 
+                                    `<span class="badge badge-warning badge-pill" style="cursor: pointer;" data-id="${id}" data-source="${data[i]}" onclick="onclick_remove_button(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </span>`
+                            }
                         </li>
                     `;
                     break;
@@ -190,9 +196,12 @@ function rendering_selected_data(id, data){
                     dom += `
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             ${data[i].cache}
-                            <span class="badge badge-warning badge-pill" style="cursor: pointer;" id="remove_yaml_cache_${data[i].cache}" data-id="${id}" data-cache="${data[i].cache}" onclick="onclick_remove_button(this)">
-                                <i class="fas fa-trash"></i>
-                            </span>
+                            ${ 
+                                (data[i].cache === 'world_cache') ? '' : 
+                                    `<span class="badge badge-warning badge-pill" style="cursor: pointer;" id="remove_yaml_cache_${data[i].cache}" data-id="${id}" data-cache="${data[i].cache}" onclick="onclick_remove_button(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </span>`
+                            }    
                         </li>
                     `;
                     break;
@@ -647,7 +656,7 @@ function onclick_insert_data(type) {
             $('#source-requestMap-wms').val('[none]');
             $('#source-requestLayers-wms').val('[none]');
             for(var i = 1; i <= 3; i++){
-                document.getElementById('source-grid' + i).checked = true;
+                document.getElementById('src-grid' + i).checked = true;
             }
             onchange_checkbox_grid();
         }
@@ -717,17 +726,12 @@ function onclick_update_data(btn){
 
                 var split = data['supportedSrs'].split(',');
                 document.getElementById('source-supportedSrs').value = split.join();
-                for (var i = 0; i < split.length; i++) {
-                    switch (split[i]) {
-                        case 'EPSG:4326' :
-                            document.getElementById('source-grid1').checked = true;
-                            break;
-                        case 'EPSG:3857' :
-                            document.getElementById('source-grid2').checked = true;
-                            break;
-                        case 'EPSG:900913' :
-                            document.getElementById('source-grid3').checked = true;
-                            break;
+                for (var i = 1; i <= 3; i++){
+                    var checkbox = document.getElementById('src-grid' + i);
+                    if(split.includes(checkbox.value)){
+                        checkbox.checked = true;
+                    } else {
+                        checkbox.checked = false;
                     }
                 }
             }
@@ -736,9 +740,6 @@ function onclick_update_data(btn){
         }
 
         if (data.obj === 'cache') {
-            //$('#directoryEdit').val(false);
-            //document.getElementById('cache-cacheDirectory').readOnly = true;
-
             var sources = data['sources'];
             document.getElementById('cache-sources').value = JSON.stringify(sources);
             sources.forEach(o => {
@@ -773,7 +774,7 @@ function onclick_close(context){
         $('#source-requestTransparent').val(false);
         $('#source-check').prop("checked", false);
         for(var i = 1; i <= 3; i++){
-            document.getElementById('source-grid' + i).checked = true;
+            document.getElementById('src-grid' + i).checked = true;
         }
         onchange_checkbox_grid();
 
@@ -781,12 +782,11 @@ function onclick_close(context){
         document.getElementById('source-supportedSrs').value = '';
         $('#source-httpClientTimeout').val(600);
         $('#source-concurrentRequests').val(4);
+        $('#source-wmsOptsVersion').val('1.3.0');
         onchange_source_type('#source-type');
     }
 
     if(context === 'cache'){
-        //var cacheDirectory = document.getElementById("cache-cacheDirectory");
-        //cacheDirectory.value = cacheDirectoryPath;
         for(var dom of $('[id^=cacheSources_]')) {
             dom.checked = false;
         }
@@ -806,19 +806,6 @@ function onchange_mapFile_value(id){
         $('input[name="requestLayers"]').val(obj.mapName);
     }
 }
-
-// Cache 디렉토리 임의 변경 기능 : 필요 없어짐
-// function onchange_cache_directory_checkbox(){
-//     var checkbox = document.getElementById('directoryEdit');
-//     var directory = document.getElementById('cache-cacheDirectory');
-//     var name = document.getElementById('cache-name');
-//     directory.readOnly = !checkbox.checked;
-//     if (directory.readOnly) {
-//         if (name.value.trim() !== '') {
-//             directory.value = cacheDirectoryPath + name.value + '/';
-//         }
-//     }
-// }
 
 // Source 타입이 변경될 때 실행되는 메소드
 function onchange_source_type(dom){
@@ -848,7 +835,7 @@ function onchange_checkbox_checked(dom){
 function onchange_checkbox_grid(){
     var arr = [];
     for(var i = 1; i <= 3; i++){
-        var checkbox = document.getElementById('source-grid' + i);
+        var checkbox = document.getElementById('src-grid' + i);
         if(checkbox.checked){
             arr.push(checkbox.value);
         }
@@ -952,11 +939,11 @@ function onclick_global_cancel(){
 
         for(var global of globals){
             globalTable.row.add([
-                `<input type="text" class="form-control" value="${global.key}" />`,
+                `<input type="text" class="form-control" value="${global.key}" ${(global.key === 'cache.base_dir' || global.key === 'cache.lock_dir') ? 'readonly' : ''} />`,
                 `<input type="text" class="form-control" value="${global.value}" />`,
-                `<button class="btn btn-danger btn-sm btn-circle" type="button" onclick="onclick_global_row_remove(this)">
-                    <i class="fas fa-trash"></i>
-                 </button>`
+                `<button class="btn btn-danger btn-sm btn-circle" type="button" onclick="onclick_global_row_remove(this)" ${(global.key === 'cache.base_dir' || global.key === 'cache.lock_dir') ? 'disabled' : ''}>
+                <i class="fas fa-trash"></i>
+             </button>`
             ]).draw(false);
         }
     }

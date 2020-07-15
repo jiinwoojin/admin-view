@@ -62,7 +62,7 @@ public class RESTProxyController {
     @PostMapping("sync/global-save")
     public Map<String, Object> postSyncGlobalSave(@RequestBody List<ProxyGlobalModel> proxyGlobalModels) {
         return new HashMap<String, Object>() {{
-            put("result", proxyCacheService.saveProxyGlobalByModelList(proxyGlobalModels));
+            put("result", proxyCacheService.saveProxyGlobalByModelList(proxyGlobalModels, serverCenterInfoService.loadLocalInfoData()));
         }};
     }
 
@@ -78,7 +78,7 @@ public class RESTProxyController {
     @PostMapping("sync/checking-save")
     public Map<String, Object> putSyncCheckingProxyDataSettings(@RequestBody ProxySelectRequestModel proxySelectModel) {
         return new HashMap<String, Object>() {{
-            put("result", proxyCacheService.setProxyDataSelectByModel(proxySelectModel));
+            put("result", proxyCacheService.setProxyDataSelectByModel(proxySelectModel, serverCenterInfoService.loadLocalInfoData()));
         }};
     }
 }

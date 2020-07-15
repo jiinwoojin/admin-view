@@ -117,7 +117,7 @@ public class MVCProxyController {
             return "redirect:setting";
         }
 
-        sessionService.message(String.format("GLOBAL 정보 저장에 %s 했습니다.", proxyCacheService.saveProxyGlobalByModelList(list) ? "성공" : "실패"));
+        sessionService.message(String.format("GLOBAL 정보 저장에 %s 했습니다.", proxyCacheService.saveProxyGlobalByModelList(list, serverCenterInfoService.loadLocalInfoData()) ? "성공" : "실패"));
         return "redirect:setting";
     }
 
@@ -130,7 +130,7 @@ public class MVCProxyController {
 
     @RequestMapping(value = "checking-save", method = RequestMethod.POST)
     public String checkingProxyDataSettings(ProxySelectRequestModel proxySelectModel) {
-        boolean result = proxyCacheService.setProxyDataSelectByModel(proxySelectModel);
+        boolean result = proxyCacheService.setProxyDataSelectByModel(proxySelectModel, serverCenterInfoService.loadLocalInfoData());
         sessionService.message(result ? "모든 PROXY 정보들이 수정 되었습니다." : "모든 PROXY 정보들을 설정하는 도중 오류가 발생했습니다.");
         return "redirect:setting";
     }

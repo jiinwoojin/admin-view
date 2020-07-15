@@ -10,6 +10,10 @@
         SELECT * FROM _PROXY_GLOBAL
     </select>
 
+    <select id="findByKey" resultType="ProxyGlobalDTO">
+        SELECT * FROM _PROXY_GLOBAL WHERE KEY = #{key}
+    </select>
+
     <insert id="insert">
         INSERT INTO _PROXY_GLOBAL(
             ID,

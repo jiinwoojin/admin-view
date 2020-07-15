@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.jiin.admin.dto.*;
+import com.jiin.admin.vo.ServerCenterInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
@@ -53,7 +54,7 @@ public class MapProxyUtil {
      * @param
      * @note JPA Entity 대응 필요, wms_srs (복수), wms_title 등 메타 정보 주입 대응 필요
      */
-    public static String fetchYamlFileContextWithDTO(List<ProxyLayerDTO> layers, List<Object> sources, List<ProxyCacheDTO> caches, List<ProxyGlobalDTO> globals) {
+    public static String fetchYamlFileContextWithDTO(List<ProxyLayerDTO> layers, List<Object> sources, List<ProxyCacheDTO> caches, List<ProxyGlobalDTO> globals, ServerCenterInfo local, Integer mapServerPort) {
         Map<String, Object> yamlModel = new LinkedHashMap<>();
 
         List<Map<String, Object>> layers_y = new ArrayList<>();
@@ -133,7 +134,7 @@ public class MapProxyUtil {
                 depth_main.put("wms_opts", new LinkedHashMap<String, Object>() {{ put("version", dto.getWmsOptsVersion()); }});
                 depth_main.put("http", new LinkedHashMap<String, Object>() {{ put("client_timeout", dto.getHttpClientTimeout()); }});
 
-                depth_req.put("url", dto.getRequestURL());
+                depth_req.put("url", String.format("http://%s:%d/%s", local.getIp(), mapServerPort, dto.getRequestURL()));
                 depth_req.put("layers", dto.getRequestLayers());
                 depth_req.put("map", dto.getRequestMap());
                 depth_req.put("transparent", dto.getRequestTransparent());
@@ -181,7 +182,11 @@ public class MapProxyUtil {
         DumperOptions options = new DumperOptions();
         options.setDefaultFlowStyle(DumperOptions.FlowStyle.AUTO); // 이를 BLOCK 으로 설정하면, 배열 field 가 (- a) 같이 나오고, AUTO 로 설정하면 배열 field 가 배열로 나오지만 object 가 SET 문자열로 나옴.
 
+        DumperOptions options2 = new DumperOptions();
+        options2.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
+
         Yaml yaml = new Yaml(options);
+        Yaml yaml2 = new Yaml(options2);
 
         StringBuffer sb = new StringBuffer();
         for (String key : Arrays.asList("services", "layers", "caches", "sources", "grids", "globals")) {
@@ -189,7 +194,12 @@ public class MapProxyUtil {
             Map<String, Object> serviceMap = new HashMap<String, Object>() {{
                 put(key, yamlModel.get(key));
             }};
-            yaml.dump(serviceMap, yamlStr);
+
+            if (!key.equals("globals")) {
+                yaml.dump(serviceMap, yamlStr);
+            } else {
+                yaml2.dump(serviceMap, yamlStr);
+            }
 
             String temp = null, context = yamlStr.toString();
             Pattern p;
@@ -299,25 +309,6 @@ public class MapProxyUtil {
                     if (key.equals("grids")) {
                         context = context.replace("\'EPSG:3857\'", "EPSG:3857");
                     }
-
-//                    if (key.equals("globals")) {
-//                        context = context.replaceFirst("/data/jiapp/data_dir/cache", "\'/data/jiapp/data_dir/cache\'");
-//                        context = context.replaceFirst("/data/jiapp/data_dir/cache/locks", "\'/data/jiapp/data_dir/cache/locks\'");
-//                    }
-                    break;
-
-                // TODO : globals 에서 쓰이는 { a : bcd, ... , } 와 같은 문자열 처리 방안을 개행으로 고치기 위한 방법 조사 필요.
-                case "globals" :
-                    p = Pattern.compile("(\\s\\{).*?(,\\s).*?(\\})");
-                    m = p.matcher(context);
-                    while (m.find()) {
-                        temp = m.group(0);
-                        temp = temp.replace(m.group(1), "\n      ");
-                        temp = temp.replace(m.group(2), "\n      ");
-                        temp = temp.replace(m.group(3), "");
-                        context = context.replace(m.group(0), temp);
-                    }
-
                     break;
             }
 

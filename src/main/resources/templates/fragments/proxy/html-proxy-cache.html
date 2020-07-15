@@ -166,12 +166,16 @@
                     th:data-grids="${cache.grids}"
                     th:data-sources="${cache.sourceKeys}"
                     onclick="onclick_update_data(this)"
+                    th:disabled="${cache.isDefault}"
                 >
                     <i class="fas fa-cog"></i>
                 </button>
-                <a class="btn btn-danger btn-circle btn-sm text-white mx-1" th:onclick="onclick_delete_data('cache', [[${cache.id}]], [[${cache.name}]])">
+                <button class="btn btn-danger btn-circle btn-sm text-white mx-1"
+                        th:onclick="onclick_delete_data('cache', [[${cache.id}]], [[${cache.name}]])"
+                        th:disabled="${cache.isDefault}"
+                >
                     <i class="fas fa-trash"></i>
-                </a>
+                </button>
             </td>
             <td class="text-center align-middle">
                 <button
@@ -181,6 +185,7 @@
                         th:data-cache="${cache.name}"
                         th:data-sources="${cache.sourceKeys}"
                         onclick="onclick_add_button(this)"
+                        th:disabled="${cache.isDefault}"
                 >
                     <i class="fas fa-plus"></i>
                 </button>

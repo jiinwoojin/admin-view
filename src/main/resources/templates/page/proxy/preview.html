@@ -56,7 +56,7 @@
         </script>
 
         <script>
-            const serviceURL = `http://${localMain && localMain.ip}:${port}/service`;
+            const serviceURL = (window.location.protocol.startsWith('https:')) ? `https://${localMain && localMain.ip}/mapproxy/service` : `http://${localMain && localMain.ip}:${port}/service`;
 
             var layer = firstLayer;
             // Mapbox 는 BBOX 체계를 3857 를 기준으로 제공한다.

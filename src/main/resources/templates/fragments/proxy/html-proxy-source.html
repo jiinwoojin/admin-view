@@ -22,8 +22,8 @@
                         <input type="hidden" id="source-id" name="id" value="0" />
                         <input type="hidden" id="source-method" name="method" value="INSERT" />
 
-                        <input type="hidden" id="source-mapServerBinary" name="mapServerBinary" class="mapserver" th:value="${mapServerBinary}" />
-                        <input type="hidden" id="source-mapServerWorkDir" name="mapServerWorkDir" class="mapserver" th:value="${dataDirectory + '/temp'}" />
+                        <input type="hidden" id="src-mapServerBinary" name="mapServerBinary" class="mapserver" th:value="${mapServerBinary}" />
+                        <input type="hidden" id="src-mapServerWorkDir" name="mapServerWorkDir" class="mapserver" th:value="${dataDirectory + '/temp'}" />
 
                         <input type="hidden" id="source-requestTransparent" name="requestTransparent" class="wms" value="false" />
                         <input type="hidden" id="source-supportedSrs" name="supportedSrs" class="wms" value="" />
@@ -120,12 +120,12 @@
                         <div class="form-group wms">
                             <p>GRID 좌표계 <span class="text-info">(*)</span></p>
                             <div class="form-check-inline">
-                                <input type="checkbox" class="form-check-input wms mx-1" style="width: 1em;" id="source-grid1" value="EPSG:4326" onchange="onchange_checkbox_grid()" />
-                                <label for="source-grid1" class="mx-1">EPSG:4326</label>
-                                <input type="checkbox" class="form-check-input wms mx-1" style="width: 1em;" id="source-grid2" value="EPSG:3857" onchange="onchange_checkbox_grid()" />
-                                <label for="source-grid2" class="mx-1">EPSG:3857</label>
-                                <input type="checkbox" class="form-check-input wms mx-1" style="width: 1em;" id="source-grid3" value="EPSG:900913" onchange="onchange_checkbox_grid()" />
-                                <label for="source-grid3" class="mx-1">EPSG:900913</label>
+                                <input type="checkbox" class="form-check-input wms mx-1" style="width: 1em;" id="src-grid1" value="EPSG:4326" onchange="onchange_checkbox_grid()" />
+                                <label for="src-grid1" class="mx-1">EPSG:4326</label>
+                                <input type="checkbox" class="form-check-input wms mx-1" style="width: 1em;" id="src-grid2" value="EPSG:3857" onchange="onchange_checkbox_grid()" />
+                                <label for="src-grid2" class="mx-1">EPSG:3857</label>
+                                <input type="checkbox" class="form-check-input wms mx-1" style="width: 1em;" id="src-grid3" value="EPSG:900913" onchange="onchange_checkbox_grid()" />
+                                <label for="src-grid3" class="mx-1">EPSG:900913</label>
                             </div>
                         </div>
                         <!-- WMS 입력란 끝 -->
@@ -178,18 +178,20 @@
                     th:data-request-transparent="${ source.type == 'wms' ? source.requestTransparent : false }"
                     th:data-supported-srs="${ source.type == 'wms' ? source.supportedSRS : '' }"
                     onclick="onclick_update_data(this)"
+                    th:disabled="${ source.isDefault }"
                 >
                     <i class="fas fa-cog"></i>
                 </button>
-                <a class="btn btn-danger btn-circle btn-sm text-white mx-1" th:onclick="onclick_delete_data('source-' + [[${source.type}]], [[${source.id}]], [[${source.name}]])">
+                <button class="btn btn-danger btn-circle btn-sm text-white mx-1" th:onclick="onclick_delete_data('source-' + [[${source.type}]], [[${source.id}]], [[${source.name}]])" th:disabled="${ source.isDefault }">
                     <i class="fas fa-trash"></i>
-                </a>
+                </button>
             </td>
             <td class="text-center align-middle">
                 <button class="btn btn-secondary btn-sm btn-circle"
                         th:data-type="selectedSources"
                         th:data-source="${source.name}"
                         onclick="onclick_add_button(this)"
+                        th:disabled="${ source.isDefault }"
                 >
                     <i class="fas fa-plus"></i>
                 </button>

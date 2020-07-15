@@ -20,9 +20,9 @@ public interface ProxyCacheService {
     boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel, boolean synced);
     boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel, ServerCenterInfo local, boolean synced);
     boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel, boolean synced);
-    boolean saveProxyGlobalByModelList(List<ProxyGlobalModel> proxyGlobalModels);
+    boolean saveProxyGlobalByModelList(List<ProxyGlobalModel> proxyGlobalModels, ServerCenterInfo local);
     boolean removeProxyDataByIdAndType(long id, String type);
     boolean removeProxyDataByNameAndType(String name, String type);
 
-    boolean setProxyDataSelectByModel(ProxySelectRequestModel proxySelectModel);
+    boolean setProxyDataSelectByModel(ProxySelectRequestModel proxySelectModel, ServerCenterInfo local);
 }

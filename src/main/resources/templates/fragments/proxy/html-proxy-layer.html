@@ -160,12 +160,16 @@
                     th:data-sources="${layer.sourceKeys}"
                     th:data-caches="${layer.cacheKeys}"
                     onclick="onclick_update_data(this)"
+                    th:disabled="${layer.isDefault}"
                 >
                     <i class="fas fa-cog"></i>
                 </button>
-                <a class="btn btn-danger btn-circle btn-sm text-white mx-1" th:onclick="onclick_delete_data('layer', [[${layer.id}]], [[${layer.name}]])">
+                <button class="btn btn-danger btn-circle btn-sm text-white mx-1"
+                        th:disabled="${layer.isDefault}"
+                        th:onclick="onclick_delete_data('layer', [[${layer.id}]], [[${layer.name}]])"
+                >
                     <i class="fas fa-trash"></i>
-                </a>
+                </button>
             </td>
             <td class="text-center align-middle">
                 <button class="btn btn-secondary btn-sm btn-circle"
@@ -174,6 +178,7 @@
                         th:data-sources="${layer.sourceKeys}"
                         th:data-caches="${layer.cacheKeys}"
                         onclick="onclick_add_button(this)"
+                        th:disabled="${layer.isDefault}"
                 >
                     <i class="fas fa-plus"></i>
                 </button>

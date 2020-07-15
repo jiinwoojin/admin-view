@@ -58,12 +58,12 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     /**
      * YAML 파일 내용을 채취한 이후, 해당 디렉토리에 저장힌다.
      */
-    private boolean saveYAMLFileByEachList() {
+    private boolean saveYAMLFileByEachList(ServerCenterInfo local) {
         List<ProxySourceMapServerDTO> mapServerDTOs = proxySourceMapper.findBySelectedMapServer(true);
         List<ProxySourceWMSDTO> wmsDTOs = proxySourceMapper.findBySelectedWMS(true);
         List<Object> dtos = Stream.of(mapServerDTOs, wmsDTOs).flatMap(o -> o.stream()).collect(Collectors.toList());
 
-        String context = MapProxyUtil.fetchYamlFileContextWithDTO(proxyLayerMapper.findBySelected(true), dtos, proxyCacheMapper.findBySelected(true), proxyGlobalMapper.findAll());
+        String context = MapProxyUtil.fetchYamlFileContextWithDTO(proxyLayerMapper.findBySelected(true), dtos, proxyCacheMapper.findBySelected(true), proxyGlobalMapper.findAll(), local, MAP_SERVER_PORT);
         FileSystemUtil.createAtFile(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME, context);
         return true;
     }
@@ -270,7 +270,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 long nextIdx = proxySourceMapper.findNextSeqVal();
                 proxySourceWMSModel.setId(nextIdx);
                 dto = ProxySourceWMSModel.convertDTO(proxySourceWMSModel);
-                dto.setRequestURL(String.format("http://%s:%d/%s", local.getIp(), MAP_SERVER_PORT, Constants.MAP_SERVER_WMS_URL));
+                dto.setRequestURL(String.format(Constants.MAP_SERVER_WMS_URL));
                 dto.setIsDefault(false);
                 dto.setSelected(false);
                 return proxySourceMapper.insert(dto) > 0 && proxySourceMapper.insertWMS(dto) > 0;
@@ -278,7 +278,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 if (root == null) return false;
                 dto = ProxySourceWMSModel.convertDTO(proxySourceWMSModel);
                 dto.setId(root.getId());
-                dto.setRequestURL(String.format("http://%s:%d/%s", local.getIp(), MAP_SERVER_PORT, Constants.MAP_SERVER_WMS_URL));
+                dto.setRequestURL(String.format(Constants.MAP_SERVER_WMS_URL));
                 dto.setIsDefault(root.getIsDefault());
                 dto.setSelected(root.getSelected());
                 return proxySourceMapper.update(dto) > 0 && proxySourceMapper.updateWMS(dto) > 0;
@@ -318,7 +318,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
 
     @Override
     @Transactional
-    public boolean saveProxyGlobalByModelList(List<ProxyGlobalModel> proxyGlobalModels) {
+    public boolean saveProxyGlobalByModelList(List<ProxyGlobalModel> proxyGlobalModels, ServerCenterInfo local) {
         if (proxyGlobalModels.stream().map(ProxyGlobalModel::getKey).distinct().count() != proxyGlobalModels.stream().count()) {
             return false;
         }
@@ -329,7 +329,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
             model.setId(nextId);
             count += proxyGlobalMapper.insert(ProxyGlobalModel.convertDTO(model));
         }
-        return count == proxyGlobalModels.size() && saveYAMLFileByEachList();
+        return count == proxyGlobalModels.size() && saveYAMLFileByEachList(local);
     }
 
     /**
@@ -409,7 +409,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      * @param proxySelectModel ProxySelectModel
      */
     @Override
-    public boolean setProxyDataSelectByModel(ProxySelectRequestModel proxySelectModel) {
+    public boolean setProxyDataSelectByModel(ProxySelectRequestModel proxySelectModel, ServerCenterInfo local) {
         proxyLayerMapper.updateSelectedAllDisabled();
         proxySourceMapper.updateSelectedAllDisabled();
         proxyCacheMapper.updateSelectedAllDisabled();
@@ -424,6 +424,6 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
             proxyCacheMapper.updateSelectedByNameIn(proxySelectModel.getCaches(), true);
         }
 
-        return saveYAMLFileByEachList();
+        return saveYAMLFileByEachList(local);
     }
 }
