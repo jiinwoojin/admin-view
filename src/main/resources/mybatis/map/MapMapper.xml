@@ -127,6 +127,7 @@
             , REGISTOR_NAME = #{registorName}
             , REGIST_TIME = #{registTime}
             , VRT_FILE_PATH = #{vrtFilePath}
+            , UPDATE_TIME = #{updateTime}
         WHERE id = #{id}
     </update>
 

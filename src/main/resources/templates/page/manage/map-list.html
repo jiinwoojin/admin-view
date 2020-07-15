@@ -181,10 +181,13 @@
                             <tbody>
                             <tr>
                                 <th class="no-borders">
-                                    <i class="fas fa-calendar"></i> 등록일
+                                    <i class="fas fa-calendar-plus" th:if="${map.updateTime == null}"></i>
+                                    <i class="fas fa-calendar-check" th:unless="${map.updateTime == null}"></i>
+                                    <span th:text="${ map.updateTime == null ? '등록일' : '수정일' }"></span>
                                 </th>
                                 <td class="no-borders">
-                                    <span th:text="${map.registTime}">[MAP 등록일]</span>
+                                    <span th:if="${map.updateTime == null}" th:text="${ #dates.format(map.registTime, 'yyyy-MM-dd HH:mm') }">[MAP 등록일]</span>
+                                    <span th:unless="${map.updateTime == null}" th:text="${ #dates.format(map.updateTime, 'yyyy-MM-dd HH:mm') }">[MAP 수정일]</span>
                                 </td>
                             </tr>
                             <tr>

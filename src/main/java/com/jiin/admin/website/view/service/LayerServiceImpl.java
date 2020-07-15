@@ -249,7 +249,6 @@ public class LayerServiceImpl implements LayerService {
         layerDTO.setDefault(false);
 
         layerDTO.setRegistTime(date);
-        layerDTO.setUpdateTime(date);
         layerDTO.setVersion(Double.parseDouble(String.format("%.1f", Constants.DEFAULT_LAYER_VERSION)));     // 기본 1.0
         setCommonProperties(layerDTO);
 
@@ -294,7 +293,7 @@ public class LayerServiceImpl implements LayerService {
             dataFilePath = Constants.DATA_PATH + "/" + layerDTO.getMiddleFolder() + selected.getDataFilePath().replace(Constants.DATA_PATH + "/" + selected.getMiddleFolder(), "");
         }
 
-        layerDTO.setRegistTime(selected.getRegistTime()); // 추가 시간은 그대로 유지.
+        layerDTO.setRegistTime(selected.getRegistTime()); // 기존 등록 시간을 저장한다.
         layerDTO.setUpdateTime(new Date());     // update 시간 추가
         layerDTO.setVersion(Double.parseDouble(String.format("%.1f", (layerDTO.getVersion() + Constants.ASCEND_LAYER_VERSION)))); // 버전은 뭐를 하든 0.1 로 높여준다.
         layerDTO.setDataFilePath(dataFilePath.replaceAll(dataPath, ""));
@@ -437,7 +436,6 @@ public class LayerServiceImpl implements LayerService {
                     dto.setDefault(false);
 
                     dto.setRegistTime(date);
-                    dto.setUpdateTime(date);
                     dto.setVersion(Double.parseDouble(String.format("%.1f", Constants.DEFAULT_LAYER_VERSION)));     // 기본 1.0
 
                     setCommonProperties(dto);

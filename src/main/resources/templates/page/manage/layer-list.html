@@ -157,7 +157,7 @@
             <thead>
                 <tr>
                     <th class="text-center align-middle">LAYER 이름</th>
-                    <th class="text-center align-middle">업로드 일자</th>
+                    <th class="text-center align-middle">업로드 일자<br/>(+) : 최초 생성 일자</th>
                     <th class="text-center align-middle">올린 사람</th>
                     <th class="text-center align-middle">좌표계</th>
                     <th class="text-center align-middle">버전</th>
@@ -167,7 +167,8 @@
             <tbody>
                 <tr class="layer-item" th:each="layer : ${ resMap.data }">
                     <td class="text-center align-middle" th:text="${ layer.name }"></td>
-                    <td class="text-center align-middle" th:text="${ layer.registTime }"></td>
+                    <td class="text-center align-middle" th:if="${layer.updateTime == null}" th:text="${ #dates.format(layer.registTime, 'yyyy-MM-dd HH:mm') + ' (+)' }"></td>
+                    <td class="text-center align-middle" th:unless="${layer.updateTime == null}" th:text="${ #dates.format(layer.updateTime, 'yyyy-MM-dd HH:mm') }"></td>
                     <td class="text-center align-middle" th:text="${ layer.registorName }"></td>
                     <td class="text-center align-middle" th:text="${ layer.projection }"></td>
                     <td class="text-center align-middle" th:text="${ layer.version == null ? 'NONE' : layer.version }"></td>
