@@ -145,6 +145,7 @@ public class DockerUtil {
      */
     public static String removeSeed(String seedName, String dataPath) throws IOException {
         String command = "docker rm " + seedName;
+        executeContainerByNameAndMethod(seedName, "STOP");
         List<String> resultMap = LinuxCommandUtil.fetchResultByLinuxCommonToList(command);
         String result = resultMap.get(0);
         if(result.equals(seedName)){ //SUCCESS
@@ -176,7 +177,8 @@ public class DockerUtil {
         basic_seed.put("coverages",coveragesArr);
         basic_seed.put("levels",levels);
         basic_seed.put("refresh_before",refresh_before);
-        seed.put("basic_seed",basic_seed);
+        seeds.put("basic_seed", basic_seed);    // 이부분 수정
+        seed.put("seeds",seeds);                // 이부분 수정
         Map coverages = new LinkedHashMap();
         Integer[] bbox = new Integer[]{
                 Integer.parseInt((String) param.get("xmin")),
@@ -196,10 +198,11 @@ public class DockerUtil {
         FileSystemUtil.createAtFile(seedpath, context);
         // run docker
         // docker run -it -d --rm --user 1001:1000 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name jimap_seed jiinwoojin/jimap_mapproxy mapproxy-seed -f /data/jiapp/data_dir/proxy/mapproxy.yaml -s /data/jiapp/data_dir/proxy/seed.yaml -c 4 --seed ALL
-        String command = "docker run -it --rm --user 1001:1000 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name [SEED_NAME] jiinwoojin/jimap_mapproxy mapproxy-seed -f [MAPPROXY.YAML] -s [SEED.YAML] -c 4 --seed ALL";
+        String command = "docker run -i -d --rm --user 1001:1002 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name [SEED_NAME] jiinwoojin/jimap_mapproxy mapproxy-seed -f [MAPPROXY.YAML] -s [SEED.YAML] -c 4 --seed ALL";
         command = command.replace("[SEED_NAME]",seedName);
         command = command.replace("[MAPPROXY.YAML]",mapproxypath);
         command = command.replace("[SEED.YAML]",seedpath);
+        log.info(command);
         List<String> result = LinuxCommandUtil.fetchResultByLinuxCommonToList(command);
         if(result.size() == 0){
             return "";
@@ -223,6 +226,4 @@ public class DockerUtil {
             return result.get(0);
         }
     }
-
-
 }
