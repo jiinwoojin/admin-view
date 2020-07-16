@@ -57,6 +57,23 @@ public class MVCProxyController {
     @Autowired
     private ServerCenterInfoService serverCenterInfoService;
 
+    @RequestMapping("preview")
+    public String proxyLayerPreview(Model model) {
+        model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
+        model.addAttribute("port", MAP_PROXY_PORT);
+        model.addAttribute("proxyLayers", proxyCacheService.loadDataListBySelected("LAYERS", true));
+        model.addAttribute("proxyYAML", proxyCacheService.loadProxyYamlSetting());
+        return "page/proxy/preview";
+    }
+
+    @RequestMapping(value = "yaml-save", method = RequestMethod.POST)
+    public String postProxyYAMLContextDirectSave(Map<String, Object> form){
+        String text = (String) form.get("code");
+        FileSystemUtil.createAtFile(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME, text);
+        sessionService.message("YAML 파일의 일부 내용이 수정 되었습니다.");
+        return "redirect:preview";
+    }
+
     @RequestMapping("setting")
     public String pageProxySetting(Model model) {
         model.addAttribute("message", sessionService.message());
@@ -133,15 +150,6 @@ public class MVCProxyController {
         boolean result = proxyCacheService.setProxyDataSelectByModel(proxySelectModel, serverCenterInfoService.loadLocalInfoData());
         sessionService.message(result ? "모든 PROXY 정보들이 수정 되었습니다." : "모든 PROXY 정보들을 설정하는 도중 오류가 발생했습니다.");
         return "redirect:setting";
-    }
-
-    @RequestMapping("preview")
-    public String proxyLayerPreview(Model model) {
-        model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
-        model.addAttribute("port", MAP_PROXY_PORT);
-        model.addAttribute("proxyLayers", proxyCacheService.loadDataListBySelected("LAYERS", true));
-        model.addAttribute("proxyYAML", proxyCacheService.loadProxyYamlSetting());
-        return "page/proxy/preview";
     }
 
     /**
