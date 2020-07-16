@@ -5,13 +5,17 @@ import com.jiin.admin.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @BaseMapper
 public interface ProxyLayerMapper {
     long findNextSeqVal();
     List<ProxyLayerDTO> findAll();
+    ProxyLayerDTO findById(@Param("id") long id);
     ProxyLayerDTO findByName(@Param("name") String name);
     List<ProxyLayerDTO> findBySelected(@Param("selected") boolean selected);
+    List<Map<String, Object>> findLayerSourcesCountAndSourceContains(@Param("sourceId") long sourceId);
+    List<Map<String, Object>> findLayerCachesCountAndCacheContains(@Param("cacheId") long cacheId);
     int insert(ProxyLayerDTO proxyLayerDTO);
     int update(ProxyLayerDTO proxyLayerDTO);
     int updateByName(ProxyLayerDTO proxyLayerDTO);

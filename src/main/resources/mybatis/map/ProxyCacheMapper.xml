@@ -25,12 +25,26 @@
         SELECT * FROM _PROXY_CACHE
     </select>
 
+    <select id="findById" resultMap="cacheAndEachList">
+        SELECT * FROM _PROXY_CACHE WHERE ID = #{id}
+    </select>
+
     <select id="findByName" resultMap="cacheAndEachList">
         SELECT * FROM _PROXY_CACHE WHERE NAME = #{name}
     </select>
 
     <select id="findBySelected" resultMap="cacheAndEachList">
         SELECT * FROM _PROXY_CACHE WHERE SELECTED = #{selected}
+    </select>
+
+    <select id="findCacheSourcesCountAndSourceContains" resultType="java.util.Map">
+        SELECT
+            CACHE_ID AS ID,
+            COUNT(SOURCE_ID) AS CNT,
+            CASE WHEN CACHE_ID IN (SELECT CACHE_ID FROM _PROXY_CACHE_SOURCE_RELATION WHERE SOURCE_ID = #{sourceId}) THEN TRUE
+            ELSE FALSE END AS CONTAINS
+        FROM _PROXY_CACHE_SOURCE_RELATION
+        GROUP BY CACHE_ID
     </select>
 
     <insert id="insert">

@@ -7,6 +7,7 @@ import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.*;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.MapProxyUtil;
+import com.jiin.admin.website.view.component.CascadeRemoveComponent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -55,18 +56,8 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     @Resource
     private ProxyCacheSourceRelationMapper proxyCacheSourceRelationMapper;
 
-    /**
-     * YAML 파일 내용을 채취한 이후, 해당 디렉토리에 저장힌다.
-     */
-    private boolean saveYAMLFileByEachList(ServerCenterInfo local) {
-        List<ProxySourceMapServerDTO> mapServerDTOs = proxySourceMapper.findBySelectedMapServer(true);
-        List<ProxySourceWMSDTO> wmsDTOs = proxySourceMapper.findBySelectedWMS(true);
-        List<Object> dtos = Stream.of(mapServerDTOs, wmsDTOs).flatMap(o -> o.stream()).collect(Collectors.toList());
-
-        String context = MapProxyUtil.fetchYamlFileContextWithDTO(proxyLayerMapper.findBySelected(true), dtos, proxyCacheMapper.findBySelected(true), proxyGlobalMapper.findAll(), local, MAP_SERVER_PORT);
-        FileSystemUtil.createAtFile(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME, context);
-        return true;
-    }
+    @Resource
+    private CascadeRemoveComponent cascadeRemoveComponent;
 
     /**
      * 각 해당하는 Relation 을 생성한다.
@@ -103,6 +94,23 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         }
 
         return cnt == 0;
+    }
+
+    /**
+     * YAML 파일 내용을 채취한 이후, 해당 디렉토리에 저장힌다.
+     */
+    @Override
+    public boolean saveYAMLFileByEachList(ServerCenterInfo local) {
+        if (local == null) {
+            return false;
+        }
+        List<ProxySourceMapServerDTO> mapServerDTOs = proxySourceMapper.findBySelectedMapServer(true);
+        List<ProxySourceWMSDTO> wmsDTOs = proxySourceMapper.findBySelectedWMS(true);
+        List<Object> dtos = Stream.of(mapServerDTOs, wmsDTOs).flatMap(o -> o.stream()).collect(Collectors.toList());
+
+        String context = MapProxyUtil.fetchYamlFileContextWithDTO(proxyLayerMapper.findBySelected(true), dtos, proxyCacheMapper.findBySelected(true), proxyGlobalMapper.findAll(), local, MAP_SERVER_PORT);
+        FileSystemUtil.createAtFile(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME, context);
+        return true;
     }
 
     @Override
@@ -204,7 +212,9 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         ProxyLayerDTO dto;
         switch(proxyLayerModel.getMethod()) {
             case "INSERT" :
-                if (layer != null) return false;
+                if (layer != null) {
+                    return false;
+                }
                 long nextIdx = proxyLayerMapper.findNextSeqVal();
                 proxyLayerModel.setId(nextIdx);
                 dto = ProxyLayerModel.convertDTO(proxyLayerModel);
@@ -212,7 +222,12 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 dto.setSelected(false);
                 return proxyLayerMapper.insert(dto) > 0 && createRelationWithMainIdAndSubNames("LAYER", "SOURCE", nextIdx, proxyLayerModel.getSources()) && createRelationWithMainIdAndSubNames("LAYER", "CACHE", nextIdx, proxyLayerModel.getCaches());
             case "UPDATE" :
-                if (layer == null) return false;
+                if (layer == null) {
+                    return false;
+                }
+                if (layer.getIsDefault().equals(true)) {
+                    return false;
+                }
                 dto = ProxyLayerModel.convertDTO(proxyLayerModel);
                 dto.setIsDefault(layer.getIsDefault());
                 dto.setSelected(layer.getSelected());
@@ -233,7 +248,9 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         ProxySourceMapServerDTO dto;
         switch(proxySourceMapServerModel.getMethod()) {
             case "INSERT" :
-                if (root != null) return false;
+                if (root != null) {
+                    return false;
+                }
                 long nextIdx = proxySourceMapper.findNextSeqVal();
                 proxySourceMapServerModel.setId(nextIdx);
                 dto = ProxySourceMapServerModel.convertDTO(proxySourceMapServerModel);
@@ -241,7 +258,12 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 dto.setSelected(false);
                 return proxySourceMapper.insert(dto) > 0 && proxySourceMapper.insertMapServer(dto) > 0;
             case "UPDATE" :
-                if (root == null) return false;
+                if (root == null) {
+                    return false;
+                }
+                if (root.getIsDefault().equals(true)) {
+                    return false;
+                }
                 dto = ProxySourceMapServerModel.convertDTO(proxySourceMapServerModel);
                 dto.setId(root.getId());
                 dto.setIsDefault(root.getIsDefault());
@@ -266,7 +288,9 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         ProxySourceWMSDTO dto;
         switch(proxySourceWMSModel.getMethod()) {
             case "INSERT" :
-                if (root != null) return false;
+                if (root != null) {
+                    return false;
+                }
                 long nextIdx = proxySourceMapper.findNextSeqVal();
                 proxySourceWMSModel.setId(nextIdx);
                 dto = ProxySourceWMSModel.convertDTO(proxySourceWMSModel);
@@ -275,7 +299,12 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 dto.setSelected(false);
                 return proxySourceMapper.insert(dto) > 0 && proxySourceMapper.insertWMS(dto) > 0;
             case "UPDATE" :
-                if (root == null) return false;
+                if (root == null) {
+                    return false;
+                }
+                if (root.getIsDefault().equals(true)) {
+                    return false;
+                }
                 dto = ProxySourceWMSModel.convertDTO(proxySourceWMSModel);
                 dto.setId(root.getId());
                 dto.setRequestURL(String.format(Constants.MAP_SERVER_WMS_URL));
@@ -298,7 +327,9 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         ProxyCacheDTO dto;
         switch(proxyCacheModel.getMethod()) {
             case "INSERT" :
-                if (cache != null) return false;
+                if (cache != null) {
+                    return false;
+                }
                 long nextIdx = proxyCacheMapper.findNextSeqVal();
                 proxyCacheModel.setId(nextIdx);
                 dto = ProxyCacheModel.convertDTO(proxyCacheModel);
@@ -306,7 +337,12 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 dto.setSelected(false);
                 return proxyCacheMapper.insert(dto) > 0 && createRelationWithMainIdAndSubNames("CACHE", "SOURCE", nextIdx, proxyCacheModel.getSources()) ;
             case "UPDATE" :
-                if (cache == null) return false;
+                if (cache == null) {
+                    return false;
+                }
+                if (cache.getIsDefault().equals(true)) {
+                    return false;
+                }
                 dto = ProxyCacheModel.convertDTO(proxyCacheModel);
                 dto.setIsDefault(cache.getIsDefault());
                 dto.setSelected(cache.getSelected());
@@ -341,19 +377,56 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     public boolean removeProxyDataByIdAndType(long id, String type) {
         switch(type.toUpperCase()) {
             case "LAYER" :
+                ProxyLayerDTO layer = proxyLayerMapper.findById(id);
+                if (layer == null) {
+                    return false;
+                }
+                if (layer.getIsDefault().equals(true)) {
+                    return false;
+                }
+
                 proxyLayerSourceRelationMapper.deleteByLayerId(id);
                 proxyLayerCacheRelationMapper.deleteByLayerId(id);
                 proxyLayerMapper.deleteById(id);
                 return true;
 
             case "SOURCE-MAPSERVER" :
+                ProxySourceDTO sourceMS = proxySourceMapper.findById(id);
+                if (sourceMS == null) {
+                    return false;
+                }
+                if (sourceMS.getIsDefault().equals(true)) {
+                    return false;
+                }
+
+                List<ProxyCacheDTO> sourceCachesMS = cascadeRemoveComponent.loadProxySourceRemoveAfterOrphanProxyCaches(id);
+                List<ProxyLayerDTO> sourceLayerMS = cascadeRemoveComponent.loadProxySourceRemoveAfterOrphanProxyLayers(id);
+                if (sourceCachesMS.size() > 0 || sourceLayerMS.size() > 0) {
+                    cascadeRemoveComponent.removeProxySourceWithOrphanCheck(sourceMS);
+                }
+
                 proxyLayerSourceRelationMapper.deleteBySourceId(id);
                 proxyCacheSourceRelationMapper.deleteBySourceId(id);
                 proxySourceMapper.deleteByIdMapServer(id);
                 proxySourceMapper.deleteById(id);
+
                 return true;
 
             case "SOURCE-WMS" :
+                ProxySourceDTO sourceWMS = proxySourceMapper.findById(id);
+                if (sourceWMS == null) {
+                    return false;
+                }
+                if (sourceWMS.getIsDefault().equals(true)) {
+                    return false;
+                }
+
+                List<ProxyCacheDTO> sourceCachesWMS = cascadeRemoveComponent.loadProxySourceRemoveAfterOrphanProxyCaches(id);
+                List<ProxyLayerDTO> sourceLayerWMS = cascadeRemoveComponent.loadProxySourceRemoveAfterOrphanProxyLayers(id);
+                if (sourceCachesWMS.size() > 0 || sourceLayerWMS.size() > 0) {
+                    cascadeRemoveComponent.removeProxySourceWithOrphanCheck(sourceWMS);
+                }
+
                 proxyLayerSourceRelationMapper.deleteBySourceId(id);
                 proxyCacheSourceRelationMapper.deleteBySourceId(id);
                 proxySourceMapper.deleteByIdWMS(id);
@@ -361,9 +434,23 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 return true;
 
             case "CACHE" :
+                ProxyCacheDTO cache = proxyCacheMapper.findById(id);
+                if (cache == null) {
+                    return false;
+                }
+                if (cache.getIsDefault().equals(true)) {
+                    return false;
+                }
+
+                List<ProxyLayerDTO> cacheLayers = cascadeRemoveComponent.loadProxyCacheRemoveAfterOrphanProxyLayers(id);
+                if (cacheLayers.size() > 0) {
+                    cascadeRemoveComponent.removeProxyCacheWithOrphanCheck(id);
+                }
+
                 proxyLayerCacheRelationMapper.deleteByCacheId(id);
                 proxyCacheSourceRelationMapper.deleteByCacheId(id);
                 proxyCacheMapper.deleteById(id);
+
                 return true;
 
             default :

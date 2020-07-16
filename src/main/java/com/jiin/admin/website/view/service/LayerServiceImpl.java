@@ -3,9 +3,11 @@ package com.jiin.admin.website.view.service;
 import com.jiin.admin.Constants;
 import com.jiin.admin.config.SessionService;
 import com.jiin.admin.dto.LayerDTO;
+import com.jiin.admin.dto.MapDTO;
 import com.jiin.admin.dto.MapVersionDTO;
 import com.jiin.admin.mapper.data.LayerMapper;
 import com.jiin.admin.mapper.data.MapLayerRelationMapper;
+import com.jiin.admin.mapper.data.MapMapper;
 import com.jiin.admin.mapper.data.MapVersionMapper;
 import com.jiin.admin.website.model.LayerPageModel;
 import com.jiin.admin.website.model.LayerRowModel;
@@ -13,6 +15,7 @@ import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.MapServerUtil;
 import com.jiin.admin.website.util.VectorShapeUtil;
+import com.jiin.admin.website.view.component.CascadeRemoveComponent;
 import com.jiin.admin.website.view.component.MapVersionManagement;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -48,7 +51,7 @@ public class LayerServiceImpl implements LayerService {
     private MapVersionManagement mapVersionManagement;
 
     @Resource
-    private SessionService session;
+    private CascadeRemoveComponent cascadeRemoveComponent;
 
     private static final List<OptionModel> sbOptions = Arrays.asList(
         new OptionModel("-- 검색 키워드 선택 --", 0),
@@ -279,7 +282,12 @@ public class LayerServiceImpl implements LayerService {
     @Override
     public boolean setData(LayerDTO layerDTO, MultipartFile uploadData) {
         LayerDTO selected = layerMapper.findByName(layerDTO.getName());
-        if (selected == null) return false;
+        if (selected == null) {
+            return false;
+        }
+        if (selected.isDefault()) {
+            return false;
+        }
 
         layerDTO.setLayerFilePath(selected.getLayerFilePath());
 
@@ -382,13 +390,26 @@ public class LayerServiceImpl implements LayerService {
     @Override
     public boolean removeData(long id) {
         LayerDTO selected = layerMapper.findById(id);
-        if (selected == null) return false;
+        if (selected == null) {
+            return false;
+        }
+        if (selected.isDefault()) {
+            return false;
+        }
+
+        // CASCADE 삭제
+        List<MapDTO> cascadeMaps = cascadeRemoveComponent.loadLayerRemoveAfterOrphanMapData(id);
+        if(cascadeMaps.size() > 0) {
+            cascadeRemoveComponent.removeLayerFileWithOrphanCheck(id);
+        }
 
         mapLayerRelationMapper.deleteByLayerId(id);
 
         // 레이어 삭제 전에 Map Version 관리도 추가 반영.
         List<MapVersionDTO> mapVersions = mapVersionMapper.findByLayerId(id);
-        if (mapVersions.size() > 0) mapVersionManagement.setLayerRemoveManage(selected);
+        if (mapVersions.size() > 0) {
+            mapVersionManagement.setLayerRemoveManage(selected);
+        }
 
         if (layerMapper.deleteById(id) > 0) {
             // 1단계. 리소스 파일 삭제
@@ -396,8 +417,8 @@ public class LayerServiceImpl implements LayerService {
 
             // 2단계. LAY 파일 삭제
             try {
-                String mapFilePath = String.format("%s%s", dataPath, selected.getLayerFilePath());
-                FileSystemUtil.deleteFile(mapFilePath);
+                String layerFilePath = String.format("%s%s", dataPath, selected.getLayerFilePath());
+                FileSystemUtil.deleteFile(layerFilePath);
             } catch (IOException e) {
                 log.error("ERROR - " + e.getMessage());
             }

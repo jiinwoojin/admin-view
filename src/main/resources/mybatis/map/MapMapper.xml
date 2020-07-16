@@ -76,6 +76,16 @@
         SELECT * FROM _MAP WHERE NAME = #{name}
     </select>
 
+    <select id="findMapLayersCountAndLayerContains" resultType="java.util.Map">
+        SELECT
+            MAP_ID AS ID,
+            COUNT(LAYER_ID) AS CNT,
+            CASE WHEN MAP_ID IN (SELECT MAP_ID FROM _MAP_LAYER_RELATION WHERE LAYER_ID = #{layerId}) THEN TRUE
+            ELSE FALSE END AS CONTAINS
+        FROM _MAP_LAYER_RELATION
+        GROUP BY MAP_ID
+    </select>
+
     <insert id="insert">
         INSERT INTO _MAP(ID
             , NAME

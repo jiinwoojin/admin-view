@@ -20,12 +20,36 @@
         SELECT * FROM _PROXY_LAYER
     </select>
 
+    <select id="findById" resultMap="layerAndEachList">
+        SELECT * FROM _PROXY_LAYER WHERE ID = #{id}
+    </select>
+
     <select id="findByName" resultMap="layerAndEachList">
         SELECT * FROM _PROXY_LAYER WHERE NAME = #{name}
     </select>
 
     <select id="findBySelected" resultMap="layerAndEachList">
         SELECT * FROM _PROXY_LAYER WHERE SELECTED = #{selected}
+    </select>
+
+    <select id="findLayerSourcesCountAndSourceContains" resultType="java.util.Map">
+        SELECT
+            LAYER_ID AS ID,
+            COUNT(SOURCE_ID) AS CNT,
+            CASE WHEN LAYER_ID IN (SELECT LAYER_ID FROM _PROXY_LAYER_SOURCE_RELATION WHERE SOURCE_ID = #{sourceId}) THEN TRUE
+            ELSE FALSE END AS CONTAINS
+        FROM _PROXY_LAYER_SOURCE_RELATION
+        GROUP BY LAYER_ID
+    </select>
+
+    <select id="findLayerCachesCountAndCacheContains" resultType="java.util.Map">
+        SELECT
+            LAYER_ID AS ID,
+            COUNT(CACHE_ID) AS CNT,
+            CASE WHEN LAYER_ID IN (SELECT LAYER_ID FROM _PROXY_LAYER_CACHE_RELATION WHERE CACHE_ID = #{cacheId}) THEN TRUE
+            ELSE FALSE END AS CONTAINS
+        FROM _PROXY_LAYER_CACHE_RELATION
+        GROUP BY LAYER_ID
     </select>
 
     <insert id="insert">

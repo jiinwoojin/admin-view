@@ -54,6 +54,10 @@
         WHERE PS.type = 'wms'
     </select>
 
+    <select id="findById" resultType="ProxySourceDTO">
+        SELECT * FROM _PROXY_SOURCE WHERE ID = #{id}
+    </select>
+
     <select id="findByName" resultType="ProxySourceDTO">
         SELECT * FROM _PROXY_SOURCE WHERE NAME = #{name}
     </select>
@@ -72,6 +76,18 @@
         SELECT * FROM _PROXY_SOURCE PS
         LEFT JOIN _PROXY_SOURCE_WMS PSW ON PS.id = PSW.id
         WHERE PS.type = 'wms' AND PS.SELECTED = #{selected}
+    </select>
+
+    <select id="findByMapServerListRequestMapEndsWith" resultMap="ProxySourceResultMap">
+        SELECT * FROM _PROXY_SOURCE PS
+        LEFT JOIN _PROXY_SOURCE_MAPSERVER PSMS ON PS.id = PSMS.id
+        WHERE PSMS.REQUEST_MAP LIKE CONCAT('%', #{mapFilePath})
+    </select>
+
+    <select id="findByWMSListRequestMapEndsWith" resultMap="ProxySourceResultMap">
+        SELECT * FROM _PROXY_SOURCE PS
+        LEFT JOIN _PROXY_SOURCE_WMS PSW ON PS.id = PSW.id
+        WHERE PSW.REQUEST_MAP LIKE CONCAT('%', #{mapFilePath})
     </select>
 
     <insert id="insert">

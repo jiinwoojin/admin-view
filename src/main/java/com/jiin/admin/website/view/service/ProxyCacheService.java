@@ -6,6 +6,8 @@ import com.jiin.admin.website.model.*;
 import java.util.List;
 
 public interface ProxyCacheService {
+    boolean saveYAMLFileByEachList(ServerCenterInfo local);
+
     String loadDataDir();
     String loadProxyCacheMainDir();
     String loadMapServerBinary();

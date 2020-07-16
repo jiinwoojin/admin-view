@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.Constants;
-import com.jiin.admin.dto.LayerDTO;
-import com.jiin.admin.dto.MapDTO;
-import com.jiin.admin.dto.MapLayerRelationDTO;
-import com.jiin.admin.dto.MapVersionDTO;
+import com.jiin.admin.dto.*;
 import com.jiin.admin.mapper.data.LayerMapper;
 import com.jiin.admin.mapper.data.MapLayerRelationMapper;
 import com.jiin.admin.mapper.data.MapMapper;
@@ -17,6 +14,7 @@ import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.GdalUtil;
 import com.jiin.admin.website.util.MapServerUtil;
+import com.jiin.admin.website.view.component.CascadeRemoveComponent;
 import com.jiin.admin.website.view.component.MapVersionManagement;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -54,6 +52,9 @@ public class MapServiceImpl implements MapService {
 
     @Resource
     private MapVersionManagement mapVersionManagement;
+
+    @Resource
+    private CascadeRemoveComponent cascadeRemoveComponent;
 
     private static final List<OptionModel> sbOptions = Arrays.asList(
         new OptionModel("-- 검색 키워드 선택 --", 0),
@@ -258,7 +259,12 @@ public class MapServiceImpl implements MapService {
         List<LayerDTO> prevLayers = layerMapper.findByMapId(selected.getId());
         List<LayerDTO> layers = loadLayersByRelationJSON(relations);
 
-        if (selected == null) return false;
+        if (selected == null) {
+            return false;
+        }
+        if (selected.isDefault()) {
+            return false;
+        }
 
         mapDTO.setRegistTime(selected.getRegistTime()); // 기존 등록 시간을 저장한다.
         mapDTO.setMapFilePath(selected.getMapFilePath()); // 이름은 변동할 수 없으니 현재까지 저장된 디렉토리를 그대로 유지.
@@ -316,7 +322,18 @@ public class MapServiceImpl implements MapService {
     public boolean removeData(long id) {
         MapDTO selected = mapMapper.findById(id);
         List<LayerDTO> layers = layerMapper.findByMapId(id);
-        if (selected == null) return false;
+        if (selected == null) {
+            return false;
+        }
+        if (selected.isDefault()) {
+            return false;
+        }
+
+        // CASCADE 삭제
+        List<ProxySourceDTO> cascadeProxySources = cascadeRemoveComponent.loadMapRemoveAfterOrphanProxySources(id);
+        if(cascadeProxySources.size() > 0) {
+            cascadeRemoveComponent.removeMapFileWithOrphanCheck(id);
+        }
 
         // MAP 을 삭제하면, LAYER 버전을 전부 1.0 으로 초기화. (단 버전을 관리할 때.)
         List<MapVersionDTO> mapVersions = mapVersionMapper.findByLayerId(id);

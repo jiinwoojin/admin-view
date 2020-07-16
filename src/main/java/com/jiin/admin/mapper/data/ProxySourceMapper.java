@@ -15,10 +15,13 @@ public interface ProxySourceMapper {
     List<ProxySourceDTO> findAll();
     List<ProxySourceMapServerDTO> findAllMapServer();
     List<ProxySourceWMSDTO> findAllWMS();
+    ProxySourceDTO findById(@Param("id") long id);
     ProxySourceDTO findByName(@Param("name") String name);
     List<ProxySourceDTO> findBySelected(@Param("selected") boolean selected);
     List<ProxySourceMapServerDTO> findBySelectedMapServer(@Param("selected") boolean selected);
     List<ProxySourceWMSDTO> findBySelectedWMS(@Param("selected") boolean selected);
+    List<ProxySourceMapServerDTO> findByMapServerListRequestMapEndsWith(@Param("mapFilePath") String mapFilePath);
+    List<ProxySourceWMSDTO> findByWMSListRequestMapEndsWith(@Param("mapFilePath") String mapFilePath);
 
     int insert(ProxySourceDTO proxySourceDTO);
     int insertMapServer(ProxySourceMapServerDTO proxySourceMapServerDTO);

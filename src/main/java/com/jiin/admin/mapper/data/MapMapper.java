@@ -6,6 +6,7 @@ import com.jiin.admin.website.model.MapPageModel;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @BaseMapper
 public interface MapMapper {
@@ -17,6 +18,7 @@ public interface MapMapper {
 
     MapDTO findById(@Param("id") long id);
     MapDTO findByName(@Param("name") String name);
+    List<Map<String, Object>> findMapLayersCountAndLayerContains(@Param("layerId") long layerId);
 
     int insert(MapDTO mapDTO);
     int update(MapDTO mapDTO);
