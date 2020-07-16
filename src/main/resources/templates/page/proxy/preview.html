@@ -189,7 +189,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                        <textarea class="form-control" readonly rows="20">
+                        <textarea id="code" class="form-control" readonly rows="20">
 [[${proxyYAML}]]
                         </textarea>
                 </div>
@@ -202,7 +202,12 @@
         </div>
     </div>
     <!-- // Modal (2) 종료 -->
-
+    <script>
+        var code = CodeMirror.fromTextArea(document.getElementById('code'), {
+            readOnly: true,
+            mode:  "yaml"
+        });
+    </script>
 </th:block>
 
 <th:block layout:fragment="custom-html-link">
@@ -210,11 +215,14 @@
 
     <link rel="stylesheet" th:href="@{/gis/mapboxgl-1.12.0/mapbox-gl.css}">
     <link rel="stylesheet" th:href="@{/gis/mapboxgl-1.12.0/mapbox-gl-draw.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/codemirror/codemirror.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/codemirror/codemirror.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/codemirror/mode/yaml/yaml.js}"></script>
 
     <script th:src="@{/gis/mapboxgl-1.12.0/mapbox-gl-unminified.js}"></script>
     <script th:src="@{/gis/mapboxgl-1.12.0/mapbox-gl-draw-unminified.js}"></script>

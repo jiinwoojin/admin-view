@@ -195,10 +195,10 @@ public class MapProxyUtil {
                 put(key, yamlModel.get(key));
             }};
 
-            if (!key.equals("globals")) {
-                yaml.dump(serviceMap, yamlStr);
-            } else {
+            if (key.equals("globals") || key.equals("sources")) {
                 yaml2.dump(serviceMap, yamlStr);
+            } else {
+                yaml.dump(serviceMap, yamlStr);
             }
 
             String temp = null, context = yamlStr.toString();
@@ -236,46 +236,15 @@ public class MapProxyUtil {
                     context = context.replace("origin: nw", "origin: \'nw\'");
                     break;
 
+                // 로직 최소화 작업 진행 : SOURCES 를 BLOCK. 단, CACHE 는 배열 처리 때문에 AUTO 로 진행할 것.
                 case "sources" :
                 case "caches" :
                     Map<String, Object> keyMap = (Map<String, Object>) yamlModel.get(key);
                     if (!keyMap.isEmpty()) {
-                        p = Pattern.compile("(\\s\\{).*?(,\\s).*?(,\\s+).*?(\\})");
-                        m = p.matcher(context);
-
-                        while (m.find()) {
-                            temp = m.group(0);
-                            temp = temp.replace(m.group(1), "\n      ");
-                            temp = temp.replace(m.group(2), "\n      ");
-                            temp = temp.replace(m.group(3), "\n      ");
-                            temp = temp.replace(m.group(4), "");
-                            context = context.replace(m.group(0), temp);
-                        }
-
-                        p = Pattern.compile("(\\s\\{).*?(,\\s).*?(\\})");
-                        m = p.matcher(context);
-                        while (m.find()) {
-                            temp = m.group(0);
-                            temp = temp.replace(m.group(1), "\n      ");
-                            temp = temp.replace(m.group(2), "\n      ");
-                            temp = temp.replace(m.group(3), "");
-                            context = context.replace(m.group(0), temp);
-                        }
-
-                        p = Pattern.compile("(\\s\\{).*?(\\})");
-                        m = p.matcher(context);
-                        while (m.find()) {
-                            temp = m.group(0);
-                            temp = temp.replace(m.group(1), "\n      ");
-                            temp = temp.replace(m.group(2), "");
-                            context = context.replace(m.group(0), temp);
-                        }
-
                         if (key.equals("sources")) {
                             context = context.replaceAll("\\'", "");
+                            context = context.replaceAll("\\\\", "\'");
                         }
-
-                        context = context.replaceAll("\\\\", "\'");
                     } else {
                         context = String.format("%s : {}\n", key);
                     }

@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.json.JsonObject;
 import java.io.IOException;
 import java.util.*;
 
@@ -147,11 +148,18 @@ public class ContainerInfoServiceImpl implements ContainerInfoService {
             try {
                 DockerUtil.executeContainerByNameAndMethod(service, command);
                 if (command.equalsIgnoreCase("START") || command.equalsIgnoreCase("STOP")) {
+                    JsonObject json = DockerUtil.loadContainerByNameAndProperty(service, "State");
+                    boolean succeed = true;
+                    String status = json.getString("Status");
+                    if ((command.equalsIgnoreCase("START") && !status.equalsIgnoreCase("RUNNING")) || (command.equalsIgnoreCase("STOP") && !status.equalsIgnoreCase("EXITED"))) {
+                        succeed = !succeed;
+                    }
+
                     containerHistoryMapper.insert(new ContainerHistoryDTO(
                         containerHistoryMapper.findNextSeqVal(),
                         loadGISSoftwareNameByContainerName(service),
                         command,
-                        true,
+                        succeed,
                         model.getHostname(),
                         model.getUser(),
                         new Date()
