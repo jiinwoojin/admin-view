@@ -145,4 +145,13 @@ public class LinuxCommandUtil {
         }
         return successOutput;
     }
+
+
+    public static String fetchUID() {
+        return fetchShellContextByLinuxCommand("id -u");
+    }
+
+    public static String fetchGID() {
+        return fetchShellContextByLinuxCommand("id -g");
+    }
 }

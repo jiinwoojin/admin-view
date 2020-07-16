@@ -198,7 +198,9 @@ public class DockerUtil {
         FileSystemUtil.createAtFile(seedpath, context);
         // run docker
         // docker run -it -d --rm --user 1001:1000 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name jimap_seed jiinwoojin/jimap_mapproxy mapproxy-seed -f /data/jiapp/data_dir/proxy/mapproxy.yaml -s /data/jiapp/data_dir/proxy/seed.yaml -c 4 --seed ALL
-        String command = "docker run -i -d --rm --user 1001:1002 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name [SEED_NAME] jiinwoojin/jimap_mapproxy mapproxy-seed -f [MAPPROXY.YAML] -s [SEED.YAML] -c 4 --seed ALL";
+        String command = "docker run -i -d --rm --user [UID]:[GID] -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name [SEED_NAME] jiinwoojin/jimap_mapproxy mapproxy-seed -f [MAPPROXY.YAML] -s [SEED.YAML] -c 4 --seed ALL";
+        command = command.replace("[UID]",LinuxCommandUtil.fetchUID());
+        command = command.replace("[GID]",LinuxCommandUtil.fetchGID());
         command = command.replace("[SEED_NAME]",seedName);
         command = command.replace("[MAPPROXY.YAML]",mapproxypath);
         command = command.replace("[SEED.YAML]",seedpath);
