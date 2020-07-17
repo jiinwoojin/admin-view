@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 
 @Slf4j
 @Component
-public class CascadeRemoveComponent {
+public class CascadeRelativeComponent {
     @Resource
     private MapMapper mapMapper;
 
@@ -53,7 +53,7 @@ public class CascadeRemoveComponent {
             long cnt = (Long) map.get("cnt");
             boolean contains = (Boolean) map.get("contains");
 
-            if(contains && cnt == 1) {
+            if(contains && cnt <= 1) {
                 orphans.add(mapMapper.findById(id));
             }
         }
@@ -93,7 +93,7 @@ public class CascadeRemoveComponent {
             long cnt = (Long) map.get("cnt");
             boolean contains = (Boolean) map.get("contains");
 
-            if(contains && cnt == 1) {
+            if(contains && cnt <= 1) {
                 orphans.add(proxyCacheMapper.findById(id));
             }
         }
@@ -111,9 +111,9 @@ public class CascadeRemoveComponent {
             long cnt = (Long) map.get("cnt");
             boolean contains = (Boolean) map.get("contains");
 
-            if(contains && cnt == 1) {
+            if(contains && cnt <= 1) {
                 ProxyLayerDTO layer = proxyLayerMapper.findById(id);
-                if (layer.getSources().size() + layer.getCaches().size() == 1) {
+                if (layer.getCaches().size() == 0) {
                     orphans.add(layer);
                 }
             }
@@ -132,9 +132,9 @@ public class CascadeRemoveComponent {
             long cnt = (Long) map.get("cnt");
             boolean contains = (Boolean) map.get("contains");
 
-            if(contains && cnt == 1) {
+            if(contains && cnt <= 1) {
                 ProxyLayerDTO layer = proxyLayerMapper.findById(id);
-                if (layer.getSources().size() + layer.getCaches().size() == 1) {
+                if (layer.getSources().size() == 0) {
                     orphans.add(layer);
                 }
             }
@@ -159,7 +159,7 @@ public class CascadeRemoveComponent {
         if (sources.size() > 0) {
             boolean updated = false;
             for (ProxySourceDTO source : sources) {
-                proxyCacheService.removeProxyDataByNameAndType(source.getName(), source.getType().equalsIgnoreCase("wms") ? "SOURCE-WMS" : "SOURCE-MAPSERVER");
+                proxyCacheService.removeProxyDataByNameAndType(source.getName(), source.getType().equalsIgnoreCase("wms") ? "SOURCE-WMS" : "SOURCE-MAPSERVER", serverCenterInfoService.loadLocalInfoData());
                 if (source.getSelected().equals(true)) {
                     updated = true;
                 }
@@ -186,7 +186,8 @@ public class CascadeRemoveComponent {
 
         if (caches.size() > 0) {
             for (ProxyCacheDTO cache : caches) {
-                proxyCacheService.removeProxyDataByNameAndType(cache.getName(), "CACHE");
+                removeProxyCacheWithOrphanCheck(cache.getId());
+                proxyCacheService.removeProxyDataByNameAndType(cache.getName(), "CACHE", serverCenterInfoService.loadLocalInfoData());
                 if (cache.getSelected().equals(true)) {
                     updated = true;
                 }
@@ -195,7 +196,7 @@ public class CascadeRemoveComponent {
 
         if (layers.size() > 0) {
             for (ProxyLayerDTO layer : layers) {
-                proxyCacheService.removeProxyDataByNameAndType(layer.getName(), "LAYER");
+                proxyCacheService.removeProxyDataByNameAndType(layer.getName(), "LAYER", serverCenterInfoService.loadLocalInfoData());
                 if (layer.getSelected().equals(true)) {
                     updated = true;
                 }
@@ -214,7 +215,7 @@ public class CascadeRemoveComponent {
         List<ProxyLayerDTO> layers = loadProxyCacheRemoveAfterOrphanProxyLayers(cacheId);
         if (layers.size() > 0) {
             for (ProxyLayerDTO layer : layers) {
-                proxyCacheService.removeProxyDataByNameAndType(layer.getName(), "LAYER");
+                proxyCacheService.removeProxyDataByNameAndType(layer.getName(), "LAYER", serverCenterInfoService.loadLocalInfoData());
                 if (layer.getSelected().equals(true)) {
                     updated = true;
                 }

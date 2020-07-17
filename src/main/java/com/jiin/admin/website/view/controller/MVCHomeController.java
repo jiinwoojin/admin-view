@@ -1,6 +1,6 @@
 package com.jiin.admin.website.view.controller;
 
-import com.jiin.admin.website.view.component.CascadeRemoveComponent;
+import com.jiin.admin.website.view.component.CascadeRelativeComponent;
 import com.jiin.admin.website.view.service.ContainerInfoService;
 import com.jiin.admin.website.view.service.DataCountService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
@@ -24,11 +24,11 @@ public class MVCHomeController {
     private ContainerInfoService containerInfoService;
 
     @Autowired
-    private CascadeRemoveComponent cascadeRemoveComponent;
+    private CascadeRelativeComponent cascadeRelativeComponent;
 
     @RequestMapping("dashboard")
     public String homeMainPageForGuest(Model model) {
-        cascadeRemoveComponent.loadLayerRemoveAfterOrphanMapData(245);
+        cascadeRelativeComponent.loadLayerRemoveAfterOrphanMapData(245);
         model.addAttribute("counter", dataCountService.loadDataCounter());
         model.addAttribute("serverMap", serverCenterInfoService.loadDataMapZoneBase());
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());

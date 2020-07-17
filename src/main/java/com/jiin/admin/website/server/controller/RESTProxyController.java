@@ -30,7 +30,7 @@ public class RESTProxyController {
     @PostMapping("sync/layer-save")
     public Map<String, Object> postSyncGlobalSave(@RequestBody ProxyLayerModel proxyLayerModel) {
         return new HashMap<String, Object>() {{
-            put("result", proxyCacheService.saveProxyLayerByModel(proxyLayerModel, true));
+            put("result", proxyCacheService.saveProxyLayerByModel(proxyLayerModel, serverCenterInfoService.loadLocalInfoData(), true));
         }};
     }
 
@@ -46,7 +46,7 @@ public class RESTProxyController {
     @PostMapping("sync/source-mapserver-save")
     public Map<String, Object> postSyncSourceMapServerSave(@RequestBody ProxySourceMapServerModel proxySourceMapServerModel) {
         return new HashMap<String, Object>() {{
-            put("result", proxyCacheService.saveProxySourceMapServerByModel(proxySourceMapServerModel, true));
+            put("result", proxyCacheService.saveProxySourceMapServerByModel(proxySourceMapServerModel, serverCenterInfoService.loadLocalInfoData(), true));
         }};
     }
 
@@ -54,7 +54,7 @@ public class RESTProxyController {
     @PostMapping("sync/cache-save")
     public Map<String, Object> postSyncCacheSave(@RequestBody ProxyCacheModel proxyCacheModel) {
         return new HashMap<String, Object>() {{
-            put("result", proxyCacheService.saveProxyCacheByModel(proxyCacheModel, true));
+            put("result", proxyCacheService.saveProxyCacheByModel(proxyCacheModel, serverCenterInfoService.loadLocalInfoData(), true));
         }};
     }
 
@@ -70,7 +70,7 @@ public class RESTProxyController {
     @PostMapping("sync/{type}-delete")
     public Map<String, Object> deleteSyncProxyDataDelete(@PathVariable String type, @RequestBody Map<String, Object> map) {
         return new HashMap<String, Object>() {{
-            put("result", proxyCacheService.removeProxyDataByNameAndType((String) map.get("name"), type));
+            put("result", proxyCacheService.removeProxyDataByNameAndType((String) map.get("name"), type, serverCenterInfoService.loadLocalInfoData()));
         }};
     }
 

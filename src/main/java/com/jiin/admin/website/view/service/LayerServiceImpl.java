@@ -1,13 +1,11 @@
 package com.jiin.admin.website.view.service;
 
 import com.jiin.admin.Constants;
-import com.jiin.admin.config.SessionService;
 import com.jiin.admin.dto.LayerDTO;
 import com.jiin.admin.dto.MapDTO;
 import com.jiin.admin.dto.MapVersionDTO;
 import com.jiin.admin.mapper.data.LayerMapper;
 import com.jiin.admin.mapper.data.MapLayerRelationMapper;
-import com.jiin.admin.mapper.data.MapMapper;
 import com.jiin.admin.mapper.data.MapVersionMapper;
 import com.jiin.admin.website.model.LayerPageModel;
 import com.jiin.admin.website.model.LayerRowModel;
@@ -15,7 +13,7 @@ import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.MapServerUtil;
 import com.jiin.admin.website.util.VectorShapeUtil;
-import com.jiin.admin.website.view.component.CascadeRemoveComponent;
+import com.jiin.admin.website.view.component.CascadeRelativeComponent;
 import com.jiin.admin.website.view.component.MapVersionManagement;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -51,7 +49,7 @@ public class LayerServiceImpl implements LayerService {
     private MapVersionManagement mapVersionManagement;
 
     @Resource
-    private CascadeRemoveComponent cascadeRemoveComponent;
+    private CascadeRelativeComponent cascadeRelativeComponent;
 
     private static final List<OptionModel> sbOptions = Arrays.asList(
         new OptionModel("-- 검색 키워드 선택 --", 0),
@@ -398,9 +396,9 @@ public class LayerServiceImpl implements LayerService {
         }
 
         // CASCADE 삭제
-        List<MapDTO> cascadeMaps = cascadeRemoveComponent.loadLayerRemoveAfterOrphanMapData(id);
+        List<MapDTO> cascadeMaps = cascadeRelativeComponent.loadLayerRemoveAfterOrphanMapData(id);
         if(cascadeMaps.size() > 0) {
-            cascadeRemoveComponent.removeLayerFileWithOrphanCheck(id);
+            cascadeRelativeComponent.removeLayerFileWithOrphanCheck(id);
         }
 
         mapLayerRelationMapper.deleteByLayerId(id);

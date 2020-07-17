@@ -14,7 +14,7 @@ import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.GdalUtil;
 import com.jiin.admin.website.util.MapServerUtil;
-import com.jiin.admin.website.view.component.CascadeRemoveComponent;
+import com.jiin.admin.website.view.component.CascadeRelativeComponent;
 import com.jiin.admin.website.view.component.MapVersionManagement;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -54,7 +54,7 @@ public class MapServiceImpl implements MapService {
     private MapVersionManagement mapVersionManagement;
 
     @Resource
-    private CascadeRemoveComponent cascadeRemoveComponent;
+    private CascadeRelativeComponent cascadeRelativeComponent;
 
     private static final List<OptionModel> sbOptions = Arrays.asList(
         new OptionModel("-- 검색 키워드 선택 --", 0),
@@ -330,9 +330,9 @@ public class MapServiceImpl implements MapService {
         }
 
         // CASCADE 삭제
-        List<ProxySourceDTO> cascadeProxySources = cascadeRemoveComponent.loadMapRemoveAfterOrphanProxySources(id);
+        List<ProxySourceDTO> cascadeProxySources = cascadeRelativeComponent.loadMapRemoveAfterOrphanProxySources(id);
         if(cascadeProxySources.size() > 0) {
-            cascadeRemoveComponent.removeMapFileWithOrphanCheck(id);
+            cascadeRelativeComponent.removeMapFileWithOrphanCheck(id);
         }
 
         // MAP 을 삭제하면, LAYER 버전을 전부 1.0 으로 초기화. (단 버전을 관리할 때.)

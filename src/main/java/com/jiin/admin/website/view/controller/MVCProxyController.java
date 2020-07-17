@@ -96,7 +96,7 @@ public class MVCProxyController {
 
     @RequestMapping(value = "layer-save", method = RequestMethod.POST)
     public String postLayerSave(ProxyLayerModel proxyLayerModel) {
-        boolean result = proxyCacheService.saveProxyLayerByModel(proxyLayerModel, false);
+        boolean result = proxyCacheService.saveProxyLayerByModel(proxyLayerModel, serverCenterInfoService.loadLocalInfoData(), false);
         sessionService.message(String.format("[%s] LAYER 정보 저장에 %s 했습니다.", proxyLayerModel.getName(), result ? "성공" : "실패"));
         return "redirect:setting";
     }
@@ -110,14 +110,14 @@ public class MVCProxyController {
 
     @RequestMapping(value = "source-mapserver-save", method = RequestMethod.POST)
     public String postSourceMapServerSave(ProxySourceMapServerModel proxySourceMapServerModel) {
-        boolean result = proxyCacheService.saveProxySourceMapServerByModel(proxySourceMapServerModel, false);
+        boolean result = proxyCacheService.saveProxySourceMapServerByModel(proxySourceMapServerModel, serverCenterInfoService.loadLocalInfoData(), false);
         sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다.", proxySourceMapServerModel.getName(), result ? "성공" : "실패"));
         return "redirect:setting";
     }
 
     @RequestMapping(value = "cache-save", method = RequestMethod.POST)
     public String postCacheSave(ProxyCacheModel proxyCacheModel) {
-        boolean result = proxyCacheService.saveProxyCacheByModel(proxyCacheModel, false);
+        boolean result = proxyCacheService.saveProxyCacheByModel(proxyCacheModel, serverCenterInfoService.loadLocalInfoData(), false);
         sessionService.message(String.format("[%s] CACHE 정보 저장에 %s 했습니다.", proxyCacheModel.getName(), result ? "성공" : "실패"));
         return "redirect:setting";
     }
@@ -140,7 +140,7 @@ public class MVCProxyController {
 
     @RequestMapping("{type}-delete")
     public String linkProxyDataDelete(@PathVariable String type, @RequestParam long id, @RequestParam String name) {
-        boolean result = proxyCacheService.removeProxyDataByIdAndType(id, type);
+        boolean result = proxyCacheService.removeProxyDataByIdAndType(id, type, serverCenterInfoService.loadLocalInfoData());
         sessionService.message(String.format("[%s] %s 정보 삭제에 %s 했습니다.", name, type.toUpperCase(), result ? "성공" : "실패"));
         return "redirect:setting";
     }

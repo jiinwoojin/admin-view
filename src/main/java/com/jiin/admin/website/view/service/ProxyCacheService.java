@@ -18,13 +18,13 @@ public interface ProxyCacheService {
 
     ProxySelectResponseModel loadProxySetting();
 
-    boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel, boolean synced);
-    boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel, boolean synced);
+    boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel, ServerCenterInfo local, boolean synced);
+    boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel, ServerCenterInfo local, boolean synced);
     boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel, ServerCenterInfo local, boolean synced);
-    boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel, boolean synced);
+    boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel, ServerCenterInfo local, boolean synced);
     boolean saveProxyGlobalByModelList(List<ProxyGlobalModel> proxyGlobalModels, ServerCenterInfo local);
-    boolean removeProxyDataByIdAndType(long id, String type);
-    boolean removeProxyDataByNameAndType(String name, String type);
+    boolean removeProxyDataByIdAndType(long id, String type, ServerCenterInfo local);
+    boolean removeProxyDataByNameAndType(String name, String type, ServerCenterInfo local);
 
     boolean setProxyDataSelectByModel(ProxySelectRequestModel proxySelectModel, ServerCenterInfo local);
 }
