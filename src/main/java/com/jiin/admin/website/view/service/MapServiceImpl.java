@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.Constants;
 import com.jiin.admin.dto.*;
+import com.jiin.admin.entity.AccountEntity;
 import com.jiin.admin.mapper.data.LayerMapper;
 import com.jiin.admin.mapper.data.MapLayerRelationMapper;
 import com.jiin.admin.mapper.data.MapMapper;
@@ -101,9 +102,9 @@ public class MapServiceImpl implements MapService {
      */
     private void setCommonProperties(MapDTO mapDTO) {
         // TODO : 굳이 setter 안 쓰고, Builder 를 사용해서 한 번에 실행하는 방법이 있을까? - Builder 패턴 알아볼 것
-        String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        mapDTO.setRegistorId(loginUser);
-        mapDTO.setRegistorName(loginUser);
+        AccountEntity user = (AccountEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        mapDTO.setRegistorId(user.getUsername());
+        mapDTO.setRegistorName(user.getName());
     }
 
     /**

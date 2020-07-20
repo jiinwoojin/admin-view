@@ -4,6 +4,7 @@ import com.jiin.admin.Constants;
 import com.jiin.admin.dto.LayerDTO;
 import com.jiin.admin.dto.MapDTO;
 import com.jiin.admin.dto.MapVersionDTO;
+import com.jiin.admin.entity.AccountEntity;
 import com.jiin.admin.mapper.data.LayerMapper;
 import com.jiin.admin.mapper.data.MapLayerRelationMapper;
 import com.jiin.admin.mapper.data.MapVersionMapper;
@@ -130,9 +131,9 @@ public class LayerServiceImpl implements LayerService {
      */
     private void setCommonProperties(LayerDTO layerDTO) {
         // TODO : 굳이 setter 안 쓰고, Builder 를 사용해서 한 번에 실행하는 방법이 있을까? - Builder 패턴 알아볼 것
-        String loginUser = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        layerDTO.setRegistorId(loginUser);
-        layerDTO.setRegistorName(loginUser);
+        AccountEntity user = (AccountEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        layerDTO.setRegistorId(user.getUsername());
+        layerDTO.setRegistorName(user.getName());
         layerDTO.setType(layerDTO.getType().toUpperCase());
     }
 

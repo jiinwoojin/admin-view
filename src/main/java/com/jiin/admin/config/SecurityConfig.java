@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsUtils;
 
@@ -101,5 +102,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authenticationProvider(accountAuthProvider);
 
         http.headers().frameOptions().disable();
+
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // SESSION 생성 설정
+                .maximumSessions(100); // SESSION 의 최대 개수 (최대 접속자)
     }
 }
