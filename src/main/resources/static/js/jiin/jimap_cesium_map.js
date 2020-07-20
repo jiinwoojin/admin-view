@@ -138,7 +138,7 @@ JimapCesium.prototype = {
         var imageryLayers = this._map.imageryLayers;
         imageryLayers.removeAll();
         imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-            url : jiCommon.MAP_SERVER_URL + '/mapproxy/service',
+            url : jiCommon.MAP_SERVER_URL + `${window.location.protocol === 'https:' ? '/mapproxy' : ''}/service`,
             layers : jiCommon.getBaseMapLayer(),
             parameters : {
                 transparent : 'true',

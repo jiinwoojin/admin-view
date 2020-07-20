@@ -62,8 +62,7 @@ JimapMapbox.prototype = {
             'world' : {
                 'type' : jiConstant.MAPBOX_SOURCE_TYPE.RASTER,
                 'tiles' : [
-                    jiCommon.MAP_SERVER_URL + '/mapproxy/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1' +
-                    '&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=' + jiCommon.BASE_MAP_LAYER
+                    jiCommon.MAP_SERVER_URL + `${window.location.protocol === 'https:' ? '/mapproxy' : ''}/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.3.0&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=` + jiCommon.BASE_MAP_LAYER
                 ],
                 'tileSize' : 256
             }

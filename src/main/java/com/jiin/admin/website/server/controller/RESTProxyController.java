@@ -1,5 +1,6 @@
 package com.jiin.admin.website.server.controller;
 
+import com.jiin.admin.dto.ProxyLayerDTO;
 import com.jiin.admin.website.model.*;
 import com.jiin.admin.website.view.service.ProxyCacheService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
@@ -24,6 +25,11 @@ public class RESTProxyController {
     @GetMapping("form")
     public ProxySelectResponseModel getInitializeProxySelectModel() {
         return proxyCacheService.loadProxySetting();
+    }
+
+    @GetMapping
+    public List<ProxyLayerDTO> getProxyLayerList(){
+        return (List<ProxyLayerDTO>) proxyCacheService.loadDataListBySelected("LAYERS", true);
     }
 
     // LAYER 추가 동기화

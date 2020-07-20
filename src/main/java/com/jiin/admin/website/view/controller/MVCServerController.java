@@ -1,6 +1,7 @@
 package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.config.SessionService;
+import com.jiin.admin.entity.AccountEntity;
 import com.jiin.admin.servlet.AdminViewServlet;
 import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.ContainerExecuteModel;
@@ -93,11 +94,13 @@ public class MVCServerController {
         String hostname = (String) param.get("hostname");
 
         sessionService.message(String.format("[%s] 서버 - [%s] 서비스의 [%s] 명령을 시작합니다.", hostname, name, method));
+
+        AccountEntity user = (AccountEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return RestClientUtil.postREST(request.isSecure(), ip, path, new HashMap<String, String>(){{
             put("service", name);
             put("command", method);
             put("hostname", hostname);
-            put("user", (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+            put("user", user != null ? user.getUsername() : "ANONYMOUS USER");
         }});
     }
 

@@ -16,7 +16,7 @@ var jiCommon = {
     /**
      *
      */
-    MAP_SERVER_PORT : 11100,
+    MAP_SERVER_PORT : (window.location.protocol === 'https:') ? 0 : 11120,
     /**
      *
      */
@@ -24,7 +24,7 @@ var jiCommon = {
     /**
      *
      */
-    BASE_MAP_LAYER : 'world_k2',
+    BASE_MAP_LAYER : 'world_layer', // 기본 지도 데이터
     /**
      *
      */
@@ -240,6 +240,22 @@ var jiCommon = {
         }
     }
 };
+
+// Local IP 가져오기
+$.ajax({
+    url: `${CONTEXT}/server/api/service/local-info`,
+    type: 'get',
+    contentType: "application/json",
+    async: false,
+    success: function(res){
+        if(res && res.ip){
+            jiCommon.MAP_SERVER_DOMAIN = res.ip
+        }
+    },
+    error: function(e){
+        console.log(e);
+    }
+});
 
 if (jiCommon.MAP_SERVER_URL === '') {
     jiCommon.MAP_SERVER_URL = window.location.protocol + '//'

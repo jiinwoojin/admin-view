@@ -1,12 +1,15 @@
 package com.jiin.admin.website.server.controller;
 
 import com.jiin.admin.servlet.AdminServerServlet;
+import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.util.DockerUtil;
 import com.jiin.admin.website.util.RestClientUtil;
 import com.jiin.admin.website.util.SocketUtil;
+import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.json.JsonObject;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -18,6 +21,9 @@ import java.util.Map;
 public class RESTServiceController {
     @Value("${server.servlet.context-path}")
     private String CONTEXT_PATH;
+
+    @Resource
+    private ServerCenterInfoService serverCenterInfoService;
 
     @PostMapping("extension-check")
     public Map<String, Object> getExtensionCheckByIpAndPort(@RequestBody Map<String, Object> param) {
@@ -45,5 +51,10 @@ public class RESTServiceController {
         String path = String.format("%s/%s/api/service/docker-check", CONTEXT_PATH, AdminServerServlet.CONTEXT_PATH, containerName);
         String query = String.format("name=%s", containerName);
         return RestClientUtil.getREST(request.isSecure(), ip, path, query);
+    }
+
+    @GetMapping("local-info")
+    public ServerCenterInfo loadLocalServerCenterInfo(){
+        return serverCenterInfoService.loadLocalInfoData();
     }
 }
