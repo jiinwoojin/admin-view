@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("auth")
 public class MVCAuthController {
@@ -40,8 +42,8 @@ public class MVCAuthController {
 
     // 회원 정보 수정 페이지
     @RequestMapping("edit")
-    public String authEditPage(Model model, AccountAuthProvider.AccountAuthentication auth) {
-        model.addAttribute("account", accountService.createModelWithAuthentication(auth));
+    public String authEditPage(Model model, Principal principal) {
+        model.addAttribute("account", accountService.createModelWithAuthByUsername(principal.getName()));
         return "page/auth/edit";
     }
 

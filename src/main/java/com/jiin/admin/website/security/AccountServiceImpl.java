@@ -50,18 +50,32 @@ public class AccountServiceImpl implements UserDetailsService, AccountService {
     }
 
     @Override
-    public AccountModel createModelWithAuthentication(AccountAuthProvider.AccountAuthentication auth) {
-        AccountModelBuilder builder = AccountModelBuilder.builder();
-        if (auth == null) return builder.build();
-        AccountEntity account = auth.getAccount();
-        return account != null ? builder
-                                    .setUsername(account.getUsername())
-                                    .setPassword1("")
-                                    .setPassword2("")
-                                    .setName(account.getName())
-                                    .setEmail(account.getEmail())
-                                    .build() : builder.build();
+    public AccountModel createModelWithAuthByUsername(String username) {
+        AccountEntity entity = accountMapper.findAccountByUsername(username);
+        if(entity == null) {
+            return null;
+        } else {
+            return AccountModelBuilder.builder()
+                                    .setUsername(entity.getUsername())
+                                    .setName(entity.getName())
+                                    .setEmail(entity.getEmail())
+                                    .build();
+        }
     }
+
+//    @Override
+//    public AccountModel createModelWithAuthentication(AccountAuthProvider.AccountAuthentication auth) {
+//        AccountModelBuilder builder = AccountModelBuilder.builder();
+//        if (auth == null) return builder.build();
+//        AccountEntity account = auth.getAccount();
+//        return account != null ? builder
+//                                    .setUsername(account.getUsername())
+//                                    .setPassword1("")
+//                                    .setPassword2("")
+//                                    .setName(account.getName())
+//                                    .setEmail(account.getEmail())
+//                                    .build() : builder.build();
+//    }
 
     @Override
     public Map<String, Long> countWithAccountType() {

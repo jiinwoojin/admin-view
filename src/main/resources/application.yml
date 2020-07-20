@@ -41,6 +41,12 @@ spring:
   devtools:
     livereload:
       enabled: true
+  ### Spring Session Ref.
+  session:
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION
 
 ### tomcat 서버
 server:

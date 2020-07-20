@@ -26,7 +26,7 @@
         <li class="dropdown" sec:authorize="isAuthenticated()">
             <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                        <strong sec:authentication="account.name">[User Name]</strong> 님
+                        <strong sec:authentication="principal.name">[User Name]</strong> 님
                     </span>
                 <img class="rounded-circle" th:src="@{/img/earth.jpeg}" alt="earth" width="24" />
             </a>

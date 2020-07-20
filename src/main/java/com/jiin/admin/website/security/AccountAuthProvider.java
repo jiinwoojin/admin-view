@@ -8,14 +8,22 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class AccountAuthProvider implements AuthenticationProvider {
+    private static final String ROLE_PREFIX = "ROLE_";
+
     @Autowired
     private AccountService accountService;
+
+    private List<GrantedAuthority> makeAuthority(String role) {
+        return Arrays.asList(new SimpleGrantedAuthority(String.format("%s%s", ROLE_PREFIX, role)));
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -29,29 +37,11 @@ public class AccountAuthProvider implements AuthenticationProvider {
         String passwd = EncryptUtil.encrypt(password, EncryptUtil.SHA256);
         if (account == null) return null;
         if (!account.getPassword().equals(passwd)) return null;
-        return new AccountAuthentication(username, passwd, account.getAuthorities(), account);
+        return new UsernamePasswordAuthenticationToken(account, null, makeAuthority(account.getRole() != null ? account.getRole().getTitle() : "USER"));
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
-    }
-
-    public class AccountAuthentication extends UsernamePasswordAuthenticationToken {
-        private static final long serialVersionUID = 1L;
-        private AccountEntity account;
-
-        public AccountAuthentication(String username, String password, Collection<? extends GrantedAuthority> collection, AccountEntity account) {
-            super(username, password, collection);
-            this.account = account;
-        }
-
-        public AccountEntity getAccount() {
-            return this.account;
-        }
-
-        public void setAccount(AccountEntity account) {
-            this.account = account;
-        }
     }
 }

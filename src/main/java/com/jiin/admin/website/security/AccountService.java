@@ -14,7 +14,8 @@ public interface AccountService {
     AccountEntity findByUsername(String username);
     List<AccountEntity> findAllAccounts();
     List<RoleEntity> findAllRoles();
-    AccountModel createModelWithAuthentication(AccountAuthProvider.AccountAuthentication auth);
+    // AccountModel createModelWithAuthentication(AccountAuthProvider.AccountAuthentication auth);
+    AccountModel createModelWithAuthByUsername(String username);
     Map<String, Long> countWithAccountType();
     boolean createAccountWithModel(AccountModel accountModel);
     boolean createRoleWithModel(RoleModel roleModel);
