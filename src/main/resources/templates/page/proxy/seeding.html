@@ -148,7 +148,7 @@
                             <label>진행영역</label>
                             <div class="col-12 row m-0 p-0">
                                 <div class="col-4 p-0">
-                                    <label>크기</label>
+                                    <label>크기(MB)</label>
                                     <input class="form-control form-control-sm text-right" name="size" readonly />
                                 </div>
                                 <div class="col-2">
@@ -297,7 +297,7 @@
                     console.log(data)
                     var form = document.getElementById("detail-form")
                     form.seed_name.value = data.Names
-                    form.size.value = data.Size
+                    form.size.value = (data.DIR_SIZE / 1024 / 1024).toFixed(2)
                     form.xmin.value = data.LOGS.XMIN.replace(",","")
                     form.ymin.value = data.LOGS.YMIN.replace(",","")
                     form.xmax.value = data.LOGS.XMAX.replace(",","")

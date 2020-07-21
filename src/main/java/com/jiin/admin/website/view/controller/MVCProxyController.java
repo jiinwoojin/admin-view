@@ -13,6 +13,7 @@ import com.jiin.admin.website.util.YAMLFileUtil;
 import com.jiin.admin.website.view.service.ProxyCacheService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -207,6 +209,25 @@ public class MVCProxyController {
         if(mapproxy.exists()){
             Map<String, Object> mapproxyInfo = YAMLFileUtil.fetchMapByYAMLFile(mapproxy);
             container.put("MAPPROXY",mapproxyInfo);
+            // 작업 디렉토리 용량 확인
+            LinkedHashMap sources = (LinkedHashMap) mapproxyInfo.get("sources");
+            if(sources != null){
+                List<Path> workPaths = new ArrayList();
+                Set keys = sources.keySet();
+                for(Object key:keys){
+                    Map<String, Object> source = (Map<String, Object>) sources.get(key);
+                    Map<String, Object> req = (Map<String, Object>) source.get("req");
+                    String mapPath = (String) req.get("map");
+                    if(Files.exists(Paths.get(mapPath)) && !workPaths.contains(Paths.get(mapPath).getParent())){
+                        workPaths.add(Paths.get(mapPath).getParent());
+                    }
+                }
+                long diskSize = 0;
+                for(Path workPath:workPaths){
+                    diskSize += FileUtils.sizeOfDirectory(workPath.toFile());
+                }
+                container.put("DIR_SIZE",diskSize);
+            }
         }
         File seed = new File(dataPath + "/proxy/seed-" + seedName + ".yaml");
         if(seed.exists()){
