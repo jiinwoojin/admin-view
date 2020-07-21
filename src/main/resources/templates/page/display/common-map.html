@@ -26,6 +26,9 @@
                         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#layer_modal" data-backdrop="false">
                             <i class="fas fa-layer-group"></i>
                         </button>
+                        <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#background_modal" data-backdrop="false">
+                            <i class="fas fa-images"></i>
+                        </button>
                         <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#shape_modal" data-backdrop="false">
                             <i class="fas fa-vector-square"></i>
                         </button>
@@ -98,7 +101,6 @@
                                 <th scope="col" class="text-center text-nowrap">레이어 순서</th>
                                 <th scope="col" class="text-center text-nowrap">레이어 축적</th>
                             </tr>
-                            </thead>
                         </table>
                     </div>
                 </div>
@@ -106,6 +108,47 @@
                     <button type="button" class="btn btn-sm btn-success hidden" data-dismiss="modal">
                         <i class="fas fa-server"></i> 레이어 상태 서버저장
                     </button>
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
+                        <i class="fas fa-times"></i> 닫기
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+
+    <!-- 배경 레이어 Modal : 상단부 LAYER 가 Vector 데이터도 포함이 되어 있어 배경 레이어로 가정하고 진행. -->
+    <div class="modal fade" id="background_modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">배경 레이어 설정</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="pt-1 pb-1">
+                        <table id="list_table2" class="table table-sm basic w-100">
+                            <thead class="table-info">
+                            <tr>
+                                <th scope="col" class="text-center text-nowrap">레이어 이름</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 제목</th>
+                                <th scope="col" class="text-center text-nowrap">레이어 교체</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="layer : ${layers}">
+                                <td class="text-center text-nowrap align-middle" th:text="${layer.name}"></td>
+                                <td class="text-center text-nowrap align-middle" th:text="${layer.title}"></td>
+                                <td class="text-center text-nowrap align-middle">
+                                    <button class="btn btn-info" type="button" th:onclick="fn_set_layer([[${layer.name}]])">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
                         <i class="fas fa-times"></i> 닫기
                     </button>
@@ -223,7 +266,9 @@
     <th:block th:replace="fragments/military/html-military-prop"/>
     <th:block th:replace="fragments/military/html-military-main"/>
 
-    <script>
+    <script th:inline="javascript">
+        $('#list_table2').DataTable();
+
         function modal_draggable(id){
             $(id).draggable({
                 handle: ".modal-header"
@@ -249,6 +294,7 @@
 
         $(window).ready(function() {
             modal_draggable('#layer_modal');
+            modal_draggable('#background_modal');
             modal_draggable('#shape_modal');
             modal_draggable('#military_modal');
             modal_draggable('#los_modal'); //이지훈 LOS 입력창
@@ -366,9 +412,12 @@
 
             $('#mapContent').load(url);
         }
+
+        // Map Proxy 레이어 적용을 위해 우선 주석 처리.
         $(layerModal).on('show.bs.modal', function(e) {
             jiCommon.showLoading()
             $('#list_table').DataTable().destroy()
+            // 주석 처리 : Map Proxy 레이어로 진행하기 위함.
             var layers = stmp.mapObject.map.getStyle().layers
             var maxzoom = stmp.mapObject.map.getMaxZoom()
             var minzoom = stmp.mapObject.map.getMinZoom()
@@ -402,6 +451,8 @@
                             }else if(type === "symbol"){
                                 opacity = stmp.mapObject.map.getPaintProperty(row.id,"icon-opacity")
                                 //stmp.mapObject.map.getPaintProperty(row.id,"text-opacity") // TODO : icon / text 분리 필요
+                            }else {
+                                opacity = stmp.mapObject.map.getPaintProperty(row.id,"background-opacity")
                             }
                             if(opacity === undefined){
                                 opacity = 1
@@ -444,6 +495,7 @@
                 jiCommon.hideLoading()
                 },0);
         });
+
         function fn_set_layer_visible(elem){
             var layerId = elem.getAttribute("data-layerid")
             var visible = (elem.checked ? 'visible' : 'none')
@@ -474,6 +526,7 @@
                 stmp.mapObject.map.setPaintProperty(layerId,"text-opacity",value)
             }
         }
+
         function fn_set_layer_order_up(elem){
             var layers = stmp.mapObject.map.getStyle().layers
             var layerId = elem.getAttribute("data-layerid")
@@ -496,6 +549,7 @@
                 toastr.warning("레이어 순서조정이 불가능합니다.")
             }
         }
+
         function fn_set_layer_order_down(elem){
             var layers = stmp.mapObject.map.getStyle().layers
             var layerId = elem.getAttribute("data-layerid")
@@ -524,18 +578,21 @@
                 toastr.warning("레이어 순서조정이 불가능합니다.")
             }
         }
+
         function fn_set_layer_min_zoom(elem){
             var layerId = elem.getAttribute("data-layerid")
             var layer = stmp.mapObject.map.getLayer(layerId)
             layer.minzoom = elem.value
             stmp.mapObject.map.resize()
         }
+
         function fn_set_layer_max_zoom(elem){
             var layerId = elem.getAttribute("data-layerid")
             var layer = stmp.mapObject.map.getLayer(layerId)
             layer.maxzoom = elem.value
             stmp.mapObject.map.resize()
         }
+
         /* GRID area */
         function fn_set_graticules(elem){
             if(elem.tagName === "SELECT"){
@@ -560,6 +617,11 @@
                 })
             }
         }
+
+        function fn_set_layer(layer){
+            jiCommon.map.setLayer(layer);
+        }
+
         /* GRID area */
 
         //이지훈 UUID 생성

@@ -120,7 +120,7 @@ JimapCesium.prototype = {
      */
     _setBaseTerrain : function _setBaseTerrain() {
         var terrainProvider = new Cesium.CesiumTerrainProvider({
-            url : jiCommon.MAP_SERVER_URL + '/tilesets/lv2',
+            url : jiCommon.MAIN_SERVER_URL + '/tilesets/lv2',
             //requestWaterMask : true,
             requestVertexNormals : true
         });
@@ -128,7 +128,7 @@ JimapCesium.prototype = {
         this._map.terrainProvider = terrainProvider;
         this._map.scene.terrainProvider = terrainProvider;
 
-        //this._map.scene.globe.enableLighting = true;
+        this._map.scene.globe.enableLighting = true;
     },
     /**
      *
@@ -138,8 +138,8 @@ JimapCesium.prototype = {
         var imageryLayers = this._map.imageryLayers;
         imageryLayers.removeAll();
         imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-            url : jiCommon.MAP_SERVER_URL + `${window.location.protocol === 'https:' ? '/mapproxy' : ''}/service`,
-            layers : jiCommon.getBaseMapLayer(),
+            url : jiCommon.MAIN_SERVER_URL + '/mapproxy/service',
+            layers : jiCommon.getMainMapLayer(),
             parameters : {
                 transparent : 'true',
                 format : 'image/png',
@@ -178,7 +178,7 @@ JimapCesium.prototype = {
         grd.addColorStop(values[10], '#e6194B'); //Red
         grd.addColorStop(values[11], '#800000'); //Maroon
         grd.addColorStop(values[12], '#9A6324'); //Brown
-        grd.addColorStop(values[13], '#808000'); //Olive
+        grd.addColorStop(values[13], '#808000'); //OliveF
         grd.addColorStop(values[14], '#27AA00'); //Dark Green
         grd.addColorStop(values[15], '#a9a9a900'); //Transparent
 
@@ -241,5 +241,22 @@ JimapCesium.prototype = {
         if (mode === 'draw_line_string') {
             this._map.screenSpaceEventHandler.setInputAction(this._leftDoubleClickEvent, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
         }
+    },
+    /**
+     * LAYER 데이터 설정
+     * @param layer
+     */
+    setLayer : function setLayer(layer) {
+        var imageryLayers = this._map.imageryLayers;
+        imageryLayers.removeAll();
+        imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
+            url : jiCommon.MAP_SERVER_URL + (window.location.protocol === 'https:' ? '/mapproxy/service' : '/service'),
+            layers : layer,
+            parameters : {
+                transparent : 'true',
+                format : 'image/png',
+                tiled : true
+            }
+        }));
     }
 }

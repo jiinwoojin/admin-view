@@ -1,12 +1,18 @@
 package com.jiin.admin.website.view.controller;
 
+import com.jiin.admin.website.view.service.ProxyCacheService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
+
 @Controller
 @RequestMapping("display")
 public class MVCDisplayController {
+    @Resource
+    private ProxyCacheService proxyCacheService;
+
     @RequestMapping("2d-map")
     public String twoDimensionDisplayView(Model model) {
         return "page/display/2d-map";
@@ -41,6 +47,7 @@ public class MVCDisplayController {
     // 공통 지도 : 2 차원 + 3 차원 (Mapbox GL JS, Cesium)
     @RequestMapping("common-map")
     public String commonMapDisplayView(Model model) {
+        model.addAttribute("layers", proxyCacheService.loadDataListBySelected("LAYERS", true));
         return "page/display/common-map";
     }
 

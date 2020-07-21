@@ -5,7 +5,7 @@
 var stmp = {
     PROTOCOL : window.location.protocol,
     // 상황도 서버 도메인 서버 IP
-    SERVER_DOMAIN : '211.172.246.71',
+    SERVER_DOMAIN : '192.168.1.180',
     // 상황도 서버 지도 PORT
     SERVER_MAP_PORT : 11100,
     // 상황도 서버 이미지 PORT

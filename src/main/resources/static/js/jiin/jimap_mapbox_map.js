@@ -62,7 +62,8 @@ JimapMapbox.prototype = {
             'world' : {
                 'type' : jiConstant.MAPBOX_SOURCE_TYPE.RASTER,
                 'tiles' : [
-                    jiCommon.MAP_SERVER_URL + `${window.location.protocol === 'https:' ? '/mapproxy' : ''}/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.3.0&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=` + jiCommon.BASE_MAP_LAYER
+                    jiCommon.MAIN_SERVER_URL + '/mapproxy/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1' +
+                    '&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=' + jiCommon.MAIN_MAP_LAYER
                 ],
                 'tileSize' : 256
             }
@@ -79,8 +80,8 @@ JimapMapbox.prototype = {
         return {
             'version' : 8,
             'sources' : sources,
-            'sprite' : jiCommon.MAP_SERVER_URL + '/GSymbol/GSSSymbol',
-            'glyphs' : jiCommon.MAP_SERVER_URL + '/fonts/{fontstack}/{range}.pbf',
+            'sprite' : jiCommon.MAIN_SERVER_URL + '/GSymbol/GSSSymbol',
+            'glyphs' : jiCommon.MAIN_SERVER_URL + '/fonts/{fontstack}/{range}.pbf',
             'layers' : layers
         };
     },
@@ -114,5 +115,29 @@ JimapMapbox.prototype = {
             'south' : extents.getSouth(),
             'west' : extents.getWest()
         }
+    },
+    /**
+     * LAYER 데이터 설정
+     * @param layer
+     */
+    setLayer : function setLayer(layer) {
+        this._map.removeLayer(jiConstant.BASE_MAP_ID);
+        this._map.removeSource('world');
+
+        this._map.addSource('world', {
+            'type': 'raster',
+            'tiles': [
+                jiCommon.MAP_SERVER_URL + (window.location.protocol === 'https:' ? '/mapproxy/service' : '/service') + `?REQUEST=getMap&LAYERS=${layer}&version=1.3.0&crs=EPSG:3857&srs=EPSG:3857&format=image/png&bbox={bbox-epsg-3857}&width=256&height=256&styles=`
+            ],
+            'tileSize': 256
+        });
+        this._map.addLayer(
+            {
+                'id': jiConstant.BASE_MAP_ID,
+                'type': 'raster',
+                'source': 'world',
+                'paint': {}
+            }
+        );
     }
 }
