@@ -63,7 +63,8 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      * 각 해당하는 Relation 을 생성한다.
      * @param mainType String, subType String, mainId long, subNames List : String
      */
-    private boolean createRelationWithMainIdAndSubNames(String mainType, String subType, long mainId, List<String> subNames) {
+    @Transactional
+    public boolean createRelationWithMainIdAndSubNames(String mainType, String subType, long mainId, List<String> subNames) {
         int cnt = subNames.size();
         if (mainType.equals("LAYER") && subType.equals("SOURCE")) {
             proxyLayerSourceRelationMapper.deleteByLayerId(mainId);
@@ -525,6 +526,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
     }
 
     @Override
+    @Transactional
     public boolean removeProxyDataByNameAndType(String name, String type, ServerCenterInfo local) {
         if (local == null) {
             return false;
@@ -566,6 +568,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      * @param proxySelectModel ProxySelectModel
      */
     @Override
+    @Transactional
     public boolean setProxyDataSelectByModel(ProxySelectRequestModel proxySelectModel, ServerCenterInfo local) {
         if (local == null) {
             return false;

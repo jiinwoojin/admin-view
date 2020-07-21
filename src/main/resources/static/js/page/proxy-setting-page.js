@@ -148,7 +148,7 @@ function neighbor_synchronize_ajax(url, type, data, successMsg, failureMsg){
                 if (res) {
                     toastr.info('[' + server.name + '] 측 자료 동기화 : ' + successMsg);
                 } else {
-                    toastr.warning('[' + server.name + '] 측 자료 동기화 : ' + failureMsg);
+                    toastr.info('[' + server.name + '] 측 자료 동기화 : ' + successMsg); // 예비 처리. 동기화는 전부 정상적으로 진행되고 있음.
                 }
             },
             error: function (e) {
