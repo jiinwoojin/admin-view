@@ -437,7 +437,19 @@ function onclick_remove_button(btn){
             var idx = arr.map(o => o.cache).indexOf(data.cache);
             if (idx > -1) arr.splice(idx, 1);
             window[data.id] = arr.slice();
+
             rendering_selected_data(data.id, window[data.id]);
+
+            var layerText = '';
+            for(var layerData of window['selectedLayers']){
+                if(layerData.caches.includes(data.cache)){
+                    document.getElementById('remove_yaml_layer_' + layerData.layer).click();
+                    layerText += layerData.layer + ' '
+                }
+            }
+            if(layerText !== '') {
+                toastr.info("CACHE 데이터인 " + data.cache + "와 관련된 LAYER 데이터 " + layerText + " (들)도 YAML 파일 설정에서 해제 되었습니다.");
+            }
             break;
     }
 }

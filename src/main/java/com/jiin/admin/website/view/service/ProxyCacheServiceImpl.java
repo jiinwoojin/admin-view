@@ -219,7 +219,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         switch(proxyLayerModel.getMethod()) {
             case "INSERT" :
                 if (layer != null) {
-                    return false;
+                    return true;
                 }
                 long nextIdx = proxyLayerMapper.findNextSeqVal();
                 proxyLayerModel.setId(nextIdx);
@@ -264,7 +264,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         switch(proxySourceMapServerModel.getMethod()) {
             case "INSERT" :
                 if (root != null) {
-                    return false;
+                    return true;
                 }
                 long nextIdx = proxySourceMapper.findNextSeqVal();
                 proxySourceMapServerModel.setId(nextIdx);
@@ -310,7 +310,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         switch(proxySourceWMSModel.getMethod()) {
             case "INSERT" :
                 if (root != null) {
-                    return false;
+                    return true;
                 }
                 long nextIdx = proxySourceMapper.findNextSeqVal();
                 proxySourceWMSModel.setId(nextIdx);
@@ -360,7 +360,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         switch(proxyCacheModel.getMethod()) {
             case "INSERT" :
                 if (cache != null) {
-                    return false;
+                    return true;
                 }
                 long nextIdx = proxyCacheMapper.findNextSeqVal();
                 proxyCacheModel.setId(nextIdx);
