@@ -12,22 +12,6 @@ var jiCommon = {
     /**
      *
      */
-    MAIN_MAP_SERVER_DOMAIN : '192.168.1.180',
-    /**
-     *
-     */
-    MAIN_MAP_SERVER_PORT : 11100,
-    /**
-     *
-     */
-    MAIN_MAP_LAYER : 'world_k2',
-    /**
-     *
-     */
-    MAIN_SERVER_URL : '',
-    /**
-     *
-     */
     MAP_SERVER_DOMAIN : '192.168.1.180',
     /**
      *
@@ -283,9 +267,4 @@ $.ajax({
 if (jiCommon.MAP_SERVER_URL === '') {
     jiCommon.MAP_SERVER_URL = window.location.protocol + '//'
         + jiCommon.MAP_SERVER_DOMAIN + (jiCommon.MAP_SERVER_PORT !== 0 ? ':' + jiCommon.MAP_SERVER_PORT : '');
-}
-
-if (jiCommon.MAIN_SERVER_URL === '') {
-    jiCommon.MAIN_SERVER_URL = window.location.protocol + '//'
-        + jiCommon.MAIN_MAP_SERVER_DOMAIN + (jiCommon.MAIN_MAP_SERVER_PORT !== 0 ? ':' + jiCommon.MAIN_MAP_SERVER_PORT : '');
 }

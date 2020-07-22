@@ -120,7 +120,7 @@ JimapCesium.prototype = {
      */
     _setBaseTerrain : function _setBaseTerrain() {
         var terrainProvider = new Cesium.CesiumTerrainProvider({
-            url : jiCommon.MAIN_SERVER_URL + '/tilesets/lv2',
+            url : jiCommon.MAP_SERVER_URL + '/tilesets/lv2',
             //requestWaterMask : true,
             requestVertexNormals : true
         });
@@ -138,8 +138,8 @@ JimapCesium.prototype = {
         var imageryLayers = this._map.imageryLayers;
         imageryLayers.removeAll();
         imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-            url : jiCommon.MAIN_SERVER_URL + '/mapproxy/service',
-            layers : jiCommon.getMainMapLayer(),
+            url : jiCommon.MAP_SERVER_URL + `${window.location.protocol === 'https:' ? '/mapproxy' : ''}/service`,
+            layers : jiCommon.getBaseMapLayer(),
             parameters : {
                 transparent : 'true',
                 format : 'image/png',
