@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout" lang="ko">
 
 <th:block layout:fragment="content-title-fragment">
     <h1 class="h3 mb-0 text-gray-800">공통 지도</h1>
@@ -73,8 +73,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="sample-div" style="position: absolute;"></div>
     </div>
 
     <div class="map_area">
@@ -169,12 +167,6 @@
                     <th:block th:replace="fragments/overlay/html-overlay-main" />
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="overlay_start" class="btn btn-sm btn-primary">
-                        <i class="fas fa-save"></i> 편집 시작
-                    </button>
-                    <button type="button" id="overlay_move" class="btn btn-sm btn-primary">
-                        <i class="fas fa-save"></i> 지도 이동
-                    </button>
                     <button type="button" id="overlay_save" class="btn btn-sm btn-primary">
                         <i class="fas fa-save"></i> 저장
                     </button>
@@ -275,22 +267,10 @@
             });
         }
 
-        var _TEGOLA_CONFIG = {}
-
         let overlayModal = '#shape_modal';
         let layerModal = '#layer_modal';
 
-        var sampleDiv = document.querySelector('.sample-div');
         var mapContent = document.querySelector('#mapContent');
-
-        let d3Canvas = null;
-        let comAttr = type_common;
-        let options = {
-            h: '100%',
-            w: '100%',
-            addTo: '.sample-div',
-            addBorderRect: true
-        };
 
         $(window).ready(function() {
             modal_draggable('#layer_modal');
@@ -310,19 +290,21 @@
 
             getMap('mapbox-display');
             // $('#display-display2d').addClass('active');
-            stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
+            jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_2D);
 
             $(overlayModal).on('hide.bs.modal', function() {
-                if (stmp.drawMode) {
+                /*if (stmp.drawMode) {
                     stmp.drawMode = false;
 
                     sampleDiv.style.setProperty('pointer-events', 'none');
                     mapContent.style.removeProperty('pointer-events');
 
                     stmp.d3Canvas.closeCanvas();
-                }
+                }*/
             });
 
+            var display2dDiv = 'display-display2d';
+            var display3dDiv = 'display-display3d';
             $('.map-item').click(function(e) {
                 if (this.id) {
                     let _id = this.id;
@@ -331,34 +313,34 @@
 
                     jiCommon.setMapExtents();
 
-                    if (_id === 'display-display2d') {
+                    if (_id === display2dDiv) {
                         contentName = 'mapbox-display';
-                        $('#display-display2d').addClass('btn-info');
+                        $('#' + display2dDiv).addClass('btn-info');
 
-                        $('#display-display3d').removeClass('btn-info');
-                        $('#display-display3d').addClass('btn-secondary');
+                        $('#' + display3dDiv).removeClass('btn-info');
+                        $('#' + display3dDiv).addClass('btn-secondary');
                         //$('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
                         stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
-                    } else if (_id === 'display-display3d') {
+                    } else if (_id === display3dDiv) {
                         contentName = 'cesium-display';
 
-                        $('#display-display3d').addClass('btn-info');
+                        $('#' + display3dDiv).addClass('btn-info');
 
-                        $('#display-display2d').removeClass('btn-info');
-                        $('#display-display2d').addClass('btn-secondary');
+                        $('#' + display2dDiv).removeClass('btn-info');
+                        $('#' + display2dDiv).addClass('btn-secondary');
                         //$('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
-                        stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_3D;
+                        jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_3D);
                     }
 
-                    if (stmp.mapObject !== null) {
-                        stmp.mapObject = null;
+                    if (jiCommon.map !== null) {
+                        jiCommon.map = null;
                     }
 
                     getMap(contentName);
                 }
             });
 
-            $('#overlay_save').click(function() {
+            /*$('#overlay_save').click(function() {
                 console.log('save');
                 debugger;
                 saveCanvasData(stmp.d3Canvas);
@@ -371,9 +353,9 @@
                 mapContent.style.removeProperty('pointer-events');
 
                 editingMoveMap(d3Canvas);
-            });
+            });*/
 
-            $('#overlay_start').click(function() {
+            /*$('#overlay_start').click(function() {
                 sampleDiv.style.setProperty('z-index', 999);
                 sampleDiv.style.setProperty('width', document.querySelector('#mapContent').clientWidth + 'px');
                 sampleDiv.style.setProperty('height', document.querySelector('#mapContent').clientHeight + 'px');
@@ -389,21 +371,6 @@
                         mapMoveToEditing(stmp.d3Canvas);
                     }
                 }
-            });
-            // load tegola config
-            /*jiCommon.showLoading()
-            jQuery.post({
-                url: CONTEXT + "/server/api/layer/load-tegola-config"
-            }).done(function(result) {
-                if (result instanceof Object) {
-                    window._TEGOLA_CONFIG = result
-                } else {
-                    toastr.error('서버 로드 오류입니다.');
-                }
-            }).fail(function() {
-                toastr.error('서버 로드 오류입니다.');
-            }).always(function() {
-                jiCommon.hideLoading()
             });*/
         });
 

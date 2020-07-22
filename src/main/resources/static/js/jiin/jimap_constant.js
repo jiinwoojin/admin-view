@@ -3,6 +3,13 @@
 var jiConstant = {
     BASE_MAP_ID : 'BASE_MAP',
     /**
+     * map 종류
+     */
+    MAP_KIND : {
+        MAP_3D : 0,
+        MAP_2D : 1
+    },
+    /**
      * geometry 타입 정의
      */
     GEOMETRY_TYPE : {

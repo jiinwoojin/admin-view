@@ -658,7 +658,7 @@ var stmp = {
          * var result = stmp.convert.lonLatToPixel(point);
          */
         lonLatToPixel : function lonLatToPixel(point) {
-            return this.mapObject.unproject(point);
+            return this.mapObject.project(point);
         },
         /**
          * 군사좌표 -> 경위도
@@ -744,7 +744,7 @@ var stmp = {
          * var result = stmp.convert.pixelToLonLat(point);
          */
         pixelToLonLat : function pixelToLonLat(point) {
-            return this.mapObject.project(point);
+            return this.mapObject.unproject(point);
         },
         degreesToMeters : function degreesToMeters(lon, lat) {
             var x = lon * 20037508.34 / 180;

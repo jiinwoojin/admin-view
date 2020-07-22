@@ -62,7 +62,7 @@ $('.scroller-left').click(function() {
 });
 
 $('.btn-overlay').click(function() {
-    if (!stmp.drawMode) {
+    /*if (!stmp.drawMode) {
         alert('편집 모드에서만 작동합니다.');
         return;
     }
@@ -74,5 +74,10 @@ $('.btn-overlay').click(function() {
         }
 
         SelectedShape(d3Canvas, _id);
+    }*/
+
+    if (this.id) {
+        var _id = this.id.split('_')[1];
+        jiCommon.overlay.selectedShape(_id);
     }
 });

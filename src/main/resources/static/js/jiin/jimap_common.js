@@ -9,6 +9,7 @@ var CONTEXT = $(ContextPath).attr('data-contextPath') ? $(ContextPath).attr('dat
  * [공통] : 자바스크립트 공통 로직
  */
 var jiCommon = {
+    // localhost 일 경우 사용
     /**
      *
      */
@@ -25,6 +26,7 @@ var jiCommon = {
      *
      */
     MAIN_SERVER_URL : '',
+    // localhost 일 경우 사용
     /**
      *
      */
@@ -53,6 +55,24 @@ var jiCommon = {
      *
      */
     mapExtents : undefined,
+    /**
+     *
+     */
+    overlay : undefined,
+    /**
+     *
+     */
+    PRESENT_MAP_KIND : undefined,
+    /**
+     * true : 3D, false : 2D
+     * @returns {boolean}
+     */
+    checkMapKind : function checkMapKind() {
+        return this.PRESENT_MAP_KIND === jiConstant.MAP_KIND.MAP_3D;
+    },
+    setPresentMapKind : function setPresentMapKind(mapKind) {
+        this.PRESENT_MAP_KIND = mapKind;
+    },
     /**
      *
      * @returns {string}
@@ -232,12 +252,63 @@ var jiCommon = {
      */
     convert : {
         /**
+         * 경위도 -> 화면좌표
+         * @param point point.lon, point.lat
+         * @returns {*}
+         * var point = {};
+         * point.lon = 127;
+         * point.lat = 37;
+         * var result = jiCommon.convert.lonLatToPixel(point);
+         */
+        lonLatToPixel : function lonLatToPixel(point) {
+            return jiCommon.map.project(point);
+        },
+        /**
+         * EPSG:4326 -> EPSG:3857
+         * @param lon
+         * @param lat
+         * @returns {[number, number]}
+         */
+        degreesToMeters : function degreesToMeters(lon, lat) {
+            var x = lon * 20037508.34 / 180;
+            var y = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
+            y = y * 20037508.34 / 180;
+
+            return [x, y]
+        },
+        /**
          * Gars -> 경위도
          * @param gars - '608LS47'
          * var lonLat = jiCommon.convert.garsToLonLat('608LS47');
          */
         garsToLonLat : function garsToLonLat(gars) {
             return geoTrans.Gars.garsToLonLat(gars);
+        },
+        /**
+         * 화면좌표 -> 경위도
+         * @param point point.x, point.y
+         * var point = {};
+         * point.x = 250;
+         * point.y = 300;
+         * var result = jiCommon.convert.pixelToLonLat(point);
+         */
+        pixelToLonLat : function pixelToLonLat(point) {
+            return jiCommon.map.unproject(point);
+        },
+        /**
+         * EPSG:3857 -> EPSG:4326
+         * @param x
+         * @param y
+         * @returns {{lon: number, lat: number}}
+         */
+        metersToDegrees : function metersToDegrees(x, y) {
+            var lon = x * 180 / 20037508.34;
+            var lat = Math.atan(Math.exp(y * Math.PI / 20037508.34)) * 360 / Math.PI - 90;
+
+            return {
+                'lon' : lon,
+                'lat' : lat
+            }
         },
         /**
          * Gars -> 경위도 polygon
@@ -261,6 +332,18 @@ var jiCommon = {
 
             return new Geometry.Polygon(coordinates).getCoordinates();
         }
+    },
+    addMapEvent : function addMapEvent(type, fn) {
+        this.map.addEvent(type, fn);
+    },
+    removeMapEvent : function removeMapEvent(type, fn) {
+        this.map.removeEvent(type, fn);
+    },
+    disableDragPan : function disableDragPan() {
+        this.map.disableDragPan();
+    },
+    enableDragPan : function enableDragPan() {
+        this.map.enableDragPan();
     }
 };
 

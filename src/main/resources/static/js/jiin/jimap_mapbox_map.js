@@ -139,5 +139,26 @@ JimapMapbox.prototype = {
                 'paint': {}
             }
         );
+    },
+    getCanvasContainer : function getCanvasContainer() {
+        return this._map.getCanvasContainer();
+    },
+    addEvent : function addEvent(type, fn) {
+        this._map.on(type, fn);
+    },
+    removeEvent : function removeEvent(type, fn) {
+        this._map.off(type, fn);
+    },
+    disableDragPan : function disableDragPan() {
+        this._map.dragPan.disable();
+    },
+    enableDragPan : function enableDragPan() {
+        this._map.dragPan.enable();
+    },
+    project : function project(point) {
+        return this._map.project([point.lon, point.lat]);
+    },
+    unproject : function unproject(point) {
+        return this._map.unproject([point.x, point.y]);
     }
 }
