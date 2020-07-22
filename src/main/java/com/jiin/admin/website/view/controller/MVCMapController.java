@@ -1,6 +1,7 @@
 package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.config.SessionService;
+import com.jiin.admin.dto.LayerDTO;
 import com.jiin.admin.dto.MapDTO;
 import com.jiin.admin.website.model.MapPageModel;
 import com.jiin.admin.website.view.service.LayerService;
@@ -18,6 +19,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequestMapping("manage")
@@ -54,7 +57,9 @@ public class MVCMapController {
      */
     @RequestMapping("map-create")
     public String pageMapCreate(Model model, @ModelAttribute MapDTO mapDTO, MapPageModel mapPageModel) {
-        model.addAttribute("layers", layerService.loadDataList());
+        List<LayerDTO> layers = layerService.loadDataList();
+        Collections.reverse(layers);
+        model.addAttribute("layers", layers);
         model.addAttribute("qs", mapPageModel.getQueryString());
 
         return "page/manage/map-create";
@@ -77,10 +82,12 @@ public class MVCMapController {
      */
     @RequestMapping("map-update")
     public String pageMapUpdate(Model model, @RequestParam long id, MapPageModel mapPageModel) {
+        List<LayerDTO> layers = layerService.loadDataList();
+        Collections.reverse(layers);
+        model.addAttribute("layers", layers);
         model.addAttribute("mapDTO", mapService.loadDataById(id));
         model.addAttribute("version", mapService.loadVersionInfoListById(id));
         model.addAttribute("selectLayers", layerService.loadDataListByMapId(id));
-        model.addAttribute("layers", layerService.loadDataList());
         model.addAttribute("qs", mapPageModel.getQueryString());
 
         return "page/manage/map-update";

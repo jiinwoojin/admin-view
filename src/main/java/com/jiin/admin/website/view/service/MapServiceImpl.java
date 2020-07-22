@@ -334,6 +334,7 @@ public class MapServiceImpl implements MapService {
         List<ProxySourceDTO> cascadeProxySources = cascadeRelativeComponent.loadMapRemoveAfterOrphanProxySources(id);
         if(cascadeProxySources.size() > 0) {
             cascadeRelativeComponent.removeMapFileWithOrphanCheck(id);
+            return true;
         }
 
         // MAP 을 삭제하면, LAYER 버전을 전부 1.0 으로 초기화. (단 버전을 관리할 때.)
@@ -346,7 +347,9 @@ public class MapServiceImpl implements MapService {
         }
 
         removeRelationByMapId(id); // 현재 MAP, LAYER 종속 관계 삭제
-        mapVersionManagement.removeVersionWithMapData(selected); // MAP 버전 폴더 및 DB 삭제
+        if (mapVersionMapper.findByMapId(id) != null) {
+            mapVersionManagement.removeVersionWithMapData(selected); // MAP 버전 폴더 및 DB 삭제
+        }
         if (mapMapper.deleteById(id) > 0) {
             try {
                 if (!StringUtils.isBlank(selected.getMapFilePath())) {

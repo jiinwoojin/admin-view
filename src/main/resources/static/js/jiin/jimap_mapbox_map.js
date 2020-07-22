@@ -62,8 +62,8 @@ JimapMapbox.prototype = {
             'world' : {
                 'type' : jiConstant.MAPBOX_SOURCE_TYPE.RASTER,
                 'tiles' : [
-                    jiCommon.MAIN_SERVER_URL + '/mapproxy/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1' +
-                    '&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=' + jiCommon.MAIN_MAP_LAYER
+                    jiCommon.MAP_SERVER_URL + `${window.location.protocol === 'https:' ? '/mapproxy' : ''}/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.3.0` +
+                    '&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=' + jiCommon.getBaseMapLayer()
                 ],
                 'tileSize' : 256
             }
@@ -80,8 +80,8 @@ JimapMapbox.prototype = {
         return {
             'version' : 8,
             'sources' : sources,
-            'sprite' : jiCommon.MAIN_SERVER_URL + '/GSymbol/GSSSymbol',
-            'glyphs' : jiCommon.MAIN_SERVER_URL + '/fonts/{fontstack}/{range}.pbf',
+            'sprite' : jiCommon.MAP_SERVER_URL + '/GSymbol/GSSSymbol',
+            'glyphs' : jiCommon.MAP_SERVER_URL + '/fonts/{fontstack}/{range}.pbf',
             'layers' : layers
         };
     },

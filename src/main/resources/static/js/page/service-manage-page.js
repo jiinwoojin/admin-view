@@ -4,9 +4,7 @@ $(document).ready(function() {
         toastr.info(message);
     }
 
-    $('#list_table_shutdown,#list_table_restart').each(function () {
-        initialize_dataTable(this.id);
-    });
+    initialize_dataTable('list_table_shutdown', { 'order' : [[ 4, 'desc' ]] });
 
     if (connections.length > 0) {
         $('#carousel-0').slick({
