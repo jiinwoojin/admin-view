@@ -52,6 +52,8 @@ $(document).ready(function() {
         sessionStorage.removeItem('tabId');
     }
 
+
+
     for(var dom of $('[id^=service-refresh-]')){
         dom.click();
     }
@@ -167,6 +169,7 @@ function onclick_service_execute(btn){
     var index = $(btn).data('index');
     var service = $(btn).data('service');
     var serviceKey = $(btn).data('serviceKey');
+    var hostname = $(btn).data('hostname');
 
     var question = service + " 서비스를 " + (method === 'START' ? '가동' : method === 'RESTART' ? '재가동' : '정지') + '합니다. 계속 하시겠습니까?';
     if(confirm(question)){
@@ -177,7 +180,7 @@ function onclick_service_execute(btn){
                 ip: connections[index].ip,
                 name: serviceKey,
                 method: method,
-                hostname : localMain && localMain.name
+                hostname : hostname
             }),
             contentType: 'application/json',
             success: function (res) {
@@ -201,3 +204,9 @@ function onclick_remove_all_history(){
         window.location.href = CONTEXT + '/view/server/history-clean';
     }
 }
+
+function onchange_manage_zone(dom) {
+    var value = dom.value;
+    window.location.href = CONTEXT + '/view/server/service-manage?zone=' + value;
+}
+

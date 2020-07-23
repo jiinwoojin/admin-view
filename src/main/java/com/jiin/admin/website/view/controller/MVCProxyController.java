@@ -58,6 +58,9 @@ public class MVCProxyController {
     @Value("${project.data-path}")
     private String dataPath;
 
+    @Value("${project.docker-name.mapproxy-name}")
+    private String mapProxyContainer;
+
     @Resource
     private ProxyLayerMapper proxyLayerMapper;
 
@@ -82,6 +85,7 @@ public class MVCProxyController {
         model.addAttribute("port", MAP_PROXY_PORT);
         model.addAttribute("proxyLayers", proxyCacheService.loadDataListBySelected("LAYERS", true));
         model.addAttribute("proxyYAML", proxyCacheService.loadProxyYamlSetting());
+        model.addAttribute("containerName", mapProxyContainer);
         return "page/proxy/preview";
     }
 

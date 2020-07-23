@@ -8540,9 +8540,9 @@ dl dd {
 
 .map_top {
   position: absolute;
-  top: 5px;
-  width: 100%;
-  z-index: 999; }
+  width: 97.5%;
+  z-index: 999;
+}
 
 .map_area {
   min-height: 72vh;
