@@ -3,7 +3,9 @@ package com.jiin.admin.website.view.service;
 import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 public interface ProxyCacheService {
     boolean saveYAMLFileByEachList(ServerCenterInfo local);
@@ -18,10 +20,11 @@ public interface ProxyCacheService {
 
     ProxySelectResponseModel loadProxySetting();
 
-    boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel, ServerCenterInfo local, boolean synced);
-    boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel, ServerCenterInfo local, boolean synced);
-    boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel, ServerCenterInfo local, boolean synced);
-    boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel, ServerCenterInfo local, boolean synced);
+    Map<String, Object> writeYAMLFileForNeighbors(HttpServletRequest request, boolean result, ServerCenterInfo local, List<ServerCenterInfo> neighbors);
+    boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel, ServerCenterInfo local);
+    boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel, ServerCenterInfo local);
+    boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel, ServerCenterInfo local);
+    boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel, ServerCenterInfo local);
     boolean saveProxyGlobalByModelList(List<ProxyGlobalModel> proxyGlobalModels, ServerCenterInfo local);
     boolean removeProxyDataByIdAndType(long id, String type, ServerCenterInfo local);
     boolean removeProxyDataByNameAndType(String name, String type, ServerCenterInfo local);
