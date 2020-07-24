@@ -7,6 +7,7 @@ var JimapMapbox = function JimapMapbox(options) {
     }
 
     this._initComplete = false;
+    options.maxBounds = [[-180, -90], [180, 90]]
 
     this._map = undefined;
     this._init(options);
@@ -47,6 +48,7 @@ JimapMapbox.prototype = {
             zoom : options.zoom || 10,
             maxZoom : options.maxZoom || 20,
             minZoom : options.minZoom || 2,
+            maxBounds : options.maxBounds,
             preserveDrawingBuffer : true,
             dragRotate : options.dragRotate === undefined ? true : options.dragRotate,
             dragPan : options.dragPan === undefined ? true : options.dragPan,
@@ -62,7 +64,9 @@ JimapMapbox.prototype = {
             'world' : {
                 'type' : jiConstant.MAPBOX_SOURCE_TYPE.RASTER,
                 'tiles' : [
-                    jiCommon.MAP_SERVER_URL + `${window.location.protocol === 'https:' ? '/mapproxy' : ''}/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.3.0` +
+                    //jiCommon.MAP_SERVER_URL + `${window.location.protocol === 'https:' ? '/mapproxy' : ''}/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.3.0` +
+                    //'&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=' + jiCommon.getBaseMapLayer()
+                    jiCommon.MAP_SERVER_URL + '/mapproxy/service?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.3.0' +
                     '&request=GetMap&srs=EPSG:3857&crs=EPSG:3857&styles&transparent=true&width=256&height=256&layers=' + jiCommon.getBaseMapLayer()
                 ],
                 'tileSize' : 256

@@ -16,7 +16,7 @@ var jiCommon = {
     /**
      *
      */
-    MAP_SERVER_PORT : (window.location.protocol === 'https:') ? 0 : 11120,
+    MAP_SERVER_PORT : (window.location.protocol === 'https:') ? 0 : 11100,
     /**
      *
      */
@@ -61,13 +61,6 @@ var jiCommon = {
      */
     getBaseMapLayer : function getBaseMapLayer() {
         return this.BASE_MAP_LAYER;
-    },
-    /**
-     *
-     * @returns {string}
-     */
-    getMainMapLayer : function getMainMapLayer() {
-        return this.MAIN_MAP_LAYER;
     },
     /**
      *
