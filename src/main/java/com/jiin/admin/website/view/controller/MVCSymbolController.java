@@ -1,5 +1,7 @@
 package com.jiin.admin.website.view.controller;
 
+import com.jiin.admin.website.model.SymbolPageModel;
+import com.jiin.admin.website.view.service.SymbolImageService;
 import com.jiin.admin.website.view.service.SymbolService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,15 @@ import java.io.IOException;
 public class MVCSymbolController {
     @Resource
     private SymbolService service;
+
+    @Resource
+    private SymbolImageService symbolImageService;
+
+    @RequestMapping("image-list")
+    public String symbolImageListView(Model model) {
+        model.addAttribute("images", symbolImageService.findAll());
+        return "page/symbol/image-list";
+    }
 
     @RequestMapping("list")
     public String symbolListView(Model model, @RequestParam(value = "pg", defaultValue = "1") int pg, @RequestParam(value = "sz", defaultValue = "8") int sz, @RequestParam(value = "ob", defaultValue = "0") int ob, @RequestParam(value = "st", defaultValue = "") String st) throws IOException {
