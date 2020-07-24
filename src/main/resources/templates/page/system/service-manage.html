@@ -25,15 +25,15 @@
                 <option th:each="zone : ${zones}" th:value="${zone}" th:text="${zone == 'GOC' ? '지작사' : zone}" th:selected="${ #strings.equals((param.zone == null ? local.zone : param.zone), zone) }"></option>
             </select>
         </div>
-        <div th:if="${ #lists.size(connections) > 0 }">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <div id="service-exists" th:if="${ #lists.size(connections) > 0 }">
+            <ul class="nav nav-tabs" id="service-tab" role="tablist">
                 <li th:each="connection, idx : ${connections}" class="nav-item">
-                    <a th:class="${ idx.index == 0 ? 'nav-link active' : 'nav-link' }" th:id="${'tab' + idx.index}" data-toggle="tab" th:href="${'#' + connection.key}" role="tab" th:text="${connection.name}"></a>
+                    <a class="nav-link" th:id="${'tab' + idx.index}" data-toggle="tab" th:data-index="${idx.index}" th:data-ip="${connection.ip}" th:href="${'#' + connection.key}" role="tab" th:text="${connection.name}"></a>
                 </li>
             </ul>
 
             <div class="tab-content" id="service-manage-view">
-                <div th:each="connection, idx : ${connections}" th:class="${ idx.index == 0 ? 'tab-pane fade show active' : 'tab-pane fade' }" th:id="${connection.key}" role="tabpanel">
+                <div th:each="connection, idx : ${connections}" class="tab-pane fade" th:id="${connection.key}" role="tabpanel">
                     <div th:id="${ 'carousel-' + idx.index }" class="my-1">
                         <div th:each="service : ${serviceMap.keySet()}">
                             <div class="ibox-content mx-1">
@@ -111,7 +111,7 @@
                 </div>
             </div>
         </div>
-        <div th:unless="${ #lists.size(connections) > 0}">
+        <div id="service-no-exists" th:unless="${ #lists.size(connections) > 0}">
             <div class="jumbotron">
                 <h1 class="display-4">
                     <i class="fas fa-times-circle"></i> No Server!
@@ -153,6 +153,7 @@
     <script th:inline="javascript">
         var message = /*[[ ${message} ]]*/ null;
         var connections = /*[[ ${connections} ]]*/ [];
+        var services = /*[[ ${serviceMap} ]]*/ {};
     </script>
     <!-- // 서버 작동 내역 조회 종료 -->
 </th:block>

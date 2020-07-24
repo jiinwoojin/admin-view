@@ -52,10 +52,72 @@ $(document).ready(function() {
         sessionStorage.removeItem('tabId');
     }
 
+    $("a[data-toggle='tab']").on('shown.bs.tab', function(e) {
+        var data = $(e.target).data();
+        var ip = data.ip;
+        var index = data.index;
+        $.ajax({
+            url: `${CONTEXT}/server/api/service/remote-docker-initialize-check`,
+            type: 'POST',
+            data: JSON.stringify({
+                ip: ip,
+            }),
+            contentType: 'application/json',
+            success: function (status) {
+                for (var key in status) {
+                    successFunc(key, index, { result : status[key] });
+                }
+            },
+            error: function (e) {
+                for (var key in services) {
+                    var service = services[key];
+                    if (service.port === 0) {
+                        display_initialize(service.name, 'ERROR', index);
+                    }
+                }
+            },
+            beforeSend: function () {
+                for (var key in services) {
+                    var service = services[key];
+                    if (service.port === 0) {
+                        display_initialize(service.name, 'LOADING', index);
+                    }
+                }
+            }
+        });
+        $.ajax({
+            url: `${CONTEXT}/server/api/service/extension-initialize-check`,
+            type: 'POST',
+            data: JSON.stringify({
+                ip: ip,
+            }),
+            contentType: 'application/json',
+            success: function (status) {
+                for (var key in status) {
+                    successFunc(key, index, { result : status[key] });
+                }
+            },
+            error: function (e) {
+                for (var key in services) {
+                    var service = services[key];
+                    if (service.port !== 0) {
+                        display_initialize(service.name, 'ERROR', index);
+                    }
+                }
+            },
+            beforeSend: function () {
+                for (var key in services) {
+                    var service = services[key];
+                    if (service.port !== 0) {
+                        display_initialize(service.name, 'LOADING', index);
+                    }
+                }
+            }
+        });
+    });
 
-
-    for(var dom of $('[id^=service-refresh-]')){
-        dom.click();
+    if (document.getElementById('service-exists') != null) {
+        $('#tab0').tab('show')
     }
 });
 
@@ -77,52 +139,52 @@ function display_initialize(service, type, idx){
     }
 }
 
+function successFunc(service, idx, status) {
+    var dom_icon = document.getElementById('service-status-icon-' + service + '-' + idx);
+    var dom_text = document.getElementById('service-status-text-' + service + '-' + idx);
+    var dom_title = document.getElementById('service-status-title-' + service + '-' + idx);
+
+    var res = status.result && status.result.toUpperCase();
+    dom_text.innerText = res ? res : 'UNKNOWN';
+    switch(res){
+        case 'CREATED':
+        case 'RUNNING':
+        case 'RESTARTING':
+            dom_icon.className = (res === 'CREATED') ? 'h1 fas fa-plus-square text-info' : (res === 'RUNNING') ? 'h1 fas fa-check text-info' : 'h1 fas fa-sync text-warning';
+            dom_text.className = 'text-info';
+            dom_title.className = 'text-info';
+            $(`#service-start-${service}-${idx}`).prop('disabled', true);
+            $(`#service-stop-${service}-${idx}`).prop('disabled', false);
+            break;
+        case 'PAUSED':
+            dom_icon.className = 'h1 fas fa-pause text-warning';
+            dom_text.className = 'text-warning';
+            dom_title.className = 'text-warning';
+            $(`#service-start-${service}-${idx}`).prop('disabled', true);
+            $(`#service-stop-${service}-${idx}`).prop('disabled', false);
+            break;
+        case 'REMOVING':
+        case 'EXITED':
+        case 'DEAD':
+            dom_icon.className = 'h1 fas fa-times-circle text-danger';
+            dom_text.className = 'text-danger';
+            dom_title.className = 'text-danger';
+            $(`#service-start-${service}-${idx}`).prop('disabled', false);
+            $(`#service-stop-${service}-${idx}`).prop('disabled', true);
+            break;
+        default :
+            dom_icon.className = 'h1 fas fa-question';
+            dom_text.innerText = 'UNKNOWN';
+            dom_text.className = '';
+            dom_title.className = '';
+            $(`#service-start-${service}-${idx}`).prop('disabled', true);
+            $(`#service-stop-${service}-${idx}`).prop('disabled', true);
+            $(`#service-restart-${service}-${idx}`).prop('disabled', true);
+            break;
+    }
+}
+
 function onclick_status_refresh(service, ip, port, idx){
-    var successFunc = function(status){
-        var dom_icon = document.getElementById('service-status-icon-' + service + '-' + idx);
-        var dom_text = document.getElementById('service-status-text-' + service + '-' + idx);
-        var dom_title = document.getElementById('service-status-title-' + service + '-' + idx);
-
-        var res = status.result && status.result.toUpperCase();
-        dom_text.innerText = res ? res : 'UNKNOWN';
-        switch(res){
-            case 'CREATED':
-            case 'RUNNING':
-            case 'RESTARTING':
-                dom_icon.className = (res === 'CREATED') ? 'h1 fas fa-plus-square text-info' : (res === 'RUNNING') ? 'h1 fas fa-check text-info' : 'h1 fas fa-sync text-warning';
-                dom_text.className = 'text-info';
-                dom_title.className = 'text-info';
-                $(`#service-start-${service}-${idx}`).prop('disabled', true);
-                $(`#service-stop-${service}-${idx}`).prop('disabled', false);
-                break;
-            case 'PAUSED':
-                dom_icon.className = 'h1 fas fa-pause text-warning';
-                dom_text.className = 'text-warning';
-                dom_title.className = 'text-warning';
-                $(`#service-start-${service}-${idx}`).prop('disabled', true);
-                $(`#service-stop-${service}-${idx}`).prop('disabled', false);
-                break;
-            case 'REMOVING':
-            case 'EXITED':
-            case 'DEAD':
-                dom_icon.className = 'h1 fas fa-times-circle text-danger';
-                dom_text.className = 'text-danger';
-                dom_title.className = 'text-danger';
-                $(`#service-start-${service}-${idx}`).prop('disabled', false);
-                $(`#service-stop-${service}-${idx}`).prop('disabled', true);
-                break;
-            default :
-                dom_icon.className = 'h1 fas fa-question';
-                dom_text.innerText = 'UNKNOWN';
-                dom_text.className = '';
-                dom_title.className = '';
-                $(`#service-start-${service}-${idx}`).prop('disabled', true);
-                $(`#service-stop-${service}-${idx}`).prop('disabled', true);
-                $(`#service-restart-${service}-${idx}`).prop('disabled', true);
-                break;
-        }
-    };
-
     if(port === 0) {
         $.ajax({
             url: `${CONTEXT}/server/api/service/remote-docker-check`,
@@ -133,7 +195,7 @@ function onclick_status_refresh(service, ip, port, idx){
             }),
             contentType: 'application/json',
             success: function (status) {
-                successFunc(status);
+                successFunc(service, idx, status);
             },
             error: function (e) {
                 display_initialize(service, 'ERROR', idx);
@@ -152,7 +214,7 @@ function onclick_status_refresh(service, ip, port, idx){
             }),
             contentType: 'application/json',
             success: function (status) {
-                successFunc(status)
+                successFunc(service, idx, status)
             },
             error: function (e) {
                 display_initialize(service, 'ERROR', idx);

@@ -91,22 +91,24 @@
             $(document).ready(function() {
                 initialize_dataTable('list_table_layer');
 
-            //     $.ajax({
-            //         url: `${CONTEXT}/server/api/dashboard/remote-service-status`,
-            //         type: 'POST',
-            //         contentType: 'application/json',
-            //         data: JSON.stringify({
-            //             ip : '192.168.1.143'
-            //         }),
-            //         success: function (data) {
-            //             var mapProxyInfo = data[containerName];
-            //             console.log(data)
-            //         },
-            //         error: function(e){
-            //
-            //         },
-            //     })
-            // });
+                $.ajax({
+                    url: `${CONTEXT}/server/api/dashboard/remote-service-status`,
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        ip : localMain.ip
+                    }),
+                    success: function (data) {
+                        var mapProxyInfo = data[containerName];
+                        if(mapProxyInfo && mapProxyInfo.status !== 'running') {
+                            toastr.error('Map Proxy 가 작동되지 않습니다. 서버 > 서비스 관리 메뉴를 사용해서 다시 시작하시길 바랍니다.');
+                        }
+                    },
+                    error: function(e){
+                        console.log(e);
+                    },
+                })
+            });
 
             function onclick_preview_layer(name){
                 layer = name;

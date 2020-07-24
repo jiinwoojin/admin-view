@@ -96,6 +96,7 @@ public class ContainerInfoServiceImpl implements ContainerInfoService {
         return containerHistoryMapper.deleteAll() > 0;
     }
 
+    // 파기 될 수 있다... 이는 Excel 를 사용해서 작업할 계획.
     @Override
     public List<GeoBasicContainerInfo> loadGeoContainerInfoList() {
         return Arrays.asList(
