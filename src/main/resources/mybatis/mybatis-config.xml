@@ -25,6 +25,7 @@
 		<typeAlias alias="VersionDTO" type="com.jiin.admin.dto.VersionDTO" />
 
 		<!-- Vector Tiles Based DTO -->
+		<typeAlias alias="SymbolImageDTO" type="com.jiin.admin.dto.SymbolImageDTO" />
 		<typeAlias alias="SymbolPositionDTO" type="com.jiin.admin.dto.SymbolPositionDTO" />
 
 		<!-- MapProxy Based DTO -->

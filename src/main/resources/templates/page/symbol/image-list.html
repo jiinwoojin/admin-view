@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout" lang="ko">
+<th:block layout:fragment="content-title-fragment">
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2 class="page_tit">SYMBOL 관리</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/view/manage/map-list?pg=1&sz=8&lType=ALL&units=ALL}">지도 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">SYMBOL 관리</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <!-- search area #START -->
+    <!-- 다음 주에 적용 예정 -->
+<!--    <div class="search_area">-->
+<!--        <div class="ibox">-->
+<!--            <div class="ibox-content">-->
+<!--                <form onsubmit="return onsubmit_check()">-->
+<!--                    <input type="hidden" name="pg" value="1" />-->
+<!--                    <input type="hidden" name="sz" value="10" />-->
+
+<!--                    <div class="row justify-content-md-center">-->
+<!--                        <div class="col-xl-3 col-lg-5 col-sm-12 mb-sm-1 mb-0">-->
+<!--                            <select id="sb" name="sb" class="form-control form-control-sm">-->
+<!--                                <option th:each="sb : ${ sbList }" th:text="${ sb.label }" th:value="${ sb.value }" th:selected="${ #strings.equals(param.sb, #strings.toString(sb.value)) }"></option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+
+<!--                        <div class="col-md-3 col-lg-5 col-sm-12">-->
+<!--                            <div class="input-group">-->
+<!--                                <input placeholder="검색어를 입력하세요." id="st" name="st" type="text" th:value="${param.st}" class="form-control form-control-sm" />-->
+<!--                                <span class="input-group-append">-->
+<!--                                    <button type="submit" class="btn btn-sm btn-primary" title="검색">-->
+<!--                                        <i class="fas fa-search"></i>-->
+<!--                                    </button>-->
+<!--                                </span>-->
+<!--                                <button type="button" class="btn btn-sm btn-white m-l-xs searchMore" title="상세검색">-->
+<!--                                    <i class="fas fa-angle-down"></i>-->
+<!--                                </button>-->
+<!--                                <button type="button" class="btn btn-sm btn-warning m-l-xs" onclick="onclick_refresh_search()">-->
+<!--                                    <i class="fas fa-sync"></i>-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div id="searchDetail">-->
+<!--                        &lt;!&ndash; 검색 방식 선택 &ndash;&gt;-->
+<!--                        <div class="hr-line-dashed">-->
+<!--                        </div>-->
+
+<!--                        <div class="row justify-content-md-center">-->
+<!--                            &lt;!&ndash; 검색 방식 선택 &ndash;&gt;-->
+<!--                            <div class="col-12 col-lg-6 col-xl-3">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="ob">정렬 방식</label>-->
+<!--                                    <select id="ob" name="ob" class="form-control form-control-sm">-->
+<!--                                        <option th:each="ob : ${ obList }" th:text="${ ob.label }" th:value="${ ob.value }" th:selected="${ #strings.equals(param.ob, #strings.toString(ob.value)) }"></option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="col-12 col-lg-6 col-xl-5">-->
+<!--                                <div class="form-group">-->
+<!--                                    <fieldset>-->
+<!--                                        <legend class="bold">업로드 일자</legend>-->
+<!--                                        <div class="input-daterange input-group input-group-sm" id="datepicker">-->
+<!--                                            <div class="input-group-prepend">-->
+<!--                                                <span class="input-group-text">-->
+<!--                                                    <i class="far fa-calendar-alt"></i>-->
+<!--                                                </span>-->
+<!--                                            </div>-->
+<!--                                            <input type="text" class="form-control-sm form-control" id="sDate" name="sDate" th:value="${param.sDate}" />-->
+<!--                                            <div class="input-group-prepend">-->
+<!--                                                <span class="input-group-text">-->
+<!--                                                    ~-->
+<!--                                                </span>-->
+<!--                                            </div>-->
+<!--                                            <div class="input-group-prepend">-->
+<!--                                                <span class="input-group-text">-->
+<!--                                                    <i class="far fa-calendar-alt"></i>-->
+<!--                                                </span>-->
+<!--                                            </div>-->
+<!--                                            <input type="text" class="form-control-sm form-control" id="eDate" name="eDate" th:value="${param.eDate}" />-->
+<!--                                        </div>-->
+<!--                                    </fieldset>-->
+<!--                                </div>-->
+<!--                            </div>-->
+
+<!--                            <div class="col-12 col-lg-6 col-xl-4">-->
+<!--                                <div id="iType_box">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="mr-1">데이터 유형</label>-->
+<!--                                        <div class="form-check form-check-inline i-checks">-->
+<!--                                            <input type="radio" id="all" name="lType" value="ALL" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'ALL') }" />&nbsp;&nbsp;-->
+<!--                                            <label class="form-check-label" for="vector">모두</label>-->
+<!--                                        </div>-->
+<!--                                        <div class="form-check form-check-inline i-checks">-->
+<!--                                            <input type="radio" id="raster" name="lType" value="RASTER" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'RASTER') }" />&nbsp;&nbsp;-->
+<!--                                            <label class="form-check-label" for="raster">레스터</label>-->
+<!--                                        </div>-->
+<!--                                        <div class="form-check form-check-inline i-checks">-->
+<!--                                            <input type="radio" id="vector" name="lType" value="VECTOR" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'VECTOR') }" />&nbsp;&nbsp;-->
+<!--                                            <label class="form-check-label" for="vector">벡터</label>-->
+<!--                                        </div>-->
+<!--                                        <div class="form-check form-check-inline i-checks">-->
+<!--                                            <input type="radio" id="cadrg" name="lType" value="CADRG" class="form-check-input" th:checked="${ #strings.equals(param.lType, 'CADRG') }" />&nbsp;&nbsp;-->
+<!--                                            <label class="form-check-label" for="cadrg">CADRG</label>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div id="date_box">-->
+<!--                                    <label class="mr-1">일정 구간</label>-->
+<!--                                    <div class="btn-group my-1">-->
+<!--                                        <button type="button" class="btn btn-secondary" onclick="onclick_day_button(1)">1 일</button>-->
+<!--                                        <button type="button" class="btn btn-secondary" onclick="onclick_day_button(3)">3 일</button>-->
+<!--                                        <button type="button" class="btn btn-secondary" onclick="onclick_day_button(7)">7 일</button>-->
+<!--                                        <button type="button" class="btn btn-secondary" onclick="onclick_day_button(30)">30 일</button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div class="button_area mb-3">
+        <div class="d-flex justify-content-between">
+            <!-- 총 결과 카운트 -->
+            <h3 class="session_tit">검색 결과 : 총 <span th:text="${ images.size() }" id="total"></span> 건</h3>
+
+            <div id="map_config_button">
+                <!-- SYMBOL 추가 버튼 -->
+                <button data-toggle="modal" data-target="#layer-create-modal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-plus fa-sm text-white-50"></i> SYMBOL 그룹 추가
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- pannal List #START -->
+    <div class="result_area" id="list-view">
+        <table class="table table-sm table-striped" th:if="${ images.size() > 0 }">
+            <thead>
+            <tr>
+                <th class="text-center align-middle">IMAGE 이름</th>
+                <th class="text-center align-middle">IMAGE 설명</th>
+                <th class="text-center align-middle">업로드 일자<br/>(+) : 최초 생성 일자</th>
+                <th class="text-center align-middle">버튼</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="layer-item" th:each="image : ${ images }">
+                <td class="text-center align-middle" th:text="${ image.name }"></td>
+                <td class="text-center align-middle" th:text="${ image.description }"></td>
+                <td class="text-center align-middle" th:if="${image.updateTime == null}" th:text="${ #dates.format(image.registTime, 'yyyy-MM-dd HH:mm') + ' (+)' }"></td>
+                <td class="text-center align-middle" th:unless="${image.updateTime == null}" th:text="${ #dates.format(image.updateTime, 'yyyy-MM-dd HH:mm') }"></td>
+                <td class="text-center align-middle">
+                    <block th:remove="tag" th:if="${ image.isDefault() }">
+                        <a class="btn btn-sm btn-circle btn-secondary" href="#" data-toggle="tooltip" data-placement="top" title="수정 및 삭제 불가.">
+                            <i class="fas fa-map-pin text-white"></i>
+                        </a>
+                    </block>
+                    <block th:remove="tag" th:unless="${ image.isDefault() }">
+                        <a class="btn btn-sm btn-circle btn-info mx-1" data-toggle="modal" href="#layer-update-modal" data-target="#layer-update-modal"
+                           title="수정"
+                        >
+                            <i class="fas fa-cog"></i>
+                        </a>
+                        <a class="btn btn-sm btn-circle btn-danger mx-1" title="삭제">
+                            <i class="fas fa-trash text-white"></i>
+                        </a>
+                    </block>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="jumbotron jumbotron-fluid" th:unless="${ images.size() > 0 }">
+            <div class="container">
+                <h1 class="display-4">
+                    <i class="fas fa-times-circle"></i> No Results.
+                </h1>
+                <p class="lead">해당하는 데이터가 존재하지 않습니다. 다른 방법으로 검색 시도 바랍니다.</p>
+            </div>
+        </div>
+        <!-- pannal List #END -->
+
+        <!-- pageNavigation #START -->
+<!--        <th:block th:replace="fragments/html-pagination-bar :: html-pagination-bar('/manage/layer-list')" />-->
+        <!-- pageNavigation #END -->
+
+    </div>
+</th:block>
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/datapicker/datepicker3.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/daterangepicker/daterangepicker-bs3.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.css}">
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/design-park/resource/library/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/daterangepicker/daterangepicker.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jszip/jszip.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jquery-form/jquery.form.min.js}"></script>
+</th:block>
+</html>

@@ -113,6 +113,14 @@ public class MVCServerController {
     }
 
     /**
+     * 실행 뒤 REDIRECT 를 위한 메소드
+     */
+    @RequestMapping("execute-redirect")
+    public String redirectExecute(){
+        return "redirect:service-manage";
+    }
+
+    /**
      * 서버 로컬, 연동 주소를 관리하는 페이지
      * @param model Model
      */

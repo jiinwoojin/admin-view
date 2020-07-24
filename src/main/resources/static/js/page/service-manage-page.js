@@ -44,16 +44,8 @@ $(document).ready(function() {
         }
     });
 
-    if(sessionStorage['tabId']){
-        var tabId = sessionStorage['tabId'];
-        if (tabId.startsWith('tab')) {
-            $('#' + tabId).click();
-        }
-        sessionStorage.removeItem('tabId');
-    }
-
-    $("a[data-toggle='tab']").on('shown.bs.tab', function(e) {
-        var data = $(e.target).data();
+    var tabEvent = function(dom) {
+        var data = $(dom).data();
         var ip = data.ip;
         var index = data.index;
         $.ajax({
@@ -114,10 +106,22 @@ $(document).ready(function() {
                 }
             }
         });
+    };
+
+    $("a[data-toggle='tab']").on('shown.bs.tab', function(e) {
+        tabEvent(e.target);
     });
 
     if (document.getElementById('service-exists') != null) {
-        $('#tab0').tab('show')
+        var tabId = 'tab0';
+        if(sessionStorage['tabId']){
+            tabId = sessionStorage['tabId'];
+            if (tabId.startsWith('tab')) {
+                $('#' + tabId).click();
+            }
+            sessionStorage.removeItem('tabId');
+        }
+        tabEvent(document.getElementById(tabId));
     }
 });
 
@@ -248,7 +252,7 @@ function onclick_service_execute(btn){
             success: function (res) {
                 if(res && res.result){
                     sessionStorage.setItem("tabId", $('a.nav-link.active').attr('id'));
-                    window.location.reload();
+                    window.location = window.location.pathname;
                 }
             },
             error: function (e) {

@@ -31,9 +31,9 @@ public class AdminWebApplication extends SpringBootServletInitializer implements
     }
 
     @Override
-    public void run(String... args) throws IOException {
+    public void run(String... args) {
         bootingService.initializeMapData();
-        bootingService.initializeSymbol();
+        // bootingService.initializeSymbol();
         bootingService.initializeRoles();
         bootingService.initializeAccounts();
     }
