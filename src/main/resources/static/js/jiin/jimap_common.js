@@ -16,7 +16,7 @@ var jiCommon = {
     /**
      *
      */
-    MAP_SERVER_PORT : (window.location.protocol === 'https:') ? 0 : 11100,
+    MAP_SERVER_PORT : (window.location.protocol === 'https:') ? 11200 : 11100,
     /**
      *
      */
@@ -323,7 +323,7 @@ var jiCommon = {
 };
 
 // Local IP 가져오기
-$.ajax({
+/*$.ajax({
     url: `${CONTEXT}/server/api/service/local-info`,
     type: 'get',
     contentType: "application/json",
@@ -336,7 +336,7 @@ $.ajax({
     error: function(e){
         console.log(e);
     }
-});
+});*/
 
 if (jiCommon.MAP_SERVER_URL === '') {
     jiCommon.MAP_SERVER_URL = window.location.protocol + '//'
