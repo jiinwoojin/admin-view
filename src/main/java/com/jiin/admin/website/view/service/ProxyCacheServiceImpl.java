@@ -3,16 +3,19 @@ package com.jiin.admin.website.view.service;
 import com.jiin.admin.Constants;
 import com.jiin.admin.dto.*;
 import com.jiin.admin.mapper.data.*;
+import com.jiin.admin.servlet.AdminServerServlet;
 import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.*;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.MapProxyUtil;
+import com.jiin.admin.website.util.RestClientUtil;
 import com.jiin.admin.website.view.component.CascadeRelativeComponent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +26,9 @@ import java.util.stream.Stream;
 @Slf4j
 @Service
 public class ProxyCacheServiceImpl implements ProxyCacheService {
+    @Value("${server.servlet.context-path}")
+    private String CONTEXT_PATH;
+
     @Value("${project.mapserver.binary}")
     private String mapServerBinary;
 
@@ -58,6 +64,17 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
 
     @Resource
     private CascadeRelativeComponent cascadeRelativeComponent;
+
+    private int sendYAMLSyncRESTForNeighbor(HttpServletRequest request, List<ServerCenterInfo> neighbors) {
+        int success = 0;
+        for (ServerCenterInfo neighbor : neighbors) {
+            Map<String, Object> map = RestClientUtil.postREST(request.isSecure(), neighbor.getIp(), String.format("%s/%s/api/proxy/sync/yaml-save", CONTEXT_PATH, AdminServerServlet.CONTEXT_PATH), new HashMap<>());
+            if (map != null) {
+                success += (boolean) map.get("result") ? 1 : 0;
+            }
+        }
+        return success;
+    }
 
     /**
      * 각 해당하는 Relation 을 생성한다.
@@ -203,13 +220,39 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         );
     }
 
+    @Override
+    public Map<String, Object> writeYAMLFileForNeighbors(HttpServletRequest request, boolean result, ServerCenterInfo local, List<ServerCenterInfo> neighbors) {
+        if (!result || local == null) {
+            return new HashMap<String, Object>() {
+                {
+                    put("result", false);
+                    put("success", 0);
+                    put("failure", neighbors.size());
+                }
+            };
+        }
+
+        int success = 0;
+        this.saveYAMLFileByEachList(local);
+        success = this.sendYAMLSyncRESTForNeighbor(request, neighbors);
+
+        final int cnt = success;
+        return new HashMap<String, Object>() {
+            {
+                put("result", result);
+                put("success", cnt);
+                put("failure", neighbors.size() - cnt);
+            }
+        };
+    }
+
     /**
      * MapProxy 기반 Layer 정보를 저장한다.
      * @param proxyLayerModel ProxyLayerModel
      */
     @Override
     @Transactional
-    public boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel, ServerCenterInfo local, boolean synced) {
+    public boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel, ServerCenterInfo local) {
         if (local == null) {
             return false;
         }
@@ -238,10 +281,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 dto = ProxyLayerModel.convertDTO(proxyLayerModel);
                 dto.setIsDefault(layer.getIsDefault());
                 dto.setSelected(layer.getSelected());
-                if (dto.getSelected().equals(true)) {
-                    this.saveYAMLFileByEachList(local);
-                }
-                return synced ? (proxyLayerMapper.updateByName(dto) > 0) : (proxyLayerMapper.update(dto) > 0) && createRelationWithMainIdAndSubNames("LAYER", "SOURCE", layer.getId(), proxyLayerModel.getSources()) && createRelationWithMainIdAndSubNames("LAYER", "CACHE", layer.getId(), proxyLayerModel.getCaches());
+                return (proxyLayerMapper.updateByName(dto) > 0) && createRelationWithMainIdAndSubNames("LAYER", "SOURCE", layer.getId(), proxyLayerModel.getSources()) && createRelationWithMainIdAndSubNames("LAYER", "CACHE", layer.getId(), proxyLayerModel.getCaches());
 
             default :
                 return false;
@@ -254,7 +294,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     @Transactional
-    public boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel, ServerCenterInfo local, boolean synced) {
+    public boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel, ServerCenterInfo local) {
         if (local == null) {
             return false;
         }
@@ -284,9 +324,6 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 dto.setId(root.getId());
                 dto.setIsDefault(root.getIsDefault());
                 dto.setSelected(root.getSelected());
-                if (root.getSelected().equals(true)) {
-                    this.saveYAMLFileByEachList(local);
-                }
                 return proxySourceMapper.update(dto) > 0 && proxySourceMapper.updateMapServer(dto) > 0;
 
             default :
@@ -300,7 +337,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     @Transactional
-    public boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel, ServerCenterInfo local, boolean synced) {
+    public boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel, ServerCenterInfo local) {
         if (local == null) {
             return false;
         }
@@ -333,10 +370,6 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 dto.setIsDefault(root.getIsDefault());
                 dto.setSelected(root.getSelected());
 
-                if (root.getSelected().equals(true)) {
-                    this.saveYAMLFileByEachList(local);
-                }
-
                 return proxySourceMapper.update(dto) > 0 && proxySourceMapper.updateWMS(dto) > 0;
 
             default :
@@ -350,7 +383,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     @Transactional
-    public boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel, ServerCenterInfo local, boolean synced) {
+    public boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel, ServerCenterInfo local) {
         if (local == null) {
             return false;
         }
@@ -380,11 +413,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 dto.setIsDefault(cache.getIsDefault());
                 dto.setSelected(cache.getSelected());
 
-                if (cache.getSelected().equals(true)) {
-                    this.saveYAMLFileByEachList(local);
-                }
-
-                return synced ? (proxyCacheMapper.updateByName(dto) > 0) : (proxyCacheMapper.update(dto) > 0) && createRelationWithMainIdAndSubNames("CACHE", "SOURCE", cache.getId(), proxyCacheModel.getSources());
+                return (proxyCacheMapper.updateByName(dto) > 0) && createRelationWithMainIdAndSubNames("CACHE", "SOURCE", cache.getId(), proxyCacheModel.getSources());
 
             default :
                 return false;
@@ -438,10 +467,6 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 proxyLayerCacheRelationMapper.deleteByLayerId(id);
                 proxyLayerMapper.deleteById(id);
 
-                if (layer.getSelected().equals(true)) {
-                    this.saveYAMLFileByEachList(local);
-                }
-
                 return true;
 
             case "SOURCE-MAPSERVER" :
@@ -463,10 +488,6 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 proxyCacheSourceRelationMapper.deleteBySourceId(id);
                 proxySourceMapper.deleteByIdMapServer(id);
                 proxySourceMapper.deleteById(id);
-
-                if (sourceMS.getSelected().equals(true)) {
-                    this.saveYAMLFileByEachList(local);
-                }
 
                 return true;
 
@@ -490,10 +511,6 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 proxySourceMapper.deleteByIdWMS(id);
                 proxySourceMapper.deleteById(id);
 
-                if (sourceWMS.getSelected().equals(true)) {
-                    this.saveYAMLFileByEachList(local);
-                }
-
                 return true;
 
             case "CACHE" :
@@ -513,10 +530,6 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 proxyLayerCacheRelationMapper.deleteByCacheId(id);
                 proxyCacheSourceRelationMapper.deleteByCacheId(id);
                 proxyCacheMapper.deleteById(id);
-
-                if (cache.getSelected().equals(true)) {
-                    this.saveYAMLFileByEachList(local);
-                }
 
                 return true;
 

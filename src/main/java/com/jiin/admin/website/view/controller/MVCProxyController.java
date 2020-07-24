@@ -5,6 +5,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.Constants;
 import com.jiin.admin.config.SessionService;
+import com.jiin.admin.dto.ProxyCacheDTO;
+import com.jiin.admin.dto.ProxyLayerDTO;
+import com.jiin.admin.dto.ProxySourceDTO;
+import com.jiin.admin.mapper.data.ProxyCacheMapper;
+import com.jiin.admin.mapper.data.ProxyLayerMapper;
+import com.jiin.admin.mapper.data.ProxySourceMapper;
 import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.*;
 import com.jiin.admin.website.util.DockerUtil;
@@ -21,6 +27,8 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -50,6 +58,18 @@ public class MVCProxyController {
     @Value("${project.data-path}")
     private String dataPath;
 
+    @Value("${project.docker-name.mapproxy-name}")
+    private String mapProxyContainer;
+
+    @Resource
+    private ProxyLayerMapper proxyLayerMapper;
+
+    @Resource
+    private ProxySourceMapper proxySourceMapper;
+
+    @Resource
+    private ProxyCacheMapper proxyCacheMapper;
+
     @Autowired
     private ProxyCacheService proxyCacheService;
 
@@ -65,6 +85,7 @@ public class MVCProxyController {
         model.addAttribute("port", MAP_PROXY_PORT);
         model.addAttribute("proxyLayers", proxyCacheService.loadDataListBySelected("LAYERS", true));
         model.addAttribute("proxyYAML", proxyCacheService.loadProxyYamlSetting());
+        model.addAttribute("containerName", mapProxyContainer);
         return "page/proxy/preview";
     }
 
@@ -97,35 +118,80 @@ public class MVCProxyController {
     }
 
     @RequestMapping(value = "layer-save", method = RequestMethod.POST)
-    public String postLayerSave(ProxyLayerModel proxyLayerModel) {
-        boolean result = proxyCacheService.saveProxyLayerByModel(proxyLayerModel, serverCenterInfoService.loadLocalInfoData(), false);
-        sessionService.message(String.format("[%s] LAYER 정보 저장에 %s 했습니다.", proxyLayerModel.getName(), result ? "성공" : "실패"));
+    public String postLayerSave(HttpServletRequest request, ProxyLayerModel proxyLayerModel) {
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+        List<ServerCenterInfo> neighbors = serverCenterInfoService.loadNeighborList();
+        boolean result = proxyCacheService.saveProxyLayerByModel(proxyLayerModel, local);
+        ProxyLayerDTO layer = proxyLayerMapper.findByName(proxyLayerModel.getName());
+        Map<String, Object> map = new HashMap<>();
+        if (layer != null) {
+            if (layer.getSelected()) {
+                map = proxyCacheService.writeYAMLFileForNeighbors(request, result, local, neighbors);
+                sessionService.message(String.format("[%s] LAYER 정보 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", proxyLayerModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", neighbors.size())));
+            } else {
+                sessionService.message(String.format("[%s] LAYER 정보 저장에 %s 했습니다.", proxyLayerModel.getName(), result ? "성공" : "실패"));
+            }
+        }
+
         return "redirect:setting";
     }
 
     @RequestMapping(value = "source-wms-save", method = RequestMethod.POST)
-    public String postSourceWMSSave(ProxySourceWMSModel proxySourceWMSModel) {
-        boolean result = proxyCacheService.saveProxySourceWMSByModel(proxySourceWMSModel, serverCenterInfoService.loadLocalInfoData(), false);
-        sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다.", proxySourceWMSModel.getName(), result ? "성공" : "실패"));
+    public String postSourceWMSSave(HttpServletRequest request, ProxySourceWMSModel proxySourceWMSModel) {
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+        List<ServerCenterInfo> neighbors = serverCenterInfoService.loadNeighborList();
+        boolean result = proxyCacheService.saveProxySourceWMSByModel(proxySourceWMSModel, serverCenterInfoService.loadLocalInfoData());
+        ProxySourceDTO source = proxySourceMapper.findByName(proxySourceWMSModel.getName());
+        Map<String, Object> map = new HashMap<>();
+        if (source != null) {
+            if (source.getSelected()) {
+                map = proxyCacheService.writeYAMLFileForNeighbors(request, result, local, neighbors);
+                sessionService.message(String.format("[%s] SOURCE (WMS) 정보 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", proxySourceWMSModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", neighbors.size())));
+            } else {
+                sessionService.message(String.format("[%s] SOURCE (WMS) 정보 저장에 %s 했습니다.", proxySourceWMSModel.getName(), result ? "성공" : "실패"));
+            }
+        }
         return "redirect:setting";
     }
 
     @RequestMapping(value = "source-mapserver-save", method = RequestMethod.POST)
-    public String postSourceMapServerSave(ProxySourceMapServerModel proxySourceMapServerModel) {
-        boolean result = proxyCacheService.saveProxySourceMapServerByModel(proxySourceMapServerModel, serverCenterInfoService.loadLocalInfoData(), false);
-        sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다.", proxySourceMapServerModel.getName(), result ? "성공" : "실패"));
+    public String postSourceMapServerSave(HttpServletRequest request, ProxySourceMapServerModel proxySourceMapServerModel) {
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+        List<ServerCenterInfo> neighbors = serverCenterInfoService.loadNeighborList();
+        boolean result = proxyCacheService.saveProxySourceMapServerByModel(proxySourceMapServerModel, serverCenterInfoService.loadLocalInfoData());
+        ProxySourceDTO source = proxySourceMapper.findByName(proxySourceMapServerModel.getName());
+        Map<String, Object> map = new HashMap<>();
+        if (source != null) {
+            if (source.getSelected()) {
+                map = proxyCacheService.writeYAMLFileForNeighbors(request, result, local, neighbors);
+                sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", proxySourceMapServerModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", neighbors.size())));
+            } else {
+                sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다.", proxySourceMapServerModel.getName(), result ? "성공" : "실패"));
+            }
+        }
         return "redirect:setting";
     }
 
     @RequestMapping(value = "cache-save", method = RequestMethod.POST)
-    public String postCacheSave(ProxyCacheModel proxyCacheModel) {
-        boolean result = proxyCacheService.saveProxyCacheByModel(proxyCacheModel, serverCenterInfoService.loadLocalInfoData(), false);
-        sessionService.message(String.format("[%s] CACHE 정보 저장에 %s 했습니다.", proxyCacheModel.getName(), result ? "성공" : "실패"));
+    public String postCacheSave(HttpServletRequest request, ProxyCacheModel proxyCacheModel) {
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+        List<ServerCenterInfo> neighbors = serverCenterInfoService.loadNeighborList();
+        boolean result = proxyCacheService.saveProxyCacheByModel(proxyCacheModel, serverCenterInfoService.loadLocalInfoData());
+        ProxyCacheDTO cache = proxyCacheMapper.findByName(proxyCacheModel.getName());
+        Map<String, Object> map = new HashMap<>();
+        if (cache != null) {
+            if (cache.getSelected()) {
+                map = proxyCacheService.writeYAMLFileForNeighbors(request, result, local, neighbors);
+                sessionService.message(String.format("[%s] CACHE 정보 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", proxyCacheModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", neighbors.size())));
+            } else {
+                sessionService.message(String.format("[%s] CACHE 정보 저장에 %s 했습니다.", proxyCacheModel.getName(), result ? "성공" : "실패"));
+            }
+        }
         return "redirect:setting";
     }
 
     @RequestMapping(value = "global-save", method = RequestMethod.POST)
-    public String postGlobalSave(@RequestParam String json) {
+    public String postGlobalSave(HttpServletRequest request, @RequestParam String json) {
         ObjectMapper mapper = new ObjectMapper();
         List<ProxyGlobalModel> list = new ArrayList<>();
         try {
@@ -135,22 +201,62 @@ public class MVCProxyController {
             sessionService.message("GLOBAL 변수들을 수정하는 도중 오류가 발생했습니다.");
             return "redirect:setting";
         }
-
-        sessionService.message(String.format("GLOBAL 정보 저장에 %s 했습니다.", proxyCacheService.saveProxyGlobalByModelList(list, serverCenterInfoService.loadLocalInfoData()) ? "성공" : "실패"));
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+        List<ServerCenterInfo> neighbors = serverCenterInfoService.loadNeighborList();
+        boolean result = proxyCacheService.saveProxyGlobalByModelList(list, local);
+        Map<String, Object> map = proxyCacheService.writeYAMLFileForNeighbors(request, result, local, neighbors);
+        sessionService.message(String.format("GLOBAL 정보 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", neighbors.size())));
         return "redirect:setting";
     }
 
     @RequestMapping("{type}-delete")
-    public String linkProxyDataDelete(@PathVariable String type, @RequestParam long id, @RequestParam String name) {
+    public String linkProxyDataDelete(HttpServletRequest request, @PathVariable String type, @RequestParam long id, @RequestParam String name) {
+        boolean selected = false;
+        switch(type.toUpperCase()){
+            case "LAYER" :
+                ProxyLayerDTO layer = proxyLayerMapper.findById(id);
+                if (layer != null) {
+                    selected = layer.getSelected();
+                }
+                break;
+
+            case "SOURCE-MAPSERVER" :
+            case "SOURCE-WMS" :
+                ProxySourceDTO source = proxySourceMapper.findById(id);
+                if (source != null) {
+                    selected = source.getSelected();
+                }
+                break;
+
+            case "CACHE" :
+                ProxyCacheDTO cache = proxyCacheMapper.findById(id);
+                if (cache != null) {
+                    selected = cache.getSelected();
+                }
+                break;
+        }
+
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+        List<ServerCenterInfo> neighbors = serverCenterInfoService.loadNeighborList();
         boolean result = proxyCacheService.removeProxyDataByIdAndType(id, type, serverCenterInfoService.loadLocalInfoData());
-        sessionService.message(String.format("[%s] %s 정보 삭제에 %s 했습니다.", name, type.toUpperCase(), result ? "성공" : "실패"));
+        Map<String, Object> map = new HashMap<>();
+        if (selected) {
+            map = proxyCacheService.writeYAMLFileForNeighbors(request, result, local, neighbors);
+            sessionService.message(String.format("[%s] %s 정보 삭제에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", name, type.toUpperCase(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", neighbors.size())));
+        } else {
+            sessionService.message(String.format("[%s] %s 정보 삭제에 %s 했습니다.", name, type.toUpperCase(), result ? "성공" : "실패"));
+        }
         return "redirect:setting";
     }
 
     @RequestMapping(value = "checking-save", method = RequestMethod.POST)
-    public String checkingProxyDataSettings(ProxySelectRequestModel proxySelectModel) {
+    public String checkingProxyDataSettings(HttpServletRequest request, ProxySelectRequestModel proxySelectModel) {
         boolean result = proxyCacheService.setProxyDataSelectByModel(proxySelectModel, serverCenterInfoService.loadLocalInfoData());
         sessionService.message(result ? "모든 PROXY 정보들이 수정 되었습니다." : "모든 PROXY 정보들을 설정하는 도중 오류가 발생했습니다.");
+        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+        List<ServerCenterInfo> neighbors = serverCenterInfoService.loadNeighborList();
+        Map<String, Object> map = proxyCacheService.writeYAMLFileForNeighbors(request, result, local, neighbors);
+        sessionService.message(String.format("모든 PROXY 정보들을 수정하는데 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", neighbors.size())));
         return "redirect:setting";
     }
 

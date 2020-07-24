@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("server")
@@ -51,16 +52,23 @@ public class MVCServerController {
      * @param model Model
      */
     @RequestMapping("service-manage")
-    public String pageServiceManagement(Model model) {
+    public String pageServiceManagement(Model model, @RequestParam(required = false) String zone) {
         ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
-        List<ServerCenterInfo> neighbors = serverCenterInfoService.loadNeighborList();
-        neighbors.add(0, local);
+        if (zone == null) {
+            zone = local != null ? local.getZone() : "UNKNOWN";
+        }
+        String searchZone = zone;
+        List<ServerCenterInfo> remotes = serverCenterInfoService.loadRemoteList().stream().filter(o -> o.getZone().equals(searchZone)).collect(Collectors.toList());
+        if (searchZone.equals(local.getZone())) {
+            remotes.add(0, local);
+        }
 
-        model.addAttribute("local", local);
         model.addAttribute("serviceMap", containerInfoService.loadGeoServiceMap());
         model.addAttribute("message", sessionService.message());
         model.addAttribute("histories", containerInfoService.loadContainerHistoryList());
-        model.addAttribute("connections", neighbors);
+        model.addAttribute("connections", remotes);
+        model.addAttribute("local", local);
+        model.addAttribute("zones", serverCenterInfoService.loadZoneList());
 
         return "page/system/service-manage";
     }
@@ -102,21 +110,6 @@ public class MVCServerController {
             put("hostname", hostname);
             put("user", user != null ? user.getUsername() : "ANONYMOUS USER");
         }});
-    }
-
-    /**
-     * Container 작동 내역 기록을 전부 삭제하는 링크
-     * @param
-     */
-    @RequestMapping("history-clean")
-    public String linkHistoryClean() {
-        boolean completed = containerInfoService.removeAllContainerHistoryData();
-        if (completed) {
-            sessionService.message("현재 시점 이전의 모든 작동 내역 기록들이 삭제 되었습니다.");
-        } else {
-            sessionService.message("현재 시점 이전의 데이터가 존재하지 않아 삭제 작업을 진행하지 않았습니다.");
-        }
-        return "redirect:service-manage";
     }
 
     /**

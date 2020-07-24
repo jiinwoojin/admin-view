@@ -266,14 +266,14 @@ function submit_selected_data(){
         hiddenField.setAttribute("value", caches);
         form.appendChild(hiddenField);
 
-        neighbor_synchronize_ajax('/server/api/proxy/sync/checking-save', 'POST', {
-                layers: layers,
-                sources: sources,
-                caches: caches,
-            },
-            `선택된 설정에 대한 동기화를 진행 했습니다.`,
-            `선택된 설정에 대한 동기화를 진행하지 못 했습니다.`,
-        );
+        // neighbor_synchronize_ajax('/server/api/proxy/sync/checking-save', 'POST', {
+        //         layers: layers,
+        //         sources: sources,
+        //         caches: caches,
+        //     },
+        //     `선택된 설정에 대한 동기화를 진행 했습니다.`,
+        //     `선택된 설정에 대한 동기화를 진행하지 못 했습니다.`,
+        // );
 
         document.body.appendChild(form);
         form.submit();
@@ -478,17 +478,17 @@ function preSubmit(form){
         switch ($(form).data('title')) {
             case 'layer-form' :
                 if(layerValidation()) {
-                    neighbor_synchronize_ajax('/server/api/proxy/sync/layer-save', 'POST', {
-                            id: $('#layer-id').val(),
-                            name: $('#layer-name').val(),
-                            method: $('#layer-method').val(),
-                            title: $('#layer-title').val(),
-                            sources: JSON.parse(form['sources'].value),
-                            caches: JSON.parse(form['caches'].value)
-                        },
-                        `LAYER ${$('#layer-name').val()} 자료의 동기화를 진행 했습니다.`,
-                         `LAYER ${$('#layer-name').val()} 자료의 동기화를 진행하지 못 했습니다.`,
-                    );
+                    // neighbor_synchronize_ajax('/server/api/proxy/sync/layer-save', 'POST', {
+                    //         id: $('#layer-id').val(),
+                    //         name: $('#layer-name').val(),
+                    //         method: $('#layer-method').val(),
+                    //         title: $('#layer-title').val(),
+                    //         sources: JSON.parse(form['sources'].value),
+                    //         caches: JSON.parse(form['caches'].value)
+                    //     },
+                    //     `LAYER ${$('#layer-name').val()} 자료의 동기화를 진행 했습니다.`,
+                    //      `LAYER ${$('#layer-name').val()} 자료의 동기화를 진행하지 못 했습니다.`,
+                    // );
                     form['sources'].value = JSON.parse(form['sources'].value);
                     form['caches'].value = JSON.parse(form['caches'].value);
                     sessionStorage.setItem('tab', 'layer');
@@ -499,42 +499,42 @@ function preSubmit(form){
 
             case 'source-form' :
                 if(form.action.includes('wms')) {
-                    neighbor_synchronize_ajax('/server/api/proxy/sync/source-wms-save', 'POST', {
-                            id: $('#source-id').val(),
-                            name: $('#source-name').val(),
-                            type: $('#source-type').val(),
-                            method: $('#source-method').val(),
-                            concurrentRequests: $('#source-concurrentRequests').val(),
-                            wmsOptsVersion: $('#source-wmsOptsVersion').val(),
-                            httpClientTimeout: $('#source-httpClientTimeout').val(),
-                            requestUrl: '',
-                            requestMap: $('#source-requestMap-wms').val(),
-                            requestLayers: $('#source-requestLayers-wms').val(),
-                            requestTransparent: $('#source-requestTransparent').val(),
-                            supportedSrs: $('#source-supportedSrs').val(),
-                        },
-                        `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행 했습니다.`,
-                        `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행하지 못 했습니다.`,
-                    );
+                    // neighbor_synchronize_ajax('/server/api/proxy/sync/source-wms-save', 'POST', {
+                    //         id: $('#source-id').val(),
+                    //         name: $('#source-name').val(),
+                    //         type: $('#source-type').val(),
+                    //         method: $('#source-method').val(),
+                    //         concurrentRequests: $('#source-concurrentRequests').val(),
+                    //         wmsOptsVersion: $('#source-wmsOptsVersion').val(),
+                    //         httpClientTimeout: $('#source-httpClientTimeout').val(),
+                    //         requestUrl: '',
+                    //         requestMap: $('#source-requestMap-wms').val(),
+                    //         requestLayers: $('#source-requestLayers-wms').val(),
+                    //         requestTransparent: $('#source-requestTransparent').val(),
+                    //         supportedSrs: $('#source-supportedSrs').val(),
+                    //     },
+                    //     `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행 했습니다.`,
+                    //     `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행하지 못 했습니다.`,
+                    // );
                     sessionStorage.setItem('tab', 'source');
                     return true;
                 }
 
                 if(form.action.includes('mapserver')) {
                     if(sourceMapServerValidation()){
-                        neighbor_synchronize_ajax('/server/api/proxy/sync/source-mapserver-save', 'POST', {
-                                id: $('#source-id').val(),
-                                name: $('#source-name').val(),
-                                type: $('#source-type').val(),
-                                method: $('#source-method').val(),
-                                mapServerBinary: $('#source-mapServerBinary').val(),
-                                mapServerWorkDir: $('#source-mapServerWorkDir').val(),
-                                requestMap: $('#source-requestMap-mapserver').val(),
-                                requestLayers: $('#source-requestLayers-mapserver').val(),
-                            },
-                            `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행 했습니다.`,
-                            `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행하지 못 했습니다.`,
-                        );
+                        // neighbor_synchronize_ajax('/server/api/proxy/sync/source-mapserver-save', 'POST', {
+                        //         id: $('#source-id').val(),
+                        //         name: $('#source-name').val(),
+                        //         type: $('#source-type').val(),
+                        //         method: $('#source-method').val(),
+                        //         mapServerBinary: $('#source-mapServerBinary').val(),
+                        //         mapServerWorkDir: $('#source-mapServerWorkDir').val(),
+                        //         requestMap: $('#source-requestMap-mapserver').val(),
+                        //         requestLayers: $('#source-requestLayers-mapserver').val(),
+                        //     },
+                        //     `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행 했습니다.`,
+                        //     `SOURCE ${$('#source-name').val()} 자료의 동기화를 진행하지 못 했습니다.`,
+                        // );
                         sessionStorage.setItem('tab', 'source');
                         return true;
                     } else {
@@ -546,22 +546,22 @@ function preSubmit(form){
 
             case 'cache-form' :
                 if(cacheValidation()){
-                    neighbor_synchronize_ajax('/server/api/proxy/sync/cache-save', 'POST', {
-                            id: $('#cache-id').val(),
-                            name: $('#cache-name').val(),
-                            method: $('#cache-method').val(),
-                            cacheType: '',
-                            cacheDirectory: '',
-                            metaSizeX: $('#cache-metaSizeX').val(),
-                            metaSizeY: $('#cache-metaSizeY').val(),
-                            metaBuffer: $('#cache-metaBuffer').val(),
-                            format: $('#cache-format').val(),
-                            grids: $('#cache-grids').val(),
-                            sources: JSON.parse(form['sources'].value),
-                        },
-                        `CACHE ${$('#cache-name').val()} 자료의 동기화를 진행 했습니다.`,
-                        `CACHE ${$('#cache-name').val()} 자료의 동기화를 진행하지 못 했습니다.`,
-                    );
+                    // neighbor_synchronize_ajax('/server/api/proxy/sync/cache-save', 'POST', {
+                    //         id: $('#cache-id').val(),
+                    //         name: $('#cache-name').val(),
+                    //         method: $('#cache-method').val(),
+                    //         cacheType: '',
+                    //         cacheDirectory: '',
+                    //         metaSizeX: $('#cache-metaSizeX').val(),
+                    //         metaSizeY: $('#cache-metaSizeY').val(),
+                    //         metaBuffer: $('#cache-metaBuffer').val(),
+                    //         format: $('#cache-format').val(),
+                    //         grids: $('#cache-grids').val(),
+                    //         sources: JSON.parse(form['sources'].value),
+                    //     },
+                    //     `CACHE ${$('#cache-name').val()} 자료의 동기화를 진행 했습니다.`,
+                    //     `CACHE ${$('#cache-name').val()} 자료의 동기화를 진행하지 못 했습니다.`,
+                    // );
                     form['sources'].value = JSON.parse(form['sources'].value);
                     sessionStorage.setItem('tab', 'cache');
                     return true;
@@ -631,14 +631,14 @@ function cacheValidation(){
 
 function onclick_delete_data(type, id, name){
     if(window.confirm(`${type.toUpperCase()} 데이터 [${name}] 자료 삭제를 진행 하시겠습니까?`)) {
-        neighbor_synchronize_ajax(`/server/api/proxy/sync/${type}-delete`, 'POST', {
-            name: name,
-        },
-`${type.toUpperCase()} 데이터 ${name} 자료의 삭제 동기화를 진행 했습니다.`,
-`${type.toUpperCase()} 데이터 ${name} 자료의 삭제 동기화를 진행하지 못 했습니다.`,
-        );
-        window.location.href = `${CONTEXT}/view/proxy/${type}-delete?id=${id}&name=${name}`;
+//         neighbor_synchronize_ajax(`/server/api/proxy/sync/${type}-delete`, 'POST', {
+//             name: name,
+//         },
+// `${type.toUpperCase()} 데이터 ${name} 자료의 삭제 동기화를 진행 했습니다.`,
+// `${type.toUpperCase()} 데이터 ${name} 자료의 삭제 동기화를 진행하지 못 했습니다.`,
+//         );
         sessionStorage.setItem('tab', type);
+        window.location.href = `${CONTEXT}/view/proxy/${type}-delete?id=${id}&name=${name}`;
     }
 }
 
@@ -933,10 +933,10 @@ function onsubmit_global_table(form){
 
         form.appendChild(hidden);
 
-        neighbor_synchronize_ajax(`/server/api/proxy/sync/global-save`, 'POST', result,
-            '모든 GLOBAL 데이터 자료의 동기화를 진행 했습니다.',
-            '모든 GLOBAL 데이터 자료의 동기화를 진행하지 못 했습니다.',
-        );
+        // neighbor_synchronize_ajax(`/server/api/proxy/sync/global-save`, 'POST', result,
+        //     '모든 GLOBAL 데이터 자료의 동기화를 진행 했습니다.',
+        //     '모든 GLOBAL 데이터 자료의 동기화를 진행하지 못 했습니다.',
+        // );
 
         return true;
     } else {

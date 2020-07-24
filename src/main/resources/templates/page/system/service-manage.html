@@ -19,8 +19,13 @@
 <th:block layout:fragment="content-body-fragment">
     <!-- 서버 상태 조회 시작 -->
     <div id="service-manage-zone">
-        <h2 class="section_tit">서비스 상태 조회 및 관리</h2>
-        <div class="col-lg-12">
+        <div class="d-flex justify-content-between">
+            <h2 class="section_tit">서비스 상태 조회 및 관리</h2>
+            <select class="form-control" style="width: 20%;" onchange="onchange_manage_zone(this)">
+                <option th:each="zone : ${zones}" th:value="${zone}" th:text="${zone == 'GOC' ? '지작사' : zone}" th:selected="${ #strings.equals((param.zone == null ? local.zone : param.zone), zone) }"></option>
+            </select>
+        </div>
+        <div th:if="${ #lists.size(connections) > 0 }">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li th:each="connection, idx : ${connections}" class="nav-item">
                     <a th:class="${ idx.index == 0 ? 'nav-link active' : 'nav-link' }" th:id="${'tab' + idx.index}" data-toggle="tab" th:href="${'#' + connection.key}" role="tab" th:text="${connection.name}"></a>
@@ -53,6 +58,7 @@
                                                 th:data-service-key="${ serviceMap.get(service).name }"
                                                 data-method="START"
                                                 th:data-index="${idx.index}"
+                                                th:data-hostname="${connection.name}"
                                                 onclick="onclick_service_execute(this)"
                                         >
                                             <i class="fas fa-play-circle"></i>
@@ -64,6 +70,7 @@
                                                 th:data-service-key="${ serviceMap.get(service).name }"
                                                 data-method="STOP"
                                                 th:data-index="${idx.index}"
+                                                th:data-hostname="${connection.name}"
                                                 onclick="onclick_service_execute(this)"
                                         >
                                             <i class="fas fa-stop-circle"></i>
@@ -75,6 +82,7 @@
                                                 th:data-service-key="${ serviceMap.get(service).name }"
                                                 data-method="RESTART"
                                                 th:data-index="${idx.index}"
+                                                th:data-hostname="${connection.name}"
                                                 onclick="onclick_service_execute(this)"
                                         >
                                             <i class="fas fa-reply"></i>
@@ -90,6 +98,7 @@
                                                 th:data-service-key="${ serviceMap.get(service).name }"
                                                 data-method="RESTART"
                                                 th:data-index="${idx.index}"
+                                                th:data-hostname="${connection.name}"
                                                 onclick="onclick_service_execute(this)"
                                         >
                                             <i class="fas fa-reply"></i>
@@ -102,17 +111,20 @@
                 </div>
             </div>
         </div>
+        <div th:unless="${ #lists.size(connections) > 0}">
+            <div class="jumbotron">
+                <h1 class="display-4">
+                    <i class="fas fa-times-circle"></i> No Server!
+                </h1>
+                <p class="lead">해당 ZONE 에 연동된 서버가 없습니다. 다른 ZONE 을 선택하시길 바랍니다.</p>
+            </div>
+        </div>
     </div>
     <!-- // 서버 상태 조회 종료 -->
 
     <!-- 서버 작동 내역 조회 시작 -->
     <div class="py-1">
         <h2 class="section_tit">서비스 작동 내역 조회</h2>
-        <div class="text-right my-1">
-            <button class="btn btn-sm btn-danger" type="button" onclick="onclick_remove_all_history()">
-                <i class="fas fa-trash"></i> 전체 삭제
-            </button>
-        </div>
         <table id="list_table_shutdown" class="table table-sm basic">
             <thead class="table-info">
             <tr>
@@ -132,14 +144,13 @@
                     <i class="fas fa-times-circle text-danger" th:unless="${history.succeed}"></i>
                 </td>
                 <td class="text-center align-middle" th:text="${history.workedUser}"></td>
-                <td class="text-center align-middle" th:text="${#dates.format(history.workedDate, 'yyyy-MM-dd HH:mm')}"></td>
+                <td class="text-center align-middle" th:text="${#dates.format(history.workedDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
             </tr>
             </tbody>
         </table>
     </div>
 
     <script th:inline="javascript">
-        var localMain = /*[[ ${local} ]]*/ null;
         var message = /*[[ ${message} ]]*/ null;
         var connections = /*[[ ${connections} ]]*/ [];
     </script>
