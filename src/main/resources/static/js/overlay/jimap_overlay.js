@@ -5,14 +5,15 @@ var JimapOverlay = function JimapOverlay(options) {
         throw new Error('new 로 객체를 생성해야 합니다.')
     }
 
-    this.lineDraw = false;          // line draw 여부
-    this.rectDraw = false;          // rect draw 여부
+    this.isDraw = false;
 
     this._svg = d3.select(options.canvas).append('svg');
     this._transform = d3.geoTransform({point : this.projectPoint});
     this._path = d3.geoPath().projection(this._transform);
+
     this._lines = new jsMap();
     this._rects = new jsMap();
+    this._triangles = new jsMap();
 
     jiCommon.addMapEvent('viewreset', this.update);
     jiCommon.addMapEvent('move', this.update);
@@ -29,6 +30,13 @@ JimapOverlay.prototype.projectPoint = function projectPoint(lon, lat) {
 JimapOverlay.prototype.update = function update() {
     // 현재 map extents 와 겹치는지 부분만 update
     // 원본 좌표는 e 객체에 들어 있음
+
+    jiCommon.overlay.updateLine();
+    jiCommon.overlay.updateRectangle();
+    jiCommon.overlay.updateTriangle();
+}
+
+JimapOverlay.prototype.updateLine = function updateLine() {
     if (jiCommon.overlay._lines.size() > 0) {
         jiCommon.overlay._lines.values().forEach(function (e) {
             if (!e.feature.isScreen()) {
@@ -36,7 +44,9 @@ JimapOverlay.prototype.update = function update() {
             }
         });
     }
+}
 
+JimapOverlay.prototype.updateRectangle = function updateRectangle() {
     if (jiCommon.overlay._rects.size() > 0) {
         jiCommon.overlay._rects.values().forEach(function (e) {
             if (!e.feature.isScreen()) {
@@ -44,6 +54,20 @@ JimapOverlay.prototype.update = function update() {
             }
         });
     }
+}
+
+JimapOverlay.prototype.updateTriangle = function updateTriangle() {
+    if (jiCommon.overlay._triangles.size() > 0) {
+        jiCommon.overlay._triangles.values().forEach(function (e) {
+            if (!e.feature.isScreen()) {
+                e.svg.attr('d', e.feature.getPath());
+            }
+        });
+    }
+}
+
+JimapOverlay.prototype.updatePath = function updatePath(svg, feature) {
+    svg.attr('d', feature.getPath());
 }
 
 // line draw event
@@ -73,20 +97,22 @@ JimapOverlay.prototype.lineDrawDrag = function lineDrawDrag(e) {
 
             if (jiCommon.overlay.line.svg === undefined) {
                 jiCommon.overlay.line.svg = jiCommon.overlay._svg.append('g').attr('id', 'g-line-' + jiCommon.overlay.line.id)
-                    .append('path')
+                    .append('path').attr('id', 'path-line-' + jiCommon.overlay.line.id)
                     .attr('d', jiCommon.overlay.line.feature.getPath())
                     .style('stroke', overlayCommon.commonAttr.stroke)
                     .style('stroke-dasharray', '5 5')
                     .style('opacity', 0.8)
-                    .style('stroke-width', overlayCommon.commonAttr.strokeWidth);
+                    .style('stroke-width', overlayCommon.commonAttr.strokeWidth).on('click', function() {
+                        alert('Line Click Event.');
+                    });
             } else {
-                jiCommon.overlay.line.svg.attr('d', jiCommon.overlay.line.feature.getPath());
+                jiCommon.overlay.updatePath(jiCommon.overlay.line.svg, jiCommon.overlay.line.feature);
             }
 
             if (!jiCommon.overlay._lines.containsKey(jiCommon.overlay.line.id)) {
                 jiCommon.overlay._lines.put(jiCommon.overlay.line.id, jiCommon.overlay.line);
             }
-            jiCommon.overlay.update();
+            jiCommon.overlay.updateLine();
         }
     }
 }
@@ -95,14 +121,14 @@ JimapOverlay.prototype.lineDrawEnd = function lineDrawEnd(e) {
     jiCommon.overlay.keep = false;
     jiCommon.overlay.line.feature.setX2(e.lngLat.lng);
     jiCommon.overlay.line.feature.setY2(e.lngLat.lat);
-    jiCommon.overlay.line.svg.attr('d', jiCommon.overlay.line.feature.getPath());
-    jiCommon.overlay.update();
+    jiCommon.overlay.updatePath(jiCommon.overlay.line.svg, jiCommon.overlay.line.feature);
+    jiCommon.overlay.updateLine();
 
     jiCommon.removeMapEvent('mousedown', jiCommon.overlay.lineDrawStart);
     jiCommon.removeMapEvent('mousemove', jiCommon.overlay.lineDrawDrag);
     jiCommon.removeMapEvent('mouseup', jiCommon.overlay.lineDrawEnd);
 
-    jiCommon.overlay.lineDraw = false;
+    jiCommon.overlay.isDraw = false;
 
     overlayCommon.svgShapeNum.line++;
 
@@ -137,36 +163,36 @@ JimapOverlay.prototype.rectDrawDrag = function rectDrawDrag(e) {
 
             if (jiCommon.overlay.rect.svg === undefined) {
                 jiCommon.overlay.rect.svg = jiCommon.overlay._svg.append('g').attr('id', 'g-rect-' + jiCommon.overlay.rect.id)
-                    .append('path')
+                    .append('path').attr('id', 'path-rect-' + jiCommon.overlay.rect.id)
                     .attr('d', jiCommon.overlay.rect.feature.getPath())
                     .style('stroke', overlayCommon.commonAttr.stroke)
                     .style('stroke-width', overlayCommon.commonAttr.strokeWidth)
                     .style('fill', overlayCommon.commonAttr.color).style('fill-opacity', 0.3).on('click', function(d) {
-                        alert('Rect click event');
+                        alert('Rect Click Event.');
                     });
             } else {
-                jiCommon.overlay.rect.svg.attr('d', jiCommon.overlay.rect.feature.getPath());
+                jiCommon.overlay.updatePath(jiCommon.overlay.rect.svg, jiCommon.overlay.rect.feature);
             }
 
             if (!jiCommon.overlay._rects.containsKey(jiCommon.overlay.rect.id)) {
                 jiCommon.overlay._rects.put(jiCommon.overlay.rect.id, jiCommon.overlay.rect);
             }
 
-            jiCommon.overlay.update();
+            jiCommon.overlay.updateRectangle();
         }
     }
 }
 
 JimapOverlay.prototype.rectDrawEnd = function rectDrawEnd(e) {
     jiCommon.overlay.keep = false;
-    jiCommon.overlay.rect.svg.attr('d', jiCommon.overlay.rect.feature.getPath());
-    jiCommon.overlay.update();
+    jiCommon.overlay.updatePath(jiCommon.overlay.rect.svg, jiCommon.overlay.rect.feature);
+    jiCommon.overlay.updateRectangle();
 
     jiCommon.removeMapEvent('mousedown', jiCommon.overlay.rectDrawStart);
     jiCommon.removeMapEvent('mousemove', jiCommon.overlay.rectDrawDrag);
     jiCommon.removeMapEvent('mouseup', jiCommon.overlay.rectDrawEnd);
 
-    jiCommon.overlay.rectDraw = false;
+    jiCommon.overlay.isDraw = false;
 
     overlayCommon.svgShapeNum.rect++;
 
@@ -174,17 +200,82 @@ JimapOverlay.prototype.rectDrawEnd = function rectDrawEnd(e) {
 }
 // rect draw event
 
+// triangle draw event
+JimapOverlay.prototype.triangleDrawStart = function triangleDrawStart(e) {
+    jiCommon.overlay.keep = true;
+    jiCommon.addMapEvent('mousemove', jiCommon.overlay.triangleDrawDrag);
+    jiCommon.disableDragPan();
+
+    jiCommon.overlay.triangle.id = jiCommon.overlay.idMaker('triangle');
+    jiCommon.overlay.triangle.x1 = e.lngLat.lng;
+    jiCommon.overlay.triangle.y1 = e.lngLat.lat;
+}
+
+JimapOverlay.prototype.triangleDrawDrag = function triangleDrawDrag(e) {
+    if (jiCommon.overlay.keep) {
+        jiCommon.overlay.triangle.x2 = e.lngLat.lng;
+        jiCommon.overlay.triangle.y2 = e.lngLat.lat;
+
+        if (jiCommon.overlay.triangle.x1 !== jiCommon.overlay.triangle.x2) {
+            if (jiCommon.overlay.triangle.feature === undefined) {
+                jiCommon.overlay.triangle.feature = new Triangle(jiCommon.overlay.triangle.x1,
+                    jiCommon.overlay.triangle.y1, jiCommon.overlay.triangle.x2, jiCommon.overlay.triangle.y2);
+            } else {
+                jiCommon.overlay.triangle.feature.setX2(jiCommon.overlay.triangle.x2);
+                jiCommon.overlay.triangle.feature.setY2(jiCommon.overlay.triangle.y2);
+            }
+
+            if (jiCommon.overlay.triangle.svg === undefined) {
+                jiCommon.overlay.triangle.svg = jiCommon.overlay._svg.append('g')
+                    .attr('id', 'g-triangle-' + jiCommon.overlay.triangle.id)
+                    .append('path').attr('id', 'path-triangle-' + jiCommon.overlay.triangle.id)
+                    .attr('d', jiCommon.overlay.triangle.feature.getPath())
+                    .style('stroke', overlayCommon.commonAttr.stroke)
+                    .style('stroke-width', overlayCommon.commonAttr.strokeWidth)
+                    .style('fill', overlayCommon.commonAttr.color).on('click', function() {
+                        alert('Triangle Click Event.');
+                    });
+            } else {
+                jiCommon.overlay.updatePath(jiCommon.overlay.triangle.svg, jiCommon.overlay.triangle.feature);
+            }
+
+            if (!jiCommon.overlay._triangles.containsKey(jiCommon.overlay.triangle.id)) {
+                jiCommon.overlay._triangles.put(jiCommon.overlay.triangle.id, jiCommon.overlay.triangle);
+            }
+
+            jiCommon.overlay.updateTriangle();
+        }
+    }
+}
+
+JimapOverlay.prototype.triangleDrawEnd = function triangleDrawEnd(e) {
+    jiCommon.overlay.keep = false;
+    jiCommon.overlay.updatePath(jiCommon.overlay.triangle.svg, jiCommon.overlay.triangle.feature);
+    jiCommon.overlay.updateTriangle();
+
+    jiCommon.removeMapEvent('mousedown', jiCommon.overlay.triangleDrawStart);
+    jiCommon.removeMapEvent('mousemove', jiCommon.overlay.triangleDrawDrag);
+    jiCommon.removeMapEvent('mouseup', jiCommon.overlay.triangleDrawEnd);
+
+    jiCommon.overlay.isDraw = false;
+
+    overlayCommon.svgShapeNum.triangle++;
+
+    jiCommon.enableDragPan();
+}
+// triangle draw event
+
 JimapOverlay.prototype.selectedShape = function selectedShape(shape, imageUrl) {
     if (shape === 'line') {
-        if (this.lineDraw) {
-            this.lineDraw = false;
+        if (this.isDraw) {
+            this.isDraw = false;
 
             jiCommon.removeMapEvent('mousedown', this.lineDrawStart);
             jiCommon.removeMapEvent('mouseup', this.lineDrawEnd);
 
             jiCommon.enableDragPan();
         } else {
-            this.lineDraw = true;
+            this.isDraw = true;
             this.keep = false;
             this.line = {};
 
@@ -192,20 +283,34 @@ JimapOverlay.prototype.selectedShape = function selectedShape(shape, imageUrl) {
             jiCommon.addMapEvent('mouseup', this.lineDrawEnd);
         }
     } else if (shape === 'rect') {
-        if (this.rectDraw) {
-            this.rectDraw = false;
+        if (this.isDraw) {
+            this.isDraw = false;
 
             jiCommon.removeMapEvent('mousedown', this.rectDrawStart);
             jiCommon.removeMapEvent('mouseup', this.rectDrawEnd);
 
             jiCommon.enableDragPan();
         } else {
-            this.rectDraw = true;
+            this.isDraw = true;
             this.keep = false;
             this.rect = {};
 
             jiCommon.addMapEvent('mousedown', this.rectDrawStart);
             jiCommon.addMapEvent('mouseup', this.rectDrawEnd);
+        }
+    } else if (shape === 'triangle') {
+        if (this.isDraw) {
+            this.isDraw = false;
+
+            jiCommon.removeMapEvent('mousedown', this.triangleDrawStart);
+            jiCommon.removeMapEvent('mouseup', this.triangleDrawEnd);
+        } else {
+            this.isDraw = true;
+            this.keep = false;
+            this.triangle = {};
+
+            jiCommon.addMapEvent('mousedown', this.triangleDrawStart);
+            jiCommon.addMapEvent('mouseup', this.triangleDrawEnd);
         }
     }
 }
@@ -219,6 +324,8 @@ JimapOverlay.prototype.idMaker = function idMaker(shapeNm) {
         case 'rect':
             makeId = shapeNm + overlayCommon.svgShapeNum.rect;
             break;
+        case 'triangle' :
+            makeId = shapeNm + overlayCommon.svgShapeNum.triangle;
     }
 
     return makeId;

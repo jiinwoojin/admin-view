@@ -60,5 +60,11 @@ var jiConstant = {
     },
     DRAW_MODE : {
 
+    },
+    UNITS : {
+        METERS : 'meters',
+        KILOMETERS : 'kilometers',
+        DEGREES : 'degrees',
+        RADIANS : 'radians'
     }
 };
