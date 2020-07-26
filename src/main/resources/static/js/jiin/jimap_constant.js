@@ -61,10 +61,38 @@ var jiConstant = {
     DRAW_MODE : {
 
     },
+    EVENTS : {
+        MOUSEDOWN : 'mousedown',
+        MOUSEMOVE : 'mousemove',
+        MOUSEUP : 'mouseup',
+        MOVE : 'move',
+        MOVEEND : 'moveend',
+        VIEWRESET : 'viewreset',
+        CLICK : 'click',
+        CONTEXTMENU : 'contextmenu',
+        DBLCLICK : 'dblclick'
+    },
     UNITS : {
         METERS : 'meters',
         KILOMETERS : 'kilometers',
         DEGREES : 'degrees',
         RADIANS : 'radians'
+    },
+    OVERLAY_DRAW_MODE : {
+        SELECT : { CD : 0, NAME : 'select' },
+        POINT : { CD : 1, NAME : 'point' },
+        LINE : { CD : 2, NAME : 'line' },
+        RECTANGLE : { CD : 3, NAME : 'rect' },
+        ROUNDED_RECTANGLE : { CD : 4, NAME : 'round-rect' },
+        TRIANGLE : { CD : 5, NAME : 'triangle' },
+        CIRCLE : { CD : 6, NAME : 'circle' },
+        ELLIPSE : { CD : 7, NAME : 'ellipse' },
+        ARC : { CD : 8, NAME : 'arc' },
+        PIE : { CD : 9, NAME : 'pie' },
+        HEXAGON : { CD : 10, NAME : 'hexagon' },
+        TEXT : { CD : 11, NAME : 'text' },
+        IMAGE : { CD : 12, NAME : 'image' },
+        MINIMAP : { CD : 13, NAME : 'minimap' },
+        MARKER : { CD : 14, NAME : 'marker' }
     }
 };

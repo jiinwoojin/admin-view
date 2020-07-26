@@ -6,13 +6,14 @@ var JimapOverlay = function JimapOverlay(options) {
     }
 
     this.isDraw = false;
+    this._drawMode = 999;
 
     this._svg = d3.select(options.canvas).append('svg');
     this._transform = d3.geoTransform({point : this.projectPoint});
     this._path = d3.geoPath().projection(this._transform);
 
     this._lines = new jsMap();
-    this._rects = new jsMap();
+    this._rectangles = new jsMap();
     this._triangles = new jsMap();
 
     jiCommon.addMapEvent('viewreset', this.update);
@@ -47,8 +48,8 @@ JimapOverlay.prototype.updateLine = function updateLine() {
 }
 
 JimapOverlay.prototype.updateRectangle = function updateRectangle() {
-    if (jiCommon.overlay._rects.size() > 0) {
-        jiCommon.overlay._rects.values().forEach(function (e) {
+    if (jiCommon.overlay._rectangles.size() > 0) {
+        jiCommon.overlay._rectangles.values().forEach(function (e) {
             if (!e.feature.isScreen()) {
                 e.svg.attr('d', e.feature.getPath());
             }
@@ -68,6 +69,59 @@ JimapOverlay.prototype.updateTriangle = function updateTriangle() {
 
 JimapOverlay.prototype.updatePath = function updatePath(svg, feature) {
     svg.attr('d', feature.getPath());
+}
+
+JimapOverlay.prototype.drawStart = function drawStart(e) {
+    jiCommon.overlay.keep = true;
+    jiCommon.disableDragPan();
+
+    jiCommon.overlay.feature = {};
+    jiCommon.overlay.feature.id = jiCommon.overlay.idMaker();
+    jiCommon.overlay.feature.x1 = e.lngLat.lng;
+    jiCommon.overlay.feature.y1 = e.lngLat.lat;
+    switch (jiCommon.overlay._drawMode) {
+        case jiConstant.OVERLAY_DRAW_MODE.LINE.CD :
+        case jiConstant.OVERLAY_DRAW_MODE.RECTANGLE.CD :
+        case jiConstant.OVERLAY_DRAW_MODE.TRIANGLE.CD :
+            jiCommon.addMapEvent(jiConstant.EVENTS.MOUSEMOVE, jiCommon.overlay.drawDrag);
+            break;
+    }
+}
+
+JimapOverlay.prototype.drawDrag = function drawDrag(e) {
+    if (jiCommon.overlay.keep) {
+        jiCommon.overlay.feature.x2 = e.lngLat.lng;
+        jiCommon.overlay.feature.y2 = e.lngLat.lat;
+        switch (jiCommon.overlay._drawMode) {
+            case jiConstant.OVERLAY_DRAW_MODE.LINE.CD :
+                break;
+            case jiConstant.OVERLAY_DRAW_MODE.RECTANGLE.CD :
+                break;
+            case jiConstant.OVERLAY_DRAW_MODE.TRIANGLE.CD :
+                break;
+        }
+    }
+}
+
+JimapOverlay.prototype.drawEnd = function drawEnd(e) {
+    switch (jiCommon.overlay._drawMode) {
+        case jiConstant.OVERLAY_DRAW_MODE.LINE.CD :
+        case jiConstant.OVERLAY_DRAW_MODE.RECTANGLE.CD :
+        case jiConstant.OVERLAY_DRAW_MODE.TRIANGLE.CD :
+            jiCommon.removeMapEvent(jiConstant.EVENTS.MOUSEMOVE, jiCommon.overlay.drawDrag);
+            break;
+    }
+
+    jiCommon.overlay.updatePath(jiCommon.overlay.line.svg, jiCommon.overlay.line.feature);
+    jiCommon.overlay.updateLine();
+
+    jiCommon.removeMapEvent(jiConstant.EVENTS.MOUSEDOWN, jiCommon.overlay.drawStart);
+    jiCommon.removeMapEvent(jiConstant.EVENTS.MOUSEMOVE, jiCommon.overlay.drawDrag);
+    jiCommon.removeMapEvent(jiConstant.EVENTS.MOUSEUP, jiCommon.overlay.drawEnd);
+
+    jiCommon.overlay.isDraw = false;
+
+    jiCommon.enableDragPan();
 }
 
 // line draw event
@@ -130,8 +184,6 @@ JimapOverlay.prototype.lineDrawEnd = function lineDrawEnd(e) {
 
     jiCommon.overlay.isDraw = false;
 
-    overlayCommon.svgShapeNum.line++;
-
     jiCommon.enableDragPan();
 }
 // line draw event
@@ -174,8 +226,8 @@ JimapOverlay.prototype.rectDrawDrag = function rectDrawDrag(e) {
                 jiCommon.overlay.updatePath(jiCommon.overlay.rect.svg, jiCommon.overlay.rect.feature);
             }
 
-            if (!jiCommon.overlay._rects.containsKey(jiCommon.overlay.rect.id)) {
-                jiCommon.overlay._rects.put(jiCommon.overlay.rect.id, jiCommon.overlay.rect);
+            if (!jiCommon.overlay._rectangles.containsKey(jiCommon.overlay.rect.id)) {
+                jiCommon.overlay._rectangles.put(jiCommon.overlay.rect.id, jiCommon.overlay.rect);
             }
 
             jiCommon.overlay.updateRectangle();
@@ -193,8 +245,6 @@ JimapOverlay.prototype.rectDrawEnd = function rectDrawEnd(e) {
     jiCommon.removeMapEvent('mouseup', jiCommon.overlay.rectDrawEnd);
 
     jiCommon.overlay.isDraw = false;
-
-    overlayCommon.svgShapeNum.rect++;
 
     jiCommon.enableDragPan();
 }
@@ -259,14 +309,28 @@ JimapOverlay.prototype.triangleDrawEnd = function triangleDrawEnd(e) {
 
     jiCommon.overlay.isDraw = false;
 
-    overlayCommon.svgShapeNum.triangle++;
-
     jiCommon.enableDragPan();
 }
 // triangle draw event
 
 JimapOverlay.prototype.selectedShape = function selectedShape(shape, imageUrl) {
-    if (shape === 'line') {
+    if (this.isDraw) {
+        this._drawMode = 999;
+        this.isDraw = false;
+
+        jiCommon.removeMapEvent(jiConstant.EVENTS.MOUSEDOWN, this.drawStart);
+        jiCommon.removeMapEvent(jiConstant.EVENTS.MOUSEUP, this.drawEnd);
+
+        jiCommon.enableDragPan();
+    } else {
+        this._drawMode = shape;
+        this.isDraw = true;
+        this.keep = false;
+
+        jiCommon.addMapEvent(jiConstant.EVENTS.MOUSEDOWN, this.drawStart);
+        jiCommon.addMapEvent(jiConstant.EVENTS.MOUSEUP, this.drawEnd);
+    }
+    /*if (shape === 'line') {
         if (this.isDraw) {
             this.isDraw = false;
 
@@ -312,21 +376,29 @@ JimapOverlay.prototype.selectedShape = function selectedShape(shape, imageUrl) {
             jiCommon.addMapEvent('mousedown', this.triangleDrawStart);
             jiCommon.addMapEvent('mouseup', this.triangleDrawEnd);
         }
-    }
+    }*/
 }
 
-JimapOverlay.prototype.idMaker = function idMaker(shapeNm) {
+JimapOverlay.prototype.idMaker = function idMaker() {
     var makeId;
-    switch (shapeNm) {
-        case 'line' :
-            makeId = shapeNm + overlayCommon.svgShapeNum.line;
+    switch (this._drawMode) {
+        case jiConstant.OVERLAY_DRAW_MODE.LINE.CD :
+            makeId = jiConstant.OVERLAY_DRAW_MODE.LINE.NAME + (++overlayCommon.svgShapeNum.line);
             break;
-        case 'rect':
-            makeId = shapeNm + overlayCommon.svgShapeNum.rect;
+        case jiConstant.OVERLAY_DRAW_MODE.RECTANGLE.CD :
+            makeId = jiConstant.OVERLAY_DRAW_MODE.RECTANGLE.NAME + (++overlayCommon.svgShapeNum.rect);
             break;
-        case 'triangle' :
-            makeId = shapeNm + overlayCommon.svgShapeNum.triangle;
+        case jiConstant.OVERLAY_DRAW_MODE.ROUNDED_RECTANGLE.CD :
+            makeId = jiConstant.OVERLAY_DRAW_MODE.ROUNDED_RECTANGLE.NAME + (++overlayCommon.svgShapeNum.roundrect);
+            break;
+        case jiConstant.OVERLAY_DRAW_MODE.TRIANGLE.CD :
+            makeId = jiConstant.OVERLAY_DRAW_MODE.TRIANGLE.NAME + (++overlayCommon.svgShapeNum.triangle);
+            break;
     }
 
     return makeId;
+}
+
+JimapOverlay.prototype._eventsController = function _eventsController() {
+    // Line | Rectangle | Rounded Rectangle | Triangle | Circle : drawStart, drawDrag, drawEnd
 }

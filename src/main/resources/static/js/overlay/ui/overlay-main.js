@@ -63,7 +63,22 @@ $('.scroller-left').click(function() {
 
 $('.btn-overlay').click(function() {
     if (this.id) {
-        var _id = this.id.split('_')[1];
+        var _id;
+        switch (this.id.split('_')[1]) {
+            case 'line' :
+                _id = 2;
+                break;
+            case 'rect' :
+                _id = 3;
+                break;
+            case 'roundrect' :
+                _id = 4;
+                break;
+            case 'triangle' :
+                _id = 5;
+                break;
+        }
+
         jiCommon.overlay.selectedShape(_id);
     }
 });
