@@ -15,6 +15,10 @@ var JimapCesium = function JimapCesium(options) {
     this._init(options);
 
     this._updateMaterial();
+
+    this.leftDownHandler = new Cesium.ScreenSpaceEventHandler(this._map.scene.canvas);
+    this.mouseMoveHandler = new Cesium.ScreenSpaceEventHandler(this._map.scene.canvas);
+    this.leftUpHandler = new Cesium.ScreenSpaceEventHandler(this._map.scene.canvas);
 }
 
 JimapCesium.prototype.constructor = JimapCesium;
@@ -138,7 +142,8 @@ JimapCesium.prototype = {
         var imageryLayers = this._map.imageryLayers;
         imageryLayers.removeAll();
         imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-            url : jiCommon.MAP_SERVER_URL + `${window.location.protocol === 'https:' ? '/mapproxy' : ''}/service`,
+            //url : jiCommon.MAP_SERVER_URL + `${window.location.protocol === 'https:' ? '/mapproxy' : ''}/service`,
+            url : jiCommon.MAP_SERVER_URL + '/mapproxy/service',
             layers : jiCommon.getBaseMapLayer(),
             parameters : {
                 transparent : 'true',
@@ -258,5 +263,71 @@ JimapCesium.prototype = {
                 tiled : true
             }
         }));
+    },
+    addEvent : function addEvent(type, fn) {
+        switch (type) {
+            case jiConstant.EVENTS.MOUSEDOWN :
+                jiCommon.map.leftDownHandler.setInputAction(fn, Cesium.ScreenSpaceEventType.LEFT_DOWN);
+                break;
+            case jiConstant.EVENTS.MOUSEMOVE :
+                jiCommon.map.mouseMoveHandler.setInputAction(fn, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+                break;
+            case jiConstant.EVENTS.MOUSEUP :
+                jiCommon.map.leftUpHandler.setInputAction(fn, Cesium.ScreenSpaceEventType.LEFT_UP);
+                break;
+        }
+    },
+    removeEvent : function removeEvent(type, fn) {
+        switch (type) {
+            case jiConstant.EVENTS.MOUSEDOWN :
+                jiCommon.map.leftDownHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_DOWN);
+                break;
+            case jiConstant.EVENTS.MOUSEMOVE :
+                jiCommon.map.mouseMoveHandler.removeInputAction(Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+                break;
+            case jiConstant.EVENTS.MOUSEUP :
+                jiCommon.map.leftUpHandler.removeInputAction(Cesium.ScreenSpaceEventType.LEFT_UP);
+                break;
+        }
+    },
+    /**
+     * 경위도 -> 화면좌표
+     * @param point
+     */
+    project : function project(point) {
+        return Cesium.SceneTransforms.wgs84ToWindowCoordinates(this._map.scene, Cesium.Cartesian3.fromDegrees(point.lon, point.lat));
+    },
+    /**
+     * 화면좌표 -> 경위도
+     * @param point
+     */
+    unproject : function unproject(point) {
+        var cartesian = this._map.camera.pickEllipsoid(point, this._map.scene.globe.ellipsoid);
+
+        var _point = {};
+        if (cartesian) {
+            var cartographic = this._map.scene.globe.ellipsoid.cartesianToCartographic(cartesian);
+            _point.lon = Number(Cesium.Math.toDegrees(cartographic.longitude).toFixed(6));
+            _point.lat = Number(Cesium.Math.toDegrees(cartographic.latitude).toFixed(6));
+        } else {
+            _point.lon = 0;
+            _point.lat = 0;
+        }
+
+        return _point;
+    },
+    disableDragPan : function disableDragPan() {
+        this._map.scene.screenSpaceCameraController.enableRotate = false;
+        this._map.scene.screenSpaceCameraController.enableTranslate = false;
+        this._map.scene.screenSpaceCameraController.enableZoom = false;
+        this._map.scene.screenSpaceCameraController.enableTilt = false;
+        this._map.scene.screenSpaceCameraController.enableLook = false;
+    },
+    enableDragPan : function enableDragPan() {
+        this._map.scene.screenSpaceCameraController.enableRotate = true;
+        this._map.scene.screenSpaceCameraController.enableTranslate = true;
+        this._map.scene.screenSpaceCameraController.enableZoom = true;
+        this._map.scene.screenSpaceCameraController.enableTilt = true;
+        this._map.scene.screenSpaceCameraController.enableLook = true;
     }
 }

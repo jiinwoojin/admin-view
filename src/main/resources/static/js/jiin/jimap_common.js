@@ -82,8 +82,6 @@ var jiCommon = {
         this.mapExtents['west'] = extents.west;
     },
     getMapExtents : function getMapExtents() {
-        this.setMapExtents();
-
         return this.mapExtents;
     },
     /**

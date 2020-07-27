@@ -159,9 +159,19 @@ JimapMapbox.prototype = {
     enableDragPan : function enableDragPan() {
         this._map.dragPan.enable();
     },
+    /**
+     * 경위도 -> 화면좌표
+     * @param point
+     * @returns {*}
+     */
     project : function project(point) {
         return this._map.project([point.lon, point.lat]);
     },
+    /**
+     * 화면좌표 -> 경위도
+     * @param point
+     * @returns {*}
+     */
     unproject : function unproject(point) {
         return this._map.unproject([point.x, point.y]);
     }

@@ -339,39 +339,6 @@
                     getMap(contentName);
                 }
             });
-
-            /*$('#overlay_save').click(function() {
-                console.log('save');
-                debugger;
-                saveCanvasData(stmp.d3Canvas);
-            });
-
-            $('#overlay_move').click(function() {
-                stmp.drawMode = false;
-
-                sampleDiv.style.setProperty('pointer-events', 'none');
-                mapContent.style.removeProperty('pointer-events');
-
-                editingMoveMap(d3Canvas);
-            });*/
-
-            /*$('#overlay_start').click(function() {
-                sampleDiv.style.setProperty('z-index', 999);
-                sampleDiv.style.setProperty('width', document.querySelector('#mapContent').clientWidth + 'px');
-                sampleDiv.style.setProperty('height', document.querySelector('#mapContent').clientHeight + 'px');
-                mapContent.style.setProperty('pointer-events', 'none');
-
-                stmp.drawMode = true;
-
-                if (d3Canvas === null) {    // 새로운 시작
-                    d3Canvas = new SVGCanvas(options);
-                    stmp.d3Canvas = d3Canvas;
-                } else {                    // 편집 재시작
-                    if (stmp.editingToMoveMapYn) {
-                        mapMoveToEditing(stmp.d3Canvas);
-                    }
-                }
-            });*/
         });
 
         function getMap(content) {

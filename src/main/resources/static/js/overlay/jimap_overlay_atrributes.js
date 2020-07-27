@@ -26,6 +26,6 @@ var overlayCommon = {
     commonAttr : {
         stroke : 'blue',        // 선 색
         strokeWidth : 4,        // 선 굵기
-        color : '#00ff0000'     // 채움 색
+        color : '#00ff00'     // 채움 색
     }
 }
