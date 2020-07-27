@@ -1,5 +1,6 @@
 'use strict';
 
+// 작도는 2D 에서만 한다.
 var JimapOverlay = function JimapOverlay(options) {
     if (!(this instanceof JimapOverlay)) {
         throw new Error('new 로 객체를 생성해야 합니다.')
@@ -178,7 +179,7 @@ JimapOverlay.prototype.createSvg = function createSvg() {
                 .style('stroke-width', overlayCommon.commonAttr.strokeWidth)
                 .style('fill', overlayCommon.commonAttr.color)
                 .style('fill-opacity', 0.4)
-                .on('click', function() {alert('Rect Click Event.')});
+                .on('click', function() {console.log(d3.select(this))});
             break;
         case jiConstant.OVERLAY_DRAW_MODE.TRIANGLE.CD :
             svg = jiCommon.overlay._svg.append('g').attr('id', 'g-triangle-' + _id)
@@ -237,20 +238,8 @@ JimapOverlay.prototype.drawStart = function drawStart(e) {
 
     jiCommon.overlay.object = {};
     jiCommon.overlay.object.id = jiCommon.overlay.idMaker();
-
-    var x1;
-    var y1;
-    if (jiCommon.checkMapKind()) {
-        var _point = jiCommon.convert.pixelToLonLat(e.position);
-        x1 = _point.lon;
-        y1 = _point.lat;
-    } else {
-        x1 = e.lngLat.lng;
-        y1 = e.lngLat.lat;
-    }
-
-    jiCommon.overlay.object.x1 = x1;
-    jiCommon.overlay.object.y1 = y1;
+    jiCommon.overlay.object.x1 = e.lngLat.lng;
+    jiCommon.overlay.object.y1 = e.lngLat.lat;
 
     switch (jiCommon.overlay._drawMode) {
         case jiConstant.OVERLAY_DRAW_MODE.LINE.CD :
@@ -264,19 +253,8 @@ JimapOverlay.prototype.drawStart = function drawStart(e) {
 // 입력되는 좌표열을 2개만 관리 할 경우
 JimapOverlay.prototype.drawDrag = function drawDrag(e) {
     if (jiCommon.overlay.keep) {
-        var x2;
-        var y2;
-        if (jiCommon.checkMapKind()) {
-            var _point = jiCommon.convert.pixelToLonLat(e.endPosition);
-            x2 = _point.lon;
-            y2 = _point.lat;
-        } else {
-            x2 = e.lngLat.lng;
-            y2 = e.lngLat.lat;
-        }
-
-        jiCommon.overlay.object.x2 = x2;
-        jiCommon.overlay.object.y2 = y2;
+        jiCommon.overlay.object.x2 = e.lngLat.lng;
+        jiCommon.overlay.object.y2 = e.lngLat.lat;
 
         if (jiCommon.overlay.object.x1 !== jiCommon.overlay.object.x2) {
             if (jiCommon.overlay.object.feature === undefined) {
@@ -307,4 +285,8 @@ JimapOverlay.prototype.drawEnd = function drawEnd(e) {
     jiCommon.overlay._eventsController();
 
     jiCommon.enableDragPan();
+}
+
+JimapOverlay.prototype.selectObject = function selectObject() {
+
 }
