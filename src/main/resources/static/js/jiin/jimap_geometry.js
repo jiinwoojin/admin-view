@@ -221,6 +221,17 @@ Line.prototype = {
         var pixel2 = this.isScreen() ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.x2, 'lat' : this.y2});
 
         return Path.moveTo(pixel1.x, pixel1.y) + Path.lineTo(pixel2.x, pixel2.y) + Path.closePath();
+    },
+    getSvg : function getSvg() {
+        var pixel1 = this.isScreen() ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.x1, 'lat' : this.y1});
+        var pixel2 = this.isScreen() ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.x2, 'lat' : this.y2});
+
+        return {
+            'x1' : pixel1.x,
+            'y1' : pixel1.y,
+            'x2' : pixel2.x,
+            'y2' : pixel2.y
+        }
     }
 }
 
@@ -282,10 +293,24 @@ Rectangle.prototype = {
 
         var x = pixel1.x;
         var y = pixel1.y;
-        var w = pixel2.x - pixel1.x;
-        var h = pixel2.y - pixel1.y;
+        var w = Math.abs(pixel2.x - pixel1.x);
+        var h = Math.abs(pixel2.y - pixel1.y);
 
         return Path.rect(x, y, w, h);
+    },
+    getSvg : function getSvg() {
+        var pixel1 = this.isScreen() ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.x1, 'lat' : this.y1});
+        var pixel2 = this.isScreen() ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.x2, 'lat' : this.y2});
+
+        var x = Math.min(pixel1.x, pixel2.x);
+        var y = Math.min(pixel1.y, pixel2.y);
+
+        return {
+            'x' : x,
+            'y' : y,
+            'w' : Math.abs(pixel1.x - pixel2.x),
+            'h' : Math.abs(pixel1.y - pixel2.y)
+        }
     }
 }
 

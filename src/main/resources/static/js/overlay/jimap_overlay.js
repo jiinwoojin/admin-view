@@ -41,7 +41,10 @@ JimapOverlay.prototype.updateLine = function updateLine() {
             if (!e.feature.isScreen()) {
                 // 현재 map extents 와 겹치는지 부분만 update
                 // 원본 좌표는 e 객체에 들어 있음
-                e.svg.attr('d', e.feature.getPath());
+                var _lineSvg = e.feature.getSvg();
+                e.svg.attr('x1', _lineSvg.x1).attr('y1', _lineSvg.y1)
+                    .attr('x2', _lineSvg.x2).attr('y2', _lineSvg.y2);
+                //e.svg.attr('d', e.feature.getPath());
             }
         });
     }
@@ -53,7 +56,10 @@ JimapOverlay.prototype.updateRectangle = function updateRectangle() {
             if (!e.feature.isScreen()) {
                 // 현재 map extents 와 겹치는지 부분만 update
                 // 원본 좌표는 e 객체에 들어 있음
-                e.svg.attr('d', e.feature.getPath());
+                var _rectSvg = e.feature.getSvg();
+                e.svg.attr('x', _rectSvg.x).attr('y', _rectSvg.y)
+                    .attr('width', _rectSvg.w).attr('height', _rectSvg.h);
+                //e.svg.attr('d', e.feature.getPath());
             }
         });
     }
@@ -162,9 +168,13 @@ JimapOverlay.prototype.createSvg = function createSvg() {
 
     switch (jiCommon.overlay._drawMode) {
         case jiConstant.OVERLAY_DRAW_MODE.LINE.CD :
+            var _lineSvg = _feature.getSvg();
             svg = jiCommon.overlay._svg.append('g').attr('id', 'g-line-' + _id)
-                .append('path').attr('id', 'path-line-' + _id)
-                .attr('d', _feature.getPath())
+                /*.append('path').attr('id', 'path-line-' + _id)
+                .attr('d', _feature.getPath())*/
+                .append('line').attr('id', 'path-line-' + _id)
+                .attr('x1', _lineSvg.x1).attr('y1', _lineSvg.y1)
+                .attr('x2', _lineSvg.x2).attr('y2', _lineSvg.y2)
                 .style('stroke', overlayCommon.commonAttr.stroke)
                 .style('stroke-dasharray', '5 5')
                 .style('opacity', 0.8)
@@ -172,9 +182,14 @@ JimapOverlay.prototype.createSvg = function createSvg() {
                 .on('click', function() {alert('Line Click Event.')});
             break;
         case jiConstant.OVERLAY_DRAW_MODE.RECTANGLE.CD :
+            var _rectSvg = _feature.getSvg();
             svg = jiCommon.overlay._svg.append('g').attr('id', 'g-rect-' + _id)
-                .append('path').attr('id', 'path-rect-' + _id)
-                .attr('d', _feature.getPath())
+                /*.append('path').attr('id', 'path-rect-' + _id)
+                .attr('d', _feature.getPath())*/
+                .append('rect').attr('id', 'path-rect-' + _id)
+                .attr('x', _rectSvg.x).attr('y', _rectSvg.y)
+                .attr('width', _rectSvg.w)
+                .attr('height', _rectSvg.h)
                 .style('stroke', overlayCommon.commonAttr.stroke)
                 .style('stroke-width', overlayCommon.commonAttr.strokeWidth)
                 .style('fill', overlayCommon.commonAttr.color)
@@ -266,8 +281,6 @@ JimapOverlay.prototype.drawDrag = function drawDrag(e) {
 
             if (jiCommon.overlay.object.svg === undefined) {
                 jiCommon.overlay.object.svg = jiCommon.overlay.createSvg();
-            } else {
-                jiCommon.overlay.updatePath(jiCommon.overlay.object.svg, jiCommon.overlay.object.feature);
             }
 
             jiCommon.overlay.updateObject();
@@ -277,7 +290,7 @@ JimapOverlay.prototype.drawDrag = function drawDrag(e) {
 }
 
 JimapOverlay.prototype.drawEnd = function drawEnd(e) {
-    jiCommon.overlay.updatePath(jiCommon.overlay.object.svg, jiCommon.overlay.object.feature);
+    // jiCommon.overlay.updatePath(jiCommon.overlay.object.svg, jiCommon.overlay.object.feature);
     jiCommon.overlay.individualUpdate();
 
     jiCommon.overlay.isDraw = false;

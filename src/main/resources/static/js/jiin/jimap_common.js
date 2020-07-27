@@ -12,7 +12,7 @@ var jiCommon = {
     /**
      *
      */
-    MAP_SERVER_DOMAIN : '192.168.1.180',
+    MAP_SERVER_DOMAIN : '192.168.1.180',    // 115.144.19.100
     /**
      *
      */
