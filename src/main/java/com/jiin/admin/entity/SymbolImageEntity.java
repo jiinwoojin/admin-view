@@ -50,6 +50,18 @@ public class SymbolImageEntity {
     private Date registTime;
 
     /**
+     * 등록자 ID
+     */
+    @Column(name = "REGISTOR_ID")
+    private String registorId;
+
+    /**
+     * 등록자 이름
+     */
+    @Column(name = "REGISTOR_NAME")
+    private String registorName;
+
+    /**
      * 수정 날짜
      */
     @Column(name = "UPDATE_TIME")

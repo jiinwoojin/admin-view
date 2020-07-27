@@ -1,8 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 나중에 기능 구현 들어가기 전에 한 번 정리해둘 것. -->
+
 <mapper namespace="com.jiin.admin.mapper.data.SymbolImageMapper">
+    <select id="countByPageModel" resultType="long">
+        SELECT COUNT(*) FROM _SYMBOL_IMAGE SI
+        <where>
+            <choose>
+                <when test='sb == 1'> SI.NAME LIKE CONCAT('%', #{st}, '%') </when>
+                <when test='sb == 2'> SI.REGISTOR_ID LIKE CONCAT('%', #{st}, '%') </when>
+                <otherwise> 1=1 </otherwise>
+            </choose>
+            <if test="sDate != null and !sDate.equals('') and eDate != null and !eDate.equals('')">
+                AND SI.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD')
+            </if>
+        </where>
+    </select>
+
     <select id="findAll" resultType="SymbolImageDTO">
         SELECT * FROM _SYMBOL_IMAGE
+    </select>
+
+    <select id="findByPageModel" resultType="SymbolImageDTO">
+        <bind name="start" value="(pg - 1) * sz" />
+        SELECT * FROM _SYMBOL_IMAGE SI
+        <where>
+            <choose>
+                <when test='sb == 1'> SI.NAME LIKE CONCAT('%', #{st}, '%') </when>
+                <when test='sb == 2'> SI.REGISTOR_ID LIKE CONCAT('%', #{st}, '%') </when>
+                <otherwise> 1=1 </otherwise>
+            </choose>
+            <if test="sDate != null and !sDate.equals('') and eDate != null and !eDate.equals('')">
+                AND SI.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD')
+            </if>
+        </where>
+        ORDER BY
+        <choose>
+            <when test="ob == 1">SI.ID ASC</when>
+            <when test="ob == 2">SI.NAME ASC</when>
+            <when test="ob == 3">SI.REGIST_TIME DESC</when>
+            <otherwise>SI.ID DESC</otherwise>
+        </choose>
+        <choose>
+            <when test="start gte 0">
+                LIMIT ${sz} OFFSET ${start}
+            </when>
+            <otherwise>
+                LIMIT 0
+            </otherwise>
+        </choose>
     </select>
 </mapper>
