@@ -30,6 +30,8 @@ public class CheckService {
             tableName = AccountEntity.class.getAnnotation(Entity.class).name();
         } else if (type.equalsIgnoreCase("role")) {
             tableName = RoleEntity.class.getAnnotation(Entity.class).name();
+        } else if (type.equalsIgnoreCase("symbolimage")) {
+            tableName = SymbolImageEntity.class.getAnnotation(Entity.class).name();
         } else {
             tableName = null;
         }

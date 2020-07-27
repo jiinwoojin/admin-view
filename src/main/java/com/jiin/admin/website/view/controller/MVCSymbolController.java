@@ -1,32 +1,63 @@
 package com.jiin.admin.website.view.controller;
 
+import com.jiin.admin.config.SessionService;
+import com.jiin.admin.dto.SymbolImageDTO;
+import com.jiin.admin.website.model.SymbolImageCreateModel;
 import com.jiin.admin.website.model.SymbolPageModel;
+import com.jiin.admin.website.util.ImageSpriteUtil;
 import com.jiin.admin.website.view.service.SymbolImageService;
 import com.jiin.admin.website.view.service.SymbolService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.io.IOException;
 
 @Controller
 @RequestMapping("symbol")
 public class MVCSymbolController {
+    @Value("${project.data-path}")
+    private String dataPath;
+
     @Resource
     private SymbolService service;
 
     @Resource
     private SymbolImageService symbolImageService;
 
+    @Resource
+    private SessionService session;
+
     @RequestMapping("image-list")
-    public String symbolImageListView(Model model) {
-        model.addAttribute("images", symbolImageService.findAll());
+    public String pageSymbolImageListView(Model model, SymbolPageModel symbolPageModel) {
+        model.addAttribute("qs", symbolPageModel.getQueryString());
+        model.addAttribute("resMap", symbolImageService.loadDataListAndCountByPaginationModel(symbolPageModel));
+        model.addAttribute("obList", symbolImageService.loadOrderByOptionList());
+        model.addAttribute("sbList", symbolImageService.loadSearchByOptionList());
+        model.addAttribute("message", session.message());
         return "page/symbol/image-list";
+    }
+
+    @RequestMapping("image-create")
+    public String pageSymbolImageCreateView(Model model, @ModelAttribute SymbolImageCreateModel symbolImageCreateModel, SymbolPageModel symbolPageModel) {
+        model.addAttribute("qs", symbolPageModel.getQueryString());
+        return "page/symbol/image-create";
+    }
+
+    @RequestMapping(value = "image-create", method = RequestMethod.POST)
+    public String postSymbolImageCreateRedirect(@Valid SymbolImageCreateModel symbolImageCreateModel) {
+        ImageSpriteUtil.createImageSpriteArrayWithFiles(dataPath, symbolImageCreateModel.getName(), symbolImageCreateModel.getSprites());
+        session.message(String.format("SYMBOL [%s] 그룹이 추가 되었습니다.", symbolImageCreateModel.getName()));
+        return "redirect:image-list?pg=1&sz=10";
+    }
+
+    @RequestMapping("image-update")
+    public String pageSymbolImageUpdateView(Model model, @RequestParam long id, SymbolPageModel symbolPageModel) {
+        return "page/symbol/image-update";
     }
 
     @RequestMapping("list")

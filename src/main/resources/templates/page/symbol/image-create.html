@@ -1,10 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout">
+<th:block layout:fragment="content-title-fragment">
+    <h1 class="h3 mb-0 text-gray-800">MAP 생성</h1>
+</th:block>
 
-</body>
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2 class="page_tit">SYMBOL 그룹 생성</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/view/manage/map-list?pg=1&sz=8&lType=ALL&units=ALL}">지도 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">SYMBOL 관리</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <div class="row">
+       <div class="col-md-4">
+           <form th:action="@{/view/symbol/image-create}" th:object="${symbolImageCreateModel}" method="post" onsubmit="return preSubmit(this)" accept-charset="utf-8" enctype="multipart/form-data">
+               <div class="form-group row">
+                    <div class="col-12">
+                        <label for="symbol-image-name">SYMBOL 그룹 이름</label>
+                    </div>
+                    <div class="col-12 input-group">
+                        <input type="text" class="form-control" th:field="*{name}" id="symbol-image-name">
+                        <div class="input-group-append">
+                            <span class="input-group-btn btn btn-primary" onclick="jiCommon.valid.duplicateCheck('SYMBOLIMAGE','#symbol-image-name','#duplicate-check-message')">중복확인</span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <small class="form-text text-muted" id="duplicate-check-message">중복확인을 해주세요.</small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="description">설명</label>
+                            <input type="text" id="description" class="form-control" th:field="*{description}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="sprites">SYMBOL 이미지 업로드</label>
+                            <input type="file" id="sprites" class="form-control" th:field="*{sprites}" accept="image/png" onchange="onchange_sprite_file_upload(this)" multiple>
+                        </div>
+                    </div>
+                </div>
+
+                <hr/>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary mx-1">
+                        <i class="fas fa-save"></i> 저장
+                    </button>
+                    <a class="btn btn-secondary mx-1" th:href="@{'/view/symbol/image-list?' + ${qs}}">
+                        <i class="fas fa-times"></i> 취소
+                    </a>
+                </div>
+           </form>
+        </div>
+        <div class="col-md-8">
+            <h3 class="section-tit">등록할 SYMBOL 파일 목록</h3>
+            <table class="table basic text-center" id="sprite_list">
+                <thead>
+                <tr>
+                    <th>파일 이름</th>
+                    <th>파일 크기</th>
+                    <th>가로 크기</th>
+                    <th>세로 크기</th>
+                    <th>파일 미리 보기</th>
+                </tr>
+                </thead>
+                <tbody id="sprite-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        var spriteTable;
+
+        $(document).ready(function() {
+            spriteTable = $('#sprite_list').DataTable({
+                stateSave: true
+            });
+
+            $('#sprite_list').on('page.dt', function () {
+                var info = spriteTable.page.info();
+                for (var i = info.start; i < info.end; i++) {
+                    image_preview(i);
+                }
+            });
+        });
+
+        function image_preview(idx) {
+            var files = document.getElementById('sprites').files;
+            if (files[idx]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#preview' + idx).attr('src', e.target.result);
+
+                    var image = new Image();
+                    image.src = e.target.result;
+                    image.onload = function() {
+                        $('#width' + idx).text(this.width + ' px');
+                        $('#height' + idx).text(this.height + ' px');
+                    }
+                }
+                reader.readAsDataURL(files[idx]);
+            }
+        }
+
+        function onchange_sprite_file_upload(dom){
+            var data = dom.files;
+            if (data.length < 1) {
+                toastr.warning("이미지는 최소 1개 이상 업로드 하시길 바랍니다.");
+            }
+
+            spriteTable.clear().draw();
+            for (var i = 0; i < data.length; i++) {
+                createSpriteData(data[i], i);
+            }
+        }
+
+        function preSubmit(form) {
+            if (jQuery.isEmptyObject(form['name'].value)) {
+                form['name'].focus();
+                toastr.warning("이름이 입력되지 않았습니다.");
+                return false;
+            } else if (jQuery(form['name']).data("check-duplicate") === false) {
+                toastr.warning("이름 중복확인이 되지 않았습니다.");
+                return false;
+            }
+
+            var files = document.getElementById('sprites').files;
+            if (files.length < 1) {
+                toastr.warning("이미지는 최소 1개 이상 업로드 하시길 바랍니다.");
+                return false;
+            }
+
+            return true;
+        }
+
+        function tableReload(id) {
+            $('#' + id).DataTable({
+                stateSave: true
+            });
+        }
+
+        function createSpriteData(imgFile, idx) {
+            spriteTable.row.add([
+                imgFile && imgFile.name,
+                imgFile && (imgFile.size / 1024).toFixed(2) + " KB",
+                `<span id='${"width" + idx}'></span>`,
+                `<span id='${"height" + idx}'></span>`,
+                `<img id='${"preview" + idx}' width="24" />`
+            ]).draw( false );
+            image_preview(idx);
+        }
+    </script>
+</th:block>
+
+<th:block layout:fragment="custom-html-link">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+</th:block>
+
+<th:block layout:fragment="custom-html-script">
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+</th:block>
 </html>
