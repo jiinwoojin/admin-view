@@ -13,4 +13,6 @@ public interface SymbolImageService {
 
     Map<String, Object> loadDataListAndCountByPaginationModel(SymbolPageModel symbolPageModel);
     boolean createImageData(SymbolImageCreateModel symbolImageCreateModel);
+
+    boolean deleteImageData(long id);
 }
