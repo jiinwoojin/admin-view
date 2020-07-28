@@ -1,5 +1,8 @@
 package com.jiin.admin.website.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jiin.admin.Constants;
+import com.jiin.admin.website.model.SymbolPositionModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -7,12 +10,16 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 // SYMBOL 이미지 작업을 처리하기 위한 작업
 @Slf4j
 public class ImageSpriteUtil {
-    public static void createImageSpriteArrayWithFiles(String dataPath, String imageName, List<MultipartFile> sprites) {
+    // 처음 저장할 때 실행하는 메소드. 반환되는 데이터는 DB 에 저장하게끔 한다.
+    public static List<SymbolPositionModel> createImageSpriteArrayWithFiles(String dataPath, String imageName, List<MultipartFile> sprites) {
         int imageWidth = 0;
         int imageHeight = 0;
         int count = sprites.size();
@@ -43,6 +50,9 @@ public class ImageSpriteUtil {
         BufferedImage bufferedImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics rect = bufferedImage.getGraphics();
 
+        List<SymbolPositionModel> positions = new ArrayList<>();
+        Map<String, Object> jsonMap = new LinkedHashMap<>();
+
         int y = 0;
         for (int r = 0; r < sqrt; r++) {
             int x = 0;
@@ -54,6 +64,22 @@ public class ImageSpriteUtil {
                     try {
                         BufferedImage image = ImageIO.read(sprite.getInputStream());
                         rect.drawImage(image, x, y, image.getWidth(), image.getHeight(), null);
+
+                        String filename = sprite.getOriginalFilename();
+                        String suffix = filename.replace(".png", "").replace(".PNG", "");
+                        final int saveX = x;
+                        final int saveY = y;
+                        positions.add(new SymbolPositionModel(suffix, x, y, image.getWidth(), image.getHeight()));
+                        jsonMap.put(suffix, new LinkedHashMap<String, Object>() {
+                            {
+                                put("height", image.getHeight());
+                                put("width", image.getWidth());
+                                put("pixelRatio", Constants.DEFAULT_SYMBOL_PIXEL_RATIO);
+                                put("x", saveX);
+                                put("y", saveY);
+                            }
+                        });
+
                         x += image.getWidth();
                         ny = Math.max(ny, image.getHeight());
                     } catch (IOException e) {
@@ -67,15 +93,39 @@ public class ImageSpriteUtil {
         rect.dispose();
 
         try {
-            File file = new File(dataPath + String.format("/html/%s.png", imageName));
-            if (!file.exists()) {
-                file.createNewFile();
+            File mainDirectory = new File(dataPath + String.format("%s/%s", Constants.SYMBOL_FILE_PATH, imageName));
+            if (!mainDirectory.exists()) {
+                mainDirectory.mkdirs();
             }
-            ImageIO.write(bufferedImage, "PNG", file);
+
+            File png1X = new File(dataPath + String.format("%s/%s/%s%s", Constants.SYMBOL_FILE_PATH, imageName, imageName, Constants.PNG_SUFFIX));
+            if (!png1X.exists()) {
+                png1X.createNewFile();
+            }
+
+            File png2X = new File(dataPath + String.format("%s/%s/%s%s", Constants.SYMBOL_FILE_PATH, imageName, imageName, Constants.PNG_2X_SUFFIX));
+            if (!png2X.exists()) {
+                png2X.createNewFile();
+            }
+
+            ImageIO.write(bufferedImage, "PNG", png1X);
+            ImageIO.write(bufferedImage, "PNG", png2X);
+
+            String json1XPath = dataPath + String.format("%s/%s/%s%s", Constants.SYMBOL_FILE_PATH, imageName, imageName, Constants.JSON_SUFFIX);
+            String json2XPath = dataPath + String.format("%s/%s/%s%s", Constants.SYMBOL_FILE_PATH, imageName, imageName, Constants.JSON_2X_SUFFIX);
+
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap);
+
+            FileSystemUtil.createAtFile(json1XPath, json);
+            FileSystemUtil.createAtFile(json2XPath, json);
+
         } catch (FileNotFoundException e) {
             log.error("ERROR - " + e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("ERROR - " + e.getMessage());
         }
+
+        return positions;
     }
 }

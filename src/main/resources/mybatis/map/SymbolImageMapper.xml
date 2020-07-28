@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jiin.admin.mapper.data.SymbolImageMapper">
+    <select id="findNextSeqVal" resultType="long">
+        SELECT NEXTVAL('SYMBOL_IMAGE_SEQ')
+    </select>
+
     <select id="countByPageModel" resultType="long">
         SELECT COUNT(*) FROM _SYMBOL_IMAGE SI
         <where>
@@ -18,6 +22,14 @@
 
     <select id="findAll" resultType="SymbolImageDTO">
         SELECT * FROM _SYMBOL_IMAGE
+    </select>
+
+    <select id="findById" resultType="SymbolImageDTO">
+        SELECT * FROM _SYMBOL_IMAGE WHERE ID = #{id}
+    </select>
+
+    <select id="findByName" resultType="SymbolImageDTO">
+        SELECT * FROM _SYMBOL_IMAGE WHERE NAME = #{name}
     </select>
 
     <select id="findByPageModel" resultType="SymbolImageDTO">
@@ -49,4 +61,35 @@
             </otherwise>
         </choose>
     </select>
+
+    <insert id="insert">
+        INSERT INTO _SYMBOL_IMAGE(
+            ID,
+            NAME,
+            DESCRIPTION,
+            IS_DEFAULT,
+            REGIST_TIME,
+            REGISTOR_ID,
+            REGISTOR_NAME,
+            UPDATE_TIME,
+            IMAGE_FILE_PATH,
+            IMAGE_2X_FILE_PATH,
+            JSON_FILE_PATH,
+            JSON_2X_FILE_PATH
+        )
+        VALUES (
+            #{id},
+            #{name},
+            #{description},
+            #{isDefault},
+            #{registTime},
+            #{registorId},
+            #{registorName},
+            #{updateTime},
+            #{imageFilePath},
+            #{image2xFilePath},
+            #{jsonFilePath},
+            #{json2xFilePath}
+        )
+    </insert>
 </mapper>

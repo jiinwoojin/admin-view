@@ -296,9 +296,9 @@ public class BootingService {
 
             SymbolPositionEntity entity = symbolMapper.findPositionBySymbolName(key);
             if (entity == null) {
-                symbolMapper.insertWithSymbolPositionModel(
-                    new SymbolPositionModel(0L, key, height, width, pixelRatio, xPos, yPos)
-                );
+//                symbolMapper.insertWithSymbolPositionModel(
+//                    new SymbolPositionModel(key, height, width, pixelRatio, xPos, yPos)
+//                );
             }
         }
     }
