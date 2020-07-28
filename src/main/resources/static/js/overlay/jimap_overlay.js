@@ -40,15 +40,17 @@ JimapOverlay.prototype.update = function update() {
 JimapOverlay.prototype.updatePoint = function updatePoint() {
     if (jiCommon.overlay._points.size() > 0) {
         jiCommon.overlay._points.values().forEach(e => {
-            var _pointSvg = e.feature.getSvg();
-            e.svg.attr('cx', _pointSvg.cx).attr('cy', _pointSvg.cy).attr('r', _pointSvg.r);
+            if (!e.isScreen()) {
+                var _pointSvg = e.feature.getSvg();
+                e.svg.attr('cx', _pointSvg.cx).attr('cy', _pointSvg.cy).attr('r', _pointSvg.r);
+            }
         });
     }
 }
 
 JimapOverlay.prototype.updateLine = function updateLine() {
     if (jiCommon.overlay._lines.size() > 0) {
-        jiCommon.overlay._lines.values().forEach(function (e) {
+        jiCommon.overlay._lines.values().forEach(e => {
             if (!e.feature.isScreen()) {
                 // 현재 map extents 와 겹치는지 부분만 update
                 // 원본 좌표는 e 객체에 들어 있음
@@ -63,7 +65,7 @@ JimapOverlay.prototype.updateLine = function updateLine() {
 
 JimapOverlay.prototype.updateRectangle = function updateRectangle() {
     if (jiCommon.overlay._rectangles.size() > 0) {
-        jiCommon.overlay._rectangles.values().forEach(function (e) {
+        jiCommon.overlay._rectangles.values().forEach(e => {
             if (!e.feature.isScreen()) {
                 // 현재 map extents 와 겹치는지 부분만 update
                 // 원본 좌표는 e 객체에 들어 있음
@@ -78,7 +80,7 @@ JimapOverlay.prototype.updateRectangle = function updateRectangle() {
 
 JimapOverlay.prototype.updateTriangle = function updateTriangle() {
     if (jiCommon.overlay._triangles.size() > 0) {
-        jiCommon.overlay._triangles.values().forEach(function (e) {
+        jiCommon.overlay._triangles.values().forEach(e => {
             if (!e.feature.isScreen()) {
                 // 현재 map extents 와 겹치는지 부분만 update
                 // 원본 좌표는 e 객체에 들어 있음
