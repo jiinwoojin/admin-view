@@ -173,6 +173,11 @@ JimapMapbox.prototype = {
      * @returns {*}
      */
     unproject : function unproject(point) {
-        return this._map.unproject([point.x, point.y]);
+        var _point = this._map.unproject([point.x, point.y]);
+
+        return {
+            'lon' : _point.lng,
+            'lat' : _point.lat
+        }
     }
 }

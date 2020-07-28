@@ -304,6 +304,54 @@ var jiCommon = {
             coordinates.push([leftTop.lon, leftTop.lat]);
 
             return new Geometry.Polygon(coordinates).getCoordinates();
+        },
+        degreesToRadians : function degreesToRadians(degrees) {
+            return turf.degreesToRadians(degrees);
+        },
+        radiansToDegrees : function radiansToDegrees(radians) {
+            return turf.radiansToDegrees(radians);
+        },
+        lengthToRadians : function lengthToRadians(length, units) {
+            if (units === undefined) {
+                units = jiConstant.UNITS.KILOMETERS;
+            }
+
+            return turf.lengthToRadians(length, {units : units});
+        },
+        lengthToDegrees : function lengthToDegrees(length, units) {
+            if (units === undefined) {
+                units = jiConstant.UNITS.KILOMETERS;
+            }
+
+            return turf.lengthToDegrees(length, {units : units});
+        }
+    },
+    calculation : {
+        distance : function distance(p1, p2, units) {
+            if (units === undefined) {
+                units = jiConstant.UNITS.KILOMETERS;
+            }
+
+            var from = turf.point([p1.x, p1.y]);
+            var to = turf.point([p2.x, p2.y]);
+
+            return turf.distance(from, to, {units : units});
+        },
+        pointToLineDistance : function pointToLineDistance(point, line, units) {
+            if (units === undefined) {
+                units = jiConstant.UNITS.KILOMETERS;
+            }
+
+            if (Array.isArray(line)) {
+                throw new Error('Array 형태의 값이어야 합니다.');
+            }
+
+            return turf.pointToLineDistance(turf.point([point.x, point.y]), turf.lineString(line), {units : units});
+        }
+    },
+    booleans : {
+        crosses : function crosses() {
+
         }
     },
     addMapEvent : function addMapEvent(type, fn) {

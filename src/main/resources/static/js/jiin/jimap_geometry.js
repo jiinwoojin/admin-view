@@ -169,46 +169,43 @@ Circle.prototype = {
     }
 }
 
-var Line = function Line(x1, y1, x2, y2, screen = false) {
-    this.type = 'Line';
-    this.x1 = x1;
-    this.y1 = y1;
-    this.x2 = x2;
-    this.y2 = y2;
+var JimapOverlayGeometry = {};
+JimapOverlayGeometry.Point = function Point(cx, cy, r, screen = false) {
+    if (!(this instanceof JimapOverlayGeometry.Point)) {
+        throw new Error('new 로 생성해야 합니다.');
+    }
+
+    this.type = 'Point';
+    this.cx = cx;
+    this.cy = cy;
+    this.r = r;
+    this.geoPoint = '';
     this.screen = screen;
 }
 
-Line.prototype = {
-    constructor : Line,
+JimapOverlayGeometry.Point.prototype = {
+    constructor : JimapOverlayGeometry.Point,
     getType : function getType() {
         return this.type;
     },
-    getX1 : function getX1() {
+    getCx : function getCx() {
         return this.x1;
     },
-    setX1 : function setX1(x1) {
+    setCx : function setCx(x1) {
         this.x1 = x1;
+        this.setGeoPoint();
     },
-    getY1 : function getY1() {
+    getCy : function getCy() {
         return this.y1;
     },
-    setY1 : function setY1(y1) {
+    setCy : function setCy(y1) {
         this.y1 = y1;
+        this.setGeoPoint();
     },
-    getX2 : function getX2() {
-        return this.x2;
-    },
-    setX2 : function setX2(x2) {
-        this.x2 = x2;
-    },
-    getY2 : function getY2() {
-        return this.y2;
-    },
-    setY2 : function setY2(y2) {
-        this.y2 = y2;
-    },
-    getLine : function getLine() {
-        return turf.lineString([this.x1, this.y1], [this.x2, this.y2]);
+    setGeoPoint : function setGeoPoint() {
+        if (this.cx !== undefined && this.cy !== undefined) {
+            this.geoPoint = jiCommon.convert.pixelToLonLat({'x' : this.cx, 'y' : this.cy});
+        }
     },
     isScreen : function isScreen() {
         return this.screen;
@@ -216,36 +213,41 @@ Line.prototype = {
     setScreen : function setScreen(screen) {
         this.screen = screen;
     },
-    getPath : function getPath() {
-        var pixel1 = this.isScreen() ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.x1, 'lat' : this.y1});
-        var pixel2 = this.isScreen() ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.x2, 'lat' : this.y2});
+    getPoint : function getPoint() {
+        if (this.geoPoint === '') {
+            this.setGeoPoint();
+        }
 
-        return Path.moveTo(pixel1.x, pixel1.y) + Path.lineTo(pixel2.x, pixel2.y) + Path.closePath();
+        return this.isScreen() ? {'x' : this.cx, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.geoPoint.lon, 'lat' : this.geoPoint.lat});
     },
     getSvg : function getSvg() {
-        var pixel1 = this.isScreen() ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.x1, 'lat' : this.y1});
-        var pixel2 = this.isScreen() ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.x2, 'lat' : this.y2});
+        var _point = this.getPoint();
 
         return {
-            'x1' : pixel1.x,
-            'y1' : pixel1.y,
-            'x2' : pixel2.x,
-            'y2' : pixel2.y
+            'cx' : _point.x,
+            'cy' : _point.y,
+            'r' : this.r
         }
     }
 }
 
-var Rectangle = function Rectangle(x1, y1, x2, y2, screen = false) {
-    this.type = 'Rectangle';
-    this.x1 = x1;
-    this.y1 = y1;
-    this.x2 = x2;
-    this.y2 = y2;
-    this.screen = screen;
+JimapOverlayGeometry.Line = function Line(x1, y1, x2, y2, screen = false) {
+    if (!(this instanceof JimapOverlayGeometry.Line)) {
+        throw new Error('new 로 생성해야 합니다.');
+    }
+
+    this.type = 'Line';
+    this.x1 = x1;           // 화면좌표 start point x
+    this.y1 = y1;           // 화면좌표 start point y
+    this.x2 = x2;           // 화면좌표 end point x
+    this.y2 = y2;           // 화면좌표 end point y
+    this.geoStartPoint = '';   // geometry start point [x, y]
+    this.geoEndPoint = '';     // geometry end point [x, y]
+    this.screen = screen;   // 화면 좌표 사용 여부
 }
 
-Rectangle.prototype = {
-    constructor : Rectangle,
+JimapOverlayGeometry.Line.prototype = {
+    constructor : JimapOverlayGeometry.Line,
     getType : function getType() {
         return this.type;
     },
@@ -254,24 +256,127 @@ Rectangle.prototype = {
     },
     setX1 : function setX1(x1) {
         this.x1 = x1;
+        this.setGeoStartPoint();
     },
     getY1 : function getY1() {
         return this.y1;
     },
     setY1 : function setY1(y1) {
         this.y1 = y1;
+        this.setGeoStartPoint();
     },
     getX2 : function getX2() {
         return this.x2;
     },
     setX2 : function setX2(x2) {
         this.x2 = x2;
+        this.setGeoEndPoint();
     },
     getY2 : function getY2() {
         return this.y2;
     },
     setY2 : function setY2(y2) {
         this.y2 = y2;
+        this.setGeoEndPoint();
+    },
+    setGeoStartPoint : function setGeoStartPoint() {
+        if (this.x1 !== undefined && this.y1 !== undefined) {
+            this.geoStartPoint = jiCommon.convert.pixelToLonLat({'x' : this.x1, 'y' : this.y1});
+        }
+    },
+    setGeoEndPoint : function setGeoEndPoint() {
+        if (this.x2 !== undefined && this.y2 !== undefined) {
+            this.geoEndPoint = jiCommon.convert.pixelToLonLat({'x' : this.x2, 'y' : this.y2});
+        }
+    },
+    getLine : function getLine() {
+        return turf.lineString([this.startPoint.lon, this.startPoint.lat],
+            [this.endPoint.lon, this.endPoint.lat]);
+    },
+    isScreen : function isScreen() {
+        return this.screen;
+    },
+    setScreen : function setScreen(screen) {
+        this.screen = screen;
+    },
+    getStartPoint : function getStartPoint() {
+        if (this.geoStartPoint === '') {
+            this.setGeoStartPoint();
+        }
+        return this.isScreen() ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.geoStartPoint.lon, 'lat' : this.geoStartPoint.lat});
+    },
+    getEndPoint : function getEndPoint() {
+        if (this.geoEndPoint === '') {
+            this.setGeoEndPoint();
+        }
+        return this.isScreen() ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.geoEndPoint.lon, 'lat' : this.geoEndPoint.lat});
+    },
+    getPath : function getPath() {
+        var _startPoint = this.getStartPoint();
+        var _endPoint = this.getEndPoint();
+
+        return Path.moveTo(_startPoint.x, _startPoint.y) + Path.lineTo(_endPoint.x, _endPoint.y) + Path.closePath();
+    },
+    getSvg : function getSvg() {
+        var _startPoint = this.getStartPoint();
+        var _endPoint = this.getEndPoint();
+
+        return {
+            'x1' : _startPoint.x,
+            'y1' : _startPoint.y,
+            'x2' : _endPoint.x,
+            'y2' : _endPoint.y
+        }
+    }
+}
+
+JimapOverlayGeometry.Rectangle = function Rectangle(x1, y1, x2, y2, screen = false) {
+    if (!(this instanceof JimapOverlayGeometry.Rectangle)) {
+        throw new Error('new 로 생성해야 합니다.');
+    }
+
+    this.type = 'Rectangle';
+    this.x1 = x1;           // 화면좌표 start point x
+    this.y1 = y1;           // 화면좌표 start point y
+    this.x2 = x2;           // 화면좌표 end point x
+    this.y2 = y2;           // 화면좌표 end point y
+    this.startPoint = '';   // geometry start point [x, y]
+    this.endPoint = '';     // geometry end point [x, y]
+    this.screen = screen;
+}
+
+JimapOverlayGeometry.Rectangle.prototype = {
+    constructor : JimapOverlayGeometry.Rectangle,
+    getType : function getType() {
+        return this.type;
+    },
+    getX1 : function getX1() {
+        return this.x1;
+    },
+    setX1 : function setX1(x1) {
+        this.x1 = x1;
+        this.setStartPoint();
+    },
+    getY1 : function getY1() {
+        return this.y1;
+    },
+    setY1 : function setY1(y1) {
+        this.y1 = y1;
+        this.setStartPoint();
+    },
+    getX2 : function getX2() {
+        return this.x2;
+    },
+    setX2 : function setX2(x2) {
+        this.x2 = x2;
+        this.setEndPoint();
+    },
+    getY2 : function getY2() {
+        return this.y2;
+    },
+    setY2 : function setY2(y2) {
+        this.y2 = y2;
+        this.setEndPoint();
     },
     isScreen : function isScreen() {
         return this.screen;
@@ -287,57 +392,80 @@ Rectangle.prototype = {
         var feature = turf.centroid(this.rectangle);
         return {'lon' : feature.geometry.coordinates[0], 'lat' : feature.geometry.coordinates[1]};
     },
+    getStartPoint : function getStartPoint() {
+        if (this.startPoint === '') {
+            this.setStartPoint();
+        }
+        return this.isScreen() ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.startPoint.lon, 'lat' : this.startPoint.lat});
+    },
+    setStartPoint : function setStartPoint() {
+        if (this.x1 !== undefined && this.y1 !== undefined) {
+            this.startPoint = jiCommon.convert.pixelToLonLat({'x' : this.x1, 'y' : this.y1});
+        }
+    },
+    getEndPoint : function getEndPoint() {
+        if (this.endPoint === '') {
+            this.setEndPoint();
+        }
+        return this.isScreen() ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.endPoint.lon, 'lat' : this.endPoint.lat});
+    },
+    setEndPoint : function setEndPoint() {
+        if (this.x2 !== undefined && this.y2 !== undefined) {
+            this.endPoint = jiCommon.convert.pixelToLonLat({'x' : this.x2, 'y' : this.y2});
+        }
+    },
     getPath : function getPath() {
-        var pixel1 = this.isScreen() ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.x1, 'lat' : this.y1});
-        var pixel2 = this.isScreen() ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.x2, 'lat' : this.y2});
+        var _startPoint = this.getStartPoint();
+        var _endPoint = this.getEndPoint();
 
-        var x = pixel1.x;
-        var y = pixel1.y;
-        var w = Math.abs(pixel2.x - pixel1.x);
-        var h = Math.abs(pixel2.y - pixel1.y);
+        var x = Math.min(_startPoint.x, _endPoint.x);
+        var y = Math.min(_startPoint.y, _endPoint.y);
+        var w = Math.abs(_endPoint.x - _startPoint.x);
+        var h = Math.abs(_endPoint.y - _startPoint.y);
 
         return Path.rect(x, y, w, h);
     },
     getSvg : function getSvg() {
-        var pixel1 = this.isScreen() ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.x1, 'lat' : this.y1});
-        var pixel2 = this.isScreen() ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.x2, 'lat' : this.y2});
-
-        var x = Math.min(pixel1.x, pixel2.x);
-        var y = Math.min(pixel1.y, pixel2.y);
+        var _startPoint = this.getStartPoint();
+        var _endPoint = this.getEndPoint();
 
         return {
-            'x' : x,
-            'y' : y,
-            'w' : Math.abs(pixel1.x - pixel2.x),
-            'h' : Math.abs(pixel1.y - pixel2.y)
+            'x' : Math.min(_startPoint.x, _endPoint.x),
+            'y' : Math.min(_startPoint.y, _endPoint.y),
+            'w' : Math.abs(_startPoint.x - _endPoint.x),
+            'h' : Math.abs(_startPoint.y - _endPoint.y)
         }
     }
 }
 
-var Triangle = function Triangle(x1, y1, x2, y2, screen = false) {
+JimapOverlayGeometry.Triangle = function Triangle(x1, y1, x2, y2, screen = false) {
+    if (!(this instanceof JimapOverlayGeometry.Triangle)) {
+        throw new Error('new 로 생성해야 합니다.');
+    }
+
     this.type = 'Triangle';
-    this.x1 = x1;
-    this.y1 = y1;
+    this.startX = x1;
+    this.startY = y1;
     this.x2 = x2;
     this.y2 = y2;
     this.screen = screen;
 }
 
-Triangle.prototype = {
-    constructor : Triangle,
+JimapOverlayGeometry.Triangle.prototype = {
+    constructor : JimapOverlayGeometry.Triangle,
     getType : function getType() {
         return this.type;
     },
-    getX1 : function getX1() {
+    getStartX : function getStartX() {
         return this.x1;
     },
-    setX1 : function setX1(x1) {
+    setStartX : function setStartX(x1) {
         this.x1 = x1;
     },
-    getY1 : function getY1() {
+    getStartY : function getStartY() {
         return this.y1;
     },
-    setY1 : function setY1(y1) {
+    setStartY : function setStartY(y1) {
         this.y1 = y1;
     },
     getX2 : function getX2() {
@@ -352,13 +480,45 @@ Triangle.prototype = {
     setY2 : function setY2(y2) {
         this.y2 = y2;
     },
+    getCenter : function getCenter() {
+        return {
+            'lon' : this.startX,
+            'lat' : this.startY
+        }
+    },
+    transformRotate : function transformRotate(angle) {
+        var _centroid = this.getCenter();
+        var rotatedPoly = turf.transformRotate(this.getTriangle(), angle, {pivot : [_centroid.lon, _centroid.lat]});
+
+        var nPoint = rotatedPoly.geometry.coordinates[0];
+        var sPoint = rotatedPoly.geometry.coordinates[1];
+        var wPoint = rotatedPoly.geometry.coordinates[2];
+
+        this.nx = nPoint[0];
+        this.ny = nPoint[1];
+        this.sx = sPoint[0];
+        this.sy = sPoint[1];
+        this.wx = wPoint[0];
+        this.wy = wPoint[1];
+    },
+    getTriangle : function getTriangle() {
+        this.changeTriangle();
+        return turf.polygon([[[this.nx, this.ny], [this.sx, this.sy], [this.wx, this.wy], [this.nx, this.ny]]]);
+    },
+    getDistance : function getDistance() {
+        return jiCommon.calculation.distance({'x' : this.startX, 'y' : this.startY}, {'x' : this.x2, 'y' : this.y2});
+    },
     changeTriangle : function changeTriangle() {
-        this.cx = (this.x1 + this.x2) / 2;
-        this.cy = Math.max(this.y1, this.y2);
-        this.rx = Math.max(this.x1, this.x2);
-        this.ry = Math.min(this.y1, this.y2);
-        this.lx = Math.min(this.x1, this.x2);
-        this.ly = Math.min(this.y1, this.y2);
+        this.cx = this.startX;
+        this.cy = this.startY;
+        var xDist = Math.abs(this.x2 - this.cx);
+        var yDist = Math.abs(this.y2 - this.cy);
+        this.sx = this.cx + xDist;
+        this.sy = this.cy - yDist;
+        this.wx = this.cx - xDist;
+        this.wy = this.cy - yDist;
+        this.nx = this.cx;
+        this.ny = this.cy + yDist;
     },
     isScreen : function isScreen() {
         return this.screen;
@@ -366,13 +526,34 @@ Triangle.prototype = {
     setScreen : function setScreen(screen) {
         this.screen = screen;
     },
+    getNPoint : function getNPoint() {
+        return this.isScreen() ? {'x' : this.nx, 'y' : this.ny} : jiCommon.convert.lonLatToPixel({'lon' : this.nx, 'lat' : this.ny});
+    },
+    getWPoint : function getWPoint() {
+        return this.isScreen() ? {'x' : this.wx, 'y' : this.wy} : jiCommon.convert.lonLatToPixel({'lon' : this.wx, 'lat' : this.wy});
+    },
+    getSPoint : function getSPoint() {
+        return this.isScreen() ? {'x' : this.sx, 'y' : this.sy} : jiCommon.convert.lonLatToPixel({'lon' : this.sx, 'lat' : this.sy});
+    },
     getPath : function getPath() {
         this.changeTriangle();
-        var pixel1 = this.isScreen() ? {'x' : this.cx, 'y' : this.cy} : jiCommon.convert.lonLatToPixel({'lon' : this.cx, 'lat' : this.cy});
-        var pixel2 = this.isScreen() ? {'x' : this.rx, 'y' : this.ry} : jiCommon.convert.lonLatToPixel({'lon' : this.rx, 'lat' : this.ry});
-        var pixel3 = this.isScreen() ? {'x' : this.lx, 'y' : this.ly} : jiCommon.convert.lonLatToPixel({'lon' : this.lx, 'lat' : this.ly});
+        var nPoint = this.getNPoint();
+        var sPoint = this.getSPoint();
+        var wPoint = this.getWPoint();
 
-        return Path.moveTo(pixel1.x, pixel1.y) + Path.lineTo(pixel2.x, pixel2.y) + Path.lineTo(pixel3.x, pixel3.y) + Path.closePath();
+        return Path.moveTo(nPoint.x, nPoint.y) + Path.lineTo(sPoint.x, sPoint.y) + Path.lineTo(wPoint.x, wPoint.y) + Path.closePath();
+    },
+    getSvg : function getSvg() {
+        this.changeTriangle();
+        var nPoint = this.getNPoint();
+        var sPoint = this.getSPoint();
+        var wPoint = this.getWPoint();
+
+        return {
+            'npoint' : nPoint,
+            'spoint' : sPoint,
+            'wpoint' : wPoint
+        }
     }
 }
 

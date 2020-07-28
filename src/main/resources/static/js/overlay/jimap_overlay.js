@@ -13,6 +13,7 @@ var JimapOverlay = function JimapOverlay(options) {
     this._transform = d3.geoTransform({point : this.projectPoint});
     this._path = d3.geoPath().projection(this._transform);
 
+    this._points = new jsMap();
     this._lines = new jsMap();
     this._rectangles = new jsMap();
     this._triangles = new jsMap();
@@ -30,9 +31,19 @@ JimapOverlay.prototype.projectPoint = function projectPoint(lon, lat) {
 }
 
 JimapOverlay.prototype.update = function update() {
+    jiCommon.overlay.updatePoint();
     jiCommon.overlay.updateLine();
     jiCommon.overlay.updateRectangle();
     jiCommon.overlay.updateTriangle();
+}
+
+JimapOverlay.prototype.updatePoint = function updatePoint() {
+    if (jiCommon.overlay._points.size() > 0) {
+        jiCommon.overlay._points.values().forEach(e => {
+            var _pointSvg = e.feature.getSvg();
+            e.svg.attr('cx', _pointSvg.cx).attr('cy', _pointSvg.cy).attr('r', _pointSvg.r);
+        });
+    }
 }
 
 JimapOverlay.prototype.updateLine = function updateLine() {
@@ -71,7 +82,12 @@ JimapOverlay.prototype.updateTriangle = function updateTriangle() {
             if (!e.feature.isScreen()) {
                 // 현재 map extents 와 겹치는지 부분만 update
                 // 원본 좌표는 e 객체에 들어 있음
-                e.svg.attr('d', e.feature.getPath());
+                var _triSvg = e.feature.getSvg();
+                var _points = _triSvg.npoint.x + ',' + _triSvg.npoint.y + ' '
+                    + _triSvg.spoint.x + ',' + _triSvg.spoint.y + ' '
+                    + _triSvg.wpoint.x + ',' + _triSvg.wpoint.y;
+                e.svg.attr('points', _points);
+                //e.svg.attr('d', e.feature.getPath());
             }
         });
     }
@@ -145,15 +161,15 @@ JimapOverlay.prototype.createGeometry = function createGeometry() {
 
     switch (jiCommon.overlay._drawMode) {
         case jiConstant.OVERLAY_DRAW_MODE.LINE.CD :
-            feature = new Line(jiCommon.overlay.object.x1,
+            feature = new JimapOverlayGeometry.Line(jiCommon.overlay.object.x1,
                 jiCommon.overlay.object.y1, jiCommon.overlay.object.x2, jiCommon.overlay.object.y2);
             break;
         case jiConstant.OVERLAY_DRAW_MODE.RECTANGLE.CD :
-            feature = new Rectangle(jiCommon.overlay.object.x1,
+            feature = new JimapOverlayGeometry.Rectangle(jiCommon.overlay.object.x1,
                 jiCommon.overlay.object.y1, jiCommon.overlay.object.x2, jiCommon.overlay.object.y2);
             break;
         case jiConstant.OVERLAY_DRAW_MODE.TRIANGLE.CD :
-            feature = new Triangle(jiCommon.overlay.object.x1,
+            feature = new JimapOverlayGeometry.Triangle(jiCommon.overlay.object.x1,
                 jiCommon.overlay.object.y1, jiCommon.overlay.object.x2, jiCommon.overlay.object.y2);
             break;
     }
@@ -172,7 +188,7 @@ JimapOverlay.prototype.createSvg = function createSvg() {
             svg = jiCommon.overlay._svg.append('g').attr('id', 'g-line-' + _id)
                 /*.append('path').attr('id', 'path-line-' + _id)
                 .attr('d', _feature.getPath())*/
-                .append('line').attr('id', 'path-line-' + _id)
+                .append('line').attr('id', 'line-' + _id)
                 .attr('x1', _lineSvg.x1).attr('y1', _lineSvg.y1)
                 .attr('x2', _lineSvg.x2).attr('y2', _lineSvg.y2)
                 .style('stroke', overlayCommon.commonAttr.stroke)
@@ -186,7 +202,7 @@ JimapOverlay.prototype.createSvg = function createSvg() {
             svg = jiCommon.overlay._svg.append('g').attr('id', 'g-rect-' + _id)
                 /*.append('path').attr('id', 'path-rect-' + _id)
                 .attr('d', _feature.getPath())*/
-                .append('rect').attr('id', 'path-rect-' + _id)
+                .append('rect').attr('id', 'rect-' + _id)
                 .attr('x', _rectSvg.x).attr('y', _rectSvg.y)
                 .attr('width', _rectSvg.w)
                 .attr('height', _rectSvg.h)
@@ -197,9 +213,15 @@ JimapOverlay.prototype.createSvg = function createSvg() {
                 .on('click', function() {console.log(d3.select(this))});
             break;
         case jiConstant.OVERLAY_DRAW_MODE.TRIANGLE.CD :
+            var _triSvg = _feature.getSvg();
+            var _points = _triSvg.npoint.x + ',' + _triSvg.npoint.y + ' '
+                + _triSvg.spoint.x + ',' + _triSvg.spoint.y + ' '
+                + _triSvg.wpoint.x + ',' + _triSvg.wpoint.y;
             svg = jiCommon.overlay._svg.append('g').attr('id', 'g-triangle-' + _id)
-                .append('path').attr('id', 'path-triangle-' + _id)
-                .attr('d', _feature.getPath())
+                /*.append('path').attr('id', 'path-triangle-' + _id)
+                .attr('d', _feature.getPath())*/
+                .append('polygon').attr('id', 'triangle-' + _id)
+                .attr('points', _points)
                 .style('stroke', overlayCommon.commonAttr.stroke)
                 .style('stroke-width', overlayCommon.commonAttr.strokeWidth)
                 .style('fill', overlayCommon.commonAttr.color)
@@ -253,8 +275,8 @@ JimapOverlay.prototype.drawStart = function drawStart(e) {
 
     jiCommon.overlay.object = {};
     jiCommon.overlay.object.id = jiCommon.overlay.idMaker();
-    jiCommon.overlay.object.x1 = e.lngLat.lng;
-    jiCommon.overlay.object.y1 = e.lngLat.lat;
+    jiCommon.overlay.object.x1 = e.point.x;
+    jiCommon.overlay.object.y1 = e.point.y;
 
     switch (jiCommon.overlay._drawMode) {
         case jiConstant.OVERLAY_DRAW_MODE.LINE.CD :
@@ -268,8 +290,8 @@ JimapOverlay.prototype.drawStart = function drawStart(e) {
 // 입력되는 좌표열을 2개만 관리 할 경우
 JimapOverlay.prototype.drawDrag = function drawDrag(e) {
     if (jiCommon.overlay.keep) {
-        jiCommon.overlay.object.x2 = e.lngLat.lng;
-        jiCommon.overlay.object.y2 = e.lngLat.lat;
+        jiCommon.overlay.object.x2 = e.point.x;
+        jiCommon.overlay.object.y2 = e.point.y;
 
         if (jiCommon.overlay.object.x1 !== jiCommon.overlay.object.x2) {
             if (jiCommon.overlay.object.feature === undefined) {
@@ -290,7 +312,6 @@ JimapOverlay.prototype.drawDrag = function drawDrag(e) {
 }
 
 JimapOverlay.prototype.drawEnd = function drawEnd(e) {
-    // jiCommon.overlay.updatePath(jiCommon.overlay.object.svg, jiCommon.overlay.object.feature);
     jiCommon.overlay.individualUpdate();
 
     jiCommon.overlay.isDraw = false;
@@ -298,8 +319,87 @@ JimapOverlay.prototype.drawEnd = function drawEnd(e) {
     jiCommon.overlay._eventsController();
 
     jiCommon.enableDragPan();
+
+    var _drawMode = jiCommon.overlay._drawMode;
+    var _id = jiCommon.overlay.object.id;
+
+    jiCommon.overlay._drawMode = 999;
+    jiCommon.overlay.object = {};
+    jiCommon.overlay.setActive(_drawMode, _id);
 }
 
 JimapOverlay.prototype.selectObject = function selectObject() {
+
+}
+
+JimapOverlay.prototype.setActive = function setActive(drawMode, id) {
+    switch (drawMode) {
+        case jiConstant.OVERLAY_DRAW_MODE.LINE.CD :
+            this.setLineSelector(id);
+            break;
+    }
+}
+
+JimapOverlay.prototype.setLineSelector = function setLineSelector(id) {
+    if (this._lines.containsKey(id)) {
+        var _object = this._lines.get(id);
+        var _feature = _object.feature;
+        var _svg = _object.svg;
+        console.log(_object);
+
+        var lineId = '#g-line-' + id;
+
+        // 3개의 점을 생성한다. 시작점, 중간점, 끝점
+        var startObject = {};
+        startObject.id = 'selector-start';
+        startObject.cx = _object.x1;
+        startObject.cy = _object.y1;
+        startObject.r = 5;
+        startObject.feature = new JimapOverlayGeometry.Point(_object.x1, _object.y1, 5);
+        startObject.svg = d3.select(lineId).append('circle').attr('id', 'start')
+            .attr('r', 5)
+            .attr('cx', _object.x1)
+            .attr('cy', _object.y1)
+            .style('fill', 'yellow')
+            .style('fill-opacity', 0.5);
+
+        this._points.put(startObject.id, startObject);
+
+        var centerObject = {};
+        centerObject.id = 'selector-center';
+        centerObject.cx = (_object.x1 + _object.x2) / 2;
+        centerObject.cy = (_object.y1 + _object.y2) / 2;
+        centerObject.r = 5;
+        centerObject.feature = new JimapOverlayGeometry.Point(centerObject.cx, centerObject.cy, 5);
+        centerObject.svg = d3.select(lineId).append('circle').attr('id', 'center')
+            .attr('r', 5)
+            .attr('cx', (_object.x1 + _object.x2) / 2)
+            .attr('cy', (_object.y1 + _object.y2) / 2)
+            .style('fill', 'yellow')
+            .style('fill-opacity', 0.5);
+
+        this._points.put(centerObject.id, centerObject);
+
+        var endObject = {};
+        endObject.id = 'selector-end';
+        endObject.cx = _object.x2;
+        endObject.cy = _object.y2;
+        endObject.r = 5;
+        endObject.feature = new JimapOverlayGeometry.Point(_object.x2, _object.y2, 5);
+        endObject.svg = d3.select(lineId).append('circle').attr('id', 'end')
+            .attr('r', 5)
+            .attr('cx', _object.x2)
+            .attr('cy', _object.y2)
+            .style('fill', 'yellow')
+            .style('fill-opacity', 0.5);
+
+        this._points.put(endObject.id, endObject);
+        // 각각 이벤트 정의
+    } else {
+        console.log(id + ' : 해당 객체가 없습니다.');
+    }
+}
+
+JimapOverlay.prototype.setRectSelector = function setRectSelector(id) {
 
 }
