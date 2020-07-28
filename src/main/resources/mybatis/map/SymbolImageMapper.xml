@@ -2,6 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jiin.admin.mapper.data.SymbolImageMapper">
+    <resultMap id="symbolImageSingle" type="SymbolImageDTO">
+        <id property="id" column="ID" />
+        <result property="name" column="NAME" />
+        <result property="description" column="DESCRIPTION" />
+        <result property="isDefault" column="IS_DEFAULT" />
+        <result property="registTime" column="REGIST_TIME" />
+        <result property="registorId" column="REGISTOR_ID" />
+        <result property="registorName" column="REGISTOR_NAME" />
+        <result property="updateTime" column="UPDATE_TIME" />
+        <result property="imageFilePath" column="IMAGE_FILE_PATH" />
+        <result property="image2xFilePath" column="IMAGE_2X_FILE_PATH" />
+        <result property="jsonFilePath" column="JSON_FILE_PATH" />
+        <result property="json2xFilePath" column="JSON_2X_FILE_PATH" />
+        <collection property="positions" column="{imageId=ID}" javaType="java.util.ArrayList" ofType="SymbolPositionDTO" select="findPositionListByImageId" />
+    </resultMap>
+
     <select id="findNextSeqVal" resultType="long">
         SELECT NEXTVAL('SYMBOL_IMAGE_SEQ')
     </select>
@@ -24,7 +40,7 @@
         SELECT * FROM _SYMBOL_IMAGE
     </select>
 
-    <select id="findById" resultType="SymbolImageDTO">
+    <select id="findById" resultMap="symbolImageSingle">
         SELECT * FROM _SYMBOL_IMAGE WHERE ID = #{id}
     </select>
 
@@ -97,4 +113,10 @@
         DELETE FROM _SYMBOL_IMAGE
         WHERE ID = #{id}
     </delete>
+
+    <!-- Mapper 인터페이스에 없지만 내부에서 사용되기 때문에 지우지 말 것. -->
+    <select id="findPositionListByImageId" parameterType="java.util.Map" resultType="SymbolPositionDTO">
+        SELECT * FROM _SYMBOL_POSITION
+        WHERE IMAGE_ID = #{imageId}
+    </select>
 </mapper>

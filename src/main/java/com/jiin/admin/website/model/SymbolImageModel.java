@@ -9,16 +9,16 @@ import java.util.List;
 
 @Getter
 @Setter
-public class SymbolImageCreateModel {
+public class SymbolImageModel {
     private String name;
     private String description;
     private List<MultipartFile> sprites;
 
-    public SymbolImageCreateModel() {
+    public SymbolImageModel() {
         this.sprites = new ArrayList<>();
     }
 
-    public SymbolImageCreateModel(String name, String description, List<MultipartFile> sprites) {
+    public SymbolImageModel(String name, String description, List<MultipartFile> sprites) {
         this.name = name;
         this.description = description;
         this.sprites = sprites;

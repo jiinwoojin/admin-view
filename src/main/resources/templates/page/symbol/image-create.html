@@ -19,7 +19,7 @@
 <th:block layout:fragment="content-body-fragment">
     <div class="row">
        <div class="col-md-4">
-           <form th:action="@{/view/symbol/image-create}" th:object="${symbolImageCreateModel}" method="post" onsubmit="return preSubmit(this)" accept-charset="utf-8" enctype="multipart/form-data">
+           <form th:action="@{/view/symbol/image-create}" th:object="${symbolImageModel}" method="post" onsubmit="return preSubmit(this)" accept-charset="utf-8" enctype="multipart/form-data">
                <div class="form-group row">
                     <div class="col-12">
                         <label for="symbol-image-name">SYMBOL 그룹 이름</label>
@@ -70,6 +70,7 @@
                 <thead>
                 <tr>
                     <th>파일 이름</th>
+<!--                    <th>심볼 코드</th>-->
                     <th>파일 크기</th>
                     <th>가로 크기</th>
                     <th>세로 크기</th>
@@ -77,6 +78,7 @@
                 </tr>
                 </thead>
                 <tbody id="sprite-body">
+
                 </tbody>
             </table>
         </div>
@@ -144,12 +146,6 @@
             }
 
             return true;
-        }
-
-        function tableReload(id) {
-            $('#' + id).DataTable({
-                stateSave: true
-            });
         }
 
         function createSpriteData(imgFile, idx) {
