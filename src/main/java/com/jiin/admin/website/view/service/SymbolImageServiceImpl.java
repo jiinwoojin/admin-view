@@ -7,7 +7,7 @@ import com.jiin.admin.entity.AccountEntity;
 import com.jiin.admin.mapper.data.SymbolImageMapper;
 import com.jiin.admin.mapper.data.SymbolPositionMapper;
 import com.jiin.admin.website.model.OptionModel;
-import com.jiin.admin.website.model.SymbolImageCreateModel;
+import com.jiin.admin.website.model.SymbolImageModel;
 import com.jiin.admin.website.model.SymbolPageModel;
 import com.jiin.admin.website.model.SymbolPositionModel;
 import com.jiin.admin.website.util.FileSystemUtil;
@@ -19,11 +19,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
-import java.io.File;
-import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -66,6 +66,9 @@ public class SymbolImageServiceImpl implements SymbolImageService {
         return obOptions;
     }
 
+    /**
+     * SYMBOL IMAGE 목록 출력
+     */
     @Override
     public Map<String, Object> loadDataListAndCountByPaginationModel(SymbolPageModel symbolPageModel) {
         return new HashMap<String, Object>() {{
@@ -75,18 +78,67 @@ public class SymbolImageServiceImpl implements SymbolImageService {
     }
 
     /**
+     * SYMBOL IMAGE 내용 및 FORM 출력
+     */
+    @Override
+    public Map<String, Object> loadImageUpdateData(long id) {
+        SymbolImageDTO dto = symbolImageMapper.findById(id);
+        SymbolImageModel model = new SymbolImageModel();
+        model.setName(dto == null ? "" : dto.getName());
+        model.setDescription(dto == null ? "" : dto.getDescription());
+        return new HashMap<String, Object>() {{
+            put("model", model);
+            put("data", dto);
+        }};
+    }
+
+    @Override
+    public byte[] loadImageByteArrayByName(String name) throws IOException {
+        String path = dataPath + Constants.SYMBOL_FILE_PATH + String.format("/%s", name);
+        String imageDir = path + String.format("/%s%s", name, Constants.PNG_SUFFIX);
+
+        File image = new File(imageDir);
+        if (!image.exists()) return null;
+
+        InputStream is = new FileInputStream(image);
+        BufferedImage bi = ImageIO.read(is);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bi, "png", baos);
+
+        return baos.toByteArray();
+    }
+
+    @Override
+    public byte[] loadPositionByteArrayByModel(String name, int x, int y, int width, int height) throws IOException {
+        String path = dataPath + Constants.SYMBOL_FILE_PATH + String.format("/%s", name);
+        String imageDir = path + String.format("/%s%s", name, Constants.PNG_SUFFIX);
+
+        File image = new File(imageDir);
+        if (!image.exists()) return null;
+
+        InputStream is = new FileInputStream(image);
+        BufferedImage bi = ImageIO.read(is);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bi.getSubimage(x, y, width, height), "png", baos);
+
+        return baos.toByteArray();
+    }
+
+    /**
      * SYMBOL 데이터 추가
      */
     @Override
     @Transactional
-    public boolean createImageData(SymbolImageCreateModel symbolImageCreateModel) {
-        if (symbolImageMapper.findByName(symbolImageCreateModel.getName()) != null) {
+    public boolean createImageData(SymbolImageModel symbolImageModel) {
+        if (symbolImageMapper.findByName(symbolImageModel.getName()) != null) {
             return false;
         }
 
-        String imageName = symbolImageCreateModel.getName();
+        String imageName = symbolImageModel.getName();
 
-        List<SymbolPositionModel> positions = ImageSpriteUtil.createImageSpriteArrayWithFiles(dataPath, imageName, symbolImageCreateModel.getSprites());
+        List<SymbolPositionModel> positions = ImageSpriteUtil.createImageSpriteArrayWithFiles(dataPath, imageName, symbolImageModel.getSprites());
 
         if (positions.size() < 1) {
             return false;
@@ -95,7 +147,7 @@ public class SymbolImageServiceImpl implements SymbolImageService {
         long idx = symbolImageMapper.findNextSeqVal();
         AccountEntity user = (AccountEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        SymbolImageDTO symbolImageDTO = new SymbolImageDTO(idx, symbolImageCreateModel.getName(), symbolImageCreateModel.getDescription(), new Date(), user.getUsername(), user.getName(), false);
+        SymbolImageDTO symbolImageDTO = new SymbolImageDTO(idx, symbolImageModel.getName(), symbolImageModel.getDescription(), new Date(), user.getUsername(), user.getName(), false);
 
         String png1XPath = dataPath + String.format("%s/%s/%s%s", Constants.SYMBOL_FILE_PATH, imageName, imageName, Constants.PNG_SUFFIX);
         String png2XPath = dataPath + String.format("%s/%s/%s%s", Constants.SYMBOL_FILE_PATH, imageName, imageName, Constants.PNG_2X_SUFFIX);
@@ -120,8 +172,14 @@ public class SymbolImageServiceImpl implements SymbolImageService {
         }
     }
 
+    @Override
+    public boolean setImageData(SymbolImageModel symbolImageModel) {
+        // TODO IMAGE UPDATE 및 새로운 사진 업로드 반영할 것.
+        return false;
+    }
+
     /**
-     * SYMBOL 데이터 삭제
+     * SYMBOL 이미지 삭제
      */
     @Override
     @Transactional
@@ -141,5 +199,50 @@ public class SymbolImageServiceImpl implements SymbolImageService {
         }
 
         return symbolPositionMapper.deleteByImageId(image.getId()) > 0 && symbolImageMapper.deleteById(image.getId()) > 0;
+    }
+
+    /**
+     * SYMBOL 데이터 삭제
+     */
+    @Override
+    public boolean deletePositionData(long imageId, List<Long> ids) {
+        SymbolImageDTO imageDTO = symbolImageMapper.findById(imageId);
+        if (imageDTO == null) {
+            return false;
+        }
+        String path = dataPath + Constants.SYMBOL_FILE_PATH + String.format("/%s", imageDTO.getName());
+        String imageDir = path + String.format("/%s%s", imageDTO.getName(), Constants.PNG_SUFFIX);
+
+        File image = new File(imageDir);
+        if (!image.exists()) return false;
+
+        InputStream is = null;
+        try {
+            is = new FileInputStream(image);
+            BufferedImage bi = ImageIO.read(is);
+
+            Map<String, BufferedImage> remainMap = new LinkedHashMap<>();
+            for (SymbolPositionDTO position : imageDTO.getPositions()) {
+                if (!ids.contains(position.getId())) {
+                    remainMap.put(position.getName(), bi.getSubimage(position.getXPos(), position.getYPos(), position.getWidth(), position.getHeight()));
+                }
+            }
+
+            symbolPositionMapper.deleteByIdIn(ids);
+
+            List<SymbolPositionModel> models = ImageSpriteUtil.updateSpriteArrayWithImageArray(remainMap, dataPath, imageDTO.getName());
+
+            int cnt = 0;
+            for (SymbolPositionModel model : models) {
+                model.setImageId(imageId);
+                cnt += symbolPositionMapper.updateByModelAndImageId(model);
+            }
+
+            return models.size() == cnt;
+        } catch (IOException e) {
+            log.error("ERROR - " + e.getMessage());
+        }
+
+        return false;
     }
 }
