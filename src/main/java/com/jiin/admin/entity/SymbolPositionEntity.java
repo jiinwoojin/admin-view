@@ -16,6 +16,9 @@ import javax.persistence.*;
         initialValue = 1,
         allocationSize = 1
 )
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = { "NAME", "IMAGE_ID" })
+})
 public class SymbolPositionEntity implements Persistable<Long> {
     @Id
     @GeneratedValue(

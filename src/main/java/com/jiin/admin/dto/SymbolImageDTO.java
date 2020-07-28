@@ -29,6 +29,16 @@ public class SymbolImageDTO {
         this.positions = new ArrayList<>();
     }
 
+    public SymbolImageDTO(Long id, String name, String description, Date registTime, String registorId, String registorName, boolean isDefault) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.registTime = registTime;
+        this.registorId = registorId;
+        this.registorName = registorName;
+        this.isDefault = isDefault;
+    }
+
     public SymbolImageDTO(Long id, String name, String description, Date registTime, String registorId, String registorName, Date updateTime, String imageFilePath, String image2xFilePath, String jsonFilePath, String json2xFilePath, boolean isDefault, List<SymbolPositionDTO> positions) {
         this.id = id;
         this.name = name;

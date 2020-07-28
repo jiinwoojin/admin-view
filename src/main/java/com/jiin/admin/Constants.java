@@ -69,4 +69,19 @@ public class Constants {
     public static final String VRT_SUFFIX = ".vrt";
 
     public static final String TMP_DIR_PATH = "/tmp";
+
+    /**
+     * MAPNIK SYMBOL 데이터 정보
+     */
+    public static final String SYMBOL_FILE_PATH = "/html";
+
+    public static final String PNG_SUFFIX = ".png";
+
+    public static final String PNG_2X_SUFFIX = "@2x.png";
+
+    public static final String JSON_SUFFIX = ".json";
+
+    public static final String JSON_2X_SUFFIX = "@2x.json";
+
+    public static final Integer DEFAULT_SYMBOL_PIXEL_RATIO = 1;
 }

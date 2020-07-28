@@ -5,4 +5,29 @@
     <select id="findAll" resultType="SymbolPositionDTO">
         SELECT * FROM _SYMBOL_POSITION
     </select>
+    <insert id="insert">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT NEXTVAL('SYMBOL_POSITION_SEQ')
+        </selectKey>
+        INSERT INTO _SYMBOL_POSITION (
+            ID,
+            NAME,
+            HEIGHT,
+            WIDTH,
+            PIXEL_RATIO,
+            X_POS,
+            Y_POS,
+            IMAGE_ID
+        )
+        VALUES (
+            #{id},
+            #{name},
+            #{height},
+            #{width},
+            #{pixelRatio},
+            #{xPos},
+            #{yPos},
+            #{imageId}
+        )
+    </insert>
 </mapper>

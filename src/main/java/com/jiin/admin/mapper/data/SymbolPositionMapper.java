@@ -8,4 +8,5 @@ import java.util.List;
 @BaseMapper
 public interface SymbolPositionMapper {
     List<SymbolPositionDTO> findAll();
+    int insert(SymbolPositionDTO symbolPositionDTO);
 }

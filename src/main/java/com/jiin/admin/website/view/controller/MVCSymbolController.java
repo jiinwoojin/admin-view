@@ -1,13 +1,10 @@
 package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.config.SessionService;
-import com.jiin.admin.dto.SymbolImageDTO;
 import com.jiin.admin.website.model.SymbolImageCreateModel;
 import com.jiin.admin.website.model.SymbolPageModel;
-import com.jiin.admin.website.util.ImageSpriteUtil;
 import com.jiin.admin.website.view.service.SymbolImageService;
 import com.jiin.admin.website.view.service.SymbolService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +17,6 @@ import java.io.IOException;
 @Controller
 @RequestMapping("symbol")
 public class MVCSymbolController {
-    @Value("${project.data-path}")
-    private String dataPath;
-
     @Resource
     private SymbolService service;
 
@@ -50,8 +44,8 @@ public class MVCSymbolController {
 
     @RequestMapping(value = "image-create", method = RequestMethod.POST)
     public String postSymbolImageCreateRedirect(@Valid SymbolImageCreateModel symbolImageCreateModel) {
-        ImageSpriteUtil.createImageSpriteArrayWithFiles(dataPath, symbolImageCreateModel.getName(), symbolImageCreateModel.getSprites());
-        session.message(String.format("SYMBOL [%s] 그룹이 추가 되었습니다.", symbolImageCreateModel.getName()));
+        boolean status = symbolImageService.createImageData(symbolImageCreateModel);
+        session.message(String.format("SYMBOL [%s] 그룹 추가 %s 하였습니다.", symbolImageCreateModel.getName(), status ? "성공" : "실패"));
         return "redirect:image-list?pg=1&sz=10";
     }
 

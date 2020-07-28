@@ -1,6 +1,7 @@
 package com.jiin.admin.website.view.service;
 
 import com.jiin.admin.website.model.OptionModel;
+import com.jiin.admin.website.model.SymbolImageCreateModel;
 import com.jiin.admin.website.model.SymbolPageModel;
 
 import java.util.List;
@@ -11,4 +12,5 @@ public interface SymbolImageService {
     List<OptionModel> loadOrderByOptionList();
 
     Map<String, Object> loadDataListAndCountByPaginationModel(SymbolPageModel symbolPageModel);
+    boolean createImageData(SymbolImageCreateModel symbolImageCreateModel);
 }
