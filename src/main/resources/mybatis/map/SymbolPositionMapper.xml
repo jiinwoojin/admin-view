@@ -30,4 +30,14 @@
             #{imageId}
         )
     </insert>
+
+    <delete id="deleteById">
+        DELETE FROM _SYMBOL_POSITION
+        WHERE ID = #{id}
+    </delete>
+
+    <delete id="deleteByImageId">
+        DELETE FROM _SYMBOL_POSITION
+        WHERE IMAGE_ID = #{imageId}
+    </delete>
 </mapper>

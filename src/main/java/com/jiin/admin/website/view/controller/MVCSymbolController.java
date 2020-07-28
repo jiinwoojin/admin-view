@@ -54,6 +54,13 @@ public class MVCSymbolController {
         return "page/symbol/image-update";
     }
 
+    @RequestMapping("image-delete")
+    public String linkSymbolImageUpdateView(@RequestParam long id, @RequestParam String name) {
+        boolean status = symbolImageService.deleteImageData(id);
+        session.message(String.format("SYMBOL [%s] 그룹 삭제 %s 하였습니다.", name, status ? "성공" : "실패"));
+        return "redirect:image-list?pg=1&sz=10";
+    }
+
     @RequestMapping("list")
     public String symbolListView(Model model, @RequestParam(value = "pg", defaultValue = "1") int pg, @RequestParam(value = "sz", defaultValue = "8") int sz, @RequestParam(value = "ob", defaultValue = "0") int ob, @RequestParam(value = "st", defaultValue = "") String st) throws IOException {
         model.addAttribute("jsonContext", service.getSymbolJSONContext());

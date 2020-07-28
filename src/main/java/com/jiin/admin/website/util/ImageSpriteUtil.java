@@ -120,6 +120,9 @@ public class ImageSpriteUtil {
             FileSystemUtil.createAtFile(json1XPath, json);
             FileSystemUtil.createAtFile(json2XPath, json);
 
+            if (!FileSystemUtil.isWindowOS()) {
+                FileSystemUtil.setFileDefaultPermissions(mainDirectory.toPath());
+            }
         } catch (FileNotFoundException e) {
             log.error("ERROR - " + e.getMessage());
         } catch (IOException e) {

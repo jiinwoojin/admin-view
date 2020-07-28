@@ -10,8 +10,10 @@ import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.model.SymbolImageCreateModel;
 import com.jiin.admin.website.model.SymbolPageModel;
 import com.jiin.admin.website.model.SymbolPositionModel;
+import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.ImageSpriteUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -116,5 +118,28 @@ public class SymbolImageServiceImpl implements SymbolImageService {
         } else {
             return false;
         }
+    }
+
+    /**
+     * SYMBOL 데이터 삭제
+     */
+    @Override
+    @Transactional
+    public boolean deleteImageData(long id) {
+        SymbolImageDTO image = symbolImageMapper.findById(id);
+        if (image == null) {
+            return false;
+        }
+
+        String folder = dataPath + String.format("%s/%s", Constants.SYMBOL_FILE_PATH, image.getName());
+        if (!StringUtils.isBlank(image.getName())) {
+            try {
+                FileSystemUtil.deleteFile(folder);
+            } catch (IOException e) {
+                log.error("ERROR - " + e.getMessage());
+            }
+        }
+
+        return symbolPositionMapper.deleteByImageId(image.getId()) > 0 && symbolImageMapper.deleteById(image.getId()) > 0;
     }
 }

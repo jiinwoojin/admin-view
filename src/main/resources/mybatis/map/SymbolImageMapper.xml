@@ -92,4 +92,9 @@
             #{json2xFilePath}
         )
     </insert>
+
+    <delete id="deleteById">
+        DELETE FROM _SYMBOL_IMAGE
+        WHERE ID = #{id}
+    </delete>
 </mapper>
