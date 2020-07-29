@@ -1,5 +1,6 @@
 package com.jiin.admin.website.model;
 
+import com.jiin.admin.dto.SymbolPositionDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,5 +26,12 @@ public class SymbolPositionModel {
         this.width = width;
         this.height = height;
         this.pixelRatio = 1;
+    }
+
+    public static SymbolPositionDTO convertDTO(SymbolPositionModel model) {
+        if (model == null) return null;
+        else {
+            return new SymbolPositionDTO(0L, model.getName(), model.getHeight(), model.getWidth(), model.getPixelRatio(), model.getX(), model.getY(), model.getImageId());
+        }
     }
 }

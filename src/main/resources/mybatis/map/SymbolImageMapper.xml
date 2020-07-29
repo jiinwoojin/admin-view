@@ -109,6 +109,22 @@
         )
     </insert>
 
+    <update id="update">
+        UPDATE _SYMBOL_IMAGE SET
+            NAME = #{name},
+            DESCRIPTION = #{description},
+            IS_DEFAULT = #{isDefault},
+            REGIST_TIME = #{registTime},
+            REGISTOR_ID = #{registorId},
+            REGISTOR_NAME = #{registorName},
+            UPDATE_TIME = #{updateTime},
+            IMAGE_FILE_PATH = #{imageFilePath},
+            IMAGE_2X_FILE_PATH = #{image2xFilePath},
+            JSON_FILE_PATH = #{jsonFilePath},
+            JSON_2X_FILE_PATH = #{json2xFilePath}
+        WHERE ID = #{id}
+    </update>
+
     <delete id="deleteById">
         DELETE FROM _SYMBOL_IMAGE
         WHERE ID = #{id}

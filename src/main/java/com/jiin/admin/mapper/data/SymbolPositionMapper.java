@@ -10,6 +10,7 @@ import java.util.List;
 @BaseMapper
 public interface SymbolPositionMapper {
     List<SymbolPositionDTO> findAll();
+    SymbolPositionDTO findByNameAndImageId(@Param("name") String name, @Param("imageId") long imageId);
     int insert(SymbolPositionDTO symbolPositionDTO);
     int updateByModelAndImageId(SymbolPositionModel symbolPositionModel);
     int deleteById(@Param("id") long id);
