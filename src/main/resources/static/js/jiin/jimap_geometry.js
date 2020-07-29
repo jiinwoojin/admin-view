@@ -170,7 +170,7 @@ Circle.prototype = {
 }
 
 var JimapOverlayGeometry = {};
-JimapOverlayGeometry.Point = function Point(cx, cy, r, screen = false) {
+JimapOverlayGeometry.Point = function Point(cx, cy, r, isScreen = false) {
     if (!(this instanceof JimapOverlayGeometry.Point)) {
         throw new Error('new 로 생성해야 합니다.');
     }
@@ -180,7 +180,7 @@ JimapOverlayGeometry.Point = function Point(cx, cy, r, screen = false) {
     this.cy = cy;
     this.r = r;
     this.geoPoint = '';
-    this.screen = screen;
+    this.isScreen = isScreen;
 }
 
 JimapOverlayGeometry.Point.prototype = {
@@ -189,36 +189,49 @@ JimapOverlayGeometry.Point.prototype = {
         return this.type;
     },
     getCx : function getCx() {
-        return this.x1;
+        return this.cx;
     },
-    setCx : function setCx(x1) {
-        this.x1 = x1;
+    setCx : function setCx(cx) {
+        this.cx = cx;
         this.setGeoPoint();
     },
     getCy : function getCy() {
-        return this.y1;
+        return this.cy;
     },
-    setCy : function setCy(y1) {
-        this.y1 = y1;
+    setCy : function setCy(cy) {
+        this.cy = cy;
         this.setGeoPoint();
     },
-    setGeoPoint : function setGeoPoint() {
-        if (this.cx !== undefined && this.cy !== undefined) {
-            this.geoPoint = jiCommon.convert.pixelToLonLat({'x' : this.cx, 'y' : this.cy});
+    setGeoPoint : function setGeoPoint(point) {
+        if (point === undefined) {
+            if (this.cx !== undefined && this.cy !== undefined) {
+                this.geoPoint = jiCommon.convert.pixelToLonLat({'x' : this.cx, 'y' : this.cy});
+            }
+        } else {
+            this.geoPoint = point;
+            var _pixelPoint = this.geometryToPixel();
+            this.cx = _pixelPoint.x;
+            this.cy = _pixelPoint.y;
         }
     },
-    isScreen : function isScreen() {
-        return this.screen;
+    setIsScreen : function setIsScreen(isScreen) {
+        this.isScreen = isScreen;
     },
-    setScreen : function setScreen(screen) {
-        this.screen = screen;
+    setGeometry : function setGeometry(geometry) {
+        this.geometry = geometry;
+    },
+    geometryToPixel : function geometryToPixel() {
+        return jiCommon.convert.lonLatToPixel({'lon' : this.geoPoint.lon, 'lat' : this.geoPoint.lat});
+    },
+    pixelToGeometry : function pixelToGeometry() {
+        return jiCommon.convert.pixelToLonLat({'x' : this.cx, 'y' : this.cy});
     },
     getPoint : function getPoint() {
         if (this.geoPoint === '') {
             this.setGeoPoint();
         }
 
-        return this.isScreen() ? {'x' : this.cx, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.geoPoint.lon, 'lat' : this.geoPoint.lat});
+        return this.isScreen ? {'x' : this.cx, 'y' : this.cy} : this.geometryToPixel();
     },
     getSvg : function getSvg() {
         var _point = this.getPoint();

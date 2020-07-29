@@ -17,6 +17,7 @@ var JimapOverlay = function JimapOverlay(options) {
     this._lines = new jsMap();
     this._rectangles = new jsMap();
     this._triangles = new jsMap();
+    this._selectors = new jsMap();
 
     jiCommon.addMapEvent('viewreset', this.update);
     jiCommon.addMapEvent('move', this.update);
@@ -37,10 +38,23 @@ JimapOverlay.prototype.update = function update() {
     jiCommon.overlay.updateTriangle();
 }
 
+JimapOverlay.prototype.updateSelector = function updateSelector() {
+    if (jiCommon.overlay._selectors.size() > 0) {
+        jiCommon.overlay._selectors.values().forEach(e => {
+            if (e.feature.isSelect) {
+                if (e.getType() === 'Point') {
+                    var _pointSvg = e.feature.getSvg();
+                    e.svg.attr('cx', _pointSvg.cx).attr('cy', _pointSvg.cy).attr('r', _pointSvg.r);
+                }
+            }
+        });
+    }
+}
+
 JimapOverlay.prototype.updatePoint = function updatePoint() {
     if (jiCommon.overlay._points.size() > 0) {
         jiCommon.overlay._points.values().forEach(e => {
-            if (!e.isScreen()) {
+            if (!e.feature.isScreen) {
                 var _pointSvg = e.feature.getSvg();
                 e.svg.attr('cx', _pointSvg.cx).attr('cy', _pointSvg.cy).attr('r', _pointSvg.r);
             }
@@ -197,7 +211,9 @@ JimapOverlay.prototype.createSvg = function createSvg() {
                 .style('stroke-dasharray', '5 5')
                 .style('opacity', 0.8)
                 .style('stroke-width', overlayCommon.commonAttr.strokeWidth)
-                .on('click', function() {alert('Line Click Event.')});
+                .on('click', function() {
+                    jiCommon.overlay.setActive(jiConstant.OVERLAY_DRAW_MODE.LINE.CD, _id);
+                });
             break;
         case jiConstant.OVERLAY_DRAW_MODE.RECTANGLE.CD :
             var _rectSvg = _feature.getSvg();
@@ -327,7 +343,7 @@ JimapOverlay.prototype.drawEnd = function drawEnd(e) {
 
     jiCommon.overlay._drawMode = 999;
     jiCommon.overlay.object = {};
-    jiCommon.overlay.setActive(_drawMode, _id);
+    //jiCommon.overlay.setActive(_drawMode, _id);
 }
 
 JimapOverlay.prototype.selectObject = function selectObject() {
@@ -342,58 +358,58 @@ JimapOverlay.prototype.setActive = function setActive(drawMode, id) {
     }
 }
 
+JimapOverlay.prototype.createPointSvg = function createPointSvg(gId, object) {
+
+}
+
+JimapOverlay.prototype.createLineSvg = function createLineSvg(gId, object) {
+
+}
+
 JimapOverlay.prototype.setLineSelector = function setLineSelector(id) {
     if (this._lines.containsKey(id)) {
         var _object = this._lines.get(id);
         var _feature = _object.feature;
-        var _svg = _object.svg;
-        console.log(_object);
 
         var lineId = '#g-line-' + id;
+        var geoStartPoint = _feature.geoStartPoint;
+        var geoEndPoint = _feature.geoEndPoint;
 
         // 3개의 점을 생성한다. 시작점, 중간점, 끝점
+        // geometry 로 생성 해야함
         var startObject = {};
-        startObject.id = 'selector-start';
+        startObject.id = 'selector-start-' + id;
         startObject.cx = _object.x1;
         startObject.cy = _object.y1;
         startObject.r = 5;
-        startObject.feature = new JimapOverlayGeometry.Point(_object.x1, _object.y1, 5);
-        startObject.svg = d3.select(lineId).append('circle').attr('id', startObject.id + '-' + id)
+        startObject.feature = new JimapOverlayGeometry.Point(startObject.cx, startObject.cy, 5);
+        startObject.feature.setGeoPoint(geoStartPoint);
+        startObject.svg = d3.select(lineId).append('circle').attr('id', startObject.id)
             .attr('r', 5)
-            .attr('cx', _object.x1)
-            .attr('cy', _object.y1)
-            .style('fill', 'yellow')
-            .style('fill-opacity', 0.5);
+            .attr('cx', startObject.feature.getCx())
+            .attr('cy', startObject.feature.getCy())
+            .attr('stroke', 'rgb(255, 255, 255)')
+            .attr('stroke-width', 1)
+            .style('fill', 'rgb(0, 255, 0)')
+            .style('fill-opacity', 1).call(d3.drag().on('start', function() {console.log(this)}).on('drag', function() {console.log(d3.mouse(this));}));
 
         this._points.put(startObject.id, startObject);
 
-        var centerObject = {};
-        centerObject.id = 'selector-center';
-        centerObject.cx = (_object.x1 + _object.x2) / 2;
-        centerObject.cy = (_object.y1 + _object.y2) / 2;
-        centerObject.r = 5;
-        centerObject.feature = new JimapOverlayGeometry.Point(centerObject.cx, centerObject.cy, 5);
-        centerObject.svg = d3.select(lineId).append('circle').attr('id', centerObject.id + '-' + id)
-            .attr('r', 5)
-            .attr('cx', (_object.x1 + _object.x2) / 2)
-            .attr('cy', (_object.y1 + _object.y2) / 2)
-            .style('fill', 'yellow')
-            .style('fill-opacity', 0.5);
-
-        this._points.put(centerObject.id, centerObject);
-
         var endObject = {};
-        endObject.id = 'selector-end';
+        endObject.id = 'selector-end-' + id;
         endObject.cx = _object.x2;
         endObject.cy = _object.y2;
         endObject.r = 5;
-        endObject.feature = new JimapOverlayGeometry.Point(_object.x2, _object.y2, 5);
-        endObject.svg = d3.select(lineId).append('circle').attr('id', endObject.id + '-' + id)
+        endObject.feature = new JimapOverlayGeometry.Point(endObject.cx, endObject.cy, 5);
+        endObject.feature.setGeoPoint(geoEndPoint);
+        endObject.svg = d3.select(lineId).append('circle').attr('id', endObject.id)
             .attr('r', 5)
-            .attr('cx', _object.x2)
-            .attr('cy', _object.y2)
-            .style('fill', 'yellow')
-            .style('fill-opacity', 0.5);
+            .attr('cx', endObject.feature.getCx())
+            .attr('cy', endObject.feature.getCy())
+            .attr('stroke', 'rgb(255, 255, 255)')
+            .attr('stroke-width', 1)
+            .style('fill', 'rgb(0, 255, 0)')
+            .style('fill-opacity', 1).call(d3.drag().on('start', function() {console.log(this)}).on('drag', function() {console.log(d3.mouse(this));}));
 
         this._points.put(endObject.id, endObject);
         // 각각 이벤트 정의
