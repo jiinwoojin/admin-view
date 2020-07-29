@@ -14,12 +14,13 @@ public class SymbolPositionDTO {
     private Integer xPos;
     private Integer yPos;
     private Long imageId;
+    private byte[] pngBytes;
 
     public SymbolPositionDTO() {
 
     }
 
-    public SymbolPositionDTO(Long id, String name, Integer height, Integer width, Integer pixelRatio, Integer xPos, Integer yPos, Long imageId) {
+    public SymbolPositionDTO(Long id, String name, Integer height, Integer width, Integer pixelRatio, Integer xPos, Integer yPos, Long imageId, byte[] pngBytes) {
         this.id = id;
         this.name = name;
         this.height = height;
@@ -28,5 +29,6 @@ public class SymbolPositionDTO {
         this.xPos = xPos;
         this.yPos = yPos;
         this.imageId = imageId;
+        this.pngBytes = pngBytes;
     }
 }

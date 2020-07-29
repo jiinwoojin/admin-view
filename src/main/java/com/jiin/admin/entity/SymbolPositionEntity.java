@@ -2,6 +2,7 @@ package com.jiin.admin.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
@@ -64,7 +65,13 @@ public class SymbolPositionEntity implements Persistable<Long> {
     @Column(name = "Y_POS", nullable = false)
     private Integer yPos;
 
-
+    /**
+     * Symbol 이미지 bytes
+     */
+    @Lob
+    @Type(type = "org.hibernate.type.BinaryType")
+    @Column(name = "PNG_BYTES")
+    private byte[] pngBytes;
 
     /**
      * Symbol 에 종속된 Image 개체

@@ -14,24 +14,26 @@ public class SymbolPositionModel {
     private Integer height;
     private Integer pixelRatio;
     private Long imageId;
+    private byte[] pngBytes;
 
     public SymbolPositionModel() {
 
     }
 
-    public SymbolPositionModel(String name, Integer x, Integer y, Integer width, Integer height) {
+    public SymbolPositionModel(String name, Integer x, Integer y, Integer width, Integer height, byte[] pngBytes) {
         this.name = name;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.pixelRatio = 1;
+        this.pngBytes = pngBytes;
     }
 
     public static SymbolPositionDTO convertDTO(SymbolPositionModel model) {
         if (model == null) return null;
         else {
-            return new SymbolPositionDTO(0L, model.getName(), model.getHeight(), model.getWidth(), model.getPixelRatio(), model.getX(), model.getY(), model.getImageId());
+            return new SymbolPositionDTO(0L, model.getName(), model.getHeight(), model.getWidth(), model.getPixelRatio(), model.getX(), model.getY(), model.getImageId(), model.getPngBytes());
         }
     }
 }

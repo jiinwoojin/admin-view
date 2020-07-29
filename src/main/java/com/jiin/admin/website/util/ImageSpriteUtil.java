@@ -69,7 +69,7 @@ public class ImageSpriteUtil {
                         String suffix = filename.replace(".png", "").replace(".PNG", "");
                         final int saveX = x;
                         final int saveY = y;
-                        positions.add(new SymbolPositionModel(suffix, x, y, image.getWidth(), image.getHeight()));
+                        positions.add(new SymbolPositionModel(suffix, x, y, image.getWidth(), image.getHeight(), sprite.getBytes()));
                         jsonMap.put(suffix, new LinkedHashMap<String, Object>() {
                             {
                                 put("height", image.getHeight());
@@ -176,7 +176,15 @@ public class ImageSpriteUtil {
 
                     final int saveX = x;
                     final int saveY = y;
-                    positions.add(new SymbolPositionModel(key, x, y, image.getWidth(), image.getHeight()));
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    try {
+                        ImageIO.write(image, "PNG", baos);
+                    } catch (IOException e) {
+                        log.error("ERROR - " + e.getMessage());
+                    }
+
+                    positions.add(new SymbolPositionModel(key, x, y, image.getWidth(), image.getHeight(), baos.toByteArray()));
                     jsonMap.put(key, new LinkedHashMap<String, Object>() {
                         {
                             put("height", image.getHeight());
