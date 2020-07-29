@@ -6,6 +6,10 @@
         SELECT * FROM _SYMBOL_POSITION
     </select>
 
+    <select id="findByNameAndImageId" resultType="SymbolPositionDTO">
+        SELECT * FROM _SYMBOL_POSITION WHERE NAME = #{name} AND IMAGE_ID = #{imageId}
+    </select>
+
     <insert id="insert">
         <selectKey keyProperty="id" resultType="long" order="BEFORE">
             SELECT NEXTVAL('SYMBOL_POSITION_SEQ')

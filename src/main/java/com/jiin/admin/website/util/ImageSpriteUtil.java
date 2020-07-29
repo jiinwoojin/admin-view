@@ -121,7 +121,7 @@ public class ImageSpriteUtil {
             FileSystemUtil.createAtFile(json2XPath, json);
 
             if (!FileSystemUtil.isWindowOS()) {
-                FileSystemUtil.setFileDefaultPermissions(mainDirectory.toPath());
+                FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(mainDirectory);
             }
         } catch (FileNotFoundException e) {
             log.error("ERROR - " + e.getMessage());
@@ -223,7 +223,7 @@ public class ImageSpriteUtil {
 
             if (!FileSystemUtil.isWindowOS()) {
                 File mainDirectory = new File(dataPath + String.format("%s/%s", Constants.SYMBOL_FILE_PATH, imageName));
-                FileSystemUtil.setFileDefaultPermissions(mainDirectory.toPath());
+                FileSystemUtil.setFileDefaultPermissionsWithFileDirectory(mainDirectory);
             }
         } catch (FileNotFoundException e) {
             log.error("ERROR - " + e.getMessage());

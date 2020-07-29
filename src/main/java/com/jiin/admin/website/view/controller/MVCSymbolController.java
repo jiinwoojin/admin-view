@@ -3,7 +3,7 @@ package com.jiin.admin.website.view.controller;
 import com.jiin.admin.config.SessionService;
 import com.jiin.admin.website.model.SymbolImageModel;
 import com.jiin.admin.website.model.SymbolPageModel;
-import com.jiin.admin.website.view.service.ServerCenterInfoService;
+import com.jiin.admin.website.model.SymbolPositionEditModel;
 import com.jiin.admin.website.view.service.SymbolImageService;
 import com.jiin.admin.website.view.service.SymbolService;
 import org.springframework.http.MediaType;
@@ -58,16 +58,30 @@ public class MVCSymbolController {
         model.addAttribute("model", map.get("model"));
         model.addAttribute("data", map.get("data"));
         model.addAttribute("qs", symbolPageModel.getQueryString());
+        model.addAttribute("message", session.message());
+        model.addAttribute("jsonContext", symbolImageService.loadJSONContextByImageId(id));
         return "page/symbol/image-update";
     }
 
-    // TODO : IMAGE UPDATE + CODE NAME 변경 적용
+    @RequestMapping(value = "image-update", method = RequestMethod.POST)
+    public String pageSymbolImageUpdateView(@Valid SymbolImageModel symbolImageModel, @RequestParam long id, SymbolPageModel symbolPageModel) {
+        boolean status = symbolImageService.setImageData(symbolImageModel);
+        session.message(String.format("SYMBOL [%s] 그룹 데이터 수정 %s 하였습니다.", symbolImageModel.getName(), status ? "성공" : "실패"));
+        return String.format("redirect:image-update?id=%d&", id) + symbolPageModel.getQueryString();
+    }
 
     @RequestMapping("image-delete")
     public String linkSymbolImageUpdateView(@RequestParam long id, @RequestParam String name) {
         boolean status = symbolImageService.deleteImageData(id);
         session.message(String.format("SYMBOL [%s] 그룹 삭제 %s 하였습니다.", name, status ? "성공" : "실패"));
         return "redirect:image-list?pg=1&sz=10";
+    }
+
+    @RequestMapping("position-update")
+    public String postSymbolPositionUpdate(SymbolPageModel symbolPageModel, SymbolPositionEditModel symbolPositionEditModel) {
+        boolean status = symbolImageService.setPositionData(symbolPositionEditModel);
+        session.message(String.format("SYMBOL [%s] 그룹 데이터 수정 %s 하였습니다.", symbolPositionEditModel.getBeforeName(), status ? "성공" : "실패"));
+        return String.format("redirect:image-update?id=%d&", symbolPositionEditModel.getImageId()) + symbolPageModel.getQueryString();
     }
 
     @RequestMapping("position-delete")
