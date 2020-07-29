@@ -16,5 +16,6 @@ public interface SymbolImageMapper {
     SymbolImageDTO findById(@Param("id") long id);
     SymbolImageDTO findByName(@Param("name") String name);
     int insert(SymbolImageDTO symbolImageDTO);
+    int update(SymbolImageDTO symbolImageDTO);
     int deleteById(@Param("id") long id);
 }
