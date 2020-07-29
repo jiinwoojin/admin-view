@@ -358,7 +358,7 @@ JimapOverlay.prototype.setLineSelector = function setLineSelector(id) {
         startObject.cy = _object.y1;
         startObject.r = 5;
         startObject.feature = new JimapOverlayGeometry.Point(_object.x1, _object.y1, 5);
-        startObject.svg = d3.select(lineId).append('circle').attr('id', 'start')
+        startObject.svg = d3.select(lineId).append('circle').attr('id', startObject.id + '-' + id)
             .attr('r', 5)
             .attr('cx', _object.x1)
             .attr('cy', _object.y1)
@@ -373,7 +373,7 @@ JimapOverlay.prototype.setLineSelector = function setLineSelector(id) {
         centerObject.cy = (_object.y1 + _object.y2) / 2;
         centerObject.r = 5;
         centerObject.feature = new JimapOverlayGeometry.Point(centerObject.cx, centerObject.cy, 5);
-        centerObject.svg = d3.select(lineId).append('circle').attr('id', 'center')
+        centerObject.svg = d3.select(lineId).append('circle').attr('id', centerObject.id + '-' + id)
             .attr('r', 5)
             .attr('cx', (_object.x1 + _object.x2) / 2)
             .attr('cy', (_object.y1 + _object.y2) / 2)
@@ -388,7 +388,7 @@ JimapOverlay.prototype.setLineSelector = function setLineSelector(id) {
         endObject.cy = _object.y2;
         endObject.r = 5;
         endObject.feature = new JimapOverlayGeometry.Point(_object.x2, _object.y2, 5);
-        endObject.svg = d3.select(lineId).append('circle').attr('id', 'end')
+        endObject.svg = d3.select(lineId).append('circle').attr('id', endObject.id + '-' + id)
             .attr('r', 5)
             .attr('cx', _object.x2)
             .attr('cy', _object.y2)
