@@ -6,6 +6,7 @@ import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 
+// SYMBOL IMAGE 안에 있는 작은 데이터
 @Getter
 @Setter
 @Entity(name = "_SYMBOL_POSITION")
@@ -15,6 +16,9 @@ import javax.persistence.*;
         initialValue = 1,
         allocationSize = 1
 )
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = { "NAME", "IMAGE_ID" })
+})
 public class SymbolPositionEntity implements Persistable<Long> {
     @Id
     @GeneratedValue(
@@ -59,6 +63,15 @@ public class SymbolPositionEntity implements Persistable<Long> {
      */
     @Column(name = "Y_POS", nullable = false)
     private Integer yPos;
+
+
+
+    /**
+     * Symbol 에 종속된 Image 개체
+     */
+    @ManyToOne
+    @JoinColumn
+    private SymbolImageEntity image;
 
     @Override
     public boolean isNew() {

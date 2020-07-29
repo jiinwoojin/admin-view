@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jiin.admin.mapper.data.SymbolImageMapper">
+    <resultMap id="symbolImageSingle" type="SymbolImageDTO">
+        <id property="id" column="ID" />
+        <result property="name" column="NAME" />
+        <result property="description" column="DESCRIPTION" />
+        <result property="isDefault" column="IS_DEFAULT" />
+        <result property="registTime" column="REGIST_TIME" />
+        <result property="registorId" column="REGISTOR_ID" />
+        <result property="registorName" column="REGISTOR_NAME" />
+        <result property="updateTime" column="UPDATE_TIME" />
+        <result property="imageFilePath" column="IMAGE_FILE_PATH" />
+        <result property="image2xFilePath" column="IMAGE_2X_FILE_PATH" />
+        <result property="jsonFilePath" column="JSON_FILE_PATH" />
+        <result property="json2xFilePath" column="JSON_2X_FILE_PATH" />
+        <collection property="positions" column="{imageId=ID}" javaType="java.util.ArrayList" ofType="SymbolPositionDTO" select="findPositionListByImageId" />
+    </resultMap>
+
+    <select id="findNextSeqVal" resultType="long">
+        SELECT NEXTVAL('SYMBOL_IMAGE_SEQ')
+    </select>
+
+    <select id="countByPageModel" resultType="long">
+        SELECT COUNT(*) FROM _SYMBOL_IMAGE SI
+        <where>
+            <choose>
+                <when test='sb == 1'> SI.NAME LIKE CONCAT('%', #{st}, '%') </when>
+                <when test='sb == 2'> SI.REGISTOR_ID LIKE CONCAT('%', #{st}, '%') </when>
+                <otherwise> 1=1 </otherwise>
+            </choose>
+            <if test="sDate != null and !sDate.equals('') and eDate != null and !eDate.equals('')">
+                AND SI.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD')
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultType="SymbolImageDTO">
+        SELECT * FROM _SYMBOL_IMAGE
+    </select>
+
+    <select id="findById" resultMap="symbolImageSingle">
+        SELECT * FROM _SYMBOL_IMAGE WHERE ID = #{id}
+    </select>
+
+    <select id="findByName" resultType="SymbolImageDTO">
+        SELECT * FROM _SYMBOL_IMAGE WHERE NAME = #{name}
+    </select>
+
+    <select id="findByPageModel" resultType="SymbolImageDTO">
+        <bind name="start" value="(pg - 1) * sz" />
+        SELECT * FROM _SYMBOL_IMAGE SI
+        <where>
+            <choose>
+                <when test='sb == 1'> SI.NAME LIKE CONCAT('%', #{st}, '%') </when>
+                <when test='sb == 2'> SI.REGISTOR_ID LIKE CONCAT('%', #{st}, '%') </when>
+                <otherwise> 1=1 </otherwise>
+            </choose>
+            <if test="sDate != null and !sDate.equals('') and eDate != null and !eDate.equals('')">
+                AND SI.REGIST_TIME BETWEEN TO_TIMESTAMP(#{sDate}, 'YYYY-MM-DD') AND TO_TIMESTAMP(#{eDate}, 'YYYY-MM-DD')
+            </if>
+        </where>
+        ORDER BY
+        <choose>
+            <when test="ob == 1">SI.ID ASC</when>
+            <when test="ob == 2">SI.NAME ASC</when>
+            <when test="ob == 3">SI.REGIST_TIME DESC</when>
+            <otherwise>SI.ID DESC</otherwise>
+        </choose>
+        <choose>
+            <when test="start gte 0">
+                LIMIT ${sz} OFFSET ${start}
+            </when>
+            <otherwise>
+                LIMIT 0
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO _SYMBOL_IMAGE(
+            ID,
+            NAME,
+            DESCRIPTION,
+            IS_DEFAULT,
+            REGIST_TIME,
+            REGISTOR_ID,
+            REGISTOR_NAME,
+            UPDATE_TIME,
+            IMAGE_FILE_PATH,
+            IMAGE_2X_FILE_PATH,
+            JSON_FILE_PATH,
+            JSON_2X_FILE_PATH
+        )
+        VALUES (
+            #{id},
+            #{name},
+            #{description},
+            #{isDefault},
+            #{registTime},
+            #{registorId},
+            #{registorName},
+            #{updateTime},
+            #{imageFilePath},
+            #{image2xFilePath},
+            #{jsonFilePath},
+            #{json2xFilePath}
+        )
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM _SYMBOL_IMAGE
+        WHERE ID = #{id}
+    </delete>
+
+    <!-- Mapper 인터페이스에 없지만 내부에서 사용되기 때문에 지우지 말 것. -->
+    <select id="findPositionListByImageId" parameterType="java.util.Map" resultType="SymbolPositionDTO">
+        SELECT * FROM _SYMBOL_POSITION
+        WHERE IMAGE_ID = #{imageId}
+    </select>
+</mapper>

@@ -5,4 +5,57 @@
     <select id="findAll" resultType="SymbolPositionDTO">
         SELECT * FROM _SYMBOL_POSITION
     </select>
+
+    <insert id="insert">
+        <selectKey keyProperty="id" resultType="long" order="BEFORE">
+            SELECT NEXTVAL('SYMBOL_POSITION_SEQ')
+        </selectKey>
+        INSERT INTO _SYMBOL_POSITION (
+            ID,
+            NAME,
+            HEIGHT,
+            WIDTH,
+            PIXEL_RATIO,
+            X_POS,
+            Y_POS,
+            IMAGE_ID
+        )
+        VALUES (
+            #{id},
+            #{name},
+            #{height},
+            #{width},
+            #{pixelRatio},
+            #{xPos},
+            #{yPos},
+            #{imageId}
+        )
+    </insert>
+
+    <update id="updateByModelAndImageId">
+        UPDATE _SYMBOL_POSITION SET
+            HEIGHT = #{height},
+            WIDTH = #{width},
+            X_POS = #{x},
+            Y_POS = #{y}
+        WHERE NAME = #{name} AND IMAGE_ID = #{imageId}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM _SYMBOL_POSITION
+        WHERE ID = #{id}
+    </delete>
+
+    <delete id="deleteByIdIn">
+        DELETE FROM _SYMBOL_POSITION
+        WHERE ID IN
+        <foreach collection="ids" item="id" index="index" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByImageId">
+        DELETE FROM _SYMBOL_POSITION
+        WHERE IMAGE_ID = #{imageId}
+    </delete>
 </mapper>

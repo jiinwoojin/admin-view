@@ -6,25 +6,24 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SymbolPositionModel {
-    private Long id;
     private String name;
-    private Integer height;
+    private Integer x;
+    private Integer y;
     private Integer width;
+    private Integer height;
     private Integer pixelRatio;
-    private Integer xPos;
-    private Integer yPos;
+    private Long imageId;
 
     public SymbolPositionModel() {
 
     }
 
-    public SymbolPositionModel(Long id, String name, Integer height, Integer width, Integer pixelRatio, Integer xPos, Integer yPos) {
-        this.id = id;
+    public SymbolPositionModel(String name, Integer x, Integer y, Integer width, Integer height) {
         this.name = name;
-        this.height = height;
+        this.x = x;
+        this.y = y;
         this.width = width;
-        this.pixelRatio = pixelRatio;
-        this.xPos = xPos;
-        this.yPos = yPos;
+        this.height = height;
+        this.pixelRatio = 1;
     }
 }
