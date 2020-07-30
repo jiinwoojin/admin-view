@@ -42,7 +42,7 @@ JimapOverlay.prototype.updateSelector = function updateSelector() {
     if (jiCommon.overlay._selectors.size() > 0) {
         jiCommon.overlay._selectors.values().forEach(e => {
             if (e.feature.isSelect) {
-                if (e.getType() === 'Point') {
+                if (e.feature.getType() === jiConstant.GEOMETRY_TYPE.POINT) {
                     var _pointSvg = e.feature.getSvg();
                     e.svg.attr('cx', _pointSvg.cx).attr('cy', _pointSvg.cy).attr('r', _pointSvg.r);
                 }
@@ -393,7 +393,7 @@ JimapOverlay.prototype.setLineSelector = function setLineSelector(id) {
             .style('fill', 'rgb(0, 255, 0)')
             .style('fill-opacity', 1).call(d3.drag().on('start', function() {console.log(this)}).on('drag', function() {console.log(d3.mouse(this));}));
 
-        this._points.put(startObject.id, startObject);
+        this._selectors.put(startObject.id, startObject);
 
         var endObject = {};
         endObject.id = 'selector-end-' + id;
@@ -411,7 +411,7 @@ JimapOverlay.prototype.setLineSelector = function setLineSelector(id) {
             .style('fill', 'rgb(0, 255, 0)')
             .style('fill-opacity', 1).call(d3.drag().on('start', function() {console.log(this)}).on('drag', function() {console.log(d3.mouse(this));}));
 
-        this._points.put(endObject.id, endObject);
+        this._selectors.put(endObject.id, endObject);
         // 각각 이벤트 정의
     } else {
         console.log(id + ' : 해당 객체가 없습니다.');

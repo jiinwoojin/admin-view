@@ -461,6 +461,10 @@ JimapOverlayGeometry.Triangle = function Triangle(x1, y1, x2, y2, screen = false
     this.startY = y1;
     this.x2 = x2;
     this.y2 = y2;
+    this.nPoint = '';
+    this.sPoint = '';
+    this.wPoint = '';
+    this.cPoint = '';
     this.screen = screen;
 }
 
@@ -470,16 +474,16 @@ JimapOverlayGeometry.Triangle.prototype = {
         return this.type;
     },
     getStartX : function getStartX() {
-        return this.x1;
+        return this.startX;
     },
     setStartX : function setStartX(x1) {
-        this.x1 = x1;
+        this.startX = x1;
     },
     getStartY : function getStartY() {
-        return this.y1;
+        return this.startY;
     },
     setStartY : function setStartY(y1) {
-        this.y1 = y1;
+        this.startY = y1;
     },
     getX2 : function getX2() {
         return this.x2;
