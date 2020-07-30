@@ -22,7 +22,8 @@
             PIXEL_RATIO,
             X_POS,
             Y_POS,
-            IMAGE_ID
+            IMAGE_ID,
+            PNG_BYTES
         )
         VALUES (
             #{id},
@@ -32,7 +33,8 @@
             #{pixelRatio},
             #{xPos},
             #{yPos},
-            #{imageId}
+            #{imageId},
+            #{pngBytes}
         )
     </insert>
 
@@ -41,7 +43,8 @@
             HEIGHT = #{height},
             WIDTH = #{width},
             X_POS = #{x},
-            Y_POS = #{y}
+            Y_POS = #{y},
+            PNG_BYTES = #{pngBytes}
         WHERE NAME = #{name} AND IMAGE_ID = #{imageId}
     </update>
 

@@ -209,7 +209,7 @@ public class SymbolImageServiceImpl implements SymbolImageService {
         if (symbolImageMapper.insert(symbolImageDTO) > 0) {
             int cnt = 0;
             for (SymbolPositionModel position : positions) {
-                SymbolPositionDTO pos = new SymbolPositionDTO(0L, position.getName(), position.getHeight(), position.getWidth(), position.getPixelRatio(), position.getX(), position.getY(), idx);
+                SymbolPositionDTO pos = new SymbolPositionDTO(0L, position.getName(), position.getHeight(), position.getWidth(), position.getPixelRatio(), position.getX(), position.getY(), idx, position.getPngBytes());
                 cnt += symbolPositionMapper.insert(pos);
             }
 

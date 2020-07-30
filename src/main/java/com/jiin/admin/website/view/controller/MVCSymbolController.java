@@ -1,6 +1,8 @@
 package com.jiin.admin.website.view.controller;
 
 import com.jiin.admin.config.SessionService;
+import com.jiin.admin.dto.SymbolPositionDTO;
+import com.jiin.admin.mapper.data.SymbolPositionMapper;
 import com.jiin.admin.website.model.SymbolImageModel;
 import com.jiin.admin.website.model.SymbolPageModel;
 import com.jiin.admin.website.model.SymbolPositionEditModel;
@@ -20,6 +22,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("symbol")
 public class MVCSymbolController {
+    @Resource
+    private SymbolPositionMapper symbolPositionMapper;
+
     @Resource
     private SymbolService service;
 
@@ -97,6 +102,17 @@ public class MVCSymbolController {
         model.addAttribute("resMap", service.findSymbolPositionsByPagination(pg, sz, ob, st));
         model.addAttribute("obList", service.symbolOrderByOptions());
         return "page/symbol/list";
+    }
+
+    @GetMapping(
+            value = "data-image",
+            produces = MediaType.IMAGE_PNG_VALUE
+    )
+    @ResponseBody
+    public byte[] symbolByteImageAtDatabase(@RequestParam(value = "name") String name, @RequestParam(value = "imageId") long imageId) throws IOException {
+        SymbolPositionDTO position = symbolPositionMapper.findByNameAndImageId(name, imageId);
+        if(position == null) return null;
+        return position.getPngBytes();
     }
 
     @GetMapping(
