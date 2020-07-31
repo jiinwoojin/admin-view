@@ -175,7 +175,7 @@ JimapOverlayGeometry.Point = function Point(cx, cy, r, isScreen = false) {
         throw new Error('new 로 생성해야 합니다.');
     }
 
-    this.type = 'Point';
+    this.type = jiConstant.GEOMETRY_TYPE.POINT;
     this.cx = cx;
     this.cy = cy;
     this.r = r;
@@ -244,7 +244,7 @@ JimapOverlayGeometry.Point.prototype = {
     }
 }
 
-JimapOverlayGeometry.Line = function Line(x1, y1, x2, y2, screen = false) {
+JimapOverlayGeometry.Line = function Line(x1, y1, x2, y2, isScreen = false) {
     if (!(this instanceof JimapOverlayGeometry.Line)) {
         throw new Error('new 로 생성해야 합니다.');
     }
@@ -256,7 +256,7 @@ JimapOverlayGeometry.Line = function Line(x1, y1, x2, y2, screen = false) {
     this.y2 = y2;           // 화면좌표 end point y
     this.geoStartPoint = '';   // geometry start point [x, y]
     this.geoEndPoint = '';     // geometry end point [x, y]
-    this.screen = screen;   // 화면 좌표 사용 여부
+    this.isScreen = isScreen;   // 화면 좌표 사용 여부
 }
 
 JimapOverlayGeometry.Line.prototype = {
@@ -306,23 +306,20 @@ JimapOverlayGeometry.Line.prototype = {
         return turf.lineString([this.startPoint.lon, this.startPoint.lat],
             [this.endPoint.lon, this.endPoint.lat]);
     },
-    isScreen : function isScreen() {
-        return this.screen;
-    },
-    setScreen : function setScreen(screen) {
-        this.screen = screen;
+    setIsScreen : function setIsScreen(isScreen) {
+        this.isScreen = isScreen;
     },
     getStartPoint : function getStartPoint() {
         if (this.geoStartPoint === '') {
             this.setGeoStartPoint();
         }
-        return this.isScreen() ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.geoStartPoint.lon, 'lat' : this.geoStartPoint.lat});
+        return this.isScreen ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.geoStartPoint.lon, 'lat' : this.geoStartPoint.lat});
     },
     getEndPoint : function getEndPoint() {
         if (this.geoEndPoint === '') {
             this.setGeoEndPoint();
         }
-        return this.isScreen() ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.geoEndPoint.lon, 'lat' : this.geoEndPoint.lat});
+        return this.isScreen ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.geoEndPoint.lon, 'lat' : this.geoEndPoint.lat});
     },
     getPath : function getPath() {
         var _startPoint = this.getStartPoint();
@@ -343,7 +340,7 @@ JimapOverlayGeometry.Line.prototype = {
     }
 }
 
-JimapOverlayGeometry.Rectangle = function Rectangle(x1, y1, x2, y2, screen = false) {
+JimapOverlayGeometry.Rectangle = function Rectangle(x1, y1, x2, y2, isScreen = false) {
     if (!(this instanceof JimapOverlayGeometry.Rectangle)) {
         throw new Error('new 로 생성해야 합니다.');
     }
@@ -355,7 +352,7 @@ JimapOverlayGeometry.Rectangle = function Rectangle(x1, y1, x2, y2, screen = fal
     this.y2 = y2;           // 화면좌표 end point y
     this.startPoint = '';   // geometry start point [x, y]
     this.endPoint = '';     // geometry end point [x, y]
-    this.screen = screen;
+    this.isScreen = isScreen;
 }
 
 JimapOverlayGeometry.Rectangle.prototype = {
@@ -391,11 +388,8 @@ JimapOverlayGeometry.Rectangle.prototype = {
         this.y2 = y2;
         this.setEndPoint();
     },
-    isScreen : function isScreen() {
-        return this.screen;
-    },
-    setScreen : function setScreen(screen) {
-        this.screen = screen;
+    setIsScreen : function setIsScreen(isScreen) {
+        this.isScreen = isScreen;
     },
     getRectangle : function getRectangle() {
         return turf.bboxPolygon([Math.max(this.x1, this.x2), Math.min(this.y1, this.y2),
@@ -409,7 +403,7 @@ JimapOverlayGeometry.Rectangle.prototype = {
         if (this.startPoint === '') {
             this.setStartPoint();
         }
-        return this.isScreen() ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.startPoint.lon, 'lat' : this.startPoint.lat});
+        return this.isScreen ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.startPoint.lon, 'lat' : this.startPoint.lat});
     },
     setStartPoint : function setStartPoint() {
         if (this.x1 !== undefined && this.y1 !== undefined) {
@@ -420,7 +414,7 @@ JimapOverlayGeometry.Rectangle.prototype = {
         if (this.endPoint === '') {
             this.setEndPoint();
         }
-        return this.isScreen() ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.endPoint.lon, 'lat' : this.endPoint.lat});
+        return this.isScreen ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.endPoint.lon, 'lat' : this.endPoint.lat});
     },
     setEndPoint : function setEndPoint() {
         if (this.x2 !== undefined && this.y2 !== undefined) {
@@ -451,7 +445,7 @@ JimapOverlayGeometry.Rectangle.prototype = {
     }
 }
 
-JimapOverlayGeometry.Triangle = function Triangle(x1, y1, x2, y2, screen = false) {
+JimapOverlayGeometry.Triangle = function Triangle(x1, y1, x2, y2, isScreen = false) {
     if (!(this instanceof JimapOverlayGeometry.Triangle)) {
         throw new Error('new 로 생성해야 합니다.');
     }
@@ -465,7 +459,7 @@ JimapOverlayGeometry.Triangle = function Triangle(x1, y1, x2, y2, screen = false
     this.sPoint = '';
     this.wPoint = '';
     this.cPoint = '';
-    this.screen = screen;
+    this.isScreen = isScreen;
 }
 
 JimapOverlayGeometry.Triangle.prototype = {
@@ -537,20 +531,17 @@ JimapOverlayGeometry.Triangle.prototype = {
         this.nx = this.cx;
         this.ny = this.cy + yDist;
     },
-    isScreen : function isScreen() {
-        return this.screen;
-    },
-    setScreen : function setScreen(screen) {
-        this.screen = screen;
+    setIsScreen : function setIsScreen(isScreen) {
+        this.isScreen = isScreen;
     },
     getNPoint : function getNPoint() {
-        return this.isScreen() ? {'x' : this.nx, 'y' : this.ny} : jiCommon.convert.lonLatToPixel({'lon' : this.nx, 'lat' : this.ny});
+        return this.isScreen ? {'x' : this.nx, 'y' : this.ny} : jiCommon.convert.lonLatToPixel({'lon' : this.nx, 'lat' : this.ny});
     },
     getWPoint : function getWPoint() {
-        return this.isScreen() ? {'x' : this.wx, 'y' : this.wy} : jiCommon.convert.lonLatToPixel({'lon' : this.wx, 'lat' : this.wy});
+        return this.isScreen ? {'x' : this.wx, 'y' : this.wy} : jiCommon.convert.lonLatToPixel({'lon' : this.wx, 'lat' : this.wy});
     },
     getSPoint : function getSPoint() {
-        return this.isScreen() ? {'x' : this.sx, 'y' : this.sy} : jiCommon.convert.lonLatToPixel({'lon' : this.sx, 'lat' : this.sy});
+        return this.isScreen ? {'x' : this.sx, 'y' : this.sy} : jiCommon.convert.lonLatToPixel({'lon' : this.sx, 'lat' : this.sy});
     },
     getPath : function getPath() {
         this.changeTriangle();

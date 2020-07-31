@@ -36,12 +36,13 @@ JimapOverlay.prototype.update = function update() {
     jiCommon.overlay.updateLine();
     jiCommon.overlay.updateRectangle();
     jiCommon.overlay.updateTriangle();
+    jiCommon.overlay.updateSelector();
 }
 
 JimapOverlay.prototype.updateSelector = function updateSelector() {
     if (jiCommon.overlay._selectors.size() > 0) {
         jiCommon.overlay._selectors.values().forEach(e => {
-            if (e.feature.isSelect) {
+            if (!e.feature.isSelect) {
                 if (e.feature.getType() === jiConstant.GEOMETRY_TYPE.POINT) {
                     var _pointSvg = e.feature.getSvg();
                     e.svg.attr('cx', _pointSvg.cx).attr('cy', _pointSvg.cy).attr('r', _pointSvg.r);
@@ -65,7 +66,7 @@ JimapOverlay.prototype.updatePoint = function updatePoint() {
 JimapOverlay.prototype.updateLine = function updateLine() {
     if (jiCommon.overlay._lines.size() > 0) {
         jiCommon.overlay._lines.values().forEach(e => {
-            if (!e.feature.isScreen()) {
+            if (!e.feature.isScreen) {
                 // 현재 map extents 와 겹치는지 부분만 update
                 // 원본 좌표는 e 객체에 들어 있음
                 var _lineSvg = e.feature.getSvg();
@@ -80,7 +81,7 @@ JimapOverlay.prototype.updateLine = function updateLine() {
 JimapOverlay.prototype.updateRectangle = function updateRectangle() {
     if (jiCommon.overlay._rectangles.size() > 0) {
         jiCommon.overlay._rectangles.values().forEach(e => {
-            if (!e.feature.isScreen()) {
+            if (!e.feature.isScreen) {
                 // 현재 map extents 와 겹치는지 부분만 update
                 // 원본 좌표는 e 객체에 들어 있음
                 var _rectSvg = e.feature.getSvg();
@@ -343,7 +344,7 @@ JimapOverlay.prototype.drawEnd = function drawEnd(e) {
 
     jiCommon.overlay._drawMode = 999;
     jiCommon.overlay.object = {};
-    //jiCommon.overlay.setActive(_drawMode, _id);
+    jiCommon.overlay.setActive(_drawMode, _id);
 }
 
 JimapOverlay.prototype.selectObject = function selectObject() {
@@ -363,6 +364,14 @@ JimapOverlay.prototype.createPointSvg = function createPointSvg(gId, object) {
 }
 
 JimapOverlay.prototype.createLineSvg = function createLineSvg(gId, object) {
+
+}
+
+JimapOverlay.prototype.createRectangleSvg = function createRectangleSvg(gId, object) {
+
+}
+
+JimapOverlay.prototype.createTriangleSvg = function createTriangleSvg(gId, object) {
 
 }
 
