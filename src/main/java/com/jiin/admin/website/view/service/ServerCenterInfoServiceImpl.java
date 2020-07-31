@@ -129,7 +129,7 @@ public class ServerCenterInfoServiceImpl implements ServerCenterInfoService {
                 list.add(0, local.getZone());
             }
 
-            return zoneArray;
+            return list.stream().toArray(String[]::new);
         }
     }
 

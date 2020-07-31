@@ -22,7 +22,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -61,6 +64,12 @@ public class BootingService {
     private MapLayerRelationMapper mapLayerRelationMapper;
 
     @Resource
+    private SymbolImageMapper symbolImageMapper;
+
+    @Resource
+    private SymbolPositionMapper symbolPositionMapper;
+
+    @Resource
     private ProxySourceMapper proxySourceMapper;
 
     @Resource
@@ -93,12 +102,15 @@ public class BootingService {
     @Resource
     private AccountMapper accountMapper;
 
-
     private String DEFAULT_DATA_NAME = "world";
 
     private String DEFAULT_MIDDLE_PATH = "ne2";
 
     private String DEFAULT_FILE_NAME = "NE2_HR_LC_SR_W_DR.tif";
+
+    private String DEFAULT_SYMBOL_FOLDER = "GSymbol";
+
+    private String DEFAULT_SYMBOL_NAME = "GSSSymbol";
 
     @Transactional
     // 지도 데이터인 NATURAL EARTH 2 TIFF 파일을 디폴트 값으로 넣어준다. (LAYER -> MAP -> CACHE)
@@ -271,18 +283,36 @@ public class BootingService {
 
     @Transactional
     public void initializeSymbol() throws IOException {
-        System.out.println(">>> initializeSymbol Start");
+        String mainPath = dataPath + String.format("%s/%s", Constants.SYMBOL_FILE_PATH, DEFAULT_SYMBOL_FOLDER);
+        String jsonPath = mainPath + String.format("/%s%s", DEFAULT_SYMBOL_NAME, Constants.JSON_SUFFIX);
+        String json2xPath = mainPath + String.format("/%s%s", DEFAULT_DATA_NAME, Constants.JSON_2X_SUFFIX);
+        String pngPath = mainPath + String.format("/%s%s", DEFAULT_SYMBOL_NAME, Constants.PNG_SUFFIX);
+        String png2xPath = mainPath + String.format("/%s%s", DEFAULT_SYMBOL_NAME, Constants.PNG_2X_SUFFIX);
 
-        String path = dataPath + "/html/GSymbol";
-        String jsonDir = path + "/GSSSymbol.json";
+        SymbolImageDTO imageDTO = symbolImageMapper.findByName(DEFAULT_SYMBOL_NAME);
+        if (imageDTO == null) {
+            long idx = symbolImageMapper.findNextSeqVal();
+            imageDTO = new SymbolImageDTO(idx, DEFAULT_SYMBOL_NAME, DEFAULT_SYMBOL_NAME, new Date(), "admin", "admin", true);
+            imageDTO.setJsonFilePath(jsonPath.replace(dataPath, ""));
+            imageDTO.setJson2xFilePath(json2xPath.replace(dataPath, ""));
+            imageDTO.setImageFilePath(pngPath.replace(dataPath, ""));
+            imageDTO.setImage2xFilePath(png2xPath.replace(dataPath, ""));
+
+            symbolImageMapper.insert(imageDTO);
+        }
+
+        File jsonFile = new File(jsonPath);
+        File imageFile = new File(pngPath);
+
+        if (!jsonFile.exists() || !imageFile.exists()) return;
 
         ObjectMapper mapper = new ObjectMapper();
+        Map<String, Object> data = mapper.readValue(jsonFile, new TypeReference<Map<String, Object>>() {});
+        BufferedImage image = ImageIO.read(imageFile);
 
-        File file = new File(jsonDir);
+        long cnt = symbolPositionMapper.countByImageId(imageDTO.getId());
+        if (cnt == data.keySet().size()) return;
 
-        if (!file.exists()) return;
-
-        Map<String, Object> data = mapper.readValue(file, new TypeReference<Map<String, Object>>() {});
         for (String key : data.keySet()) {
             Map<String, Integer> map = (Map<String, Integer>) data.get(key);
 
@@ -294,11 +324,18 @@ public class BootingService {
 
             if (height < 0 || width < 0 || pixelRatio < 0 || xPos < 0 || yPos < 0) continue;
 
-            SymbolPositionEntity entity = symbolMapper.findPositionBySymbolName(key);
-            if (entity == null) {
-//                symbolMapper.insertWithSymbolPositionModel(
-//                    new SymbolPositionModel(key, height, width, pixelRatio, xPos, yPos)
-//                );
+            SymbolPositionDTO positionDTO = symbolPositionMapper.findByNameAndImageId(key, imageDTO.getId());
+            if (positionDTO == null) {
+                BufferedImage partition = image.getSubimage(xPos, yPos, width, height);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                try {
+                    ImageIO.write(partition, "PNG", baos);
+                } catch (IOException e) {
+                    System.out.println("ERROR - " + e.getMessage());
+                }
+
+                positionDTO = new SymbolPositionDTO(0L, key, height, width, pixelRatio, xPos, yPos, imageDTO.getId(), baos.toByteArray());
+                symbolPositionMapper.insert(positionDTO);
             }
         }
     }

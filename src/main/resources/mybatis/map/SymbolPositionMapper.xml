@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 나중에 기능 구현 들어가기 전에 한 번 정리해둘 것. -->
 <mapper namespace="com.jiin.admin.mapper.data.SymbolPositionMapper">
+    <select id="countByImageId" resultType="long">
+        SELECT COUNT(*) FROM _SYMBOL_POSITION WHERE IMAGE_ID = #{imageId}
+    </select>
+
     <select id="findAll" resultType="SymbolPositionDTO">
         SELECT * FROM _SYMBOL_POSITION
     </select>

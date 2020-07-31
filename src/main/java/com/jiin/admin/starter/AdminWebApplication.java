@@ -33,7 +33,11 @@ public class AdminWebApplication extends SpringBootServletInitializer implements
     @Override
     public void run(String... args) {
         bootingService.initializeMapData();
-        // bootingService.initializeSymbol();
+        try {
+            bootingService.initializeSymbol();
+        } catch (IOException e) {
+            System.out.println("ERROR - " + e.getMessage());
+        }
         bootingService.initializeRoles();
         bootingService.initializeAccounts();
     }

@@ -57,10 +57,10 @@ public class SymbolImageServiceImpl implements SymbolImageService {
             return new HashMap<>();
         }
 
-        String path = dataPath + Constants.SYMBOL_FILE_PATH + String.format("/%s", imageDTO.getName());
-        String imageDir = path + String.format("/%s%s", imageDTO.getName(), Constants.PNG_SUFFIX);
 
-        File image = new File(imageDir);
+        String path = dataPath + imageDTO.getImageFilePath();
+
+        File image = new File(path);
         if (!image.exists()) {
             return new HashMap<>();
         }
@@ -106,7 +106,7 @@ public class SymbolImageServiceImpl implements SymbolImageService {
             return "";
         }
         try {
-            return FileSystemUtil.fetchFileContext(dataPath + Constants.SYMBOL_FILE_PATH + String.format("/%s/%s.json", dto.getName(), dto.getName()));
+            return FileSystemUtil.fetchFileContext(dataPath + dto.getJsonFilePath());
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
             return "ERROR";
@@ -152,10 +152,14 @@ public class SymbolImageServiceImpl implements SymbolImageService {
      */
     @Override
     public byte[] loadPositionByteArrayByModel(String name, int x, int y, int width, int height) throws IOException {
-        String path = dataPath + Constants.SYMBOL_FILE_PATH + String.format("/%s", name);
-        String imageDir = path + String.format("/%s%s", name, Constants.PNG_SUFFIX);
+        SymbolImageDTO imageDTO = symbolImageMapper.findByName(name);
+        if (imageDTO == null) {
+            return null;
+        }
 
-        File image = new File(imageDir);
+        String path = dataPath + imageDTO.getImageFilePath();
+
+        File image = new File(path);
         if (!image.exists()) return null;
 
         InputStream is = new FileInputStream(image);
