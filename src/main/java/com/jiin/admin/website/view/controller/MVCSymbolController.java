@@ -7,7 +7,6 @@ import com.jiin.admin.website.model.SymbolImageModel;
 import com.jiin.admin.website.model.SymbolPageModel;
 import com.jiin.admin.website.model.SymbolPositionEditModel;
 import com.jiin.admin.website.view.service.SymbolImageService;
-import com.jiin.admin.website.view.service.SymbolService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +23,6 @@ import java.util.Map;
 public class MVCSymbolController {
     @Resource
     private SymbolPositionMapper symbolPositionMapper;
-
-    @Resource
-    private SymbolService service;
 
     @Resource
     private SymbolImageService symbolImageService;
@@ -94,14 +90,6 @@ public class MVCSymbolController {
         boolean status = symbolImageService.deletePositionData(id, ids);
         session.message(String.format("선택하신 SYMBOL 데이터들에 대해 각각 삭제 %s 하였습니다.", status ? "성공" : "실패"));
         return String.format("redirect:image-update?id=%d&", id) + symbolPageModel.getQueryString();
-    }
-
-    @RequestMapping("list")
-    public String symbolListView(Model model, @RequestParam(value = "pg", defaultValue = "1") int pg, @RequestParam(value = "sz", defaultValue = "8") int sz, @RequestParam(value = "ob", defaultValue = "0") int ob, @RequestParam(value = "st", defaultValue = "") String st) throws IOException {
-        model.addAttribute("jsonContext", service.getSymbolJSONContext());
-        model.addAttribute("resMap", service.findSymbolPositionsByPagination(pg, sz, ob, st));
-        model.addAttribute("obList", service.symbolOrderByOptions());
-        return "page/symbol/list";
     }
 
     @GetMapping(
