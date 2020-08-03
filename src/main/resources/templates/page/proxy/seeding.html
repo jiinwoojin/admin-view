@@ -46,19 +46,69 @@
                 <div class="form-group row">
                     <div class="col-6">
                         <label>Level From</label>
-                        <input type="text" class="form-control" name="levelFrom" value="11">
+                        <select type="text" class="form-control" name="levelFrom">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11" selected>11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                        </select>
                     </div>
                     <div class="col-6">
                         <label>Level To</label>
-                        <input type="text" class="form-control" name="levelTo" value="14">
+                        <select type="text" class="form-control" name="levelTo">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14" selected>14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-6">
-                        <label>타일갱신기준시간(hour)</label>
-                        <input type="text" class="form-control" name="refreshBefore" value="1">
-                        <small class="form-text text-muted">미입력시 존재하는 타일은 갱신되지 않습니다.</small>
+                        <label>타일갱신기준</label>
+                        <select class="form-control" name="refreshBeforeType">
+                            <option value="weeks">weeks</option>
+                            <option value="days">days</option>
+                            <option value="hours" selected="selected">hours</option>
+                            <option value="minutes">minutes</option>
+                        </select>
                     </div>
+                    <div class="col-6">
+                        <label>타일갱신시간</label>
+                        <input type="text" class="form-control" name="refreshBefore" value="1">
+                    </div>
+                </div>
+                <div class="form-group row">
                     <div class="col-6">
                         <label>투영</label>
                         <select class="form-control" name="projection">
@@ -125,7 +175,7 @@
                                 <button class="btn btn-warning btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_view([[${seed.Names}]])">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button th:if="${ seed.DEFAULT == true}" class="btn btn-success btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_reload([[${seed.Names}]])">
+                                <button th:if="${ seed.DEFAULT == true}" class="btn btn-success btn-sm btn-circle mx-1" type="button" th:onclick="fn_default_seed_reload()">
                                     <i class="fas fa-server"></i>
                                 </button>
                                 <button th:if="${ seed.DEFAULT == false}" class="btn btn-danger btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_remove([[${seed.Names}]])">
@@ -283,9 +333,23 @@
                 });
             }
         }
-        function fn_seed_reload(seedName){
+        function fn_default_seed_reload(){
             if(confirm("기본 Seed를 재시작 하시겠습니까?")){
-
+                $.ajax({
+                    url: CONTEXT + '/view/proxy/default-seeding-reload',
+                    type: 'get',
+                    success: function(data){
+                        if(data.RESULT == ''){
+                            alert("Seed 재시작에 실패하였습니다.")
+                        }else{
+                            alert("Seed 재시작에 성공하였습니다.")
+                        }
+                    },
+                    error: function(e){
+                        console.error(e)
+                        alert("Seed 재시작에 실패하였습니다.")
+                    }
+                });
             }
         }
         function fn_seed_view(seedName){

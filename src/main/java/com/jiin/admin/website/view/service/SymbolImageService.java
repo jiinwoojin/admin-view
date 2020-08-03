@@ -1,9 +1,6 @@
 package com.jiin.admin.website.view.service;
 
-import com.jiin.admin.website.model.OptionModel;
-import com.jiin.admin.website.model.SymbolImageModel;
-import com.jiin.admin.website.model.SymbolPageModel;
-import com.jiin.admin.website.model.SymbolPositionEditModel;
+import com.jiin.admin.website.model.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,8 +11,8 @@ public interface SymbolImageService {
     List<OptionModel> loadOrderByOptionList();
     String loadJSONContextByImageId(long imageId);
 
-    Map<String, Object> loadDataListAndCountByPaginationModel(SymbolPageModel symbolPageModel);
-    Map<String, Object> loadImageUpdateData(long id);
+    Map<String, Object> loadDataListAndCountByPaginationModel(SymbolImagePageModel symbolImagePageModel);
+    Map<String, Object> loadImageUpdateDataByPageModel(SymbolPositionPageModel symbolPositionPageModel);
     byte[] loadImageByteArrayByName(String name) throws IOException;
     byte[] loadPositionByteArrayByModel(String name, int x, int y, int width, int height) throws IOException;
 

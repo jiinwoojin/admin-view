@@ -91,7 +91,7 @@
                         <button type="submit" class="btn btn-primary mx-1">
                             <i class="fas fa-save"></i> 저장
                         </button>
-                        <a class="btn btn-secondary mx-1" th:href="@{'/view/symbol/image-list?' + ${qs}}">
+                        <a class="btn btn-secondary mx-1" th:href="@{'/view/symbol/image-list?' + ${imageQuery}}">
                             <i class="fas fa-times"></i> 취소
                         </a>
                     </div>
@@ -125,7 +125,7 @@
                     </div>
 
                     <div id="save-button">
-                        <a class="btn btn-secondary mx-1" th:href="@{'/view/symbol/image-list?' + ${qs}}">
+                        <a class="btn btn-secondary mx-1" th:href="@{'/view/symbol/image-list?' + ${imageQuery}}">
                             <i class="fas fa-arrow-left"></i> 이전으로
                         </a>
                     </div>
@@ -149,7 +149,7 @@
                 </tr>
                 </thead>
                 <tbody id="sprite-body">
-                    <tr th:each="position : ${data.positions}">
+                    <tr th:each="position : ${positions}">
                         <td class="text-center align-middle">
                             <input type="checkbox" class="form-check" th:id="${ 'position-' + position.id }" onchange="onchange_selected_remove(this)" />
                         </td>
@@ -298,7 +298,7 @@
     <script th:inline="javascript">
         var positions = /*[[${data.positions}]]*/ [];
         var imageId = /*[[${param.id}]]*/ 0;
-        var queryString = /*[[${qs}]]*/ '';
+        var queryString = /*[[${imageQuery}]]*/ '';
         var message = /*[[ ${message} ]]*/ null;
     </script>
 

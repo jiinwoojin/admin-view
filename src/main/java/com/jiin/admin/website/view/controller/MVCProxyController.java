@@ -368,34 +368,17 @@ public class MVCProxyController {
     }
 
     @ResponseBody
+    @RequestMapping("default-seeding-reload")
+    public Map proxySeedingReload() {
+        Map info = new HashMap();
+        String seedPath = dataPath + "/proxy/seed.yaml";
+        info.put("RESULT",DockerUtil.reloadSeed(DOCKER_DEFAULT_SEED_NAME,seedPath,dataPath));
+        return info;
+    }
+
+    @ResponseBody
     @RequestMapping("seeding-stop")
     public Map proxySeedingStop(@RequestParam("SEEDNAME") String name) throws IOException {
-        // *.map IMAGEPATH 삭제
-        /*
-        Map<String, Object> mapproxyInfo = YAMLFileUtil.fetchMapByYAMLFile(new File(dataPath + "/proxy/mapproxy.yaml"));
-        LinkedHashMap sources = (LinkedHashMap) mapproxyInfo.get("sources");
-        List<String> tmpDirs = new ArrayList();
-        Set keys = sources.keySet();
-        for(Object key:keys){
-            Map<String, Object> source = (Map<String, Object>) sources.get(key);
-            Map<String, Object> req = (Map<String, Object>) source.get("req");
-            String mapPath = (String) req.get("map");
-            if(Files.exists(Paths.get(mapPath))){
-                List<String> lines = FileSystemUtil.fetchFileContextToList(mapPath);
-                for(String line:lines){
-                    if(line.contains("IMAGEPATH")){
-                        tmpDirs.add(line.replace("IMAGEPATH","").replaceAll("\"","").trim());
-                    }
-                }
-            }
-        }
-        for(String tmpDir:tmpDirs){
-            if(Files.exists(Paths.get(tmpDir))){
-                // TODO: 삭제여부 확인후 주석해제
-                // FileSystemUtil.deleteFile(tmpDir);
-            }
-        }
-        */
         Map info = new HashMap();
         info.put("RESULT",DockerUtil.removeSeed(name,dataPath));
         return info;
