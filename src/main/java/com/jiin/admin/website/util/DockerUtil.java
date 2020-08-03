@@ -154,7 +154,24 @@ public class DockerUtil {
         }
         return result;
     }
-
+    public static String reloadSeed(String seedName, String seedPath, String dataPath) {
+        String mapproxypath = dataPath + "/proxy/mapproxy.yaml";
+        // run docker
+        // docker run -it -d --rm --user 1001:1000 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name jimap_seed jiinwoojin/jimap_mapproxy mapproxy-seed -f /data/jiapp/data_dir/proxy/mapproxy.yaml -s /data/jiapp/data_dir/proxy/seed.yaml -c 4 --seed ALL
+        String command = "docker run -i -d --rm --user [UID]:[GID] -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name [SEED_NAME] jiinwoojin/jimap_mapproxy mapproxy-seed -f [MAPPROXY.YAML] -s [SEED.YAML] -c 4 --seed ALL";
+        command = command.replace("[UID]",LinuxCommandUtil.fetchUID());
+        command = command.replace("[GID]",LinuxCommandUtil.fetchGID());
+        command = command.replace("[SEED_NAME]",seedName);
+        command = command.replace("[MAPPROXY.YAML]",mapproxypath);
+        command = command.replace("[SEED.YAML]",seedPath);
+        log.info(command);
+        List<String> result = LinuxCommandUtil.fetchResultByLinuxCommonToList(command);
+        if(result.size() == 0){
+            return "";
+        }else{
+            return result.get(0);
+        }
+    }
     /**
      * Seed Docker 생성
      * @return
@@ -172,7 +189,8 @@ public class DockerUtil {
         levels.put("from",Integer.parseInt((String) param.get("levelFrom")));
         levels.put("to",Integer.parseInt((String) param.get("levelTo")));
         Map refresh_before = new LinkedHashMap();
-        refresh_before.put("hours",Integer.parseInt((String) param.get("refreshBefore")));
+        String refreshBeforeType = (String) param.get("refreshBeforeType");
+        refresh_before.put(refreshBeforeType,Integer.parseInt((String) param.get("refreshBefore")));
         basic_seed.put("caches",caches);
         basic_seed.put("coverages",coveragesArr);
         basic_seed.put("levels",levels);
@@ -193,24 +211,10 @@ public class DockerUtil {
         seed.put("coverages",coverages);
         //{seeds={basic_seed={caches=[basic], coverages=[korea], levels={from=11, to=14}, refresh_before={hours=1}}}, coverages={korea={bbox=[100, 0, 160, 70], srs=EPSG:4326}}}
         String context = YAMLFileUtil.fetchYAMLStringByMap(seed, "AUTO");
-        String mapproxypath = dataPath + "/proxy/mapproxy.yaml";
         String seedpath = dataPath + "/proxy/seed-" + seedName + ".yaml";
-        FileSystemUtil.createAtFile(seedpath, context);
+        FileSystemUtil.createAtFile(seedName, context);
         // run docker
-        // docker run -it -d --rm --user 1001:1000 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name jimap_seed jiinwoojin/jimap_mapproxy mapproxy-seed -f /data/jiapp/data_dir/proxy/mapproxy.yaml -s /data/jiapp/data_dir/proxy/seed.yaml -c 4 --seed ALL
-        String command = "docker run -i -d --rm --user [UID]:[GID] -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name [SEED_NAME] jiinwoojin/jimap_mapproxy mapproxy-seed -f [MAPPROXY.YAML] -s [SEED.YAML] -c 4 --seed ALL";
-        command = command.replace("[UID]",LinuxCommandUtil.fetchUID());
-        command = command.replace("[GID]",LinuxCommandUtil.fetchGID());
-        command = command.replace("[SEED_NAME]",seedName);
-        command = command.replace("[MAPPROXY.YAML]",mapproxypath);
-        command = command.replace("[SEED.YAML]",seedpath);
-        log.info(command);
-        List<String> result = LinuxCommandUtil.fetchResultByLinuxCommonToList(command);
-        if(result.size() == 0){
-            return "";
-        }else{
-            return result.get(0);
-        }
+        return reloadSeed("seed-" + seedName,seedpath,dataPath);
     }
     /**
      * 로그 마지막줄 조회
@@ -228,4 +232,6 @@ public class DockerUtil {
             return result.get(0);
         }
     }
+
+
 }
