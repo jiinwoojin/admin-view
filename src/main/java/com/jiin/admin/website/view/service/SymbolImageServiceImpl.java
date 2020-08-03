@@ -117,10 +117,10 @@ public class SymbolImageServiceImpl implements SymbolImageService {
      * SYMBOL 그룹 목록 출력
      */
     @Override
-    public Map<String, Object> loadDataListAndCountByPaginationModel(SymbolPageModel symbolPageModel) {
+    public Map<String, Object> loadDataListAndCountByPaginationModel(SymbolImagePageModel symbolImagePageModel) {
         return new HashMap<String, Object>() {{
-            put("data", symbolImageMapper.findByPageModel(symbolPageModel));
-            put("count", symbolImageMapper.countByPageModel(symbolPageModel));
+            put("data", symbolImageMapper.findByPageModel(symbolImagePageModel));
+            put("count", symbolImageMapper.countByPageModel(symbolImagePageModel));
         }};
     }
 
@@ -128,14 +128,15 @@ public class SymbolImageServiceImpl implements SymbolImageService {
      * SYMBOL 그룹 내용 및 FORM 출력
      */
     @Override
-    public Map<String, Object> loadImageUpdateData(long id) {
-        SymbolImageDTO dto = symbolImageMapper.findById(id);
+    public Map<String, Object> loadImageUpdateDataByPageModel(SymbolPositionPageModel symbolPositionPageModel) {
+        SymbolImageDTO dto = symbolImageMapper.findById(symbolPositionPageModel.getImgId());
         SymbolImageModel model = new SymbolImageModel();
         model.setName(dto == null ? "" : dto.getName());
         model.setDescription(dto == null ? "" : dto.getDescription());
         return new HashMap<String, Object>() {{
             put("model", model);
             put("data", dto);
+            put("positions", symbolPositionMapper.findByPageModel(symbolPositionPageModel));
         }};
     }
 

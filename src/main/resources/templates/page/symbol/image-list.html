@@ -146,13 +146,13 @@
                 <td class="text-center align-middle" th:unless="${image.updateTime == null}" th:text="${ #dates.format(image.updateTime, 'yyyy-MM-dd HH:mm') }"></td>
                 <td class="text-center align-middle">
                     <block th:remove="tag" th:if="${ image.isDefault() }">
-                        <a class="btn btn-sm btn-circle btn-info" th:href="@{'/view/symbol/image-update?id=' + ${image.id} + '&' + ${qs}}" data-toggle="tooltip" data-placement="top" title="수정 및 삭제 불가.">
+                        <a class="btn btn-sm btn-circle btn-info" th:href="@{'/view/symbol/image-update?imgId=' + ${image.id} + '&' + ${qs} + '&pstPg=1&pstSz=8'}">
                             <i class="fas fa-eye text-white"></i>
                         </a>
                     </block>
                     <block th:remove="tag" th:unless="${ image.isDefault() }">
                         <a class="btn btn-sm btn-circle btn-info mx-1"
-                           th:href="@{'/view/symbol/image-update?id=' + ${image.id} + '&' + ${qs}}"
+                           th:href="@{'/view/symbol/image-update?imgId=' + ${image.id} + '&' + ${qs} + '&pstPg=1&pstSz=8'}"
                            title="수정"
                         >
                             <i class="fas fa-cog"></i>

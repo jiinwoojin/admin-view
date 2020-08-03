@@ -4,8 +4,9 @@ import com.jiin.admin.config.SessionService;
 import com.jiin.admin.dto.SymbolPositionDTO;
 import com.jiin.admin.mapper.data.SymbolPositionMapper;
 import com.jiin.admin.website.model.SymbolImageModel;
-import com.jiin.admin.website.model.SymbolPageModel;
+import com.jiin.admin.website.model.SymbolImagePageModel;
 import com.jiin.admin.website.model.SymbolPositionEditModel;
+import com.jiin.admin.website.model.SymbolPositionPageModel;
 import com.jiin.admin.website.view.service.SymbolImageService;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -31,9 +32,9 @@ public class MVCSymbolController {
     private SessionService session;
 
     @RequestMapping("image-list")
-    public String pageSymbolImageListView(Model model, SymbolPageModel symbolPageModel) {
-        model.addAttribute("qs", symbolPageModel.getQueryString());
-        model.addAttribute("resMap", symbolImageService.loadDataListAndCountByPaginationModel(symbolPageModel));
+    public String pageSymbolImageListView(Model model, SymbolImagePageModel symbolImagePageModel) {
+        model.addAttribute("qs", symbolImagePageModel.getQueryString());
+        model.addAttribute("resMap", symbolImageService.loadDataListAndCountByPaginationModel(symbolImagePageModel));
         model.addAttribute("obList", symbolImageService.loadOrderByOptionList());
         model.addAttribute("sbList", symbolImageService.loadSearchByOptionList());
         model.addAttribute("message", session.message());
@@ -41,8 +42,8 @@ public class MVCSymbolController {
     }
 
     @RequestMapping("image-create")
-    public String pageSymbolImageCreateView(Model model, @ModelAttribute SymbolImageModel symbolImageModel, SymbolPageModel symbolPageModel) {
-        model.addAttribute("qs", symbolPageModel.getQueryString());
+    public String pageSymbolImageCreateView(Model model, @ModelAttribute SymbolImageModel symbolImageModel, SymbolImagePageModel symbolImagePageModel) {
+        model.addAttribute("qs", symbolImagePageModel.getQueryString());
         return "page/symbol/image-create";
     }
 
@@ -53,24 +54,6 @@ public class MVCSymbolController {
         return "redirect:image-list?pg=1&sz=10";
     }
 
-    @RequestMapping("image-update")
-    public String pageSymbolImageUpdateView(Model model, @RequestParam long id, SymbolPageModel symbolPageModel) {
-        Map<String, Object> map = symbolImageService.loadImageUpdateData(id);
-        model.addAttribute("model", map.get("model"));
-        model.addAttribute("data", map.get("data"));
-        model.addAttribute("qs", symbolPageModel.getQueryString());
-        model.addAttribute("message", session.message());
-        model.addAttribute("jsonContext", symbolImageService.loadJSONContextByImageId(id));
-        return "page/symbol/image-update";
-    }
-
-    @RequestMapping(value = "image-update", method = RequestMethod.POST)
-    public String pageSymbolImageUpdateView(@Valid SymbolImageModel symbolImageModel, @RequestParam long id, SymbolPageModel symbolPageModel) {
-        boolean status = symbolImageService.setImageData(symbolImageModel);
-        session.message(String.format("SYMBOL [%s] 그룹 데이터 수정 %s 하였습니다.", symbolImageModel.getName(), status ? "성공" : "실패"));
-        return String.format("redirect:image-update?id=%d&", id) + symbolPageModel.getQueryString();
-    }
-
     @RequestMapping("image-delete")
     public String linkSymbolImageUpdateView(@RequestParam long id, @RequestParam String name) {
         boolean status = symbolImageService.deleteImageData(id);
@@ -78,18 +61,39 @@ public class MVCSymbolController {
         return "redirect:image-list?pg=1&sz=10";
     }
 
-    @RequestMapping("position-update")
-    public String postSymbolPositionUpdate(SymbolPageModel symbolPageModel, SymbolPositionEditModel symbolPositionEditModel) {
+    @RequestMapping("image-update")
+    public String pageSymbolImageUpdateView(Model model, SymbolImagePageModel symbolImagePageModel, SymbolPositionPageModel symbolPositionPageModel) {
+        Map<String, Object> map = symbolImageService.loadImageUpdateDataByPageModel(symbolPositionPageModel);
+        model.addAttribute("model", map.get("model"));
+        model.addAttribute("data", map.get("data"));
+        model.addAttribute("positions", map.get("positions"));
+
+        model.addAttribute("imageQuery", symbolImagePageModel.getQueryString());
+        model.addAttribute("positionQuery", symbolPositionPageModel.getQueryString());
+        model.addAttribute("message", session.message());
+        model.addAttribute("jsonContext", symbolImageService.loadJSONContextByImageId(symbolPositionPageModel.getImgId()));
+        return "page/symbol/image-update";
+    }
+
+    @RequestMapping(value = "image-update", method = RequestMethod.POST)
+    public String pageSymbolImageUpdateView(@Valid SymbolImageModel symbolImageModel, SymbolImagePageModel symbolImagePageModel, SymbolPositionPageModel symbolPositionPageModel) {
+        boolean status = symbolImageService.setImageData(symbolImageModel);
+        session.message(String.format("SYMBOL [%s] 그룹 데이터 수정 %s 하였습니다.", symbolImageModel.getName(), status ? "성공" : "실패"));
+        return String.format("redirect:image-update?%s&%s", symbolPositionPageModel.getQueryString(), symbolImagePageModel.getQueryString());
+    }
+
+    @RequestMapping(value = "position-update", method = RequestMethod.POST)
+    public String postSymbolPositionUpdate(SymbolImagePageModel symbolImagePageModel, SymbolPositionEditModel symbolPositionEditModel, SymbolPositionPageModel symbolPositionPageModel) {
         boolean status = symbolImageService.setPositionData(symbolPositionEditModel);
         session.message(String.format("SYMBOL [%s] 그룹 데이터 수정 %s 하였습니다.", symbolPositionEditModel.getBeforeName(), status ? "성공" : "실패"));
-        return String.format("redirect:image-update?id=%d&", symbolPositionEditModel.getImageId()) + symbolPageModel.getQueryString();
+        return String.format("redirect:image-update?%s&%s", symbolPositionPageModel.getQueryString(), symbolImagePageModel.getQueryString());
     }
 
     @RequestMapping("position-delete")
-    public String linkSymbolPositionDelete(@RequestParam long id, @RequestParam List<Long> ids, SymbolPageModel symbolPageModel) {
-        boolean status = symbolImageService.deletePositionData(id, ids);
+    public String linkSymbolPositionDelete(@RequestParam List<Long> ids, SymbolImagePageModel symbolImagePageModel, SymbolPositionPageModel symbolPositionPageModel) {
+        boolean status = symbolImageService.deletePositionData(symbolPositionPageModel.getImgId(), ids);
         session.message(String.format("선택하신 SYMBOL 데이터들에 대해 각각 삭제 %s 하였습니다.", status ? "성공" : "실패"));
-        return String.format("redirect:image-update?id=%d&", id) + symbolPageModel.getQueryString();
+        return String.format("redirect:image-update?%s&%s", symbolPositionPageModel.getQueryString(), symbolImagePageModel.getQueryString());
     }
 
     @GetMapping(

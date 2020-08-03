@@ -6,8 +6,44 @@
         SELECT COUNT(*) FROM _SYMBOL_POSITION WHERE IMAGE_ID = #{imageId}
     </select>
 
+    <select id="countByPageModel" resultType="long">
+        SELECT COUNT(*) FROM _SYMBOL_POSITION SP
+        <where>
+            <choose>
+                <when test='pstSt != null and !pstSt.equals("")'> SP.NAME LIKE CONCAT('%', #{pstSt}, '%') </when>
+                <otherwise> 1=1 </otherwise>
+            </choose>
+        </where>
+    </select>
+
     <select id="findAll" resultType="SymbolPositionDTO">
         SELECT * FROM _SYMBOL_POSITION
+    </select>
+
+    <select id="findByPageModel" resultType="SymbolPositionDTO">
+        <bind name="start" value="(pstPg - 1) * pstSz" />
+        SELECT *, SP.WIDTH * SP.HEIGHT AS AREA FROM _SYMBOL_POSITION SP
+        <where>
+            <choose>
+                <when test='pstSt != null and !pstSt.equals("")'> SP.NAME LIKE CONCAT('%', #{pstSt}, '%') </when>
+                <otherwise> 1=1 </otherwise>
+            </choose>
+        </where>
+        ORDER BY
+        <choose>
+            <when test="pstOb == 1">SP.ID ASC</when>
+            <when test="pstOb == 2">SP.NAME ASC</when>
+            <when test="pstOb == 3">AREA DESC</when>
+            <otherwise>SP.ID DESC</otherwise>
+        </choose>
+        <choose>
+            <when test="start gte 0">
+                LIMIT ${pstSz} OFFSET ${start}
+            </when>
+            <otherwise>
+                LIMIT 0
+            </otherwise>
+        </choose>
     </select>
 
     <select id="findByNameAndImageId" resultType="SymbolPositionDTO">

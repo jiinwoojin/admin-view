@@ -82,19 +82,10 @@ public class BootingService {
     private ProxyLayerMapper proxyLayerMapper;
 
     @Resource
-    private ProxyLayerSourceRelationMapper proxyLayerSourceRelationMapper;
-
-    @Resource
     private ProxyLayerCacheRelationMapper proxyLayerCacheRelationMapper;
 
     @Resource
     private ProxyGlobalMapper proxyGlobalMapper;
-
-    @Resource
-    DockerService dockerService;
-
-    @Resource
-    private SymbolMapper symbolMapper;
 
     @Resource
     private CheckMapper checkMapper;
@@ -104,7 +95,7 @@ public class BootingService {
 
     private String DEFAULT_DATA_NAME = "world";
 
-    private String DEFAULT_MIDDLE_PATH = "ne2";
+    private String DEFAULT_MIDDLE_PATH = "NE2";
 
     private String DEFAULT_FILE_NAME = "NE2_HR_LC_SR_W_DR.tif";
 
@@ -120,13 +111,13 @@ public class BootingService {
             String rasterDataPath = String.format("%s%s/%s/%s", dataPath, Constants.DATA_PATH, DEFAULT_MIDDLE_PATH, DEFAULT_FILE_NAME);
             String layFilePath = String.format("%s%s/%s%s", dataPath, Constants.LAY_FILE_PATH, DEFAULT_DATA_NAME, Constants.LAY_SUFFIX);
 
-            LayerDTO layerDTO = new LayerDTO(0L, DEFAULT_DATA_NAME, DEFAULT_DATA_NAME, "epsg:4326", DEFAULT_MIDDLE_PATH, "RASTER");
+            LayerDTO layerDTO = new LayerDTO(0L, DEFAULT_DATA_NAME, DEFAULT_DATA_NAME, Constants.EPSG_4326.toLowerCase(), DEFAULT_MIDDLE_PATH, "RASTER");
             layerDTO.setLayerFilePath(layFilePath.replace(dataPath, ""));
             layerDTO.setDataFilePath(rasterDataPath.replace(dataPath, ""));
             layerDTO.setDefault(true);
 
             layerDTO.setRegistorId("admin");
-            layerDTO.setRegistorName("admin");
+            layerDTO.setRegistorName("관리자");
             layerDTO.setRegistTime(new Date());
             layerDTO.setVersion(Double.parseDouble(String.format("%.1f", Constants.DEFAULT_LAYER_VERSION)));
 
@@ -149,22 +140,22 @@ public class BootingService {
             mapDTO.setName(DEFAULT_DATA_NAME);
             mapDTO.setDescription(DEFAULT_DATA_NAME);
             mapDTO.setMapFilePath(mapFilePath.replaceAll(dataPath, ""));
-            mapDTO.setMinX("-20026376.39");
-            mapDTO.setMinY("-20048966.10");
-            mapDTO.setMaxX("20026376.39");
-            mapDTO.setMaxY("20048966.10");
+            mapDTO.setMinX("-180");
+            mapDTO.setMinY("-90");
+            mapDTO.setMaxX("180");
+            mapDTO.setMaxY("90");
             mapDTO.setUnits("METERS");
-            mapDTO.setProjection("epsg:3857");
+            mapDTO.setProjection(Constants.EPSG_4326.toLowerCase());
             mapDTO.setImageType("png");
             mapDTO.setDefault(true);
             mapDTO.setRegistorId("admin");
-            mapDTO.setRegistorName("admin");
+            mapDTO.setRegistorName("관리자");
             mapDTO.setRegistTime(new Date());
 
             LayerDTO layer = layerMapper.findByName(DEFAULT_DATA_NAME);
             if (mapMapper.insert(mapDTO) > 0 && layer != null) {
                 mapLayerRelationMapper.insert(
-                        new MapLayerRelationDTO(0L, mapDTO.getId(), layer.getId(), 1)
+                    new MapLayerRelationDTO(0L, mapDTO.getId(), layer.getId(), 1)
                 );
 
                 String fileContext = null;
@@ -194,7 +185,7 @@ public class BootingService {
             source.setRequestMap(mapFilePath);
             source.setRequestLayers(DEFAULT_DATA_NAME);
             source.setRequestTransparent(true);
-            source.setSupportedSRS("EPSG:4326,EPSG:3857,EPSG:900913");
+            source.setSupportedSRS(String.format("%s,%s,%s", Constants.EPSG_4326, Constants.EPSG_3857, Constants.EPSG_900913));
             proxySourceMapper.insert(source);
             proxySourceMapper.insertWMS(source);
         }
@@ -215,7 +206,7 @@ public class BootingService {
                 ProxySourceDTO source = proxySourceMapper.findByName(DEFAULT_DATA_NAME);
                 if (source != null) {
                     proxyCacheSourceRelationMapper.insertByRelationModel(
-                            new RelationModel(0L, nextIdx, source.getId())
+                        new RelationModel(0L, nextIdx, source.getId())
                     );
                 }
             }
@@ -233,13 +224,6 @@ public class BootingService {
             layer.setIsDefault(true);
 
             if (proxyLayerMapper.insert(layer) > 0) {
-                ProxySourceDTO source = proxySourceMapper.findByName(DEFAULT_DATA_NAME);
-                if (source != null) {
-                    proxyLayerSourceRelationMapper.insertByRelationModel(
-                            new RelationModel(0L, nextIdx, source.getId())
-                    );
-                }
-
                 ProxyCacheDTO cache = proxyCacheMapper.findByName(DEFAULT_CACHE_NAME);
                 if (cache != null) {
                     proxyLayerCacheRelationMapper.insertByRelationModel(
@@ -250,8 +234,8 @@ public class BootingService {
         }
 
         // PROXY GLOBAL INITIALIZE
-        final ProxyGlobalDTO cacheBase = new ProxyGlobalDTO(0L, "cache.base_dir", "/data/jiapp/data_dir/cache");
-        final ProxyGlobalDTO cacheLock = new ProxyGlobalDTO(0L, "cache.lock_dir", "/data/jiapp/data_dir/cache/locks");
+        final ProxyGlobalDTO cacheBase = new ProxyGlobalDTO(0L, "cache.base_dir", dataPath + "/cache");
+        final ProxyGlobalDTO cacheLock = new ProxyGlobalDTO(0L, "cache.lock_dir", dataPath + "/cache/locks");
         for(ProxyGlobalDTO global : Arrays.asList(cacheBase, cacheLock)){
             if (proxyGlobalMapper.findByKey(global.getKey()) == null) {
                 long nextIdx = proxyGlobalMapper.findNextSeqVal();
@@ -277,8 +261,6 @@ public class BootingService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Transactional
@@ -338,130 +320,6 @@ public class BootingService {
                 symbolPositionMapper.insert(positionDTO);
             }
         }
-    }
-
-    @Transactional
-    public void initializeLayer() throws IOException {
-        // Default Map Proxy Setting
-
-        // if yaml file is not existing or has no-value
-
-        // 1. Map Entity Reload
-
-        // 2. Source Entity Reload
-
-        // 3. Map Proxy Model Selected Model Mapping & Saving
-
-        // 4. YAML File Re-Saving
-
-        // 5. Dockerfile Restart
-
-        // 기본 레이어 및 소스 초기화
-        System.out.println(">>> initializeLayer Start");
-        Date now = new Date();
-        //entityManager.createQuery("DELETE FROM " + MapEntity.class.getAnnotation(Entity.class).name() + " WHERE IS_DEFAULT = true").executeUpdate();
-        //entityManager.createQuery("DELETE FROM " + LayerEntity.class.getAnnotation(Entity.class).name()+ " WHERE IS_DEFAULT = true").executeUpdate();
-        /*YAMLFactory fac = new YAMLFactory();
-        ObjectMapper mapper = new ObjectMapper(fac);
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-        Map mapproxy = mapper.readValue(defaultMapProxy, Map.class);
-        List<Map> layers = (List<Map>) mapproxy.get("layers");
-        Map caches = (Map) mapproxy.get("caches");
-        Map sources = (Map) mapproxy.get("sources");
-        Map<String,MapSource> entity = new HashMap();
-        for (Object key : sources.keySet()) {
-            Map sourceMap = (Map) sources.get(key);
-            Map sourceReqMap = (Map) sourceMap.get("req");
-            MapSource source = new MapSource();
-            source.setDefault(true); // default
-            source.setName((String) key);
-            source.setType((String) sourceMap.get("type"));
-            if (sourceReqMap != null) {
-                source.setMapPath((String) sourceReqMap.get("map"));
-                source.setLayers("world"); // TODO : 추출작업 필요
-            }
-            for (Object cacheKey : caches.keySet()) {
-                Map cacheMap = (Map) caches.get(cacheKey);
-                List<String> cacheSources = (List<String>) cacheMap.get("sources");
-                if (cacheSources.contains(key)) {
-                    source.setUseCache(true);
-                    source.setCacheName((String) cacheKey);
-                    break;
-                }
-            }
-            source.setRegistorId("system");
-            source.setRegistorName("system");
-            source.setRegistTime(now);
-            entityManager.persist(source);
-            entity.put(source.isUseCache() ? source.getCacheName() : source.getName(),source);
-        }
-        for (Map o : layers) {
-            MapLayer layer = new MapLayer();
-            layer.setDefault(true); // default
-            layer.setName((String) o.get("name"));
-            layer.setTitle((String) o.get("title"));
-            List<String> sourceStrs = (List) o.get("sources");
-            List<MapSource> sourceEntity = new ArrayList<>();
-            for (String sourceStr : sourceStrs) {
-                sourceEntity.add(entity.get(sourceStr));
-            }
-            //layer.setSource(sourceEntity);
-            layer.setRegistorId("system");
-            layer.setRegistorName("system");
-            layer.setRegistTime(now);
-            entityManager.persist(layer);
-        }*/
-
-        // mapproxy write
-        dockerService.proxyReloadFromDatabase();
-    }
-
-    @Transactional
-    public void initializeCache() throws IOException {
-        // Map Proxy 기본 데이터 저장을 위한 로직 (미완성)
-        // Map Server 에서 MAP 데이터 중 isDefault 가 true 인 데이터들만 YAML 파일에 초기화 하는 로직.
-        /*
-        Map<String, Object> settingMap = mapProxyYamlComponent.getMapProxyYamlFileMapObject();
-        if (settingMap != null) {
-            List<Map<String, Object>> layers = (ArrayList<Map<String, Object>>) settingMap.getOrDefault("layers", null);
-            Map<String, Object> sources = (Map<String, Object>) settingMap.getOrDefault("sources", null);
-
-            if (layers == null || sources == null) return;
-
-            // MapProxy sources 데이터 초기화
-            for (String key : sources.keySet()) {
-                Map<String, Object> source = (Map<String, Object>) sources.getOrDefault(key, null);
-
-                if (source != null) {
-                    MapEntity mapEntity = manageMapper.findMapEntityByName(key);
-                    List<LayerEntity> layerEntities = manageMapper.findLayerEntitiesByMapId(mapEntity.getId());
-
-                    if (mapEntity != null) {
-                        ProxySourceModel model = new ProxySourceModel(0L, key, "mapserver", dataPath + mapEntity.getMapFilePath(), null, mapServerBinary, dataPath);
-                        List<String> defaultLayer = new ArrayList<>();
-                        for (LayerEntity layer : layerEntities) {
-                            if (layer.isDefault()) {
-                                defaultLayer.add(layer.getName());
-                            }
-                        }
-
-                        if (defaultLayer.size() > 0) {
-                            model.setRequestLayers(defaultLayer.stream().collect(Collectors.joining()));
-                            if (checkMapper.countDuplicate(ProxySourceEntity.class.getAnnotation(Entity.class).name(), key) > 0) {
-                                cacheMapper.updateProxySourceInitWithModel(model);
-                            } else {
-                                cacheMapper.insertProxySourceInitWithModel(model);
-                            }
-                        } else {
-                            System.out.println("Map File Has Not Default Layer! >> " + source);
-                        }
-                    } else {
-                        System.out.println("Map Server Data is Non Existed! >> " + source);
-                    }
-                }
-            }
-        }
-        */
     }
 
     @Transactional
