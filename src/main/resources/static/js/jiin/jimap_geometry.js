@@ -350,8 +350,8 @@ JimapOverlayGeometry.Rectangle = function Rectangle(x1, y1, x2, y2, isScreen = f
     this.y1 = y1;           // 화면좌표 start point y
     this.x2 = x2;           // 화면좌표 end point x
     this.y2 = y2;           // 화면좌표 end point y
-    this.startPoint = '';   // geometry start point [x, y]
-    this.endPoint = '';     // geometry end point [x, y]
+    this.geoStartPoint = '';   // geometry start point [x, y]
+    this.geoEndPoint = '';     // geometry end point [x, y]
     this.isScreen = isScreen;
 }
 
@@ -365,28 +365,28 @@ JimapOverlayGeometry.Rectangle.prototype = {
     },
     setX1 : function setX1(x1) {
         this.x1 = x1;
-        this.setStartPoint();
+        this.setGeoStartPoint();
     },
     getY1 : function getY1() {
         return this.y1;
     },
     setY1 : function setY1(y1) {
         this.y1 = y1;
-        this.setStartPoint();
+        this.setGeoStartPoint();
     },
     getX2 : function getX2() {
         return this.x2;
     },
     setX2 : function setX2(x2) {
         this.x2 = x2;
-        this.setEndPoint();
+        this.setGeoEndPoint();
     },
     getY2 : function getY2() {
         return this.y2;
     },
     setY2 : function setY2(y2) {
         this.y2 = y2;
-        this.setEndPoint();
+        this.setGeoEndPoint();
     },
     setIsScreen : function setIsScreen(isScreen) {
         this.isScreen = isScreen;
@@ -400,25 +400,25 @@ JimapOverlayGeometry.Rectangle.prototype = {
         return {'lon' : feature.geometry.coordinates[0], 'lat' : feature.geometry.coordinates[1]};
     },
     getStartPoint : function getStartPoint() {
-        if (this.startPoint === '') {
-            this.setStartPoint();
+        if (this.geoStartPoint === '') {
+            this.setGeoStartPoint();
         }
-        return this.isScreen ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.startPoint.lon, 'lat' : this.startPoint.lat});
+        return this.isScreen ? {'x' : this.x1, 'y' : this.y1} : jiCommon.convert.lonLatToPixel({'lon' : this.geoStartPoint.lon, 'lat' : this.geoStartPoint.lat});
     },
-    setStartPoint : function setStartPoint() {
+    setGeoStartPoint : function setGeoStartPoint() {
         if (this.x1 !== undefined && this.y1 !== undefined) {
-            this.startPoint = jiCommon.convert.pixelToLonLat({'x' : this.x1, 'y' : this.y1});
+            this.geoStartPoint = jiCommon.convert.pixelToLonLat({'x' : this.x1, 'y' : this.y1});
         }
     },
     getEndPoint : function getEndPoint() {
-        if (this.endPoint === '') {
-            this.setEndPoint();
+        if (this.geoEndPoint === '') {
+            this.setGeoEndPoint();
         }
-        return this.isScreen ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.endPoint.lon, 'lat' : this.endPoint.lat});
+        return this.isScreen ? {'x' : this.x2, 'y' : this.y2} : jiCommon.convert.lonLatToPixel({'lon' : this.geoEndPoint.lon, 'lat' : this.geoEndPoint.lat});
     },
-    setEndPoint : function setEndPoint() {
+    setGeoEndPoint : function setGeoEndPoint() {
         if (this.x2 !== undefined && this.y2 !== undefined) {
-            this.endPoint = jiCommon.convert.pixelToLonLat({'x' : this.x2, 'y' : this.y2});
+            this.geoEndPoint = jiCommon.convert.pixelToLonLat({'x' : this.x2, 'y' : this.y2});
         }
     },
     getPath : function getPath() {

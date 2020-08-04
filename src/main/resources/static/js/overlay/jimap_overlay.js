@@ -286,6 +286,8 @@ JimapOverlay.prototype.individualUpdate = function individualUpdate() {
             jiCommon.overlay.updateTriangle();
             break;
     }
+
+    jiCommon.overlay.updateSelector();
 }
 
 JimapOverlay.prototype.drawStart = function drawStart(e) {
@@ -377,6 +379,27 @@ JimapOverlay.prototype.createTriangleSvg = function createTriangleSvg(gId, objec
 
 JimapOverlay.prototype.setLineSelector = function setLineSelector(id) {
     if (this._lines.containsKey(id)) {
+        var d3DragEvent = function d3DragEvent() {
+            var start = function start() {
+                var _objectId = d3.select(this).node().id.split('-')[2];
+                if (jiCommon.overlay._lines.containsKey(_objectId)) {
+                    jiCommon.overlay.isDraw = true;
+                    jiCommon.overlay.keep = true;
+                    jiCommon.overlay.object = jiCommon.overlay._lines.get(_objectId);
+                }
+            };
+            var drag = function drag() {
+                if (jiCommon.overlay.keep) {
+                    console.log('drag');
+                    console.log(this);
+                }
+            };
+            var end = function end() {
+                console.log('end');
+                console.log(this);
+            };
+            return d3.drag().on('start', start).on('drag', drag).on('end', end);
+        }
         var _object = this._lines.get(id);
         var _feature = _object.feature;
 
@@ -387,7 +410,8 @@ JimapOverlay.prototype.setLineSelector = function setLineSelector(id) {
         // 3개의 점을 생성한다. 시작점, 중간점, 끝점
         // geometry 로 생성 해야함
         var startObject = {};
-        startObject.id = 'selector-start-' + id;
+        startObject.id = 'selector-start';
+        startObject.updateId = id;
         startObject.cx = _object.x1;
         startObject.cy = _object.y1;
         startObject.r = 5;
@@ -400,12 +424,13 @@ JimapOverlay.prototype.setLineSelector = function setLineSelector(id) {
             .attr('stroke', 'rgb(255, 255, 255)')
             .attr('stroke-width', 1)
             .style('fill', 'rgb(0, 255, 0)')
-            .style('fill-opacity', 1).call(d3.drag().on('start', function() {console.log(this)}).on('drag', function() {console.log(d3.mouse(this));}));
+            .style('fill-opacity', 1).call(d3DragEvent());
 
         this._selectors.put(startObject.id, startObject);
 
         var endObject = {};
-        endObject.id = 'selector-end-' + id;
+        endObject.id = 'selector-end';
+        endObject.updateId = id;
         endObject.cx = _object.x2;
         endObject.cy = _object.y2;
         endObject.r = 5;
@@ -418,7 +443,7 @@ JimapOverlay.prototype.setLineSelector = function setLineSelector(id) {
             .attr('stroke', 'rgb(255, 255, 255)')
             .attr('stroke-width', 1)
             .style('fill', 'rgb(0, 255, 0)')
-            .style('fill-opacity', 1).call(d3.drag().on('start', function() {console.log(this)}).on('drag', function() {console.log(d3.mouse(this));}));
+            .style('fill-opacity', 1).call(d3DragEvent());
 
         this._selectors.put(endObject.id, endObject);
         // 각각 이벤트 정의
