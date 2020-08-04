@@ -48,6 +48,13 @@ public class SymbolImageServiceImpl implements SymbolImageService {
         new OptionModel("등록 기간 역순 정렬", 3)
     );
 
+    private static final List<OptionModel> obPstOptions = Arrays.asList(
+        new OptionModel("-- 정렬 방식 선택 --", 0),
+            new OptionModel("ID 순서 정렬", 1),
+            new OptionModel("이름 순서 정렬", 2),
+            new OptionModel("넓이 순서 정렬", 3)
+    );
+
     /**
      * 이미 저장된 SPRITE 이미지 목록들을 불러온다.
      */
@@ -99,6 +106,14 @@ public class SymbolImageServiceImpl implements SymbolImageService {
         return obOptions;
     }
 
+    /**
+     * SYMBOL Position 정렬 조건 옵션 목록
+     */
+    @Override
+    public List<OptionModel> loadPositionOrderByOptionList() {
+        return obPstOptions;
+    }
+
     @Override
     public String loadJSONContextByImageId(long imageId) {
         SymbolImageDTO dto = symbolImageMapper.findById(imageId);
@@ -137,6 +152,7 @@ public class SymbolImageServiceImpl implements SymbolImageService {
             put("model", model);
             put("data", dto);
             put("positions", symbolPositionMapper.findByPageModel(symbolPositionPageModel));
+            put("count", symbolPositionMapper.countByPageModel(symbolPositionPageModel));
         }};
     }
 
@@ -175,6 +191,25 @@ public class SymbolImageServiceImpl implements SymbolImageService {
         }
 
         return baos.toByteArray();
+    }
+
+    /**
+     * SYMBOL SPRITE 이미지 가져오기 At Database
+     */
+    @Override
+    public byte[] loadImageByteByPositionId(long positionId) throws IOException {
+        SymbolPositionDTO position = symbolPositionMapper.findById(positionId);
+        if (position == null) {
+            return null;
+        } else {
+            byte[] array = position.getPngBytes();
+            if (array != null) {
+                return array;
+            } else {
+                SymbolImageDTO image = symbolImageMapper.findById(position.getImageId());
+                return loadPositionByteArrayByModel(image.getName(), position.getXPos(), position.getYPos(), position.getWidth(), position.getHeight());
+            }
+        }
     }
 
     /**

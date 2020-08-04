@@ -13,6 +13,7 @@ public interface SymbolPositionMapper {
     long countByImageId(@Param("imageId") long imageId);
     long countByPageModel(SymbolPositionPageModel symbolPositionPageModel);
     List<SymbolPositionDTO> findAll();
+    SymbolPositionDTO findById(@Param("id") long id);
     List<SymbolPositionDTO> findByPageModel(SymbolPositionPageModel symbolPositionPageModel);
     SymbolPositionDTO findByNameAndImageId(@Param("name") String name, @Param("imageId") long imageId);
     int insert(SymbolPositionDTO symbolPositionDTO);

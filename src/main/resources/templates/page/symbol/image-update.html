@@ -18,16 +18,21 @@
 
 <th:block layout:fragment="content-body-fragment">
     <div class="row">
-        <div class="col-md-4">
-            <form th:action="@{/view/symbol/image-update}" th:object="${model}" method="post" onsubmit="return preSubmit()" accept-charset="utf-8" enctype="multipart/form-data" th:if="${!data.isDefault()}">
-                <input type="hidden" id="id" name="id" th:value="${param.id}" />
+        <div class="col-md-5">
+            <form th:action="@{/view/symbol/image-update}" th:object="${model}" method="post" onsubmit="return preSubmit()" accept-charset="utf-8" enctype="multipart/form-data">
                 <input type="hidden" id="pg" name="pg" th:value="${param.pg}" />
                 <input type="hidden" id="sz" name="sz" th:value="${param.sz}" />
                 <input type="hidden" id="ob" name="ob" th:value="${param.ob}" />
                 <input type="hidden" id="sb" name="sb" th:value="${param.sb}" />
-                <input type="hidden" id="st" name="st" th:value="${param.st}" />
-                <input type="hidden" id="sDate" name="sDate" th:value="${param.sDate}" />
-                <input type="hidden" id="eDate" name="eDate" th:value="${param.eDate}" />
+                <input type="hidden" id="st" name="st" th:value="${param.st == null ? '' : param.st}" />
+                <input type="hidden" id="sDate" name="sDate" th:value="${param.sDate == null ? '' : param.sDate}" />
+                <input type="hidden" id="eDate" name="eDate" th:value="${param.eDate == null ? '' : param.eDate}" />
+
+                <input type="hidden" id="imgId" name="imgId" th:value="${param.imgId}" />
+                <input type="hidden" id="pstPg" name="pstPg" th:value="${param.pstPg}" />
+                <input type="hidden" id="pstSz" name="pstSz" th:value="${param.pstSz}" />
+                <input type="hidden" id="pstOb" name="pstOb" th:value="${param.pstOb == null ? 0 : param.pstOb }" />
+                <input type="hidden" id="pstSt" name="pstSt" th:value="${param.pstSt == null ? '' : param.pstSt}" />
 
                 <div class="form-group row">
                     <div class="col-12">
@@ -97,45 +102,41 @@
                     </div>
                 </div>
             </form>
-            <div th:unless="${ !data.isDefault() }">
-                <div class="jumbotron jumbotron-fluid">
-                    <div class="container">
-                        <h1 class="display-4">
-                            <i class="fas fa-times-circle"></i> Can't Update.
-                        </h1>
-                        <p class="lead">해당하는 데이터는 기본 제공 데이터로 수정 및 삭제가 불가능합니다.</p>
-                    </div>
-                </div>
-                <hr/>
-                <div class="d-flex justify-content-between mb-2">
-                    <div id="preview-button">
-                        <button type="button"
-                                class="btn btn-info mx-1"
-                                data-toggle="modal"
-                                data-target="#png-preview">
-                            <i class="fas fa-image"></i> PNG 파일
-                        </button>
-                        <button type="button"
-                                class="btn btn-success mx-1"
-                                data-toggle="modal"
-                                data-target="#json-preview"
-                        >
-                            <i class="fas fa-file"></i> JSON 파일
-                        </button>
-                    </div>
-
-                    <div id="save-button">
-                        <a class="btn btn-secondary mx-1" th:href="@{'/view/symbol/image-list?' + ${imageQuery}}">
-                            <i class="fas fa-arrow-left"></i> 이전으로
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <div class="col-md-8">
-            <h3 class="section-tit">SYMBOL 파일 목록 조회</h3>
-            <table class="table basic text-center" id="sprite_list_2">
+        <div class="col-md-7">
+            <h3 class="section-tit">SYMBOL 파일 목록 조회 - 총 <span th:text="${count}"></span> 개</h3>
+            <form class="row mb-1">
+                <input type="hidden" id="pg_s" name="pg" th:value="${param.pg}" />
+                <input type="hidden" id="sz_s" name="sz" th:value="${param.sz}" />
+                <input type="hidden" id="ob_s" name="ob" th:value="${param.ob}" />
+                <input type="hidden" id="sb_s" name="sb" th:value="${param.sb}" />
+                <input type="hidden" id="st_s" name="st" th:value="${param.st == null ? '' : param.st}" />
+                <input type="hidden" id="sDate_s" name="sDate" th:value="${param.sDate == null ? '' : param.sDate}" />
+                <input type="hidden" id="eDate_s" name="eDate" th:value="${param.eDate == null ? '' : param.eDate}" />
+
+                <input type="hidden" id="imgId_s" name="imgId" th:value="${param.imgId}" />
+                <input type="hidden" id="pstPg_s" name="pstPg" th:value="${param.pstPg}" />
+                <input type="hidden" id="pstSz_s" name="pstSz" th:value="${param.pstSz}" />
+
+                <div class="col-md-5">
+                    <input type="text" class="form-control" id="pstSt_s" name="pstSt" placeholder="검색 키워드 입력" th:value="${param.pstSt}" />
+                </div>
+
+                <div class="col-md-5">
+                    <select class="form-control" id="pstOb_s" name="pstOb" th:value="${param.pstOb}">
+                        <option th:each="ob : ${obList}" th:text="${ob.label}" th:value="${ob.value}" />
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-search"></i> 검색
+                    </button>
+                </div>
+            </form>
+
+            <table class="table basic text-center">
                 <thead>
                 <tr>
                     <th>선택</th>
@@ -145,7 +146,7 @@
                     <th>X 좌표</th>
                     <th>Y 좌표</th>
                     <th>파일 미리 보기</th>
-                    <th th:unless="${data.isDefault()}">버튼</th>
+                    <th>버튼</th>
                 </tr>
                 </thead>
                 <tbody id="sprite-body">
@@ -159,9 +160,9 @@
                         <td class="text-center align-middle" th:text="${position.xPos}"></td>
                         <td class="text-center align-middle" th:text="${position.yPos}"></td>
                         <td class="text-center align-middle">
-                            <img style="width: 32px;" th:src="@{'/view/symbol/position-image?name=' + ${model.name} + '&xPos=' + ${position.xPos} + '&yPos=' + ${position.yPos} + '&width=' + ${position.width} + '&height=' + ${position.height}}" />
+                            <img style="width: 32px;" th:src="@{'/view/symbol/position-image-by-id?id=' + ${position.id}}" />
                         </td>
-                        <td class="text-center align-middle" th:unless="${data.isDefault()}">
+                        <td class="text-center align-middle">
                             <button type="button"
                                     class="btn btn-sm btn-info btn-circle"
                                     data-toggle="modal"
@@ -175,23 +176,26 @@
                     </tr>
                 </tbody>
             </table>
-            <div th:if="${!data.isDefault()}">
-                <hr/>
-                <div class="d-flex justify-content-between mb-2">
-                    <div id="select-button">
-                        <button type="button" class="btn btn-sm btn-primary mx-1" onclick="onclick_check_positions(true)">
-                            <i class="fas fa-check-square"></i> 모두 선택
-                        </button>
-                        <button type="button" class="btn btn-sm btn-secondary mx-1" onclick="onclick_check_positions(false)">
-                            <i class="fas fa-square"></i> 모두 해제
-                        </button>
-                    </div>
 
-                    <div id="delete-button">
-                        <button type="button" class="btn btn-sm btn-danger" onclick="onclick_check_remove()">
-                            <i class="fas fa-trash"></i> 모두 삭제
-                        </button>
-                    </div>
+            <!-- pageNavigation #START -->
+            <th:block th:replace="fragments/html-position-pagination-bar :: html-position-pagination-bar('/symbol/image-update')" />
+            <!-- pageNavigation #END -->
+
+            <hr/>
+            <div class="d-flex justify-content-between mb-2">
+                <div id="select-button">
+                    <button type="button" class="btn btn-sm btn-primary mx-1" onclick="onclick_check_positions(true)">
+                        <i class="fas fa-check-square"></i> 모두 선택
+                    </button>
+                    <button type="button" class="btn btn-sm btn-secondary mx-1" onclick="onclick_check_positions(false)">
+                        <i class="fas fa-square"></i> 모두 해제
+                    </button>
+                </div>
+
+                <div id="delete-button">
+                    <button type="button" class="btn btn-sm btn-danger" onclick="onclick_check_remove()">
+                        <i class="fas fa-trash"></i> 모두 삭제
+                    </button>
                 </div>
             </div>
         </div>
@@ -208,14 +212,21 @@
                 </div>
                 <form th:action="@{/view/symbol/position-update}" method="post" onsubmit="return preSubmitPosition(this);" accept-charset="utf-8" enctype="multipart/form-data">
                     <div class="modal-body">
-                        <input type="hidden" id="imageId" name="imageId" th:value="${param.id}" />
                         <input type="hidden" id="pg_p" name="pg" th:value="${param.pg}" />
                         <input type="hidden" id="sz_p" name="sz" th:value="${param.sz}" />
                         <input type="hidden" id="ob_p" name="ob" th:value="${param.ob}" />
                         <input type="hidden" id="sb_p" name="sb" th:value="${param.sb}" />
-                        <input type="hidden" id="st_p" name="st" th:value="${param.st}" />
-                        <input type="hidden" id="sDate_p" name="sDate" th:value="${param.sDate}" />
-                        <input type="hidden" id="eDate_p" name="eDate" th:value="${param.eDate}" />
+                        <input type="hidden" id="st_p" name="st" th:value="${param.st == null ? '' : param.st}" />
+                        <input type="hidden" id="sDate_p" name="sDate" th:value="${param.sDate == null ? '' : param.sDate}" />
+                        <input type="hidden" id="eDate_p" name="eDate" th:value="${param.eDate == null ? '' : param.eDate}" />
+
+                        <input type="hidden" id="imgId_p" name="imgId" th:value="${param.imgId}" />
+                        <input type="hidden" id="pstPg_p" name="pstPg" th:value="${param.pstPg}" />
+                        <input type="hidden" id="pstSz_p" name="pstSz" th:value="${param.pstSz}" />
+                        <input type="hidden" id="pstOb_p" name="pstOb" th:value="${param.pstOb == null ? 0 : param.pstOb}" />
+                        <input type="hidden" id="pstSt_p" name="pstSt" th:value="${param.pstSt == null ? '' : param.pstSt}" />
+
+                        <input type="hidden" id="imageId" name="imageId" th:value="${param.imgId}" />
 
                         <div class="form-group">
                             <label for="before-name">SYMBOL 이전 이름</label>
@@ -298,7 +309,8 @@
     <script th:inline="javascript">
         var positions = /*[[${data.positions}]]*/ [];
         var imageId = /*[[${param.id}]]*/ 0;
-        var queryString = /*[[${imageQuery}]]*/ '';
+        var imageQuery = /*[[${imageQuery}]]*/ '';
+        var positionQuery = /*[[${positionQuery}]]*/ '';
         var message = /*[[ ${message} ]]*/ null;
     </script>
 
@@ -317,10 +329,6 @@
             }
 
             spriteTable = $('#sprite_list_1').DataTable({
-                stateSave: true
-            });
-
-            spriteTable2 = $('#sprite_list_2').DataTable({
                 stateSave: true
             });
 
@@ -429,7 +437,7 @@
         function onclick_check_remove(){
             if (selected.length > 0) {
                 if (confirm("선택하신 모든 데이터들을 삭제 하시겠습니까?")) {
-                    window.location.href = CONTEXT + '/view/symbol/position-delete?id=' + imageId[0] + "&ids=" + selected + "&" + queryString;
+                    window.location.href = CONTEXT + '/view/symbol/position-delete?' + '&ids=' + selected + '&' + imageQuery + '&' + positionQuery;
                 }
             } else {
                 toastr.warning('선택하신 이미지가 없어 삭제 작업을 진행할 수 없습니다.');
