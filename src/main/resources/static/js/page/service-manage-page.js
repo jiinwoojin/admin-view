@@ -116,11 +116,9 @@ $(document).ready(function() {
         var tabId = 'tab0';
         if(sessionStorage['tabId']){
             tabId = sessionStorage['tabId'];
-            if (tabId.startsWith('tab')) {
-                $('#' + tabId).click();
-            }
             sessionStorage.removeItem('tabId');
         }
+        $('#' + tabId).click();
         tabEvent(document.getElementById(tabId));
     }
 });

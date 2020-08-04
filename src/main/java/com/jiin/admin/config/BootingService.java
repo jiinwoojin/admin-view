@@ -1,34 +1,33 @@
 package com.jiin.admin.config;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.Constants;
 import com.jiin.admin.dto.*;
 import com.jiin.admin.entity.RoleEntity;
-import com.jiin.admin.entity.SymbolPositionEntity;
 import com.jiin.admin.mapper.data.*;
 import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.RelationModel;
-import com.jiin.admin.website.model.SymbolPositionModel;
 import com.jiin.admin.website.server.mapper.CheckMapper;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.MapProxyUtil;
 import com.jiin.admin.website.util.MapServerUtil;
 import com.jiin.admin.website.util.YAMLFileUtil;
 import com.jiin.admin.website.view.mapper.AccountMapper;
-import com.jiin.admin.website.view.mapper.SymbolMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
+import javax.sql.DataSource;
 import javax.transaction.Transactional;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -64,12 +63,6 @@ public class BootingService {
     private MapLayerRelationMapper mapLayerRelationMapper;
 
     @Resource
-    private SymbolImageMapper symbolImageMapper;
-
-    @Resource
-    private SymbolPositionMapper symbolPositionMapper;
-
-    @Resource
     private ProxySourceMapper proxySourceMapper;
 
     @Resource
@@ -93,15 +86,47 @@ public class BootingService {
     @Resource
     private AccountMapper accountMapper;
 
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
     private String DEFAULT_DATA_NAME = "world";
 
     private String DEFAULT_MIDDLE_PATH = "NE2";
 
     private String DEFAULT_FILE_NAME = "NE2_HR_LC_SR_W_DR.tif";
 
-    private String DEFAULT_SYMBOL_FOLDER = "GSymbol";
 
-    private String DEFAULT_SYMBOL_NAME = "GSSSymbol";
+    // Spring Session 와 관련된 SQL 문단은 Dependencies 안의 SQL 문단을 참고할 것.
+    private static final String SPRING_SESSION_DDL =
+        "CREATE TABLE SPRING_SESSION ( " +
+            "PRIMARY_ID CHAR(36) NOT NULL, " +
+            "SESSION_ID CHAR(36) NOT NULL, " +
+            "CREATION_TIME BIGINT NOT NULL, " +
+            "LAST_ACCESS_TIME BIGINT NOT NULL, " +
+            "MAX_INACTIVE_INTERVAL INT NOT NULL, " +
+            "EXPIRY_TIME BIGINT NOT NULL, " +
+            "PRINCIPAL_NAME VARCHAR(100), " +
+            "CONSTRAINT SPRING_SESSION_PK PRIMARY KEY (PRIMARY_ID)" +
+        ")";
+
+    private static final String SPRING_SESSION_IX1_DDL = "CREATE UNIQUE INDEX SPRING_SESSION_IX1 ON SPRING_SESSION (SESSION_ID)";
+
+    private static final String SPRING_SESSION_IX2_DDL = "CREATE INDEX SPRING_SESSION_IX2 ON SPRING_SESSION (EXPIRY_TIME)";
+
+    private static final String SPRING_SESSION_IX3_DDL = "CREATE INDEX SPRING_SESSION_IX3 ON SPRING_SESSION (PRINCIPAL_NAME)";
+
+    private static final String SPRING_SESSION_ATTRIBUTES_DDL =
+        "CREATE TABLE SPRING_SESSION_ATTRIBUTES ( " +
+            "SESSION_PRIMARY_ID CHAR(36) NOT NULL, " +
+            "ATTRIBUTE_NAME VARCHAR(200) NOT NULL, " +
+            "ATTRIBUTE_BYTES BYTEA NOT NULL, " +
+            "CONSTRAINT SPRING_SESSION_ATTRIBUTES_PK PRIMARY KEY (SESSION_PRIMARY_ID, ATTRIBUTE_NAME), " +
+            "CONSTRAINT SPRING_SESSION_ATTRIBUTES_FK FOREIGN KEY (SESSION_PRIMARY_ID) REFERENCES SPRING_SESSION(PRIMARY_ID) ON DELETE CASCADE" +
+        ")";
 
     @Transactional
     // 지도 데이터인 NATURAL EARTH 2 TIFF 파일을 디폴트 값으로 넣어준다. (LAYER -> MAP -> CACHE)
@@ -263,65 +288,6 @@ public class BootingService {
         }
     }
 
-//    @Transactional
-//    public void initializeSymbol() throws IOException {
-//        String mainPath = dataPath + String.format("%s/%s", Constants.SYMBOL_FILE_PATH, DEFAULT_SYMBOL_FOLDER);
-//        String jsonPath = mainPath + String.format("/%s%s", DEFAULT_SYMBOL_NAME, Constants.JSON_SUFFIX);
-//        String json2xPath = mainPath + String.format("/%s%s", DEFAULT_DATA_NAME, Constants.JSON_2X_SUFFIX);
-//        String pngPath = mainPath + String.format("/%s%s", DEFAULT_SYMBOL_NAME, Constants.PNG_SUFFIX);
-//        String png2xPath = mainPath + String.format("/%s%s", DEFAULT_SYMBOL_NAME, Constants.PNG_2X_SUFFIX);
-//
-//        SymbolImageDTO imageDTO = symbolImageMapper.findByName(DEFAULT_SYMBOL_NAME);
-//        if (imageDTO == null) {
-//            long idx = symbolImageMapper.findNextSeqVal();
-//            imageDTO = new SymbolImageDTO(idx, DEFAULT_SYMBOL_NAME, DEFAULT_SYMBOL_NAME, new Date(), "admin", "admin", true);
-//            imageDTO.setJsonFilePath(jsonPath.replace(dataPath, ""));
-//            imageDTO.setJson2xFilePath(json2xPath.replace(dataPath, ""));
-//            imageDTO.setImageFilePath(pngPath.replace(dataPath, ""));
-//            imageDTO.setImage2xFilePath(png2xPath.replace(dataPath, ""));
-//
-//            symbolImageMapper.insert(imageDTO);
-//        }
-//
-//        File jsonFile = new File(jsonPath);
-//        File imageFile = new File(pngPath);
-//
-//        if (!jsonFile.exists() || !imageFile.exists()) return;
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        Map<String, Object> data = mapper.readValue(jsonFile, new TypeReference<Map<String, Object>>() {});
-//        BufferedImage image = ImageIO.read(imageFile);
-//
-//        long cnt = symbolPositionMapper.countByImageId(imageDTO.getId());
-//        if (cnt == data.keySet().size()) return;
-//
-//        for (String key : data.keySet()) {
-//            Map<String, Integer> map = (Map<String, Integer>) data.get(key);
-//
-//            Integer height = map.getOrDefault("height", -1);
-//            Integer width = map.getOrDefault("width", -1);
-//            Integer pixelRatio = map.getOrDefault("pixelRatio", -1);
-//            Integer xPos = map.getOrDefault("x", -1);
-//            Integer yPos = map.getOrDefault("y", -1);
-//
-//            if (height < 0 || width < 0 || pixelRatio < 0 || xPos < 0 || yPos < 0) continue;
-//
-//            SymbolPositionDTO positionDTO = symbolPositionMapper.findByNameAndImageId(key, imageDTO.getId());
-//            if (positionDTO == null) {
-//                BufferedImage partition = image.getSubimage(xPos, yPos, width, height);
-//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//                try {
-//                    ImageIO.write(partition, "PNG", baos);
-//                } catch (IOException e) {
-//                    System.out.println("ERROR - " + e.getMessage());
-//                }
-//
-//                positionDTO = new SymbolPositionDTO(0L, key, height, width, pixelRatio, xPos, yPos, imageDTO.getId(), baos.toByteArray());
-//                symbolPositionMapper.insert(positionDTO);
-//            }
-//        }
-//    }
-
     @Transactional
     public void initializeAccounts() {
         if (checkMapper.countDuplicateAccount("admin") < 1) {
@@ -342,6 +308,34 @@ public class BootingService {
         }
         if (checkMapper.countDuplicateRole("USER") < 1) {
             accountMapper.insertRole(new RoleEntity(null, "USER", "일반 사용자", false, false, false, false, false));
+        }
+    }
+
+    public void initializeSession(){
+        DataSource dataSource = jdbcTemplate.getDataSource();
+        Connection conn = null;
+        try {
+            conn = dataSource.getConnection();
+            DatabaseMetaData metaData = conn.getMetaData();
+
+            ResultSet res = metaData.getTables("", "", "spring_session", new String[] { "TABLE" });
+            if (!res.next()) {
+                jdbcTemplate.execute(SPRING_SESSION_DDL);
+            }
+
+            res = metaData.getIndexInfo("", "", "spring_session", false, false);
+            if (!res.next()) {
+                jdbcTemplate.execute(SPRING_SESSION_IX1_DDL);
+                jdbcTemplate.execute(SPRING_SESSION_IX2_DDL);
+                jdbcTemplate.execute(SPRING_SESSION_IX3_DDL);
+            }
+
+            res = metaData.getTables("", "", "spring_session_attributes", new String[] { "TABLE" });
+            if(!res.next()){
+                jdbcTemplate.execute(SPRING_SESSION_ATTRIBUTES_DDL);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

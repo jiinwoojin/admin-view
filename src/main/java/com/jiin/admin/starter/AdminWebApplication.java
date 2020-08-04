@@ -11,7 +11,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 
 @SpringBootApplication(scanBasePackages = {"com.jiin.admin.config", "com.jiin.admin.servlet"})
 @EnableJpaRepositories(basePackages = {"com.jiin.admin.website"}, transactionManagerRef = "transactionManager_BASE")
@@ -35,5 +34,6 @@ public class AdminWebApplication extends SpringBootServletInitializer implements
         bootingService.initializeMapData();
         bootingService.initializeRoles();
         bootingService.initializeAccounts();
+        bootingService.initializeSession();
     }
 }
