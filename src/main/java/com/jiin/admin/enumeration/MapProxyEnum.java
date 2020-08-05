@@ -1,4 +1,71 @@
 package com.jiin.admin.enumeration;
 
-public class MapProxyEnum {
+// Map Proxy 관련 Enumeration (CACHE 관리)
+public enum MapProxyEnum {
+    // PROXY CACHE 설정 전반 관리
+    PROXY_SETTING_FILE_PATH("/proxy"),
+    PROXY_SETTING_FILE_NAME("mapproxy.yaml"),
+    PROXY_CACHE_DIRECTORY("/cache"),
+
+
+    // PROXY LAYER 관리
+    PROXY_LAYER_DEFAULT_NAME("world_layer"),
+
+
+    // PROXY SOURCE 관리
+    PROXY_SOURCE_DEFAULT_NAME("world"),
+
+    PROXY_SOURCE_TYPE_WMS("wms"),
+    PROXY_SOURCE_TYPE_MAPSERVER("mapserver"),
+
+    PROXY_SOURCE_WMS_1_3_0("1.3.0"),
+    PROXY_SOURCE_WMS_1_1_1("1.1.1"),
+
+    PROXY_SOURCE_REQUEST_URL("mapserver/cgi-bin/mapserv?"),
+
+    PROXY_SOURCE_WMS_CONCURRENT_REQUESTS("4"),
+    PROXY_SOURCE_WMS_HTTP_CLIENT_TIMEOUT("600"),
+
+
+    // PROXY CACHE 관리
+    PROXY_CACHE_DEFAULT_NAME("world_cache"),
+
+    PROXY_CACHE_TYPE_FILE("file"),
+    PROXY_CACHE_IMAGE_FORMAT_PNG("image/png"),
+    PROXY_CACHE_IMAGE_FORMAT_JPEG("image/jpeg"),
+    PROXY_CACHE_GRID_TYPE_GLOBAL_GEODETIC("GLOBAL_GEODETIC"),
+    PROXY_CACHE_GRID_TYPE_GLOBAL_WEBMERCATOR("GLOBAL_WEBMERCATOR"),
+
+
+    // 공통 사용 상수
+    SRS_EPSG_4326("EPSG:4326"),
+    SRS_EPSG_3857("EPSG:3857"),
+    SRS_EPSG_900913("EPSG:900913"),
+
+    EDIT_TYPE_INSERT("INSERT"),
+    EDIT_TYPE_UPDATE("UPDATE"),
+
+    EDIT_ENTITY_TYPE_LAYER("LAYER"),
+    EDIT_ENTITY_TYPE_SOURCE("SOURCE"),
+    EDIT_ENTITY_TYPE_SOURCE_MAPSERVER("SOURCE-MAPSERVER"),
+    EDIT_ENTITY_TYPE_SOURCE_WNS("SOURCE-WMS"),
+    EDIT_ENTITY_TYPE_CACHE("CACHE"),
+
+    LOAD_LIST_TYPE_LAYER("LAYERS"),
+    LOAD_LIST_TYPE_SOURCES("SOURCES"),
+    LOAD_LIST_TYPE_SOURCES_MAPSERVER("SOURCES_MAPSERVER"),
+    LOAD_LIST_TYPE_SOURCES_WMS("SOURCES_WMS"),
+    LOAD_LIST_TYPE_CACHES("CACHES"),
+    LOAD_LIST_TYPE_GLOBALS("GLOBALS");
+
+
+    private final String value;
+
+    public String getValue() {
+        return value;
+    }
+
+    MapProxyEnum (String value) {
+        this.value = value;
+    }
 }
