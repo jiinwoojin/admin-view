@@ -2,17 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout" lang="ko">
 
 <th:block layout:fragment="content-title-fragment">
-    <h1 class="h3 mb-0 text-gray-800">공통 지도</h1>
+    <h1 class="h3 mb-0 text-gray-800">일반 지도</h1>
 </th:block>
 
 <th:block layout:fragment="content-breadcrumb-fragment">
     <nav aria-label="breadcrumb" class="col-md-12 px-2">
-        <h2 class="page_tit">공통 지도</h2>
+        <h2 class="page_tit">일반 지도</h2>
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a th:href="@{/view/display/common-map}">지도 서비스</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">공통 지도</li>
+            <li class="breadcrumb-item active" aria-current="page">일반 지도</li>
         </ol>
     </nav>
 </th:block>
@@ -69,6 +69,12 @@
                     </button>
                     <button type="button" class="btn btn-sm btn-secondary map-item" id="display-display3d">
                         <i class="fas fa-cube text-center"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-secondary map-item" id="display-ol">
+                        <i class="fas fa-map text-center"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-secondary map-item" id="display-ol-ext">
+                        <i class="fas fa-chart-bar text-center"></i>
                     </button>
                 </div>
             </div>
@@ -305,9 +311,16 @@
 
             var display2dDiv = 'display-display2d';
             var display3dDiv = 'display-display3d';
+            var displayOlDiv = 'display-ol';
+            var displayOlExtDiv = 'display-ol-ext';
+
             $('.map-item').click(function(e) {
                 if (this.id) {
                     let _id = this.id;
+                    $('.map-item').each(function(idx, dom) {
+                        $(this).removeClass('btn-info');
+                        $(this).addClass('btn-secondary');
+                    });
 
                     let contentName;
 
@@ -317,19 +330,22 @@
                         contentName = 'mapbox-display';
                         $('#' + display2dDiv).addClass('btn-info');
 
-                        $('#' + display3dDiv).removeClass('btn-info');
-                        $('#' + display3dDiv).addClass('btn-secondary');
                         //$('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
                         stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
                     } else if (_id === display3dDiv) {
                         contentName = 'cesium-display';
-
                         $('#' + display3dDiv).addClass('btn-info');
 
-                        $('#' + display2dDiv).removeClass('btn-info');
-                        $('#' + display2dDiv).addClass('btn-secondary');
                         //$('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
                         jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_3D);
+                    } else if (_id === displayOlDiv) {
+                        contentName = 'ol-display';
+                        $('#' + displayOlDiv).addClass('btn-info');
+                        stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
+                    } else if (_id === displayOlExtDiv) {
+                        contentName = 'ol-ext-display';
+                        $('#' + displayOlExtDiv).addClass('btn-info');
+                        stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
                     }
 
                     if (jiCommon.map !== null) {
