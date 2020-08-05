@@ -11,7 +11,8 @@ import java.util.Map;
 @Setter
 public class DataCounter {
     private long mapCount;
-    private long symbolCount;
+    private long symbolImageCount;
+    private long symbolPositionCount;
     private long rasterLayerCount;
     private long vectorLayerCount;
     private long cadrgLayerCount;
@@ -27,9 +28,10 @@ public class DataCounter {
         this.userCount = new ArrayList<>();
     }
 
-    public DataCounter(long mapCount, long symbolCount, long rasterLayerCount, long vectorLayerCount, long cadrgLayerCount, long layersProxyCount, long layersSelectedProxyCount, long sourcesProxyCount, long sourcesSelectedProxyCount, long cachesProxyCount, long cachesSelectedProxyCount, List<Map<String, Long>> userCount) {
+    public DataCounter(long mapCount, long symbolImageCount, long symbolPositionCount, long rasterLayerCount, long vectorLayerCount, long cadrgLayerCount, long layersProxyCount, long layersSelectedProxyCount, long sourcesProxyCount, long sourcesSelectedProxyCount, long cachesProxyCount, long cachesSelectedProxyCount, List<Map<String, Long>> userCount) {
         this.mapCount = mapCount;
-        this.symbolCount = symbolCount;
+        this.symbolImageCount = symbolImageCount;
+        this.symbolPositionCount = symbolPositionCount;
         this.rasterLayerCount = rasterLayerCount;
         this.vectorLayerCount = vectorLayerCount;
         this.layersProxyCount = layersProxyCount;

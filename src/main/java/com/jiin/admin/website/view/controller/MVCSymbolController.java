@@ -67,11 +67,15 @@ public class MVCSymbolController {
         model.addAttribute("model", map.get("model"));
         model.addAttribute("data", map.get("data"));
         model.addAttribute("positions", map.get("positions"));
+        model.addAttribute("count", map.get("count"));
 
         model.addAttribute("imageQuery", symbolImagePageModel.getQueryString());
         model.addAttribute("positionQuery", symbolPositionPageModel.getQueryString());
         model.addAttribute("message", session.message());
         model.addAttribute("jsonContext", symbolImageService.loadJSONContextByImageId(symbolPositionPageModel.getImgId()));
+
+        model.addAttribute("obList", symbolImageService.loadPositionOrderByOptionList());
+
         return "page/symbol/image-update";
     }
 
@@ -123,5 +127,14 @@ public class MVCSymbolController {
     @ResponseBody
     public byte[] symbolPositionImagePart(@RequestParam(value="name") String name, @RequestParam(value = "xPos", defaultValue = "0") int xPos, @RequestParam(value = "yPos", defaultValue = "0") int yPos, @RequestParam(value = "width", defaultValue = "0") int width, @RequestParam(value = "height", defaultValue = "0") int height) throws IOException {
         return symbolImageService.loadPositionByteArrayByModel(name, xPos, yPos, width, height);
+    }
+
+    @GetMapping(
+        value = "position-image-by-id",
+        produces = MediaType.IMAGE_PNG_VALUE
+    )
+    @ResponseBody
+    public byte[] symbolPositionImagePart(@RequestParam(value="id") long id) throws IOException {
+        return symbolImageService.loadImageByteByPositionId(id);
     }
 }

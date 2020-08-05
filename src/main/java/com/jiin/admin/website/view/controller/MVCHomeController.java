@@ -28,7 +28,6 @@ public class MVCHomeController {
 
     @RequestMapping("dashboard")
     public String homeMainPageForGuest(Model model) {
-        cascadeRelativeComponent.loadLayerRemoveAfterOrphanMapData(245);
         model.addAttribute("counter", dataCountService.loadDataCounter());
         model.addAttribute("serverMap", serverCenterInfoService.loadDataMapZoneBase());
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());

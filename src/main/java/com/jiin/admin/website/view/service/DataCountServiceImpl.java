@@ -20,7 +20,8 @@ public class DataCountServiceImpl implements DataCountService {
     public DataCounter loadDataCounter() {
         DataCounter dataCounter = new DataCounter();
         dataCounter.setMapCount(countMapper.countByTableName(MapEntity.class.getAnnotation(Entity.class).name()));
-        dataCounter.setSymbolCount(countMapper.countByTableName(MapSymbol.class.getAnnotation(Entity.class).name()));
+        dataCounter.setSymbolImageCount(countMapper.countByTableName(SymbolImageEntity.class.getAnnotation(Entity.class).name()));
+        dataCounter.setSymbolPositionCount(countMapper.countByTableName(SymbolPositionEntity.class.getAnnotation(Entity.class).name()));
         dataCounter.setRasterLayerCount(countMapper.countLayersByType("RASTER"));
         dataCounter.setVectorLayerCount(countMapper.countLayersByType("VECTOR"));
         dataCounter.setCadrgLayerCount(countMapper.countLayersByType("CADRG"));

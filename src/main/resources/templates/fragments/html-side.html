@@ -54,24 +54,24 @@
             <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display') ? 'active' : '' }">
                 <a href="#" aria-expanded="true"><i class="fa fa-caret-right"></i> <span class="nav-label">지도 서비스</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse" aria-expanded="false">
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/symbol-map') ? 'active' : '' }">
-                        <a th:href="@{/view/display/symbol-map}">
-                            <i class="fas fa-fw fa-map"></i>
-                            <span class="nav-label">상황도</span>
-                        </a>
-                    </li>
+<!--                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/symbol-map') ? 'active' : '' }">-->
+<!--                        <a th:href="@{/view/display/symbol-map}">-->
+<!--                            <i class="fas fa-fw fa-map"></i>-->
+<!--                            <span class="nav-label">상황도</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
                     <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/common-map') ? 'active' : '' }">
                         <a th:href="@{/view/display/common-map}">
                             <i class="fas fa-fw fa-map-marked-alt"></i>
-                            <span class="nav-label">공통 지도</span>
+                            <span class="nav-label">일반 지도</span>
                         </a>
                     </li>
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/ext-map') ? 'active' : '' }">
-                        <a th:href="@{/view/display/ext-map}">
-                            <i class="fas fa-fw fa-chart-area"></i>
-                            <span class="nav-label">그래프 지도</span>
-                        </a>
-                    </li>
+<!--                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/display/ext-map') ? 'active' : '' }">-->
+<!--                        <a th:href="@{/view/display/ext-map}">-->
+<!--                            <i class="fas fa-fw fa-chart-area"></i>-->
+<!--                            <span class="nav-label">그래프 지도</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
                 </ul>
             </li>
 
@@ -138,12 +138,12 @@
                             <span class="nav-label">서비스 주소 관리</span>
                         </a>
                     </li>
-                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/log-manage') ? 'active' : '' }">
-                        <a th:href="@{/view/server/log-manage}">
-                            <i class="fas fa-fw fa-sticky-note"></i>
-                            <span class="nav-label">LOG 관리</span>
-                        </a>
-                    </li>
+<!--                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/server/log-manage') ? 'active' : '' }">-->
+<!--                        <a th:href="@{/view/server/log-manage}">-->
+<!--                            <i class="fas fa-fw fa-sticky-note"></i>-->
+<!--                            <span class="nav-label">LOG 관리</span>-->
+<!--                        </a>-->
+<!--                    </li>-->
                 </ul>
             </li>
 

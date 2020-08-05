@@ -167,7 +167,7 @@ public class Constants {
         // 추출 중...
     }
 
-    // 아래에 있는 상수 데이터는 맨 위에 있는 interface 안에 '곧' 정리 될 예정입니다.
+    // 아래에 있는 상수 데이터는 enumeration 패키지 안에 '곧' 정리 될 예정입니다.
 
     public static final String SESSION_MESSAGE = "___SESSION_MESSAGE";
 

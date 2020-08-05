@@ -9,12 +9,15 @@ import java.util.Map;
 public interface SymbolImageService {
     List<OptionModel> loadSearchByOptionList();
     List<OptionModel> loadOrderByOptionList();
+    List<OptionModel> loadPositionOrderByOptionList();
+
     String loadJSONContextByImageId(long imageId);
 
     Map<String, Object> loadDataListAndCountByPaginationModel(SymbolImagePageModel symbolImagePageModel);
     Map<String, Object> loadImageUpdateDataByPageModel(SymbolPositionPageModel symbolPositionPageModel);
     byte[] loadImageByteArrayByName(String name) throws IOException;
     byte[] loadPositionByteArrayByModel(String name, int x, int y, int width, int height) throws IOException;
+    byte[] loadImageByteByPositionId(long positionId) throws IOException;
 
     boolean createImageData(SymbolImageModel symbolImageModel);
     boolean setImageData(SymbolImageModel symbolImageModel);

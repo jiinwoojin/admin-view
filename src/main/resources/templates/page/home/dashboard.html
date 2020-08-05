@@ -25,8 +25,11 @@
                         <div class="col-sm-2 col-md-9 offset-md-3 offset-lg-0 col-lg-6 col-xl-3">
                             <h4 class="m-b-none fs14 text-center"><small>SYMBOL</small></h4>
                             <p class="m-b-none text-center">
-                                <span class="fs24" th:text="${counter.symbolCount}"></span>
-                                <span>개</span>
+                                <span class="fs17" th:text="${counter.symbolImageCount}"></span>
+                                <span>묶음</span>
+                                <br/>
+                                <span class="fs12" th:text="${'(' + counter.symbolPositionCount}"></span>
+                                <span>개)</span>
                             </p>
                         </div>
                     </div>

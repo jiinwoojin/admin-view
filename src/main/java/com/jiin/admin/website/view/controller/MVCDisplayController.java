@@ -28,6 +28,11 @@ public class MVCDisplayController {
         return "page/display/ol-display";
     }
 
+    @RequestMapping("ol-ext-display")
+    public String openlayersExtensionDisplayView(Model model) {
+        return "page/display/ol-ext-display";
+    }
+
     @RequestMapping("mapbox-display")
     public String mapboxDisplayView(Model model) {
         return "page/display/mapbox-display";
