@@ -139,7 +139,7 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 		var coordData = setCoordinates(coordinates);
 		controlPoints = coordData.controlPoints;
 		// scale 유사값
-		if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_2D){
+		if (!jiCommon.checkMapKind()) {
 			// 맵박스
 			var zoom = Math.floor(milSymbolLoader.map.getZoom())
 			var res = {
@@ -166,7 +166,7 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 				20: 0.075
 			}
 			scale = (300000000 - 10000) / res[0] * res[(zoom)]
-		}else if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_3D){
+		}else {
 			// 세슘
 			var xmin = 999999999, ymin = 999999999, xmax = 0, ymax = 0
 			for(var idx in coordinates){

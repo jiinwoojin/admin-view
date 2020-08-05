@@ -38,20 +38,21 @@ milSymbolLoader.init = function(param, callback){
             "mb-milSymbol.js",
             "cmm-milSymbol.js"])
     }else{
-        if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_2D) {
-            milSymbolLoader.map = milSymbolLoader.param.map
-            milSymbolLoader.redeclareBasegeometry()
-            milSymbolLoader.declare2DdrawControl()
+        if (!jiCommon.checkMapKind()) {
+            // mapbox
+            milSymbolLoader.map = milSymbolLoader.param.map;
+            milSymbolLoader.redeclareBasegeometry();
+            milSymbolLoader.declare2DdrawControl();
             milSymbolLoader.map.addControl(milSymbolLoader.drawControl);
             milSymbolLoader.map.on('draw.update', milSymbolLoader.milsymbolsPreview);
             milSymbolLoader.map.on('draw.create', milSymbolLoader.milsymbolsGenerator);
-        }else if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_3D) {
-            milSymbolLoader.map = milSymbolLoader.param.map
-
+        } else {
+            // cesium
+            milSymbolLoader.map = milSymbolLoader.param.map;
         }
         //
-        if(milSymbolLoader.callback){
-            milSymbolLoader.callback()
+        if (milSymbolLoader.callback) {
+            milSymbolLoader.callback();
         }
     }
 };
@@ -64,7 +65,8 @@ milSymbolLoader.redeclareBasegeometry = function(){
         var symbolParts = ms.getSymbolParts();
         symbolParts.splice(0, 1, function(){
             var obj = ms.___original_basegeometry.call(this,ms)
-            var percent = parseFloat(this.options.fillPercent)
+            var percent = parseFloat(this.options.fillPercent);
+            console.log(percent);
             if(!isNaN(percent) && percent < 1){
                 var drawArray2 = obj.post
                 var newDrawArray2 = []
@@ -140,7 +142,8 @@ milSymbolLoader.redeclareBasegeometry = function(){
                         newDrawArray2.push(background);
                         newDrawArray2.push(fillcolor);
                         newDrawArray2.push(boundry);
-                        console.log(boundry)
+                        console.log(boundry);
+                        console.log(fillcolor);
                     }else if(draw.type === 'circle' && exec === false){
                         exec = true
                         var centerx = draw.cx
@@ -482,7 +485,7 @@ milSymbolLoader.draw = function(sidc,points){
         return v.toString(16);
     })
     //
-    var options = stmp.getMilsymbolOptions()
+    var options = milSymbolLoader.getMilsymbolOptions()
     milSymbolLoader.drawMilsymbol(options,true)
     //
     var evt = {}
@@ -823,12 +826,12 @@ milSymbolLoader.drawMilsymbol = function(options, onlySetValue){
         symbol.options._draw_type = drawInfo.draw_type
         symbol.options._constraint = drawInfo.constraint
         if(onlySetValue !== true){
-            if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_2D){
+            if (!jiCommon.checkMapKind()) {
                 // 맵박스
                 milSymbolLoader.drawControl.changeMode(mode)
-            }else if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_3D){
+            } else {
                 // 세슘
-                stmp.mapObject.drawControlMode(mode,symbol.options._constraint)
+                jiCommon.map.drawControlMode(mode,symbol.options._constraint)
             }
         }
     } else {
@@ -838,12 +841,12 @@ milSymbolLoader.drawMilsymbol = function(options, onlySetValue){
         symbol.options._draw_type = "Point"
         symbol.options._constraint = "milSym"
         if(onlySetValue !== true){
-            if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_2D){
+            if(!jiCommon.checkMapKind()) {
                 // 맵박스
                 milSymbolLoader.drawControl.changeMode("draw_point")
-            }else if(stmp.PRESENT_MAP_KIND === stmp.MAP_KIND.MAP_3D){
+            }else {
                 // 세슘
-                stmp.mapObject.drawControlMode("draw_point",symbol.options._constraint)
+                jiCommon.map.drawControlMode("draw_point",symbol.options._constraint)
             }
         }
     }
@@ -872,4 +875,72 @@ milSymbolLoader.getCS = function(sidc){
     else if(first === 'O') return 'O*--------*****'
     else if(first === 'E') return 'E--------------'
     else return 'S*Z*------*****'
+}
+
+milSymbolLoader.getMilsymbolOptions = function() {
+    if ( bChangeID ) { // 20200305 부호 변경 시 기존 수식정보 모두 초기화. 초기화가 되지 않을 경우 변경하지 않아야 할 정보도 자동으로 변경되어 버림.
+        // A:기본부호지정, B:부대단위, C:장비수량, D:기동부대식별,
+        // F:부대증감, G:군 및 국가 구분, H:추가사항, H1:추가사항, H2:추가사항,
+        // J:평가등급, K:전투효과, L:신호정보장비, M:상급부대, N:적군표시,
+        // P:피아식별모드/코드, Q:이동방향, R:이동수단, R2:신호정보 장비 이동성,
+        // S:지휘소표시/실제위치표시, T:고유명칭, T1:고유명칭1, V:장비명, W:활동시각, W1:활동시각1,
+        // X:고도/심도, X1:고도/심도1, XN:고도/심도[], Y:위치, Z:속도, AA:지휘통제소, AB:가장/가상식별부호,
+        // AD:기반형태, AE:장비분해시간, AF:공통명칭, AG:보조장비 식별부호,
+        // AH:불확정영역, AI:선위의 추측선, AJ:속도선, AM:거리(미터), AN:각도(도)
+        var propNm = ['B', 'C', 'D', 'F', 'G', 'H', 'H1', 'H2', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'R2', 'S', 'T', 'T1', 'V', 'W', 'W1', 'X', 'X1', 'XN', 'Y', 'Z', 'AA', 'AB', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AM', 'AN'];
+        for (var j = 0; j < propNm.length; j++) {
+            if (propNm[j] === 'B') {
+                $('#SIDCSYMBOLMODIFIER12').find("option:eq(0)").prop("selected", true);
+            }else if (propNm[j] === 'J' || propNm[j] === 'R' || propNm[j] === 'R2' || propNm[j] === 'AD' || propNm[j] === 'AG') {
+                if ($('#'+propNm[j]) !== undefined) {
+                    $('#'+propNm[j]).find("option:eq(0)").prop("selected", true);
+                }
+            }else{
+                if ( propNm[j] !== '' && $('#'+propNm[j]) !== undefined) {
+                    $('#'+propNm[j]).val("");
+                }
+            }
+        }
+    }
+    var options = {
+        colorMode: document.getElementById("ColorMode").value,
+        monoColor1: jQuery("input:checkbox[id='MonoColorChk']").is(":checked") ? jQuery('#MonoColor1').val() : '',
+        hqStafLength: document.getElementById("hqStafLength").value,
+        infoColor: document.getElementById("InfoColor").value,
+        infoSize: document.getElementById("infoSize").value,
+        frame:  document.getElementById("Frame").checked,
+        fill: document.getElementById("Fill").checked,
+        fillPercent: document.getElementById("FillPercent").value,
+        fillOpacity: document.getElementById("FillOpacity").value,
+        icon: document.getElementById("DisplayIcon").checked,
+        civilianColor: document.getElementById("CivilianColors").checked,
+        infoFields: document.getElementById("infoFields").checked,
+        outlineColor: document.getElementById("outlineColor").value,
+        outlineWidth: document.getElementById("outlineWidth").value,
+        size: document.getElementById("Size").value,
+        strokeWidth: document.getElementById("StrokeWidth").value,
+        sidcsymbolModifier12: document.getElementById("SIDCSYMBOLMODIFIER12").value,
+        quantity: document.getElementById("C").value,
+        reinforcedReduced: document.getElementById("F").value,
+        staffComments: document.getElementById("G").value,
+        additionalInformation: document.getElementById("H").value,
+        evaluationRating: document.getElementById("J").value,
+        combatEffectiveness: document.getElementById("K").value,
+        signatureEquipment: document.getElementById("L").value,
+        higherFormation: document.getElementById("M").value,
+        hostile: document.getElementById("N").value,
+        iffSif: document.getElementById("P").value,
+        direction: document.getElementById("Q").value,
+        R: document.getElementById("R").value,
+        uniqueDesignation: document.getElementById("T").value,
+        type: document.getElementById("V").value,
+        dtg: document.getElementById("W").value,
+        altitudeDepth: document.getElementById("X").value,
+        location: document.getElementById("Y").value,
+        speed: document.getElementById("Z").value,
+        specialHeadquarters: document.getElementById("AA").value,
+        AG: document.getElementById("AG").value,
+    }
+    options.SIDC = buildSymbolID(function_sidc, options);
+    return options
 }

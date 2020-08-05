@@ -170,20 +170,20 @@ JimapCesium.prototype = {
         var values = [0.0, 0.012, 0.12, 0.18, 0.25, 0.31, 0.37, 0.43, 0.5, 0.56, 0.62, 0.68, 0.75, 0.80, 0.83, 1];
 
         var grd = ctx.createLinearGradient(0, 0, 100, 0);
-        grd.addColorStop(values[0], '#000075'); //Navy
-        grd.addColorStop(values[1], '#f032e6'); //Magenta
+        grd.addColorStop(values[0], 'rgb(143, 171, 201)'); //Navy
+        grd.addColorStop(values[1], 'rgb(142, 169, 202)'); //Magenta
         grd.addColorStop(values[2], '#911eb4'); //Purple
         grd.addColorStop(values[3], '#4363d8'); //Blue
         grd.addColorStop(values[4], '#42d4f4'); //Cyan
-        grd.addColorStop(values[5], '#3cb44b'); //Green
+        grd.addColorStop(values[5], 'rgb(142, 169, 202)'); //Green
         grd.addColorStop(values[6], '#bfef45'); //Lime
         grd.addColorStop(values[7], '#a9a9a9'); //Grey
-        grd.addColorStop(values[8], '#ffe119'); //Yellow
+        grd.addColorStop(values[8], 'rgb(142, 169, 202)'); //Yellow
         grd.addColorStop(values[9], '#f58231'); //Orange
-        grd.addColorStop(values[10], '#e6194B'); //Red
+        grd.addColorStop(values[10], 'rgb(142, 169, 202)'); //Red
         grd.addColorStop(values[11], '#800000'); //Maroon
         grd.addColorStop(values[12], '#9A6324'); //Brown
-        grd.addColorStop(values[13], '#808000'); //OliveF
+        grd.addColorStop(values[13], 'rgb(142, 169, 202)'); //OliveF
         grd.addColorStop(values[14], '#27AA00'); //Dark Green
         grd.addColorStop(values[15], '#a9a9a900'); //Transparent
 

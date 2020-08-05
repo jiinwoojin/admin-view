@@ -18,9 +18,10 @@ var JimapMapbox = function JimapMapbox(options) {
             jiCommon.map.setWheelZoomRate(1);
 
             milSymbolLoader.init({
-                map : evt.target,
-                function() {
-
+                map : evt.target
+            }, function() {
+                if (options.initFn) {
+                    options.initFn();
                 }
             });
         });

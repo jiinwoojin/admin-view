@@ -345,7 +345,7 @@ JimapOverlayGeometry.Rectangle = function Rectangle(x1, y1, x2, y2, isScreen = f
         throw new Error('new 로 생성해야 합니다.');
     }
 
-    this.type = 'Rectangle';
+    this.type = jiConstant.GEOMETRY_TYPE.POLYGON;
     this.x1 = x1;           // 화면좌표 start point x
     this.y1 = y1;           // 화면좌표 start point y
     this.x2 = x2;           // 화면좌표 end point x
@@ -450,7 +450,7 @@ JimapOverlayGeometry.Triangle = function Triangle(x1, y1, x2, y2, isScreen = fal
         throw new Error('new 로 생성해야 합니다.');
     }
 
-    this.type = 'Triangle';
+    this.type = jiConstant.GEOMETRY_TYPE.POLYGON;
     this.startX = x1;
     this.startY = y1;
     this.x2 = x2;
