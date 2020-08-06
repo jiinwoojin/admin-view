@@ -9,9 +9,9 @@
   "H": { "CODE_NAME":"Hostile", "CODE_KOR_NAME":"적군"},
   "G": { "CODE_NAME":"Exercise Pending", "CODE_KOR_NAME":"식별보류(훈련)"},
   "W": { "CODE_NAME":"Exercise Unknown", "CODE_KOR_NAME":"미식별(훈련)"},
-  "D": { "CODE_NAME":"Exercise Friend", "CODE_KOR_NAME":"아군간주(훈련)"},
-  "L": { "CODE_NAME":"Exercise Neutral", "CODE_KOR_NAME":"아군(훈련)"},
-  "M": { "CODE_NAME":"Exercise Assumed Friend", "CODE_KOR_NAME":"중립(훈련)"},
+  "M": { "CODE_NAME":"Exercise Friend", "CODE_KOR_NAME":"아군간주(훈련)"},
+  "D": { "CODE_NAME":"Exercise Neutral", "CODE_KOR_NAME":"아군(훈련)"},
+  "L": { "CODE_NAME":"Exercise Assumed Friend", "CODE_KOR_NAME":"중립(훈련)"},
   "J": { "CODE_NAME":"Joker", "CODE_KOR_NAME":"의심적(훈련)"},
   "K": { "CODE_NAME":"Faker", "CODE_KOR_NAME":"가상적(훈련)"}
 }

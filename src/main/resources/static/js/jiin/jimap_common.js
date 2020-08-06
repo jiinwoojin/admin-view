@@ -237,19 +237,6 @@ var jiCommon = {
             return jiCommon.map.project(point);
         },
         /**
-         * EPSG:4326 -> EPSG:3857
-         * @param lon
-         * @param lat
-         * @returns {[number, number]}
-         */
-        degreesToMeters : function degreesToMeters(lon, lat) {
-            var x = lon * 20037508.34 / 180;
-            var y = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
-            y = y * 20037508.34 / 180;
-
-            return [x, y]
-        },
-        /**
          * Gars -> 경위도
          * @param gars - '608LS47'
          * var lonLat = jiCommon.convert.garsToLonLat('608LS47');
@@ -267,21 +254,6 @@ var jiCommon = {
          */
         pixelToLonLat : function pixelToLonLat(point) {
             return jiCommon.map.unproject(point);
-        },
-        /**
-         * EPSG:3857 -> EPSG:4326
-         * @param x
-         * @param y
-         * @returns {{lon: number, lat: number}}
-         */
-        metersToDegrees : function metersToDegrees(x, y) {
-            var lon = x * 180 / 20037508.34;
-            var lat = Math.atan(Math.exp(y * Math.PI / 20037508.34)) * 360 / Math.PI - 90;
-
-            return {
-                'lon' : lon,
-                'lat' : lat
-            }
         },
         /**
          * Gars -> 경위도 polygon
@@ -333,6 +305,20 @@ var jiCommon = {
          */
         wgs84ToMercator : function wgs84ToMercator(lon, lat) {
             return turf.toMercator(turf.point([lon, lat])).geometry.coordinates;
+        },
+        /**
+         * EPSG:3857 -> EPSG:4326
+         * @param x
+         * @param y
+         * @returns {{lon: *, lat: *}}
+         */
+        mercatorToWgs84 : function mercatorToWgs84(x, y) {
+            var _converted = turf.toWgs84(turf.point([x, y]));
+
+            return {
+                'lon' : _converted.geometry.coordinate[0],
+                'lat' : _converted.geometry.coordinate[1]
+            }
         }
     },
     calculation : {
