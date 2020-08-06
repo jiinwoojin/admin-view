@@ -249,7 +249,7 @@ JimapOverlayGeometry.Line = function Line(x1, y1, x2, y2, isScreen = false) {
         throw new Error('new 로 생성해야 합니다.');
     }
 
-    this.type = 'Line';
+    this.type = jiConstant.GEOMETRY_TYPE.LINESTRING;
     this.x1 = x1;           // 화면좌표 start point x
     this.y1 = y1;           // 화면좌표 start point y
     this.x2 = x2;           // 화면좌표 end point x
@@ -459,6 +459,10 @@ JimapOverlayGeometry.Triangle = function Triangle(x1, y1, x2, y2, isScreen = fal
     this.sPoint = '';
     this.wPoint = '';
     this.cPoint = '';
+    this.nGeoPoint = '';        // geometry n point
+    this.sGeoPoint = '';        // geometry s point
+    this.wGeoPoint = '';        // geometry w point
+    this.cGeoPoint = '';        // geometry c point
     this.isScreen = isScreen;
 }
 

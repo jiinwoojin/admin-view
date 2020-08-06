@@ -254,37 +254,32 @@ JimapOverlay.prototype.createSvg = function createSvg() {
 
 JimapOverlay.prototype.updateObject = function updateObject() {
     var _id = jiCommon.overlay.object.id;
+    var _feature = jiCommon.overlay.object.feature;
 
-    switch (jiCommon.overlay._drawMode) {
-        case jiConstant.OVERLAY_DRAW_MODE.LINE.CD :
-            if (!jiCommon.overlay._lines.containsKey(_id)) {
-                jiCommon.overlay._lines.put(_id, jiCommon.overlay.object);
-            }
-            break;
-        case jiConstant.OVERLAY_DRAW_MODE.RECTANGLE.CD :
-            if (!jiCommon.overlay._rectangles.containsKey(_id)) {
-                jiCommon.overlay._rectangles.put(_id, jiCommon.overlay.object);
-            }
-            break;
-        case jiConstant.OVERLAY_DRAW_MODE.TRIANGLE.CD :
-            if (!jiCommon.overlay._triangles.containsKey(_id)) {
-                jiCommon.overlay._triangles.put(_id, jiCommon.overlay.object);
-            }
-            break;
+    if (_feature instanceof JimapOverlayGeometry.Line) {
+        if (!jiCommon.overlay._lines.containsKey(_id)) {
+            jiCommon.overlay._lines.put(_id, jiCommon.overlay.object);
+        }
+    } else if (_feature instanceof JimapOverlayGeometry.Rectangle) {
+        if (!jiCommon.overlay._rectangles.containsKey(_id)) {
+            jiCommon.overlay._rectangles.put(_id, jiCommon.overlay.object);
+        }
+    } else if (_feature instanceof JimapOverlayGeometry.Triangle) {
+        if (!jiCommon.overlay._triangles.containsKey(_id)) {
+            jiCommon.overlay._triangles.put(_id, jiCommon.overlay.object);
+        }
     }
 }
 
 JimapOverlay.prototype.individualUpdate = function individualUpdate() {
-    switch (jiCommon.overlay._drawMode) {
-        case jiConstant.OVERLAY_DRAW_MODE.LINE.CD :
-            jiCommon.overlay.updateLine();
-            break;
-        case jiConstant.OVERLAY_DRAW_MODE.RECTANGLE.CD :
-            jiCommon.overlay.updateRectangle();
-            break;
-        case jiConstant.OVERLAY_DRAW_MODE.TRIANGLE.CD :
-            jiCommon.overlay.updateTriangle();
-            break;
+    var _feature = jiCommon.overlay.object.feature;
+
+    if (_feature instanceof JimapOverlayGeometry.Line) {
+        jiCommon.overlay.updateLine();
+    } else if (_feature instanceof JimapOverlayGeometry.Rectangle) {
+        jiCommon.overlay.updateRectangle();
+    } else if (_feature instanceof JimapOverlayGeometry.Triangle) {
+        jiCommon.overlay.updateTriangle();
     }
 
     jiCommon.overlay.updateSelector();
