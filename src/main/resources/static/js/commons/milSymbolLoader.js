@@ -78,6 +78,7 @@ milSymbolLoader.redeclareBasegeometry = function(){
                         var background = Object.assign({}, draw);
                         var fillcolor = Object.assign({}, draw);
                         var boundry = Object.assign({}, draw);
+                        boundry.fill = "rgba(0,0,0,0)"
                         boundry.fillopacity = 0
                         var path = fillcolor.d
                         var xmin = 99999
