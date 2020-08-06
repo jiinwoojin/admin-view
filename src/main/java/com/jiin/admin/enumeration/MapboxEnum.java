@@ -1,7 +1,7 @@
 package com.jiin.admin.enumeration;
 
 // Mapnik 관련 Enumeration (SYMBOL 관리)
-public enum MapnikEnum {
+public enum MapboxEnum {
     // SYMBOL 데이터 관리
     SYMBOL_FILE_PATH("/html"),
 
@@ -19,7 +19,7 @@ public enum MapnikEnum {
         return value;
     }
 
-    MapnikEnum (String value) {
+    MapboxEnum(String value) {
         this.value = value;
     }
 }

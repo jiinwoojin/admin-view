@@ -244,6 +244,7 @@ function onchange_refresh_sync(dom){
         var split = val.split('|');
         var ip = split[2];
 
+        console.log('#' + zone + '_SYNC_PILL1');
         $('#' + zone + '_SYNC_PILL1').tab('show');
 
         ajax_request_sync(ip, 11110, zone);

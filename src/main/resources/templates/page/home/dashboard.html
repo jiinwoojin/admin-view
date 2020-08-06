@@ -124,10 +124,7 @@
                                 <span th:id="${ zone + '_serverStatus' }" class="text-danger">
                                     <i class="fas fa-exclamation-triangle"></i>
                                 </span>
-                                <a th:href="@{/view/server/service-manage}" title="자세히">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                                <a th:id="${ zone + '_refresh_server' }" onclick="onchange_refresh_server(this)" th:href="${ '#' + zone + '_SERVER_TAB1' }">
+                                <a th:id="${ zone + '_refresh_server' }" onclick="onchange_refresh_server(this)" th:href="${ '#' + zone + '_SERVER_TAB1' }" data-toggle="tooltip" data-placement="top" title="새로고침">
                                     <i class="fas fa-sync"></i>
                                 </a>
                             </div>
@@ -267,10 +264,7 @@
                                 <span th:id="${ zone + '_syncStatus' }" class="text-danger">
                                     <i class="fas fa-exclamation-triangle"></i>
                                 </span>
-                                <a href="#" title="자세히">
-                                    <i class="fas fa-search"></i>
-                                </a>
-                                <a title="새로고침" th:id="${ zone + '_refresh_sync' }" onclick="onchange_refresh_sync(this)">
+                                <a th:id="${ zone + '_refresh_sync' }" onclick="onchange_refresh_sync(this)" data-toggle="tooltip" data-placement="top" title="새로고침">
                                     <i class="fas fa-sync"></i>
                                 </a>
                             </div>
@@ -279,8 +273,8 @@
                     <div class="ibox-content">
                         <div class="tabs-container" style="min-height : 210px;">
                             <ul class="nav nav-tabs" th:id="${ zone + '_SYNC_TAB' }" role="tablist">
-                                <li><a class="nav-link active" data-toggle="tab" th:id="${ '#' + zone + '_SYNC_PILL1' }" th:href="${ '#' + zone + '_SYNC_TAB1' }">동기화 상태</a></li>
-                                <li><a class="nav-link" data-toggle="tab" th:id="${ '#' + zone + '_SYNC_PILL2' }" th:href="${ '#' + zone + '_SYNC_TAB2' }">최근 진행</a></li>
+                                <li><a class="nav-link active" data-toggle="tab" th:id="${ zone + '_SYNC_PILL1' }" th:href="${ '#' + zone + '_SYNC_TAB1' }">동기화 상태</a></li>
+                                <li><a class="nav-link" data-toggle="tab" th:id="${ zone + '_SYNC_PILL2' }" th:href="${ '#' + zone + '_SYNC_TAB2' }">최근 진행</a></li>
                             </ul>
                             <div class="tab-content" th:id="${ zone + '_SYNC_TAB_CONTENT' }">
                                 <div role="tabpanel" th:id="${ zone + '_SYNC_TAB1' }" class="tab-pane active fade show">

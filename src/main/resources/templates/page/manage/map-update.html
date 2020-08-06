@@ -151,13 +151,14 @@
     </form>
 
     <div id="layer-list">
-        <h3 class="section-tit">선택된 레이어 목록</h3>
+        <h3 class="section-tit">선택된 LAYER 목록</h3>
+        <p><span class="text-info">(*)</span> : 우측 빨간 X 버튼을 클릭하면, 레이어 선택이 해제 됩니다.</p>
         <div class="text-right mb-1">
             <button data-toggle="modal" data-target="#layer-add" class="btn btn-sm btn-success mr-1">
-                <i class="fas fa-plus"></i>
+                <i class="fas fa-plus" data-toggle="tooltip" title="LAYER 추가"></i>
             </button>
-            <button class="btn btn-sm btn-danger mr-1" onclick="onclick_released_all_layers()">
-                <i class="fas fa-trash-alt"></i>
+            <button class="btn btn-sm btn-danger mr-1" onclick="onclick_released_all_layers()" data-toggle="tooltip" title="LAYER 모두 해제">
+                <i class="fas fa-eraser"></i>
             </button>
         </div>
         <table class="table basic text-center" id="layer_list">
@@ -170,7 +171,7 @@
                 <th>투영</th>
                 <th>설명</th>
                 <th>버전</th>
-                <th>삭제</th>
+                <th>해제</th>
             </tr>
             </thead>
             <tbody id="layer-body">
@@ -181,7 +182,7 @@
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="add-layer">레이어 추가</h5>
+                        <h5 class="modal-title" id="add-layer">LAYER 생성</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -230,7 +231,7 @@
                                     <i class="fas fa-times"></i> 취소
                                 </button>
                                 <button id="layer_add_btn" type="button" class="btn btn-success" onclick="addLayer();">
-                                    <i class="fas fa-plus"></i> 추가
+                                    <i class="fas fa-plus"></i> 생성
                                 </button>
                             </div>
                         </div>
@@ -328,7 +329,7 @@
             }
 
             if (Object.keys(drawLayer).length === 0) {
-                toastr.warning('레이어를 추가하지 않았습니다.');
+                toastr.warning('LAYER 를 생성하지 않았습니다.');
                 return;
             } else {
                 setLayer();
@@ -483,8 +484,8 @@
 
             var deleteSpan = document.createElement('button');
             deleteSpan.type = 'button';
-            deleteSpan.className = 'btn btn-danger';
-            deleteSpan.innerHTML = '<i class="fas fa-trash"></i>';
+            deleteSpan.className = 'btn btn-sm btn-danger btn-circle';
+            deleteSpan.innerHTML = '<i class="fas fa-times"></i>';
             deleteTd.appendChild(deleteSpan);
 
             tr.appendChild(deleteTd);
@@ -563,7 +564,7 @@
         }
 
         function onclick_released_all_layers(){
-            if (confirm('현재까지 선택한 모든 레이어들을 해제합니다. 계속 하시겠습니까?')) {
+            if (confirm('현재까지 선택한 모든 LAYER 들을 해제합니다. 계속 하시겠습니까?')) {
                 $('td[id^=layer-released-]').each(function () {
                     $(this).click();
                 });
@@ -591,11 +592,13 @@
 <th:block layout:fragment="custom-html-link">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/rowReorder.bootstrap4.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/jquery.dataTables.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.rowReorder.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
 </th:block>
 </html>

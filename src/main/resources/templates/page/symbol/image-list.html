@@ -35,14 +35,14 @@
                             <div class="input-group">
                                 <input placeholder="검색어를 입력하세요." id="st" name="st" type="text" th:value="${param.st}" class="form-control form-control-sm" />
                                 <span class="input-group-append">
-                                    <button type="submit" class="btn btn-sm btn-primary" title="검색">
+                                    <button type="submit" class="btn btn-sm btn-primary" data-toggle="tooltip" title="검색">
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </span>
-                                <button type="button" class="btn btn-sm btn-white m-l-xs searchMore" title="상세검색">
+                                <button type="button" class="btn btn-sm btn-white m-l-xs searchMore" data-toggle="tooltip" title="상세 검색">
                                     <i class="fas fa-angle-down"></i>
                                 </button>
-                                <button type="button" class="btn btn-sm btn-warning m-l-xs" onclick="onclick_refresh_search()">
+                                <button type="button" class="btn btn-sm btn-warning m-l-xs" onclick="onclick_refresh_search()" data-toggle="tooltip" title="초기화">
                                     <i class="fas fa-sync"></i>
                                 </button>
                             </div>
@@ -117,9 +117,9 @@
             <h3 class="session_tit">검색 결과 : 총 <span th:text="${ resMap.count }" id="total"></span> 건</h3>
 
             <div id="map_config_button">
-                <!-- SYMBOL 추가 버튼 -->
+                <!-- SYMBOL 생성 버튼 -->
                 <a th:href="@{'/view/symbol/image-create?' + ${qs}}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                    <i class="fas fa-plus fa-sm text-white-50"></i> SYMBOL 그룹 추가
+                    <i class="fas fa-plus fa-sm text-white-50"></i> SYMBOL 그룹 생성
                 </a>
             </div>
         </div>
@@ -147,13 +147,13 @@
                 <td class="text-center align-middle">
                     <a class="btn btn-sm btn-circle btn-info mx-1"
                        th:href="@{'/view/symbol/image-update?imgId=' + ${image.id} + '&' + ${qs} + '&pstPg=1&pstSz=8'}"
-                       title="수정"
+                       data-toggle="tooltip" title="수정"
                     >
                         <i class="fas fa-cog"></i>
                     </a>
                     <a class="btn btn-sm btn-circle btn-danger mx-1"
                        th:href="@{'/view/symbol/image-delete?id=' + ${image.id} + '&name=' + ${image.name}}"
-                       title="삭제"
+                       data-toggle="tooltip" title="삭제"
                        th:onclick="return confirm('SYMBOL 그룹 데이터 [[${image.name}]] 을 삭제합니다. 계속 진행 하시겠습니까?')"
                     >
                         <i class="fas fa-trash text-white"></i>
@@ -243,12 +243,12 @@
 <th:block layout:fragment="custom-html-link">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/datapicker/datepicker3.css}">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/daterangepicker/daterangepicker-bs3.css}">
-    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dropzone/dropzone.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/daterangepicker/daterangepicker.js}"></script>
-    <script th:src="@{/design-park/resource/library/js/plugins/dropzone/dropzone.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
 </th:block>
 </html>

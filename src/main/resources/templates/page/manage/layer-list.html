@@ -35,14 +35,14 @@
                             <div class="input-group">
                                 <input placeholder="검색어를 입력하세요." id="st" name="st" type="text" th:value="${param.st}" class="form-control form-control-sm" />
                                 <span class="input-group-append">
-                                    <button type="submit" class="btn btn-sm btn-primary" title="검색">
+                                    <button type="submit" class="btn btn-sm btn-primary" data-toggle="tooltip" title="검색">
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </span>
-                                <button type="button" class="btn btn-sm btn-white m-l-xs searchMore" title="상세검색">
+                                <button type="button" class="btn btn-sm btn-white m-l-xs searchMore" data-toggle="tooltip" title="상세 검색">
                                     <i class="fas fa-angle-down"></i>
                                 </button>
-                                <button type="button" class="btn btn-sm btn-warning m-l-xs" onclick="onclick_refresh_search()">
+                                <button type="button" class="btn btn-sm btn-warning m-l-xs" onclick="onclick_refresh_search()" data-toggle="tooltip" title="초기화">
                                     <i class="fas fa-sync"></i>
                                 </button>
                             </div>
@@ -138,9 +138,9 @@
             <h3 class="session_tit">검색 결과 : 총 <span th:text="${ resMap.count }" id="total"></span> 건</h3>
 
             <div id="map_config_button">
-                <!-- LAYER 추가 버튼 -->
+                <!-- LAYER 생성 버튼 -->
                 <button data-toggle="modal" data-target="#layer-create-modal" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                    <i class="fas fa-plus fa-sm text-white-50"></i> LAYER 추가
+                    <i class="fas fa-plus fa-sm text-white-50"></i> LAYER 생성
                 </button>
 
                 <!-- LAYER EXCEL 업로드 버튼 -->
@@ -176,7 +176,7 @@
                     <td class="text-center align-middle" th:text="${ layer.version == null ? 'NONE' : layer.version }"></td>
                     <td class="text-center align-middle">
                         <block th:remove="tag" th:if="${ layer.isDefault() }">
-                            <a class="btn btn-sm btn-circle btn-secondary" href="#" data-toggle="tooltip" data-placement="top" title="수정 및 삭제 불가.">
+                            <a class="btn btn-sm btn-circle btn-secondary" href="#" data-toggle="tooltip" title="수정 및 삭제 불가.">
                                 <i class="fas fa-map-pin text-white"></i>
                             </a>
                         </block>
@@ -190,11 +190,14 @@
                                th:data-middlefolder="${ layer.middleFolder }"
                                th:data-layertype="${ layer.type }"
                                th:data-filepath="${ layer.dataFilePath }"
-                               title="수정"
                             >
-                                <i class="fas fa-cog"></i>
+                                <i class="fas fa-cog" data-toggle="tooltip" title="수정"></i>
                             </a>
-                            <a class="btn btn-sm btn-circle btn-danger mx-1" th:onclick="delLayer(this,[[${layer.name}]],[[${layer.id}]])" title="삭제">
+                            <a class="btn btn-sm btn-circle btn-danger mx-1"
+                               th:onclick="delLayer(this,[[${layer.name}]],[[${layer.id}]])"
+                               data-toggle="tooltip"
+                               title="삭제"
+                            >
                                 <i class="fas fa-trash text-white"></i>
                             </a>
                         </block>
@@ -219,13 +222,13 @@
 
     </div>
 
-    <!-- LAYER 추가 Modal -->
+    <!-- LAYER 생성 Modal -->
     <div class="modal fade" id="layer-create-modal" tabindex="-1" role="dialog" aria-labelledby="insert-layer" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <form id="layer-create" accept-charset="utf-8" onsubmit="return preSubmit(this);" enctype="multipart/form-data">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="insert-layer">LAYER 추가</h5>
+                        <h5 class="modal-title" id="insert-layer">LAYER 생성</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -510,7 +513,7 @@
                     progressBar.progressbar( "value", percentComplete );
                 },
                 success: function(text, status, xhr, element) {
-                    sessionStorage.setItem('message', `LAYER [${ document.getElementById('layer-name').value }] 추가 ${ (status === 'success') ? '성공' : '실패' } 하였습니다.`);
+                    sessionStorage.setItem('message', `LAYER [${ document.getElementById('layer-name').value }] 생성 ${ (status === 'success') ? '성공' : '실패' } 하였습니다.`);
                     window.location.href = CONTEXT + '/view/manage/layer-list' + window.location.search;
                 }
             });

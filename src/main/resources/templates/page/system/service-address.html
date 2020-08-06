@@ -27,7 +27,7 @@
                 <h3 class="section-tit my-2">서버 주소 선택</h3>
                 <div class="text-right mb-2">
                     <button type="button" class="btn btn-primary" onclick="onclick_initialize_button('INSERT')">
-                        <i class="fas fa-plus"></i> 서버 추가
+                        <i class="fas fa-plus"></i> 서버 생성
                     </button>
                 </div>
 
@@ -266,7 +266,7 @@
             function onclick_initialize_button(type){
                 $('#svr-method').val((type === 'cancel') ? 'NONE' : 'INSERT');
 
-                document.getElementById('remote-method').innerText = (type === 'cancel') ? '' : '- 추가';
+                document.getElementById('remote-method').innerText = (type === 'cancel') ? '' : '- 생성';
                 document.getElementById('cancel-btn-remote').disabled = (type === 'cancel');
                 document.getElementById('save-btn-remote').disabled = (type === 'cancel');
 
@@ -333,7 +333,7 @@
                 } else return false;
             }
 
-            // REMOTE 추가 이중화 (로컬 저장 이후, 상대편에게 로컬 정보 제공. 같은 센터 데이터를 추가하면 단일 연결만 되게끔 해결.)
+            // REMOTE 생성 이중화 (로컬 저장 이후, 상대편에게 로컬 정보 제공. 같은 센터 데이터를 생성하면 단일 연결만 되게끔 해결.)
             function create_duplex_rest(){
                 var count = 0;
                 var errorKeys = '';
@@ -369,7 +369,7 @@
                     }
                 }));
 
-                sessionStorage.setItem('duplex', `${localMain.key} 서버와 연관된 ${neighbors.length} 개 서버 추가 이중화 작업 중 ${count} 개 성공. \r\n 실패 서버 목록 : ${errorKeys}`);
+                sessionStorage.setItem('duplex', `${localMain.key} 서버와 연관된 ${neighbors.length} 개 서버 생성 이중화 작업 중 ${count} 개 성공. \r\n 실패 서버 목록 : ${errorKeys}`);
             }
 
             // REMOTE 수정 이중화 (목록 호출 이후, 같은 센터 (zone, kind) 에 있는 수정된 데이터를 제공한다.)

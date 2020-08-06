@@ -24,21 +24,37 @@
                 <div id="military-position" class="form-inline">
                     <div class="btn-group mr-2">
                         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#layer_modal" data-backdrop="false">
-                            <i class="fas fa-layer-group"></i>
+                            <i class="fas fa-layer-group" data-toggle="tooltip" data-placement="top" title="레이어 설정"></i>
                         </button>
+
                         <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#background_modal" data-backdrop="false">
-                            <i class="fas fa-images"></i>
+                            <i class="fas fa-images" data-toggle="tooltip" data-placement="top" title="배경 레이어 설정"></i>
                         </button>
+
                         <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#shape_modal" data-backdrop="false">
-                            <i class="fas fa-vector-square"></i>
+                            <i class="fas fa-vector-square" data-toggle="tooltip" data-placement="top" title="투명도 생성"></i>
                         </button>
+
+                        <button type="button" class="btn btn-sm btn-info" id="extension_graph_btn" data-status="inactive">
+                            <i class="fas fa-chart-pie" data-toggle="tooltip" data-placement="top" title="그래프 도시"></i>
+                        </button>
+
                         <button type="button" class="btn btn-sm btn-info" id="click_coord_btn">
-                            <i class="fas fa-fighter-jet"></i>
+                            <i class="fas fa-fighter-jet" data-toggle="tooltip" data-placement="top" title="군대부호 생성"></i>
                         </button>
                         <!-- 이지훈 LOS 버튼 -->
                         <button type="button" class="btn btn-sm btn-success mr-2" id="btn_los" data-toggle="modal" data-target="#los_modal" data-backdrop="false">
                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spn_los_spinner" style="display: none;"></span>
-                            <i class="fas fa-eye"></i> LOS
+                            <i class="fas fa-eye" data-toggle="tooltip" data-placement="top" title="LOS 도시"></i>
+                        </button>
+                    </div>
+
+                    <div id="display-2d-engines" class="btn-group mr-2">
+                        <button type="button" id="engine-ol" class="btn btn-sm btn-secondary engine-item">
+                            <i class="fas fa-cog"></i> Openlayers
+                        </button>
+                        <button type="button" id="engine-mapbox" class="btn btn-sm btn-primary engine-item">
+                            <i class="fas fa-cog"></i> Mapbox
                         </button>
                     </div>
 
@@ -64,17 +80,11 @@
 
             <div id="tab_btn">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-sm btn-info map-item" id="display-display2d">
+                    <button type="button" class="btn btn-sm btn-info map-item" id="display-display2d" data-toggle="tooltip" data-placement="top" title="2차원 도시">
                         <i class="fas fa-square text-center"></i>
                     </button>
-                    <button type="button" class="btn btn-sm btn-secondary map-item" id="display-display3d">
+                    <button type="button" class="btn btn-sm btn-secondary map-item" id="display-display3d" data-toggle="tooltip" data-placement="top" title="3차원 도시">
                         <i class="fas fa-cube text-center"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-secondary map-item" id="display-ol">
-                        <i class="fas fa-map text-center"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-secondary map-item" id="display-ol-ext">
-                        <i class="fas fa-chart-bar text-center"></i>
                     </button>
                 </div>
             </div>
@@ -90,27 +100,27 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">레이어 목록</h4>
+                    <h4 class="modal-title">LAYER 목록</h4>
                 </div>
                 <div class="modal-body">
                     <div class="pt-1 pb-1">
                         <table id="list_table" class="table table-sm basic w-100">
                             <thead class="table-info">
                             <tr>
-                                <th scope="col" class="text-center text-nowrap">레이어 순서</th>
-                                <th scope="col" class="text-center text-nowrap">레이어 이름</th>
-                                <th scope="col" class="text-center text-nowrap">레이어 타입</th>
-                                <th scope="col" class="text-center text-nowrap">레이어 보임</th>
-                                <th scope="col" class="text-center text-nowrap">레이어 투명도</th>
-                                <th scope="col" class="text-center text-nowrap">레이어 순서</th>
-                                <th scope="col" class="text-center text-nowrap">레이어 축적</th>
+                                <th scope="col" class="text-center text-nowrap">LAYER 순서</th>
+                                <th scope="col" class="text-center text-nowrap">LAYER 이름</th>
+                                <th scope="col" class="text-center text-nowrap">LAYER 타입</th>
+                                <th scope="col" class="text-center text-nowrap">LAYER 보임</th>
+                                <th scope="col" class="text-center text-nowrap">LAYER 투명도</th>
+                                <th scope="col" class="text-center text-nowrap">LAYER 순서</th>
+                                <th scope="col" class="text-center text-nowrap">LAYER 축적</th>
                             </tr>
                         </table>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-success hidden" data-dismiss="modal">
-                        <i class="fas fa-server"></i> 레이어 상태 서버저장
+                        <i class="fas fa-server"></i> LAYER 상태 서버저장
                     </button>
                     <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">
                         <i class="fas fa-times"></i> 닫기
@@ -121,21 +131,21 @@
         </div>
     </div>
 
-    <!-- 배경 레이어 Modal : 상단부 LAYER 가 Vector 데이터도 포함이 되어 있어 배경 레이어로 가정하고 진행. -->
+    <!-- 배경 LAYER Modal : 상단부 LAYER 가 Vector 데이터도 포함이 되어 있어 배경 LAYER로 가정하고 진행. -->
     <div class="modal fade" id="background_modal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">배경 레이어 설정</h4>
+                    <h4 class="modal-title">배경 LAYER 설정</h4>
                 </div>
                 <div class="modal-body">
                     <div class="pt-1 pb-1">
                         <table id="list_table2" class="table table-sm basic w-100">
                             <thead class="table-info">
                             <tr>
-                                <th scope="col" class="text-center text-nowrap">레이어 이름</th>
-                                <th scope="col" class="text-center text-nowrap">레이어 제목</th>
-                                <th scope="col" class="text-center text-nowrap">레이어 교체</th>
+                                <th scope="col" class="text-center text-nowrap">LAYER 이름</th>
+                                <th scope="col" class="text-center text-nowrap">LAYER 제목</th>
+                                <th scope="col" class="text-center text-nowrap">LAYER 교체</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -167,7 +177,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">투명도 추가</h4>
+                    <h4 class="modal-title">투명도 생성</h4>
                 </div>
                 <div class="modal-body">
                     <th:block th:replace="fragments/overlay/html-overlay-main" />
@@ -311,9 +321,11 @@
 
             var display2dDiv = 'display-display2d';
             var display3dDiv = 'display-display3d';
-            var displayOlDiv = 'display-ol';
-            var displayOlExtDiv = 'display-ol-ext';
 
+            var engineMapbox = 'engine-mapbox';
+            var engineOpenlayers = 'engine-ol';
+
+            // 2차원 <-> 3차원 전환
             $('.map-item').click(function(e) {
                 if (this.id) {
                     let _id = this.id;
@@ -326,24 +338,36 @@
 
                     jiCommon.setMapExtents();
 
-                    if (_id === display2dDiv) {
-                        contentName = 'mapbox-display';
-                        $('#' + display2dDiv).addClass('btn-info');
+                    switch (_id) {
+                        case display2dDiv :
+                            contentName = 'mapbox-display';
+                            $('#' + display2dDiv).addClass('btn-info');
+                            jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_2D);
 
-                        jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_2D);
-                    } else if (_id === display3dDiv) {
-                        contentName = 'cesium-display';
-                        $('#' + display3dDiv).addClass('btn-info');
+                            $('#engine-mapbox').removeClass('btn-secondary');
+                            $('#engine-mapbox').addClass('btn-primary');
+                            $('#engine-ol').removeClass('btn-primary');
+                            $('#engine-ol').addClass('btn-secondary');
 
-                        jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_3D);
-                    } else if (_id === displayOlDiv) {
-                        contentName = 'ol-display';
-                        $('#' + displayOlDiv).addClass('btn-info');
-                        jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_2D);
-                    } else if (_id === displayOlExtDiv) {
-                        contentName = 'ol-ext-display';
-                        $('#' + displayOlExtDiv).addClass('btn-info');
-                        jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_2D);
+                            $('#display-2d-engines').css('display', 'block');
+                            $('#extension_graph_btn').css('display', 'block');
+                            break;
+
+                        case display3dDiv :
+                            contentName = 'cesium-display';
+                            $('#' + display3dDiv).addClass('btn-info');
+                            jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_3D);
+
+                            graph_extension_by_status('active');
+
+                            $('#engine-mapbox').removeClass('btn-primary');
+                            $('#engine-mapbox').addClass('btn-secondary');
+                            $('#engine-ol').removeClass('btn-primary');
+                            $('#engine-ol').addClass('btn-secondary');
+
+                            $('#display-2d-engines').css('display', 'none');
+                            $('#extension_graph_btn').css('display', 'none');
+                            break;
                     }
 
                     if (jiCommon.map !== null) {
@@ -353,19 +377,73 @@
                     getMap(contentName);
                 }
             });
+
+            // Openlayers <-> Mapbox 전환
+            $('.engine-item').click(function(e) {
+                if (this.id) {
+                    let _id = this.id;
+                    $('.engine-item').each(function(idx, dom) {
+                        $(this).removeClass('btn-primary');
+                        $(this).addClass('btn-secondary');
+                    });
+
+                    let contentName;
+
+                    jiCommon.setMapExtents();
+
+                    switch (_id) {
+                        case engineMapbox :
+                            contentName = 'mapbox-display';
+                            $('#' + engineMapbox).addClass('btn-primary');
+                            graph_extension_by_status('active');
+                            break;
+
+                        case engineOpenlayers :
+                            contentName = 'ol-display';
+                            $('#' + engineOpenlayers).addClass('btn-primary');
+                            graph_extension_by_status('active');
+                            break;
+                    }
+
+                    if (jiCommon.map !== null) {
+                        jiCommon.map = null;
+                    }
+
+                    getMap(contentName);
+                }
+            });
+
+            // ol <-> ol-ext | Mapbox <-> Mapbox GL 전환
+            $('#extension_graph_btn').click(function (e) {
+                var data = $('#extension_graph_btn').data();
+                graph_extension_by_status(data.status);
+            });
         });
 
         function getMap(content) {
             let url = CONTEXT + '/view/display/' + content;
-
             $('#mapContent').load(url);
         }
 
-        // Map Proxy 레이어 적용을 위해 우선 주석 처리.
+        function graph_extension_by_status(status) {
+            if (status === 'inactive') {
+                active_graph_extension();
+                $('#extension_graph_btn').data('status', 'active');
+                $('#extension_graph_btn').removeClass('btn-info');
+                $('#extension_graph_btn').addClass('btn-primary');
+            } else {
+                inactive_graph_extension();
+                $('#extension_graph_btn').data('status', 'inactive');
+                $('#extension_graph_btn').removeClass('btn-primary');
+                $('#extension_graph_btn').addClass('btn-info');
+            }
+        }
+
+        // Map Proxy LAYER 적용을 위해 우선 주석 처리.
         $(layerModal).on('show.bs.modal', function(e) {
             jiCommon.showLoading()
             $('#list_table').DataTable().destroy()
-            // 주석 처리 : Map Proxy 레이어로 진행하기 위함.
+            // 주석 처리 : Map Proxy LAYER로 진행하기 위함.
             var layers = stmp.mapObject.map.getStyle().layers
             var maxzoom = stmp.mapObject.map.getMaxZoom()
             var minzoom = stmp.mapObject.map.getMinZoom()
@@ -494,7 +572,7 @@
                 jQuery('#list_table').DataTable().row(prevLayerIdx).data(currentItem).draw(false);
                 jQuery('#list_table').DataTable().row(currLayerIdx).data(targetItem).draw(false);
             }else{
-                toastr.warning("레이어 순서조정이 불가능합니다.")
+                toastr.warning("LAYER 순서조정이 불가능합니다.")
             }
         }
 
@@ -523,7 +601,7 @@
                 jQuery('#list_table').DataTable().row(nextLayerIdx).data(currentItem).draw(false);
                 jQuery('#list_table').DataTable().row(currLayerIdx).data(moveTargetItem).draw(false);
             }else{
-                toastr.warning("레이어 순서조정이 불가능합니다.")
+                toastr.warning("LAYER 순서조정이 불가능합니다.")
             }
         }
 
@@ -697,11 +775,12 @@
     <!-- <link rel="stylesheet" th:href="@{/css/symbol/symbol-bootstrap.css}"> -->
     <link rel="stylesheet" th:href="@{/css/symbol/symbol.css}">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/jquery.dataTables.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
-    <script th:src="@{/jquery/jquery-ui.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
 </th:block>
 </html>

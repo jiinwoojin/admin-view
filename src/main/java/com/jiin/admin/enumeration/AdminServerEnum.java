@@ -46,7 +46,9 @@ public enum AdminServerEnum {
 
     // 서버 주소 관리 기능
     SERVER_SETTING_FILE_PATH("/conf"),
-    SERVER_SETTING_FILE_NAME("server_info.yaml");
+    SERVER_SETTING_FILE_NAME("server_info.yaml"),
+    SERVER_TYPE_REMOTE("remote"),
+    SERVER_TYPE_LOCAL("local");
 
 
     private final String value;

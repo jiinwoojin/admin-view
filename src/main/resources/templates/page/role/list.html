@@ -21,7 +21,7 @@
 <th:block layout:fragment="content-body-fragment">
     <div class="text-right my-1">
         <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#roleDataInsert">
-            <i class="fas fa-plus"></i> 권한 추가
+            <i class="fas fa-plus"></i> 권한 생성
         </button>
     </div>
 
@@ -31,7 +31,7 @@
             <div class="modal-content">
                 <form id="add-role" th:action="@{/view/role/add-role}" method="post" accept-charset="utf-8" onsubmit="return preSubmit()" th:object="${roleModel}">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="insertModalCenterTitle">데이터 추가 - 권한</h5>
+                        <h5 class="modal-title" id="insertModalCenterTitle">데이터 생성 - 권한</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="onclick_close('title')">
                             <span aria-hidden="true">&times;</span>
                         </button>
