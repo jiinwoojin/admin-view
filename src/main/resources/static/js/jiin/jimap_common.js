@@ -324,6 +324,15 @@ var jiCommon = {
             }
 
             return turf.lengthToDegrees(length, {units : units});
+        },
+        /**
+         * EPSG:4326 -> EPSG:3857
+         * @param lon
+         * @param lat
+         * @returns {*}
+         */
+        wgs84ToMercator : function wgs84ToMercator(lon, lat) {
+            return turf.toMercator(turf.point([lon, lat])).geometry.coordinates;
         }
     },
     calculation : {
