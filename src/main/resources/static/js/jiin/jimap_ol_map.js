@@ -7,10 +7,15 @@ var JimapOl = function JimapOl(options) {
     }
 }
 
-/**
- * ol 초기화
- * @param options
- */
-JimapOl.prototype.init = function init(options) {
+JimapOl.prototype.constructor = JimapOl;
 
+JimapOl.prototype = {
+    /**
+     * ol 초기화
+     * @param options
+     * @private
+     */
+    _init : function _init(options) {
+
+    }
 }

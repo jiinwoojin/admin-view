@@ -330,22 +330,20 @@
                         contentName = 'mapbox-display';
                         $('#' + display2dDiv).addClass('btn-info');
 
-                        //$('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
-                        stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
+                        jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_2D);
                     } else if (_id === display3dDiv) {
                         contentName = 'cesium-display';
                         $('#' + display3dDiv).addClass('btn-info');
 
-                        //$('#btn_los').toggle();//이지훈 LOS버튼 표시/숨김
                         jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_3D);
                     } else if (_id === displayOlDiv) {
                         contentName = 'ol-display';
                         $('#' + displayOlDiv).addClass('btn-info');
-                        stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
+                        jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_2D);
                     } else if (_id === displayOlExtDiv) {
                         contentName = 'ol-ext-display';
                         $('#' + displayOlExtDiv).addClass('btn-info');
-                        stmp.PRESENT_MAP_KIND = stmp.MAP_KIND.MAP_2D;
+                        jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_2D);
                     }
 
                     if (jiCommon.map !== null) {
