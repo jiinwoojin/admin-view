@@ -96,24 +96,6 @@ public class ContainerInfoServiceImpl implements ContainerInfoService {
         return containerHistoryMapper.deleteAll() > 0;
     }
 
-    // 파기 될 수 있다... 이는 Excel 를 사용해서 작업할 계획.
-    @Override
-    public List<GeoBasicContainerInfo> loadGeoContainerInfoList() {
-        return Arrays.asList(
-            new GeoBasicContainerInfo("RabbitMQ", "3.8.5", "Mozila Public License"),
-            new GeoBasicContainerInfo("JIMap Data Manager", "-", "자체 License"),
-            new GeoBasicContainerInfo("JIMap Height", "-", "자체 License"),
-            new GeoBasicContainerInfo("Pgpool2", "4.1.0", "MIT License"),
-            new GeoBasicContainerInfo("PostgreSQL", "12.1", "The PostgreSQL License"),
-            new GeoBasicContainerInfo("Terrain Server", "vX.X.X", "Apache License 2.0"),
-            new GeoBasicContainerInfo("Mapnik", "v4.4.0", "GNU License v2.1"),
-            new GeoBasicContainerInfo("SyncThing", "v1.6.1", "MPL-License 2.0"),
-            new GeoBasicContainerInfo("MapProxy", "1.12.0-20200520", "Apache License 2.0"),
-            new GeoBasicContainerInfo("MapServer", "7.5", "자체 License"),
-            new GeoBasicContainerInfo("Tegola", "v0.10.2", "MIT License")
-        );
-    }
-
     /**
      * Docker Container 및 다른 서비스들 이름을 기반으로 데이터를 추출하기 위한 Map 을 생성한다.
      * @param

@@ -11,7 +11,6 @@ import java.util.Map;
 public interface ContainerInfoService {
     List<ContainerHistoryDTO> loadContainerHistoryList();
     boolean removeAllContainerHistoryData();
-    List<GeoBasicContainerInfo> loadGeoContainerInfoList();
     Map<String, GeoContainerInfo> loadGeoServiceMap();
     void executeGeoServiceByContainerExecuteModel(ContainerExecuteModel containerExecuteModel);
 }

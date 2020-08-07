@@ -11,23 +11,16 @@ import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.MapProxyUtil;
 import com.jiin.admin.website.util.MapServerUtil;
 import com.jiin.admin.website.util.YAMLFileUtil;
-import com.jiin.admin.website.view.mapper.AccountMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jiin.admin.mapper.data.AccountMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.sql.DataSource;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -86,47 +79,11 @@ public class BootingService {
     @Resource
     private AccountMapper accountMapper;
 
-    private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
     private String DEFAULT_DATA_NAME = "world";
 
     private String DEFAULT_MIDDLE_PATH = "NE2";
 
     private String DEFAULT_FILE_NAME = "NE2_HR_LC_SR_W_DR.tif";
-
-
-    // Spring Session 와 관련된 SQL 문단은 Dependencies 안의 SQL 문단을 참고할 것.
-    private static final String SPRING_SESSION_DDL =
-        "CREATE TABLE SPRING_SESSION ( " +
-            "PRIMARY_ID CHAR(36) NOT NULL, " +
-            "SESSION_ID CHAR(36) NOT NULL, " +
-            "CREATION_TIME BIGINT NOT NULL, " +
-            "LAST_ACCESS_TIME BIGINT NOT NULL, " +
-            "MAX_INACTIVE_INTERVAL INT NOT NULL, " +
-            "EXPIRY_TIME BIGINT NOT NULL, " +
-            "PRINCIPAL_NAME VARCHAR(100), " +
-            "CONSTRAINT SPRING_SESSION_PK PRIMARY KEY (PRIMARY_ID)" +
-        ")";
-
-    private static final String SPRING_SESSION_IX1_DDL = "CREATE UNIQUE INDEX SPRING_SESSION_IX1 ON SPRING_SESSION (SESSION_ID)";
-
-    private static final String SPRING_SESSION_IX2_DDL = "CREATE INDEX SPRING_SESSION_IX2 ON SPRING_SESSION (EXPIRY_TIME)";
-
-    private static final String SPRING_SESSION_IX3_DDL = "CREATE INDEX SPRING_SESSION_IX3 ON SPRING_SESSION (PRINCIPAL_NAME)";
-
-    private static final String SPRING_SESSION_ATTRIBUTES_DDL =
-        "CREATE TABLE SPRING_SESSION_ATTRIBUTES ( " +
-            "SESSION_PRIMARY_ID CHAR(36) NOT NULL, " +
-            "ATTRIBUTE_NAME VARCHAR(200) NOT NULL, " +
-            "ATTRIBUTE_BYTES BYTEA NOT NULL, " +
-            "CONSTRAINT SPRING_SESSION_ATTRIBUTES_PK PRIMARY KEY (SESSION_PRIMARY_ID, ATTRIBUTE_NAME), " +
-            "CONSTRAINT SPRING_SESSION_ATTRIBUTES_FK FOREIGN KEY (SESSION_PRIMARY_ID) REFERENCES SPRING_SESSION(PRIMARY_ID) ON DELETE CASCADE" +
-        ")";
 
     @Transactional
     // 지도 데이터인 NATURAL EARTH 2 TIFF 파일을 디폴트 값으로 넣어준다. (LAYER -> MAP -> CACHE)
@@ -311,31 +268,67 @@ public class BootingService {
         }
     }
 
-    public void initializeSession(){
-        DataSource dataSource = jdbcTemplate.getDataSource();
-        Connection conn = null;
-        try {
-            conn = dataSource.getConnection();
-            DatabaseMetaData metaData = conn.getMetaData();
 
-            ResultSet res = metaData.getTables("", "", "spring_session", new String[] { "TABLE" });
-            if (!res.next()) {
-                jdbcTemplate.execute(SPRING_SESSION_DDL);
-            }
+//    private JdbcTemplate jdbcTemplate;
+//
+//    @Autowired
+//    public void setDataSource(DataSource dataSource) {
+//        this.jdbcTemplate = new JdbcTemplate(dataSource);
+//    }
 
-            res = metaData.getIndexInfo("", "", "spring_session", false, false);
-            if (!res.next()) {
-                jdbcTemplate.execute(SPRING_SESSION_IX1_DDL);
-                jdbcTemplate.execute(SPRING_SESSION_IX2_DDL);
-                jdbcTemplate.execute(SPRING_SESSION_IX3_DDL);
-            }
+//    // Spring Session 와 관련된 SQL 문단은 Dependencies 안의 SQL 문단을 참고할 것.
+//    private static final String SPRING_SESSION_DDL =
+//        "CREATE TABLE SPRING_SESSION ( " +
+//            "PRIMARY_ID CHAR(36) NOT NULL, " +
+//            "SESSION_ID CHAR(36) NOT NULL, " +
+//            "CREATION_TIME BIGINT NOT NULL, " +
+//            "LAST_ACCESS_TIME BIGINT NOT NULL, " +
+//            "MAX_INACTIVE_INTERVAL INT NOT NULL, " +
+//            "EXPIRY_TIME BIGINT NOT NULL, " +
+//            "PRINCIPAL_NAME VARCHAR(100), " +
+//            "CONSTRAINT SPRING_SESSION_PK PRIMARY KEY (PRIMARY_ID)" +
+//        ")";
+//
+//    private static final String SPRING_SESSION_IX1_DDL = "CREATE UNIQUE INDEX SPRING_SESSION_IX1 ON SPRING_SESSION (SESSION_ID)";
+//
+//    private static final String SPRING_SESSION_IX2_DDL = "CREATE INDEX SPRING_SESSION_IX2 ON SPRING_SESSION (EXPIRY_TIME)";
+//
+//    private static final String SPRING_SESSION_IX3_DDL = "CREATE INDEX SPRING_SESSION_IX3 ON SPRING_SESSION (PRINCIPAL_NAME)";
+//
+//    private static final String SPRING_SESSION_ATTRIBUTES_DDL =
+//        "CREATE TABLE SPRING_SESSION_ATTRIBUTES ( " +
+//            "SESSION_PRIMARY_ID CHAR(36) NOT NULL, " +
+//            "ATTRIBUTE_NAME VARCHAR(200) NOT NULL, " +
+//            "ATTRIBUTE_BYTES BYTEA NOT NULL, " +
+//            "CONSTRAINT SPRING_SESSION_ATTRIBUTES_PK PRIMARY KEY (SESSION_PRIMARY_ID, ATTRIBUTE_NAME), " +
+//            "CONSTRAINT SPRING_SESSION_ATTRIBUTES_FK FOREIGN KEY (SESSION_PRIMARY_ID) REFERENCES SPRING_SESSION(PRIMARY_ID) ON DELETE CASCADE" +
+//        ")";
 
-            res = metaData.getTables("", "", "spring_session_attributes", new String[] { "TABLE" });
-            if(!res.next()){
-                jdbcTemplate.execute(SPRING_SESSION_ATTRIBUTES_DDL);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void initializeSession(){
+//        DataSource dataSource = jdbcTemplate.getDataSource();
+//        Connection conn = null;
+//        try {
+//            conn = dataSource.getConnection();
+//            DatabaseMetaData metaData = conn.getMetaData();
+//
+//            ResultSet res = metaData.getTables("", "", "spring_session", new String[] { "TABLE" });
+//            if (!res.next()) {
+//                jdbcTemplate.execute(SPRING_SESSION_DDL);
+//            }
+//
+//            res = metaData.getIndexInfo("", "", "spring_session", false, false);
+//            if (!res.next()) {
+//                jdbcTemplate.execute(SPRING_SESSION_IX1_DDL);
+//                jdbcTemplate.execute(SPRING_SESSION_IX2_DDL);
+//                jdbcTemplate.execute(SPRING_SESSION_IX3_DDL);
+//            }
+//
+//            res = metaData.getTables("", "", "spring_session_attributes", new String[] { "TABLE" });
+//            if(!res.next()){
+//                jdbcTemplate.execute(SPRING_SESSION_ATTRIBUTES_DDL);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

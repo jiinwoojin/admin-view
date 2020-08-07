@@ -14,6 +14,13 @@ spring:
     url: ${project.datasource.base.url}
     username: ${project.datasource.base.username}
     password: ${project.datasource.base.password}
+    initialization-mode: always
+    schema: classpath:org/springframework/session/jdbc/schema-drop-postgresql.sql,classpath:org/springframework/session/jdbc/schema-postgresql.sql
+  session:
+    store-type: jdbc
+    jdbc:
+      table-name: SPRING_SESSION
+      initialize-schema: always
   jpa:
     hibernate:
       ddl-auto: update

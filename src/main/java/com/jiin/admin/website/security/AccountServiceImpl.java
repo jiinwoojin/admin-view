@@ -8,7 +8,7 @@ import com.jiin.admin.website.model.AccountModelBuilder;
 import com.jiin.admin.website.model.RoleModel;
 import com.jiin.admin.website.server.mapper.CheckMapper;
 import com.jiin.admin.website.util.EncryptUtil;
-import com.jiin.admin.website.view.mapper.AccountMapper;
+import com.jiin.admin.mapper.data.AccountMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

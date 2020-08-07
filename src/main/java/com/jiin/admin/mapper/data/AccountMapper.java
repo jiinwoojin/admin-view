@@ -1,4 +1,4 @@
-package com.jiin.admin.website.view.mapper;
+package com.jiin.admin.mapper.data;
 
 import com.jiin.admin.dto.AccountDTO;
 import com.jiin.admin.entity.AccountEntity;

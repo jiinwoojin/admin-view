@@ -13,52 +13,28 @@ public class MVCDisplayController {
     @Resource
     private ProxyCacheService proxyCacheService;
 
-    @RequestMapping("2d-map")
-    public String twoDimensionDisplayView(Model model) {
-        return "page/display/2d-map";
-    }
-
-    @RequestMapping("3d-map")
-    public String threeDimensionDisplayView(Model model) {
-        return "page/display/3d-map";
-    }
-
+    // 2차원 지도 - Openlayers
     @RequestMapping("ol-display")
     public String openlayersDisplayView(Model model) {
         return "page/display/ol-display";
     }
 
-    @RequestMapping("ol-ext-display")
-    public String openlayersExtensionDisplayView(Model model) {
-        return "page/display/ol-ext-display";
-    }
-
+    // 2차원 지도 - Mapbox
     @RequestMapping("mapbox-display")
     public String mapboxDisplayView(Model model) {
         return "page/display/mapbox-display";
     }
 
+    // 3차원 지도
     @RequestMapping("cesium-display")
     public String cesiumDisplayView(Model model) {
         return "page/display/cesium-display";
     }
 
-    // 상황도 도시 (Openlayers)
-    @RequestMapping("symbol-map")
-    public String symbolizeDisplayView(Model model) {
-        return "page/display/symbol-map";
-    }
-
-    // 공통 지도 : 2 차원 + 3 차원 (Mapbox GL JS, Cesium)
+    // 일반 지도 URL
     @RequestMapping("common-map")
     public String commonMapDisplayView(Model model) {
         model.addAttribute("layers", proxyCacheService.loadDataListBySelected("LAYERS", true));
         return "page/display/common-map";
-    }
-
-    // 가시화 지도 (ol-ext or Mapbox JS)
-    @RequestMapping("ext-map")
-    public String extensionVisualizeDisplayView(Model model) {
-        return "page/display/ext-map";
     }
 }

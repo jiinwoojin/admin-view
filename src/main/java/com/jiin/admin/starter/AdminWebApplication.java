@@ -34,6 +34,5 @@ public class AdminWebApplication extends SpringBootServletInitializer implements
         bootingService.initializeMapData();
         bootingService.initializeRoles();
         bootingService.initializeAccounts();
-        bootingService.initializeSession();
     }
 }
