@@ -61,10 +61,10 @@
                                     th:data-description="${connection.description}"
                                     th:data-key="${connection.key}"
                             >
-                                <i class="fas fa-cog"></i>
+                                <i class="fas fa-cog" data-toggle="tooltip" data-placement="top" title="수정"></i>
                             </button>
                             <a class="btn btn-danger btn-circle btn-sm mx-1" type="button" th:href="@{ '/view/server/remove-server?key=' + ${connection.key} }" th:onclick="return onclick_remove_server([[${connection.key}]])">
-                                <i class="fas fa-trash"></i>
+                                <i class="fas fa-trash" data-toggle="tooltip" data-placement="top" title="삭제"></i>
                             </a>
                         </td>
                     </tr>
@@ -478,10 +478,12 @@
 
 <th:block layout:fragment="custom-html-link">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
 </th:block>
 </html>

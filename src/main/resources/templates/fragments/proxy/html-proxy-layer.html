@@ -162,13 +162,17 @@
                     onclick="onclick_update_data(this)"
                     th:disabled="${layer.isDefault}"
                 >
-                    <i class="fas fa-cog"></i>
+                    <i class="fas fa-cog" data-toggle="tooltip" data-placement="top" th:title="${!layer.isDefault ? '수정' : '기본 값 수정 불가'}"></i>
                 </button>
                 <button class="btn btn-danger btn-circle btn-sm text-white mx-1"
                         th:disabled="${layer.isDefault}"
                         th:onclick="onclick_delete_data('layer', [[${layer.id}]], [[${layer.name}]])"
                 >
-                    <i class="fas fa-trash"></i>
+                    <i class="fas fa-trash"
+                       data-toggle="tooltip"
+                       data-placement="top"
+                       th:title="${!layer.isDefault ? '삭제' : '기본 값 삭제 불가'}"
+                    ></i>
                 </button>
             </td>
             <td class="text-center align-middle">
@@ -180,7 +184,11 @@
                         onclick="onclick_add_button(this)"
                         th:disabled="${layer.isDefault}"
                 >
-                    <i class="fas fa-plus"></i>
+                    <i class="fas fa-plus"
+                       data-toggle="tooltip"
+                       data-placement="top"
+                       th:title="${!layer.isDefault ? 'YAML 파일에 생성' : '이미 설정됨'}"
+                    ></i>
                 </button>
             </td>
         </tr>

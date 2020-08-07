@@ -97,6 +97,8 @@
             </div>
             <!-- // 선택된 캐시 목록 View 종료 -->
 
+            <p><span class="text-info">(*)</span> : 우측 노란 휴지통 버튼을 클릭하면, YAML 파일에 되어 있는 설정을 해제할 수 있습니다.</p>
+
             <div class="text-right">
                 <button type="button" class="btn btn-secondary btn-sm" onclick="initialize_selected_data()">
                     <i class="fas fa-sync"></i> 초기화
@@ -124,11 +126,13 @@
 
 <th:block layout:fragment="custom-html-link">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
     <script th:src="@{/js/page/proxy-setting-page.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
 </th:block>
 </html>

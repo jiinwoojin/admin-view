@@ -28,7 +28,7 @@
             </li>
 
             <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/manage') or #httpServletRequest.getRequestURI().contains('/view/symbol') ? 'active' : '' }">
-                <a href="#" aria-expanded="true"><i class="fa fa-caret-right"></i> <span class="nav-label">지도관리</span> <span class="fa arrow"></span></a>
+                <a href="#" aria-expanded="true"><i class="fa fa-caret-right"></i> <span class="nav-label">지도 관리</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse" aria-expanded="false">
                     <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/manage/map') ? 'active' : '' }">
                         <a class="nav-link" th:href="@{/view/manage/map-list?pg=1&sz=8&iType=ALL&units=ALL}">

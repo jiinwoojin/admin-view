@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="text-center">
                                     <button th:id="${ 'service-refresh-' + serviceMap.get(service).name + '-' + idx.index }" class="btn btn-primary btn-sm px-1" th:onclick="onclick_status_refresh([[${serviceMap.get(service).name}]],[[${connection.ip}]],[[${serviceMap.get(service).port}]],[[${idx.index}]])">
-                                        <i class="fas fa-sync"></i>
+                                        <i class="fas fa-sync" data-toggle="tooltip" data-placement="top" title="새로고침"></i>
                                     </button>
 
                                     <!-- docker container 전용 버튼 -->
@@ -61,7 +61,7 @@
                                                 th:data-hostname="${connection.name}"
                                                 onclick="onclick_service_execute(this)"
                                         >
-                                            <i class="fas fa-play-circle"></i>
+                                            <i class="fas fa-play-circle" data-toggle="tooltip" data-placement="top" title="가동 (START)"></i>
                                         </button>
                                         <button
                                                 th:id="${ 'service-stop-' + serviceMap.get(service).name + '-' + idx.index }"
@@ -73,7 +73,7 @@
                                                 th:data-hostname="${connection.name}"
                                                 onclick="onclick_service_execute(this)"
                                         >
-                                            <i class="fas fa-stop-circle"></i>
+                                            <i class="fas fa-stop-circle" data-toggle="tooltip" data-placement="top" title="종료 (STOP)"></i>
                                         </button>
                                         <button
                                                 th:id="${ 'service-restart-' + serviceMap.get(service).name + '-' + idx.index }"
@@ -85,7 +85,7 @@
                                                 th:data-hostname="${connection.name}"
                                                 onclick="onclick_service_execute(this)"
                                         >
-                                            <i class="fas fa-reply"></i>
+                                            <i class="fas fa-reply" data-toggle="tooltip" data-placement="top" title="재가동 (RESTART)"></i>
                                         </button>
                                     </block>
 
@@ -101,7 +101,7 @@
                                                 th:data-hostname="${connection.name}"
                                                 onclick="onclick_service_execute(this)"
                                         >
-                                            <i class="fas fa-reply"></i>
+                                            <i class="fas fa-reply" data-toggle="tooltip" data-placement="top" title="재가동 (RESTART)"></i>
                                         </button>
                                     </block>
                                 </div>
@@ -162,6 +162,7 @@
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/slick/slick.css}">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/slick/slick-theme.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
@@ -169,5 +170,6 @@
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/slick/slick.min.js}"></script>
     <script th:src="@{/js/page/service-manage-page.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
 </th:block>
 </html>

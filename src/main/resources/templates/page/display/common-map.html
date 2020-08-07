@@ -153,7 +153,7 @@
                                 <td class="text-center text-nowrap align-middle" th:text="${layer.name}"></td>
                                 <td class="text-center text-nowrap align-middle" th:text="${layer.title}"></td>
                                 <td class="text-center text-nowrap align-middle">
-                                    <button class="btn btn-info" type="button" th:onclick="fn_set_layer([[${layer.name}]])">
+                                    <button class="btn btn-sm btn-info btn-circle" type="button" th:onclick="fn_set_layer([[${layer.name}]])" data-toggle="tooltip" data-placement="top" title="배경 LAYER 변경">
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </td>
@@ -358,7 +358,8 @@
                             $('#' + display3dDiv).addClass('btn-info');
                             jiCommon.setPresentMapKind(jiConstant.MAP_KIND.MAP_3D);
 
-                            graph_extension_by_status('active');
+                            $('#extension_graph_btn').removeClass('btn-primary');
+                            $('#extension_graph_btn').addClass('btn-info');
 
                             $('#engine-mapbox').removeClass('btn-primary');
                             $('#engine-mapbox').addClass('btn-secondary');
@@ -395,13 +396,11 @@
                         case engineMapbox :
                             contentName = 'mapbox-display';
                             $('#' + engineMapbox).addClass('btn-primary');
-                            graph_extension_by_status('active');
                             break;
 
                         case engineOpenlayers :
                             contentName = 'ol-display';
                             $('#' + engineOpenlayers).addClass('btn-primary');
-                            graph_extension_by_status('active');
                             break;
                     }
 

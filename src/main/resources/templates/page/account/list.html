@@ -56,11 +56,11 @@
                 <td class="d-flex justify-content-center">
                     <span th:if="${ account.username == 'admin' || account.username == 'user' }" th:text="${ account.role.label + '(수정 불가)' }"></span>
                     <div class="input-group" style="width: 220px;" th:unless="${ account.username == 'admin' || account.username == 'user' }">
-                        <select class="form-control" th:id="${ 'select_role' + account.id }">
+                        <select class="form-control form-control-sm" th:id="${ 'select_role' + account.id }">
                             <option th:each="role : ${roles}" th:value="${role.id}" th:text="${ role.label + '(' + role.title + ')' }"></option>
                         </select>
                         <div class="input-group-append">
-                            <button class="btn btn-info" type="button" th:id="${ 'select_btn' + account.id }">
+                            <button class="btn btn-info btn-sm" type="button" th:id="${ 'select_btn' + account.id }" data-toggle="tooltip" data-placement="top" title="권한 설정">
                                 <i class="fas fa-check"></i>
                             </button>
                         </div>
@@ -78,7 +78,7 @@
                 <td class="text-center align-middle">
                     <i class="fas fa-times" th:if="${ account.username == 'admin' || account.username == 'user' }"></i>
                     <a class="btn btn-danger btn-circle btn-sm mx-1" th:unless="${ account.username == 'admin' || account.username == 'user' }" th:href="@{ '/view/account/delete-account/' + ${account.username} }" onclick="return confirm('회원 삭제를 진행 하시겠습니까?')">
-                        <i class="fas fa-trash"></i>
+                        <i class="fas fa-user-times" data-toggle="tooltip" data-placement="top" title="회원 탈퇴"></i>
                     </a>
                 </td>
             </tr>
@@ -99,10 +99,12 @@
 
 <th:block layout:fragment="custom-html-link">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
 </th:block>
 </html>

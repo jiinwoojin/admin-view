@@ -234,7 +234,7 @@
                 </td>
                 <td class="d-flex justify-content-center" th:unless="${ role.title == 'USER' || role.title == 'ADMIN' }">
                     <button th:id="${ 'roleUpdate' + role.id }" class="btn btn-info btn-circle btn-sm mx-1" type="button" data-toggle="modal" data-target="#roleDataUpdate">
-                        <i class="fas fa-cog"></i>
+                        <i class="fas fa-cog" data-toggle="tooltip" data-placement="top" title="수정"></i>
                     </button>
                     <script th:inline="javascript">
                         var r_json[[${role.id}]] = /*[[${ role }]]*/ {};
@@ -243,7 +243,7 @@
                         };
                     </script>
                     <a class="btn btn-danger btn-circle btn-sm mx-1" th:href="@{ '/view/role/delete-role/' + ${role.id} }" onclick="return confirm('권한 삭제를 진행 하시겠습니까?')">
-                        <i class="fas fa-trash"></i>
+                        <i class="fas fa-trash" data-toggle="tooltip" data-placement="top" title="삭제"></i>
                     </a>
                 </td>
             </tr>
@@ -298,10 +298,12 @@
 
 <th:block layout:fragment="custom-html-link">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
 </th:block>
 </html>
