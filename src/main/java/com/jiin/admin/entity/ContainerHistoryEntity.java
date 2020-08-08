@@ -42,7 +42,7 @@ public class ContainerHistoryEntity implements Persistable<Long> {
     private String workedHostname;
 
     // 명령어 진행 회원
-    @Column(name = "WORKED_USER", nullable = false)
+    @Column(name = "WORKED_USER", nullable = false, length = 30)
     private String workedUser;
 
     // 명령어 동작 시각

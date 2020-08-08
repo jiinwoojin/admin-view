@@ -52,13 +52,13 @@ public class SymbolImageEntity {
     /**
      * 등록자 ID
      */
-    @Column(name = "REGISTOR_ID")
+    @Column(name = "REGISTOR_ID", length = 30)
     private String registorId;
 
     /**
      * 등록자 이름
      */
-    @Column(name = "REGISTOR_NAME")
+    @Column(name = "REGISTOR_NAME", length = 30)
     private String registorName;
 
     /**

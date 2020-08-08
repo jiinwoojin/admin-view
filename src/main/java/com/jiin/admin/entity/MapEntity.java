@@ -91,13 +91,13 @@ public class MapEntity implements Persistable<Long> {
     /**
      * 등록자 ID
      */
-    @Column(name = "REGISTOR_ID", nullable = false)
+    @Column(name = "REGISTOR_ID", nullable = false, length = 30)
     private String registorId;
 
     /**
      * 등록자 이름
      */
-    @Column(name = "REGISTOR_NAME", nullable = false)
+    @Column(name = "REGISTOR_NAME", nullable = false, length = 30)
     private String registorName;
 
     /**
