@@ -17,6 +17,7 @@ import com.jiin.admin.website.util.DockerUtil;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.YAMLFileUtil;
 import com.jiin.admin.website.view.service.ProxyCacheService;
+import com.jiin.admin.website.view.service.ProxySeedService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -79,6 +80,10 @@ public class MVCProxyController {
     @Autowired
     private ServerCenterInfoService serverCenterInfoService;
 
+    @Resource
+    private ProxySeedService proxySeedService;
+
+    // Proxy Cache 설정 결과 미리 보기
     @RequestMapping("preview")
     public String proxyLayerPreview(Model model) {
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
@@ -89,6 +94,7 @@ public class MVCProxyController {
         return "page/proxy/preview";
     }
 
+    // Proxy Cache 설정 결과 미리 보기 : YAML 파일 일부 수정 시. 차후 필요 여부에 따라 반영 예정.
     @RequestMapping(value = "yaml-save", method = RequestMethod.POST)
     public String postProxyYAMLContextDirectSave(Map<String, Object> form){
         String text = (String) form.get("code");
@@ -97,6 +103,7 @@ public class MVCProxyController {
         return "redirect:preview";
     }
 
+    // Proxy Cache 설정 화면
     @RequestMapping("setting")
     public String pageProxySetting(Model model) {
         model.addAttribute("message", sessionService.message());
@@ -117,6 +124,7 @@ public class MVCProxyController {
         return "page/proxy/setting";
     }
 
+    // Proxy Cache LAYER 설정
     @RequestMapping(value = "layer-save", method = RequestMethod.POST)
     public String postLayerSave(HttpServletRequest request, ProxyLayerModel proxyLayerModel) {
         ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
@@ -136,6 +144,7 @@ public class MVCProxyController {
         return "redirect:setting";
     }
 
+    // Proxy Cache SOURCE (WMS) 설정
     @RequestMapping(value = "source-wms-save", method = RequestMethod.POST)
     public String postSourceWMSSave(HttpServletRequest request, ProxySourceWMSModel proxySourceWMSModel) {
         ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
@@ -154,6 +163,7 @@ public class MVCProxyController {
         return "redirect:setting";
     }
 
+    // Proxy Cache SOURCE (MAPSERVER) 설정
     @RequestMapping(value = "source-mapserver-save", method = RequestMethod.POST)
     public String postSourceMapServerSave(HttpServletRequest request, ProxySourceMapServerModel proxySourceMapServerModel) {
         ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
@@ -172,6 +182,7 @@ public class MVCProxyController {
         return "redirect:setting";
     }
 
+    // Proxy Cache CACHE 설정
     @RequestMapping(value = "cache-save", method = RequestMethod.POST)
     public String postCacheSave(HttpServletRequest request, ProxyCacheModel proxyCacheModel) {
         ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
@@ -190,6 +201,7 @@ public class MVCProxyController {
         return "redirect:setting";
     }
 
+    // Proxy Cache GLOBAL 설정
     @RequestMapping(value = "global-save", method = RequestMethod.POST)
     public String postGlobalSave(HttpServletRequest request, @RequestParam String json) {
         ObjectMapper mapper = new ObjectMapper();
@@ -209,6 +221,7 @@ public class MVCProxyController {
         return "redirect:setting";
     }
 
+    // Proxy Cache 데이터 삭제
     @RequestMapping("{type}-delete")
     public String linkProxyDataDelete(HttpServletRequest request, @PathVariable String type, @RequestParam long id, @RequestParam String name) {
         boolean selected = false;
@@ -236,12 +249,11 @@ public class MVCProxyController {
                 break;
         }
 
-        ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
-        List<ServerCenterInfo> neighbors = serverCenterInfoService.loadNeighborList();
         boolean result = proxyCacheService.removeProxyDataByIdAndType(id, type, serverCenterInfoService.loadLocalInfoData());
-        Map<String, Object> map = new HashMap<>();
         if (selected) {
-            map = proxyCacheService.writeYAMLFileForNeighbors(request, result, local, neighbors);
+            ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
+            List<ServerCenterInfo> neighbors = serverCenterInfoService.loadNeighborList();
+            Map<String, Object> map = proxyCacheService.writeYAMLFileForNeighbors(request, result, local, neighbors);
             sessionService.message(String.format("[%s] %s 정보 삭제에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", name, type.toUpperCase(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", neighbors.size())));
         } else {
             sessionService.message(String.format("[%s] %s 정보 삭제에 %s 했습니다.", name, type.toUpperCase(), result ? "성공" : "실패"));
@@ -249,6 +261,7 @@ public class MVCProxyController {
         return "redirect:setting";
     }
 
+    // Proxy Cache YAML 설정 저장
     @RequestMapping(value = "checking-save", method = RequestMethod.POST)
     public String checkingProxyDataSettings(HttpServletRequest request, ProxySelectRequestModel proxySelectModel) {
         boolean result = proxyCacheService.setProxyDataSelectByModel(proxySelectModel, serverCenterInfoService.loadLocalInfoData());
@@ -260,6 +273,7 @@ public class MVCProxyController {
         return "redirect:setting";
     }
 
+    // SEEDING 진행 현황 가져오기
     /**
      * docker run -it -d --rm --user 1001:1000 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name jimap_seed jiinwoojin/jimap_mapproxy mapproxy-seed -f /data/jiapp/data_dir/proxy/mapproxy.yaml -s /data/jiapp/data_dir/proxy/seed.yaml -c 4 --seed ALL
      * @param model
@@ -267,23 +281,8 @@ public class MVCProxyController {
      */
     @RequestMapping("seeding")
     public String proxySeeding(Model model){
-        List<Map> seeds = new ArrayList<>();
-        List<Map> defaultcontainers = DockerUtil.dockerContainers(DOCKER_DEFAULT_SEED_NAME);
-        for(Map container : defaultcontainers){
-            if(container.get("Names").toString().equals(DOCKER_DEFAULT_SEED_NAME)){
-                container.put("DEFAULT",true);
-                seeds.add(container);
-            }
-        }
-        List<Map> containers = DockerUtil.dockerContainers(DOCKER_SEED_NAME_PREFIX);
-        for(Map container : containers){
-            if(container.get("Names").toString().startsWith(DOCKER_SEED_NAME_PREFIX)){
-                container.put("DEFAULT",false);
-                seeds.add(container);
-            }
-        }
         model.addAttribute("seedName", DOCKER_SEED_NAME_PREFIX);
-        model.addAttribute("seedContainers", seeds);
+        model.addAttribute("seedContainers", proxySeedService.loadSeedContainerInfoList());
         return "page/proxy/seeding";
     }
 
@@ -293,94 +292,40 @@ public class MVCProxyController {
      */
     @ResponseBody
     @RequestMapping("seeding-info")
-    public Map proxySeedingInfo(@RequestParam("SEEDNAME") String seedName) throws IOException {
-        List<Map> containers = DockerUtil.dockerContainers(seedName);
-        Map container = containers.get(0);
-        String[] fields = new String[]{"TIME","LEVEL","PER","XMIN","YMIN","XMAX","YMAX","TILES_CNT"};
-        String lastlog = DockerUtil.logLastline(seedName);
-        // DEV
-        if(activeProfile.equals("outside")) lastlog = "[14:03:36] 13  75.44% 140.97656, 43.24219, 141.32812, 43.59375 (8593072 tiles)";
-        String[] logs = lastlog.split(" ");
-        int idx = 0;
-        Map lastlogMap = new HashMap();
-        for(String log : logs){
-            if(!StringUtils.isEmpty(log)){
-                lastlogMap.put(fields[idx++],log);
-            }
-            if(idx == fields.length)
-                break;
-        }
-        container.put("LOGS",lastlogMap);
-        File mapproxy = new File(dataPath + "/proxy/mapproxy.yaml");
-        if(mapproxy.exists()){
-            Map<String, Object> mapproxyInfo = YAMLFileUtil.fetchMapByYAMLFile(mapproxy);
-            container.put("MAPPROXY",mapproxyInfo);
-            // 작업 디렉토리 용량 확인
-            LinkedHashMap sources = (LinkedHashMap) mapproxyInfo.get("sources");
-            if(sources != null){
-                List<Path> workPaths = new ArrayList();
-                Set keys = sources.keySet();
-                for(Object key:keys){
-                    Map<String, Object> source = (Map<String, Object>) sources.get(key);
-                    Map<String, Object> req = (Map<String, Object>) source.get("req");
-                    String mapPath = (String) req.get("map");
-                    if(Files.exists(Paths.get(mapPath)) && !workPaths.contains(Paths.get(mapPath).getParent())){
-                        workPaths.add(Paths.get(mapPath).getParent());
-                    }
-                }
-                long diskSize = 0;
-                for(Path workPath:workPaths){
-                    diskSize += FileUtils.sizeOfDirectory(workPath.toFile());
-                }
-                container.put("DIR_SIZE",diskSize);
-            }
-        }
-        File seed = new File(dataPath + "/proxy/seed-" + seedName + ".yaml");
-        if(seed.exists()){
-            Map<String, Object> seedInfo = YAMLFileUtil.fetchMapByYAMLFile(seed);
-            container.put("SEED",seedInfo);
-        }
-        return container;
+    public Map<String, Object> proxySeedingInfo(@RequestParam("SEEDNAME") String seedName) {
+        return proxySeedService.loadLogTextInContainerByName(seedName);
     }
 
     /**
-     * SEED 생성
+     * SEED 생성 (O)
      * @param param
      * @return
      */
     @ResponseBody
     @RequestMapping("seeding-create")
-    public Map proxySeedingCreate(@RequestParam Map param) throws IOException {
-        long now = new Date().getTime();
-        String seedName = DOCKER_SEED_NAME_PREFIX + "-" + now;
-        param.put("DATA_PATH",dataPath);
-        param.put("SEED_NAME",seedName);
-        String result = DockerUtil.runSeed(param);
-        List<Map> containers = DockerUtil.dockerContainers(seedName);
-        if(containers.size() == 0){
-            Map info = new HashMap();
-            info.put("RESULT",result);
-            return info;
-        }else{
-            containers.get(0).put("RESULT",result);
-            return containers.get(0);
-        }
+    public Map<String, Object> proxySeedingCreate(@RequestParam Map<String, Object> param) {
+        return new HashMap<String, Object>() {
+            {
+                put("RESULT", proxySeedService.createSeedContainer(param));
+            }
+        };
     }
 
     @ResponseBody
     @RequestMapping("default-seeding-reload")
-    public Map proxySeedingReload() {
-        Map info = new HashMap();
-        String seedPath = dataPath + "/proxy/seed.yaml";
-        info.put("RESULT",DockerUtil.reloadSeed(DOCKER_DEFAULT_SEED_NAME,seedPath,dataPath));
-        return info;
+    public Map<String, Object> proxySeedingReload() {
+        return new HashMap<String, Object>() {
+            {
+                put("RESULT", proxySeedService.resetDefaultSeeding());
+            }
+        };
     }
 
     @ResponseBody
     @RequestMapping("seeding-stop")
-    public Map proxySeedingStop(@RequestParam("SEEDNAME") String name) throws IOException {
-        Map info = new HashMap();
-        info.put("RESULT",DockerUtil.removeSeed(name,dataPath));
+    public Map<String, Object> proxySeedingStop(@RequestParam("SEEDNAME") String name) {
+        Map<String, Object> info = new HashMap<>();
+        info.put("RESULT", proxySeedService.removeSeedContainerByName(name) ? "SUCCESS" : "FAILURE");
         return info;
     }
 }

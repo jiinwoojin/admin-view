@@ -48,6 +48,13 @@ spring:
   devtools:
     livereload:
       enabled: true
+#  quartz:
+#    scheduler-name:
+#    properties:
+#      org:
+#        quartz:
+#          threadPool:
+#            threadCount: 4
 
 ### tomcat 서버
 server:

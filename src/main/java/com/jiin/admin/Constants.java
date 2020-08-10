@@ -206,6 +206,8 @@ public class Constants {
 
     public static final String PROXY_SETTING_FILE_NAME = "mapproxy.yaml";
 
+    public static final String PROXY_SEEDING_FILE_NAME = "seed.yaml";
+
     public static final String PROXY_CACHE_DIRECTORY = "/cache";
 
     /**

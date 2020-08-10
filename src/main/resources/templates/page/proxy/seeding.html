@@ -97,15 +97,30 @@
                     <div class="col-6">
                         <label>타일갱신기준</label>
                         <select class="form-control" name="refreshBeforeType">
-                            <option value="weeks">weeks</option>
-                            <option value="days">days</option>
-                            <option value="hours" selected="selected">hours</option>
-                            <option value="minutes">minutes</option>
+                            <option value="weeks">주 (WEEKS)</option>
+                            <option value="days">일 (days)</option>
+                            <option value="hours" selected="selected">시간 (hours)</option>
+                            <option value="minutes">분 (minutes)</option>
                         </select>
                     </div>
                     <div class="col-6">
                         <label>타일갱신시간</label>
                         <input type="text" class="form-control" name="refreshBefore" value="1">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-6">
+                        <label>타일 소멸 기준</label>
+                        <select class="form-control" name="removeBeforeType">
+                            <option value="weeks">주 (WEEKS)</option>
+                            <option value="days">일 (days)</option>
+                            <option value="hours" selected="selected">시간 (hours)</option>
+                            <option value="minutes">분 (minutes)</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label>타일 소멸 시간</label>
+                        <input type="text" class="form-control" name="removeBefore" value="1">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -165,20 +180,20 @@
                         </thead>
                         <tbody>
                         <tr th:each="seed : ${ seedContainers }">
-                            <td th:text="${ seed.Names }"></td>
-                            <td th:text="${ seed.ID }"></td>
-                            <td th:text="${ seed.Image }"></td>
-                            <td th:text="${ seed.Ports }"></td>
-                            <td th:text="${ seed.Status }"></td>
-                            <td th:text="${ seed.CreatedAt }"></td>
+                            <td th:text="${ seed.name }"></td>
+                            <td th:text="${ seed.id }"></td>
+                            <td th:text="${ seed.image }"></td>
+                            <td th:text="${ seed.ports }"></td>
+                            <td th:text="${ seed.status }"></td>
+                            <td th:text="${ seed.createdAt }"></td>
                             <td>
-                                <button class="btn btn-warning btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_view([[${seed.Names}]])">
+                                <button class="btn btn-warning btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_view([[${seed.name}]])">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button th:if="${ seed.DEFAULT == true}" class="btn btn-success btn-sm btn-circle mx-1" type="button" th:onclick="fn_default_seed_reload()">
+                                <button th:if="${ seed.isDefault() }" class="btn btn-success btn-sm btn-circle mx-1" type="button" th:onclick="fn_default_seed_reload()">
                                     <i class="fas fa-server"></i>
                                 </button>
-                                <button th:if="${ seed.DEFAULT == false}" class="btn btn-danger btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_remove([[${seed.Names}]])">
+                                <button th:unless="${ seed.isDefault() }" class="btn btn-danger btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_remove([[${seed.name}]])">
                                     <i class="fas fa-stop"></i>
                                 </button>
                             </td>
@@ -221,20 +236,20 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-3">
-                                <label>경과시간</label>
-                                <input class="form-control form-control-sm text-right"  name="time" readonly />
+                                <label>경과 시간</label>
+                                <input class="form-control form-control-sm text-right" name="time" readonly />
                             </div>
                             <div class="col-3">
                                 <label>레벨</label>
-                                <input class="form-control form-control-sm text-right"  name="level" readonly />
+                                <input class="form-control form-control-sm text-right" name="level" readonly />
                             </div>
                             <div class="col-3">
                                 <label>퍼센트(%)</label>
-                                <input class="form-control form-control-sm text-right"  name="per" readonly />
+                                <input class="form-control form-control-sm text-right" name="per" readonly />
                             </div>
                             <div class="col-3">
-                                <label>처리타일수</label>
-                                <input class="form-control form-control-sm text-right"  name="tile_count" readonly />
+                                <label>처리된 타일 수</label>
+                                <input class="form-control form-control-sm text-right" name="tile_count" readonly />
                             </div>
                         </div>
                     </div>
@@ -282,26 +297,26 @@
                     type: 'get',
                     data: jQuery("#seed-create").serialize(),
                     success: function(data){
-                        if(data.RESULT == ''){
-                            alert("Seed 생성에 실패하였습니다.")
-                        }else{
+                        if(!data.RESULT){
+                            toastr.error("Seed 생성에 실패하였습니다.")
+                        } else {
                             var table = $('#list_table').DataTable();
                             table.row.add([
-                                data.Names,
-                                data.ID,
-                                data.Image,
-                                data.Ports,
-                                data.Status,
-                                data.CreatedAt,
-                                '<button class="btn btn-success btn-sm btn-circle mx-1" type="button" onclick="fn_seed_view(\''+data.Names+'\')"><i class="fas fa-eye"></i></button>' +
-                                '<button class="btn btn-danger btn-sm btn-circle mx-1" type="button" onclick="fn_seed_remove(\''+data.Names+'\')"><i class="fas fa-stop"></i></button>'
+                                data.name,
+                                data.id,
+                                data.image,
+                                data.ports,
+                                data.status,
+                                data.createdAt,
+                                '<button class="btn btn-success btn-sm btn-circle mx-1" type="button" onclick="fn_seed_view(\''+data.name+'\')"><i class="fas fa-eye"></i></button>' +
+                                '<button class="btn btn-danger btn-sm btn-circle mx-1" type="button" onclick="fn_seed_remove(\''+data.name+'\')"><i class="fas fa-stop"></i></button>'
                             ]).draw( false );
-                            alert("Seed 생성에 성공하였습니다.")
+                            toastr.success("Seed 생성에 성공하였습니다.")
                         }
                     },
                     error: function(e){
                         console.error(e)
-                        alert("Seed 생성에 실패하였습니다.")
+                        toastr.error("Seed 생성에 실패하였습니다.")
                     }
                 });
             }
@@ -311,28 +326,29 @@
                 $.ajax({
                     url: CONTEXT + '/view/proxy/seeding-stop',
                     type: 'get',
-                    data: {SEEDNAME : seedName},
+                    data: { SEEDNAME : seedName },
                     success: function(data){
-                        if(data.RESULT == ''){
-                            alert("Seed 제거에 실패하였습니다.")
-                        }else{
+                        if(data.RESULT === 'FAILURE'){
+                            toastr.error("Seed 제거에 실패하였습니다.")
+                        } else {
                             var table = $('#list_table').DataTable();
                             var datas = table.data()
-                            jQuery.each(datas, function(idx,item){
+                            jQuery.each(datas, function(idx, item){
                                 if(seedName == new String(item[0])){
                                     table.row(idx).remove().draw( false )
                                 }
-                            })
-                            alert("Seed 제거에 성공하였습니다.")
+                            });
+                            toastr.success("Seed 제거에 성공하였습니다.")
                         }
                     },
                     error: function(e){
                         console.error(e)
-                        alert("Seed 제거에 실패하였습니다.")
+                        toastr.error("Seed 제거에 실패하였습니다.")
                     }
                 });
             }
         }
+
         function fn_default_seed_reload(){
             if(confirm("기본 Seed를 재시작 하시겠습니까?")){
                 $.ajax({
@@ -340,14 +356,14 @@
                     type: 'get',
                     success: function(data){
                         if(data.RESULT == ''){
-                            alert("Seed 재시작에 실패하였습니다.")
+                            toastr.error("Seed 재시작에 실패하였습니다.")
                         }else{
-                            alert("Seed 재시작에 성공하였습니다.")
+                            toastr.success("Seed 재시작에 성공하였습니다.")
                         }
                     },
                     error: function(e){
                         console.error(e)
-                        alert("Seed 재시작에 실패하였습니다.")
+                        toastr.error("Seed 재시작에 실패하였습니다.")
                     }
                 });
             }
@@ -356,11 +372,11 @@
             $.ajax({
                 url: CONTEXT + '/view/proxy/seeding-info',
                 type: 'get',
-                data: {SEEDNAME : seedName},
+                data: { SEEDNAME : seedName },
                 success: function(data){
                     console.log(data)
-                    var form = document.getElementById("detail-form")
-                    form.seed_name.value = data.Names
+                    var form = document.getElementById("detail-form");
+                    form.seed_name.value = seedName
                     form.size.value = (data.DIR_SIZE / 1024 / 1024).toFixed(2)
                     form.xmin.value = data.LOGS.XMIN.replace(",","")
                     form.ymin.value = data.LOGS.YMIN.replace(",","")

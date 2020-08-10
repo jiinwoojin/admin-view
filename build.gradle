@@ -78,6 +78,7 @@ dependencies {
     compile('com.amihaiemil.web:docker-java-api:0.0.12')
     compile('org.glassfish:javax.json:1.1')
     compile('pl.jalokim.propertiestojson:java-properties-to-json:5.1.3')
+    compile('org.springframework.boot:spring-boot-starter-quartz')
     compile('org.quartz-scheduler:quartz:2.3.0')
 }
 configurations {

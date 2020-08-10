@@ -1,8 +1,6 @@
 package com.jiin.admin.website.util;
 
-import com.amihaiemil.docker.Container;
-import com.amihaiemil.docker.Docker;
-import com.amihaiemil.docker.UnixDocker;
+import com.amihaiemil.docker.*;
 import lombok.extern.slf4j.Slf4j;
 import org.thymeleaf.util.StringUtils;
 
@@ -27,7 +25,7 @@ public class DockerUtil {
      * Docker 에 있는 모든 Container 를 가져온다. 상태가 어떻게 됐든 간에.
      * @param
      */
-    private static List<Container> fetchAllContainers() {
+    public static List<Container> fetchAllContainers() {
         final Docker docker = fetchDefaultDocker();
         final Iterator<Container> iter = docker.containers().all();
 
@@ -104,8 +102,9 @@ public class DockerUtil {
             }
         }
     }
+
     /**
-     * 목록조회
+     * 목록조회 (O)
      * docker ps -a --format "table {{.ID}}\t{{.Image}}"
      * @param filter 필터링
      * @return
@@ -139,7 +138,7 @@ public class DockerUtil {
     }
 
     /**
-     * Seed Docker 제거
+     * Seed Docker 제거 (O)
      * docker rm jimap_seed_123128131232
      * @return
      */
@@ -154,6 +153,7 @@ public class DockerUtil {
         }
         return result;
     }
+
     public static String reloadSeed(String seedName, String seedPath, String dataPath) {
         String mapproxypath = dataPath + "/proxy/mapproxy.yaml";
         // run docker
@@ -172,8 +172,9 @@ public class DockerUtil {
             return result.get(0);
         }
     }
+
     /**
-     * Seed Docker 생성
+     * Seed Docker 생성 (O)
      * @return
      */
     public static String runSeed(Map param) throws IOException {
@@ -216,6 +217,7 @@ public class DockerUtil {
         // run docker
         return reloadSeed("seed-" + seedName,seedpath,dataPath);
     }
+
     /**
      * 로그 마지막줄 조회
      * docker logs --tail 1 jimap_seed
@@ -232,6 +234,4 @@ public class DockerUtil {
             return result.get(0);
         }
     }
-
-
 }
