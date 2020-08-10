@@ -333,6 +333,15 @@ var jiCommon = {
          */
         wgs84ToMercator : function wgs84ToMercator(lon, lat) {
             return turf.toMercator(turf.point([lon, lat])).geometry.coordinates;
+        },
+        /**
+         * EPSG:3857 -> EPSG:4326
+         * @param x
+         * @param y
+         * @returns {*}
+         */
+        mercatorToWgs84 : function mercatorToWgs84(x, y) {
+            return turf.toWgs84(turf.point([x, y])).geometry.coordinates;
         }
     },
     calculation : {
