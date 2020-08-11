@@ -13,6 +13,10 @@ import com.jiin.admin.website.util.YAMLFileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +27,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -75,7 +77,7 @@ public class ProxySeedServiceImpl implements ProxySeedService {
         refresh_before.put(refreshBeforeType, Integer.parseInt((String) param.get("refreshBefore")));
 
         basic_seed.put("caches", Arrays.toString(caches).replace("\"", ""));
-        basic_seed.put("coverages", coveragesArr);
+        basic_seed.put("coverages", Arrays.toString(coveragesArr).replace("\"", ""));
         basic_seed.put("levels", levels);
         basic_seed.put("refresh_before", refresh_before);
 
@@ -104,14 +106,14 @@ public class ProxySeedServiceImpl implements ProxySeedService {
         };
 
         Map<String, Object> coverage = new LinkedHashMap<>();
-        coverage.put("bbox", bbox);
+        coverage.put("bbox", Arrays.toString(bbox).replace("\"", ""));
         coverage.put("srs", param.get("projection"));
 
         coverages.put((String) param.get("coverage"), coverage);
         seed.put("coverages", coverages);
 
         //{seeds={basic_seed={caches=[basic], coverages=[korea], levels={from=11, to=14}, refresh_before={hours=1}}}, coverages={korea={bbox=[100, 0, 160, 70], srs=EPSG:4326}}}
-        String context = YAMLFileUtil.fetchYAMLStringByMap(seed, "AUTO");
+        String context = YAMLFileUtil.fetchYAMLStringByMap(seed, "BLOCK");
         context = context.replace("cleanups:", "\ncleanups:");
         context = context.replaceFirst("(?s)(.*)" + "coverages:", "$1" + "\ncoverages:");
         context = context.replace("\'", "");
@@ -148,8 +150,8 @@ public class ProxySeedServiceImpl implements ProxySeedService {
         List<Container> containers = DockerUtil.fetchAllContainers();
         List<SeedContainerInfo> list = new ArrayList<>();
 
-        String utcPattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'";
-        SimpleDateFormat sdf = new SimpleDateFormat(utcPattern);
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'")
+                                                    .withZone(DateTimeZone.forID("Asia/Seoul"));
 
         for (Container container : containers) {
             try {
@@ -158,17 +160,18 @@ public class ProxySeedServiceImpl implements ProxySeedService {
                 if (name.startsWith(DOCKER_SEED_NAME_PREFIX)) {
                     JsonObject hostConfig = object.getJsonObject("HostConfig");
                     JsonObject portBindings = hostConfig.getJsonObject("PortBindings");
+                    DateTime time = DateTime.parse(object.getString("Created"), fmt);
                     list.add(new SeedContainerInfo(
                         name,
                         object.getString("Id"),
                         container.getString("Image"),
                         portBindings.keySet().stream().collect(Collectors.joining()),
                         object.getJsonObject("State").getString("Status"),
-                        sdf.parse(object.getString("Created")),
+                        new Date(time.toDate().getTime() + 9 * 60 * 60 * 1000L),
                         name.equals(DOCKER_DEFAULT_SEED_NAME)
                     ));
                 }
-            } catch (IOException | ParseException e) {
+            } catch (IOException e) {
                 log.error("ERROR - " + e.getMessage());
             }
         }
@@ -228,9 +231,8 @@ public class ProxySeedServiceImpl implements ProxySeedService {
     public Map<String, Object> loadLogTextInContainerByName(String name) {
         List<Container> containers = DockerUtil.fetchAllContainers();
 
-        String utcPattern = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'";
-        SimpleDateFormat sdf = new SimpleDateFormat(utcPattern);
-
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'")
+                                                    .withZone(DateTimeZone.forID("Asia/Seoul"));
         for (Container container : containers) {
             try {
                 JsonObject object = container.inspect();
@@ -267,9 +269,9 @@ public class ProxySeedServiceImpl implements ProxySeedService {
                         // 작업 디렉토리 용량 확인
                         LinkedHashMap sources = (LinkedHashMap) mapproxyInfo.get("sources");
                         if(sources != null){
-                            List<Path> workPaths = new ArrayList();
+                            List<Path> workPaths = new ArrayList<>();
                             Set keys = sources.keySet();
-                            for(Object key:keys){
+                            for(Object key : keys){
                                 Map<String, Object> source = (Map<String, Object>) sources.get(key);
                                 Map<String, Object> req = (Map<String, Object>) source.get("req");
                                 String mapPath = (String) req.get("map");
@@ -286,12 +288,22 @@ public class ProxySeedServiceImpl implements ProxySeedService {
                         }
                     }
 
-                    Date createDate = sdf.parse(object.getString("Created"));
-                    result.put("RunningFor", Math.abs(new Date().getTime() - createDate.getTime()));
+                    DateTime time = DateTime.parse(object.getString("Created"), fmt);
+                    Date createDate = time.toDate();
+                    long runningTime = Math.abs(new Date().getTime() - createDate.getTime() - 9 * 60 * 60 * 1000L);
+                    runningTime /= 1000L;
+
+                    long second = runningTime % 60L;
+                    long remainMinute = (runningTime - second) / 60L;
+                    long minute = remainMinute % 60L;
+                    long remainHour = (remainMinute - minute) / 60L;
+                    long hour = remainHour % 24L;
+                    long remainDay = (remainHour - hour) / 24L;
+                    result.put("RunningFor", String.format("%d 일 %d 시간 %d 분 %d 초", remainDay, hour, minute, second));
 
                     return result;
                 }
-            } catch (IOException | ParseException e) {
+            } catch (IOException e) {
                 log.error("ERROR - " + e.getMessage());
             }
         }

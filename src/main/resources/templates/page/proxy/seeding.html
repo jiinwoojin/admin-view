@@ -33,122 +33,95 @@
                         <small class="form-text text-muted">자동생성 됩니다.</small>
                     </div>
                 </div>
-                <div class="form-group row">
+
+                <div class="row my-2">
                     <div class="col-6">
-                        <label>Cache</label>
-                        <input type="text" class="form-control" name="cache" value="basic">
+                        <label>캐시 데이터 선택</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <input id="cache-select" type="text" class="form-control" name="cache" value="world_cache" readonly />
+                                <div class="input-group-append">
+                                    <button class="btn btn-info" type="button" data-toggle="modal" data-target="#searchProxyCache">
+                                        <i class="fas fa-search" data-toggle="tooltip" title="CACHE 선택"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-6">
-                        <label>Coverage</label>
+                        <label>기준 범위 이름</label>
                         <input type="text" class="form-control" name="coverage" value="korea">
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <div class="col-6">
-                        <label>Level From</label>
+                        <label>ZOOM 레벨 시작</label>
                         <select type="text" class="form-control" name="levelFrom">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11" selected>11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14">14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
+                            <option th:each="v : ${ #numbers.sequence(1, 19) }" th:value="${v}" th:text="${v}" th:selected="${ v == 11 }" />
                         </select>
                     </div>
                     <div class="col-6">
-                        <label>Level To</label>
+                        <label>ZOOM 레벨 종료</label>
                         <select type="text" class="form-control" name="levelTo">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                            <option value="13">13</option>
-                            <option value="14" selected>14</option>
-                            <option value="15">15</option>
-                            <option value="16">16</option>
-                            <option value="17">17</option>
-                            <option value="18">18</option>
-                            <option value="19">19</option>
+                            <option th:each="v : ${ #numbers.sequence(1, 19) }" th:value="${v}" th:text="${v}" th:selected="${ v == 14 }" />
                         </select>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-6">
-                        <label>타일갱신기준</label>
-                        <select class="form-control" name="refreshBeforeType">
-                            <option value="weeks">주 (WEEKS)</option>
-                            <option value="days">일 (days)</option>
-                            <option value="hours" selected="selected">시간 (hours)</option>
-                            <option value="minutes">분 (minutes)</option>
-                        </select>
+
+                <div class="input-group my-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">타일 갱신 기준</span>
                     </div>
-                    <div class="col-6">
-                        <label>타일갱신시간</label>
-                        <input type="text" class="form-control" name="refreshBefore" value="1">
-                    </div>
+                    <input style="height: 38px;" type="text" class="form-control text-right" name="refreshBefore" value="1" />
+                    <select class="form-control" name="refreshBeforeType">
+                        <option value="weeks">주 (WEEKS)</option>
+                        <option value="days">일 (days)</option>
+                        <option value="hours" selected="selected">시간 (hours)</option>
+                        <option value="minutes">분 (minutes)</option>
+                    </select>
                 </div>
-                <div class="form-group row">
-                    <div class="col-6">
-                        <label>타일 소멸 기준</label>
-                        <select class="form-control" name="removeBeforeType">
-                            <option value="weeks">주 (WEEKS)</option>
-                            <option value="days">일 (days)</option>
-                            <option value="hours" selected="selected">시간 (hours)</option>
-                            <option value="minutes">분 (minutes)</option>
-                        </select>
+
+                <div class="input-group my-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">타일 소멸 기준</span>
                     </div>
-                    <div class="col-6">
-                        <label>타일 소멸 시간</label>
-                        <input type="text" class="form-control" name="removeBefore" value="1">
-                    </div>
+                    <input style="height: 38px;" type="text" class="form-control text-right" name="removeBefore" value="1" />
+                    <select class="form-control" name="removeBeforeType">
+                        <option value="weeks">주 (WEEKS)</option>
+                        <option value="days">일 (days)</option>
+                        <option value="hours" selected="selected">시간 (hours)</option>
+                        <option value="minutes">분 (minutes)</option>
+                    </select>
                 </div>
+
                 <div class="form-group row">
-                    <div class="col-6">
+                    <div class="col-12">
                         <label>투영</label>
-                        <select class="form-control" name="projection">
+                        <select class="form-control" name="projection" onchange="onchange_seed_srs(this)">
                             <option value="epsg:4326" selected="selected">EPSG:4326</option>
                             <option value="epsg:3857">EPSG:3857</option>
                         </select>
                     </div>
                 </div>
+
                 <div class="form-group row">
                     <label class="col-12">영역(위경도)</label>
                     <div class="col-3">
-                        <label>xmin</label>
-                        <input type="text" class="form-control" name="xmin" value="100">
+                        <label>Min X.</label>
+                        <input type="text" class="form-control" id="minx" name="xmin" value="115">
                     </div>
                     <div class="col-3">
-                        <label>ymin</label>
-                        <input type="text" class="form-control" name="ymin" value="0">
+                        <label>Min Y.</label>
+                        <input type="text" class="form-control" id="miny" name="ymin" value="30">
                     </div>
                     <div class="col-3">
-                        <label>xmax</label>
-                        <input type="text" class="form-control" name="xmax" value="160">
+                        <label>Max X.</label>
+                        <input type="text" class="form-control" id="maxx" name="xmax" value="135">
                     </div>
                     <div class="col-3">
-                        <label>ymax</label>
-                        <input type="text" class="form-control" name="ymax" value="70">
+                        <label>Max Y.</label>
+                        <input type="text" class="form-control" id="maxy" name="ymax" value="45">
                     </div>
                 </div>
                 <div class="text-right">
@@ -162,6 +135,7 @@
                 </div>
             </form>
         </div>
+
         <div class="col-xl-8">
             <div class="row">
                 <div class="col-xl-12">
@@ -169,31 +143,34 @@
                     <table id="list_table" class="table table-sm basic">
                         <thead class="table-info">
                         <tr>
-                            <th scope="col" class="text-center nowrap">NAMES</th>
-                            <th scope="col" class="text-center nowrap">CONTAINER ID</th>
-                            <th scope="col" class="text-center nowrap">IMAGE</th>
-                            <th scope="col" class="text-center nowrap">PORTS</th>
-                            <th scope="col" class="text-center nowrap">STATUS</th>
-                            <th scope="col" class="text-center nowrap">CREATED</th>
-                            <th scope="col" class="text-center nowrap">STOP</th>
+                            <th scope="col" class="text-center nowrap">컨테이너 ID</th>
+                            <th scope="col" class="text-center nowrap">이름</th>
+                            <th scope="col" class="text-center nowrap">이미지</th>
+                            <th scope="col" class="text-center nowrap">포트 정보</th>
+                            <th scope="col" class="text-center nowrap">상태 정보</th>
+                            <th scope="col" class="text-center nowrap">생성 기간</th>
+                            <th scope="col" class="text-center nowrap">버튼</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="seed : ${ seedContainers }">
-                            <td th:text="${ seed.name }"></td>
-                            <td th:text="${ seed.id }"></td>
-                            <td th:text="${ seed.image }"></td>
-                            <td th:text="${ seed.ports }"></td>
-                            <td th:text="${ seed.status }"></td>
-                            <td th:text="${ seed.createdAt }"></td>
+                            <td class="text-center align-center"
+                                th:text="${ seed.id.substring(0, 15) + '...' }"
+                                th:title="${ seed.id }"
+                            ></td>
+                            <td class="text-center align-center" th:text="${ seed.name }"></td>
+                            <td class="text-center align-center" th:text="${ seed.image }"></td>
+                            <td class="text-center align-center" th:text="${ seed.ports == null ? '-' : seed.ports }"></td>
+                            <td class="text-center align-center" th:text="${ #strings.toUpperCase(seed.status) }"></td>
+                            <td class="text-center align-center" th:text="${ #dates.format(seed.createdAt, 'yyyy-MM-dd HH:mm')  }"></td>
                             <td>
-                                <button class="btn btn-warning btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_view([[${seed.name}]])">
+                                <button class="btn btn-warning btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_view([[${seed.name}]])" title="진행 현황 보기" data-toggle="tooltip">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button th:if="${ seed.isDefault() }" class="btn btn-success btn-sm btn-circle mx-1" type="button" th:onclick="fn_default_seed_reload()">
+                                <button th:if="${ seed.isDefault() }" class="btn btn-success btn-sm btn-circle mx-1" type="button" th:onclick="fn_default_seed_reload()" title="기본 SEED 호출" data-toggle="tooltip">
                                     <i class="fas fa-server"></i>
                                 </button>
-                                <button th:unless="${ seed.isDefault() }" class="btn btn-danger btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_remove([[${seed.name}]])">
+                                <button th:unless="${ seed.isDefault() }" class="btn btn-danger btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_remove([[${seed.name}]])" title="진행 중단" data-toggle="tooltip">
                                     <i class="fas fa-stop"></i>
                                 </button>
                             </td>
@@ -217,19 +194,19 @@
                                     <input class="form-control form-control-sm text-right" name="size" readonly />
                                 </div>
                                 <div class="col-2">
-                                    <label>XMIN</label>
+                                    <label>Min X.</label>
                                     <input class="form-control form-control-sm text-right" name="xmin" readonly />
                                 </div>
                                 <div class="col-2">
-                                    <label>YMIN</label>
+                                    <label>Min Y.</label>
                                     <input class="form-control form-control-sm text-right" name="ymin" readonly />
                                 </div>
                                 <div class="col-2">
-                                    <label>XMAX</label>
+                                    <label>Max X.</label>
                                     <input class="form-control form-control-sm text-right" name="xmax" readonly />
                                 </div>
                                 <div class="col-2">
-                                    <label>YMAX</label>
+                                    <label>Max Y.</label>
                                     <input class="form-control form-control-sm text-right" name="ymax" readonly />
                                 </div>
                             </div>
@@ -240,11 +217,11 @@
                                 <input class="form-control form-control-sm text-right" name="time" readonly />
                             </div>
                             <div class="col-3">
-                                <label>레벨</label>
+                                <label>진행 중인 ZOOM 레벨</label>
                                 <input class="form-control form-control-sm text-right" name="level" readonly />
                             </div>
                             <div class="col-3">
-                                <label>퍼센트(%)</label>
+                                <label>진행도 (%)</label>
                                 <input class="form-control form-control-sm text-right" name="per" readonly />
                             </div>
                             <div class="col-3">
@@ -257,39 +234,80 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="searchProxyCache" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">CACHE 데이터 선택</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="list_table_caches" class="table table-sm basic my-1">
+                        <thead class="table-info">
+                        <tr>
+                            <th scope="col" class="text-center">선택</th>
+                            <th scope="col" class="text-center">이름</th>
+                            <th scope="col" class="text-center">종류</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="cache : ${proxyCaches}">
+                            <td class="text-center">
+                                <button class="btn btn-sm btn-primary btn-circle"
+                                        type="button"
+                                        data-toggle="tooltip"
+                                        title="CACHE 설정"
+                                        th:onclick="onclick_set_cache_data([[${cache.name}]])"
+                                >
+                                    <i class="fas fa-check-circle"></i>
+                                </button>
+                            </td>
+                            <td class="text-center align-middle" th:text="${ cache.name }"></td>
+                            <td class="text-center align-middle" th:text="${ 'file' }"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         $(document).ready(function() {
             $('#list_table').each(function () {
                 initialize_dataTable(this.id, {columnDefs: [
-                        { targets: 0, className: "text-center" },
-                        { targets: 1, className: "text-center" },
-                        { targets: 2, className: "text-center" },
-                        { targets: 3, className: "text-center" },
-                        { targets: 4, className: "text-center" },
-                        { targets: 5, className: "text-center" },
-                        { targets: 6, className: "text-center text-nowrap" },
-                    ]});
+                    { targets: 0, className: "text-center" },
+                    { targets: 1, className: "text-center" },
+                    { targets: 2, className: "text-center" },
+                    { targets: 3, className: "text-center" },
+                    { targets: 4, className: "text-center" },
+                    { targets: 5, className: "text-center" },
+                    { targets: 6, className: "text-center text-nowrap" },
+                ]});
             })
+
+            initialize_small_dataTable('list_table_caches');
         });
         // Map Proxy YAML 파일에 저장된 내용들을 불러온다.
         function fn_initialize_seed_param(){
-            $.ajax({
-                url: CONTEXT + '/server/api/proxy/form',
-                type: 'get',
-                success: function(data){
-                    window['selectedLayers'] = data.layers;
-                    window['selectedCaches'] = data.caches;
-                    window['selectedSources'] = data.sources;
-
-                    rendering_selected_data("selectedLayers",  window['selectedLayers']);
-                    rendering_selected_data("selectedSources",  window['selectedSources']);
-                    rendering_selected_data("selectedCaches",  window['selectedCaches']);
-                },
-                error: function(e){
-                    console.log(e);
-                }
-            });
+            $('#cache-select').val('world_cache');
+            $('input[name="coverage"]').val('korea');
+            $('select[name="levelFrom"]').val('11');
+            $('select[name="levelTo"]').val('14');
+            $('input[name="refreshBefore"]').val(1);
+            $('select[name="refreshBeforeType"]').val('hours');
+            $('input[name="removeBefore"]').val(1);
+            $('select[name="removeBeforeType"]').val('hours');
+            $('select[name="projection"]').val('epsg:4326');
+            $('#minx').val(115);
+            $('#miny').val(30);
+            $('#maxx').val(135);
+            $('#maxy').val(45);
         }
+
         function fn_seed_create(){
             if(confirm("Seed를 생성하시겠습니까?")){
                 $.ajax({
@@ -300,23 +318,24 @@
                         if(!data.RESULT){
                             toastr.error("Seed 생성에 실패하였습니다.")
                         } else {
+                            var seed = data.RESULT;
                             var table = $('#list_table').DataTable();
                             table.row.add([
-                                data.name,
-                                data.id,
-                                data.image,
-                                data.ports,
-                                data.status,
-                                data.createdAt,
-                                '<button class="btn btn-success btn-sm btn-circle mx-1" type="button" onclick="fn_seed_view(\''+data.name+'\')"><i class="fas fa-eye"></i></button>' +
-                                '<button class="btn btn-danger btn-sm btn-circle mx-1" type="button" onclick="fn_seed_remove(\''+data.name+'\')"><i class="fas fa-stop"></i></button>'
+                                seed.id.substring(0, 15) + "...",
+                                seed.name,
+                                seed.image,
+                                seed.ports !== '' ? seed.ports : '-',
+                                seed.status,
+                                getTimeStamp(),
+                                '<button class="btn btn-success btn-sm btn-circle mx-1" type="button" onclick="fn_seed_view(\''+seed.name+'\')" title="진행 현황 보기"><i class="fas fa-eye"></i></button>' +
+                                '<button class="btn btn-danger btn-sm btn-circle mx-1" type="button" onclick="fn_seed_remove(\''+seed.name+'\')" title="진행 중단"><i class="fas fa-stop"></i></button>'
                             ]).draw( false );
-                            toastr.success("Seed 생성에 성공하였습니다.")
+                            toastr.success("Seed 생성에 성공하였습니다.");
                         }
                     },
                     error: function(e){
-                        console.error(e)
-                        toastr.error("Seed 생성에 실패하였습니다.")
+                        toastr.error("Seed 생성에 실패하였습니다.");
+                        console.error(e);
                     }
                 });
             }
@@ -334,7 +353,7 @@
                             var table = $('#list_table').DataTable();
                             var datas = table.data()
                             jQuery.each(datas, function(idx, item){
-                                if(seedName == new String(item[0])){
+                                if(seedName == new String(item[1])){
                                     table.row(idx).remove().draw( false )
                                 }
                             });
@@ -355,19 +374,20 @@
                     url: CONTEXT + '/view/proxy/default-seeding-reload',
                     type: 'get',
                     success: function(data){
-                        if(data.RESULT == ''){
-                            toastr.error("Seed 재시작에 실패하였습니다.")
-                        }else{
-                            toastr.success("Seed 재시작에 성공하였습니다.")
+                        if (data.RESULT == '') {
+                            toastr.error("Seed 재시작에 실패하였습니다.");
+                        } else {
+                            toastr.success("Seed 재시작에 성공하였습니다.");
                         }
                     },
                     error: function(e){
-                        console.error(e)
-                        toastr.error("Seed 재시작에 실패하였습니다.")
+                        console.error(e);
+                        toastr.error("Seed 재시작에 실패하였습니다.");
                     }
                 });
             }
         }
+
         function fn_seed_view(seedName){
             $.ajax({
                 url: CONTEXT + '/view/proxy/seeding-info',
@@ -392,15 +412,78 @@
                 }
             });
         }
+
+        function getTimeStamp() {
+            var d = new Date();
+            var s =
+                leadingZeros(d.getFullYear(), 4) + '-' +
+                leadingZeros(d.getMonth() + 1, 2) + '-' +
+                leadingZeros(d.getDate(), 2) + ' ' +
+
+                leadingZeros(d.getHours(), 2) + ':' +
+                leadingZeros(d.getMinutes(), 2);
+
+            return s;
+        }
+
+        function leadingZeros(n, digits) {
+            var zero = '';
+            n = n.toString();
+
+            if (n.length < digits) {
+                for (i = 0; i < digits - n.length; i++) {
+                    zero += '0';
+                }
+            }
+            return zero + n;
+        }
+
+        function onchange_seed_srs(dom) {
+            var srs = dom.value;
+            var minx = $('#minx').val();
+            var miny = $('#miny').val();
+            var maxx = $('#maxx').val();
+            var maxy = $('#maxy').val();
+
+            var p1 = [0, 0], p2 = [0, 0];
+            if (srs === 'epsg:3857') {
+                p1 = [-20026376.39, -20048966.10];
+                p2 = [20026376.39, 20048966.10];
+                if (!isNaN(minx) && !isNaN(miny) && !isNaN(maxx) && !isNaN(maxy)) {
+                    p1 = jiCommon.convert.wgs84ToMercator(minx, miny);
+                    p2 = jiCommon.convert.wgs84ToMercator(maxx, maxy);
+                }
+            }
+            if (srs === 'epsg:4326') {
+                p1 = [-180, -90];
+                p2 = [180, 90];
+                if (!isNaN(minx) && !isNaN(miny) && !isNaN(maxx) && !isNaN(maxy)) {
+                    p1 = jiCommon.convert.mercatorToWgs84(minx, miny);
+                    p2 = jiCommon.convert.mercatorToWgs84(maxx, maxy);
+                }
+            }
+
+            $('#minx').val(Math.round(p1[0]));
+            $('#miny').val(Math.round(p1[1]));
+            $('#maxx').val(Math.round(p2[0]));
+            $('#maxy').val(Math.round(p2[1]));
+        }
+
+        function onclick_set_cache_data(cache) {
+            $('#cache-select').val(cache);
+            $('#searchProxyCache').modal('toggle');
+        }
     </script>
 </th:block>
 
 <th:block layout:fragment="custom-html-link">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
+    <link rel="stylesheet" th:href="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
+    <script th:src="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
 </th:block>
 </html>
