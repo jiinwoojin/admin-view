@@ -281,6 +281,7 @@ public class MVCProxyController {
      */
     @RequestMapping("seeding")
     public String proxySeeding(Model model){
+        model.addAttribute("proxyCaches", proxySeedService.loadProxyCacheListBySelected());
         model.addAttribute("seedName", DOCKER_SEED_NAME_PREFIX);
         model.addAttribute("seedContainers", proxySeedService.loadSeedContainerInfoList());
         return "page/proxy/seeding";
