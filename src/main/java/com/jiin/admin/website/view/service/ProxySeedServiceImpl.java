@@ -263,30 +263,63 @@ public class ProxySeedServiceImpl implements ProxySeedService {
                     }
                     result.put("LOGS", lastlogMap);
 
-                    File mapproxy = new File(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME);
-                    if(mapproxy.exists()){
-                        Map<String, Object> mapproxyInfo = YAMLFileUtil.fetchMapByYAMLFile(mapproxy);
-                        // 작업 디렉토리 용량 확인
-                        LinkedHashMap sources = (LinkedHashMap) mapproxyInfo.get("sources");
-                        if(sources != null){
-                            List<Path> workPaths = new ArrayList<>();
-                            Set keys = sources.keySet();
-                            for(Object key : keys){
-                                Map<String, Object> source = (Map<String, Object>) sources.get(key);
-                                Map<String, Object> req = (Map<String, Object>) source.get("req");
-                                String mapPath = (String) req.get("map");
-                                if(Files.exists(Paths.get(mapPath)) && !workPaths.contains(Paths.get(mapPath).getParent())){
-                                    workPaths.add(Paths.get(mapPath).getParent());
-                                }
-                            }
-                            long diskSize = 0;
-                            for(Path workPath:workPaths){
-                                diskSize += FileUtils.sizeOfDirectory(workPath.toFile());
-                            }
+                    File seedFile = new File(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + "/seed-" + name + ".yaml");
+                    if (seedFile.exists()) {
+                        Map<String, Object> seedInfo = YAMLFileUtil.fetchMapByYAMLFile(seedFile);
+                        Map<String, Object> map = (LinkedHashMap<String, Object>) seedInfo.get("seeds");
+                        Map<String, Object> basicSeed = (LinkedHashMap<String, Object>) map.get("basic_seed");
 
-                            result.put("DIR_SIZE", diskSize);
+                        List<String> caches = (List<String>) basicSeed.get("caches");
+                        List<String> coverages = (List<String>) basicSeed.get("coverages");
+
+                        String cache = "world_cache";
+                        String coverage = "korea";
+
+                        if (!caches.isEmpty()) {
+                            cache = caches.get(0);
                         }
+
+                        if (!coverages.isEmpty()) {
+                            coverage = coverages.get(0);
+                        }
+
+                        Map<String, Object> coveragesElement = (LinkedHashMap<String, Object>) seedInfo.get("coverages");
+                        Map<String, Object> coverageMap = (LinkedHashMap<String, Object>) coveragesElement.get(coverage);
+                        String srs = (String) coverageMap.get("srs");
+
+                        srs = srs.toUpperCase().replace(":", "");
+
+                        File cacheDirectory = new File(String.format("%s%s/%s_%s", dataPath, Constants.PROXY_CACHE_DIRECTORY, cache, srs));
+                        long diskSize = 0;
+                        diskSize += FileUtils.sizeOfDirectory(cacheDirectory);
+
+                        result.put("DIR_SIZE", diskSize);
                     }
+
+//                    File mapproxy = new File(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME);
+//                    if(mapproxy.exists()){
+//                        Map<String, Object> mapproxyInfo = YAMLFileUtil.fetchMapByYAMLFile(mapproxy);
+//                        // 작업 디렉토리 용량 확인
+//                        LinkedHashMap sources = (LinkedHashMap) mapproxyInfo.get("sources");
+//                        if(sources != null){
+//                            List<Path> workPaths = new ArrayList<>();
+//                            Set keys = sources.keySet();
+//                            for(Object key : keys){
+//                                Map<String, Object> source = (Map<String, Object>) sources.get(key);
+//                                Map<String, Object> req = (Map<String, Object>) source.get("req");
+//                                String mapPath = (String) req.get("map");
+//                                if(Files.exists(Paths.get(mapPath)) && !workPaths.contains(Paths.get(mapPath).getParent())){
+//                                    workPaths.add(Paths.get(mapPath).getParent());
+//                                }
+//                            }
+//                            long diskSize = 0;
+//                            for(Path workPath:workPaths){
+//                                diskSize += FileUtils.sizeOfDirectory(workPath.toFile());
+//                            }
+//
+//                            result.put("DIR_SIZE", diskSize);
+//                        }
+//                    }
 
                     DateTime time = DateTime.parse(object.getString("Created"), fmt);
                     Date createDate = time.toDate();
