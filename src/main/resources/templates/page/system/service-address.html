@@ -48,7 +48,7 @@
                         <td class="text-center align-middle">
                             <span th:text="${ connection.zone == 'GOC' ? '지작사' : connection.zone }" th:id="${ 'remove-zone-' + connection.key }"></span>
                         </td>
-                        <td class="text-center align-middle" th:switch="${connection.kind}">
+                        <td class="text-center align-middle">
                             <span th:text="${ connection.kind == 'NSI' ? 'N-SI' : connection.kind }" th:id="${ 'remove-kind-' + connection.key }"></span>
                         </td>
                         <td class="text-center align-middle">

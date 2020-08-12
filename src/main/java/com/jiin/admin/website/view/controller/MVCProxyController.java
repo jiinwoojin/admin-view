@@ -273,20 +273,22 @@ public class MVCProxyController {
         return "redirect:setting";
     }
 
-    // SEEDING 진행 현황 가져오기
+    // SEEDING 진행 현황 페이지
     /**
      * docker run -it -d --rm --user 1001:1000 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name jimap_seed jiinwoojin/jimap_mapproxy mapproxy-seed -f /data/jiapp/data_dir/proxy/mapproxy.yaml -s /data/jiapp/data_dir/proxy/seed.yaml -c 4 --seed ALL
      * @param model
      * @return
      */
     @RequestMapping("seeding")
-    public String proxySeeding(Model model){
+    public String proxySeeding(Model model, @RequestParam(value = "menu", required = false, defaultValue = "SEED_SET") String menu){
         model.addAttribute("proxyCaches", proxySeedService.loadProxyCacheListBySelected());
         model.addAttribute("seedName", DOCKER_SEED_NAME_PREFIX);
         model.addAttribute("seedContainers", proxySeedService.loadSeedContainerInfoList());
         return "page/proxy/seeding";
     }
 
+
+    // SEEDING 진행 현황 로그 가져오기
     /**
      * [14:03:36] 13  75.44% 140.97656, 43.24219, 141.32812, 43.59375 (8593072 tiles)
      * @return
@@ -298,7 +300,7 @@ public class MVCProxyController {
     }
 
     /**
-     * SEED 생성 (O)
+     * SEED 생성
      * @param param
      * @return
      */
@@ -312,6 +314,11 @@ public class MVCProxyController {
         };
     }
 
+    /**
+     * 기본 값 Seeding 가져오기 - 사용 여부에 따라 폐기 될 수 있음.
+     * @param
+     * @return
+     */
     @ResponseBody
     @RequestMapping("default-seeding-reload")
     public Map<String, Object> proxySeedingReload() {
@@ -322,11 +329,27 @@ public class MVCProxyController {
         };
     }
 
+    /**
+     * SEEDING 중단
+     * @param name
+     * @return
+     */
     @ResponseBody
     @RequestMapping("seeding-stop")
     public Map<String, Object> proxySeedingStop(@RequestParam("SEEDNAME") String name) {
         Map<String, Object> info = new HashMap<>();
         info.put("RESULT", proxySeedService.removeSeedContainerByName(name) ? "SUCCESS" : "FAILURE");
         return info;
+    }
+
+    /**
+     * CACHE SEEDING 소멸 시점 설정
+     * @param param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("cleanup-setting")
+    public Map<String, Integer> proxyCleanUpSetting(@RequestParam Map<String, Object> param) {
+        return proxySeedService.setCacheSeedingCleanUpSetting(param);
     }
 }

@@ -1,0 +1,52 @@
+<h3 class="section_tit">CACHE 소멸 설정</h3>
+<form id="cleanup-setting" accept-charset="utf-8" onsubmit="return preSubmit(this);">
+    <label>CACHE 데이터 선택</label>
+    <div class="input-group">
+        <input id="cache-select" type="text" class="form-control" name="cache" value="world_cache" readonly />
+        <div class="input-group-append">
+            <button class="btn btn-info" type="button" data-toggle="modal" data-target="#searchProxyCache">
+                <i class="fas fa-search" data-toggle="tooltip" title="CACHE 선택"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="input-group my-2">
+        <div class="input-group-prepend">
+            <span class="input-group-text">타일 소멸 기준</span>
+        </div>
+        <input style="height: 38px;" type="text" class="form-control text-right" name="removeBefore" value="1" />
+        <select class="form-control" name="removeBeforeType">
+            <option value="weeks">주 (WEEKS)</option>
+            <option value="days" selected="selected">일 (DAYS)</option>
+            <option value="hours">시간 (HOURS)</option>
+            <option value="minutes">분 (MINUTES)</option>
+        </select>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-6">
+            <label>ZOOM 레벨 시작</label>
+            <select class="form-control" name="levelFrom" disabled>
+                <option th:each="v : ${ #numbers.sequence(1, 19) }" th:value="${v}" th:text="${v}" th:selected="${ v == 11 }" />
+            </select>
+        </div>
+        <div class="col-6">
+            <label>ZOOM 레벨 종료</label>
+            <select class="form-control" name="levelTo" disabled>
+                <option th:each="v : ${ #numbers.sequence(1, 19) }" th:value="${v}" th:text="${v}" th:selected="${ v == 14 }" />
+            </select>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="text-right">
+        <button type="button" class="btn btn-secondary btn-sm" onclick="fn_initialize_seed_param()">
+            <i class="fas fa-sync"></i> 초기화
+        </button>
+
+        <button type="button" class="btn btn-primary btn-sm" onclick="fn_cleanup_setting()">
+            <i class="fas fa-save"></i> 설정
+        </button>
+    </div>
+</form>

@@ -82,9 +82,9 @@
                         </a>
                     </li>
                     <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/proxy/seeding') ? 'active' : '' }">
-                        <a th:href="@{/view/proxy/seeding}">
+                        <a th:href="@{/view/proxy/seeding?menu=SEED_SET}">
                             <i class="fas fa-fw fa-calendar"></i>
-                            <span class="nav-label">SEED 설정</span>
+                            <span class="nav-label">CACHE 설정</span>
                         </a>
                     </li>
                 </ul>

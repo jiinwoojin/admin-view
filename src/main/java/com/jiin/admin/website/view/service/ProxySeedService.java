@@ -1,6 +1,5 @@
 package com.jiin.admin.website.view.service;
 
-import com.amihaiemil.docker.Container;
 import com.jiin.admin.dto.ProxyCacheDTO;
 import com.jiin.admin.vo.SeedContainerInfo;
 
@@ -14,4 +13,5 @@ public interface ProxySeedService {
     SeedContainerInfo createSeedContainer(Map<String, Object> param);
     String resetDefaultSeeding();
     Map<String, Object> loadLogTextInContainerByName(String name);
+    Map<String, Integer> setCacheSeedingCleanUpSetting(Map<String, Object> param);
 }

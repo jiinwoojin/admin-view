@@ -48,12 +48,73 @@ public class ProxySeedServiceImpl implements ProxySeedService {
     @Value("${spring.profiles.active}")
     private String activeProfile;
 
+    private static final String DEFAULT_PROXY_CACHE_DATA = "world_cache";
+
+    private static final String DEFAULT_CACHE_COVERAGE = "korea";
+
     @Resource
     private ProxyCacheMapper proxyCacheMapper;
 
     // Proxy Cache 데이터 중 YAML 파일에 설정된 데이터만 호출한다.
     public List<ProxyCacheDTO> loadProxyCacheListBySelected(){
         return proxyCacheMapper.findBySelected(true);
+    }
+
+    // YAML 파일의 MAP 데이터를 param 으로 가져온다.
+    private Map<String, Object> convertYamlMapToParamMap(String seedName, Map<String, Object> yamlMap) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("DATA_PATH", dataPath);
+        paramMap.put("SEED_NAME", seedName);
+
+        Map<String, Object> seeds = (Map<String, Object>) yamlMap.get("seeds");
+        Map<String, Object> basicSeed = (Map<String, Object>) seeds.get("basic_seed");
+
+        List<String> caches = (List<String>) basicSeed.get("caches");
+        List<String> coverages = (List<String>) basicSeed.get("coverages");
+
+        String cache = DEFAULT_PROXY_CACHE_DATA;
+        String coverage = DEFAULT_CACHE_COVERAGE;
+
+        if (!caches.isEmpty()) {
+            cache = caches.get(0);
+        }
+
+        if (!coverages.isEmpty()) {
+            coverage = coverages.get(0);
+        }
+
+        paramMap.put("cache", cache);
+        paramMap.put("coverage", coverage);
+
+        Map<String, Object> levels = (Map<String, Object>) basicSeed.get("levels");
+
+        paramMap.put("levelFrom", String.valueOf(levels.get("from")));
+        paramMap.put("levelTo", String.valueOf(levels.get("to")));
+
+        Map<String, Object> refreshBefore = (Map<String, Object>) basicSeed.get("refresh_before");
+
+        for (String key : refreshBefore.keySet()) {
+            paramMap.put("refreshBeforeType", key);
+            paramMap.put("refreshBefore", String.valueOf(refreshBefore.get(key)));
+        }
+
+        Map<String, Object> seedCoverages = (Map<String, Object>) yamlMap.get("coverages");
+        for (String key : seedCoverages.keySet()) {
+            paramMap.put("coverage", coverage);
+            Map<String, Object> coverageMap = (Map<String, Object>) seedCoverages.get(key);
+
+            List<Integer> bbox = (List<Integer>) coverageMap.get("bbox");
+            String srs = (String) coverageMap.get("srs");
+
+            paramMap.put("xmin", String.valueOf(bbox.get(0)));
+            paramMap.put("ymin", String.valueOf(bbox.get(1)));
+            paramMap.put("xmax", String.valueOf(bbox.get(2)));
+            paramMap.put("ymax", String.valueOf(bbox.get(3)));
+
+            paramMap.put("projection", srs);
+        }
+
+        return paramMap;
     }
 
     // 설정된 YAML 파일을 통해 Seeding 파일 생성
@@ -81,21 +142,23 @@ public class ProxySeedServiceImpl implements ProxySeedService {
         basic_seed.put("levels", levels);
         basic_seed.put("refresh_before", refresh_before);
 
-        seeds.put("basic_seed", basic_seed);    // 이부분 수정
-        seed.put("seeds", seeds);                // 이부분 수정
+        seeds.put("basic_seed", basic_seed);
+        seed.put("seeds", seeds);
 
         Map<String, Object> basic_cleanup = new LinkedHashMap<>();
 
-        String removeBeforeType = (String) param.get("removeBeforeType");
-        Map<String, Object> remove_before = new LinkedHashMap<>();
-        remove_before.put(removeBeforeType, Integer.parseInt((String) param.get("removeBefore")));
-        basic_cleanup.put("basic_cleanup", new LinkedHashMap<String, Object>(){
-            {
-                put("caches", Arrays.toString(caches).replace("\"", ""));
-                put("remove_before", remove_before);
-            }
-        });
-        seed.put("cleanups", basic_cleanup);
+        if (param.keySet().containsAll(Arrays.asList("removeBeforeType", "removeBefore"))) {
+            String removeBeforeType = (String) param.get("removeBeforeType");
+            Map<String, Object> remove_before = new LinkedHashMap<>();
+            remove_before.put(removeBeforeType, Integer.parseInt((String) param.get("removeBefore")));
+            basic_cleanup.put("basic_cleanup", new LinkedHashMap<String, Object>() {
+                {
+                    put("caches", Arrays.toString(caches).replace("\"", ""));
+                    put("remove_before", remove_before);
+                }
+            });
+            seed.put("cleanups", basic_cleanup);
+        }
 
         Map<String, Object> coverages = new LinkedHashMap<>();
         Integer[] bbox = new Integer[]{
@@ -122,7 +185,7 @@ public class ProxySeedServiceImpl implements ProxySeedService {
         FileSystemUtil.createAtFile(seedpath, context);
     }
 
-    // Docker RUN 관련 명령어 : 라이브러리에서 자체적으로 제공하지 않아 CMD 로 1차 해결.
+    // Docker RUN 관련 명령어 : 라이브러리에서 자체적으로 제공하지 않아 CMD 로 해결.
     private String execCreateDockerSeedContainer(String seedName, String seedPath){
         String mapproxypath = dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME;
 
@@ -190,9 +253,9 @@ public class ProxySeedServiceImpl implements ProxySeedService {
             return false;
         }
 
-        String seedpath = dataPath + Constants.PROXY_SETTING_FILE_PATH + "/seed-" + name + ".yaml";
+        String seedPath = dataPath + Constants.PROXY_SETTING_FILE_PATH + "/seed-" + name + ".yaml";
         try {
-            FileSystemUtil.deleteFile(seedpath);
+            FileSystemUtil.deleteFile(seedPath);
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
             return false;
@@ -230,9 +293,9 @@ public class ProxySeedServiceImpl implements ProxySeedService {
     @Override
     public Map<String, Object> loadLogTextInContainerByName(String name) {
         List<Container> containers = DockerUtil.fetchAllContainers();
-
         DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'")
                                                     .withZone(DateTimeZone.forID("Asia/Seoul"));
+
         for (Container container : containers) {
             try {
                 JsonObject object = container.inspect();
@@ -266,22 +329,10 @@ public class ProxySeedServiceImpl implements ProxySeedService {
                     File seedFile = new File(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + "/seed-" + name + ".yaml");
                     if (seedFile.exists()) {
                         Map<String, Object> seedInfo = YAMLFileUtil.fetchMapByYAMLFile(seedFile);
-                        Map<String, Object> map = (LinkedHashMap<String, Object>) seedInfo.get("seeds");
-                        Map<String, Object> basicSeed = (LinkedHashMap<String, Object>) map.get("basic_seed");
+                        Map<String, Object> paramMap = convertYamlMapToParamMap(cntName, seedInfo);
 
-                        List<String> caches = (List<String>) basicSeed.get("caches");
-                        List<String> coverages = (List<String>) basicSeed.get("coverages");
-
-                        String cache = "world_cache";
-                        String coverage = "korea";
-
-                        if (!caches.isEmpty()) {
-                            cache = caches.get(0);
-                        }
-
-                        if (!coverages.isEmpty()) {
-                            coverage = coverages.get(0);
-                        }
+                        String cache = (String) paramMap.get("cache");
+                        String coverage = (String) paramMap.get("coverage");
 
                         Map<String, Object> coveragesElement = (LinkedHashMap<String, Object>) seedInfo.get("coverages");
                         Map<String, Object> coverageMap = (LinkedHashMap<String, Object>) coveragesElement.get(coverage);
@@ -290,6 +341,7 @@ public class ProxySeedServiceImpl implements ProxySeedService {
                         srs = srs.toUpperCase().replace(":", "");
 
                         File cacheDirectory = new File(String.format("%s%s/%s_%s", dataPath, Constants.PROXY_CACHE_DIRECTORY, cache, srs));
+
                         long diskSize = 0;
                         diskSize += FileUtils.sizeOfDirectory(cacheDirectory);
 
@@ -342,5 +394,41 @@ public class ProxySeedServiceImpl implements ProxySeedService {
         }
 
         return null;
+    }
+
+    @Override
+    public Map<String, Integer> setCacheSeedingCleanUpSetting(Map<String, Object> param) {
+        List<Container> containers = DockerUtil.fetchAllContainers();
+        Map<String, Integer> countMap = new HashMap<>();
+        for (Container container : containers) {
+            JsonObject object = null;
+            try {
+                object = container.inspect();
+                String cntName = object.getString("Name").replace("/", "");
+                if (cntName.startsWith(DOCKER_SEED_NAME_PREFIX)) {
+                    File seedFile = new File(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + "/seed-" + cntName + ".yaml");
+                    Map<String, Object> seedInfo = YAMLFileUtil.fetchMapByYAMLFile(seedFile);
+                    Map<String, Object> paramMap = convertYamlMapToParamMap(cntName, seedInfo);
+
+                    String cache = (String) paramMap.get("cache");
+
+                    if (cache.equals(param.get("cache"))) {
+                        paramMap.put("removeBefore", String.valueOf(param.get("removeBefore")));
+                        paramMap.put("removeBeforeType", param.get("removeBeforeType"));
+
+                        // 원래 있던 SEED 는 삭제하고 재생성한다. 실행 중인 Seeding 데이터는 일회성이기 때문이다.
+                        // 주기적으로 실행되는 친구들에 대해서는 이를 같이 설정해야 한다.
+                        removeSeedContainerByName(cntName);
+                        createSeedContainer(paramMap);
+
+                        countMap.put("SUCCESS", countMap.getOrDefault("SUCCESS", 0) + 1);
+                    }
+                }
+            } catch (IOException e) {
+                log.error("ERROR - " + e.getMessage());
+            }
+        }
+
+        return countMap;
     }
 }
