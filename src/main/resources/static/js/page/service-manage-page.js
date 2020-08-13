@@ -7,41 +7,13 @@ $(document).ready(function() {
     initialize_dataTable('list_table_shutdown', { 'order' : [[ 4, 'desc' ]] });
 
     if (connections.length > 0) {
-        $('#carousel-0').slick({
-            infinite: true,
-            slidesToShow: 6,
-            slidesToScroll: 6,
-            responsive: [
-                {
-                    breakpoint: 1440,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3
-                    }
-                }
-            ]
-        });
+        $('#service-carousel-0').carousel();
     }
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         var id = e.target && e.target.id;
         var idx = id.replace('tab', '');
-        if (!$('#carousel-' + idx).hasClass('slick-initialized')) {
-            $('#carousel-' + idx).slick({
-                infinite: true,
-                slidesToShow: 6,
-                slidesToScroll: 6,
-                responsive: [
-                    {
-                        breakpoint: 1440,
-                        settings: {
-                            slidesToShow: 3,
-                            slidesToScroll: 3
-                        }
-                    }
-                ]
-            });
-        }
+        $('#service-carousel-' + idx).carousel();
     });
 
     var tabEvent = function(dom) {
@@ -77,6 +49,7 @@ $(document).ready(function() {
                 }
             }
         });
+
         $.ajax({
             url: `${CONTEXT}/server/api/service/extension-initialize-check`,
             type: 'POST',

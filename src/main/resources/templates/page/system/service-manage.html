@@ -34,83 +34,99 @@
 
             <div class="tab-content" id="service-manage-view">
                 <div th:each="connection, idx : ${connections}" class="tab-pane fade" th:id="${connection.key}" role="tabpanel">
-                    <div th:id="${ 'carousel-' + idx.index }" class="my-1">
-                        <div th:each="service : ${serviceMap.keySet()}">
-                            <div class="ibox-content mx-1">
-                                <div class="text-sm font-weight-bold mb-1 text-center">
-                                    <i class="h1 fas fa-question" th:id="${ 'service-status-icon-' + serviceMap.get(service).name + '-' + idx.index }"></i>
-                                </div>
-                                <div class="text-sm font-weight-bold mb-1 text-center">
-                                    <p><b th:text="${service}" th:id="${ 'service-status-title-' + serviceMap.get(service).name + '-' + idx.index }"></b></p>
-                                    <p th:text="${serviceMap.get(service).status}" th:id="${ 'service-status-text-' + serviceMap.get(service).name + '-' + idx.index }"></p>
-                                </div>
-                                <div class="text-center">
-                                    <button th:id="${ 'service-refresh-' + serviceMap.get(service).name + '-' + idx.index }" class="btn btn-primary btn-sm px-1" th:onclick="onclick_status_refresh([[${serviceMap.get(service).name}]],[[${connection.ip}]],[[${serviceMap.get(service).port}]],[[${idx.index}]])">
-                                        <i class="fas fa-sync" data-toggle="tooltip" data-placement="top" title="새로고침"></i>
-                                    </button>
+                    <div th:id="${'service-carousel-' + idx.index}" class="carousel slide my-2" data-ride="carousel" data-interval="false">
+                        <div class="carousel-inner">
+                            <div th:each="j : ${ #numbers.sequence(0, (serviceMap.size() - 1) / 6) }" class="carousel-item" th:classappend="${ (j == 0) ? 'active' : '' }">
+                                <div class="row">
+                                    <div class="col-2" th:each="service, idxPage : ${ #lists.toList(serviceMap.keySet()) }" th:if="${ idxPage.index >= j * 6 && idxPage.index < (j + 1) * 6 }">
+                                        <div class="ibox-content mx-1">
+                                            <div class="text-sm font-weight-bold mb-1 text-center">
+                                                <i class="h1 fas fa-question" th:id="${ 'service-status-icon-' + serviceMap.get(service).name + '-' + idx.index }"></i>
+                                            </div>
+                                            <div class="text-sm font-weight-bold mb-1 text-center">
+                                                <p><b th:text="${service}" th:id="${ 'service-status-title-' + serviceMap.get(service).name + '-' + idx.index }"></b></p>
+                                                <p th:text="${serviceMap.get(service).status}" th:id="${ 'service-status-text-' + serviceMap.get(service).name + '-' + idx.index }"></p>
+                                            </div>
+                                            <div class="text-center">
+                                                <button th:id="${ 'service-refresh-' + serviceMap.get(service).name + '-' + idx.index }" class="btn btn-primary btn-sm px-1" th:onclick="onclick_status_refresh([[${serviceMap.get(service).name}]],[[${connection.ip}]],[[${serviceMap.get(service).port}]],[[${idx.index}]])">
+                                                    <i class="fas fa-sync" data-toggle="tooltip" data-placement="top" title="새로고침"></i>
+                                                </button>
 
-                                    <!-- docker container 전용 버튼 -->
-                                    <block th:remove="tag" th:if="${ serviceMap.get(service).port == 0 }">
-                                        <button
-                                                th:id="${ 'service-start-' + serviceMap.get(service).name + '-' + idx.index }"
-                                                class="btn btn-info btn-sm px-1"
-                                                th:data-service="${ service }"
-                                                th:data-service-key="${ serviceMap.get(service).name }"
-                                                data-method="START"
-                                                th:data-index="${idx.index}"
-                                                th:data-hostname="${connection.name}"
-                                                onclick="onclick_service_execute(this)"
-                                        >
-                                            <i class="fas fa-play-circle" data-toggle="tooltip" data-placement="top" title="가동 (START)"></i>
-                                        </button>
-                                        <button
-                                                th:id="${ 'service-stop-' + serviceMap.get(service).name + '-' + idx.index }"
-                                                class="btn btn-danger btn-sm px-1"
-                                                th:data-service="${ service }"
-                                                th:data-service-key="${ serviceMap.get(service).name }"
-                                                data-method="STOP"
-                                                th:data-index="${idx.index}"
-                                                th:data-hostname="${connection.name}"
-                                                onclick="onclick_service_execute(this)"
-                                        >
-                                            <i class="fas fa-stop-circle" data-toggle="tooltip" data-placement="top" title="종료 (STOP)"></i>
-                                        </button>
-                                        <button
-                                                th:id="${ 'service-restart-' + serviceMap.get(service).name + '-' + idx.index }"
-                                                class="btn btn-warning btn-sm px-1"
-                                                th:data-service="${ service }"
-                                                th:data-service-key="${ serviceMap.get(service).name }"
-                                                data-method="RESTART"
-                                                th:data-index="${idx.index}"
-                                                th:data-hostname="${connection.name}"
-                                                onclick="onclick_service_execute(this)"
-                                        >
-                                            <i class="fas fa-reply" data-toggle="tooltip" data-placement="top" title="재가동 (RESTART)"></i>
-                                        </button>
-                                    </block>
+                                                <!-- docker container 전용 버튼 -->
+                                                <block th:remove="tag" th:if="${ serviceMap.get(service).port == 0 }">
+                                                    <button
+                                                            th:id="${ 'service-start-' + serviceMap.get(service).name + '-' + idx.index }"
+                                                            class="btn btn-info btn-sm px-1"
+                                                            th:data-service="${ service }"
+                                                            th:data-service-key="${ serviceMap.get(service).name }"
+                                                            data-method="START"
+                                                            th:data-index="${idx.index}"
+                                                            th:data-hostname="${connection.name}"
+                                                            onclick="onclick_service_execute(this)"
+                                                    >
+                                                        <i class="fas fa-play-circle" data-toggle="tooltip" data-placement="top" title="가동 (START)"></i>
+                                                    </button>
+                                                    <button
+                                                            th:id="${ 'service-stop-' + serviceMap.get(service).name + '-' + idx.index }"
+                                                            class="btn btn-danger btn-sm px-1"
+                                                            th:data-service="${ service }"
+                                                            th:data-service-key="${ serviceMap.get(service).name }"
+                                                            data-method="STOP"
+                                                            th:data-index="${idx.index}"
+                                                            th:data-hostname="${connection.name}"
+                                                            onclick="onclick_service_execute(this)"
+                                                    >
+                                                        <i class="fas fa-stop-circle" data-toggle="tooltip" data-placement="top" title="종료 (STOP)"></i>
+                                                    </button>
+                                                    <button
+                                                            th:id="${ 'service-restart-' + serviceMap.get(service).name + '-' + idx.index }"
+                                                            class="btn btn-warning btn-sm px-1"
+                                                            th:data-service="${ service }"
+                                                            th:data-service-key="${ serviceMap.get(service).name }"
+                                                            data-method="RESTART"
+                                                            th:data-index="${idx.index}"
+                                                            th:data-hostname="${connection.name}"
+                                                            onclick="onclick_service_execute(this)"
+                                                    >
+                                                        <i class="fas fa-reply" data-toggle="tooltip" data-placement="top" title="재가동 (RESTART)"></i>
+                                                    </button>
+                                                </block>
 
-                                    <!-- 나머지 전용 버튼 -->
-                                    <block th:remove="tag" th:unless="${ serviceMap.get(service).port == 0 }">
-                                        <button
-                                                th:id="${ 'service-restart-' + serviceMap.get(service).name + '-' + idx.index }"
-                                                class="btn btn-warning btn-sm px-1"
-                                                th:data-service="${ service }"
-                                                th:data-service-key="${ serviceMap.get(service).name }"
-                                                data-method="RESTART"
-                                                th:data-index="${idx.index}"
-                                                th:data-hostname="${connection.name}"
-                                                onclick="onclick_service_execute(this)"
-                                        >
-                                            <i class="fas fa-reply" data-toggle="tooltip" data-placement="top" title="재가동 (RESTART)"></i>
-                                        </button>
-                                    </block>
+                                                <!-- 나머지 전용 버튼 -->
+                                                <block th:remove="tag" th:unless="${ serviceMap.get(service).port == 0 }">
+                                                    <button
+                                                            th:id="${ 'service-restart-' + serviceMap.get(service).name + '-' + idx.index }"
+                                                            class="btn btn-warning btn-sm px-1"
+                                                            th:data-service="${ service }"
+                                                            th:data-service-key="${ serviceMap.get(service).name }"
+                                                            data-method="RESTART"
+                                                            th:data-index="${idx.index}"
+                                                            th:data-hostname="${connection.name}"
+                                                            onclick="onclick_service_execute(this)"
+                                                    >
+                                                        <i class="fas fa-reply" data-toggle="tooltip" data-placement="top" title="재가동 (RESTART)"></i>
+                                                    </button>
+                                                </block>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="text-center my-2">
+                        <a class="btn btn-info btn-circle btn-sm mx-2" th:href="${'#service-carousel-' + idx.index}" role="button" data-slide="prev" data-toggle="tooltip" data-placement="top" title="이전">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                        <a class="btn btn-info btn-circle btn-sm mx-2" th:href="${'#service-carousel-' + idx.index}" role="button" data-slide="next" data-toggle="tooltip" data-placement="top" title="다음">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div id="service-no-exists" th:unless="${ #lists.size(connections) > 0}">
             <div class="jumbotron">
                 <h1 class="display-4">
@@ -160,15 +176,12 @@
 
 <th:block layout:fragment="custom-html-link">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/dataTables/datatables.min.css}">
-    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/slick/slick.css}">
-    <link rel="stylesheet" th:href="@{/design-park/resource/library/css/plugins/slick/slick-theme.css}">
     <link rel="stylesheet" th:href="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.css}">
 </th:block>
 
 <th:block layout:fragment="custom-html-script">
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/datatables.min.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/dataTables/dataTables.bootstrap4.min.js}"></script>
-    <script th:src="@{/design-park/resource/library/js/plugins/slick/slick.min.js}"></script>
     <script th:src="@{/js/page/service-manage-page.js}"></script>
     <script th:src="@{/design-park/resource/library/js/plugins/jquery-ui/jquery-ui.min.js}"></script>
 </th:block>
