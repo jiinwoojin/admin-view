@@ -66,6 +66,13 @@
         SELECT * FROM _PROXY_SOURCE WHERE SELECTED = #{selected}
     </select>
 
+    <select id="findByRequestMapEndsWith" resultMap="ProxySourceResultMap">
+        SELECT * FROM _PROXY_SOURCE PS
+        LEFT JOIN _PROXY_SOURCE_MAPSERVER PSMS ON PS.id = PSMS.id
+        LEFT JOIN _PROXY_SOURCE_WMS PSW ON PS.id = PSW.id
+        WHERE PSMS.REQUEST_MAP LIKE CONCAT('%', #{requestMap}) OR PSW.REQUEST_MAP LIKE CONCAT('%', #{requestMap})
+    </select>
+
     <select id="findBySelectedMapServer" resultMap="ProxySourceResultMap">
         SELECT * FROM _PROXY_SOURCE PS
         LEFT JOIN _PROXY_SOURCE_MAPSERVER PSMS ON PS.id = PSMS.id

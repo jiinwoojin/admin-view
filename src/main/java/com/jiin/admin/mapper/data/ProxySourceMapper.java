@@ -18,6 +18,7 @@ public interface ProxySourceMapper {
     ProxySourceDTO findById(@Param("id") long id);
     ProxySourceDTO findByName(@Param("name") String name);
     List<ProxySourceDTO> findBySelected(@Param("selected") boolean selected);
+    List<ProxySourceDTO> findByRequestMapEndsWith(@Param("requestMap") String requestMap);
     List<ProxySourceMapServerDTO> findBySelectedMapServer(@Param("selected") boolean selected);
     List<ProxySourceWMSDTO> findBySelectedWMS(@Param("selected") boolean selected);
     List<ProxySourceMapServerDTO> findByMapServerListRequestMapEndsWith(@Param("mapFilePath") String mapFilePath);

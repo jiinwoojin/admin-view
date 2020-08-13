@@ -20,7 +20,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("manage")
@@ -132,5 +134,20 @@ public class MVCMapController {
     @PostMapping("map-delete")
     public boolean restMapDelete(@RequestParam Long mapId) throws IOException {
         return mapService.removeData(mapId);
+    }
+
+    /**
+     * MAP 데이터의 캐시 용량을 가져온다.
+     * @param name String
+     */
+    @ResponseBody
+    @GetMapping("map-cache/capacity")
+    public Map<String, Object> restMapCacheCapacity(@RequestParam String name) {
+        return new HashMap<String, Object>(){
+            {
+                put("RESULT", mapService.loadMapCacheSeedCapacity(name));
+                put("NAME", name);
+            }
+        } ;
     }
 }

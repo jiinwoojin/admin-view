@@ -10,6 +10,7 @@ public interface ProxySeedService {
     List<ProxyCacheDTO> loadProxyCacheListBySelected();
     List<SeedContainerInfo> loadSeedContainerInfoList();
     boolean removeSeedContainerByName(String name);
+    boolean removeSeedYAMLFileNotNeed();
     SeedContainerInfo createSeedContainer(Map<String, Object> param);
     String resetDefaultSeeding();
     Map<String, Object> loadLogTextInContainerByName(String name);

@@ -263,4 +263,8 @@ public class Constants {
     public static final String EPSG_3857 = "EPSG:3857";
 
     public static final String EPSG_900913 = "EPSG:900913";
+
+    public static final String CRON_SCHEDULING_MANAGEMENT_FILE = "cron_schedule.yaml";
+
+    public static final String DEFAULT_CRON_SCHEDULE = "* 11 11 * * ?";
 }

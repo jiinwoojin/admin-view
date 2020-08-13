@@ -353,6 +353,10 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 proxySourceWMSModel.setId(nextIdx);
                 dto = ProxySourceWMSModel.convertDTO(proxySourceWMSModel);
                 dto.setRequestURL(String.format(Constants.MAP_SERVER_WMS_URL));
+
+                // TODO : setRequestMap 에서 ${data_dir} 빼야 하는 거 확인 필요할 것임.
+                // DB 에는 미포함, 서버에선 YAML 설정 시, ${data_dir} + DB 값 으로 설정해야 할 것임.
+
                 dto.setIsDefault(false);
                 dto.setSelected(false);
                 return proxySourceMapper.insert(dto) > 0 && proxySourceMapper.insertWMS(dto) > 0;

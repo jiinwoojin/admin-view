@@ -11,7 +11,6 @@ import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.util.LinuxCommandUtil;
 import com.jiin.admin.website.util.YAMLFileUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -24,9 +23,6 @@ import javax.annotation.Resource;
 import javax.json.JsonObject;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -263,6 +259,43 @@ public class ProxySeedServiceImpl implements ProxySeedService {
         return true;
     }
 
+    // 지금 당장 필요 없는 YAML 파일을 제거한다. (실행을 안 하고 있는 Container 를 없앤다.)
+    @Override
+    public boolean removeSeedYAMLFileNotNeed() {
+        File confDir = new File(String.format("%s%s", dataPath, Constants.PROXY_SETTING_FILE_PATH));
+        Set<String> seedFiles = new HashSet<>();
+        for (File file : confDir.listFiles()) {
+            String filename = file.getName();
+            if (filename.equalsIgnoreCase(Constants.PROXY_SETTING_FILE_NAME) || filename.equalsIgnoreCase(Constants.PROXY_SEEDING_FILE_NAME)) {
+                continue;
+            }
+            // seed-jimap_seed_~~~.yaml
+            seedFiles.add(filename);
+        }
+
+        // 아래는 모두 실행 중인 Container
+        List<Container> containers = DockerUtil.fetchAllContainers();
+        for (Container container : containers) {
+            JsonObject object = null;
+            try {
+                object = container.inspect();
+                String cntName = object.getString("Name").replace("/", "");
+
+                // 지금 실행 중인 Container 의 YAML 설정 파일은 삭제를 막는다.
+                String tmpFileName = String.format("seed-%s.yaml", cntName);
+                if (seedFiles.contains(tmpFileName)) {
+                    seedFiles.remove(tmpFileName);
+                }
+            } catch (IOException e) {
+                log.error("ERROR - " + e.getMessage());
+            }
+        }
+
+        // 삭제 작업 진행0
+        return false;
+    }
+
+    // SEED 컨테이너를 생성한다.
     @Override
     public SeedContainerInfo createSeedContainer(Map<String, Object> param) {
         long now = new Date().getTime();
@@ -282,6 +315,7 @@ public class ProxySeedServiceImpl implements ProxySeedService {
         }
     }
 
+    // Default SEED 를 재시작한다. (필요 없을 가능성이 있다.)
     @Override
     public String resetDefaultSeeding() {
         String seedPath = dataPath + Constants.PROXY_SETTING_FILE_PATH  + "/" + Constants.PROXY_SEEDING_FILE_NAME;
@@ -290,6 +324,7 @@ public class ProxySeedServiceImpl implements ProxySeedService {
         return result;
     }
 
+    // Container 의 최신 로그를 불러온다.
     @Override
     public Map<String, Object> loadLogTextInContainerByName(String name) {
         List<Container> containers = DockerUtil.fetchAllContainers();
@@ -326,52 +361,7 @@ public class ProxySeedServiceImpl implements ProxySeedService {
                     }
                     result.put("LOGS", lastlogMap);
 
-                    File seedFile = new File(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + "/seed-" + name + ".yaml");
-                    if (seedFile.exists()) {
-                        Map<String, Object> seedInfo = YAMLFileUtil.fetchMapByYAMLFile(seedFile);
-                        Map<String, Object> paramMap = convertYamlMapToParamMap(cntName, seedInfo);
-
-                        String cache = (String) paramMap.get("cache");
-                        String coverage = (String) paramMap.get("coverage");
-
-                        Map<String, Object> coveragesElement = (LinkedHashMap<String, Object>) seedInfo.get("coverages");
-                        Map<String, Object> coverageMap = (LinkedHashMap<String, Object>) coveragesElement.get(coverage);
-                        String srs = (String) coverageMap.get("srs");
-
-                        srs = srs.toUpperCase().replace(":", "");
-
-                        File cacheDirectory = new File(String.format("%s%s/%s_%s", dataPath, Constants.PROXY_CACHE_DIRECTORY, cache, srs));
-
-                        long diskSize = 0;
-                        diskSize += FileUtils.sizeOfDirectory(cacheDirectory);
-
-                        result.put("DIR_SIZE", diskSize);
-                    }
-
-//                    File mapproxy = new File(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME);
-//                    if(mapproxy.exists()){
-//                        Map<String, Object> mapproxyInfo = YAMLFileUtil.fetchMapByYAMLFile(mapproxy);
-//                        // 작업 디렉토리 용량 확인
-//                        LinkedHashMap sources = (LinkedHashMap) mapproxyInfo.get("sources");
-//                        if(sources != null){
-//                            List<Path> workPaths = new ArrayList<>();
-//                            Set keys = sources.keySet();
-//                            for(Object key : keys){
-//                                Map<String, Object> source = (Map<String, Object>) sources.get(key);
-//                                Map<String, Object> req = (Map<String, Object>) source.get("req");
-//                                String mapPath = (String) req.get("map");
-//                                if(Files.exists(Paths.get(mapPath)) && !workPaths.contains(Paths.get(mapPath).getParent())){
-//                                    workPaths.add(Paths.get(mapPath).getParent());
-//                                }
-//                            }
-//                            long diskSize = 0;
-//                            for(Path workPath:workPaths){
-//                                diskSize += FileUtils.sizeOfDirectory(workPath.toFile());
-//                            }
-//
-//                            result.put("DIR_SIZE", diskSize);
-//                        }
-//                    }
+                    // 용량을 가져오는 로직 : MAP 으로 옮기겠음.
 
                     DateTime time = DateTime.parse(object.getString("Created"), fmt);
                     Date createDate = time.toDate();
@@ -396,6 +386,7 @@ public class ProxySeedServiceImpl implements ProxySeedService {
         return null;
     }
 
+    // Cache SEED 의 Clean Up (소멸) 설정을 진행한다.
     @Override
     public Map<String, Integer> setCacheSeedingCleanUpSetting(Map<String, Object> param) {
         List<Container> containers = DockerUtil.fetchAllContainers();
