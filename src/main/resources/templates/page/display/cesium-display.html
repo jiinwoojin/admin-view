@@ -16,14 +16,78 @@
             container : 'map3d'
         });
 
-        /*stmp.mapObject = new ji3DMap({
-            container : 'map3d'
+        var startPoint = turf.point([116.407526, 39.90403]);
+        var endPoint = turf.point([147.1465504, -31.5800284]);
+
+        var greatCircle = turf.greatCircle(startPoint, endPoint, {'npoints': 200});
+        console.log(greatCircle);
+        Cesium.GeoJsonDataSource.clampToGround = true;
+        /*jiCommon.map._map.entities.add({
+            corridor: {
+                positions : Cesium.Cartesian3.fromDegreesArray(greatCircle.geometry.coordinates.flat()),
+                height : 200000,
+                width : 10.0,
+                cornerType : Cesium.CornerType.BEVELED,
+                material : Cesium.Color.BLUE.withAlpha(0.5),
+                outline : true,
+                outlineColor : Cesium.Color.WHITE
+            }
+        });*/
+
+        var sampleProperty = new Cesium.SampledPositionProperty();
+        // Cesium.Cartesian3.fromDegrees(lon, lat, height)
+
+        var startTime = Cesium.JulianDate.fromDate(new Date(2020, 8, 13, 14));
+        var stopTime = Cesium.JulianDate.addSeconds(startTime, 201 * 2, new Cesium.JulianDate());
+
+        jiCommon.map._map.clock.startTime = startTime.clone();
+        jiCommon.map._map.clock.stopTime = stopTime.clone();
+        jiCommon.map._map.clock.currentTime = startTime.clone();
+        jiCommon.map._map.clock.clockRange = Cesium.ClockRange.LOOP_STOP;
+
+        jiCommon.map._map.timeline.zoomTo(startTime, stopTime);
+
+        var coordinates = greatCircle.geometry.coordinates;
+
+        var time = Cesium.JulianDate.addSeconds(startTime, 0, new Cesium.JulianDate());
+
+        var startPosition = Cesium.Cartesian3.fromDegrees(coordinates[0][0], coordinates[0][1], 3000);
+        sampleProperty.addSample(time, startPosition);
+
+        for (var i = 1; i < coordinates.length; i++) {
+            time = Cesium.JulianDate.addSeconds(startTime, i * 2, new Cesium.JulianDate());
+            var position = Cesium.Cartesian3.fromDegrees(coordinates[i][0], coordinates[i][1], 50000);
+            sampleProperty.addSample(time, position);
+        }
+
+        time = Cesium.JulianDate.addSeconds(startTime, 201 * 2, new Cesium.JulianDate());
+        var endPosition = Cesium.Cartesian3.fromDegrees(coordinates[coordinates.length - 1][0], coordinates[coordinates.length - 1][1], 3000);
+        sampleProperty.addSample(time, endPosition);
+
+        var entity = jiCommon.map._map.entities.add({
+            availability : new Cesium.TimeIntervalCollection([
+                new Cesium.TimeInterval({
+                    start : startTime,
+                    stop : stopTime
+                })
+            ]),
+
+            position : sampleProperty,
+
+            orientation : new Cesium.VelocityOrientationProperty(sampleProperty),
+            path : {
+                resolution : 1,
+                leadTime : 0,
+                trailTime : 5,
+                material : new Cesium.PolylineGlowMaterialProperty({
+                    glowPower : 0.1,
+                    color : Cesium.Color.YELLOW
+                }),
+                width : 10
+            }
         });
 
-        if (stmp.getGlobalFeatures().size() > 0) {
-            // 2D -> 3D or 3D -> 2D 객체 draw
-            stmp.changeMapDrawFeatures();
-        }*/
+        jiCommon.map._map.zoomTo(entity);
     </script>
 </body>
 </html>

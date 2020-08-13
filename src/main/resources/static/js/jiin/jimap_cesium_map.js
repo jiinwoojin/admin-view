@@ -31,15 +31,15 @@ JimapCesium.prototype = {
     _init : function _init(options) {
         this._map = new Cesium.Viewer(options.container, {
             sceneMode : Cesium.SceneMode.SCENE3D,
-            timeline : false,
-            animation : false,
+            //timeline : false,
+            //animation : false,
             baseLayerPicker : false,
             imageryProvider : false,
             selectionIndicator : false,
             geocoder : false,
             scene3DOnly : true,
             terrainShadows : Cesium.ShadowMode.ENABLED,
-            shouldAnimate : false,
+            shouldAnimate : true,
             skyBox : false,
             fullscreenButton : false,
             navigationHelpButton : false,   // 도움말 버튼
