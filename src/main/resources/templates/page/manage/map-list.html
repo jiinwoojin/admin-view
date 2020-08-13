@@ -222,6 +222,16 @@
                                     <span th:text="${resMap.get('versionMap').get(map.id) == null ? 'NONE' : resMap.get('versionMap').get(map.id)}">[LAYER 버전]</span>
                                 </td>
                             </tr>
+                            <tr>
+                                <th>
+                                    <i class="fas fa-database"></i> 캐시 용량
+                                </th>
+                                <td>
+                                    <span th:id="${ 'cache-capacity-' + map.name }">
+                                        <i class="fas fa-spin fa-spinner"></i>
+                                    </span>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -263,9 +273,32 @@
             $("#sDate").datepicker({
                 format:'yyyy-mm-dd'
             });
+
             $("#eDate").datepicker({
                 format:'yyyy-mm-dd'
             });
+
+            for (var dom of $("span[id^='cache-capacity-']")) {
+                var id = dom.id;
+                var name = id.replace('cache-capacity-', '');
+                $.ajax({
+                    url: `${CONTEXT}/view/manage/map-cache/capacity`,
+                    type: 'get',
+                    data: {
+                        name: name
+                    },
+                    contentType: "application/json",
+                    success: function(res){
+                        if (res && res.NAME && res.RESULT) {
+                            var bytes = res.RESULT;
+                            document.getElementById('cache-capacity-' + res.NAME).innerText = (bytes / 1024 / 1024).toFixed(2) + ' MB';
+                        }
+                    },
+                    error: function(e){
+                        console.log(e);
+                    }
+                })
+            }
         });
 
         function delMap(ths, mapName, mapId) {

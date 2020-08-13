@@ -88,24 +88,20 @@
                         </div>
                         <div class="form-group mt-2">
                             <label>진행영역</label>
-                            <div class="col-12 row m-0 p-0">
-                                <div class="col-4 p-0">
-                                    <label>크기(MB)</label>
-                                    <input class="form-control form-control-sm text-right seed-preview" name="size" readonly />
-                                </div>
-                                <div class="col-2">
+                            <div class="row">
+                                <div class="col-3">
                                     <label>Min X.</label>
                                     <input class="form-control form-control-sm text-right seed-preview" name="xmin" readonly />
                                 </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                     <label>Min Y.</label>
                                     <input class="form-control form-control-sm text-right seed-preview" name="ymin" readonly />
                                 </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                     <label>Max X.</label>
                                     <input class="form-control form-control-sm text-right seed-preview" name="xmax" readonly />
                                 </div>
-                                <div class="col-2">
+                                <div class="col-3">
                                     <label>Max Y.</label>
                                     <input class="form-control form-control-sm text-right seed-preview" name="ymax" readonly />
                                 </div>
@@ -334,7 +330,6 @@
                     console.log(data)
                     var form = document.getElementById("detail-form");
                     form.seed_name.value = seedName
-                    form.size.value = (data.DIR_SIZE / 1024 / 1024).toFixed(2)
                     form.xmin.value = data.LOGS.XMIN.replace(",","")
                     form.ymin.value = data.LOGS.YMIN.replace(",","")
                     form.xmax.value = data.LOGS.XMAX.replace(",","")

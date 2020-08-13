@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface MapService {
+    long loadMapCacheSeedCapacity(String name);
     List<MapDTO> loadMapDataList();
     List<OptionModel> loadSearchByOptionList();
     List<OptionModel> loadOrderByOptionList();

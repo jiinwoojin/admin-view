@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jiin.admin.Constants;
 import com.jiin.admin.dto.*;
 import com.jiin.admin.entity.AccountEntity;
-import com.jiin.admin.mapper.data.LayerMapper;
-import com.jiin.admin.mapper.data.MapLayerRelationMapper;
-import com.jiin.admin.mapper.data.MapMapper;
-import com.jiin.admin.mapper.data.MapVersionMapper;
+import com.jiin.admin.mapper.data.*;
 import com.jiin.admin.website.model.MapPageModel;
 import com.jiin.admin.website.model.OptionModel;
 import com.jiin.admin.website.util.FileSystemUtil;
@@ -18,6 +15,7 @@ import com.jiin.admin.website.util.MapServerUtil;
 import com.jiin.admin.website.view.component.CascadeRelativeComponent;
 import com.jiin.admin.website.view.component.MapVersionManagement;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,6 +42,15 @@ public class MapServiceImpl implements MapService {
 
     @Resource
     private LayerMapper layerMapper;
+
+    @Resource
+    private ProxyCacheMapper proxyCacheMapper;
+
+    @Resource
+    private ProxySourceMapper proxySourceMapper;
+
+    @Resource
+    private ProxyCacheSourceRelationMapper proxyCacheSourceRelationMapper;
 
     @Resource
     private MapLayerRelationMapper mapLayerRelationMapper;
@@ -128,6 +135,40 @@ public class MapServiceImpl implements MapService {
      */
     private boolean removeRelationByMapId(long mapId) {
         return mapLayerRelationMapper.deleteByMapId(mapId) > 0;
+    }
+
+    /**
+     * MAP 데이터의 CACHE 데이터 용량을 가져온다.
+     * @param name String
+     */
+    @Override
+    public long loadMapCacheSeedCapacity(String name) {
+        MapDTO map = mapMapper.findByName(name);
+        if (map == null) {
+            return 0L;
+        } else {
+            String srs = map.getProjection().toUpperCase();
+            srs = srs.replace(":", "");
+
+            String mapDir = Constants.MAP_FILE_PATH + "/" + String.format("%s%s", name, Constants.MAP_SUFFIX);
+            List<ProxySourceDTO> sources = proxySourceMapper.findByRequestMapEndsWith(mapDir);
+            Set<Long> cacheIds = new HashSet<>();
+            for (ProxySourceDTO source : sources) {
+                cacheIds.addAll(proxyCacheSourceRelationMapper.findCacheIdBySourceId(source.getId()));
+            }
+
+            long capacity = 0L;
+            for (Long id : cacheIds) {
+                ProxyCacheDTO cache = proxyCacheMapper.findById(id);
+                String folder = dataPath + Constants.PROXY_CACHE_DIRECTORY + "/" + String.format("%s_%s", cache.getName(), srs);
+                File file = new File(folder);
+                if (file.exists()) {
+                    capacity += FileUtils.sizeOfDirectory(file);
+                }
+            }
+
+            return capacity;
+        }
     }
 
     /**
