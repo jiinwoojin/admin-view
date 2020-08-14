@@ -167,25 +167,53 @@ JimapCesium.prototype = {
         ramp.height = 1;
         var ctx = ramp.getContext('2d');
 
-        var values = [0.0, 0.012, 0.12, 0.18, 0.25, 0.31, 0.37, 0.43, 0.5, 0.56, 0.62, 0.68, 0.75, 0.80, 0.83, 1];
-
+        /*var values = [0.0, 0.012, 0.12, 0.18, 0.25, 0.31, 0.37, 0.43, 0.5, 0.56, 0.62, 0.68, 0.75, 0.80, 0.83, 1];
         var grd = ctx.createLinearGradient(0, 0, 100, 0);
-        grd.addColorStop(values[0], 'rgb(143, 171, 201)'); //Navy
-        grd.addColorStop(values[1], 'rgb(142, 169, 202)'); //Magenta
-        grd.addColorStop(values[2], '#911eb4'); //Purple
-        grd.addColorStop(values[3], '#4363d8'); //Blue
-        grd.addColorStop(values[4], '#42d4f4'); //Cyan
-        grd.addColorStop(values[5], 'rgb(142, 169, 202)'); //Green
-        grd.addColorStop(values[6], '#bfef45'); //Lime
-        grd.addColorStop(values[7], '#a9a9a9'); //Grey
-        grd.addColorStop(values[8], 'rgb(142, 169, 202)'); //Yellow
-        grd.addColorStop(values[9], '#f58231'); //Orange
-        grd.addColorStop(values[10], 'rgb(142, 169, 202)'); //Red
-        grd.addColorStop(values[11], '#800000'); //Maroon
-        grd.addColorStop(values[12], '#9A6324'); //Brown
-        grd.addColorStop(values[13], 'rgb(142, 169, 202)'); //OliveF
-        grd.addColorStop(values[14], '#27AA00'); //Dark Green
-        grd.addColorStop(values[15], '#a9a9a900'); //Transparent
+        grd.addColorStop(values[0], 'rgb(91, 140, 196)'); //Navy
+        grd.addColorStop(values[1], 'rgb(94, 141, 196)'); //Magenta
+        grd.addColorStop(values[2], 'rgb(98, 144, 196)'); //Purple
+        grd.addColorStop(values[3], 'rgb(103, 147, 197)'); //Blue
+        grd.addColorStop(values[4], 'rgb(107, 149, 197)'); //Cyan
+        grd.addColorStop(values[5], 'rgb(111, 151, 198)'); //Green
+        grd.addColorStop(values[6], 'rgb(115, 153, 198)'); //Lime
+        grd.addColorStop(values[7], 'rgb(119, 156, 199)'); //Grey
+        grd.addColorStop(values[8], 'rgb(120, 157, 199)'); //Yellow
+        grd.addColorStop(values[9], 'rgb(128, 161, 200)'); //Orange
+        grd.addColorStop(values[10], 'rgb(131, 164, 201)'); //Red
+        grd.addColorStop(values[11], 'rgb(134, 164, 201)'); //Maroon
+        grd.addColorStop(values[12], 'rgb(136, 166, 202)'); //Brown
+        grd.addColorStop(values[13], 'rgb(139, 168, 202)'); //OliveF
+        grd.addColorStop(values[14], 'rgb(142, 169, 202)'); //Dark Green
+        grd.addColorStop(values[15], '#a9a9a900'); //Transparent*/
+
+        var values = [0.0, 0.04, 0.08, 0.12, 0.16, 0.2, 0.24, 0.28, 0.32, 0.36, 0.4, 0.44, 0.48, 0.52, 0.56, 0.6, 0.64, 0.68, 0.72, 0.76, 0.8, 0.84, 0.88, 0.92, 0.96, 1];
+        var grd = ctx.createLinearGradient(0, 0, 100, 0);
+        grd.addColorStop(values[0], 'rgb(69, 127, 193)');   // 수심 깊음
+        grd.addColorStop(values[1], 'rgb(70, 128, 193)');
+        grd.addColorStop(values[2], 'rgb(73, 130, 193)');
+        grd.addColorStop(values[3], 'rgb(75, 131, 194)');
+        grd.addColorStop(values[4], 'rgb(78, 133, 194)');
+        grd.addColorStop(values[5], 'rgb(81, 134, 194)');
+        grd.addColorStop(values[6], 'rgb(84, 136, 194)');
+        grd.addColorStop(values[7], 'rgb(87, 138, 196)');
+        grd.addColorStop(values[8], 'rgb(91, 140, 196)');
+        grd.addColorStop(values[9], 'rgb(94, 141, 196)');
+        grd.addColorStop(values[10], 'rgb(98, 144, 197)');
+        grd.addColorStop(values[11], 'rgb(103, 147, 197)');
+        grd.addColorStop(values[12], 'rgb(107, 149, 198)');
+        grd.addColorStop(values[13], 'rgb(111, 151, 198)');
+        grd.addColorStop(values[14], 'rgb(115, 153, 199)');
+        grd.addColorStop(values[15], 'rgb(119, 156, 199)');
+        grd.addColorStop(values[16], 'rgb(120, 157, 199)');
+        grd.addColorStop(values[17], 'rgb(128, 161, 200)');
+        grd.addColorStop(values[18], 'rgb(131, 164, 201)');
+        grd.addColorStop(values[19], 'rgb(134, 164, 201)');
+        grd.addColorStop(values[20], 'rgb(136, 166, 202)');
+        grd.addColorStop(values[21], 'rgb(139, 168, 202)');
+        grd.addColorStop(values[22], 'rgb(142, 169, 202)');
+        grd.addColorStop(values[23], 'rgb(142, 170, 202)');
+        grd.addColorStop(values[24], 'rgb(142, 170, 202)');
+        grd.addColorStop(values[25], '#a9a9a900'); //Transparent
 
         ctx.fillStyle = grd;
         ctx.fillRect(0, 0, 100, 1);
