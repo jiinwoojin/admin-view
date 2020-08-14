@@ -21,7 +21,7 @@
         <div class="col-xl-4">
             <div class="form-group">
                 <select class="form-control" onchange="onchange_menu_tab(this)">
-                    <option value="SEED_SET" th:selected="${ #strings.equals((param.menu == null ? 'SEED_SET' : param.menu), 'SEED_SET') }">SEED 생성</option>
+                    <option value="SEED_SET" th:selected="${ #strings.equals((param.menu == null ? 'SEED_SET' : param.menu), 'SEED_SET') }">CACHE 처리 생성</option>
                     <option value="CLEAN_UP" th:selected="${ #strings.equals((param.menu == null ? 'SEED_SET' : param.menu), 'CLEAN_UP') }">CACHE 소멸 설정</option>
                     <option value="SEED_CYCLE" th:selected="${ #strings.equals((param.menu == null ? 'SEED_SET' : param.menu), 'SEED_CYCLE') }">CACHE 주기 설정</option>
                 </select>
@@ -41,7 +41,7 @@
         <div class="col-xl-8">
             <div class="row">
                 <div class="col-xl-12">
-                    <h3 class="section_tit">SEED 컨테이너 목록</h3>
+                    <h3 class="section_tit">CACHE 컨테이너 목록</h3>
                     <table id="list_table" class="table table-sm basic">
                         <thead class="table-info">
                         <tr>
@@ -67,7 +67,7 @@
                                 <button class="btn btn-warning btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_view([[${seed.name}]])" title="진행 현황 보기" data-toggle="tooltip">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button th:if="${ seed.isDefault() }" class="btn btn-success btn-sm btn-circle mx-1" type="button" th:onclick="fn_default_seed_reload()" title="기본 SEED 호출" data-toggle="tooltip">
+                                <button th:if="${ seed.isDefault() }" class="btn btn-success btn-sm btn-circle mx-1" type="button" th:onclick="fn_default_seed_reload()" title="기본 CACHE 호출" data-toggle="tooltip">
                                     <i class="fas fa-server"></i>
                                 </button>
                                 <button th:unless="${ seed.isDefault() }" class="btn btn-danger btn-sm btn-circle mx-1" type="button" th:onclick="fn_seed_remove([[${seed.name}]])" title="진행 중단" data-toggle="tooltip">
@@ -80,10 +80,10 @@
                 </div>
                 <hr style="width: 100%;"/>
                 <form class="col-xl-12" id="detail-form">
-                    <h3 class="section_tit">SEED 진행 내역</h3>
+                    <h3 class="section_tit">CACHE 진행 내역</h3>
                     <div>
                         <div class="form-group">
-                            <label>SEED 이름</label>
+                            <label>CACHE 이름</label>
                             <input class="form-control form-control-sm seed-preview" name="seed_name" readonly />
                         </div>
                         <div class="form-group mt-2">
@@ -184,6 +184,10 @@
             })
 
             initialize_small_dataTable('list_table_caches');
+
+            if (document.getElementById('seed-cycle-setting')) {
+                loadCronSettingWithCacheName($('#cache-select').val());
+            }
         });
         // Map Proxy YAML 파일에 저장된 내용들을 불러온다.
         function fn_initialize_seed_param(){
@@ -212,14 +216,14 @@
         }
 
         function fn_seed_create(){
-            if(confirm("SEED 를 생성하시겠습니까?")){
+            if(confirm("새로운 CACHE 처리를 진행하시겠습니까?")){
                 $.ajax({
                     url: CONTEXT + '/view/proxy/seeding-create',
                     type: 'get',
                     data: jQuery("#seed-create").serialize(),
                     success: function(data){
                         if(!data.RESULT){
-                            toastr.error("SEED 생성에 실패하였습니다.")
+                            toastr.error("CACHE 처리 진행에 실패하였습니다.")
                         } else {
                             var seed = data.RESULT;
                             var table = $('#list_table').DataTable();
@@ -232,11 +236,11 @@
                                 '<button class="btn btn-success btn-sm btn-circle mx-1" type="button" onclick="fn_seed_view(\''+seed.name+'\')" title="진행 현황 보기"><i class="fas fa-eye"></i></button>' +
                                 '<button class="btn btn-danger btn-sm btn-circle mx-1" type="button" onclick="fn_seed_remove(\''+seed.name+'\')" title="진행 중단"><i class="fas fa-stop"></i></button>'
                             ]).draw( false );
-                            toastr.success("SEED 생성에 성공하였습니다.");
+                            toastr.success("CACHE 처리 진행에 성공하였습니다.");
                         }
                     },
                     error: function(e){
-                        toastr.error("SEED 생성에 실패하였습니다.");
+                        toastr.error("CACHE 처리 진행에 실패하였습니다.");
                         console.error(e);
                     }
                 });
@@ -259,7 +263,7 @@
                         location.reload();
                     },
                     error: function(e){
-                        toastr.error("SEED 생성에 실패하였습니다.");
+                        toastr.error("CACHE 소멸 작업에 실패하였습니다.");
                         console.error(e);
                     }
                 });
@@ -268,19 +272,36 @@
 
         function fn_seed_cycle_setting() {
             if(confirm("CACHE 생성 주기를 설정 하시겠습니까?")){
-                alert('구현 준비 중 입니다...');
+                $.ajax({
+                    url: CONTEXT + '/view/proxy/seeding-cycle',
+                    type: 'get',
+                    data: jQuery("#seed-cycle-setting").serialize(),
+                    success: function(data){
+                        var RESULT = data.RESULT;
+                        if(RESULT){
+                            toastr.success("CACHE 생성 주기 설정에 성공 했습니다.");
+                        } else {
+                            toastr.error("CACHE 생성 주기 설정에 실패 했습니다.");
+                        }
+                        location.reload();
+                    },
+                    error: function(e){
+                        toastr.error("CACHE 생성 주기 설정에 실패 했습니다.");
+                        console.error(e);
+                    }
+                });
             }
         }
 
         function fn_seed_remove(seedName){
-            if(confirm("SEED 를 제거하시겠습니까?")){
+            if(confirm("CACHE 처리를 중단 하시겠습니까?")){
                 $.ajax({
                     url: CONTEXT + '/view/proxy/seeding-stop',
                     type: 'get',
                     data: { SEEDNAME : seedName },
                     success: function(data){
                         if(data.RESULT === 'FAILURE'){
-                            toastr.error("SEED 제거에 실패하였습니다.")
+                            toastr.error("CACHE 처리 중단 실패하였습니다.")
                         } else {
                             var table = $('#list_table').DataTable();
                             var datas = table.data()
@@ -289,33 +310,33 @@
                                     table.row(idx).remove().draw( false )
                                 }
                             });
-                            toastr.success("SEED 중단에 성공하였습니다.");
+                            toastr.success("CACHE 처리 중단에 성공하였습니다.");
                             $('.seed-preview').val('');
                         }
                     },
                     error: function(e){
                         console.error(e)
-                        toastr.error("SEED 중단에 실패하였습니다.");
+                        toastr.error("CACHE 처리 중단에 실패하였습니다.");
                     }
                 });
             }
         }
 
         function fn_default_seed_reload(){
-            if(confirm("기본 SEED 를 재시작 하시겠습니까?")){
+            if(confirm("기본 CACHE 처리 를 재시작 하시겠습니까?")){
                 $.ajax({
                     url: CONTEXT + '/view/proxy/default-seeding-reload',
                     type: 'get',
                     success: function(data){
                         if (data.RESULT == '') {
-                            toastr.error("SEED 재시작에 실패하였습니다.");
+                            toastr.error("CACHE 처리 재시작에 실패하였습니다.");
                         } else {
-                            toastr.success("SEED 재시작에 성공하였습니다.");
+                            toastr.success("CACHE 처리 재시작에 성공하였습니다.");
                         }
                     },
                     error: function(e){
                         console.error(e);
-                        toastr.error("SEED 재시작에 실패하였습니다.");
+                        toastr.error("CACHE 처리 재시작에 실패하였습니다.");
                     }
                 });
             }
@@ -327,7 +348,6 @@
                 type: 'get',
                 data: { SEEDNAME : seedName },
                 success: function(data){
-                    console.log(data)
                     var form = document.getElementById("detail-form");
                     form.seed_name.value = seedName
                     form.xmin.value = data.LOGS.XMIN.replace(",","")
@@ -439,6 +459,61 @@
 
             $('#cache-select').val(cache);
             $('#searchProxyCache').modal('toggle');
+
+            // CACHE 처리 CYCLE 설정 실행 시 개방
+            if (document.getElementById('seed-cycle-setting')) {
+                loadCronSettingWithCacheName(cache);
+            }
+        }
+
+        function loadCronSettingWithCacheName(cache) {
+            $.ajax({
+                url: `${CONTEXT}/view/proxy/load-cycle`,
+                type: 'get',
+                data: { cache : cache },
+                success: function(data){
+                    var cron = {};
+                    if (data) {
+                        toastr.success(`${cache} CACHE 데이터의 생성 주기가 이미 설정 되어 있습니다. 확인 하시길 바랍니다.`);
+                        cron = data;
+                        $('#cycle-remove').attr('disabled', false);
+                    } else {
+                        toastr.warning(`${cache} CACHE 데이터의 생성 주기가 설정 되어 있지 않습니다. 이를 설정하시면 자동으로 타일링 CACHE 데이터를 얻을 수 있습니다.`);
+                        $('#cycle-remove').attr('disabled', true);
+                    }
+                    $('select[name="month"]').val(cron && (cron.month || 0));
+                    $('select[name="day"]').val(cron && (cron.day || 0));
+                    $('select[name="hour"]').val(cron && (cron.hour || 0));
+                    $('select[name="minute"]').val(cron && (cron.minute || 0));
+                },
+                error: function(e){
+                    console.error(e);
+                    toastr.warning(`${cache} CACHE 데이터의 생성 주기가 설정 되어 있지 않습니다. 이를 설정하시면 자동으로 타일링 CACHE 데이터를 얻을 수 있습니다.`);
+                }
+            });
+        }
+
+        function fn_seed_cycle_disabled(){
+            var cache = $('#cache-select').val();
+            if (window.confirm(`[${cache}] CACHE 타이머 설정 를 삭제합니다. 계속 진행 하시겠습니까?`)) {
+                $.ajax({
+                    url: `${CONTEXT}/view/proxy/remove-cycle`,
+                    type: 'get',
+                    data: {cache: $('#cache-select').val()},
+                    success: function (data) {
+                        if (data.RESULT) {
+                            toastr.success(`CACHE 데이터의 생성 주기가 삭제 되었습니다.`);
+                        } else {
+                            toastr.warning(`CACHE 데이터의 생성 주기 삭제 작업을 실패 했습니다.`);
+                        }
+                        location.reload();
+                    },
+                    error: function (e) {
+                        console.error(e);
+                        toastr.warning(`CACHE 데이터의 생성 주기 삭제 작업을 실패 했습니다.`);
+                    }
+                });
+            }
         }
 
         function onchange_menu_tab(dom) {

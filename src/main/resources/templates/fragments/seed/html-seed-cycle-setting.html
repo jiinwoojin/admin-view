@@ -16,7 +16,7 @@
             <div class="col-6">
                 <div class="input-group mb-3">
                     <select class="form-control" name="month">
-                        <option th:each="v : ${ #numbers.sequence(-1, 12) }" th:value="${v}" th:text="${ v == -1 ? '비활성' : (v == 0) ? '매월' : v }" th:selected="${ v == 11 }" />
+                        <option th:each="v : ${ #numbers.sequence(-1, 12) }" th:value="${v == -1 ? '*' : v}" th:text="${ v == -1 ? '비활성' : (v == 0) ? '매월' : v }" th:selected="${ v == 11 }" />
                     </select>
                     <div class="input-group-append">
                         <span class="input-group-text" id="month">월(Months)</span>
@@ -26,7 +26,7 @@
             <div class="col-6">
                 <div class="input-group mb-3">
                     <select class="form-control" name="day">
-                        <option th:each="v : ${ #numbers.sequence(-1, 31) }" th:value="${v}" th:text="${ v == -1 ? '비활성' : (v == 0) ? '매일' : v }" th:selected="${ v == 11 }" />
+                        <option th:each="v : ${ #numbers.sequence(-1, 31) }" th:value="${v == -1 ? '*' : v}" th:text="${ v == -1 ? '비활성' : (v == 0) ? '매일' : v }" th:selected="${ v == 11 }" />
                     </select>
                     <div class="input-group-append">
                         <span class="input-group-text" id="day">일(Days)</span>
@@ -36,7 +36,7 @@
             <div class="col-6">
                 <div class="input-group mb-3">
                     <select class="form-control" name="hour">
-                        <option th:each="v : ${ #numbers.sequence(-1, 23) }" th:value="${v}" th:text="${ v == -1 ? '비활성' : (v == 0) ? '자정' : v }" th:selected="${ v == 11 }" />
+                        <option th:each="v : ${ #numbers.sequence(-1, 23) }" th:value="${v == -1 ? '*' : v}" th:text="${ v == -1 ? '비활성' : (v == 0) ? '자정' : v }" th:selected="${ v == 11 }" />
                     </select>
                     <div class="input-group-append">
                         <span class="input-group-text" id="hour">시(Hours)</span>
@@ -46,7 +46,7 @@
             <div class="col-6">
                 <div class="input-group mb-3">
                     <select class="form-control" name="minute">
-                        <option th:each="v : ${ #numbers.sequence(-1, 59) }" th:value="${v}" th:text="${ v == -1 ? '비활성' : (v == 0) ? '정각' : v }" th:selected="${ v == 11 }" />
+                        <option th:each="v : ${ #numbers.sequence(-1, 59) }" th:value="${v == -1 ? '*' : v}" th:text="${ v == -1 ? '비활성' : (v == 0) ? '정각' : v }" th:selected="${ v == 11 }" />
                     </select>
                     <div class="input-group-append">
                         <span class="input-group-text" id="minute">분(Minutes)</span>
@@ -59,6 +59,10 @@
     <hr/>
 
     <div class="text-right">
+        <button id="cycle-remove" class="btn btn-danger btn-sm" type="button" onclick="fn_seed_cycle_disabled()" disabled>
+            <i class="fas fa-fire"></i> 타이머 해제
+        </button>
+
         <button type="button" class="btn btn-secondary btn-sm" onclick="fn_initialize_seed_param()">
             <i class="fas fa-sync"></i> 초기화
         </button>

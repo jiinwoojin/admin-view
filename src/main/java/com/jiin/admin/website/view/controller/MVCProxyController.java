@@ -7,6 +7,7 @@ import com.jiin.admin.Constants;
 import com.jiin.admin.config.SessionService;
 import com.jiin.admin.dto.ProxyCacheDTO;
 import com.jiin.admin.dto.ProxyLayerDTO;
+import com.jiin.admin.dto.ProxySeedCronDTO;
 import com.jiin.admin.dto.ProxySourceDTO;
 import com.jiin.admin.mapper.data.ProxyCacheMapper;
 import com.jiin.admin.mapper.data.ProxyLayerMapper;
@@ -21,6 +22,7 @@ import com.jiin.admin.website.view.service.ProxySeedService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -337,9 +339,11 @@ public class MVCProxyController {
     @ResponseBody
     @RequestMapping("seeding-stop")
     public Map<String, Object> proxySeedingStop(@RequestParam("SEEDNAME") String name) {
-        Map<String, Object> info = new HashMap<>();
-        info.put("RESULT", proxySeedService.removeSeedContainerByName(name) ? "SUCCESS" : "FAILURE");
-        return info;
+        return new HashMap<String, Object>() {
+            {
+                put("RESULT", proxySeedService.removeSeedContainerByName(name) ? "SUCCESS" : "FAILURE");
+            }
+        };
     }
 
     /**
@@ -351,5 +355,46 @@ public class MVCProxyController {
     @RequestMapping("cleanup-setting")
     public Map<String, Integer> proxyCleanUpSetting(@RequestParam Map<String, Object> param) {
         return proxySeedService.setCacheSeedingCleanUpSetting(param);
+    }
+
+    /**
+     * CACHE SEED CRON CYCLE 설정
+     * @param cache
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("load-cycle")
+    public ProxySeedCronDTO loadProxySeedCycle(@RequestParam String cache) {
+        return proxySeedService.loadSeedCronScheduleByCache(cache);
+    }
+
+    /**
+     * CACHE SEED CRON CYCLE 설정
+     * @param param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("seeding-cycle")
+    public Map<String, Object> proxySeedCycleSetting(@RequestParam Map<String, Object> param) {
+        return new HashMap<String, Object>() {
+            {
+                put("RESULT", proxySeedService.setSeedCronSchedule(param));
+            }
+        };
+    }
+
+    /**
+     * CACHE SEED CRON CYCLE 비활성
+     * @param cache
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("remove-cycle")
+    public Map<String, Object> proxySeedCycleRemoving(@RequestParam String cache) {
+        return new HashMap<String, Object>() {
+            {
+                put("RESULT", proxySeedService.removeSeedCycleByCacheName(cache));
+            }
+        };
     }
 }
