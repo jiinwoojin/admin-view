@@ -44,6 +44,7 @@ JimapMapbox.prototype = {
         this._map = new mapboxgl.Map({
             container : options.container,
             style : this.setBaseStyle(),
+            //style : CONTEXT + '/style/kr5_style.json',
             center : options.center || [0, 0],
             bounds : options.bounds || undefined,
             zoom : options.zoom || 10,
