@@ -286,32 +286,6 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         );
     }
 
-    @Override
-    public Map<String, Object> writeYAMLFileForNeighbors(HttpServletRequest request, boolean result, ServerCenterInfo local, List<ServerCenterInfo> neighbors) {
-        if (!result || local == null) {
-            return new HashMap<String, Object>() {
-                {
-                    put("result", false);
-                    put("success", 0);
-                    put("failure", neighbors.size());
-                }
-            };
-        }
-
-        int success = 0;
-        this.saveYAMLFileByEachList(local);
-        success = this.sendYAMLSyncRESTForNeighbor(request, neighbors);
-
-        final int cnt = success;
-        return new HashMap<String, Object>() {
-            {
-                put("result", result);
-                put("success", cnt);
-                put("failure", neighbors.size() - cnt);
-            }
-        };
-    }
-
     /**
      * MapProxy 기반 Layer 정보를 저장한다.
      * @param proxyLayerModel ProxyLayerModel

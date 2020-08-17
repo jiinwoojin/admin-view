@@ -218,7 +218,7 @@
                     data: jQuery("#seed-create").serialize(),
                     success: function(data){
                         if(!data.RESULT){
-                            toastr.error("CACHE 처리 진행에 실패하였습니다.")
+                            toastr.error(data.MESSAGE);
                         } else {
                             var seed = data.RESULT;
                             var table = $('#list_table').DataTable();
@@ -231,7 +231,9 @@
                                 '<button class="btn btn-success btn-sm btn-circle mx-1" type="button" onclick="fn_seed_view(\''+seed.name+'\')" title="진행 현황 보기"><i class="fas fa-eye"></i></button>' +
                                 '<button class="btn btn-danger btn-sm btn-circle mx-1" type="button" onclick="fn_seed_remove(\''+seed.name+'\')" title="진행 중단"><i class="fas fa-stop"></i></button>'
                             ]).draw( false );
-                            toastr.success("CACHE 처리 진행에 성공하였습니다.");
+
+                            var message = data.MESSAGE;
+                            toastr.success(message);
                         }
                     },
                     error: function(e){

@@ -28,68 +28,7 @@ public class RESTProxyController {
         return proxyCacheService.loadProxySetting();
     }
 
-//    @GetMapping
-//    public List<ProxyLayerDTO> getProxyLayerList(){
-//        return (List<ProxyLayerDTO>) proxyCacheService.loadDataListBySelected("LAYERS", true);
-//    }
-//
-//    // LAYER 추가 동기화 [파기 예정]
-//    @PostMapping("sync/layer-save")
-//    public Map<String, Object> postSyncGlobalSave(@RequestBody ProxyLayerModel proxyLayerModel) {
-//        return new HashMap<String, Object>() {{
-//            put("result", false);
-//        }};
-//    }
-//
-//    // SOURCE - WMS 동기화 [파기 예정]
-//    @PostMapping("sync/source-wms-save")
-//    public Map<String, Object> postSyncSourceWMSSave(@RequestBody ProxySourceWMSModel proxySourceWMSModel) {
-//        return new HashMap<String, Object>() {{
-//            put("result", false);
-//        }};
-//    }
-//
-//    // SOURCE - MAPSERVER 동기화 [파기 예정]
-//    @PostMapping("sync/source-mapserver-save")
-//    public Map<String, Object> postSyncSourceMapServerSave(@RequestBody ProxySourceMapServerModel proxySourceMapServerModel) {
-//        return new HashMap<String, Object>() {{
-//            put("result", false);
-//        }};
-//    }
-//
-//    // CACHE 동기화 [파기 예정]
-//    @PostMapping("sync/cache-save")
-//    public Map<String, Object> postSyncCacheSave(@RequestBody ProxyCacheModel proxyCacheModel) {
-//        return new HashMap<String, Object>() {{
-//            put("result", false);
-//        }};
-//    }
-//
-//    // 데이터 삭제 동기화 [파기 예정]
-//    @PostMapping("sync/{type}-delete")
-//    public Map<String, Object> postSyncProxyDataDelete(@PathVariable String type, @RequestBody Map<String, Object> map) {
-//        return new HashMap<String, Object>() {{
-//            put("result", false);
-//        }};
-//    }
-//
-//    // GLOBAL 동기화 [파기 예정]
-//    @PostMapping("sync/global-save")
-//    public Map<String, Object> postSyncGlobalSave(HttpServletRequest request, @RequestBody List<ProxyGlobalModel> proxyGlobalModels) {
-//        return new HashMap<String, Object>() {{
-//            put("result", proxyCacheService.saveProxyGlobalByModelList(request, proxyGlobalModels, serverCenterInfoService.loadLocalInfoData(), serverCenterInfoService.loadNeighborList()));
-//        }};
-//    }
-
-//    // 체크 동기화
-//    @PostMapping("sync/checking-save")
-//    public Map<String, Object> postSyncCheckingProxyDataSettings(HttpServletRequest request, @RequestBody ProxySelectRequestModel proxySelectModel) {
-//        return new HashMap<String, Object>() {{
-//            put("result", proxyCacheService.setProxyDataSelectByModel(request, proxySelectModel, serverCenterInfoService.loadLocalInfoData(), serverCenterInfoService.loadNeighborList()));
-//        }};
-//    }
-
-    // 체크 동기화
+    // 체크 이중화 REST API
     @PostMapping("sync/yaml-save")
     public Map<String, Object> postSyncYAMLFileSettings() {
         return new HashMap<String, Object>() {{

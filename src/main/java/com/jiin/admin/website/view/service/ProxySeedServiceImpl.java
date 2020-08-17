@@ -291,7 +291,7 @@ public class ProxySeedServiceImpl implements ProxySeedService {
             }
         }
 
-        // 삭제 작업 진행0
+        // 삭제 작업 진행
         return false;
     }
 
@@ -299,16 +299,15 @@ public class ProxySeedServiceImpl implements ProxySeedService {
     @Override
     public SeedContainerInfo createSeedContainer(Map<String, Object> param) {
         long now = new Date().getTime();
+        String seedName = (String) param.getOrDefault("SEED_NAME", DOCKER_SEED_NAME_PREFIX + "-" + now);
 
-        String seedName = DOCKER_SEED_NAME_PREFIX + "-" + now;
         param.put("DATA_PATH", dataPath);
         param.put("SEED_NAME", seedName);
 
         createSeedingFile(param);
         String seedPath = dataPath + Constants.PROXY_SETTING_FILE_PATH  + "/seed-" + seedName + ".yaml";
-        String result = execCreateDockerSeedContainer(seedName, seedPath);
+        String result = execCreateDockerSeedContainer(seedName, seedPath); // docker container 생성 시, container id 가 떡하니 나온다.
         if (!StringUtils.isBlank(result)) {
-            // 내일 오전에 새로운 SeedContainerInfo 뿌려줄 것.
             return loadSeedContainerInfoList().stream().filter(o -> o.getName().equals(seedName)).findFirst().orElse(new SeedContainerInfo());
         } else {
             return new SeedContainerInfo();
