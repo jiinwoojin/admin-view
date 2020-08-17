@@ -7,6 +7,7 @@ import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.ContainerExecuteModel;
 import com.jiin.admin.website.model.ServerCenterInfoModel;
 import com.jiin.admin.website.util.RestClientUtil;
+import com.jiin.admin.website.view.component.DuplexRESTComponent;
 import com.jiin.admin.website.view.service.ContainerInfoService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +27,10 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("server")
 public class MVCServerController {
+    private static final String DUPLEX_CREATE_URI = String.format("/%s/server/create-duplex", AdminViewServlet.CONTEXT_PATH);
+    private static final String DUPLEX_UPDATE_URI = String.format("/%s/server/update-duplex", AdminViewServlet.CONTEXT_PATH);
+    private static final String DUPLEX_REMOVE_URI = String.format("/%s/server/remove-duplex", AdminViewServlet.CONTEXT_PATH);
+
     @Value("${server.servlet.context-path}")
     private String CONTEXT_PATH;
 
@@ -36,6 +42,9 @@ public class MVCServerController {
 
     @Autowired
     private SessionService sessionService;
+
+    @Resource
+    private DuplexRESTComponent duplexRESTComponent;
 
     /**
      * 서비스의 등록 정보를 열람하는 페이지.
@@ -126,7 +135,6 @@ public class MVCServerController {
     @RequestMapping("service-address")
     public String pageServiceAddressConfig(Model model) {
         model.addAttribute("connections", serverCenterInfoService.loadRemoteList());
-        model.addAttribute("neighbors", serverCenterInfoService.loadNeighborList());
         model.addAttribute("local", serverCenterInfoService.loadLocalInfoData());
         model.addAttribute("kinds", serverCenterInfoService.loadKindList());
         model.addAttribute("zones", serverCenterInfoService.loadZoneList());
@@ -139,8 +147,14 @@ public class MVCServerController {
      * @param serverCenterInfoModel ServerCenterInfoModel
      */
     @RequestMapping(value = "local-save", method = RequestMethod.POST)
-    public String postServiceLocalSave(ServerCenterInfoModel serverCenterInfoModel) {
+    public String postServiceLocalSave(HttpServletRequest request, ServerCenterInfoModel serverCenterInfoModel) {
         boolean result = serverCenterInfoService.saveLocalData(serverCenterInfoModel);
+        if (result) {
+            Map<String, Object> map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_UPDATE_URI, ServerCenterInfoModel.convertMap(serverCenterInfoModel)); // Neighbor 정보 저장
+            sessionService.message(String.format("LOCAL SERVER INFO [%s] 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", serverCenterInfoModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
+        } else {
+            sessionService.message(String.format("LOCAL SERVER INFO [%s] 저장 %s 하였습니다.", serverCenterInfoModel.getName(), "실패"));
+        }
         sessionService.message(String.format("LOCAL SERVER INFO [%s] 저장 %s 하였습니다.", serverCenterInfoModel.getName(), (result ? "성공" : "실패")));
         return "redirect:service-address";
     }
@@ -150,9 +164,22 @@ public class MVCServerController {
      * @param serverCenterInfoModel ServerCenterInfoModel
      */
     @RequestMapping(value = "remote-save", method = RequestMethod.POST)
-    public String postServiceRemoteSave(ServerCenterInfoModel serverCenterInfoModel) {
+    public String postServiceRemoteSave(HttpServletRequest request, ServerCenterInfoModel serverCenterInfoModel) {
         boolean result = serverCenterInfoService.saveRemoteData(serverCenterInfoModel);
-        sessionService.message(String.format("REMOTE SERVER INFO [%s] 저장 %s 하였습니다.", serverCenterInfoModel.getName(), (result ? "성공" : "실패")));
+        if (result) {
+            Map<String, Object> map = new HashMap<>();
+            switch (serverCenterInfoModel.getMethod()) {
+                case "INSERT":
+                    map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_CREATE_URI, ServerCenterInfoModel.convertMap(serverCenterInfoModel)); // Neighbor 정보 저장
+                    break;
+                case "UPDATE":
+                    map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_UPDATE_URI, ServerCenterInfoModel.convertMap(serverCenterInfoModel)); // Neighbor 정보 저장
+                    break;
+            }
+            sessionService.message(String.format("REMOTE SERVER INFO [%s] 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", serverCenterInfoModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
+        } else {
+            sessionService.message(String.format("REMOTE SERVER INFO [%s] 저장 %s 하였습니다.", serverCenterInfoModel.getName(), "실패"));
+        }
         return "redirect:service-address";
     }
 
@@ -161,9 +188,16 @@ public class MVCServerController {
      * @param key String
      */
     @RequestMapping("remove-server")
-    public String linkRemoveServerByKey(@RequestParam String key) {
+    public String linkRemoveServerByKey(HttpServletRequest request, @RequestParam String key) {
         boolean result = serverCenterInfoService.removeDataByKey(key);
-        sessionService.message(String.format("REMOTE SERVER INFO [%s] 삭제 %s 하였습니다.", key, (result ? "성공" : "실패")));
+        if (result) {
+            Map<String, Object> map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_REMOVE_URI, new HashMap<String, String>() {{
+                put("key", key);
+            }}); // Neighbor 정보 저장
+            sessionService.message(String.format("REMOTE SERVER INFO [%s] 삭제 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", key, result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
+        } else {
+            sessionService.message(String.format("REMOTE SERVER INFO [%s] 삭제 %s 하였습니다.", key, "실패"));
+        }
         return "redirect:service-address";
     }
 

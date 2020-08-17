@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+// MAP 데이터 및 LAYER 데이터 등 연관 데이터 삭제 시, CASCADE 를 유지하기 위한 컴포넌트.
 @Slf4j
 @Component
 public class CascadeRelativeComponent {
@@ -159,7 +160,7 @@ public class CascadeRelativeComponent {
         if (sources.size() > 0) {
             boolean updated = false;
             for (ProxySourceDTO source : sources) {
-                proxyCacheService.removeProxyDataByNameAndType(source.getName(), source.getType().equalsIgnoreCase("wms") ? "SOURCE-WMS" : "SOURCE-MAPSERVER", serverCenterInfoService.loadLocalInfoData());
+                proxyCacheService.removeProxyDataByNameAndType(source.getName(), source.getType().equalsIgnoreCase("wms") ? "SOURCE-WMS" : "SOURCE-MAPSERVER");
                 if (source.getSelected().equals(true)) {
                     updated = true;
                 }
@@ -187,7 +188,7 @@ public class CascadeRelativeComponent {
         if (caches.size() > 0) {
             for (ProxyCacheDTO cache : caches) {
                 removeProxyCacheWithOrphanCheck(cache.getId());
-                proxyCacheService.removeProxyDataByNameAndType(cache.getName(), "CACHE", serverCenterInfoService.loadLocalInfoData());
+                proxyCacheService.removeProxyDataByNameAndType(cache.getName(), "CACHE");
                 if (cache.getSelected().equals(true)) {
                     updated = true;
                 }
@@ -196,7 +197,7 @@ public class CascadeRelativeComponent {
 
         if (layers.size() > 0) {
             for (ProxyLayerDTO layer : layers) {
-                proxyCacheService.removeProxyDataByNameAndType(layer.getName(), "LAYER", serverCenterInfoService.loadLocalInfoData());
+                proxyCacheService.removeProxyDataByNameAndType(layer.getName(), "LAYER");
                 if (layer.getSelected().equals(true)) {
                     updated = true;
                 }
@@ -215,7 +216,7 @@ public class CascadeRelativeComponent {
         List<ProxyLayerDTO> layers = loadProxyCacheRemoveAfterOrphanProxyLayers(cacheId);
         if (layers.size() > 0) {
             for (ProxyLayerDTO layer : layers) {
-                proxyCacheService.removeProxyDataByNameAndType(layer.getName(), "LAYER", serverCenterInfoService.loadLocalInfoData());
+                proxyCacheService.removeProxyDataByNameAndType(layer.getName(), "LAYER");
                 if (layer.getSelected().equals(true)) {
                     updated = true;
                 }

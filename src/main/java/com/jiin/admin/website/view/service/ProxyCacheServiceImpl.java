@@ -128,8 +128,14 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         List<Object> dtos = Stream.of(mapServerDTOs, wmsDTOs).flatMap(o -> o.stream()).collect(Collectors.toList());
 
         String context = MapProxyUtil.fetchYamlFileContextWithDTO(proxyLayerMapper.findBySelected(true), dtos, proxyCacheMapper.findBySelected(true), proxyGlobalMapper.findAll(), local, MAP_SERVER_PORT);
-        FileSystemUtil.createAtFile(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME, context);
-        return true;
+
+        File file = new File(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME);
+        if (file.exists()) {
+            FileSystemUtil.createAtFile(dataPath + Constants.PROXY_SETTING_FILE_PATH + "/" + Constants.PROXY_SETTING_FILE_NAME, context);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -154,6 +160,66 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
         } catch (IOException e) {
             log.error("ERROR - " + e.getMessage());
             return "text";
+        }
+    }
+
+    @Override
+    public boolean loadDataSelectedById(String type, long id) {
+        switch(type.toUpperCase()){
+            case "LAYER" :
+                ProxyLayerDTO layer = proxyLayerMapper.findById(id);
+                if (layer != null) {
+                    return layer.getSelected();
+                }
+                return false;
+
+            case "SOURCE-MAPSERVER" :
+            case "SOURCE-WMS" :
+                ProxySourceDTO source = proxySourceMapper.findById(id);
+                if (source != null) {
+                    return source.getSelected();
+                }
+                return false;
+
+            case "CACHE" :
+                ProxyCacheDTO cache = proxyCacheMapper.findById(id);
+                if (cache != null) {
+                    return cache.getSelected();
+                }
+                return false;
+
+            default :
+                return false;
+        }
+    }
+
+    @Override
+    public boolean loadDataSelectedByName(String type, String name) {
+        switch(type.toUpperCase()){
+            case "LAYER" :
+                ProxyLayerDTO layer = proxyLayerMapper.findByName(name);
+                if (layer != null) {
+                    return layer.getSelected();
+                }
+                return false;
+
+            case "SOURCE-MAPSERVER" :
+            case "SOURCE-WMS" :
+                ProxySourceDTO source = proxySourceMapper.findByName(name);
+                if (source != null) {
+                    return source.getSelected();
+                }
+                return false;
+
+            case "CACHE" :
+                ProxyCacheDTO cache = proxyCacheMapper.findByName(name);
+                if (cache != null) {
+                    return cache.getSelected();
+                }
+                return false;
+
+            default :
+                return false;
         }
     }
 
@@ -252,11 +318,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     @Transactional
-    public boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel, ServerCenterInfo local) {
-        if (local == null) {
-            return false;
-        }
-
+    public boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel) {
         ProxyLayerDTO layer = proxyLayerMapper.findByName(proxyLayerModel.getName());
         ProxyLayerDTO dto;
         switch(proxyLayerModel.getMethod()) {
@@ -294,11 +356,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     @Transactional
-    public boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel, ServerCenterInfo local) {
-        if (local == null) {
-            return false;
-        }
-
+    public boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel) {
         ProxySourceDTO root = proxySourceMapper.findByName(proxySourceMapServerModel.getName());
         ProxySourceMapServerDTO dto;
         switch(proxySourceMapServerModel.getMethod()) {
@@ -337,11 +395,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     @Transactional
-    public boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel, ServerCenterInfo local) {
-        if (local == null) {
-            return false;
-        }
-
+    public boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel) {
         ProxySourceDTO root = proxySourceMapper.findByName(proxySourceWMSModel.getName());
         ProxySourceWMSDTO dto;
         switch(proxySourceWMSModel.getMethod()) {
@@ -387,11 +441,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     @Transactional
-    public boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel, ServerCenterInfo local) {
-        if (local == null) {
-            return false;
-        }
-
+    public boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel) {
         ProxyCacheDTO cache = proxyCacheMapper.findByName(proxyCacheModel.getName());
         ProxyCacheDTO dto;
         switch(proxyCacheModel.getMethod()) {
@@ -452,11 +502,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
      */
     @Override
     @Transactional
-    public boolean removeProxyDataByIdAndType(long id, String type, ServerCenterInfo local) {
-        if (local == null) {
-            return false;
-        }
-
+    public boolean removeProxyDataByIdAndType(long id, String type) {
         switch(type.toUpperCase()) {
             case "LAYER" :
                 ProxyLayerDTO layer = proxyLayerMapper.findById(id);
@@ -544,18 +590,14 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
 
     @Override
     @Transactional
-    public boolean removeProxyDataByNameAndType(String name, String type, ServerCenterInfo local) {
-        if (local == null) {
-            return false;
-        }
-
+    public boolean removeProxyDataByNameAndType(String name, String type) {
         switch(type.toUpperCase()) {
             case "LAYER" :
                 ProxyLayerDTO layerDTO = proxyLayerMapper.findByName(name);
                 if (layerDTO == null) {
                     return false;
                 } else {
-                    return removeProxyDataByIdAndType(layerDTO.getId(), type, local);
+                    return removeProxyDataByIdAndType(layerDTO.getId(), type);
                 }
 
             case "SOURCE-MAPSERVER" :
@@ -564,7 +606,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 if (sourceDTO == null) {
                     return false;
                 } else {
-                    return removeProxyDataByIdAndType(sourceDTO.getId(), type, local);
+                    return removeProxyDataByIdAndType(sourceDTO.getId(), type);
                 }
 
             case "CACHE" :
@@ -572,7 +614,7 @@ public class ProxyCacheServiceImpl implements ProxyCacheService {
                 if (cacheDTO == null) {
                     return false;
                 } else {
-                    return removeProxyDataByIdAndType(cacheDTO.getId(), type, local);
+                    return removeProxyDataByIdAndType(cacheDTO.getId(), type);
                 }
 
             default :

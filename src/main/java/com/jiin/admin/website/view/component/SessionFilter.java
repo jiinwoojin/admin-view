@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 
+// 기본적은 Session 정보를 관리하기 위한 컴포넌트.
 @Slf4j
 @Component
 public class SessionFilter implements Filter {

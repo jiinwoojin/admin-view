@@ -23,6 +23,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
+// MAP Version 을 관리하기 위한 컴포넌트
 @Slf4j
 @Component
 public class MapVersionManagement {

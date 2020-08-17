@@ -14,6 +14,8 @@ public interface ProxyCacheService {
     String loadProxyCacheMainDir();
     String loadMapServerBinary();
     String loadProxyYamlSetting();
+    boolean loadDataSelectedById(String type, long id);
+    boolean loadDataSelectedByName(String type, String name);
 
     Object loadDataList(String type);
     Object loadDataListBySelected(String type, Boolean selected);
@@ -21,13 +23,13 @@ public interface ProxyCacheService {
     ProxySelectResponseModel loadProxySetting();
 
     Map<String, Object> writeYAMLFileForNeighbors(HttpServletRequest request, boolean result, ServerCenterInfo local, List<ServerCenterInfo> neighbors);
-    boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel, ServerCenterInfo local);
-    boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel, ServerCenterInfo local);
-    boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel, ServerCenterInfo local);
-    boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel, ServerCenterInfo local);
+    boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel);
+    boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel);
+    boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel);
+    boolean saveProxyCacheByModel(ProxyCacheModel proxyCacheModel);
     boolean saveProxyGlobalByModelList(List<ProxyGlobalModel> proxyGlobalModels, ServerCenterInfo local);
-    boolean removeProxyDataByIdAndType(long id, String type, ServerCenterInfo local);
-    boolean removeProxyDataByNameAndType(String name, String type, ServerCenterInfo local);
+    boolean removeProxyDataByIdAndType(long id, String type);
+    boolean removeProxyDataByNameAndType(String name, String type);
 
     boolean setProxyDataSelectByModel(ProxySelectRequestModel proxySelectModel, ServerCenterInfo local);
 }

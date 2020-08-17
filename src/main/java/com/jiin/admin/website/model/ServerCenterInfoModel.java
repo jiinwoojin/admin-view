@@ -4,6 +4,9 @@ import com.jiin.admin.vo.ServerCenterInfo;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Getter
 @Setter
 public class ServerCenterInfoModel {
@@ -41,5 +44,19 @@ public class ServerCenterInfoModel {
         else {
             return new ServerCenterInfoModel(method, dto.getKey(), dto.getName(), dto.getIp(), dto.getZone(), dto.getKind(), dto.getDescription());
         }
+    }
+
+    public static Map<String, String> convertMap(ServerCenterInfoModel model) {
+        return new HashMap<String, String>() {
+            {
+                put("method", model.getMethod());
+                put("key", model.getKey());
+                put("name", model.getName());
+                put("ip", model.getIp());
+                put("zone", model.getZone());
+                put("kind", model.getKind());
+                put("description", model.getDescription());
+            }
+        };
     }
 }
