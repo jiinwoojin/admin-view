@@ -23,7 +23,6 @@
                 <select class="form-control" onchange="onchange_menu_tab(this)">
                     <option value="SEED_SET" th:selected="${ #strings.equals((param.menu == null ? 'SEED_SET' : param.menu), 'SEED_SET') }">CACHE 처리 생성</option>
                     <option value="CLEAN_UP" th:selected="${ #strings.equals((param.menu == null ? 'SEED_SET' : param.menu), 'CLEAN_UP') }">CACHE 소멸 설정</option>
-                    <option value="SEED_CYCLE" th:selected="${ #strings.equals((param.menu == null ? 'SEED_SET' : param.menu), 'SEED_CYCLE') }">CACHE 주기 설정</option>
                 </select>
             </div>
             <hr/>
@@ -33,19 +32,16 @@
             <div th:if="${ #strings.equals(param.menu, 'CLEAN_UP') }">
                 <th:block  th:replace="fragments/seed/html-cleanup-setting"></th:block>
             </div>
-            <div th:if="${ #strings.equals(param.menu, 'SEED_CYCLE') }">
-                <th:block th:replace="fragments/seed/html-seed-cycle-setting"></th:block>
-            </div>
         </div>
 
         <div class="col-xl-8">
             <div class="row">
                 <div class="col-xl-12">
-                    <h3 class="section_tit">CACHE 컨테이너 목록</h3>
+                    <h3 class="section_tit">CACHE 처리 진행 현황 목록</h3>
                     <table id="list_table" class="table table-sm basic">
                         <thead class="table-info">
                         <tr>
-                            <th scope="col" class="text-center nowrap">컨테이너 ID</th>
+                            <th scope="col" class="text-center nowrap">진행 현황 ID</th>
                             <th scope="col" class="text-center nowrap">이름</th>
                             <th scope="col" class="text-center nowrap">이미지</th>
                             <th scope="col" class="text-center nowrap">상태 정보</th>
@@ -80,14 +76,14 @@
                 </div>
                 <hr style="width: 100%;"/>
                 <form class="col-xl-12" id="detail-form">
-                    <h3 class="section_tit">CACHE 진행 내역</h3>
+                    <h3 class="section_tit">개별 CACHE 진행 현황 정보</h3>
                     <div>
                         <div class="form-group">
-                            <label>CACHE 이름</label>
+                            <label>처리 중인 CACHE 이름</label>
                             <input class="form-control form-control-sm seed-preview" name="seed_name" readonly />
                         </div>
                         <div class="form-group mt-2">
-                            <label>진행영역</label>
+                            <label>진행 중인 영역</label>
                             <div class="row">
                                 <div class="col-3">
                                     <label>Min X.</label>
@@ -165,6 +161,8 @@
                         </tr>
                         </tbody>
                     </table>
+
+                    <p><span class="text-info">(*)</span> : 선택 가능한 CACHE 데이터는 <a th:href="@{/view/proxy/setting}">서비스 조회 - 설정</a> 에 등록한 CACHE 데이터에 한해 가능합니다.</p>
                 </div>
             </div>
         </div>
@@ -184,11 +182,8 @@
             })
 
             initialize_small_dataTable('list_table_caches');
-
-            if (document.getElementById('seed-cycle-setting')) {
-                loadCronSettingWithCacheName($('#cache-select').val());
-            }
         });
+
         // Map Proxy YAML 파일에 저장된 내용들을 불러온다.
         function fn_initialize_seed_param(){
             // 선택된 캐시 이름
@@ -264,29 +259,6 @@
                     },
                     error: function(e){
                         toastr.error("CACHE 소멸 작업에 실패하였습니다.");
-                        console.error(e);
-                    }
-                });
-            }
-        }
-
-        function fn_seed_cycle_setting() {
-            if(confirm("CACHE 생성 주기를 설정 하시겠습니까?")){
-                $.ajax({
-                    url: CONTEXT + '/view/proxy/seeding-cycle',
-                    type: 'get',
-                    data: jQuery("#seed-cycle-setting").serialize(),
-                    success: function(data){
-                        var RESULT = data.RESULT;
-                        if(RESULT){
-                            toastr.success("CACHE 생성 주기 설정에 성공 했습니다.");
-                        } else {
-                            toastr.error("CACHE 생성 주기 설정에 실패 했습니다.");
-                        }
-                        location.reload();
-                    },
-                    error: function(e){
-                        toastr.error("CACHE 생성 주기 설정에 실패 했습니다.");
                         console.error(e);
                     }
                 });
@@ -459,61 +431,6 @@
 
             $('#cache-select').val(cache);
             $('#searchProxyCache').modal('toggle');
-
-            // CACHE 처리 CYCLE 설정 실행 시 개방
-            if (document.getElementById('seed-cycle-setting')) {
-                loadCronSettingWithCacheName(cache);
-            }
-        }
-
-        function loadCronSettingWithCacheName(cache) {
-            $.ajax({
-                url: `${CONTEXT}/view/proxy/load-cycle`,
-                type: 'get',
-                data: { cache : cache },
-                success: function(data){
-                    var cron = {};
-                    if (data) {
-                        toastr.success(`${cache} CACHE 데이터의 생성 주기가 이미 설정 되어 있습니다. 확인 하시길 바랍니다.`);
-                        cron = data;
-                        $('#cycle-remove').attr('disabled', false);
-                    } else {
-                        toastr.warning(`${cache} CACHE 데이터의 생성 주기가 설정 되어 있지 않습니다. 이를 설정하시면 자동으로 타일링 CACHE 데이터를 얻을 수 있습니다.`);
-                        $('#cycle-remove').attr('disabled', true);
-                    }
-                    $('select[name="month"]').val(cron && (cron.month || 0));
-                    $('select[name="day"]').val(cron && (cron.day || 0));
-                    $('select[name="hour"]').val(cron && (cron.hour || 0));
-                    $('select[name="minute"]').val(cron && (cron.minute || 0));
-                },
-                error: function(e){
-                    console.error(e);
-                    toastr.warning(`${cache} CACHE 데이터의 생성 주기가 설정 되어 있지 않습니다. 이를 설정하시면 자동으로 타일링 CACHE 데이터를 얻을 수 있습니다.`);
-                }
-            });
-        }
-
-        function fn_seed_cycle_disabled(){
-            var cache = $('#cache-select').val();
-            if (window.confirm(`[${cache}] CACHE 타이머 설정 를 삭제합니다. 계속 진행 하시겠습니까?`)) {
-                $.ajax({
-                    url: `${CONTEXT}/view/proxy/remove-cycle`,
-                    type: 'get',
-                    data: {cache: $('#cache-select').val()},
-                    success: function (data) {
-                        if (data.RESULT) {
-                            toastr.success(`CACHE 데이터의 생성 주기가 삭제 되었습니다.`);
-                        } else {
-                            toastr.warning(`CACHE 데이터의 생성 주기 삭제 작업을 실패 했습니다.`);
-                        }
-                        location.reload();
-                    },
-                    error: function (e) {
-                        console.error(e);
-                        toastr.warning(`CACHE 데이터의 생성 주기 삭제 작업을 실패 했습니다.`);
-                    }
-                });
-            }
         }
 
         function onchange_menu_tab(dom) {

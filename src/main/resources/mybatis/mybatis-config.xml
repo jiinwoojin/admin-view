@@ -38,7 +38,6 @@
 		<typeAlias alias="PLSRelationDTO" type="com.jiin.admin.dto.ProxyLayerSourceRelationDTO" />
 		<typeAlias alias="PLCRelationDTO" type="com.jiin.admin.dto.ProxyLayerCacheRelationDTO" />
 		<typeAlias alias="PCSRelationDTO" type="com.jiin.admin.dto.ProxyCacheSourceRelationDTO" />
-		<typeAlias alias="ProxySeedCronDTO" type="com.jiin.admin.dto.ProxySeedCronDTO" />
 
 		<!-- Docker Container Based DTO -->
 		<typeAlias alias="ContainerHistoryDTO" type="com.jiin.admin.dto.ContainerHistoryDTO" />

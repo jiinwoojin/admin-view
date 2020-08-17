@@ -4,9 +4,7 @@ import com.amihaiemil.docker.Container;
 import com.amihaiemil.docker.Logs;
 import com.jiin.admin.Constants;
 import com.jiin.admin.dto.ProxyCacheDTO;
-import com.jiin.admin.dto.ProxySeedCronDTO;
 import com.jiin.admin.mapper.data.ProxyCacheMapper;
-import com.jiin.admin.mapper.data.ProxySeedCronMapper;
 import com.jiin.admin.vo.SeedContainerInfo;
 import com.jiin.admin.website.util.DockerUtil;
 import com.jiin.admin.website.util.FileSystemUtil;
@@ -52,9 +50,6 @@ public class ProxySeedServiceImpl implements ProxySeedService {
 
     @Resource
     private ProxyCacheMapper proxyCacheMapper;
-
-    @Resource
-    private ProxySeedCronMapper proxySeedCronMapper;
 
     // Proxy Cache 데이터 중 YAML 파일에 설정된 데이터만 호출한다.
     public List<ProxyCacheDTO> loadProxyCacheListBySelected(){
@@ -243,17 +238,6 @@ public class ProxySeedServiceImpl implements ProxySeedService {
         return list;
     }
 
-    // SEED 를 돌리고 있는 Schedule CRON 데이터를 가져온다.
-    @Override
-    public ProxySeedCronDTO loadSeedCronScheduleByCache(String name) {
-        ProxyCacheDTO cache = proxyCacheMapper.findByName(name);
-        if (cache == null) {
-            return null;
-        } else {
-            return proxySeedCronMapper.findByCacheId(cache.getId());
-        }
-    }
-
     // SEED 이름으로 Container 를 삭제한다.
     @Override
     public boolean removeSeedContainerByName(String name) {
@@ -439,42 +423,9 @@ public class ProxySeedServiceImpl implements ProxySeedService {
         return countMap;
     }
 
-    // SEED CRON 주기를 설정한다.
-    @Override
-    public boolean setSeedCronSchedule(Map<String, Object> param) {
-        ProxyCacheDTO cache = proxyCacheMapper.findByName((String) param.get("cache"));
-        if (cache == null) {
-            return false;
-        } else {
-            ProxySeedCronDTO cron = new ProxySeedCronDTO();
-            cron.setCacheId(cache.getId());
-            cron.setSecond("0");
-            cron.setMinute((String) param.get("minute"));
-            cron.setHour((String) param.get("hour"));
-            cron.setDay((String) param.get("day"));
-            cron.setMonth((String) param.get("month"));
-            cron.setWeek("?");
+    /*
+     * SEED 주기 관련 기능 : Truncated.
+     * 2020.08.17
+     */
 
-            if (proxySeedCronMapper.findByCacheId(cache.getId()) == null) {
-                return proxySeedCronMapper.insert(cron) > 0;
-            } else {
-                return proxySeedCronMapper.update(cron) > 0;
-            }
-        }
-    }
-
-    @Override
-    public boolean removeSeedCycleByCacheName(String name) {
-        ProxyCacheDTO cache = proxyCacheMapper.findByName(name);
-        if (cache == null) {
-            return false;
-        } else {
-            ProxySeedCronDTO cron = proxySeedCronMapper.findByCacheId(cache.getId());
-            if (cron == null) {
-                return false;
-            } else {
-                return proxySeedCronMapper.deleteById(cron.getId()) > 0;
-            }
-        }
-    }
 }

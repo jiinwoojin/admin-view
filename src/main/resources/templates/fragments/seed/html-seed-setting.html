@@ -2,7 +2,7 @@
 <form id="seed-create" accept-charset="utf-8" onsubmit="return preSubmit(this);">
     <div class="form-group row">
         <div class="col-12">
-            <label>CACHE 인덱스(Docker Container 이름)</label>
+            <label>CACHE 처리 인덱스(진행 현황 ID)</label>
         </div>
         <div class="col-12 input-group">
             <input type="text" class="form-control" disabled th:value="${ seedName + '-자동생성(인덱스)'} ">
@@ -14,7 +14,7 @@
 
     <div class="form-row my-2">
         <div class="col-6">
-            <label>CACHE 데이터 선택</label>
+            <label>처리할 CACHE 데이터 선택</label>
             <div class="input-group">
                 <input id="cache-select" type="text" class="form-control" name="cache" value="world_cache" readonly />
                 <div class="input-group-append">
@@ -69,7 +69,7 @@
     </div>
 
     <div class="form-row my-2">
-        <label class="col-12">영역(위경도)</label>
+        <label class="col-12">영역(위/경도)</label>
         <div class="col-3">
             <label>Min X.</label>
             <input type="text" class="form-control" id="minx" name="xmin" value="115">

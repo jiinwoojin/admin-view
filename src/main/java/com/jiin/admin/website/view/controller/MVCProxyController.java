@@ -7,37 +7,29 @@ import com.jiin.admin.Constants;
 import com.jiin.admin.config.SessionService;
 import com.jiin.admin.dto.ProxyCacheDTO;
 import com.jiin.admin.dto.ProxyLayerDTO;
-import com.jiin.admin.dto.ProxySeedCronDTO;
 import com.jiin.admin.dto.ProxySourceDTO;
 import com.jiin.admin.mapper.data.ProxyCacheMapper;
 import com.jiin.admin.mapper.data.ProxyLayerMapper;
 import com.jiin.admin.mapper.data.ProxySourceMapper;
 import com.jiin.admin.vo.ServerCenterInfo;
 import com.jiin.admin.website.model.*;
-import com.jiin.admin.website.util.DockerUtil;
 import com.jiin.admin.website.util.FileSystemUtil;
-import com.jiin.admin.website.util.YAMLFileUtil;
 import com.jiin.admin.website.view.service.ProxyCacheService;
 import com.jiin.admin.website.view.service.ProxySeedService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -358,43 +350,7 @@ public class MVCProxyController {
     }
 
     /**
-     * CACHE SEED CRON CYCLE 설정
-     * @param cache
-     * @return
+     * CACHE SEED CRON CYCLE 설정 : Truncated.
+     * 2020.08.17
      */
-    @ResponseBody
-    @RequestMapping("load-cycle")
-    public ProxySeedCronDTO loadProxySeedCycle(@RequestParam String cache) {
-        return proxySeedService.loadSeedCronScheduleByCache(cache);
-    }
-
-    /**
-     * CACHE SEED CRON CYCLE 설정
-     * @param param
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("seeding-cycle")
-    public Map<String, Object> proxySeedCycleSetting(@RequestParam Map<String, Object> param) {
-        return new HashMap<String, Object>() {
-            {
-                put("RESULT", proxySeedService.setSeedCronSchedule(param));
-            }
-        };
-    }
-
-    /**
-     * CACHE SEED CRON CYCLE 비활성
-     * @param cache
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("remove-cycle")
-    public Map<String, Object> proxySeedCycleRemoving(@RequestParam String cache) {
-        return new HashMap<String, Object>() {
-            {
-                put("RESULT", proxySeedService.removeSeedCycleByCacheName(cache));
-            }
-        };
-    }
 }
