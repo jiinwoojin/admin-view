@@ -11,14 +11,16 @@ import com.jiin.admin.website.model.*;
 import com.jiin.admin.website.util.FileSystemUtil;
 import com.jiin.admin.website.view.component.DuplexRESTComponent;
 import com.jiin.admin.website.view.service.ProxyCacheService;
-import com.jiin.admin.website.view.service.ProxySeedService;
 import com.jiin.admin.website.view.service.ServerCenterInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -38,12 +40,6 @@ public class MVCProxyController {
     @Value("${project.server-port.mapserver-port}")
     private int MAP_SERVER_PORT;
 
-    @Value("${project.docker-name.seed-name-prefix}")
-    private String DOCKER_SEED_NAME_PREFIX;
-
-    @Value("${project.docker-name.default-seed-name}")
-    private String DOCKER_DEFAULT_SEED_NAME;
-
     @Value("${spring.profiles.active}")
     private String activeProfile;
 
@@ -61,9 +57,6 @@ public class MVCProxyController {
 
     @Autowired
     private ServerCenterInfoService serverCenterInfoService;
-
-    @Resource
-    private ProxySeedService proxySeedService;
 
     @Resource
     private DuplexRESTComponent duplexRESTComponent;
@@ -211,91 +204,4 @@ public class MVCProxyController {
         }
         return "redirect:setting";
     }
-
-    // SEEDING 진행 현황 페이지
-    /**
-     * docker run -it -d --rm --user 1001:1000 -v /data/jiapp:/data/jiapp -v /etc/localtime:/etc/localtime:ro --name jimap_seed jiinwoojin/jimap_mapproxy mapproxy-seed -f /data/jiapp/data_dir/proxy/mapproxy.yaml -s /data/jiapp/data_dir/proxy/seed.yaml -c 4 --seed ALL
-     * @param model
-     * @return
-     */
-    @RequestMapping("seeding")
-    public String proxySeeding(Model model, @RequestParam(value = "menu", required = false, defaultValue = "SEED_SET") String menu){
-        model.addAttribute("proxyCaches", proxySeedService.loadProxyCacheListBySelected());
-        model.addAttribute("seedName", DOCKER_SEED_NAME_PREFIX);
-        model.addAttribute("seedContainers", proxySeedService.loadSeedContainerInfoList());
-        return "page/proxy/seeding";
-    }
-
-
-    // SEEDING 진행 현황 로그 가져오기
-    /**
-     * [14:03:36] 13  75.44% 140.97656, 43.24219, 141.32812, 43.59375 (8593072 tiles)
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("seeding-info")
-    public Map<String, Object> proxySeedingInfo(@RequestParam("SEEDNAME") String seedName) {
-        return proxySeedService.loadLogTextInContainerByName(seedName);
-    }
-
-    /**
-     * SEED 생성
-     * @param param
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("seeding-create")
-    public Map<String, Object> proxySeedingCreate(@RequestParam Map<String, Object> param) {
-        return new HashMap<String, Object>() {
-            {
-                put("RESULT", proxySeedService.createSeedContainer(param));
-            }
-        };
-    }
-
-    /**
-     * 기본 값 Seeding 가져오기 - 사용 여부에 따라 폐기 될 수 있음.
-     * @param
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("default-seeding-reload")
-    public Map<String, Object> proxySeedingReload() {
-        return new HashMap<String, Object>() {
-            {
-                put("RESULT", proxySeedService.resetDefaultSeeding());
-            }
-        };
-    }
-
-    /**
-     * SEEDING 중단
-     * @param name
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("seeding-stop")
-    public Map<String, Object> proxySeedingStop(@RequestParam("SEEDNAME") String name) {
-        return new HashMap<String, Object>() {
-            {
-                put("RESULT", proxySeedService.removeSeedContainerByName(name) ? "SUCCESS" : "FAILURE");
-            }
-        };
-    }
-
-    /**
-     * CACHE SEEDING 소멸 시점 설정
-     * @param param
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("cleanup-setting")
-    public Map<String, Integer> proxyCleanUpSetting(@RequestParam Map<String, Object> param) {
-        return proxySeedService.setCacheSeedingCleanUpSetting(param);
-    }
-
-    /**
-     * CACHE SEED CRON CYCLE 설정 : Truncated.
-     * 2020.08.17
-     */
 }

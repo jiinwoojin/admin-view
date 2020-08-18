@@ -22,7 +22,6 @@ public interface ProxyCacheService {
 
     ProxySelectResponseModel loadProxySetting();
 
-    Map<String, Object> writeYAMLFileForNeighbors(HttpServletRequest request, boolean result, ServerCenterInfo local, List<ServerCenterInfo> neighbors);
     boolean saveProxyLayerByModel(ProxyLayerModel proxyLayerModel);
     boolean saveProxySourceMapServerByModel(ProxySourceMapServerModel proxySourceMapServerModel);
     boolean saveProxySourceWMSByModel(ProxySourceWMSModel proxySourceWMSModel);
