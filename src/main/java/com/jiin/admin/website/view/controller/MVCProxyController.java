@@ -108,7 +108,7 @@ public class MVCProxyController {
         if (proxyCacheService.loadDataSelectedByName("LAYER", proxyLayerModel.getName())) {
             proxyCacheService.saveYAMLFileByEachList(serverCenterInfoService.loadLocalInfoData()); // Local 정보 저장
             Map<String, Object> map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_SETTING_URI, new HashMap<>()); // Neighbor 정보 저장
-            sessionService.message(String.format("[%s] LAYER 정보 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", proxyLayerModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
+            sessionService.message(String.format("[%s] LAYER 정보 저장에 %s 했습니다. 이중화 진행 결과 : %d 성공 / %d 실패.", proxyLayerModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
         } else {
             sessionService.message(String.format("[%s] LAYER 정보 저장에 %s 했습니다.", proxyLayerModel.getName(), result ? "성공" : "실패"));
         }
@@ -122,7 +122,7 @@ public class MVCProxyController {
         if (proxyCacheService.loadDataSelectedByName("SOURCE-WMS", proxySourceWMSModel.getName())) {
             proxyCacheService.saveYAMLFileByEachList(serverCenterInfoService.loadLocalInfoData()); // Local 정보 저장
             Map<String, Object> map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_SETTING_URI, new HashMap<>()); // Neighbor 정보 저장
-            sessionService.message(String.format("[%s] SOURCE (WMS) 정보 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", proxySourceWMSModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
+            sessionService.message(String.format("[%s] SOURCE (WMS) 정보 저장에 %s 했습니다. 이중화 진행 결과 : %d 성공 / %d 실패.", proxySourceWMSModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
         } else {
             sessionService.message(String.format("[%s] SOURCE (WMS) 정보 저장에 %s 했습니다.", proxySourceWMSModel.getName(), result ? "성공" : "실패"));
         }
@@ -136,7 +136,7 @@ public class MVCProxyController {
         if (proxyCacheService.loadDataSelectedByName("SOURCE-MAPSERVER", proxySourceMapServerModel.getName())) {
             proxyCacheService.saveYAMLFileByEachList(serverCenterInfoService.loadLocalInfoData()); // Local 정보 저장
             Map<String, Object> map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_SETTING_URI, new HashMap<>()); // Neighbor 정보 저장
-            sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", proxySourceMapServerModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
+            sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다. 이중화 진행 결과 : %d 성공 / %d 실패.", proxySourceMapServerModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
         } else {
             sessionService.message(String.format("[%s] SOURCE (MapServer) 정보 저장에 %s 했습니다.", proxySourceMapServerModel.getName(), result ? "성공" : "실패"));
         }
@@ -150,7 +150,7 @@ public class MVCProxyController {
         if (proxyCacheService.loadDataSelectedByName("CACHE", proxyCacheModel.getName())) {
             proxyCacheService.saveYAMLFileByEachList(serverCenterInfoService.loadLocalInfoData()); // Local 정보 저장
             Map<String, Object> map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_SETTING_URI, new HashMap<>()); // Neighbor 정보 저장
-            sessionService.message(String.format("[%s] CACHE 정보 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", proxyCacheModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
+            sessionService.message(String.format("[%s] CACHE 정보 저장에 %s 했습니다. 이중화 진행 결과 : %d 성공 / %d 실패.", proxyCacheModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
         } else {
             sessionService.message(String.format("[%s] CACHE 정보 저장에 %s 했습니다.", proxyCacheModel.getName(), result ? "성공" : "실패"));
         }
@@ -173,7 +173,7 @@ public class MVCProxyController {
         ServerCenterInfo local = serverCenterInfoService.loadLocalInfoData();
         boolean result = proxyCacheService.saveProxyGlobalByModelList(list, local); // Local 정보 저장
         Map<String, Object> map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_SETTING_URI, new HashMap<>()); // Neighbor 정보 저장
-        sessionService.message(String.format("GLOBAL 정보 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
+        sessionService.message(String.format("GLOBAL 정보 저장에 %s 했습니다. 이중화 진행 결과 : %d 성공 / %d 실패.", result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
         return "redirect:setting";
     }
 
@@ -185,7 +185,7 @@ public class MVCProxyController {
         if (selected) {
             proxyCacheService.saveYAMLFileByEachList(serverCenterInfoService.loadLocalInfoData()); // Local 정보 저장
             Map<String, Object> map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_SETTING_URI, new HashMap<>()); // Neighbor 정보 저장
-            sessionService.message(String.format("[%s] %s 정보 삭제에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", name, type.toUpperCase(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
+            sessionService.message(String.format("[%s] %s 정보 삭제에 %s 했습니다. 이중화 진행 결과 : %d 성공 / %d 실패.", name, type.toUpperCase(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
         } else {
             sessionService.message(String.format("[%s] %s 정보 삭제에 %s 했습니다.", name, type.toUpperCase(), result ? "성공" : "실패"));
         }
@@ -198,7 +198,7 @@ public class MVCProxyController {
         boolean result = proxyCacheService.setProxyDataSelectByModel(proxySelectModel, serverCenterInfoService.loadLocalInfoData()); // Local 정보 저장
         if (result) {
             Map<String, Object> map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_SETTING_URI, new HashMap<>()); // Neighbor 정보 저장
-            sessionService.message(String.format("모든 PROXY 정보들을 수정하는데 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
+            sessionService.message(String.format("모든 PROXY 정보들을 수정하는데 %s 했습니다. 이중화 진행 결과 : %d 성공 / %d 실패.", result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
         } else {
             sessionService.message("모든 PROXY 정보들을 설정하는 도중 오류가 발생했습니다.");
         }

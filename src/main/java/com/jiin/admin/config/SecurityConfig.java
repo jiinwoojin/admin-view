@@ -68,7 +68,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/view/server/create-duplex").permitAll()
                 .antMatchers("/view/server/update-duplex").permitAll()
                 .antMatchers("/view/server/remove-duplex").permitAll()
-                .antMatchers("/view/proxy/create-seed-duplex").permitAll()
+                .antMatchers("/view/proxy/seed/init-duplex").permitAll()
+                .antMatchers("/view/proxy/seed/stop-duplex").permitAll()
+                .antMatchers("/view/proxy/seed/clean-up-duplex").permitAll()
                 .antMatchers("/view/los/**").permitAll()	//이지훈 LOS가시화 예외추가
                 .antMatchers("/server/api/los/**").permitAll()	//이지훈 LOS가시화 예외추가
                 .antMatchers("/server/server-state").permitAll()

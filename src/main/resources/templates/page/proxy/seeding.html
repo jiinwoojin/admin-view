@@ -22,7 +22,7 @@
             <div class="form-group">
                 <select class="form-control" onchange="onchange_menu_tab(this)">
                     <option value="SEED_SET" th:selected="${ #strings.equals((param.menu == null ? 'SEED_SET' : param.menu), 'SEED_SET') }">CACHE 처리 생성</option>
-                    <option value="CLEAN_UP" th:selected="${ #strings.equals((param.menu == null ? 'SEED_SET' : param.menu), 'CLEAN_UP') }">CACHE 소멸 설정</option>
+                    <option value="CLEAN_UP" th:selected="${ #strings.equals((param.menu == null ? 'SEED_SET' : param.menu), 'CLEAN_UP') }">CACHE 소멸 시점 설정</option>
                 </select>
             </div>
             <hr/>
@@ -213,9 +213,9 @@
         function fn_seed_create(){
             if(confirm("새로운 CACHE 처리를 진행하시겠습니까?")){
                 $.ajax({
-                    url: CONTEXT + '/view/proxy/seeding-create',
+                    url: CONTEXT + '/view/proxy/seeding-init',
                     type: 'get',
-                    data: jQuery("#seed-create").serialize(),
+                    data: jQuery("#seed-init").serialize(),
                     success: function(data){
                         if(!data.RESULT){
                             toastr.error(data.MESSAGE);
@@ -226,7 +226,7 @@
                                 seed.id.substring(0, 15) + "...",
                                 seed.name,
                                 seed.image,
-                                seed.status,
+                                seed.status && seed.status.toUpperCase(),
                                 getTimeStamp(),
                                 '<button class="btn btn-success btn-sm btn-circle mx-1" type="button" onclick="fn_seed_view(\''+seed.name+'\')" title="진행 현황 보기"><i class="fas fa-eye"></i></button>' +
                                 '<button class="btn btn-danger btn-sm btn-circle mx-1" type="button" onclick="fn_seed_remove(\''+seed.name+'\')" title="진행 중단"><i class="fas fa-stop"></i></button>'
@@ -237,7 +237,7 @@
                         }
                     },
                     error: function(e){
-                        toastr.error("CACHE 처리 진행에 실패하였습니다.");
+                        toastr.error("CACHE 처리 진행 중 오류가 발생했습니다.");
                         console.error(e);
                     }
                 });
@@ -245,22 +245,20 @@
         }
 
         function fn_cleanup_setting() {
-            if(confirm("CACHE 소멸을 설정 하시겠습니까?")){
+            if(confirm("CACHE 소멸 시점을 설정 하시겠습니까?")){
                 $.ajax({
                     url: CONTEXT + '/view/proxy/cleanup-setting',
                     type: 'get',
                     data: jQuery("#cleanup-setting").serialize(),
                     success: function(data){
-                        var count = data.SUCCESS;
-                        if(count == 0){
-                            toastr.error("CACHE 소멸 작업이 진행되지 않았습니다.");
+                        if(!data.RESULT){
+                            toastr.error(data.MESSAGE);
                         } else {
-                            toastr.success("CACHE 소멸 작업이 " + count + " 개 설정 되었습니다.");
+                            toastr.success(data.MESSAGE);
                         }
-                        location.reload();
                     },
                     error: function(e){
-                        toastr.error("CACHE 소멸 작업에 실패하였습니다.");
+                        toastr.error("CACHE 소멸 시점 설정 중 오류가 발생했습니다.");
                         console.error(e);
                     }
                 });
@@ -274,8 +272,8 @@
                     type: 'get',
                     data: { SEEDNAME : seedName },
                     success: function(data){
-                        if(data.RESULT === 'FAILURE'){
-                            toastr.error("CACHE 처리 중단 실패하였습니다.")
+                        if(!data.RESULT){
+                            toastr.error(data.MESSAGE);
                         } else {
                             var table = $('#list_table').DataTable();
                             var datas = table.data()
@@ -284,13 +282,16 @@
                                     table.row(idx).remove().draw( false )
                                 }
                             });
-                            toastr.success("CACHE 처리 중단에 성공하였습니다.");
+
+                            var message = data.MESSAGE;
+                            toastr.success(message);
+
                             $('.seed-preview').val('');
                         }
                     },
                     error: function(e){
-                        console.error(e)
-                        toastr.error("CACHE 처리 중단에 실패하였습니다.");
+                        console.error(e);
+                        toastr.error("CACHE 처리 중단 진행 중 오류가 발생했습니다.");
                     }
                 });
             }

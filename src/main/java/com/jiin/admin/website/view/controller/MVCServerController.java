@@ -151,7 +151,7 @@ public class MVCServerController {
         boolean result = serverCenterInfoService.saveLocalData(serverCenterInfoModel);
         if (result) {
             Map<String, Object> map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_UPDATE_URI, ServerCenterInfoModel.convertMap(serverCenterInfoModel)); // Neighbor 정보 저장
-            sessionService.message(String.format("LOCAL SERVER INFO [%s] 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", serverCenterInfoModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
+            sessionService.message(String.format("LOCAL SERVER INFO [%s] 저장에 %s 했습니다. 이중화 진행 결과 : %d 성공 / %d 실패.", serverCenterInfoModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
         } else {
             sessionService.message(String.format("LOCAL SERVER INFO [%s] 저장 %s 하였습니다.", serverCenterInfoModel.getName(), "실패"));
         }
@@ -176,7 +176,7 @@ public class MVCServerController {
                     map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_UPDATE_URI, ServerCenterInfoModel.convertMap(serverCenterInfoModel)); // Neighbor 정보 저장
                     break;
             }
-            sessionService.message(String.format("REMOTE SERVER INFO [%s] 저장에 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", serverCenterInfoModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
+            sessionService.message(String.format("REMOTE SERVER INFO [%s] 저장에 %s 했습니다. 이중화 진행 결과 : %d 성공 / %d 실패.", serverCenterInfoModel.getName(), result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
         } else {
             sessionService.message(String.format("REMOTE SERVER INFO [%s] 저장 %s 하였습니다.", serverCenterInfoModel.getName(), "실패"));
         }
@@ -194,7 +194,7 @@ public class MVCServerController {
             Map<String, Object> map = duplexRESTComponent.sendDuplexRESTWithData(request, DUPLEX_REMOVE_URI, new HashMap<String, String>() {{
                 put("key", key);
             }}); // Neighbor 정보 저장
-            sessionService.message(String.format("REMOTE SERVER INFO [%s] 삭제 %s 했습니다. 동기화 진행 결과 : %d 성공 / %d 실패.", key, result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
+            sessionService.message(String.format("REMOTE SERVER INFO [%s] 삭제 %s 했습니다. 이중화 진행 결과 : %d 성공 / %d 실패.", key, result ? "성공" : "실패", map.getOrDefault("success", 0), map.getOrDefault("failure", 0)));
         } else {
             sessionService.message(String.format("REMOTE SERVER INFO [%s] 삭제 %s 하였습니다.", key, "실패"));
         }

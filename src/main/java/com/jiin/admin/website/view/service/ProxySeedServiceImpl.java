@@ -390,6 +390,8 @@ public class ProxySeedServiceImpl implements ProxySeedService {
     public Map<String, Integer> setCacheSeedingCleanUpSetting(Map<String, Object> param) {
         List<Container> containers = DockerUtil.fetchAllContainers();
         Map<String, Integer> countMap = new HashMap<>();
+        countMap.put("SUCCESS", 0);
+
         for (Container container : containers) {
             JsonObject object = null;
             try {
