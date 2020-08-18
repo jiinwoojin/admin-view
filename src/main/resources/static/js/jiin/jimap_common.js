@@ -16,7 +16,7 @@ var jiCommon = {
     /**
      *
      */
-    MAP_SERVER_PORT : (window.location.protocol === 'https:') ? 11200 : 11100,
+    MAP_SERVER_PORT : (window.location.protocol === 'https:') ? 0 : 0,
     /**
      *
      */
