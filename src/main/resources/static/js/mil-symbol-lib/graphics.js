@@ -190,6 +190,7 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 		milSymbolLoader.map._drawing_milsymbol._svg_symbol = null
 		milSymbolLoader.map._drawing_milsymbol._geojson = null
 		milSymbolLoader.map._drawing_milsymbol._modifiers = null
+		console.log("symbolCode",symbolCode)
 		if(format === 'SVG'){
 			milSymbolLoader.map._drawing_milsymbol._svg_symbol = armyc2.c2sd.renderer.MilStdSVGRenderer.Render(symbolCode,modifiers); // Save Graphics symbol
 			milSymbolLoader.map._drawing_milsymbol._geojson = rendererMP.RenderSymbol(id,"Name","Description", symbolCode, controlPoints, "clampToGround", scale, bbox, modifiers, formatGeoJSON);
@@ -199,8 +200,7 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 				// 작전활동부호-지휘통제및일반작전-일반-선-접촉선
 				// 색상변경
 				milSymbolLoader.map._drawing_milsymbol._geojson = milSymbolLoader.map._drawing_milsymbol._geojson.replace("#FF0000","#000000")
-			}
-			if(symbolCode === "GFF-LCF---****X"){
+			}else if(symbolCode === "GFF-LCF---****X"){
 				// 작전활동부호-화력지원-선-지휘통제선-화력지원협조선
 				// 라벨변경
 				milSymbolLoader.map._drawing_milsymbol._geojson = milSymbolLoader.map._drawing_milsymbol._geojson
