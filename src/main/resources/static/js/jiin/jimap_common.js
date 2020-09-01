@@ -24,7 +24,7 @@ var jiCommon = {
     /**
      *
      */
-    BASE_MAP_LAYER : 'world_layer', // 기본 지도 데이터
+    BASE_MAP_LAYER : 'r14', // 기본 지도 데이터
     /**
      *
      */
