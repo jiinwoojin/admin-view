@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="MapLayer" type="type_MapLayer" />
+  <xs:element name="MapStyle" type="type_MapStyle" />
+  
+  <!--  #### Map Layer Definition #### -->
+  <!--  #### Map Layer ####  -->
+  <xs:complexType name="type_MapLayer">
+    <xs:sequence>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="Group" type="type_Group" minOccurs="0" maxOccurs="unbounded" />
+        <xs:element name="Layer" type="type_Layer" minOccurs="1" maxOccurs="unbounded" />
+      </xs:choice>
+     </xs:sequence>
+    <xs:attribute name="Version" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <!--  #### Group Part #### -->
+  <xs:complexType name="type_Group">
+    <xs:sequence>
+      <xs:element name="Layer" type="type_Layer" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="Category" type="xs:string" use="required" />
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="GeometryType" type="xs:string" use="required" />
+  </xs:complexType>  
+  
+  <!--  #### Layer Part #### -->
+  <xs:complexType name="type_Layer">
+    <xs:sequence>
+      <xs:element name="Feature" type="type_Feature" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="Category" type="xs:string" use="required" />
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="FACC" type="xs:string" use="required" />
+    <xs:attribute name="GeometryType" type="xs:string" use="required" />
+    <xs:attribute name="SHPSource" type="xs:string" use="required" />
+    <xs:attribute name="GDBSource" type="xs:string" use="required" />
+    <xs:attribute name="Map" type="xs:string" use="required" />
+    <xs:attribute name="DisplayType" type="xs:string" use="optional" />
+    <xs:attribute name="AngleColumn" type="xs:string" use="optional" />
+    <xs:attribute name="LabelColumn" type="xs:string" use="optional" />
+    <xs:attribute name="LabelAngleColumn" type="xs:string" use="optional" />
+  </xs:complexType>
+
+  <!--  #### Feature Part #### -->
+  <xs:complexType name="type_Feature">
+    <xs:sequence>
+      <xs:element name="VVTStyle" type="type_VVTStyle" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="Description" type="xs:string" use="optional" />
+    <xs:attribute name="GeometryStyle" type="xs:string" use="optional" />
+    <xs:attribute name="LabelStyle" type="xs:string" use="optional" />
+  </xs:complexType>
+
+  <!--   #### VVTStyle Common Code List #### -->
+  <xs:complexType name="type_VVTStyle">
+    <xs:attribute name="VEG" type="xs:string" use="optional" />
+    <xs:attribute name="HYC" type="xs:string" use="optional" />
+    <xs:attribute name="EXS" type="xs:string" use="optional" />
+    <xs:attribute name="VRR" type="xs:string" use="optional" />
+    <xs:attribute name="SMC" type="xs:string" use="optional" />
+    <xs:attribute name="SSC" type="xs:string" use="optional" />
+    <xs:attribute name="MCC" type="xs:string" use="optional" />
+    <xs:attribute name="BFC" type="xs:string" use="optional" />
+    <xs:attribute name="HGT" type="xs:string" use="optional" />
+    <xs:attribute name="HWT" type="xs:string" use="optional" />
+    <xs:attribute name="ACC" type="xs:string" use="optional" />
+    <xs:attribute name="SLT" type="xs:string" use="optional" />
+    <xs:attribute name="ORD" type="xs:string" use="optional" />
+    <xs:attribute name="USS" type="xs:string" use="optional" />
+    <xs:attribute name="LOC" type="xs:string" use="optional" />
+    <xs:attribute name="TUC" type="xs:string" use="optional" />
+    <xs:attribute name="HQC" type="xs:string" use="optional" />
+    <xs:attribute name="PRO" type="xs:string" use="optional" />
+    <xs:attribute name="WTC" type="xs:string" use="optional" />
+    <xs:attribute name="MED" type="xs:string" use="optional" />
+    <xs:attribute name="LTN" type="xs:string" use="optional" />
+    <xs:attribute name="RST" type="xs:string" use="optional" />
+    <xs:attribute name="RGC" type="xs:string" use="optional" />
+    <xs:attribute name="RRA" type="xs:string" use="optional" />
+    <xs:attribute name="RRC" type="xs:string" use="optional" />
+    <xs:attribute name="TST" type="xs:string" use="optional" />
+    <xs:attribute name="HFC" type="xs:string" use="optional" />
+    <xs:attribute name="APT" type="xs:string" use="optional" />
+    <xs:attribute name="도로등급" type="xs:string" use="optional" />
+    <xs:attribute name="ELA" type="xs:string" use="optional" />
+    <xs:attribute name="TLM분류" type="xs:string" use="optional" />   
+    <xs:attribute name="GRIDCODE" type="xs:string" use="optional" />
+    <xs:attribute name="LMC" type="xs:string" use="optional" />
+    <xs:attribute name="FCO" type="xs:string" use="optional" />
+    <xs:attribute name="OHB" type="xs:string" use="optional" />
+    <xs:attribute name="RTT" type="xs:string" use="optional" />
+    <xs:attribute name="TYPE" type="xs:string" use="optional" />
+    <xs:attribute name="IsCompulsory" type="xs:string" use="optional" />
+    <xs:attribute name="SYMBOL" type="xs:string" use="optional" />
+    <xs:attribute name="LEN_FT" type="xs:string" use="optional" />
+    <xs:attribute name="SFC" type="xs:string" use="optional" />
+    <xs:attribute name="LEN-FT" type="xs:string" use="optional" />
+    <xs:attribute name="BEACON" type="xs:string" use="optional" />
+    <xs:attribute name="FontSize" type="xs:string" use="optional" />
+    <xs:attribute name="종류" type="xs:string" use="optional" />
+    <xs:attribute name="SIC" type="xs:string" use="optional" />
+    <xs:attribute name="HDI" type="xs:string" use="optional" />
+    <xs:attribute name="SOH" type="xs:string" use="optional" />
+    <xs:attribute name="HDP" type="xs:string" use="optional" />
+    <xs:attribute name="MAC" type="xs:string" use="optional" />
+    <xs:attribute name="TXT" type="xs:string" use="optional" />
+    <xs:attribute name="TSP" type="xs:string" use="optional" />
+    <xs:attribute name="ATN" type="xs:string" use="optional" />
+    <xs:attribute name="NAM" type="xs:string" use="optional" />
+    <xs:attribute name="FER" type="xs:string" use="optional" />
+    <xs:attribute name="PLT" type="xs:string" use="optional" />
+    <xs:attribute name="USE" type="xs:string" use="optional" />
+    <xs:attribute name="SND" type="xs:string" use="optional" />
+    <xs:attribute name="HDH" type="xs:string" use="optional" />
+    <xs:attribute name="PSC" type="xs:string" use="optional" />
+    <xs:attribute name="CUR" type="xs:string" use="optional" />
+    <xs:attribute name="CHA" type="xs:string" use="optional" />
+    <xs:attribute name="SST" type="xs:string" use="optional" />
+    <xs:attribute name="NST" type="xs:string" use="optional" />
+    <xs:attribute name="SHO" type="xs:string" use="optional" />
+    <xs:attribute name="TMC" type="xs:string" use="optional" />
+    <xs:attribute name="CCC" type="xs:string" use="optional" />
+    <xs:attribute name="BTC" type="xs:string" use="optional" />
+    <xs:attribute name="LVN" type="xs:string" use="optional" />
+    <xs:attribute name="COL" type="xs:string" use="optional" />
+    <xs:attribute name="REF" type="xs:string" use="optional" />
+    <xs:attribute name="PBV" type="xs:string" use="optional" />
+    <xs:attribute name="DF1" type="xs:string" use="optional" />
+    <xs:attribute name="DF2" type="xs:string" use="optional" />
+    <xs:attribute name="DF3" type="xs:string" use="optional" />
+    <xs:attribute name="DF4" type="xs:string" use="optional" />
+    <xs:attribute name="STA" type="xs:string" use="optional" />
+    <xs:attribute name="MBL" type="xs:string" use="optional" />
+    <xs:attribute name="PER" type="xs:string" use="optional" />
+    <xs:attribute name="EOL" type="xs:string" use="optional" />
+    <xs:attribute name="MCS" type="xs:string" use="optional" />
+  </xs:complexType>
+
+
+  <!--   #### Map style Definition#### -->
+  <!--  #### MapStyle ####  -->
+  <xs:complexType name="type_MapStyle">
+    <xs:sequence>
+      <xs:element name="Style" type="type_Style" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="Version" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <!--  #### Style Part #### -->
+  <xs:complexType name="type_Style">
+    <xs:sequence>     
+      <xs:element minOccurs="0" name="Font" type="xs:string" />
+      <xs:element minOccurs="0" name="Size" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="Color" type="xs:string" />
+      <xs:element minOccurs="0" name="Bold" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Itailc" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Underline" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Outline" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OutlineColor" type="xs:string" />
+      <xs:element minOccurs="0" name="Box" type="xs:boolean" />
+      <xs:element minOccurs="0" name="BoxColor" type="xs:string" />
+      <xs:element minOccurs="0" name="SeaWaterLevel" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Decimal" type="xs:byte" />    
+      <xs:element minOccurs="0" name="Prefix" type="xs:string" />
+      <xs:element minOccurs="0" name="Postfix" type="xs:string" />
+      <xs:element minOccurs="0" name="OffsetX" type="xs:byte" />
+      <xs:element minOccurs="0" name="OffsetY" type="xs:byte" />
+      <xs:element minOccurs="0" name="Align" type="xs:byte" />
+      <xs:element minOccurs="0" name="Picture" type="xs:string" />
+      <xs:element minOccurs="0" name="ImageOffsetX" type="xs:byte" />
+      <xs:element minOccurs="0" name="ImageOffsetY" type="xs:byte" />
+      <xs:element minOccurs="0" name="ImageAlign" type="xs:byte" />
+      <xs:element name="PointLayer" type="type_PointLayer" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="LineLayer" type="type_LineLayer" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="PolygonLayer" type="type_PolygonLayer" minOccurs="0" maxOccurs="unbounded" />     
+     </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="type" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <!--  #### PointLayer Part #### -->
+  <xs:complexType name="type_PointLayer">
+    <xs:sequence minOccurs="0">
+      <xs:element minOccurs="0" name="Color" type="xs:string" />
+      <xs:element minOccurs="0" name="Size" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="Shape" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="Picture" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute name="type" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <!--  #### LineLayer Part #### -->
+  <xs:complexType name="type_LineLayer">
+    <xs:sequence minOccurs="0">
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="Picture" type="xs:string" />
+        <xs:element name="TextureLine" type="xs:boolean" />
+        <xs:element name="StartPos" type="xs:unsignedByte" />
+        <xs:element name="Interval" type="xs:unsignedByte" />
+        <xs:element name="Color" type="xs:string" />
+        <xs:element name="Width" type="xs:unsignedByte" />
+        <xs:element name="VerticalType" type="xs:unsignedByte" />
+        <xs:element name="Type" type="xs:unsignedByte" />
+        <xs:element name="Space" type="xs:unsignedByte" />
+        <xs:element name="JoinType" type="xs:unsignedByte" />
+        <xs:element name="StartCap" type="xs:unsignedByte" />
+        <xs:element name="EndCap" type="xs:unsignedByte" />
+        <xs:element name="DashCap" type="xs:unsignedByte" />
+        <xs:element name="DashOffset" type="xs:unsignedByte" />
+        <xs:element name="Dash">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="DashItem" type="xs:unsignedByte" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="LeftLength" type="xs:unsignedByte" />
+        <xs:element name="RightLength" type="xs:unsignedByte" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="type" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <!--  #### PolygonLayer Part #### -->
+  <xs:complexType name="type_PolygonLayer">
+    <xs:sequence minOccurs="0">
+      <xs:choice maxOccurs="unbounded">
+        <xs:element minOccurs="0" name="Picture" type="xs:string" />
+        <xs:element minOccurs="0" name="TextureFill" type="xs:boolean" />
+        <xs:element minOccurs="0" name="Color" type="xs:string" />
+        <xs:element minOccurs="0" name="Transparent" type="xs:boolean" />
+        <xs:element name="LineLayer"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="type" type="xs:string" use="required" />
+  </xs:complexType>
+</xs:schema>
+
+
+  
+  
+  
+  

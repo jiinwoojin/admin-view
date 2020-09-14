@@ -1,0 +1,2204 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<MapLayer Version="1.0">
+	<Layer Category="연안수부지물" Name="섬" FACC="BA030" GeometryType="Polygon" SHPSource="ABA030" GDBSource="EcrArea" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="섬" Description="육지와 물에 의해 둘러싸인 작은 땅 덩어리인 섬의 경계지역" GeometryStyle="BA030A01"></Feature>
+	</Layer>
+	<Layer Category="연안수부지물" Name="바다" FACC="BA040" GeometryType="Polygon" SHPSource="ABA040" GDBSource="EcrArea" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="바다" Description="일반적으로 조수의 파동을 가진 바다의 경계지역" GeometryStyle="BA040A01"></Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="등심선" FACC="BE010" GeometryType="Polygon" SHPSource="ABE010" GDBSource="Hydarea" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="등심선" Description="똑같은 깊이의 점을 연결한 등심선의 경계" GeometryStyle="BE010A01"></Feature>
+	</Layer>
+	<Layer Category="연안수부지물" Name="간석지" FACC="BA020" GeometryType="Polygon" SHPSource="ABA020" GDBSource="ForeshoA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="간석지" Description="하천에 의해서 하구에 운반된 점토와 모래 같은 미립물질이 해수의 운반작용으로 하구나 그 인접해안에 퇴적된 지형" GeometryStyle="BA020A01"></Feature>
+	</Layer>
+	<Layer Category="기타부수물" Name="양식장" FACC="BH050" GeometryType="Polygon" SHPSource="ABH050" GDBSource="FishhatA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="양식장" Description="어류의 양식을 위해 사용되는 바다의 울타리인 양식장의 경계지역" GeometryStyle="BH050A01"></Feature>
+	</Layer>
+	<Layer Category="기타부수물" Name="빙하" FACC="BJ030" GeometryType="Polygon" SHPSource="ABJ030" GDBSource="SnowiceA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="빙하" Description="눈이 오랫동안 쌓여 다져져 육지의 일부를 덮고 있는 얼음층의 경계지역" GeometryStyle="BJ030A02"></Feature>
+	</Layer>
+	<Layer Category="기타부수물" Name="빙붕" FACC="BJ065" GeometryType="Polygon" SHPSource="ABJ065" GDBSource="SnowiceA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="빙붕" Description="남극대륙과 이어져 바다에 떠 있는 300~900m두께의 얼음 덩어리인 빙붕의 경계지역" GeometryStyle="BJ065A02"></Feature>
+	</Layer>
+	<Layer Category="기타부수물" Name="빙원" FACC="BJ100" GeometryType="Polygon" SHPSource="ABJ100" GDBSource="SnowiceA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="미확인 빙원" Description="광대한 면적을 차지하는 빙원의 확인되지 않은 경계지역" GeometryStyle="BJ100A02">
+			<VVTStyle SIC="0"></VVTStyle>
+		</Feature>
+		<Feature Name="눈 빙원" Description="광대한 면적을 차지하는 눈 빙원의 경계지역" GeometryStyle="BJ100A03">
+			<VVTStyle SIC="1"></VVTStyle>
+		</Feature>
+		<Feature Name="얼음 빙원" Description="광대한 면적을 차지하는 얼음 빙원의 경계지역" GeometryStyle="BJ100A04">
+			<VVTStyle SIC="2"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="기타부수물" Name="툰드라" FACC="BJ110" GeometryType="Polygon" SHPSource="ABJ110" GDBSource="SnowiceA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="툰드라" Description="북극해 연안의 동토지대로서 삼림한계보다 북쪽의 극지에 해당되는 툰드라의 경계지역" GeometryStyle="BJ110A01"></Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="수중위험" FACC="BD000" GeometryType="Polygon" SHPSource="ABD000" GDBSource="HazardA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="위험한 어초" Description="위험한 어초의 경계지역(그물이외의 방법으로 알려진/그물방법으로 알려진/미확인된)" GeometryStyle="BD000A01">
+			<VVTStyle HDI="9,10,12" SFC="3" SOH="1"></VVTStyle>
+		</Feature>
+		<Feature Name="위험하지 않은 어초1" Description="위험하지 않은 어초의 경계지역(미확인된)" GeometryStyle="BD000A01">
+			<VVTStyle HDI="12" SFC="3" SOH="2"></VVTStyle>
+		</Feature>
+		<Feature Name="위험하지 않은 어초2" Description="위험하지 않은 어초의 경계지역(그물이외의 방법으로 알려진/그물방법으로 알려진)" GeometryStyle="BD000A02">
+			<VVTStyle HDI="9,10" SFC="3" SOH="2"></VVTStyle>
+		</Feature>
+		<Feature Name="위험한 기타 장애물" Description="위험한 기타 장애물의 경계지역(그물이외의 방법으로 알려진/그물방법으로 알려진/미확인된)" GeometryStyle="BD000A03">
+			<VVTStyle HDI="9,10,12" SFC="1,2" SOH="1"></VVTStyle>
+		</Feature>
+		<Feature Name="위험하지 않은 기타 장애물1" Description="위험하지 않은 기타 장애물의 경계지역(미확인된)" GeometryStyle="BD000A03">
+			<VVTStyle HDI="12" SFC="1,2" SOH="2"></VVTStyle>
+		</Feature>
+		<Feature Name="위험하지 않은 기타 장애물2" Description="위험하지 않은 기타 장애물의 경계지역(그물이외의 방법으로 알려진/그물방법으로 알려진)" GeometryStyle="BD000A04">
+			<VVTStyle HDI="9,10" SFC="1,2" SOH="2"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="해안파도" FACC="BD010" GeometryType="Polygon" SHPSource="ABD010" GDBSource="ObstrucA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="해안 파도" Description="바다에 이는 물결의 경계지역" GeometryStyle="BD010A01"></Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="방틀/격자틀" FACC="BD020" GeometryType="Polygon" SHPSource="ABD020" GDBSource="HazardA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="수면위 방틀/격자틀" Description="파이프라인,하수관 또는 배출구를 지지하기 위해 사용되는 수면위의 방틀/격자틀의 경계지역" GeometryStyle="BD020A01">
+			<VVTStyle VRR="1" HDI="15" HDP="&lt;=20"></VVTStyle>
+		</Feature>
+		<Feature Name="수중 방틀/격자틀1" Description="파이프라인,하수관 또는 배출구를 지지하기 위해 사용되는 수중 방틀/격자틀의 경계지역" GeometryStyle="BD020A02">
+			<VVTStyle VRR="4" HDI="9,12" HDP="&lt;=20"></VVTStyle>
+		</Feature>
+		<Feature Name="노출된 방틀/격자틀" Description="파이프라인,하수관 또는 배출구를 지지하기 위해 사용되는 노출된 방틀/격자틀의 경계지역" GeometryStyle="BD020A03">
+			<VVTStyle VRR="8" HDI="15" HDP="&lt;=20"></VVTStyle>
+		</Feature>
+		<Feature Name="수중 방틀/격자틀2" Description="파이프라인,하수관 또는 배출구를 지지하기 위해 사용되는 수중 방틀/격자틀의 경계지역" GeometryStyle="BD020A04">
+			<VVTStyle VRR="4" HDI="9,12" HDP="&gt;20"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="바다색이 다른구역" FACC="BD030" GeometryType="Polygon" SHPSource="ABD030" GDBSource="DangerA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="바다색이다른구역" Description="바다색이 다른 구역의 경계지역" GeometryStyle="BD030A01"></Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="소용돌이" FACC="BD040" GeometryType="Polygon" SHPSource="ABD040" GDBSource="ObstrucA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="소용돌이" Description="유체 속에서 팽이처럼 회전하고 있는 소용돌이의 경계지역" GeometryStyle="BD040A01"></Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="암초가 많아서 위험한 해저" FACC="BD050" GeometryType="Polygon" SHPSource="ABD050" GDBSource="DangerA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="암초가 많아서 위험한 해저" Description="바다로 덮여 있는 지표면에서 암초가 많아 위험한 해저의 경계지역" GeometryStyle="BD050A01"></Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="대형 갈조류" FACC="BD060" GeometryType="Polygon" SHPSource="ABD060" GDBSource="ObstrucA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="대형 갈조류" Description="해조의 일종인 대형 갈조류의 경계지역" GeometryStyle="BD060A01"></Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="단조/격조" FACC="BD080" GeometryType="Polygon" SHPSource="ABD080" GDBSource="ObstrucA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="단조/격조" Description="금속을 두들기거나 눌러서 필요한 형체로 만드는 단조와 멀리 떨어져 있어 서로 통하지 못하는 격조의 경계지역" GeometryStyle="BD080A01"></Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="말뚝/기둥" FACC="BD100" GeometryType="Polygon" SHPSource="ABD100" GDBSource="DangerA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="수면위 말뚝/기둥" Description="수면위 땅에 두드려 박는 말뚝이나 기둥의 경계지역" GeometryStyle="BD100A02">
+			<VVTStyle VRR="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중 말뚝/기둥" Description="수중속 땅에 두드려 박는 말뚝이나 기둥의 경계지역" GeometryStyle="BD100A03">
+			<VVTStyle VRR="4"></VVTStyle>
+		</Feature>
+		<Feature Name="수면안밖 말뚝/기둥" Description="수면안밖 땅에 두드려 박는 말뚝이나 기둥의 경계지역" GeometryStyle="BD100A04">
+			<VVTStyle VRR="8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="암초/암석지대" FACC="BD120" GeometryType="Polygon" SHPSource="ABD120" GDBSource="HazardA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="수면위 암초/암석지대" Description="수면위에 나타나는 암석의 경계지역" GeometryStyle="BD120A02">
+			<VVTStyle VRR="0,2" SOH="1,2"></VVTStyle>
+		</Feature>
+		<Feature Name="수중(위험한) 암초/암석지대" Description="수중(위험한)에 나타나는 암석의 경계지역" GeometryStyle="BD120A03">
+			<VVTStyle VRR="4" SOH="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중(위험하지 않은) 암초/암석지대" Description="수중(위험하지 않은)에 나타나는 암석의 경계지역" GeometryStyle="BD120A04">
+			<VVTStyle VRR="4" SOH="2"></VVTStyle>
+		</Feature>
+		<Feature Name="간석지 암초/암석지대" Description="간석지에 나타나는 암석의 경계지역" GeometryStyle="BD120A05">
+			<VVTStyle VRR="8" SOH="1,2"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="수중나무잔해" FACC="BD140" GeometryType="Polygon" SHPSource="ABD140" GDBSource="DangerA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="노출된 수중나무잔해" Description="노출된 수중나무잔해의 경계지역" GeometryStyle="BD140A02">
+			<VVTStyle VRR="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중의 수중나무잔해" Description="수중의 수중나무잔해의 경계지역" GeometryStyle="BD140A03">
+			<VVTStyle VRR="4"></VVTStyle>
+		</Feature>
+		<Feature Name="간석지 내의 수중나무잔해" Description="간석지 내의 수중나무잔해의 경계지역" GeometryStyle="BD140A04">
+			<VVTStyle VRR="8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="난파선" FACC="BD180" GeometryType="Polygon" SHPSource="ABD180" GDBSource="HazardA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="알 수 없는 난파선" Description="확인 불가능한 난파선이 있는 경계지역" GeometryStyle="BD180A01">
+			<VVTStyle VRR="0" SOH="1,2"></VVTStyle>
+		</Feature>
+		<Feature Name="수상의 난파선" Description="수상 난파선의 경계지역" GeometryStyle="BD180A02">
+			<VVTStyle VRR="1" SOH="1,2"></VVTStyle>
+		</Feature>
+		<Feature Name="저조면에 위치한 난파선" Description="저조면에 위치한 난파선의 경계지역" GeometryStyle="BD180A03">
+			<VVTStyle VRR="2" SOH="1,2"></VVTStyle>
+		</Feature>
+		<Feature Name="수중의(위험한) 난파선" Description="바다밑의 위험한 난파선의 경계지역" GeometryStyle="BD180A04">
+			<VVTStyle VRR="4" SOH="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중의(위험하지 않은) 난파선" Description="바다밑의 위험하지 않은 난파선의 경계지역" GeometryStyle="BD180A05">
+			<VVTStyle VRR="4" SOH="2"></VVTStyle>
+		</Feature>
+		<Feature Name="간석지에 위치한 난파선" Description="간석지에 위치한 난파선의 경계지역" GeometryStyle="BD180A06">
+			<VVTStyle VRR="8" SOH="1,2"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="항행보조시설" Name="라이트 섹터" FACC="BC060" GeometryType="Polygon" SHPSource="ABC060" GDBSource="SectorA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="라이트섹터" Description="라이트 섹터의 경계지역" GeometryStyle="BC060A01"></Feature>
+	</Layer>
+	<Layer Category="항행보조시설" Name="경계표지 말뚝" FACC="BC080" GeometryType="Polygon" SHPSource="ABC080" GDBSource="ObstrucA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="경계표지말뚝" Description="경계표지말뚝의 경계지역" GeometryStyle="BC080A01"></Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="해상경계선" FACC="FC021" GeometryType="Polygon" SHPSource="AFC021" GDBSource="LimbndA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="해상경계" Description="해상경계선의 경계지역" GeometryStyle="FC021A01">
+			<VVTStyle MAC="0,24,26,27,31,32,33,42,48,49,55,56,58,999"></VVTStyle>
+		</Feature>
+		<Feature Name="토사투기장/어로지역" Description="토사투기장/어로지역으로 해상경계선의 경계지역" GeometryStyle="FC021A02">
+			<VVTStyle MAC="25,57"></VVTStyle>
+		</Feature>
+		<Feature Name="기뢰부설구역" Description="기뢰부설구역으로 해상경계선의 경계지역" GeometryStyle="FC021A03">
+			<VVTStyle MAC="28"></VVTStyle>
+		</Feature>
+		<Feature Name="투기장" Description="투기장으로 해상경계선의 경계지역" GeometryStyle="FC021A04">
+			<VVTStyle MAC="30"></VVTStyle>
+		</Feature>
+		<Feature Name="폭발물투기장" Description="폭발물투기장으로 해상경계선의 경계지역" GeometryStyle="FC021A05">
+			<VVTStyle MAC="35"></VVTStyle>
+		</Feature>
+		<Feature Name="자기소거범위" Description="자기소거범위로 해상경계선의 경계지역" GeometryStyle="FC021A06">
+			<VVTStyle MAC="44"></VVTStyle>
+		</Feature>
+		<Feature Name="배타적경제수역" Description="자국 연안으로부터 200해리까지의 모든 자원에 대해 독점적 권리를 행사할 수 있는 유엔 국제해양법상의 수역의 경계지역" GeometryStyle="FC021A07">
+			<VVTStyle MAC="999" EXS="46" TXT="Exclusive Economic Zone"></VVTStyle>
+		</Feature>
+		<Feature Name="어업전관수역" Description="연안국만이 어업권을 가지는 해상경계선의 경계지역" GeometryStyle="FC021A08">
+			<VVTStyle MAC="999" EXS="46" TXT="Fishery Zone"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="해상구역" FACC="FC031" GeometryType="Polygon" SHPSource="AFC031" GDBSource="MaritimA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="원형통항분리대" Description="원형통항분리대가 있는 경계지역" GeometryStyle="FC031A01">
+			<VVTStyle MAC="40"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="제한구역" FACC="FC036" GeometryType="Polygon" SHPSource="AFC036" GDBSource="LimbndA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="미확인/기타 제한구역" Description="미확인상태인 기타 제한구역의 경계지역" GeometryStyle="FC036A01">
+			<VVTStyle MAC="0,999"></VVTStyle>
+		</Feature>
+		<Feature Name="투묘금지구역" Description="투묘가 금지된 제한구역의 경계지역" GeometryStyle="FC036A02">
+			<VVTStyle MAC="15" TXT="None"></VVTStyle>
+		</Feature>
+		<Feature Name="묘박/어로 금지구역" Description="묘박과 어로가 금지된 제한구역의 경계지역" GeometryStyle="FC036A03">
+			<VVTStyle MAC="15" TXT="Fish*Prohibited"></VVTStyle>
+		</Feature>
+		<Feature Name="해저전선지역1" Description="해저에 있는 버팀목 사이로 연결된 케이블의 경계지역" GeometryStyle="FC036A04">
+			<VVTStyle MAC="20" USS="&lt;&gt;53"></VVTStyle>
+		</Feature>
+		<Feature Name="해저전선지역2" Description="해저에 있는 버팀목 사이로 연결된 케이블의 경계지역" GeometryStyle="FC036A05">
+			<VVTStyle MAC="20" USS="53"></VVTStyle>
+		</Feature>
+		<Feature Name="가스/오일이 아닌 파이프라인지역" Description="가스/오일이 아닌 파이프라인지역으로 제한구역의 경계지역" GeometryStyle="FC036A06">
+			<VVTStyle MAC="21" PRO="&lt;&gt;38,67"></VVTStyle>
+		</Feature>
+		<Feature Name="가스/오일 파이프라인지역" Description="가스/오일 파이프라인지역으로 제한구역의 경계지역" GeometryStyle="FC036A07">
+			<VVTStyle MAC="21" PRO="38,67"></VVTStyle>
+		</Feature>
+		<Feature Name="어로금지구역" Description="어로금지구역으로 제한구역의 경계지역" GeometryStyle="FC036A08">
+			<VVTStyle MAC="22"></VVTStyle>
+		</Feature>
+		<Feature Name="케이블/파이프라인지역" Description="케이블/파이프라인지역으로 제한구역의 경계지역" GeometryStyle="FC036A09">
+			<VVTStyle MAC="23"></VVTStyle>
+		</Feature>
+		<Feature Name="안전지대" Description="안전지대으로 제한구역의 경계지역" GeometryStyle="FC036A10">
+			<VVTStyle MAC="37"></VVTStyle>
+		</Feature>
+		<Feature Name="피험지역" Description="피험지역으로 제한구역의 경계지역" GeometryStyle="FC036A11">
+			<VVTStyle MAC="43"></VVTStyle>
+		</Feature>
+		<Feature Name="배출구지역(수도)" Description="수도와 미확인물질이 배출되는 배출구지역으로 제한구역의 경계지역" GeometryStyle="FC036A12">
+			<VVTStyle MAC="45" PRO="0,116,130"></VVTStyle>
+		</Feature>
+		<Feature Name="배출구지역(가스/오일)" Description="화학제품/가스/오일 등이 배출되는 배출구지역으로 제한구역의 경계지역" GeometryStyle="FC036A13">
+			<VVTStyle MAC="43" PRO="13,38,39,67,82"></VVTStyle>
+		</Feature>
+		<Feature Name="취수구지역(수도)" Description="수도와 미확인물질이 취수되는 취수구지역으로 제한구역의 경계지역" GeometryStyle="FC036A14">
+			<VVTStyle MAC="46" PRO="0,116,130"></VVTStyle>
+		</Feature>
+		<Feature Name="취수구지역(가스/오일)" Description="화학제품/가스/오일 등이 취수되는 취수구지역으로 제한구역의 경계지역" GeometryStyle="FC036A15">
+			<VVTStyle MAC="43" PRO="13,38,39,67,82"></VVTStyle>
+		</Feature>
+		<Feature Name="하수관지역" Description="하수관지역으로 제한구역의 경계지역" GeometryStyle="FC036A16">
+			<VVTStyle MAC="61"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="통항분리방식" FACC="FC041" GeometryType="Polygon" SHPSource="AFC041" GDBSource="SepartnA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="통항분리방식" Description="항해에 대한 특정 중요 요인이 있는 해상한계구역 중, 원형통항분리대해상한계구역의 경계지역" GeometryStyle="FC041A01"></Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="항로" FACC="FC165" GeometryType="Polygon" SHPSource="AFC165" GDBSource="RouteA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="깊은 수심 항로" Description="배의 운항을 위해 설치된 통로나 길인 깊은 수심 항로의 경계지역" GeometryStyle="FC165A01">
+			<VVTStyle RTT="4"></VVTStyle>
+		</Feature>
+		<Feature Name="두가지 항로" Description="배의 운항을 위해 설치된 통로나 길인 두가지 항로의 경계지역" GeometryStyle="FC165A02">
+			<VVTStyle RTT="11"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="방파제" FACC="BB040" GeometryType="Polygon" SHPSource="ABB040" GDBSource="StructrA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="수면위 방파제" Description="해안 지역, 항구, 정박지등을 파도로부터 보호하고 그 강도를 줄여주는 구조물로, 수면위에 위치한 경계지역" GeometryStyle="BB040A01">
+			<VVTStyle VRR="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중 방파제" Description="해안 지역, 항구, 정박지등을 파도로부터 보호하고 그 강도를 줄여주는 구조물로, 수중에 위치한 경계지역" GeometryStyle="BB040A02">
+			<VVTStyle VRR="4"></VVTStyle>
+		</Feature>
+		<Feature Name="방파제" Description="해안 지역, 항구, 정박지등을 파도로부터 보호하고 그 강도를 줄여주는 구조물로, 수면아래와 위에 위치한 경계지역" GeometryStyle="BB040A03">
+			<VVTStyle VRR="8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="건선거" FACC="BB090" GeometryType="Polygon" SHPSource="ABB090" GDBSource="PierA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="수중의 건선거" Description="배의 밑바닥이 노출될 수 있도록 물을 제공하는 기능을 가진(배를 위해 제공된 지지물) 수중건선거의 경계지역" GeometryStyle="BB090A02">
+			<VVTStyle LOC="30"></VVTStyle>
+		</Feature>
+		<Feature Name="수면밖 건선거" Description="배의 밑바닥이 노출될 수 있도록 물을 제공하는 기능을 가진(배를 위해 제공된 지지물) 수면밖건선거의 경계지역" GeometryStyle="BB090A03">
+			<VVTStyle LOC="15"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="어망" FACC="BB110" GeometryType="Polygon" SHPSource="ABB110" GDBSource="ObstrucA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="어망" Description="물고기를 잡는 데 쓰는 어망의 경계지역" GeometryStyle="BB110A01"></Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="격자선대" FACC="BB115" GeometryType="Polygon" SHPSource="ABB115" GDBSource="StructrA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="격자선대" Description="얕은 물에서 수리하거나 페인트 칠 하기위해 그곳(편평한 구조물)에서 배를 완전히 말릴 수 있도록 바닷가에서 조립한 편평한 구조틀 경계지역" GeometryStyle="BB115A01"></Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="돌제" FACC="BB140" GeometryType="Polygon" SHPSource="ABB140" GDBSource="StructrA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="수면위 돌제" Description="조력으로부터 항구나 해변을 보호하는 구조물이 수면위에 존재하는 돌제의 경계" GeometryStyle="BB140A03">
+			<VVTStyle VRR="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중 돌제" Description="조력으로부터 항구나 해변을 보호하는 구조물이 수중에 존재하는 돌제의 경계" GeometryStyle="BB140A04">
+			<VVTStyle VRR="4"></VVTStyle>
+		</Feature>
+		<Feature Name="수면안밖 돌제" Description="조력으로부터 항구나 해변을 보호하는 구조물이 수면안밖에 존재하는 돌제의 경계" GeometryStyle="BB140A05">
+			<VVTStyle VRR="8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="착륙지" FACC="BB150" GeometryType="Polygon" SHPSource="ABB150" GDBSource="LandingA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="착륙지" Description="이착륙을 위해 사용되는 육지및 수계의 규정 지역 중, 착륙지역의 경계지역" GeometryStyle="BB150A01"></Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="근해선적시설" FACC="BB170" GeometryType="Polygon" SHPSource="ABB170" GDBSource="LoadingA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="근해선적시설" Description="육지에 가까이 있는 바다에 있는 배에 짐을 싣는 시설의 경계지역" GeometryStyle="BB170A01"></Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="부두" FACC="BB190" GeometryType="Polygon" SHPSource="ABB190" GDBSource="PierA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="부유하지 않는 부두" Description="배를 정박시키는 장소로 주로 사용되는 고정된 부두의 경계지역" GeometryStyle="BB190A02">
+			<VVTStyle LOC="30"></VVTStyle>
+		</Feature>
+		<Feature Name="부유하는 부두" Description="배를 정박시키는 장소로 주로 사용되는 물위에 떠있는 부두의 경계지역" GeometryStyle="BB190A01">
+			<VVTStyle LOC="15"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="경사로" FACC="BB220" GeometryType="Polygon" SHPSource="ABB220" GDBSource="StructrA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="수면위 경사로" Description="수면위 경사진 통로의 경계지역" GeometryStyle="BB220A01">
+			<VVTStyle VRR="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중 경사로" Description="수중에 경사진 통로의 경계지역" GeometryStyle="BB220A02">
+			<VVTStyle VRR="4"></VVTStyle>
+		</Feature>
+		<Feature Name="수면안밖 경사로" Description="수면안밖에 경사진 통로의 경계지역" GeometryStyle="BB220A03">
+			<VVTStyle VRR="8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="인공지물" Name="건물" FACC="AL015" GeometryType="Polygon" SHPSource="AAL015" GDBSource="BuildingA" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="세관" Description="관세청에 딸려 있는 기관의 경계지역" GeometryStyle="AL015A13">
+			<VVTStyle BFC="31"></VVTStyle>
+		</Feature>
+		<Feature Name="해양항만청" Description="" GeometryStyle="AL015A14">
+			<VVTStyle BFC="77"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="연안수부지물" Name="해안선" FACC="BA010" GeometryType="Line" SHPSource="LBA010" GDBSource="CoastL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="정확한 해안선" Description="육지와 수면이 접한 선인 해안선 중, 식별이 명확한 해안선의 경계" GeometryStyle="BA010L04">
+			<VVTStyle ACC="1" SLT="0,6,8,15"></VVTStyle>
+		</Feature>
+		<Feature Name="개략적 해안선" Description="육지와 수면이 접한 선인 해안선 중, 개략적 해안선의 경계" GeometryStyle="BA010L05">
+			<VVTStyle ACC="2" SLT="0,6,8,15"></VVTStyle>
+		</Feature>
+		<Feature Name="정확한 바위" Description="정확한 바위의 경계" GeometryStyle="BA010L06">
+			<VVTStyle ACC="1" SLT="10"></VVTStyle>
+		</Feature>
+		<Feature Name="개략적 바위" Description="개략적 바위의 경계" GeometryStyle="BA010L07">
+			<VVTStyle ACC="2" SLT="10"></VVTStyle>
+		</Feature>
+		<Feature Name="정확한 돌/자갈" Description="정확한 돌/자갈의 경계" GeometryStyle="BA010L08">
+			<VVTStyle ACC="1" SLT="13"></VVTStyle>
+		</Feature>
+		<Feature Name="개략적 돌/자갈" Description="개략적 돌/자갈의 경계" GeometryStyle="BA010L09">
+			<VVTStyle ACC="2" SLT="13"></VVTStyle>
+		</Feature>
+		<Feature Name="정확한 모래" Description="정확한 모래의 경계" GeometryStyle="BA010L10">
+			<VVTStyle ACC="1" SLT="14"></VVTStyle>
+		</Feature>
+		<Feature Name="개략적 모래" Description="개략적 모래의 경계" GeometryStyle="BA010L11">
+			<VVTStyle ACC="2" SLT="14"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="연안수부지물" Name="간석지" FACC="BA020" GeometryType="Line" SHPSource="LBA020" GDBSource="ForeshoL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="간석지" Description="하천에 의해서 하구에 운반된 점토와 모래 같은 미립물질이 해수의 운반작용으로 하구나 그 인접해안에 퇴적된 지형의 경계" GeometryStyle="BA020L01"></Feature>
+	</Layer>
+	<Layer Category="수심관련지물" Name="등심선" FACC="BE010" GeometryType="Line" SHPSource="LBE010" GDBSource="Hydline" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="정확한 등심선" Description="똑같은 깊이의 점을 연결한 정확한 등심선의 경계" GeometryStyle="BE010L01">
+			<VVTStyle ACC="1"></VVTStyle>
+		</Feature>
+		<Feature Name="개략적 등심선" Description="똑같은 깊이의 점을 연결한 개략적 등심선의 경계" GeometryStyle="BE010L02">
+			<VVTStyle ACC="2"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="해안파도" FACC="BD010" GeometryType="Line" SHPSource="LBD010" GDBSource="HazardL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="해안파도" Description="해안에 치는 파도의 경계" GeometryStyle="BD010L01"></Feature>
+	</Layer>
+	<Layer Category="항행보조시설" Name="등대" FACC="BC040" GeometryType="Line" SHPSource="LBC040" GDBSource="LightL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="등대" Description="등대의 목적으로 설계되어 사용되는 건물의 경계" GeometryStyle="BC040L01"></Feature>
+	</Layer>
+	<Layer Category="항행보조시설" Name="길잡이선" FACC="BC100" GeometryType="Line" SHPSource="LBC100" GDBSource="LeadingL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="길잡이선" Description="나아갈 방향이나 목적을 실현하도록 도와주는 선의 경계" GeometryStyle="BC100L01"></Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="해상경계선" FACC="FC021" GeometryType="Line" SHPSource="LFC021" GDBSource="LimbndL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="해상경계선" Description="해상경계선의 경계" GeometryStyle="FC021L01">
+			<VVTStyle MAC="0,24,26,27,31,32,33,42,48,49,55,56,58,999"></VVTStyle>
+		</Feature>
+		<Feature Name="토사투기장/어로지역" Description="토사투기장/어로지역으로 해상경계선의 경계" GeometryStyle="FC021L02">
+			<VVTStyle MAC="25,57"></VVTStyle>
+		</Feature>
+		<Feature Name="기뢰부설구역" Description="기뢰부설구역으로 해상경계선의 경계" GeometryStyle="FC021L03">
+			<VVTStyle MAC="28"></VVTStyle>
+		</Feature>
+		<Feature Name="투기장" Description="투기장으로 해상경계선의 경계" GeometryStyle="FC021L04">
+			<VVTStyle MAC="30"></VVTStyle>
+		</Feature>
+		<Feature Name="폭발물투기장" Description="폭발물투기장으로 해상경계선의 경계" GeometryStyle="FC021L05">
+			<VVTStyle MAC="35"></VVTStyle>
+		</Feature>
+		<Feature Name="자기소거범위" Description="자기소거범위로 해상경계선의 경계" GeometryStyle="FC021L06">
+			<VVTStyle MAC="44"></VVTStyle>
+		</Feature>
+		<Feature Name="배타적경제수역" Description="자국 연안으로부터 200해리까지의 모든 자원에 대해 독점적 권리를 행사할 수 있는 유엔 국제해양법상의 수역의 경계" GeometryStyle="FC021L07">
+			<VVTStyle MAC="999" EXS="46"></VVTStyle>
+		</Feature>
+		<Feature Name="어업전관수역" Description="연안국만이 어업권을 가지는 해상경계선의 경계" GeometryStyle="FC021L08">
+			<VVTStyle MAC="999" EXS="46"></VVTStyle>
+		</Feature>
+		<Feature Name="Cleaning Line" Description="Cleaning Line의 경계" GeometryStyle="FC021L09">
+			<VVTStyle MBL="0,1,4,13" MAC="NULL"></VVTStyle>
+		</Feature>
+		<Feature Name="관세경계선" Description="관세경계선의 경계" GeometryStyle="FC021L10">
+			<VVTStyle MBL="2" MAC="NULL"></VVTStyle>
+		</Feature>
+		<Feature Name="영해한계선" Description="영해한계선의 경계" GeometryStyle="FC021L11">
+			<VVTStyle MBL="6" MAC="NULL"></VVTStyle>
+		</Feature>
+		<Feature Name="영해기선" Description="영해기선의 경계" GeometryStyle="FC021L12">
+			<VVTStyle MBL="7" MAC="NULL"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="해상구역" FACC="FC031" GeometryType="Line" SHPSource="LFC031" GDBSource="MaritimL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="준설지역" Description="하천이나, 항만 내 부두 및 항로수심을 확보하기 위한 준설지역의 경계" GeometryStyle="FC031L01">
+			<VVTStyle MAC="2"></VVTStyle>
+		</Feature>
+		<Feature Name="광물위험지역/해상금지구역" Description="물위험지역/해상금지구역의 경계" GeometryStyle="FC031L02">
+			<VVTStyle MAC="4,5"></VVTStyle>
+		</Feature>
+		<Feature Name="공사구역" Description="공사구역의 경계" GeometryStyle="FC031L03">
+			<VVTStyle MAC="9"></VVTStyle>
+		</Feature>
+		<Feature Name="로터리/연안항로대" Description="로터리/연안항로대의 경계" GeometryStyle="FC031L04">
+			<VVTStyle MAC="40,41"></VVTStyle>
+		</Feature>
+		<Feature Name="정보없음" Description="정보가 없는 해사구역의 경계" GeometryStyle="FC031L05">
+			<VVTStyle MAC="0"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="제한구역" FACC="FC036" GeometryType="Line" SHPSource="LFC036" GDBSource="LimbndL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="미확인/기타 제한구역" Description="미확인상태인 기타 제한구역의 경계" GeometryStyle="FC036L01">
+			<VVTStyle MAC="0,999"></VVTStyle>
+		</Feature>
+		<Feature Name="투묘금지구역" Description="투묘가 금지된 제한구역의 경계" GeometryStyle="FC036L02">
+			<VVTStyle MAC="15" TXT="None"></VVTStyle>
+		</Feature>
+		<Feature Name="묘박/어로 금지구역" Description="묘박과 어로가 금지된 제한구역의 경계" GeometryStyle="FC036L03">
+			<VVTStyle MAC="15" TXT="Fish*Prohibited"></VVTStyle>
+		</Feature>
+		<Feature Name="해저전선지역1" Description="해저에 있는 버팀목 사이로 연결된 케이블의 경계" GeometryStyle="FC036L04">
+			<VVTStyle MAC="20" USS="&lt;&gt;53"></VVTStyle>
+		</Feature>
+		<Feature Name="해저전선지역2" Description="해저에 있는 버팀목 사이로 연결된 케이블의 경계" GeometryStyle="FC036L05">
+			<VVTStyle MAC="20" USS="53"></VVTStyle>
+		</Feature>
+		<Feature Name="가스/오일이 아닌 파이프라인지역" Description="가스/오일이 아닌 파이프라인지역으로 제한구역의 경계" GeometryStyle="FC036L06">
+			<VVTStyle MAC="21" PRO="&lt;&gt;38,67"></VVTStyle>
+		</Feature>
+		<Feature Name="가스/오일 파이프라인지역" Description="가스/오일 파이프라인지역으로 제한구역의 경계" GeometryStyle="FC036L07">
+			<VVTStyle MAC="21" PRO="38,67"></VVTStyle>
+		</Feature>
+		<Feature Name="어로금지구역" Description="어로금지구역으로 제한구역의 경계" GeometryStyle="FC036L08">
+			<VVTStyle MAC="22"></VVTStyle>
+		</Feature>
+		<Feature Name="케이블/파이프라인지역" Description="케이블/파이프라인지역으로 제한구역의 경계" GeometryStyle="FC036L09">
+			<VVTStyle MAC="23"></VVTStyle>
+		</Feature>
+		<Feature Name="안전지대" Description="안전지대으로 제한구역의 경계" GeometryStyle="FC036L10">
+			<VVTStyle MAC="37"></VVTStyle>
+		</Feature>
+		<Feature Name="피험지역" Description="피험지역으로 제한구역의 경계" GeometryStyle="FC036L11">
+			<VVTStyle MAC="43"></VVTStyle>
+		</Feature>
+		<Feature Name="배출구지역(수도)" Description="수도와 미확인물질이 배출되는 배출구지역으로 제한구역의 경계" GeometryStyle="FC036L12">
+			<VVTStyle MAC="45" PRO="0,116,130"></VVTStyle>
+		</Feature>
+		<Feature Name="배출구지역(가스/오일)" Description="화학제품/가스/오일 등이 배출되는 배출구지역으로 제한구역의 경계" GeometryStyle="FC036L13">
+			<VVTStyle MAC="45" PRO="13,38,39,67,82"></VVTStyle>
+		</Feature>
+		<Feature Name="취수구지역(수도)" Description="수도와 미확인물질이 취수되는 취수구지역으로 제한구역의 경계" GeometryStyle="FC036L14">
+			<VVTStyle MAC="46" PRO="0,116,130"></VVTStyle>
+		</Feature>
+		<Feature Name="취수구지역(가스/오일)" Description="화학제품/가스/오일 등이 취수되는 취수구지역으로 제한구역의 경계" GeometryStyle="FC036L15">
+			<VVTStyle MAC="46" PRO="13,38,39,67,82"></VVTStyle>
+		</Feature>
+		<Feature Name="하수관지역" Description="하수관지역으로 제한구역의 경계" GeometryStyle="FC036L16">
+			<VVTStyle MAC="61"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="통항분리방식" FACC="FC041" GeometryType="Line" SHPSource="LFC041" GDBSource="SepartnL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="외곽경계선" Description="바깥 테두리의 경계가 되는 선의 경계" GeometryStyle="FC041L01">
+			<VVTStyle TSP="2"></VVTStyle>
+		</Feature>
+		<Feature Name="분리구역선" Description="분리되어 나뉘어진 곳의 경계" GeometryStyle="FC041L02">
+			<VVTStyle TSP="4"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="거리측정선" FACC="FC100" GeometryType="Line" SHPSource="LFC100" GDBSource="DistL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="거리측정선" Description="공간에서 분리된 두 점 사이의 간격선의 경계" GeometryStyle="FC100L01"></Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="레이더참조선" FACC="FC130" GeometryType="Line" SHPSource="LFC130" GDBSource="DistL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="레이더참조선" Description="레이더참조선의 경계" GeometryStyle="FC130L01"></Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="항로" FACC="FC165" GeometryType="Line" SHPSource="LFC165" GDBSource="RouteL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="편도 근해추천항로(표시有)" Description="표시가 있는 편도 근해추천항로의 경계" GeometryStyle="FC165L01">
+			<VVTStyle ATN="1" EXS="22" RTT="2"></VVTStyle>
+		</Feature>
+		<Feature Name="편도 근해추천항로(표시無)" Description="표시가 없는 편도 근해추천항로의 경계" GeometryStyle="FC165L02">
+			<VVTStyle ATN="2" EXS="22" RTT="2"></VVTStyle>
+		</Feature>
+		<Feature Name="양방향 근해추천항로(표시有)" Description="표시가 있는 양방향 근해추천항로의 경계" GeometryStyle="FC165L03">
+			<VVTStyle ATN="1" EXS="23" RTT="2"></VVTStyle>
+		</Feature>
+		<Feature Name="양방향 근해추천항로(표시無)" Description="표시가 없는 양방향 근해추천항로의 경계" GeometryStyle="FC165L04">
+			<VVTStyle ATN="2" EXS="23" RTT="2"></VVTStyle>
+		</Feature>
+		<Feature Name="미확인 근해추천항로(표시有)" Description="표시가 있는 미확인 근해추천항로의 경계" GeometryStyle="FC165L05">
+			<VVTStyle ATN="1" EXS="0" RTT="2"></VVTStyle>
+		</Feature>
+		<Feature Name="미확인 근해추천항로(표시無)" Description="표시가 없는 미확인 근해추천항로의 경계" GeometryStyle="FC165L06">
+			<VVTStyle ATN="2" EXS="0" RTT="2"></VVTStyle>
+		</Feature>
+		<Feature Name="편도 심천추천항로(표시有)" Description="표시가 있는 편도 심천추천항로의 경계" GeometryStyle="FC165L07">
+			<VVTStyle ATN="1" EXS="22" RTT="3"></VVTStyle>
+		</Feature>
+		<Feature Name="편도 심천추천항로(표시無)" Description="표시가 없는 편도 심천추천항로의 경계" GeometryStyle="FC165L08">
+			<VVTStyle ATN="2" EXS="22" RTT="3"></VVTStyle>
+		</Feature>
+		<Feature Name="양방향 심천추천항로(표시有)" Description="표시가 있는 양방향 심천추천항로의 경계" GeometryStyle="FC165L09">
+			<VVTStyle ATN="1" EXS="23" RTT="3"></VVTStyle>
+		</Feature>
+		<Feature Name="양방향 심천추천항로(표시無)" Description="표시가 없는 양방향 심천추천항로의 경계" GeometryStyle="FC165L10">
+			<VVTStyle ATN="2" EXS="23" RTT="3"></VVTStyle>
+		</Feature>
+		<Feature Name="미확인 심천추천항로(표시有)" Description="표시가 있는 미확인 심천추천항로의 경계" GeometryStyle="FC165L11">
+			<VVTStyle ATN="1" EXS="0" RTT="3"></VVTStyle>
+		</Feature>
+		<Feature Name="미확인 심천추천항로(표시無)" Description="표시가 없는 미확인 심천추천항로의 경계" GeometryStyle="FC165L12">
+			<VVTStyle ATN="2" EXS="0" RTT="3"></VVTStyle>
+		</Feature>
+		<Feature Name="통행로(표시有)" Description="표시가 있는 통행로의 경계" GeometryStyle="FC165L13">
+			<VVTStyle ATN="1" EXS="0,22,23" RTT="5"></VVTStyle>
+		</Feature>
+		<Feature Name="통행로(표시無)" Description="표시가 없는 통행로의 경계" GeometryStyle="FC165L14">
+			<VVTStyle ATN="2" EXS="0,22,23" RTT="5"></VVTStyle>
+		</Feature>
+		<Feature Name="편도 미확인 항로(표시有)" Description="표시가 있는 편도 미확인 항로의 경계" GeometryStyle="FC165L15">
+			<VVTStyle ATN="1" EXS="22" RTT="0"></VVTStyle>
+		</Feature>
+		<Feature Name="편도 미확인 항로(표시無)" Description="표시가 없는 편도 미확인 항로의 경계" GeometryStyle="FC165L16">
+			<VVTStyle ATN="2" EXS="22" RTT="0"></VVTStyle>
+		</Feature>
+		<Feature Name="양방향 미확인 항로(표시有)" Description="표시가 있는 양방향 미확인 항로의 경계" GeometryStyle="FC165L17">
+			<VVTStyle ATN="1" EXS="23" RTT="0"></VVTStyle>
+		</Feature>
+		<Feature Name="양방향 미확인 항로(표시無)" Description="표시가 없는 양방향 미확인 항로의 경계" GeometryStyle="FC165L18">
+			<VVTStyle ATN="2" EXS="23" RTT="0"></VVTStyle>
+		</Feature>
+		<Feature Name="미확인 항로(표시有)" Description="표시가 있는 미확인 항로의 경계" GeometryStyle="FC165L19">
+			<VVTStyle ATN="1" EXS="0" RTT="0"></VVTStyle>
+		</Feature>
+		<Feature Name="미확인 항로(표시無)" Description="표시가 없는 미확인 항로의 경계" GeometryStyle="FC165L20">
+			<VVTStyle ATN="2" EXS="0" RTT="0"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="안전항로" FACC="FC170" GeometryType="Line" SHPSource="LFC170" GDBSource="SepartnL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="안전항로" Description="잠수함과 수상함(水上艦)이 안전하게 다니도록 정해진 안전항로의 경계" GeometryStyle="FC170L01"></Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="소탕지역" FACC="FC177" GeometryType="Line" SHPSource="LFC177" GDBSource="LimbndL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="소탕지역" Description="항해 위험이 없는 지역을 보장하는 Wire drag에 의해 청소된 수역의 경계" GeometryStyle="FC177L01"></Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="수상비행기 이착륙지" FACC="GB070" GeometryType="Line" SHPSource="LGB070" GDBSource="SepartnL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="수상비행기 이착륙지" Description="물 위에서 이착륙을 할 수 있는 항공기를 지지하는 설비인 수상비행기지의 경계" GeometryStyle="GB070L01"></Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="묘박지" FACC="BB010" GeometryType="Line" SHPSource="LBB010" GDBSource="LimbndyL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="일반묘박지" Description="일반묘박지의 경계" GeometryStyle="BB010L01">
+			<VVTStyle MAC="11"></VVTStyle>
+		</Feature>
+		<Feature Name="지정묘박지" Description="지정 묘박지의 경계" GeometryStyle="BB010L02">
+			<VVTStyle MAC="12"></VVTStyle>
+		</Feature>
+		<Feature Name="폭발물선 묘박지" Description="폭발물선 묘박지의 경계" GeometryStyle="BB010L03">
+			<VVTStyle MAC="13"></VVTStyle>
+		</Feature>
+		<Feature Name="대형홀수선 묘박지" Description="대형홀수선 묘박지의 경계" GeometryStyle="BB010L04">
+			<VVTStyle MAC="14"></VVTStyle>
+		</Feature>
+		<Feature Name="검역묘박지" Description="검역 묘박지의 경계" GeometryStyle="BB010L05">
+			<VVTStyle MAC="16"></VVTStyle>
+		</Feature>
+		<Feature Name="알려진 예비묘박지" Description="알려진 예비 묘박지의 경계" GeometryStyle="BB010L06">
+			<VVTStyle MAC="17" NAM="UNK"></VVTStyle>
+		</Feature>
+		<Feature Name="알려지지 않은 예비묘박지" Description="알려지지 않은 예비 묘박지의 경계" GeometryStyle="BB010L07">
+			<VVTStyle MAC="17" NAM="&lt;&gt;UNK"></VVTStyle>
+		</Feature>
+		<Feature Name="알려진 유조선 묘박지" Description="알려진 유조선 묘박지의 경계" GeometryStyle="BB010L08">
+			<VVTStyle MAC="19" NAM="UNK"></VVTStyle>
+		</Feature>
+		<Feature Name="알려지지 않은 유조선 묘박지" Description="알려지지 않은 유조선 묘박지의 경계" GeometryStyle="BB010L09">
+			<VVTStyle MAC="19" NAM="&lt;&gt;UNK"></VVTStyle>
+		</Feature>
+		<Feature Name="수상비행기 묘박지" Description="수상 비행기가 계류하는 장소로 정박에 적합한 물 위의 일정한 구역의 경계" GeometryStyle="BB010L10">
+			<VVTStyle MAC="53"></VVTStyle>
+		</Feature>
+		<Feature Name="시간이 제한된 묘박지" Description="시간이 제한된 묘박지의 경계" GeometryStyle="BB010L11">
+			<VVTStyle MAC="54"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="방파제" FACC="BB040" GeometryType="Line" SHPSource="LBB040" GDBSource="StructrL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="수면위 방파제" Description="해안 지역, 항구, 정박지등을 파도로부터 보호하고 그 강도를 줄여주는 구조물로, 수면위에 위치한 경계" GeometryStyle="BB040L01">
+			<VVTStyle VRR="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중 방파제" Description="해안 지역, 항구, 정박지등을 파도로부터 보호하고 그 강도를 줄여주는 구조물로, 수면아래와 위에 위치한 경계" GeometryStyle="BB040L02">
+			<VVTStyle VRR="4,8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="어망" FACC="BB100" GeometryType="Line" SHPSource="LBB100" GDBSource="HazardL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="어망" Description="물고기를 잡는 데 쓰는 그물의 경계" GeometryStyle="BB100L01"></Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="돌제" FACC="BB140" GeometryType="Line" SHPSource="LBB140" GDBSource="StructrL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="수면위 돌제" Description="조력으로부터 항구나 해변을 보호하는 구조물이 수면위에 존재하는 돌제의 경계" GeometryStyle="BB140L01">
+			<VVTStyle VRR="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중 돌제" Description="조력으로부터 항구나 해변을 보호하는 구조물이 수면아래와 위에 존재하는 돌제의 경계" GeometryStyle="BB140L02">
+			<VVTStyle VRR="4,8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="근해선적시설" FACC="BB170" GeometryType="Line" SHPSource="LBB170" GDBSource="TunnelL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="근해선적시설" Description="육지에 가까이 있는 바다에 있는 배에 짐을 싣는 시설의 경계" GeometryStyle="BB170L01"></Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="부두" FACC="BB190" GeometryType="Line" SHPSource="LBB190" GDBSource="PierL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="부두" Description="배를 정박시키는 장소로 주로 사용되는 부두의 경계" GeometryStyle="BB190L01"></Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="경사로" FACC="BB220" GeometryType="Line" SHPSource="LBB220" GDBSource="StructrL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="수면위 경사로" Description="수면위 이동 등을 할 수 있도록 설치된 통로의 경계" GeometryStyle="BB220L01">
+			<VVTStyle VRR="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중 경사로" Description="수중 이동 등을 할 수 있도록 설치된 통로의 경계" GeometryStyle="BB220L02">
+			<VVTStyle VRR="4,8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="해벽" FACC="BB230" GeometryType="Line" SHPSource="LBB230" GDBSource="SeawallL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="해벽" Description="침식작용으로부터 해안을 보호하기 위해 설치된 구조물인 해벽의 경계" GeometryStyle="BB230L01"></Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="조선대" FACC="BB240" GeometryType="Line" SHPSource="LBB240" GDBSource="PierL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="수면위 조선대" Description="배를 포함한 운송수단의 진수와 수선을 위해 해안선에 부분적으로 존재하는 수면위 조선대의 경계" GeometryStyle="BB240L01">
+			<VVTStyle VRR="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중 조선대" Description="배를 포함한 운송수단의 진수와 수선을 위해 해안선에 부분적으로 존재하는 수중 조선대의 경계" GeometryStyle="BB240L02">
+			<VVTStyle VRR="4"></VVTStyle>
+		</Feature>
+		<Feature Name="간출 조선대" Description="배를 포함한 운송수단의 진수와 수선을 위해 해안선에 부분적으로 존재하는 간출 조선대의 경계" GeometryStyle="BB240L03">
+			<VVTStyle VRR="8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="인공지물" Name="나루" FACC="AQ070" GeometryType="Line" SHPSource="LAQ070" GDBSource="FerryL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="케이블/체인 有 나루" Description="한 해변에서 다른 해변까지 횡단하는 수면위의 통로가 있는 케이블/체인 有 나루의 경계" GeometryStyle="AQ070L02">
+			<VVTStyle FER="1"></VVTStyle>
+		</Feature>
+		<Feature Name="케이블/체인 無 나루" Description="한 해변에서 다른 해변까지 횡단하는 수면위의 통로가 있는 케이블/체인 無 나루의 경계" GeometryStyle="AQ070L03">
+			<VVTStyle FER="2"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="인공지물" Name="파이프라인" FACC="AQ113" GeometryType="Line" SHPSource="LAQ113" GDBSource="PipelinL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="지상 또는 수면위의 파이프라인" Description="지상 또는 수면위의 파이프라인의 위치지점" GeometryStyle="AQ113L07">
+			<VVTStyle LOC="25" EXS="&lt;&gt;6"></VVTStyle>
+		</Feature>
+		<Feature Name="미확인의 파이프라인1" Description="생산물이 미확인되고 기타물질인 파이프라인의 위치지점" GeometryStyle="AQ113L08">
+			<VVTStyle LOC="&lt;&gt;17,25" EXS="&lt;&gt;6" PRO="0,999" PLT="0"></VVTStyle>
+		</Feature>
+		<Feature Name="미확인의 파이프라인2" Description="생산물이 미확인된 파이프라인의 위치지점" GeometryStyle="AQ113L09">
+			<VVTStyle LOC="&lt;&gt;17,25" EXS="&lt;&gt;6" PRO="0" PLT="1,2,3"></VVTStyle>
+		</Feature>
+		<Feature Name="수도 파이프라인" Description="물이 지나가는 파이프라인의 위치지점" GeometryStyle="AQ113L10">
+			<VVTStyle LOC="&lt;&gt;17,25" EXS="&lt;&gt;6" PRO="116" PLT="0,1,2,3"></VVTStyle>
+		</Feature>
+		<Feature Name="화학제품 파이프라인" Description="화학제품이 지나가는 파이프라인의 위치지점" GeometryStyle="AQ113L11">
+			<VVTStyle LOC="&lt;&gt;17,25" EXS="&lt;&gt;6" PRO="13,38,39,67" PLT="1,2,3"></VVTStyle>
+		</Feature>
+		<Feature Name="하수오물 파이프라인" Description="하수오물이 지나가는 파이프라인의 위치지점" GeometryStyle="AQ113L12">
+			<VVTStyle LOC="&lt;&gt;17,25" EXS="&lt;&gt;6" PRO="95" PLT="0"></VVTStyle>
+		</Feature>
+		<Feature Name="하수오물 수송관" Description="하수오물이 지나가는 수송관의 위치지점" GeometryStyle="AQ113L13">
+			<VVTStyle LOC="&lt;&gt;17,25" EXS="&lt;&gt;6" PRO="95" PLT="1"></VVTStyle>
+		</Feature>
+		<Feature Name="하수오물 배출구/취수구" Description="하수오물이 지나가는 배출구/취수구의 위치지점" GeometryStyle="AQ113L14">
+			<VVTStyle LOC="&lt;&gt;17,25" EXS="&lt;&gt;6" PRO="95" PLT="2,3"></VVTStyle>
+		</Feature>
+		<Feature Name="기타물질 수송관/배출구/취수구" Description="기타물질이 지나가는 수송관/배출구/취수구의 위치지점" GeometryStyle="AQ113L15">
+			<VVTStyle LOC="&lt;&gt;17,25" EXS="&lt;&gt;6" PRO="999" PLT="1,2,3"></VVTStyle>
+		</Feature>
+		<Feature Name="미확인물질 파이프라인" Description="미확인물질이 지나가는 존재가 불확실한 파이프라인의 위치지점" GeometryStyle="AQ113L16">
+			<VVTStyle LOC="17" EXS="6" PRO="0"></VVTStyle>
+		</Feature>
+		<Feature Name="가스/기름 파이프라인(미확인)" Description="가스/기름이 지나가는 존재가 불확실한 파이프라인의 위치지점" GeometryStyle="AQ113L17">
+			<VVTStyle LOC="17" EXS="6" PRO="38,67"></VVTStyle>
+		</Feature>
+		<Feature Name="하수오물/물 파이프라인(미확인)" Description="하수오물/물이 지나가는 존재가 불확실한 파이프라인의 위치지점" GeometryStyle="AQ113L18">
+			<VVTStyle LOC="17" EXS="6" PRO="95,116"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="인공지물" Name="전신전화선/전기선" FACC="AT005" GeometryType="Line" SHPSource="LAT005" GDBSource="HazardL" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="운행중 전신전화선" Description="먼 거리에 있는 전기적 신호를 송신하는 지지물을 포함한 운행중 전신전화선 시스템의 경계" GeometryStyle="AT005L01">
+			<VVTStyle USS="0,51,52" EXS="28"></VVTStyle>
+		</Feature>
+		<Feature Name="폐기된 전신전화선" Description="먼 거리에 있는 전기적 신호를 송신하는 지지물을 포함한 폐기된 전신전화선 시스템의 경계" GeometryStyle="AT005L02">
+			<VVTStyle USS="0,51,52" EXS="28"></VVTStyle>
+		</Feature>
+		<Feature Name="전기선" Description="전류가 흐르도록 하는 전기선의 경계" GeometryStyle="AT005L03">
+			<VVTStyle USS="53" EXS="6,28"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="연안수부지물" Name="섬" FACC="BA030" GeometryType="Point" SHPSource="PBA030" GDBSource="IslandP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="섬" Description="육지와 물에 의해 둘러싸인 작은 땅 덩어리인 섬의 위치지점" GeometryStyle="BA030P01"></Feature>
+	</Layer>
+	<Group Category="연안수부지물" Name="간석지" GeometryType="Point">
+		<Layer Category="연안수부지물" Name="간석지" FACC="BA020" GeometryType="Point" SHPSource="PBA020" GDBSource="ForeshoP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="간석지" Description="하천에 의해서 하구에 운반된 점토와 모래 같은 미립물질이 해수의 운반작용으로 하구나 그 인접해안에 퇴적된 지형의 위치지점" GeometryStyle="BA020P01"></Feature>
+		</Layer>
+		<Layer Category="연안수부지물" Name="간석지_재료구성분류" FACC="BA020" GeometryType="Point" SHPSource="PBA020" GDBSource="ForeshoP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="Boulders" Description="(물이나 비바람에 씻겨 반들반들해진)바위의 위치지점" GeometryStyle="BA020P02">
+				<VVTStyle MCC="8"></VVTStyle>
+			</Feature>
+			<Feature Name="Clay" Description="점토나 찰흙의 위치지점" GeometryStyle="BA020P03">
+				<VVTStyle MCC="16"></VVTStyle>
+			</Feature>
+			<Feature Name="Gravel" Description="자갈의 위치지점" GeometryStyle="BA020P04">
+				<VVTStyle MCC="46"></VVTStyle>
+			</Feature>
+			<Feature Name="Mud" Description="진흙의 위치지점" GeometryStyle="BA020P05">
+				<VVTStyle MCC="65"></VVTStyle>
+			</Feature>
+			<Feature Name="Rocky" Description="바위로 된 위치지점" GeometryStyle="BA020P06">
+				<VVTStyle MCC="84"></VVTStyle>
+			</Feature>
+			<Feature Name="Sand" Description="모래의 위치지점" GeometryStyle="BA020P07">
+				<VVTStyle MCC="88"></VVTStyle>
+			</Feature>
+			<Feature Name="Shingle" Description="조약돌의 위치지점" GeometryStyle="BA020P08">
+				<VVTStyle MCC="98"></VVTStyle>
+			</Feature>
+			<Feature Name="Stone" Description="돌맹이의 위치지점" GeometryStyle="BA020P09">
+				<VVTStyle MCC="108"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="연안수부지물" Name="간석지_재료구성분류2" FACC="BA020" GeometryType="Point" SHPSource="PBA020" GDBSource="ForeshoP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="Gravel" Description="자갈의 위치지점" GeometryStyle="BA020P10">
+				<VVTStyle MCS="46"></VVTStyle>
+			</Feature>
+			<Feature Name="Mud" Description="진흙의 위치지점" GeometryStyle="BA020P11">
+				<VVTStyle MCS="65"></VVTStyle>
+			</Feature>
+			<Feature Name="Sand" Description="모래의 위치지점" GeometryStyle="BA020P12">
+				<VVTStyle MCS="88"></VVTStyle>
+			</Feature>
+			<Feature Name="Shingle" Description="조약돌의 위치지점" GeometryStyle="BA020P13">
+				<VVTStyle MCS="98"></VVTStyle>
+			</Feature>
+			<Feature Name="Stone" Description="돌맹이의 위치지점" GeometryStyle="BA020P14">
+				<VVTStyle MCS="108"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Group Category="수심관련지물" Name="수심" GeometryType="Point">
+		<Layer Category="수심관련지물" Name="바다 수심" FACC="BE020" GeometryType="Point" SHPSource="PBE020" GDBSource="SoundP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="HDP">
+			<Feature Name="정확한 바다 수심" Description="정확한 바다 수심의 위치지점" LabelStyle="BE020T02">
+				<VVTStyle ACC="1" SND="9,10,999"></VVTStyle>
+			</Feature>
+			<Feature Name="근사한 바다 수심" Description="근사한 바다 수심의 위치지점" LabelStyle="BE020T02">
+				<VVTStyle ACC="2" SND="9,10,999"></VVTStyle>
+			</Feature>
+			<Feature Name="정확한 해저미달 수심" Description="정확한 해저미달 수심의 위치지점" LabelStyle="BE020T03">
+				<VVTStyle ACC="1" SND="2"></VVTStyle>
+			</Feature>
+			<Feature Name="근사한 해저미달 수심" Description="근사한 해저미달 수심의 위치지점" LabelStyle="BE020T03">
+				<VVTStyle ACC="2" SND="2"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="수심관련지물" Name="간석지 수심" FACC="BE020" GeometryType="Point" SHPSource="PBE020" GDBSource="SoundP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="HDH">
+			<Feature Name="정확한 간석지 수심" Description="정확한 간석지 수심의 위치지점" LabelStyle="BE020T01">
+				<VVTStyle ACC="1" SND="1"></VVTStyle>
+			</Feature>
+			<Feature Name="근사한 간석지 수심" Description="근사한 간석지 수심의 위치지점" LabelStyle="BE020T01">
+				<VVTStyle ACC="2" SND="1"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Layer Category="해저 저질" Name="저질" FACC="BF010" GeometryType="Point" SHPSource="PBF010" GDBSource="BotcharP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P01">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="4"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P02">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="8"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P03">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="12"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P04">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="14"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P05">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="15"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P06">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="16"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P07">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="18"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P08">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="24"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P09">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="25"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P10">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="28"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P11">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="36"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P12">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="37"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P13">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="41"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P14">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="46"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P15">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="48"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P16">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="52"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P17">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="58"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P18">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="59"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P19">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="61"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P20">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="63"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P21">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="65"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P22">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="66"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P23">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="69"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P24">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="70"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P25">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="73"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P26">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="75"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P27">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="78"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P28">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="79"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P29">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="81"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P30">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="84"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P31">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="88"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P32">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="90"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P33">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="92"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P34">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="93"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P35">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="94"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P36">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="96"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P37">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="98"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P38">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="99"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P39">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="105"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P40">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="106"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P41">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="108"></VVTStyle>
+		</Feature>
+		<Feature Name="일반 저질" Description="해도와 측량에 사용되는 용어로 표준추출방법에 의해 결정되는 해수면의 분류와 색깔, 농도를 나타내는 저질의 위치지점" GeometryStyle="BF010P42">
+			<VVTStyle PSC="&lt;&gt;28,29" MCC="111"></VVTStyle>
+		</Feature>
+		<Feature Name="수면 밑의 샘" Description="지표면특질 밑에서부터 물이 자연적으로 유출되는 샘의 위치지점" GeometryStyle="BF010P43">
+			<VVTStyle PSC="28"></VVTStyle>
+		</Feature>
+		<Feature Name="모래파도" Description="모래파도의 위치지점" GeometryStyle="BF010P44">
+			<VVTStyle PSC="29"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Group Category="조석 및 해류" Name="해류화살표" GeometryType="Point">
+		<Layer Category="조석 및 해류" Name="해류화살표_주기" FACC="BG010" GeometryType="Point" SHPSource="PBG010" GDBSource="CurrdiaP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="CRX" LabelAngleColumn="DOF">
+			<Feature Name="해류화살표_유속주기" Description="해류화살표 유속주기의 위치지점" LabelStyle="BG010T01"></Feature>
+		</Layer>
+		<Layer Category="조석 및 해류" Name="해류화살표" FACC="BG010" GeometryType="Point" SHPSource="PBG010" GDBSource="CurrdiaP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry" AngleColumn="DOF">
+			<Feature Name="썰물 해류화살표" Description="썰물 해류화살표의 위치지점" GeometryStyle="BG010P02">
+				<VVTStyle CUR="1"></VVTStyle>
+			</Feature>
+			<Feature Name="밀물 해류화살표" Description="밀물 해류화살표의 위치지점" GeometryStyle="BG010P03">
+				<VVTStyle CUR="2"></VVTStyle>
+			</Feature>
+			<Feature Name="일반 해류화살표" Description="일반 해류화살표의 위치지점" GeometryStyle="BG010P04">
+				<VVTStyle CUR="0,3"></VVTStyle>
+			</Feature>
+			<Feature Name="대양 해류화살표" Description="대양 해류화살표의 위치지점" GeometryStyle="BG010P05">
+				<VVTStyle CUR="5"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Layer Category="조석 및 해류" Name="검조의" FACC="BG020" GeometryType="Point" SHPSource="PBG020" GDBSource="TideP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="검조의" Description="밀물과 썰물에 의(依)한 바닷면의 오르내림을 재는 검조의의 위치지점" GeometryStyle="BG020P01"></Feature>
+	</Layer>
+	<Layer Category="조석 및 해류" Name="조류정보점" FACC="BG030" GeometryType="Point" SHPSource="PBG030" GDBSource="TideP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="조류정보점" Description="주어진 조류 데이터를 표식화한 포인트의 위치지점" GeometryStyle="BG030P01"></Feature>
+	</Layer>
+	<Layer Category="조석 및 해류" Name="해류표" FACC="BG040" GeometryType="Point" SHPSource="PBG040" GDBSource="CurrdiaP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="해류표" Description="다른 해류 주기에 해류 흐름의 평균 주기와 썰물의 추세를 보여주는 그래프의 위치짖점" GeometryStyle="BG040P01"></Feature>
+	</Layer>
+	<Layer Category="기타 수부지물" Name="암봉/빙봉" FACC="BJ060" GeometryType="Point" SHPSource="PBJ060" GDBSource="SnowiceP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="암봉/빙봉" Description="암석으로 완전히 둘러싸인 암석 덩어리의 위치지점" GeometryStyle="BJ060P03"></Feature>
+	</Layer>
+	<Group Category="수부위험지물" Name="수중위험" GeometryType="Point">
+		<Layer Category="수부위험지물" Name="수중위험_주기" FACC="BD000" GeometryType="Point" SHPSource="PBD000" GDBSource="HazardP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="HDP">
+			<Feature Name="수중위험_주기(내부)" Description="지물의 깊이에 대한 속성값이 존재할 경우 기호 내부에 표기한 주기의 위치지점" LabelStyle="BD000T01">
+				<VVTStyle SFC="1,2,4" HDP="&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="수중위험_주기(오른쪽)" Description="지물의 깊이에 대한 속성값이 존재할 경우 기호 오른쪽에 표기한 주기의 위치지점" LabelStyle="BD000T02">
+				<VVTStyle SFC="3" HDP="&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="수중위험_주기(오른쪽)" Description="지물의 깊이에 대한 속성값이 존재할 경우 기호 오른쪽에 표기한 주기의 위치지점" LabelStyle="BD000T03">
+				<VVTStyle SFC="5" HDP="&gt;0"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="수부위험지물" Name="수중위험" FACC="BD000" GeometryType="Point" SHPSource="PBD000" GDBSource="HazardP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="위험한 수중위험 장애물1" Description="위험한 장애물이 있는 위치지점(그물이외의 방법으로 알려진)" GeometryStyle="BD000P01">
+				<VVTStyle HDI="9,12" SFC="1,2" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="위험한 수중위험 우물1" Description="위험한 우물이 있는 위치지점(그물이외의 방법으로 알려진)" GeometryStyle="BD000P02">
+				<VVTStyle HDI="9,12" SFC="4" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="위험하지 않은 수중위험 장애물1" Description="위험하지 않은 장애물이 있는 위치지점(그물이외의 방법으로 알려진)" GeometryStyle="BD000P03">
+				<VVTStyle HDI="9,12" SFC="1,2" SOH="2"></VVTStyle>
+			</Feature>
+			<Feature Name="위험하지 않은 수중위험 우물1" Description="위험하지 않은 우물이 있는 위치지점(그물이외의 방법으로 알려진)" GeometryStyle="BD000P04">
+				<VVTStyle HDI="9,12" SFC="4" SOH="2"></VVTStyle>
+			</Feature>
+			<Feature Name="위험한 수중위험 장애물2" Description="위험한 장애물이 있는 위치지점(그물방법으로 알려진)" GeometryStyle="BD000P05">
+				<VVTStyle HDI="10" SFC="1,2" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="위험한 수중위험 우물2" Description="위험한 우물이 있는 위치지점(그물방법으로 알려진)" GeometryStyle="BD000P06">
+				<VVTStyle HDI="10" SFC="4" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="위험하지 않은 수중위험 장애물2" Description="위험하지 않은 장애물이 있는 위치지점(그물방법으로 알려진)" GeometryStyle="BD000P07">
+				<VVTStyle HDI="10" SFC="1,2" SOH="2"></VVTStyle>
+			</Feature>
+			<Feature Name="위험하지 않은 수중위험 우물2" Description="위험하지 않은 우물이 있는 위치지점(그물방법으로 알려진)" GeometryStyle="BD000P08">
+				<VVTStyle HDI="10" SFC="4" SOH="2"></VVTStyle>
+			</Feature>
+			<Feature Name="위험한 어망1" Description="위험한 어망의 위치지점(그물이외의 방법으로 알려진)" GeometryStyle="BD000P09">
+				<VVTStyle HDI="9,12" SFC="3" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="위험하지 않은 어망1" Description="위험하지 않은 어망의 위치지점(그물이외의 방법으로 알려진)" GeometryStyle="BD000P10">
+				<VVTStyle HDI="9,12" SFC="3" SOH="2"></VVTStyle>
+			</Feature>
+			<Feature Name="위험한 어망2" Description="위험한 어망의 위치지점(그물방법으로 알려진)" GeometryStyle="BD000P11">
+				<VVTStyle HDI="10" SFC="3" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="위험하지 않은 어망2" Description="위험하지 않은 어망의 위치지점(그물방법으로 알려진)" GeometryStyle="BD000P12">
+				<VVTStyle HDI="10" SFC="3" SOH="2"></VVTStyle>
+			</Feature>
+			<Feature Name="위험한 해저플랫폼" Description="위험한 동작대의 위치지점(그물이외의 방법으로 알려진)" GeometryStyle="BD000P13">
+				<VVTStyle HDI="9,10,12" SFC="5" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="위험하지 않은 해저플랫폼" Description="위험하지 않은 동작대의 위치지점(그물이외의 방법으로 알려진)" GeometryStyle="BD000P14">
+				<VVTStyle HDI="9,10,12" SFC="5" SOH="2"></VVTStyle>
+			</Feature>
+			<Feature Name="위험한 군수품1" Description="위험한 군수품의 위치지점(그물이외의 방법으로 알려진)" GeometryStyle="BD000P15">
+				<VVTStyle HDI="9,12" SFC="2" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="위험하지 않은 군수품2" Description="위험하지 않은 군수품의 위치지점(그물이외의 방법으로 알려진)" GeometryStyle="BD000P16">
+				<VVTStyle HDI="9,12" SFC="2" SOH="2"></VVTStyle>
+			</Feature>
+			<Feature Name="위험한 군수품2" Description="위험한 군수품의 위치지점(그물방법으로 알려진)" GeometryStyle="BD000P17">
+				<VVTStyle HDI="10" SFC="2" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="위험하지 않은 군수품2" Description="위험하지 않은 군수품의 위치지점(그물방법으로 알려진)" GeometryStyle="BD000P18">
+				<VVTStyle HDI="10" SFC="2" SOH="2"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Layer Category="수부위험지물" Name="해안파도" FACC="BD010" GeometryType="Point" SHPSource="PBD010" GDBSource="DangerP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="해안파도" Description="해안에 치는 파도의 위치지점" GeometryStyle="BD010P01"></Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="방틀/격자틀" FACC="BD020" GeometryType="Point" SHPSource="PBD020" GDBSource="HazardP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="수면위 방틀/격자틀" Description="파이프라인,하수관 또는 배출구를 지지하기 위해 사용되는 수면위의 방틀/격자틀의 위치지점" GeometryStyle="BD020P01">
+			<VVTStyle VRR="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중 방틀/격자틀" Description="파이프라인,하수관 또는 배출구를 지지하기 위해 사용되는 수중 방틀/격자틀의 위치지점" GeometryStyle="BD020P02">
+			<VVTStyle VRR="4"></VVTStyle>
+		</Feature>
+		<Feature Name="노출된 방틀/격자틀" Description="파이프라인,하수관 또는 배출구를 지지하기 위해 사용되는 노출된 방틀/격자틀의 위치지점" GeometryStyle="BD020P03">
+			<VVTStyle VRR="8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="바다색이 다른 구역" FACC="BD030" GeometryType="Point" SHPSource="PBD030" GDBSource="DangerP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="바다색이 다른 구역" Description="바다색이 다른 구역의 위치지점" GeometryStyle="BD030P01"></Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="소용돌이" FACC="BD040" GeometryType="Point" SHPSource="PBD040" GDBSource="ObstrucP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="소용돌이" Description="주요 흐름과 반대로 흐르는 물의 순환선 움직임인 소용돌이의 위치지점" GeometryStyle="BD040P01"></Feature>
+	</Layer>
+	<Group Category="수부위험지물" Name="암초가 많아서 위험한 해저" GeometryType="Point">
+		<Layer Category="수부위험지물_주기" Name="암초가 많아서 위험한 해저_주기" FACC="BD050" GeometryType="Point" SHPSource="PBD050" GDBSource="DangerP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="HDP">
+			<Feature Name="암초가 많아서 위험한 해저" Description="암초가 많아서 위험한 해저의 위치지점" LabelStyle="BD050T01">
+				<VVTStyle HDP="&lt;&gt;0"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="수부위험지물" Name="암초가 많아서 위험한 해저" FACC="BD050" GeometryType="Point" SHPSource="PBD050" GDBSource="DangerP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="암초가 많아서 위험한 해저1" Description="암초가 많아서 위험한 해저의 위치지점" GeometryStyle="BD050P01">
+				<VVTStyle HDP="0"></VVTStyle>
+			</Feature>
+			<Feature Name="암초가 많아서 위험한 해저2" Description="암초가 많아서 위험한 해저의 위치지점" GeometryStyle="BD050P02">
+				<VVTStyle HDP="&lt;&gt;0"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Layer Category="수부위험지물" Name="대형 갈조류" FACC="BD060" GeometryType="Point" SHPSource="PBD060" GDBSource="ObstrucP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="대형 갈조류" Description="해조의 일종인 대형 갈조류의 경계지역" GeometryStyle="BD060P01"></Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="단조/격조" FACC="BD080" GeometryType="Point" SHPSource="PBD080" GDBSource="ObstrucP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="단조/격조" Description="금속을 두들기거나 눌러서 필요한 형체로 만드는 단조와 멀리 떨어져 있어 서로 통하지 못하는 격조의 위치지점" GeometryStyle="BD080P01"></Feature>
+	</Layer>
+	<Layer Category="수부위험지물" Name="말뚝/기둥" FACC="BD100" GeometryType="Point" SHPSource="PBD100" GDBSource="DangerP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="노출된 말뚝/기둥" Description="노출된 곳에 두드려 박는 말뚝이나 기둥의 위치지점" GeometryStyle="BD100P02">
+			<VVTStyle VRR="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중 말뚝/기둥" Description="수중속 땅에 두드려 박는 말뚝이나 기둥의 위치지점" GeometryStyle="BD100P03">
+			<VVTStyle VRR="4"></VVTStyle>
+		</Feature>
+		<Feature Name="간석지 내의 말뚝/기둥" Description="간석지에 두드려 박는 말뚝이나 기둥의 위치지점" GeometryStyle="BD100P04">
+			<VVTStyle VRR="8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Group Category="수부위험지물" Name="플랫폼" GeometryType="Point">
+		<Layer Category="수부위험지물" Name="플랫폼_주기" FACC="BD110" GeometryType="Point" SHPSource="PBD110" GDBSource="LoadingP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="NAM">
+			<Feature Name="플랫폼_주기" Description="연안의 작업을 수행하기 위한 동작대 주기의 위치지점" LabelStyle="BD110T01"></Feature>
+		</Layer>
+		<Layer Category="수부위험지물" Name="플랫폼_항법장치" FACC="BD110" GeometryType="Point" SHPSource="PBD110" GDBSource="LoadingP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="플랫폼_항법장치" Description="연안의 작업을 수행하기 위한 동작대 항법장치의 위치지점" GeometryStyle="BD110P04">
+				<VVTStyle NST="&lt;&gt;52"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="수부위험지물" Name="플랫폼_음향신호기" FACC="BD110" GeometryType="Point" SHPSource="PBD110" GDBSource="LoadingP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="플랫폼_음향신호기" Description="연안의 작업을 수행하기 위한 동작대 음향신호기의 위치지점" GeometryStyle="BD110P03">
+				<VVTStyle SST="&lt;&gt;16"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="수부위험지물" Name="플랫폼" FACC="BD110" GeometryType="Point" SHPSource="PBD110" GDBSource="LoadingP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="플랫폼" Description="연안의 작업을 수행하기 위한 동작대의 위치지점" GeometryStyle="BD110P02">
+				<VVTStyle CHA="21,23"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="수부위험지물" Name="플랫폼_라이트" FACC="BD110" GeometryType="Point" SHPSource="PBD110" GDBSource="LoadingP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="플랫폼_라이트" Description="연안의 작업을 수행하기 위한 동작대 라이트의 위치지점" GeometryStyle="BD110P01">
+				<VVTStyle CHA="21"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Group Category="수부위험지물" Name="암초" GeometryType="Point">
+		<Layer Category="수부위험지물" Name="암초_주기" FACC="BD130" GeometryType="Point" SHPSource="PBD130" GDBSource="HazardP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="HDP">
+			<Feature Name="깊이가 알려진(위험한)암초_주기" Description="암초주기의 위치지점" LabelStyle="BD130T01">
+				<VVTStyle HDI="&lt;&gt;9" HDP="&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="깊이가 알려진(위험하지 않은)암초_주기" Description="암초주기의 위치지점" LabelStyle="BD130T02">
+				<VVTStyle HDI="9" HDP="&gt;0"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="수부위험지물" Name="암초" FACC="BD130" GeometryType="Point" SHPSource="PBD130" GDBSource="HazardP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="세암" Description="세암의 위치지점" GeometryStyle="BD130P02">
+				<VVTStyle VRR="2" HDI="&lt;&gt;9"></VVTStyle>
+			</Feature>
+			<Feature Name="수중암" Description="수중에 나타나는 암석의 위치지점" GeometryStyle="BD130P03">
+				<VVTStyle VRR="0,4" HDI="&lt;&gt;9"></VVTStyle>
+			</Feature>
+			<Feature Name="간출암" Description="썰물 때 바닷물 위로 드러나고, 밀물 때 잠기는 바위의 위치지점" GeometryStyle="BD130P01">
+				<VVTStyle VRR="8" HDI="&lt;&gt;9"></VVTStyle>
+			</Feature>
+			<Feature Name="깊이가 알려진(위험한)암초1" Description="깊이가 알려진(위험한)암초의 위치지점" GeometryStyle="BD130P04">
+				<VVTStyle VRR="4" HDI="9" SHO="1"></VVTStyle>
+			</Feature>
+			<Feature Name="깊이가 알려진(위험하지 않는)암초1" Description="깊이가 알려진(위험하지 않는)암초의 위치지점" GeometryStyle="BD130P05">
+				<VVTStyle VRR="4" HDI="9" SHO="2"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Layer Category="수부위험지물" Name="수중 나무잔해" FACC="BD140" GeometryType="Point" SHPSource="PBD140" GDBSource="DangerP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="노출된 수중 나무잔해" Description="노출된 수중나무잔해의 위치지점" GeometryStyle="BD140P02">
+			<VVTStyle VRR="1"></VVTStyle>
+		</Feature>
+		<Feature Name="수중 나무잔해" Description="수중의 수중나무잔해의 위치지점" GeometryStyle="BD140P03">
+			<VVTStyle VRR="4"></VVTStyle>
+		</Feature>
+		<Feature Name="간석지내의 수중 나무잔해" Description="간석지 내의 수중나무잔해의 위치지점" GeometryStyle="BD140P04">
+			<VVTStyle VRR="8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Group Category="수부위험지물" Name="난파선" GeometryType="Point">
+		<Layer Category="수부위험지물" Name="난파선_주기" FACC="BD180" GeometryType="Point" SHPSource="PBD180" GDBSource="HazardP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="HDP">
+			<Feature Name="난파선 수심" Description="선체가 보이고 적용할 수 없는 난파선 수심의 위치지점" LabelStyle="BD180T01">
+				<VVTStyle LOC="4,14" HDI="9,10,11"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="수부위험지물" Name="난파선" FACC="BD180" GeometryType="Point" SHPSource="PBD180" GDBSource="HazardP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="선체가 보이고 적용할 수 없는 난파선" Description="선체가 보이고 적용할 수 없는 난파선의 위치지점" GeometryStyle="BD180P01">
+				<VVTStyle LOC="13,20,21,28" HDI="15" SOH="1,2"></VVTStyle>
+			</Feature>
+			<Feature Name="선체가 보이고 그물이외의 방법으로 알려진 난파선" Description="선체가 보이고 그물이외의 방법으로 알려진 난파선의 위치지점" GeometryStyle="BD180P02">
+				<VVTStyle LOC="13" HDI="9" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="선체가 침수되고 위험한 난파선1" Description="선체가 침수되고 위험한 난파선의 위치지점" GeometryStyle="BD180P03">
+				<VVTStyle LOC="4,14" HDI="12" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="선체가 침수되고 위험한 난파선2" Description="선체가 침수되고 위험한 난파선의 위치지점" GeometryStyle="BD180P03">
+				<VVTStyle LOC="14" HDI="15" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="선체가 침수되고 위험하지 않은 난파선1" Description="선체가 침수되고 위험하지 않은 난파선의 위치지점" GeometryStyle="BD180P04">
+				<VVTStyle LOC="14" HDI="15" SOH="2"></VVTStyle>
+			</Feature>
+			<Feature Name="선체가 침수되고 위험하지 않은 난파선2" Description="선체가 침수되고 위험하지 않은 난파선의 위치지점" GeometryStyle="BD180P05">
+				<VVTStyle LOC="4" HDI="12" SOH="2"></VVTStyle>
+			</Feature>
+			<Feature Name="선체가 침수되고 위험한 난파선3" Description="선체가 침수되고 위험한 난파선의 위치지점(그물이외의 방법으로 알려진)" GeometryStyle="BD180P06">
+				<VVTStyle LOC="4,14" HDI="9" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="선체가 침수되고 위험하지 않은 난파선3" Description="선체가 침수되고 위험하지 않은 난파선의 위치지점(그물이외의 방법으로 알려진)" GeometryStyle="BD180P07">
+				<VVTStyle LOC="4,14" HDI="9" SOH="2"></VVTStyle>
+			</Feature>
+			<Feature Name="선체가 침수되고 위험한 난파선4" Description="선체가 침수되고 위험한 난파선의 위치지점(그물방법으로 알려진)" GeometryStyle="BD180P08">
+				<VVTStyle LOC="4" HDI="10" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="선체가 침수되고 위험하지 않은 난파선4" Description="선체가 침수되고 위험하지 않은 난파선의 위치지점(그물방법으로 알려진)" GeometryStyle="BD180P09">
+				<VVTStyle LOC="4" HDI="10" SOH="2"></VVTStyle>
+			</Feature>
+			<Feature Name="선체가 침수되고 위험한 난파선5" Description="선체가 침수되고 위험한 난파선의 위치지점(안전하지만 미확인된)" GeometryStyle="BD180P10">
+				<VVTStyle LOC="4" HDI="11" SOH="1"></VVTStyle>
+			</Feature>
+			<Feature Name="선체가 침수되고 위험하지 않은 난파선5" Description="선체가 침수되고 위험하지 않은 난파선의 위치지점(안전하지만 미확인된)" GeometryStyle="BD180P11">
+				<VVTStyle LOC="4" HDI="11" SOH="2"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Group Category="항행보조시설" Name="비콘" GeometryType="Point">
+		<Layer Category="항행보조시설" Name="비콘_주기_항법장치" FACC="BC010" GeometryType="Point" SHPSource="PBC010" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="RC" Description="항법장치_주기_RC" GeometryStyle="BC010P100">
+				<VVTStyle NST="1"></VVTStyle>
+			</Feature>
+			<Feature Name="Racon" Description="항법장치_주기_Racon" GeometryStyle="BC010P101">
+				<VVTStyle NST="10"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="비콘_주기_색상" FACC="BC010" GeometryType="Point" SHPSource="PBC010" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="Black" Description="색상_주기_B" GeometryStyle="BC010P102">
+				<VVTStyle CCC="1"></VVTStyle>
+			</Feature>
+			<Feature Name="Blue" Description="색상_주기_Bu" GeometryStyle="BC010P103">
+				<VVTStyle CCC="2"></VVTStyle>
+			</Feature>
+			<Feature Name="Brown" Description="색상_주기_Br" GeometryStyle="BC010P104">
+				<VVTStyle CCC="3"></VVTStyle>
+			</Feature>
+			<Feature Name="Gray" Description="색상_주기_Gy" GeometryStyle="BC010P105">
+				<VVTStyle CCC="4"></VVTStyle>
+			</Feature>
+			<Feature Name="Green" Description="색상_주기_G" GeometryStyle="BC010P106">
+				<VVTStyle CCC="5"></VVTStyle>
+			</Feature>
+			<Feature Name="Orange" Description="색상_주기_Or" GeometryStyle="BC010P107">
+				<VVTStyle CCC="9"></VVTStyle>
+			</Feature>
+			<Feature Name="Red" Description="색상_주기_R" GeometryStyle="BC010P108">
+				<VVTStyle CCC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="Violet" Description="색상_주기_Vi" GeometryStyle="BC010P109">
+				<VVTStyle CCC="14"></VVTStyle>
+			</Feature>
+			<Feature Name="White" Description="색상_주기_W" GeometryStyle="BC010P110">
+				<VVTStyle CCC="15"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow" Description="색상_주기_Y" GeometryStyle="BC010P111">
+				<VVTStyle CCC="19"></VVTStyle>
+			</Feature>
+			<Feature Name="Red_White" Description="색상_주기_RW" GeometryStyle="BC010P112">
+				<VVTStyle CCC="20"></VVTStyle>
+			</Feature>
+			<Feature Name="Red_Green" Description="색상_주기_RG" GeometryStyle="BC010P113">
+				<VVTStyle CCC="21"></VVTStyle>
+			</Feature>
+			<Feature Name="Red_Black" Description="색상_주기_RB" GeometryStyle="BC010P114">
+				<VVTStyle CCC="22"></VVTStyle>
+			</Feature>
+			<Feature Name="Red_Green_Red" Description="색상_주기_RGR" GeometryStyle="BC010P115">
+				<VVTStyle CCC="23"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_White" Description="색상_주기_GW" GeometryStyle="BC010P116">
+				<VVTStyle CCC="24"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_Red" Description="색상_주기_GR" GeometryStyle="BC010P117">
+				<VVTStyle CCC="25"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_Black" Description="색상_주기_GB" GeometryStyle="BC010P118">
+				<VVTStyle CCC="26"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_Red_Green" Description="색상_주기_GRG" GeometryStyle="BC010P119">
+				<VVTStyle CCC="27"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_Yellow_Black" Description="색상_주기_GYB" GeometryStyle="BC010P120">
+				<VVTStyle CCC="28"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Black" Description="색상_주기_YB" GeometryStyle="BC010P121">
+				<VVTStyle CCC="29"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Black_Yellow" Description="색상_주기_YBY" GeometryStyle="BC010P122">
+				<VVTStyle CCC="30"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Red" Description="색상_주기_YR" GeometryStyle="BC010P123">
+				<VVTStyle CCC="31"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Green" Description="색상_주기_YG" GeometryStyle="BC010P124">
+				<VVTStyle CCC="32"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Red_White" Description="색상_주기_YRW" GeometryStyle="BC010P125">
+				<VVTStyle CCC="33"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Yellow" Description="색상_주기_BY" GeometryStyle="BC010P126">
+				<VVTStyle CCC="34"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Yellow_Black" Description="색상_주기_BYB" GeometryStyle="BC010P127">
+				<VVTStyle CCC="35"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Red_Black" Description="색상_주기_BRB" GeometryStyle="BC010P128">
+				<VVTStyle CCC="36"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_White" Description="색상_주기_BW" GeometryStyle="BC010P129">
+				<VVTStyle CCC="37"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Red" Description="색상_주기_BR" GeometryStyle="BC010P130">
+				<VVTStyle CCC="38"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Green" Description="색상_주기_BG" GeometryStyle="BC010P131">
+				<VVTStyle CCC="39"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Red" Description="색상_주기_WR" GeometryStyle="BC010P132">
+				<VVTStyle CCC="40"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Orange" Description="색상_주기_WOr" GeometryStyle="BC010P133">
+				<VVTStyle CCC="41"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Green" Description="색상_주기_WG" GeometryStyle="BC010P134">
+				<VVTStyle CCC="42"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Black" Description="색상_주기_WB" GeometryStyle="BC010P135">
+				<VVTStyle CCC="43"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Yellow" Description="색상_주기_WY" GeometryStyle="BC010P136">
+				<VVTStyle CCC="44"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Red_Green" Description="색상_주기_WRG" GeometryStyle="BC010P137">
+				<VVTStyle CCC="45"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Green_White" Description="색상_주기_WGW" GeometryStyle="BC010P138">
+				<VVTStyle CCC="46"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="비콘_음향신호기" FACC="BC010" GeometryType="Point" SHPSource="PBC010" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="음향신호기" Description="음향의 진행, 정지, 방향 전환, 주의 따위의 신호를 표시하는 장치의 위치지점" GeometryStyle="BC010P36">
+				<VVTStyle SST="&lt;&gt;16"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="비콘_항법장치" FACC="BC010" GeometryType="Point" SHPSource="PBC010" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="항법장치" Description="위치, 방향, 시간 따위를 산출하는 운전 장치의 위치지점" GeometryStyle="BC010P35">
+				<VVTStyle NST="&lt;&gt;52"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="비콘" FACC="BC010" GeometryType="Point" SHPSource="PBC010" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="미확인 비콘" Description="미확인 비콘의 위치지점" GeometryStyle="BC010P01">
+				<VVTStyle TMC="0" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="동방위표지 녹색비콘" Description="동방위표지 녹색비콘의 위치지점" GeometryStyle="BC010P02">
+				<VVTStyle CCC="&lt;&gt;12" TMC="1" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="동방위표지 적색비콘" Description="방위표지 적색비콘의 위치지점" GeometryStyle="BC010P03">
+				<VVTStyle CCC="12" TMC="1" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="고립장애표지 녹색비콘" Description="고립장애표지 녹색비콘의 위치지점" GeometryStyle="BC010P04">
+				<VVTStyle CCC="&lt;&gt;12" TMC="2" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="고립장애표지 적색비콘" Description="고립장애표지 적색비콘의 위치지점" GeometryStyle="BC010P05">
+				<VVTStyle CCC="12" TMC="2" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="북방위표지 녹색비콘" Description="북방위표지 녹색비콘의 위치지점" GeometryStyle="BC010P06">
+				<VVTStyle CCC="&lt;&gt;12" TMC="3" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="북방위표지 적색비콘" Description="북방위표지 적색비콘의 위치지점" GeometryStyle="BC010P07">
+				<VVTStyle CCC="12" TMC="3" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="X표지 비콘" Description="X표지 비콘의 위치지점" GeometryStyle="BC010P08">
+				<VVTStyle TMC="6" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="남방위표지 녹색비콘" Description="남방위표지 녹색비콘의 위치지점" GeometryStyle="BC010P09">
+				<VVTStyle CCC="&lt;&gt;12" TMC="8" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="남방위표지 적색비콘" Description="남방위표지 적색비콘의 위치지점" GeometryStyle="BC010P10">
+				<VVTStyle CCC="12" TMC="8" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="서방위표지 녹색비콘" Description="서방위표지 녹색비콘의 위치지점" GeometryStyle="BC010P11">
+				<VVTStyle CCC="&lt;&gt;12" TMC="9" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="서방위표지 적색비콘" Description="서방위표지 적색비콘의 위치지점" GeometryStyle="BC010P12">
+				<VVTStyle CCC="12" TMC="9" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="콘위의 볼형 녹색비콘" Description="콘위의 볼형 녹색비콘의 위치지점" GeometryStyle="BC010P13">
+				<VVTStyle CCC="&lt;&gt;12" TMC="15" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="콘위의 볼형 적색비콘" Description="콘위의 볼형 적색비콘의 위치지점" GeometryStyle="BC010P14">
+				<VVTStyle CCC="12" TMC="15" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 콘형 녹색비콘" Description="볼위의 콘형 녹색비콘의 위치지점" GeometryStyle="BC010P15">
+				<VVTStyle CCC="&lt;&gt;12" TMC="16" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 콘형 적색비콘" Description="볼위의 콘형 적색비콘의 위치지점" GeometryStyle="BC010P16">
+				<VVTStyle CCC="12" TMC="16" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="빗자루형 비콘" Description="빗자루형 비콘의 위치지점" GeometryStyle="BC010P17">
+				<VVTStyle TMC="17" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="횃대형 비콘" Description="횃대형 비콘의 위치지점" GeometryStyle="BC010P18">
+				<VVTStyle TMC="18" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="다이아몬드형 녹색비콘" Description="다이아몬드형 녹색비콘의 위치지점" GeometryStyle="BC010P19">
+				<VVTStyle CCC="&lt;&gt;12" TMC="19" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="다이아몬드형 적색비콘" Description="다이아몬드형 적색비콘의 위치지점" GeometryStyle="BC010P20">
+				<VVTStyle CCC="12" TMC="19" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="위로 향한 콘형 녹색비콘" Description="위로 향한 콘형 녹색비콘의 위치지점" GeometryStyle="BC010P21">
+				<VVTStyle CCC="&lt;&gt;12" TMC="21" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="위로 향한 콘형 적색비콘" Description="위로 향한 콘형 적색비콘의 위치지점" GeometryStyle="BC010P22">
+				<VVTStyle CCC="12" TMC="21" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="아래로 향한 콘형 녹색비콘" Description="아래로 향한 콘형 녹색비콘의 위치지점" GeometryStyle="BC010P23">
+				<VVTStyle CCC="&lt;&gt;12" TMC="22" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="아래로 향한 콘형 적색비콘" Description="아래로 향한 콘형 적색비콘의 위치지점" GeometryStyle="BC010P24">
+				<VVTStyle CCC="12" TMC="22" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="십자가형 비콘" Description="십자가형 비콘의 위치지점" GeometryStyle="BC010P25">
+				<VVTStyle TMC="23" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="열린 캔형 비콘" Description="열린 캔형 비콘의 위치지점" GeometryStyle="BC010P26">
+				<VVTStyle CCC="&lt;&gt;5" TMC="25" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="가득 찬 캔형 비콘" Description="가득 찬 캔형 비콘의 위치지점" GeometryStyle="BC010P27">
+				<VVTStyle CCC="&lt;&gt;12" TMC="26" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="열린 볼형 비콘" Description="열린 볼형 비콘의 위치지점" GeometryStyle="BC010P28">
+				<VVTStyle CCC="&lt;&gt;5" TMC="27" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="가득 찬 볼형 비콘" Description="가득 찬 볼형 비콘의 위치지점" GeometryStyle="BC010P29">
+				<VVTStyle CCC="&lt;&gt;12" TMC="28" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 캔형 비콘" Description="볼위의 캔형 비콘의 위치지점" GeometryStyle="BC010P30">
+				<VVTStyle CCC="12, &lt;&gt;5" TMC="29" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 십자가형 비콘" Description="볼위의 십자가형 비콘의 위치지점" GeometryStyle="BC010P31">
+				<VVTStyle CCC="&lt;&gt;12" TMC="30" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 다이아몬드형 비콘" Description="볼위의 다이아몬드형 비콘의 위치지점" GeometryStyle="BC010P32">
+				<VVTStyle CCC="&lt;&gt;12" TMC="31" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="더블 콘형 비콘" Description="더블 콘형 비콘의 위치지점" GeometryStyle="BC010P33">
+				<VVTStyle CCC="&lt;&gt;5" TMC="32" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="없음 비콘" Description="표시가 없는 비콘의 위치지점" GeometryStyle="BC010P34">
+				<VVTStyle TMC="33" NST="52" SST="16"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Group Category="항행보조시설" Name="부표" GeometryType="Point">
+		<Layer Category="항행보조시설" Name="부표_주기_항법장치" FACC="BC020" GeometryType="Point" SHPSource="PBC020" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="부표_주기_항법장치" Description="부표의 항법장치 주기의 위치지점" GeometryStyle="BC020P100">
+				<VVTStyle NST="10"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="부표_주기_색상" FACC="BC020" GeometryType="Point" SHPSource="PBC020" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="Black" Description="색상_주기_B" GeometryStyle="BC010P102">
+				<VVTStyle CCC="1"></VVTStyle>
+			</Feature>
+			<Feature Name="Blue" Description="색상_주기_Bu" GeometryStyle="BC010P103">
+				<VVTStyle CCC="2"></VVTStyle>
+			</Feature>
+			<Feature Name="Brown" Description="색상_주기_Br" GeometryStyle="BC010P104">
+				<VVTStyle CCC="3"></VVTStyle>
+			</Feature>
+			<Feature Name="Gray" Description="색상_주기_Gy" GeometryStyle="BC010P105">
+				<VVTStyle CCC="4"></VVTStyle>
+			</Feature>
+			<Feature Name="Green" Description="색상_주기_G" GeometryStyle="BC010P106">
+				<VVTStyle CCC="5"></VVTStyle>
+			</Feature>
+			<Feature Name="Orange" Description="색상_주기_Or" GeometryStyle="BC010P107">
+				<VVTStyle CCC="9"></VVTStyle>
+			</Feature>
+			<Feature Name="Red" Description="색상_주기_R" GeometryStyle="BC010P108">
+				<VVTStyle CCC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="Violet" Description="색상_주기_Vi" GeometryStyle="BC010P109">
+				<VVTStyle CCC="14"></VVTStyle>
+			</Feature>
+			<Feature Name="White" Description="색상_주기_W" GeometryStyle="BC010P110">
+				<VVTStyle CCC="15"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow" Description="색상_주기_Y" GeometryStyle="BC010P111">
+				<VVTStyle CCC="19"></VVTStyle>
+			</Feature>
+			<Feature Name="Red_White" Description="색상_주기_RW" GeometryStyle="BC010P112">
+				<VVTStyle CCC="20"></VVTStyle>
+			</Feature>
+			<Feature Name="Red_Green" Description="색상_주기_RG" GeometryStyle="BC010P113">
+				<VVTStyle CCC="21"></VVTStyle>
+			</Feature>
+			<Feature Name="Red_Black" Description="색상_주기_RB" GeometryStyle="BC010P114">
+				<VVTStyle CCC="22"></VVTStyle>
+			</Feature>
+			<Feature Name="Red_Green_Red" Description="색상_주기_RGR" GeometryStyle="BC010P115">
+				<VVTStyle CCC="23"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_White" Description="색상_주기_GW" GeometryStyle="BC010P116">
+				<VVTStyle CCC="24"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_Red" Description="색상_주기_GR" GeometryStyle="BC010P117">
+				<VVTStyle CCC="25"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_Black" Description="색상_주기_GB" GeometryStyle="BC010P118">
+				<VVTStyle CCC="26"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_Red_Green" Description="색상_주기_GRG" GeometryStyle="BC010P119">
+				<VVTStyle CCC="27"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_Yellow_Black" Description="색상_주기_GYB" GeometryStyle="BC010P120">
+				<VVTStyle CCC="28"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Black" Description="색상_주기_YB" GeometryStyle="BC010P121">
+				<VVTStyle CCC="29"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Black_Yellow" Description="색상_주기_YBY" GeometryStyle="BC010P122">
+				<VVTStyle CCC="30"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Red" Description="색상_주기_YR" GeometryStyle="BC010P123">
+				<VVTStyle CCC="31"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Green" Description="색상_주기_YG" GeometryStyle="BC010P124">
+				<VVTStyle CCC="32"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Red_White" Description="색상_주기_YRW" GeometryStyle="BC010P125">
+				<VVTStyle CCC="33"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Yellow" Description="색상_주기_BY" GeometryStyle="BC010P126">
+				<VVTStyle CCC="34"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Yellow_Black" Description="색상_주기_BYB" GeometryStyle="BC010P127">
+				<VVTStyle CCC="35"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Red_Black" Description="색상_주기_BRB" GeometryStyle="BC010P128">
+				<VVTStyle CCC="36"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_White" Description="색상_주기_BW" GeometryStyle="BC010P129">
+				<VVTStyle CCC="37"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Red" Description="색상_주기_BR" GeometryStyle="BC010P130">
+				<VVTStyle CCC="38"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Green" Description="색상_주기_BG" GeometryStyle="BC010P131">
+				<VVTStyle CCC="39"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Red" Description="색상_주기_WR" GeometryStyle="BC010P132">
+				<VVTStyle CCC="40"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Orange" Description="색상_주기_WOr" GeometryStyle="BC010P133">
+				<VVTStyle CCC="41"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Green" Description="색상_주기_WG" GeometryStyle="BC010P134">
+				<VVTStyle CCC="42"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Black" Description="색상_주기_WB" GeometryStyle="BC010P135">
+				<VVTStyle CCC="43"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Yellow" Description="색상_주기_WY" GeometryStyle="BC010P136">
+				<VVTStyle CCC="44"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Red_Green" Description="색상_주기_WRG" GeometryStyle="BC010P137">
+				<VVTStyle CCC="45"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Green_White" Description="색상_주기_WGW" GeometryStyle="BC010P138">
+				<VVTStyle CCC="46"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="부표_주기_간격" FACC="BC020" GeometryType="Point" SHPSource="PBC020" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="PER">
+			<Feature Name="부표_주기_간격" Description="부표 간격주기의 위치지점" LabelStyle="BC020T03">
+				<VVTStyle PER="&lt;&gt;N/A"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="부표_주기_리듬" FACC="BC020" GeometryType="Point" SHPSource="PBC020" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="col">
+			<Feature Name="부표_주기_리듬" Description="부표 리듬주기의 위치지점" LabelStyle="BC020T02">
+				<VVTStyle COL="&lt;&gt;N/A"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="부표_주기" FACC="BC020" GeometryType="Point" SHPSource="PBC020" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="nam">
+			<Feature Name="부표_주기" Description="부표 주기의 위치지점" LabelStyle="BC020T01">
+				<VVTStyle NAM="&lt;&gt;UNK"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="부표_음향신호기" FACC="BC020" GeometryType="Point" SHPSource="PBC020" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="음향신호기" Description="음향의 진행, 정지, 방향 전환, 주의 따위의 신호를 표시하는 장치의 위치지점" GeometryStyle="BC020P64">
+				<VVTStyle SST="&lt;&gt;16" BTC="&lt;&gt;7" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="부표_항법장치" FACC="BC020" GeometryType="Point" SHPSource="PBC020" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="항법장치" Description="위치, 방향, 시간 따위를 산출하는 운전 장치의 위치지점" GeometryStyle="BC020P63" LabelStyle="BE020T01">
+				<VVTStyle NST="&lt;&gt;52"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="부표_등화" FACC="BC020" GeometryType="Point" SHPSource="PBC020" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="등화" Description="등불의 위치지점" GeometryStyle="BC020P62">
+				<VVTStyle COL="&lt;&gt;UNK,N/A"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="부표_탑마크" FACC="BC020" GeometryType="Point" SHPSource="PBC020" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="녹색 동방위표지 부표" Description="녹색 동방위표지 부표의 위치지점" GeometryStyle="BC020P15">
+				<VVTStyle TMC="1" CCC="5"></VVTStyle>
+			</Feature>
+			<Feature Name="적색이 아닌 동방위표지 부표" Description="적색이 아닌 동방위표지 부표의 위치지점" GeometryStyle="BC020P15">
+				<VVTStyle TMC="1" CCC="&lt;&gt;12"></VVTStyle>
+			</Feature>
+			<Feature Name="적색 동방위표지 부표" Description="적색 동방위표지 부표의 위치지점" GeometryStyle="BC020P16">
+				<VVTStyle TMC="1" CCC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="녹색 고립장애표지 부표" Description="녹색 고립장애표지 부표의 위치지점" GeometryStyle="BC020P17">
+				<VVTStyle TMC="2" CCC="5"></VVTStyle>
+			</Feature>
+			<Feature Name="적색이 아닌 고립장애표지 부표" Description="적색이 아닌 고립장애표지 부표의 위치지점" GeometryStyle="BC020P17">
+				<VVTStyle TMC="2" CCC="&lt;&gt;12"></VVTStyle>
+			</Feature>
+			<Feature Name="적색 고립장애표지 부표" Description="적색 고립장애표 지부표의 위치지점" GeometryStyle="BC020P18">
+				<VVTStyle TMC="2" CCC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="녹색 북방위표지 부표" Description="녹색 북방위표지 부표의 위치지점" GeometryStyle="BC020P19">
+				<VVTStyle TMC="3" CCC="5"></VVTStyle>
+			</Feature>
+			<Feature Name="적색이 아닌 북방위표지 부표" Description="적색이 아닌 북방위표지 부표의 위치지점" GeometryStyle="BC020P19">
+				<VVTStyle TMC="3" CCC="&lt;&gt;12"></VVTStyle>
+			</Feature>
+			<Feature Name="적색 북방위표지 부표" Description="적색 북방위표지 부표의 위치지점" GeometryStyle="BC020P20">
+				<VVTStyle TMC="3" CCC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="X표지 부표" Description="X표지 부표의 위치지점" GeometryStyle="BC020P21">
+				<VVTStyle TMC="6"></VVTStyle>
+			</Feature>
+			<Feature Name="녹색 남방위표지 부표" Description="녹생 남방위표지 부표의 위치지점" GeometryStyle="BC020P22">
+				<VVTStyle TMC="8" CCC="5"></VVTStyle>
+			</Feature>
+			<Feature Name="적색이 아닌 남방위표지 부표" Description="적색이 아닌 남방위표지 부표의 위치지점" GeometryStyle="BC020P22">
+				<VVTStyle TMC="8" CCC="&lt;&gt;12"></VVTStyle>
+			</Feature>
+			<Feature Name="적색 남방위표지 부표" Description="적색 남방위표지 부표의 위치지점" GeometryStyle="BC020P23">
+				<VVTStyle TMC="8" CCC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="녹색 서방위표지 부표" Description="녹색 서방위표지 부표의 위치지점" GeometryStyle="BC020P24">
+				<VVTStyle TMC="9" CCC="5"></VVTStyle>
+			</Feature>
+			<Feature Name="적색이 아닌 서방위표지 부표" Description="적색이 아닌 서방위표지 부표의 위치지점" GeometryStyle="BC020P24">
+				<VVTStyle TMC="9" CCC="&lt;&gt;12"></VVTStyle>
+			</Feature>
+			<Feature Name="적색 서방위표지 부표" Description="적색 서방위표지 부표의 위치지점" GeometryStyle="BC020P25">
+				<VVTStyle TMC="9" CCC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="콘위의 볼형 녹색부표" Description="콘위의 볼형 녹색부표의 위치지점" GeometryStyle="BC020P26">
+				<VVTStyle TMC="15" CCC="5"></VVTStyle>
+			</Feature>
+			<Feature Name="콘위의 볼형 적색이 아닌 부표" Description="콘위의 볼형 적색이 아닌 부표의 위치지점" GeometryStyle="BC020P26">
+				<VVTStyle TMC="15" CCC="&lt;&gt;12"></VVTStyle>
+			</Feature>
+			<Feature Name="콘위의 볼형 적색부표" Description="콘위의 볼형 적색부표의 위치지점" GeometryStyle="BC020P27">
+				<VVTStyle TMC="15" CCC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 콘형 녹색부표" Description="볼위의 콘형 녹색부표의 위치지점" GeometryStyle="BC020P28">
+				<VVTStyle TMC="16" CCC="5"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 콘형 적색이 아닌 부표" Description="볼위의 콘형 적색이 아닌 부표의 위치지점" GeometryStyle="BC020P28">
+				<VVTStyle TMC="16" CCC="&lt;&gt;12"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 콘형 적색부표" Description="볼위의 콘형 적색부표의 위치지점" GeometryStyle="BC020P29">
+				<VVTStyle TMC="16" CCC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="빗자루형 부표" Description="빗자루형 부표의 위치지점" GeometryStyle="BC020P30">
+				<VVTStyle TMC="17"></VVTStyle>
+			</Feature>
+			<Feature Name="횃대형 부표" Description="횃대형 부표의 위치지점" GeometryStyle="BC020P31">
+				<VVTStyle TMC="18"></VVTStyle>
+			</Feature>
+			<Feature Name="다이아몬드형 녹색부표" Description="다이아몬드형 녹색부표의 위치지점" GeometryStyle="BC020P32">
+				<VVTStyle TMC="19" CCC="5"></VVTStyle>
+			</Feature>
+			<Feature Name="다이아몬드형 적색이 아닌 부표" Description="다이아몬드형 적색이 아닌 부표의 위치지점" GeometryStyle="BC020P32">
+				<VVTStyle TMC="19" CCC="&lt;&gt;12"></VVTStyle>
+			</Feature>
+			<Feature Name="다이아몬드형 적색부표" Description="다이아몬드형 적색부표의 위치지점" GeometryStyle="BC020P33">
+				<VVTStyle TMC="19" CCC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="위로 향한 콘형 녹색부표" Description="위로 향한 콘형 녹색부표의 위치지점" GeometryStyle="BC020P34">
+				<VVTStyle TMC="21" CCC="5"></VVTStyle>
+			</Feature>
+			<Feature Name="위로 향한 콘형 적색이 아닌 부표" Description="위로 향한 콘형 적색이 아닌 부표의 위치지점" GeometryStyle="BC020P34">
+				<VVTStyle TMC="21" CCC="&lt;&gt;12"></VVTStyle>
+			</Feature>
+			<Feature Name="위로 향한 콘형 적색부표" Description="위로 향한 콘형 적색부표의 위치지점" GeometryStyle="BC020P35">
+				<VVTStyle TMC="21" CCC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="아래로 향한 콘형 녹색부표" Description="아래로 향한 콘형 녹색부표의 위치지점" GeometryStyle="BC020P36">
+				<VVTStyle TMC="22" CCC="5"></VVTStyle>
+			</Feature>
+			<Feature Name="아래로 향한 콘형 적색이 아닌 부표" Description="아래로 향한 콘형 적색이 아닌 부표의 위치지점" GeometryStyle="BC020P36">
+				<VVTStyle TMC="22" CCC="&lt;&gt;12"></VVTStyle>
+			</Feature>
+			<Feature Name="아래로 향한 콘형 적색부표" Description="아래로 향한 콘형 적색부표의 위치지점" GeometryStyle="BC020P37">
+				<VVTStyle TMC="22" CCC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="십자가 부표" Description="십자가 부표의 위치지점" GeometryStyle="BC020P38">
+				<VVTStyle TMC="23"></VVTStyle>
+			</Feature>
+			<Feature Name="열린 캔형 부표" Description="열린 캔형 부표의 위치지점" GeometryStyle="BC020P39">
+				<VVTStyle TMC="25" CCC="&lt;&gt;5"></VVTStyle>
+			</Feature>
+			<Feature Name="가득 찬 캔형 부표" Description="가득 찬 캔형 부표의 위치지점" GeometryStyle="BC020P40">
+				<VVTStyle TMC="26" CCC="&lt;&gt;12"></VVTStyle>
+			</Feature>
+			<Feature Name="열린 볼형 부표" Description="열린 볼형 부표의 위치지점" GeometryStyle="BC020P41">
+				<VVTStyle TMC="27" CCC="&lt;&gt;5"></VVTStyle>
+			</Feature>
+			<Feature Name="가득 찬 볼형 부표" Description="가득 찬 볼형 부표의 위치지점" GeometryStyle="BC020P42">
+				<VVTStyle TMC="28" CCC="&lt;&gt;12"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 캔형 부표" Description="볼위의 캔형 부표의 위치지점" GeometryStyle="BC020P43">
+				<VVTStyle TMC="29" CCC="&lt;&gt;5"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 십자가형 부표" Description="볼위의 십자가형 부표의 위치지점" GeometryStyle="BC020P44">
+				<VVTStyle TMC="30" CCC="&lt;&gt;5"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 다이아몬드형 부표" Description="볼위의 다이아몬드형 부표의 위치지점" GeometryStyle="BC020P45">
+				<VVTStyle TMC="31" CCC="&lt;&gt;12"></VVTStyle>
+			</Feature>
+			<Feature Name="더블 콘형 부표" Description="더블 콘형 부표의 위치지점" GeometryStyle="BC020P46">
+				<VVTStyle TMC="32" CCC="&lt;&gt;5"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="부표_특정기능" FACC="BC020" GeometryType="Point" SHPSource="PBC020" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="기둥형 안전수역 부표" Description="기둥형 안전수역 부표의 위치지점" GeometryStyle="BC020P48">
+				<VVTStyle BTC="0,35" NST="52" SST="16" SSC="10" TMC="27"></VVTStyle>
+			</Feature>
+			<Feature Name="구형 안전수역 부표" Description="구형 안전수역 부표의 위치지점" GeometryStyle="BC020P49">
+				<VVTStyle BTC="0,35" NST="52" SST="16" SSC="17" TMC="27"></VVTStyle>
+			</Feature>
+			<Feature Name="기둥형 동방위 부표" Description="기둥형 동방위 부표의 위치지점" GeometryStyle="BC020P50">
+				<VVTStyle BTC="0,35" NST="52" SST="16" SSC="10" TMC="1"></VVTStyle>
+			</Feature>
+			<Feature Name="기둥형 북방위 부표" Description="기둥형 북방위 부표의 위치지점" GeometryStyle="BC020P51">
+				<VVTStyle BTC="0,35" NST="52" SST="16" SSC="10" TMC="3"></VVTStyle>
+			</Feature>
+			<Feature Name="기둥형 남방위 부표" Description="기둥형 남방위 부표의 위치지점" GeometryStyle="BC020P52">
+				<VVTStyle BTC="0,35" NST="52" SST="16" SSC="10" TMC="8"></VVTStyle>
+			</Feature>
+			<Feature Name="기둥형 서방위 부표" Description="기둥형 서방위 부표의 위치지점" GeometryStyle="BC020P53">
+				<VVTStyle BTC="0,35" NST="52" SST="16" SSC="10" TMC="9"></VVTStyle>
+			</Feature>
+			<Feature Name="대형등부표" Description="대형 자동 네비게이션 부표의 위치지점" GeometryStyle="BC020P54">
+				<VVTStyle BTC="4"></VVTStyle>
+			</Feature>
+			<Feature Name="IALA해상부표식 등부표" Description="IALA해상부표식 등부표의 위치지점" GeometryStyle="BC020P55">
+				<VVTStyle BTC="6" LVN="&lt;10" TXT="&lt;&gt;NON-IALA"></VVTStyle>
+			</Feature>
+			<Feature Name="IALA해상부표식이 아닌 등부표" Description="IALA해상부표식이 아닌 등부표의 위치지점" GeometryStyle="BC020P56">
+				<VVTStyle BTC="6" LVN="&lt;10" TXT="NON-IALA"></VVTStyle>
+			</Feature>
+			<Feature Name="주요 등부표" Description="주요 등부표의 위치지점" GeometryStyle="BC020P57">
+				<VVTStyle BTC="6" LVN="&gt;=10"></VVTStyle>
+			</Feature>
+			<Feature Name="계선부표" Description="항만내의 부두외에 외항에 선박을 계류시켜 정박하기 위한 설비의 위치지점" GeometryStyle="BC020P58">
+				<VVTStyle BTC="7" NST="52" SST="16" NAM="&lt;&gt;SBM,CALM"></VVTStyle>
+			</Feature>
+			<Feature Name="SBM 계선부표" Description="SBM(Single Buoy Mooring)계선부표의 위치지점" GeometryStyle="BC020P59">
+				<VVTStyle BTC="7" NST="52" SST="16" NAM="SBM"></VVTStyle>
+			</Feature>
+			<Feature Name="CALM 계선부표" Description="CALM(Catenary Anchor Leg Mooring)계선부표의 위치지점" GeometryStyle="BC020P60">
+				<VVTStyle BTC="7" NST="52" SST="16" NAM="CALM"></VVTStyle>
+			</Feature>
+			<Feature Name="ODAS 부표" Description="매우 깊은 수심에서 해양학, 기상학상의 희박한 정보를 위해 사용되는 ODAS(Oceanographic Data Acquisition System)부표의 위치지점" GeometryStyle="BC020P61">
+				<VVTStyle BTC="10" NST="52" SST="16"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="부표_기본" FACC="BC020" GeometryType="Point" SHPSource="PBC020" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="미확인 부표" Description="미확인 부표의 위치지점" GeometryStyle="BC020P01">
+				<VVTStyle BTC="0,35" CCC="1,5,27,35,36" SSC="0"></VVTStyle>
+			</Feature>
+			<Feature Name="미확인 부표(일부색상 제외)" Description="일부색상을 제외한 미확인 부표의 위치지점" GeometryStyle="BC020P02">
+				<VVTStyle BTC="0,35" CCC="&lt;&gt;1,5,27,35,36" SSC="0"></VVTStyle>
+			</Feature>
+			<Feature Name="톤 부표" Description="신호음 부표의 위치지점" GeometryStyle="BC020P03">
+				<VVTStyle BTC="0,35" SSC="1"></VVTStyle>
+			</Feature>
+			<Feature Name="콘형 부표" Description="콘형 부표의 위치지점" GeometryStyle="BC020P04">
+				<VVTStyle BTC="0,35" CCC="1,5,27,35,36" SSC="6"></VVTStyle>
+			</Feature>
+			<Feature Name="콘형(일부색상 제외) 부표" Description="일부색상을 제외한 콘형 부표의 위치지점" GeometryStyle="BC020P05">
+				<VVTStyle BTC="0,35" CCC="&lt;&gt;1,5,27,35,36" SSC="6"></VVTStyle>
+			</Feature>
+			<Feature Name="원통형 캔 부표" Description="원통형 캔 부표의 위치지점" GeometryStyle="BC020P06">
+				<VVTStyle BTC="0,35" CCC="1,5,27,35,36" SSC="7"></VVTStyle>
+			</Feature>
+			<Feature Name="원통형 캔(일부색상 제외) 부표" Description="일부색상을 제외한 원통형 캔 부표의 위치지점" GeometryStyle="BC020P07">
+				<VVTStyle BTC="0,35" CCC="&lt;&gt;1,5,27,35,36" SSC="7"></VVTStyle>
+			</Feature>
+			<Feature Name="스파형 부표" Description="스파형 부표의 위치지점" GeometryStyle="BC020P08">
+				<VVTStyle BTC="0,35" SSC="16"></VVTStyle>
+			</Feature>
+			<Feature Name="기둥형 부표" Description="기둥형 부표의 위치지점" GeometryStyle="BC020P09">
+				<VVTStyle BTC="0,35" CCC="1,5,27,35,36" SSC="10" TMC="&lt;&gt;1,3,8,9"></VVTStyle>
+			</Feature>
+			<Feature Name="기둥형(일부색상 제외) 부표" Description="일부색상을 제외한 기둥형 부표의 위치지점" GeometryStyle="BC020P10">
+				<VVTStyle BTC="0,35" CCC="&lt;&gt;1,5,20,27,35,36" SSC="10"></VVTStyle>
+			</Feature>
+			<Feature Name="구형 부표" Description="구형 부표의 위치지점" GeometryStyle="BC020P11">
+				<VVTStyle BTC="0,35" CCC="&lt;&gt;20" SSC="17"></VVTStyle>
+			</Feature>
+			<Feature Name="Superboy 부표" Description="Superboy 부표의 위치지점" GeometryStyle="BC020P12">
+				<VVTStyle BTC="0,35" SSC="73"></VVTStyle>
+			</Feature>
+			<Feature Name="기타 부표" Description="기타 부표의 위치지점" GeometryStyle="BC020P13">
+				<VVTStyle BTC="0,35" SSC="999"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Group Category="항행보조시설" Name="등대" GeometryType="Point">
+		<Layer Category="항행보조시설" Name="등대_주기_음향신호기" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="LightP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="Horn" Description="음향신호기_주기_Horn" GeometryStyle="BC040P100">
+				<VVTStyle SST="6"></VVTStyle>
+			</Feature>
+			<Feature Name="Siren" Description="음향신호기_주기_Siren" GeometryStyle="BC040P101">
+				<VVTStyle SST="9"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="등대_주기_항법장치" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="LightP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="Circular Radiobeacon" Description="항법장치_주기_RC" GeometryStyle="BC010P100">
+				<VVTStyle NST="1"></VVTStyle>
+			</Feature>
+			<Feature Name="Racon" Description="항법장치_주기_Racon" GeometryStyle="BC010P101">
+				<VVTStyle NST="10"></VVTStyle>
+			</Feature>
+			<Feature Name="Radiobeacon(Type Unknown)" Description="항법장치_주기_RBn" GeometryStyle="BC010P139">
+				<VVTStyle NST="51"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="등대_주기_색상" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="LightP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="Black" Description="색상_주기_B" GeometryStyle="BC010P102">
+				<VVTStyle CCC="1"></VVTStyle>
+			</Feature>
+			<Feature Name="Blue" Description="색상_주기_Bu" GeometryStyle="BC010P103">
+				<VVTStyle CCC="2"></VVTStyle>
+			</Feature>
+			<Feature Name="Brown" Description="색상_주기_Br" GeometryStyle="BC010P104">
+				<VVTStyle CCC="3"></VVTStyle>
+			</Feature>
+			<Feature Name="Gray" Description="색상_주기_Gy" GeometryStyle="BC010P105">
+				<VVTStyle CCC="4"></VVTStyle>
+			</Feature>
+			<Feature Name="Green" Description="색상_주기_G" GeometryStyle="BC010P106">
+				<VVTStyle CCC="5"></VVTStyle>
+			</Feature>
+			<Feature Name="Orange" Description="색상_주기_Or" GeometryStyle="BC010P107">
+				<VVTStyle CCC="9"></VVTStyle>
+			</Feature>
+			<Feature Name="Red" Description="색상_주기_R" GeometryStyle="BC010P108">
+				<VVTStyle CCC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="Violet" Description="색상_주기_Vi" GeometryStyle="BC010P109">
+				<VVTStyle CCC="14"></VVTStyle>
+			</Feature>
+			<Feature Name="White" Description="색상_주기_W" GeometryStyle="BC010P110">
+				<VVTStyle CCC="15"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow" Description="색상_주기_Y" GeometryStyle="BC010P111">
+				<VVTStyle CCC="19"></VVTStyle>
+			</Feature>
+			<Feature Name="Red_White" Description="색상_주기_RW" GeometryStyle="BC010P112">
+				<VVTStyle CCC="20"></VVTStyle>
+			</Feature>
+			<Feature Name="Red_Green" Description="색상_주기_RG" GeometryStyle="BC010P113">
+				<VVTStyle CCC="21"></VVTStyle>
+			</Feature>
+			<Feature Name="Red_Black" Description="색상_주기_RB" GeometryStyle="BC010P114">
+				<VVTStyle CCC="22"></VVTStyle>
+			</Feature>
+			<Feature Name="Red_Green_Red" Description="색상_주기_RGR" GeometryStyle="BC010P115">
+				<VVTStyle CCC="23"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_White" Description="색상_주기_GW" GeometryStyle="BC010P116">
+				<VVTStyle CCC="24"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_Red" Description="색상_주기_GR" GeometryStyle="BC010P117">
+				<VVTStyle CCC="25"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_Black" Description="색상_주기_GB" GeometryStyle="BC010P118">
+				<VVTStyle CCC="26"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_Red_Green" Description="색상_주기_GRG" GeometryStyle="BC010P119">
+				<VVTStyle CCC="27"></VVTStyle>
+			</Feature>
+			<Feature Name="Green_Yellow_Black" Description="색상_주기_GYB" GeometryStyle="BC010P120">
+				<VVTStyle CCC="28"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Black" Description="색상_주기_YB" GeometryStyle="BC010P121">
+				<VVTStyle CCC="29"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Black_Yellow" Description="색상_주기_YBY" GeometryStyle="BC010P122">
+				<VVTStyle CCC="30"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Red" Description="색상_주기_YR" GeometryStyle="BC010P123">
+				<VVTStyle CCC="31"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Green" Description="색상_주기_YG" GeometryStyle="BC010P124">
+				<VVTStyle CCC="32"></VVTStyle>
+			</Feature>
+			<Feature Name="Yellow_Red_White" Description="색상_주기_YRW" GeometryStyle="BC010P125">
+				<VVTStyle CCC="33"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Yellow" Description="색상_주기_BY" GeometryStyle="BC010P126">
+				<VVTStyle CCC="34"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Yellow_Black" Description="색상_주기_BYB" GeometryStyle="BC010P127">
+				<VVTStyle CCC="35"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Red_Black" Description="색상_주기_BRB" GeometryStyle="BC010P128">
+				<VVTStyle CCC="36"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_White" Description="색상_주기_BW" GeometryStyle="BC010P129">
+				<VVTStyle CCC="37"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Red" Description="색상_주기_BR" GeometryStyle="BC010P130">
+				<VVTStyle CCC="38"></VVTStyle>
+			</Feature>
+			<Feature Name="Black_Green" Description="색상_주기_BG" GeometryStyle="BC010P131">
+				<VVTStyle CCC="39"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Red" Description="색상_주기_WR" GeometryStyle="BC010P132">
+				<VVTStyle CCC="40"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Orange" Description="색상_주기_WOr" GeometryStyle="BC010P133">
+				<VVTStyle CCC="41"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Green" Description="색상_주기_WG" GeometryStyle="BC010P134">
+				<VVTStyle CCC="42"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Black" Description="색상_주기_WB" GeometryStyle="BC010P135">
+				<VVTStyle CCC="43"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Yellow" Description="색상_주기_WY" GeometryStyle="BC010P136">
+				<VVTStyle CCC="44"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Red_Green" Description="색상_주기_WRG" GeometryStyle="BC010P137">
+				<VVTStyle CCC="45"></VVTStyle>
+			</Feature>
+			<Feature Name="White_Green_White" Description="색상_주기_WGW" GeometryStyle="BC010P138">
+				<VVTStyle CCC="46"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="등대_주기_가시범위특성" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="LightP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="LVN">
+			<Feature Name="등대_특성_주기" Description="등대 가시범위 특성의 위치지점" LabelStyle="BC040T05">
+				<VVTStyle LVN="&gt;0"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="등대_주기_높이특성" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="LightP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="EOL">
+			<Feature Name="등대_특성_주기" Description="등대 높이특성의 위치지점" LabelStyle="BC040T04">
+				<VVTStyle EOL="&gt;0"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="등대_주기_간격특성" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="LightP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="PER">
+			<Feature Name="등대_특성_주기" Description="등대 간격특성의 위치지점" LabelStyle="BC040T03">
+				<VVTStyle PER="&gt;0"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="등대_주기_리듬특성" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="LightP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="COL">
+			<Feature Name="등대_특성_주기" Description="등대 리듬특성의 위치지점" LabelStyle="BC040T02"></Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="등대_음향신호기" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="LightP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="음향신호기" Description="음향의 진행, 정지, 방향 전환, 주의 따위의 신호를 표시하는 장치의 위치지점" GeometryStyle="BC040P28">
+				<VVTStyle SST="&lt;&gt;16"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="등대_항법장치" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="LightP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="항법장치" Description="위치, 방향, 시간 따위를 산출하는 운전 장치의 위치지점" GeometryStyle="BC040P27">
+				<VVTStyle NST="&lt;&gt;52"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="등대" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="LightP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="미확인 등대" Description="점화된 비콘이 있는 미확인 등대의 위치지점" GeometryStyle="BC040P03">
+				<VVTStyle TXT="Beacon" TMC="0" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="동방위 등대" Description="동방위 등대의 위치지점" GeometryStyle="BC040P04">
+				<VVTStyle TXT="Beacon" TMC="1" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="고립장애표지" Description="고립장애표지 등대의 위치지점" GeometryStyle="BC040P05">
+				<VVTStyle TXT="Beacon" TMC="2" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="북방위표지" Description="북방위표지 등대의 위치지점" GeometryStyle="BC040P06">
+				<VVTStyle TXT="Beacon" TMC="3" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="X표지" Description="X표지 등대의 위치지점" GeometryStyle="BC040P07">
+				<VVTStyle TXT="Beacon" TMC="6" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="남방위표지" Description="남방위표지 등대의 위치지점" GeometryStyle="BC040P08">
+				<VVTStyle TXT="Beacon" TMC="8" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="서방위표지" Description="서방위표지 등대의 위치지점" GeometryStyle="BC040P09">
+				<VVTStyle TXT="Beacon" TMC="9" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="콘위의 볼형" Description="콘위의 볼형 등대의 위치지점" GeometryStyle="BC040P10">
+				<VVTStyle TXT="Beacon" TMC="15" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 콘형" Description="볼위의 콘형 등대의 위치지점" GeometryStyle="BC040P11">
+				<VVTStyle TXT="Beacon" TMC="16" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="빗자루형 포인트" Description="빗자루형 등대의 위치지점" GeometryStyle="BC040P12">
+				<VVTStyle TXT="Beacon" TMC="17" NST="52" SST="16"></VVTStyle>
+			</Feature>
+			<Feature Name="횃대형" Description="횃대형 등대의 위치지점" GeometryStyle="BC040P13">
+				<VVTStyle TXT="Beacon" TMC="18" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="다이아몬드형" Description="다이아몬드형 등대의 위치지점" GeometryStyle="BC040P14">
+				<VVTStyle TXT="Beacon" TMC="19" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="위로 향한 콘형 포인트" Description="위로 향한 콘형 포인트 등대의 위치지점" GeometryStyle="BC040P15">
+				<VVTStyle TXT="Beacon" TMC="21" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="아래로 향한 콘형 포인트" Description="아래로 향한 콘형 포인트 등대의 위치지점" GeometryStyle="BC040P16">
+				<VVTStyle TXT="Beacon" TMC="22" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="십자가형" Description="십자가형 등대의 위치지점" GeometryStyle="BC040P17">
+				<VVTStyle TXT="Beacon" TMC="23" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="열린 캔형" Description="열린 캔형 등대의 위치지점" GeometryStyle="BC040P18">
+				<VVTStyle TXT="Beacon" TMC="25" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="가득 찬 캔형" Description="가득 찬 캔형 등대의 위치지점" GeometryStyle="BC040P19">
+				<VVTStyle TXT="Beacon" TMC="26" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="열린 볼형" Description="열린 볼형 등대의 위치지점" GeometryStyle="BC040P20">
+				<VVTStyle TXT="Beacon" TMC="27" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="가득 찬 볼형" Description="가득 찬 볼형 등대의 위치지점" GeometryStyle="BC040P21">
+				<VVTStyle TXT="Beacon" TMC="28" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 캔형" Description="볼위의 캔형 등대의 위치지점" GeometryStyle="BC040P22">
+				<VVTStyle TXT="Beacon" TMC="29" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 십자가형" Description="볼위의 십자가형 등대의 위치지점" GeometryStyle="BC040P23">
+				<VVTStyle TXT="Beacon" TMC="30" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="볼위의 다이아몬드형" Description="볼위의 다이아몬드형 등대의 위치지점" GeometryStyle="BC040P24">
+				<VVTStyle TXT="Beacon" TMC="31" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="더블 콘형" Description="더블 콘형 등대의 위치지점" GeometryStyle="BC040P25">
+				<VVTStyle TXT="Beacon" TMC="32" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+			<Feature Name="없음" Description="아무표시가 없는 등대의 위치지점" GeometryStyle="BC040P26">
+				<VVTStyle TXT="Beacon" TMC="33" NST="52" SST="16" CCC="&lt;&gt;0"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="레이더 반사기" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="LightP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="레이더 반사기" Description="부표, 등표 또는 방파제 등대 등에 설치되어 레이더에서 발사되는 전파의 반사 능률을 높여주는 반사판을 조립한 장치의 위치지점" GeometryStyle="BC040P02">
+				<VVTStyle TXT="&lt;&gt;Beacon" REF="1"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항행보조시설" Name="비콘이 없는 등대" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="LightP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="비콘이 없는 등대" Description="비콘이 없는 등대의 위치지점" GeometryStyle="BC040P01">
+				<VVTStyle TXT="&lt;&gt;Beacon" NST="52" SST="16"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Layer Category="항행보조시설" Name="색표지" FACC="BC055" GeometryType="Point" SHPSource="PBC055" GDBSource="MarKerP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="색표지" Description="해상용 네비게이션을 위해 뚜렷한 주요 지형지물인 절벽, 암석 등에 유색으로 마크한 위치지점" GeometryStyle="BC055P01"></Feature>
+	</Layer>
+	<Layer Category="항행보조시설" Name="등대선" FACC="BC070" GeometryType="Point" SHPSource="PBC070" GDBSource="BuoybcnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="등대선" Description="배 위에 높이 등표(燈標)를 걸어 놓고 항로를 알려 주는 배의 위치지점" GeometryStyle="BC070P01"></Feature>
+	</Layer>
+	<Layer Category="항행보조시설" Name="경계표지 말뚝" FACC="BC080" GeometryType="Point" SHPSource="PBC080" GDBSource="ObstrucP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="경계표지 말뚝" Description="해상에서 주의 할 곳을 나타내는 표지 말뚝의 위치지점" GeometryStyle="BC080P01"></Feature>
+	</Layer>
+	<Group Category="해상경계" Name="해상경계선" GeometryType="Point">
+		<Layer Category="해상경계" Name="해상경계선_주기" FACC="FC021" GeometryType="Point" SHPSource="PFC021" GDBSource="LimbndP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="NAM">
+			<Feature Name="해상경계선_주기" Description="해상경계선 주기의 위치지점" LabelStyle="FC021T01"></Feature>
+		</Layer>
+		<Layer Category="해상경계" Name="해상경계선" FACC="FC021" GeometryType="Point" SHPSource="PFC021" GDBSource="LimbndP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="헬리콥터 외 도선사승선지점" Description="헬리콥터 외 도선법에 따라 도선 업무를 할 수 있는 사람이 승선하는 위치지점" GeometryStyle="FC021P01">
+				<VVTStyle MAC="48" PBV="&lt;&gt;2"></VVTStyle>
+			</Feature>
+			<Feature Name="헬리콥터 도선사승선지점" Description="헬리콥터를 도선법에 따라 도선 업무를 할 수 있는 사람이 승선하는 위치지점" GeometryStyle="FC021P02">
+				<VVTStyle MAC="48" PBV="2"></VVTStyle>
+			</Feature>
+			<Feature Name="기타 도선사승선지점" Description="도선법에 따라 도선 업무를 할 수 있는 사람이 승선하는 위치지점" GeometryStyle="FC021P03">
+				<VVTStyle MAC="0,999"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Layer Category="해상경계" Name="해상구역" FACC="FC031" GeometryType="Point" SHPSource="PFC031" GDBSource="MaritimP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="기타 해상구역" Description="원형통항분리대가 없는 해상구역의 위치지점" GeometryStyle="FC031P01">
+			<VVTStyle MAC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="해상구역" Description="원형통항분리대가 있는 화살표의 위치지점" GeometryStyle="FC031P02">
+			<VVTStyle MAC="40" TSP="1"></VVTStyle>
+		</Feature>
+		<Feature Name="분리 해상구역" Description="원형통항분리대가 있는 분리대 점의 위치지점" GeometryStyle="FC031P03">
+			<VVTStyle MAC="40" TSP="5"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="제한구역" FACC="FC036" GeometryType="Point" SHPSource="PFC036" GDBSource="LimbndP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="투묘금지구역" Description="투묘가 금지된 제한구역의 위치지점" GeometryStyle="FC036P01">
+			<VVTStyle MAC="15"></VVTStyle>
+		</Feature>
+		<Feature Name="어로금지구역" Description="어로가 금지된 제한구역의 위치지점" GeometryStyle="FC036P02">
+			<VVTStyle MAC="22"></VVTStyle>
+		</Feature>
+		<Feature Name="안전지대" Description="안전지대의 위치지점" GeometryStyle="FC036P03">
+			<VVTStyle MAC="37"></VVTStyle>
+		</Feature>
+		<Feature Name="미확인/피험지역(해양 목장X)" Description="해양 목장이 아닌 미확인/피험지역의 위치지점" GeometryStyle="FC036P04">
+			<VVTStyle MAC="0,43,999" NAM="&lt;&gt;Marine Farm"></VVTStyle>
+		</Feature>
+		<Feature Name="미확인/피험지역(해양 목장O)" Description="해양 목장인 미확인/피험지역의 위치지점" GeometryStyle="FC036P05">
+			<VVTStyle MAC="0,43,999" NAM="Marine Farm"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="통항분리방식" FACC="FC041" GeometryType="Point" SHPSource="PFC041" GDBSource="SepartnP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry" AngleColumn="DOF">
+		<Feature Name="통항분리방식" Description="항해에 대한 특정 중요 요인이 있는 해상한계구역 중, 원형통항분리대해상한계구역의 위치지점" GeometryStyle="FC041P01"></Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="항로" FACC="FC165" GeometryType="Point" SHPSource="PFC165" GDBSource="RouteP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry" AngleColumn="DOF">
+		<Feature Name="항로방향" Description="안전한 배의 운항을 위해 설치된 통로나 길인 항로의 위치지점" GeometryStyle="FC165P01">
+			<VVTStyle RTT="0"></VVTStyle>
+		</Feature>
+		<Feature Name="추천방향" Description="안전한 배의 운항을 위해 설치된 통로나 길 중, 추천 항로의 위치지점" GeometryStyle="FC165P02">
+			<VVTStyle RTT="13"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="해상경계" Name="소탕지역" FACC="FC177" GeometryType="Point" SHPSource="PFC177" GDBSource="LimbndP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="HDP">
+		<Feature Name="소탕지역" Description="항해 위험이 없는 지역을 보장하는 Wire drag에 의해 청소된 수역의 위치지점" LabelStyle="FC177T01"></Feature>
+	</Layer>
+	<Group Category="항구관련시설" Name="묘박지" GeometryType="Point">
+		<Layer Category="항구관련시설" Name="묘박지_주기" FACC="BB010" GeometryType="Point" SHPSource="PBB010" GDBSource="LimbndyP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="NAM">
+			<Feature Name="일반/유조선 묘박지_주기" Description="일반/유조선 묘박지 주기의 위치지점" LabelStyle="BB010T01">
+				<VVTStyle MAC="11,19" NAM="&lt;&gt;UNK"></VVTStyle>
+			</Feature>
+			<Feature Name="지정 묘박지_주기" Description="지정 묘박지 주기의 위치지점" LabelStyle="BB010T02">
+				<VVTStyle MAC="12" NAM="&lt;&gt;UNK"></VVTStyle>
+			</Feature>
+			<Feature Name="시간이 제한된 묘박지_주기" Description="시간이 제한된 묘박지 주기의 위치지점" LabelStyle="BB010T03">
+				<VVTStyle MAC="54" NAM="&lt;&gt;UNK"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항구관련시설" Name="묘박지" FACC="BB010" GeometryType="Point" SHPSource="PBB010" GDBSource="LimbndyP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="일반/유조선 묘박지" Description="일반/유조선 묘박지의 위치지점" GeometryStyle="BB010P02">
+				<VVTStyle MAC="11,19"></VVTStyle>
+			</Feature>
+			<Feature Name="지정 묘박지" Description="지정 묘박지의 위치지점" GeometryStyle="BB010P03">
+				<VVTStyle MAC="12"></VVTStyle>
+			</Feature>
+			<Feature Name="폭발물선 묘박지" Description="폭발물선 묘박지의 위치지점" GeometryStyle="BB010P04">
+				<VVTStyle MAC="13"></VVTStyle>
+			</Feature>
+			<Feature Name="대형홀수선 묘박지" Description="대형홀수선 묘박지의 위치지점" GeometryStyle="BB010P05">
+				<VVTStyle MAC="14"></VVTStyle>
+			</Feature>
+			<Feature Name="검역 묘박지" Description="검역 묘박지의 위치지점" GeometryStyle="BB010P06">
+				<VVTStyle MAC="16"></VVTStyle>
+			</Feature>
+			<Feature Name="예비 묘박지" Description="예비 묘박지의 위치지점" GeometryStyle="BB010P07">
+				<VVTStyle MAC="17"></VVTStyle>
+			</Feature>
+			<Feature Name="유조선 묘박지" Description="유조선 묘박지의 위치지점" GeometryStyle="BB010P08">
+				<VVTStyle MAC="19"></VVTStyle>
+			</Feature>
+			<Feature Name="수상비행기 묘박지" Description="수상 비행기가 계류하는 장소로 정박에 적합한 물 위의 일정한 구역의 위치지점" GeometryStyle="BB010P09">
+				<VVTStyle MAC="53"></VVTStyle>
+			</Feature>
+			<Feature Name="시간이 제한된 묘박지" Description="시간이 제한된 묘박지의 위치지점" GeometryStyle="BB010P10" LabelStyle="BB010T03">
+				<VVTStyle MAC="54"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Layer Category="항구관련시설" Name="정박지" FACC="BB020" GeometryType="Point" SHPSource="PBB020" GDBSource="BerthP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Both" LabelColumn="BER">
+		<Feature Name="정박지" Description="방파제나 부두, 계선주 또는 토크가 견고해졌을 때 배가 위치하는 장소로, 해안선으로부터 떨어져서 지정되는 정박지의 위치지점" GeometryStyle="BB020P01" LabelStyle="BB020T01"></Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="계선주" FACC="BB030" GeometryType="Point" SHPSource="PBB030" GDBSource="MooringP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="계선주" Description="정박이나 배의 이동 또는 항해를 위한 구조물로 사용되는 계선주의 위치지점" GeometryStyle="BB030P01"></Feature>
+	</Layer>
+	<Group Category="항구관련시설" Name="위치통보점" GeometryType="Point">
+		<Layer Category="항구관련시설" Name="위치통보점" FACC="BB050" GeometryType="Point" SHPSource="PBB050" GDBSource="CallinP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry" AngleColumn="DF1">
+			<Feature Name="단방향 위치통보점" Description="비행기가 항공로를 따라 단방향 위치를 통보하는 장소로서 미리 정해진 장소의 위치지점" GeometryStyle="BB050P01">
+				<VVTStyle DF1="&lt;&gt;0"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항구관련시설" Name="위치통보점" FACC="BB050" GeometryType="Point" SHPSource="PBB050" GDBSource="CallinP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry" AngleColumn="DF2">
+			<Feature Name="단방향 위치통보점" Description="비행기가 항공로를 따라 단방향 위치를 통보하는 장소로서 미리 정해진 장소의 위치지점" GeometryStyle="BB050P01">
+				<VVTStyle DF2="&lt;&gt;0"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항구관련시설" Name="위치통보점" FACC="BB050" GeometryType="Point" SHPSource="PBB050" GDBSource="CallinP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry" AngleColumn="DF3">
+			<Feature Name="단방향 위치통보점" Description="비행기가 항공로를 따라 단방향 위치를 통보하는 장소로서 미리 정해진 장소의 위치지점" GeometryStyle="BB050P01">
+				<VVTStyle DF3="&lt;&gt;0"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항구관련시설" Name="위치통보점" FACC="BB050" GeometryType="Point" SHPSource="PBB050" GDBSource="CallinP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry" AngleColumn="DF4">
+			<Feature Name="단방향 위치통보점" Description="비행기가 항공로를 따라 단방향 위치를 통보하는 장소로서 미리 정해진 장소의 위치지점" GeometryStyle="BB050P01">
+				<VVTStyle DF4="&lt;&gt;0"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Layer Category="항구관련시설" Name="계선주" FACC="BB080" GeometryType="Point" SHPSource="PBB080" GDBSource="MooringP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="계선주" Description="정박이나 배의 이동 또는 항해를 위한 구조물로 사용되는 계선주의 위치지점" GeometryStyle="BB080P01"></Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="어항" FACC="BB105" GeometryType="Point" SHPSource="PBB105" GDBSource="ObstrucP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="어항" Description="천연 또는 인공의 어업근거지가 되는 항만의 위치지점" GeometryStyle="BB105P01"></Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="착륙지" FACC="BB150" GeometryType="Point" SHPSource="PBB150" GDBSource="LandingP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="착륙지" Description="항공기의 이착륙을 위해 사용되는 육지및 수계의 규정 지역 중, 착륙지역의 위치지점" GeometryStyle="BB150P01"></Feature>
+	</Layer>
+	<Layer Category="항구관련시설" Name="계선환" FACC="BB160" GeometryType="Point" SHPSource="PBB160" GDBSource="MooringP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="계선환" Description="배를 매어 두기 위하여 안벽(岸壁)의 앞부분에 달아 놓은 쇠고리의 위치지점" GeometryStyle="BB160P01"></Feature>
+	</Layer>
+	<Group Category="항구관련시설" Name="근해선적시설" GeometryType="Point">
+		<Layer Category="항구관련시설" Name="근해선적시설_계류장치" FACC="BB170" GeometryType="Point" SHPSource="PBB170" GDBSource="LoadingP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="근해선적시설_계류장치" Description="소형선이 계류할 때 배의 로프를 걸 수 있도록 강제 원형 링을 설치한 계류장치의 위치지점" GeometryStyle="BB170P03">
+				<VVTStyle USE="133"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항구관련시설" Name="근해선적시설" FACC="BB170" GeometryType="Point" SHPSource="PBB170" GDBSource="LoadingP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="불빛없는 근해선적시설" Description="지역이 아닌 바다에 있는 배에 짐을 싣는 불빛없는 시설의 위치지점" GeometryStyle="BB170P02">
+				<VVTStyle CHA="21,23"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="항구관련시설" Name="근해선적시설_라이트" FACC="BB170" GeometryType="Point" SHPSource="PBB170" GDBSource="LoadingP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="근해선적시설_라이트" Description="지역이 아닌 바다에 있는 배에 짐을 싣는 불빛있는 시설의 위치지점" GeometryStyle="BB170P01">
+				<VVTStyle CHA="21"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Layer Category="항구관련시설" Name="굴/홍합 양식장" FACC="BB180" GeometryType="Point" SHPSource="PBB180" GDBSource="ObstrucP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+		<Feature Name="굴/홍합 양식장" Description="굴/홍합이 양식되고 있는 곳의 위치지점" GeometryStyle="BB180P01"></Feature>
+	</Layer>
+	<Group Category="인공지물" Name="건물" GeometryType="Point">
+		<Layer Category="인공지물" Name="등화" FACC="AL015" GeometryType="Point" SHPSource="PAL015" GDBSource="BuildingP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="등화" Description="신호(信號)의 전달수단으로 사용되는 빛인 등화의 위치지점" GeometryStyle="AL015P24">
+				<VVTStyle COL="&lt;&gt;UNK"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="인공지물" Name="음향 신호기" FACC="AL015" GeometryType="Point" SHPSource="PAL015" GDBSource="BuildingP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Geometry">
+			<Feature Name="음향 신호기" Description="음향신호기의 위치지점" GeometryStyle="AL015P23">
+				<VVTStyle SST="9"></VVTStyle>
+			</Feature>
+		</Layer>
+		<Layer Category="인공지물" Name="건물" FACC="AL015" GeometryType="Point" SHPSource="PAL015" GDBSource="BuildingP" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Both" LabelColumn="NAM">
+			<Feature Name="수로안내소" Description="수로 안내소의 위치지점" GeometryStyle="AL015P18" LabelStyle="AL015T01">
+				<VVTStyle BFC="81" STA="0,11"></VVTStyle>
+			</Feature>
+			<Feature Name="해안경비대 해안구조대" Description="해안경비대 해안구조대의 위치지점" GeometryStyle="AL015P19" LabelStyle="AL015T01">
+				<VVTStyle BFC="81" STA="1,5"></VVTStyle>
+			</Feature>
+			<Feature Name="소방선 해상경찰서" Description="소방선 해상경찰서의 위치지점" GeometryStyle="AL015P20" LabelStyle="AL015T01">
+				<VVTStyle BFC="81" STA="2,3"></VVTStyle>
+			</Feature>
+			<Feature Name="기타" Description="어떤 특별한 목적으로 설계되어, 주로 해상업무를 목적으로 사용되는 다양한 건물의 위치지점" GeometryStyle="AL015P21" LabelStyle="AL015T01">
+				<VVTStyle BFC="81" STA="4,6,13,15,17,19,21,22,27,28,29,30,32,33"></VVTStyle>
+			</Feature>
+			<Feature Name="수기신호소" Description="수기신호소의 위치지점" GeometryStyle="AL015P22" LabelStyle="AL015T01">
+				<VVTStyle BFC="81" STA="25"></VVTStyle>
+			</Feature>
+		</Layer>
+	</Group>
+	<Layer Category="지명" Name="지명" FACC="" GeometryType="Point" SHPSource="해양지명" GDBSource="" Map="KR1,KR2,KR3,KR4,KR5" DisplayType="Label" LabelColumn="해양지">
+		<Feature Name="해양지명" Description="해상지역의 위치지점" LabelStyle="GeonameNavyT01"></Feature>
+	</Layer>
+</MapLayer>

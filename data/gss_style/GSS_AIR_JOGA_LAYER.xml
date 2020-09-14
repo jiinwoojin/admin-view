@@ -1,0 +1,1194 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<MapLayer Version="1.0">
+	<Layer Category="수부" Name="바다" FACC="BA040" GeometryType="Polygon" SHPSource="ABA040" GDBSource="CoastA" Map="250K" DisplayType="Geometry">
+		<Feature Name="바다" Description="일반적으로 조수의 파동을 가진 바다의 경계지역" GeometryStyle="BA040A01"></Feature>
+	</Layer>
+	<Layer Category="식생" Name="산림" FACC="EC030" GeometryType="Polygon" SHPSource="AEC030" GDBSource="TreesA" Map="250K" DisplayType="Geometry">
+		<Feature Name="산림" Description="수목이 집단적으로 생육하고 있는 경계지역" GeometryStyle="EC030A01"></Feature>
+	</Layer>
+	<Layer Category="고도" Name="단채식" FACC="" GeometryType="Polygon" SHPSource="Air_ELEV_TINT" GDBSource="" Map="250K" DisplayType="Geometry">
+		<Feature Name="단채식" Description="등고선을 기준으로 하여 고도(高度)에 따라 지형과 기복을 나타내는 경계지역" GeometryStyle="ETint_1">
+			<VVTStyle GRIDCODE="0"></VVTStyle>
+		</Feature>
+		<Feature Name="단채식" Description="등고선을 기준으로 하여 고도(高度)에 따라 지형과 기복을 나타내는 경계지역" GeometryStyle="ETint_1">
+			<VVTStyle GRIDCODE="1"></VVTStyle>
+		</Feature>
+		<Feature Name="단채식" Description="등고선을 기준으로 하여 고도(高度)에 따라 지형과 기복을 나타내는 경계지역" GeometryStyle="ETint_2">
+			<VVTStyle GRIDCODE="2"></VVTStyle>
+		</Feature>
+		<Feature Name="단채식" Description="등고선을 기준으로 하여 고도(高度)에 따라 지형과 기복을 나타내는 경계지역" GeometryStyle="ETint_3">
+			<VVTStyle GRIDCODE="3"></VVTStyle>
+		</Feature>
+		<Feature Name="단채식" Description="등고선을 기준으로 하여 고도(高度)에 따라 지형과 기복을 나타내는 경계지역" GeometryStyle="ETint_4">
+			<VVTStyle GRIDCODE="4"></VVTStyle>
+		</Feature>
+		<Feature Name="단채식" Description="등고선을 기준으로 하여 고도(高度)에 따라 지형과 기복을 나타내는 경계지역" GeometryStyle="ETint_5">
+			<VVTStyle GRIDCODE="5"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="식생" Name="논" FACC="BH135" GeometryType="Polygon" SHPSource="ABH135" GDBSource="CropA" Map="250K" DisplayType="Geometry">
+		<Feature Name="논" Description="쌀을 재배하기 위해 주기적으로 사용되는 물로 뒤덮인 지역인 논의 경계지역" GeometryStyle="BH135A01"></Feature>
+	</Layer>
+	<Layer Category="식생" Name="밭" FACC="EA010" GeometryType="Polygon" SHPSource="AEA010" GDBSource="CropA" Map="250K" DisplayType="Geometry">
+		<Feature Name="밭" Description="농작물 재배를 위해 경작되어진 지역인 밭의 경계지역" GeometryStyle="EA010A01"></Feature>
+	</Layer>
+	<Layer Category="식생" Name="초지" FACC="EB010" GeometryType="Polygon" SHPSource="AEB010" GDBSource="GrassA" Map="250K" DisplayType="Geometry">
+		<Feature Name="초지" Description="수목이나 목초를 재배하고 관리하는 초지의 경계지역" GeometryStyle="EB010A01"></Feature>
+	</Layer>
+	<Layer Category="식생" Name="과수원" FACC="EA040" GeometryType="Polygon" SHPSource="AEA040" GDBSource="OrchardA" Map="250K" DisplayType="Geometry">
+		<Feature Name="과수원" Description="과실, 견과나 다른 생산물을 산출하는 나무를 체계적으로 재배하고 보호하는 과수원의 경계지역" GeometryStyle="EA040A01"></Feature>
+	</Layer>
+	<Layer Category="식생" Name="포도원" FACC="EA050" GeometryType="Polygon" SHPSource="AEA050" GDBSource="OrchardA" Map="250K" DisplayType="Geometry">
+		<Feature Name="포도원" Description="포도나무를 체계적으로 재배하는 포도원의 경계지역" GeometryStyle="EA050A01"></Feature>
+	</Layer>
+	<Layer Category="식생" Name="소택지" FACC="BH015" GeometryType="Polygon" SHPSource="ABH015" GDBSource="SwampA" Map="250K" DisplayType="Geometry">
+		<Feature Name="소택지" Description="토사와 잔류물이 배수되거나 주기적으로 범람하는 소택지의 경계지역" GeometryStyle="BH015A01"></Feature>
+	</Layer>
+	<Layer Category="식생" Name="늪/습지" FACC="BH095" GeometryType="Polygon" SHPSource="ABH095" GDBSource="SwampA" Map="250K" DisplayType="Geometry">
+		<Feature Name="늪/습지" Description="수목을 포함한 식생이 존재하고, 때때로 물이 차는 지역인 늪지의 경계지역" GeometryStyle="BH095A01"></Feature>
+	</Layer>
+	<Layer Category="식생" Name="툰드라" FACC="BJ110" GeometryType="Polygon" SHPSource="ABJ110" GDBSource="TundraA" Map="250K" DisplayType="Geometry">
+		<Feature Name="툰드라" Description="하등식생의 생성이 유지되는 북극지방과 아(亞)북극지방에 있는 대초원 같은 지역인 툰드라의 경계지역" GeometryStyle="BJ110A01"></Feature>
+	</Layer>
+	<Layer Category="식생" Name="오아시스" FACC="EC020" GeometryType="Polygon" SHPSource="AEC020" GDBSource="JogvegA" Map="250K" DisplayType="Geometry">
+		<Feature Name="오아시스" Description="사막 가운데에 샘이 솟고 풀과 나무가 자라는 오아시스의 경계지역" GeometryStyle="EC020A01"></Feature>
+	</Layer>
+	<Layer Category="식생" Name="방화지대" FACC="EC040" GeometryType="Polygon" SHPSource="AEC040" GDBSource="TlmvegA" Map="250K" DisplayType="Geometry">
+		<Feature Name="방화지대" Description="산불 진화선 구축을 신속, 용이하게 작업할 수 있는 인공적 또는 천연적인 도로, 하천, 능선, 농경지 등이 있는 경계지역" GeometryStyle="EC040A01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="호수" FACC="BH080" GeometryType="Polygon" SHPSource="ABH080" GDBSource="LaKeresA" Map="250K" DisplayType="Geometry">
+		<Feature Name="영구적 호수" Description="육지에 의해 둘러싸인 수괴로, 물이 영구적으로 나타나는 호수의 경계지역" GeometryStyle="BH080A01">
+			<VVTStyle HYC="0,8"></VVTStyle>
+		</Feature>
+		<Feature Name="간헐적 호수" Description="육지에 의해 둘러싸인 수괴로, 물이 간헐적으로 나타나는 호수의 경계지역" GeometryStyle="BH080A03">
+			<VVTStyle HYC="6"></VVTStyle>
+		</Feature>
+		<Feature Name="건조한 호수" Description="육지에 의해 둘러싸인 수괴로, 물이 나타나는 건조한 호수의 경계지역" GeometryStyle="BH080A03">
+			<VVTStyle HYC="3"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="저수지" FACC="BH130" GeometryType="Polygon" SHPSource="ABH130" GDBSource="LaKeresA" Map="250K" DisplayType="Geometry">
+		<Feature Name="운영중 저수지" Description="물을 저장하기 위해 형성한 운영중인 저수지의 경계지역" GeometryStyle="BH130A01">
+			<VVTStyle EXS="0,1,28"></VVTStyle>
+		</Feature>
+		<Feature Name="건설중 저수지" Description="물을 저장하기 위해 형성한 저수지 중 건설중인 저수지의의 경계지역" GeometryStyle="BH130A02">
+			<VVTStyle EXS="5"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="강/하천" FACC="BH140" GeometryType="Polygon" SHPSource="ABH140" GDBSource="WatrcrsA" Map="250K" DisplayType="Geometry">
+		<Feature Name="영구적 강/하천" Description="자연적인 흐름의 수로인 영구적 강/하천의 경계지역" GeometryStyle="BH140A01">
+			<VVTStyle HYC="0,8"></VVTStyle>
+		</Feature>
+		<Feature Name="간헐적 강/하천" Description="자연적인 흐름의 수로인 간헐적 강/하천의 경계지역" GeometryStyle="BH140A02">
+			<VVTStyle HYC="3,6"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="범람지역" FACC="BH090" GeometryType="Polygon" SHPSource="ABH090" GDBSource="InundA" Map="250K" DisplayType="Geometry">
+		<Feature Name="자연 범람지역" Description="조수를 제외하고 주기적으로 물이 자연적으로 범람하는 곳의 경계지역" GeometryStyle="BH090A01">
+			<VVTStyle EXS="0,45"></VVTStyle>
+		</Feature>
+		<Feature Name="조정 범람지역" Description="조수를 제외하고 주기적으로 물이 범람하는 곳의  경계지역" GeometryStyle="BH090A02">
+			<VVTStyle EXS="48"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="석호/초호" FACC="BH190" GeometryType="Polygon" SHPSource="ABH190" GDBSource="DangerA" Map="250K" DisplayType="Geometry">
+		<Feature Name="석호/산호" Description="강/호수 인근의 작은 늪의 경계지역" GeometryStyle="BH190A01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="암초/암석지대" FACC="BD120" GeometryType="Polygon" SHPSource="ABD120" GDBSource="DangerA" Map="250K" DisplayType="Geometry">
+		<Feature Name="암초/암석지대" Description="해상운하에 위험한 바다의 바위 또는 산호인 암초/암석지대의 경계지역" GeometryStyle="BD120A01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="댐/보" FACC="BI020" GeometryType="Polygon" SHPSource="ABI020" GDBSource="JogHydroA" Map="250K" DisplayType="Geometry">
+		<Feature Name="댐/보" Description="물을 채우거나 물의 흐름을 조절하는 수로를 횡단하는 영구적 장벽인 댐/보의 경계지역" GeometryStyle="BI020A01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="아스팔트 호" FACC="DA005" GeometryType="Polygon" SHPSource="ADA005" GDBSource="AsphaltA" Map="250K" DisplayType="Geometry">
+		<Feature Name="아스팔트 호" Description="천연 지각의 웅덩이에 괴어있는 아스팔트의 경계지역" GeometryStyle="DA005A01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="지표면 특질" FACC="DA010" GeometryType="Polygon" SHPSource="ADA010" GDBSource="GroundA" Map="250K" DisplayType="Geometry">
+		<Feature Name="지표면 특질" Description="지구위 표면 토질 특성 중, 형태를 알 수 없는 지표면특질의 경계지역" GeometryStyle="DA010A01">
+			<VVTStyle MCC="0,55,119"></VVTStyle>
+		</Feature>
+		<Feature Name="진흙 지표면 특질" Description="지구위 표면 토질 특성 중, 진흙 지표면특질의 경계지역" GeometryStyle="DA010A03">
+			<VVTStyle MCC="8"></VVTStyle>
+		</Feature>
+		<Feature Name="자갈 지표면 특질" Description="지구위 표면 토질 특성 중, 자갈 지표면특질의 경계지역" GeometryStyle="DA010A02">
+			<VVTStyle MCC="46"></VVTStyle>
+		</Feature>
+		<Feature Name="갈모래 지표면 특질" Description="지구위 표면 토질 특성 중, 갈모래 지표면특질의 경계지역" GeometryStyle="DA010A04">
+			<VVTStyle MCC="88"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="지형" Name="자연염전" FACC="BH150" GeometryType="Polygon" SHPSource="ABH150" GDBSource="Lndfrm1A" Map="250K" DisplayType="Geometry">
+		<Feature Name="자연염전" Description="자연적으로 생성된 염전의 경계지역" GeometryStyle="BH150A01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="염호" FACC="BH160" GeometryType="Polygon" SHPSource="ABH160" GDBSource="Lndfrm1A" Map="250K" DisplayType="Geometry">
+		<Feature Name="염호" Description="호수의 물 1ℓ에 용존하는 총염분이 500㎎을 초과하는 염호의 경계지역" GeometryStyle="BH160A01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="사구" FACC="DB170" GeometryType="Polygon" SHPSource="ADB170" GDBSource="Lndfrm1A" Map="250K" DisplayType="Geometry">
+		<Feature Name="사구" Description="산마루나 모래언덕인 알 수 없는 형태의 사구의 경계지역" GeometryStyle="DB170A01">
+			<VVTStyle SSC="0"></VVTStyle>
+		</Feature>
+		<Feature Name="크리센트" Description="산마루나 모래언덕인 크리센트 형태의 사구의 경계지역" GeometryStyle="DB170A02">
+			<VVTStyle SSC="22"></VVTStyle>
+		</Feature>
+		<Feature Name="측면 사구" Description="산마루나 모래언덕인 측면 형태의 사구의 경계지역" GeometryStyle="DB170A03">
+			<VVTStyle SSC="26"></VVTStyle>
+		</Feature>
+		<Feature Name="언덕 사구" Description="산마루나 모래언덕인 언덕 형태의 사구의 경계지역" GeometryStyle="DB170A04">
+			<VVTStyle SSC="27"></VVTStyle>
+		</Feature>
+		<Feature Name="잔물결 사구" Description="산마루나 모래언덕인 잔물결 형태의 사구의 경계지역" GeometryStyle="DB170A05">
+			<VVTStyle SSC="28"></VVTStyle>
+		</Feature>
+		<Feature Name="별 사구" Description="산마루나 모래언덕인 별 형태의 사구의 경계지역" GeometryStyle="DB170A06">
+			<VVTStyle SSC="29"></VVTStyle>
+		</Feature>
+		<Feature Name="가로놓인 사구" Description="산마루나 모래언덕인 가로지른 형태의 사구의 경계지역" GeometryStyle="DB170A07">
+			<VVTStyle SSC="30"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="지형" Name="빙퇴석" FACC="BJ020" GeometryType="Polygon" SHPSource="ABJ020" GDBSource="Lndfrm2A" Map="250K" DisplayType="Geometry">
+		<Feature Name="빙퇴석" Description="빙하가 녹거나 침식 등으로 쌓이게 된 흙과 돌의 퇴적물인 빙퇴석의 경계지역" GeometryStyle="BJ020A01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="암석층" FACC="DB160" GeometryType="Polygon" SHPSource="ADB160" GDBSource="JogPhysA" Map="250K" DisplayType="Geometry">
+		<Feature Name="암석층" Description="가시적 지형의 노출부, 층이나 바위층인 암석층의 경계지역" GeometryStyle="DB160A01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="극빙" FACC="BJ080" GeometryType="Polygon" SHPSource="ABJ080" GDBSource="SeaIceA" Map="250K" DisplayType="Geometry">
+		<Feature Name="극빙" Description="만들어진 지 일 년 이상이 되고 두께가 3미터를 넘는 바다 얼음인 극빙의 경계지역" GeometryStyle="BJ080A01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="유빙" FACC="BJ070" GeometryType="Polygon" SHPSource="ABJ070" GDBSource="SeaIceA" Map="250K" DisplayType="Geometry">
+		<Feature Name="유빙" Description="물 위에 떠서 흘러가는 얼음덩이 유빙의 경계지역" GeometryStyle="BJ070A01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="빙붕" FACC="BJ065" GeometryType="Polygon" SHPSource="ABJ065" GDBSource="SeaIceA" Map="250K" DisplayType="Geometry">
+		<Feature Name="빙붕" Description="남극대륙과 이어져 바다에 떠 있는 300~900m두께의 얼음으로 된 대륙붕의 경계지역" GeometryStyle="BJ065A01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="빙원" FACC="BJ100" GeometryType="Polygon" SHPSource="ABJ100" GDBSource="LandIceA" Map="250K" DisplayType="Geometry">
+		<Feature Name="빙원" Description="지표의 전면이 두꺼운 얼음으로 덮여 있는 극지방의 벌판인 빙원의 경계지역" GeometryStyle="BJ100A01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="빙하" FACC="BJ030" GeometryType="Polygon" SHPSource="ABJ030" GDBSource="LandIceA" Map="250K" DisplayType="Geometry">
+		<Feature Name="빙하" Description="눈이 오랫동안 쌓여 다져져 육지의 일부를 덮고 있는 얼음층인 빙하의 경계지역" GeometryStyle="BJ030A01"></Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="밀집지역" FACC="AL020" GeometryType="Polygon" SHPSource="AAL020" GDBSource="BuiltupA" Map="250K" DisplayType="Geometry">
+		<Feature Name="밀집지역" Description="여러가지 목적의 구조물이 밀집되어 있는 밀집지역의 경계지역" GeometryStyle="AL020A01"></Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="요새" FACC="AH050" GeometryType="Polygon" SHPSource="AAH050" GDBSource="FortA" Map="250K" DisplayType="Geometry">
+		<Feature Name="요새" Description="군사적 방어 목적으로 건설된 요새의 경계지역" GeometryStyle="AH050A01"></Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="공원" FACC="AK120" GeometryType="Polygon" SHPSource="AAK120" GDBSource="LandmrKA" Map="250K" DisplayType="Geometry">
+		<Feature Name="공원" Description="오락이나 조경의 목적으로 이용되는 공원의 경계지역" GeometryStyle="AK120A01"></Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="작은 부락" FACC="AL105" GeometryType="Polygon" SHPSource="AAL105" GDBSource="MiscpopA" Map="250K" DisplayType="Geometry">
+		<Feature Name="작은 부락" Description="거주지가 집중되어 있는 정착지의 경계지역" GeometryStyle="AL105A01"></Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="원주민 부락" FACC="AL135" GeometryType="Polygon" SHPSource="AAL135" GDBSource="MiscpopA" Map="250K" DisplayType="Geometry">
+		<Feature Name="원주민 부락" Description="지역에 본디부터 살고 있는 사람들이 모여 사는 정착지의 경계지역" GeometryStyle="AL135A01"></Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="폐허" FACC="AL200" GeometryType="Polygon" SHPSource="AAL200" GDBSource="RuinsA" Map="250K" DisplayType="Geometry">
+		<Feature Name="폐허" Description="구조물의 질이 저하된 유적이 위치하는 폐허의 경계지역" GeometryStyle="AL200A01"></Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="건물" FACC="AL015" GeometryType="Polygon" SHPSource="AAL015" GDBSource="BuildA" Map="250K" DisplayType="Geometry">
+		<Feature Name="일반건물" Description="어떤 특별한 목적으로 설계되어, 일반적으로 벽담으로 둘러쌓이고 지붕이 있는 비교적 영구적인 구조의 건물의 위치지점" GeometryStyle="AL015A01">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="&lt;&gt;7,15,27,82" LMC="0,2"></VVTStyle>
+		</Feature>
+		<Feature Name="용도목표물 건물" Description="종교적 목적을 위한 건물, 학교, 창고, 등대를 제외한 기타 건물의 경계지역" GeometryStyle="AL015A01">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="&lt;&gt;7,15,27,82" LMC="1"></VVTStyle>
+		</Feature>
+		<Feature Name="사당" Description="종교적 목적으로 설계되는 건물 중, 조상의 신주를 모시는 건물의 위치지점" GeometryStyle="AL015A01">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="9"></VVTStyle>
+		</Feature>
+		<Feature Name="파괴된 건물" Description="어떤 특별한 목적으로 설계되어 일반적으로 벽담으로 둘러쌓여 지붕이 있는 비교적 영구적인 구조의 건물로, 현재 존재하는 건물의 경계지역" GeometryStyle="AL015A02">
+			<VVTStyle HGT="&lt;46" EXS="7"></VVTStyle>
+		</Feature>
+		<Feature Name="학교" Description="학교의 목적으로 설계되어 사용되는 건물의 경계지역" GeometryStyle="AL015A03">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="15"></VVTStyle>
+		</Feature>
+		<Feature Name="건물 장애물" Description="높이가 46m 이상인 건물의 경계지역" GeometryStyle="AL015A05">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+		<Feature Name="교회" Description="종교적 목적으로 설계되는 건물 중, 교회 건물의 경계지역" GeometryStyle="AL015A06">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="2,3,4"></VVTStyle>
+		</Feature>
+		<Feature Name="절" Description="종교적 목적으로 설계되는 건물 중, 절 건물의 경계지역" GeometryStyle="AL015A07">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="14"></VVTStyle>
+		</Feature>
+		<Feature Name="회교사원" Description="종교적 목적으로 설계되는 건물 중, 회교 건물의 경계지역" GeometryStyle="AL015A08">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="20"></VVTStyle>
+		</Feature>
+		<Feature Name="유대교회당" Description="종교적 목적으로 설계되는 건물 중, 유대교 건물의 경계지역" GeometryStyle="AL015A09">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="11"></VVTStyle>
+		</Feature>
+		<Feature Name="탑모양 건물" Description="높이가 46m 미만인 탑모양 건물의 경계지역" GeometryStyle="AL015A10">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="21"></VVTStyle>
+		</Feature>
+		<Feature Name="불탑" Description="종교적 목적으로 설계되는 건물 중, 불탑의 경계지역" GeometryStyle="AL015A11">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="6"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="쓰레기장" FACC="AB000" GeometryType="Polygon" SHPSource="AAB000" GDBSource="DisposeA" Map="250K" DisplayType="Geometry">
+		<Feature Name="쓰레기장" Description="폐물 또는 폐기된 재료를 수집하고 처리하는 쓰레기장의 경계지역" GeometryStyle="AB000A01"></Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="광산지역" FACC="AA010" GeometryType="Polygon" SHPSource="AAA010" GDBSource="ExtractA" Map="250K" DisplayType="Geometry">
+		<Feature Name="운영중 광산지역" Description="자연자원을 추출하는 광산 중, 현재 가동중인 광산의 경계지역" GeometryStyle="AA010A01">
+			<VVTStyle EXS="0,3,28"></VVTStyle>
+		</Feature>
+		<Feature Name="비운영 광산지역" Description="자연자원을 추출하는 광산 중, 현재 가동하지 않는 광산의 경계지역" GeometryStyle="AA010A02">
+			<VVTStyle EXS="6"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="염전" FACC="BH155" GeometryType="Polygon" SHPSource="ABH155" GDBSource="ExtractA" Map="250K" DisplayType="Geometry">
+		<Feature Name="염전" Description="염전의 경계지역" GeometryStyle="BH155A01"></Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="처리장" FACC="AC000" GeometryType="Polygon" SHPSource="AAC000" GDBSource="ProcessA" Map="250K" DisplayType="Geometry">
+		<Feature Name="처리장" Description="변형 또는 정제된 특별한 재료를 사용하는 처리장 및 처분장의 경계지역" GeometryStyle="AC000A01"></Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="침전지" FACC="AC030" GeometryType="Polygon" SHPSource="AAC030" GDBSource="TreatA" Map="250K" DisplayType="Geometry">
+		<Feature Name="침전지" Description="증발 또는 침전에 의한 액체로부터 응결된 고체물질이 있는 침전지 및 침전못의 경계지역" GeometryStyle="AC030A01"></Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="정수장" FACC="BH040" GeometryType="Polygon" SHPSource="ABH040" GDBSource="TreatA" Map="250K" DisplayType="Geometry">
+		<Feature Name="정수장" Description="여과기나 탄산수에 사용되는 재료 층을 포함한 정수장의 경계지역" GeometryStyle="BH040A01"></Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="양어장/양식장" FACC="BH050" GeometryType="Polygon" SHPSource="ABH050" GDBSource="TreatA" Map="250K" DisplayType="Geometry">
+		<Feature Name="양어장/양식장" Description="어류의 양식을 위해 사용되는 바다의 울타리인 양어장/양식장의 경계지역" GeometryStyle="BH050A01"></Feature>
+	</Layer>
+	<Layer Category="공익설비" Name="발전소 부지" FACC="AD010" GeometryType="Polygon" SHPSource="AAD010" GDBSource="PowerA" Map="250K" DisplayType="Geometry">
+		<Feature Name="발전소 부지" Description="전력 발생을 위해 필요한 건물(시설)과 장치가 있는 발전소의 경계지역" GeometryStyle="AD010A01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="부두" FACC="BB190" GeometryType="Polygon" SHPSource="ABB190" GDBSource="HarborA" Map="250K" DisplayType="Geometry">
+		<Feature Name="부두" Description="배를 정박시키는 장소로 주로 사용되는 부두의 경계지역" GeometryStyle="BB190A01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="조차장" FACC="AN060" GeometryType="Polygon" SHPSource="AAN060" GDBSource="RryardA" Map="250K" DisplayType="Geometry">
+		<Feature Name="조차장" Description="하역 또는 기차 및 전차의 조립을 위해 제공되는 조차장의 경계지역" GeometryStyle="AN060A01"></Feature>
+	</Layer>
+	<Layer Category="경계" Name="울타리" FACC="AL070" GeometryType="Line" SHPSource="LAL070" GDBSource="BarrierL" Map="250K" DisplayType="Geometry">
+		<Feature Name="울타리" Description="폐쇄 또는 경계를 나타내기 위해 비교적 가벼운 구조물의 인공장벽을 세워둔 울타리의 경계" GeometryStyle="AL070L01"></Feature>
+	</Layer>
+	<Layer Category="경계" Name="담" FACC="AL260" GeometryType="Line" SHPSource="LAL260" GDBSource="BarrierL" Map="250K" DisplayType="Geometry">
+		<Feature Name="담" Description="보호, 경계 또는 폐쇄의 목적으로 무거운 재료로 만든 담의 경계" GeometryStyle="AL260L01"></Feature>
+	</Layer>
+	<Layer Category="경계" Name="해안선" FACC="BA010" GeometryType="Line" SHPSource="LBA010" GDBSource="CoastL" Map="250K" DisplayType="Geometry">
+		<Feature Name="명확한 해안선" Description="육지와 수면이 접한 선인 해안선 중, 식별이 명확한 해안선의 경계" GeometryStyle="BA010L01">
+			<VVTStyle ACC="1" SLT="0,10,11,13,14,999"></VVTStyle>
+		</Feature>
+		<Feature Name="불명확한해안선" Description="육지와 수면이 접한 선인 해안선 중, 식별이 불명확한 지역에 존재하는 해안선의 경계" GeometryStyle="BA010L02">
+			<VVTStyle ACC="2" SLT="10,11,13,14,999"></VVTStyle>
+		</Feature>
+		<Feature Name="불명확한 습지해안선" Description="육지와 수면이 접한 선인 해안선 중, 식별이 불명확한 습지나 늪에 존재하는 해안선의 경계" GeometryStyle="BA010L03">
+			<VVTStyle ACC="1,2" SLT="6,8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="경계" Name="국가경계" FACC="FA000" GeometryType="Line" SHPSource="LFA000" GDBSource="PolbndL" Map="250K" DisplayType="Geometry">
+		<Feature Name="국가경계" Description="한 국가와 다른국가 사이의 경계" GeometryStyle="FA000L01">
+			<VVTStyle ORD="6"></VVTStyle>
+		</Feature>
+		<Feature Name="국가경계" Description="한 국가와 다른국가 사이의 경계" GeometryStyle="FA000L01">
+			<VVTStyle USE="0,23"></VVTStyle>
+		</Feature>
+		<Feature Name="1차경계" Description="통제 지역 사이의 행정구역 중, 상대 중요도가 1순위인 행정지역의 경계" GeometryStyle="FA000L02">
+			<VVTStyle ORD="1"></VVTStyle>
+		</Feature>
+		<Feature Name="1차경계" Description="통제 지역 사이의 행정구역 중, 상대 중요도가 1순위인 행정지역의 경계" GeometryStyle="FA000L02">
+			<VVTStyle USE="26"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="경계" Name="휴전선" FACC="FA020" GeometryType="Line" SHPSource="LFA020" GDBSource="PolbndL" Map="250K" DisplayType="Geometry">
+		<Feature Name="휴전선" Description="휴전의 결과로 설치된 휴전선의 경계" GeometryStyle="FA020L01"></Feature>
+	</Layer>
+	<Layer Category="경계" Name="분계선" FACC="FA060" GeometryType="Line" SHPSource="LFA060" GDBSource="PolbndL" Map="250K" DisplayType="Geometry">
+		<Feature Name="분계선" Description="다양한 정치권에 의해 비공식적으로 기록된 현재의 분리선인 비무장지대 남북한계선의 경계" GeometryStyle="FA060L01"></Feature>
+	</Layer>
+	<Layer Category="경계" Name="날짜변경선" FACC="FA110" GeometryType="Line" SHPSource="LFA110" GDBSource="PolbndL" Map="250K" DisplayType="Geometry">
+		<Feature Name="날짜변경선" Description="일반적으로 180개의 경선과 일치하고 각각의 역일이 시작되는 곳으로 지정되는 날짜변경선의 경계" GeometryStyle="FA110L01"></Feature>
+	</Layer>
+	<Layer Category="경계" Name="주둔지역" FACC="FA170" GeometryType="Line" SHPSource="LFA170" GDBSource="PolbndL" Map="250K" DisplayType="Geometry">
+		<Feature Name="주둔지역" Description="외국병력에 의해 일시적으로 소유하고 통제된 지역인 유엔관리구역(중립구역)의 경계" GeometryStyle="FA170L01"></Feature>
+	</Layer>
+	<Layer Category="식생" Name="방풍림" FACC="EC030" GeometryType="Line" SHPSource="LEC030" GDBSource="TreesL" Map="250K" DisplayType="Geometry">
+		<Feature Name="방풍림" Description="강풍을 막기 위하여 조성된 숲인 방풍림의 경계" GeometryStyle="EC030L01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="방파제" FACC="BB040" GeometryType="Line" SHPSource="LBB040" GDBSource="SeastrtL" Map="250K" DisplayType="Geometry">
+		<Feature Name="수면위 방파제" Description="해안 지역, 항구, 정박지등을 파도로부터 보호하고 그 강도를 줄여주는 구조물로, 수면위에 위치한 경계" GeometryStyle="BB040L01">
+			<VVTStyle VRR="0,1"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="돌제" FACC="BB140" GeometryType="Line" SHPSource="LBB140" GDBSource="SeastrtL" Map="250K" DisplayType="Geometry">
+		<Feature Name="수면위 돌제" Description="조력으로부터 항구나 해변을 보호하는 구조물이 수면위에 존재하는 돌제의 경계" GeometryStyle="BB140L01">
+			<VVTStyle VRR="0,1"></VVTStyle>
+		</Feature>
+		<Feature Name="돌제" Description="조력으로부터 항구나 해변을 보호하는 구조물이 수면아래와 위에 존재하는 돌제의 경계" GeometryStyle="BB140L02">
+			<VVTStyle VRR="8"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="해벽" FACC="BB230" GeometryType="Line" SHPSource="LBB230" GDBSource="SeastrtL" Map="250K" DisplayType="Geometry">
+		<Feature Name="해벽" Description="침식작용으로부터 해안을 보호하기 위해 설치된 구조물인 해벽의 경계" GeometryStyle="BB230L01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="수애선" FACC="BH210" GeometryType="Line" SHPSource="LBH210" GDBSource="JoghydroL" Map="250K" DisplayType="Geometry">
+		<Feature Name="수애선" Description="해안선, 호수, 섬을 포함하는 모든 내륙 수로 지형지물을 위한 육지나 바다의 경계를 나타나는 수애선의 경계" GeometryStyle="BH210L01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="운하" FACC="BH020" GeometryType="Line" SHPSource="LBH020" GDBSource="WatrcrsL" Map="250K" DisplayType="Geometry">
+		<Feature Name="영구적 운하" Description="수송을 위해 자연수로를 개발하거나 인공적으로 만든 영구적 운하의 경계" GeometryStyle="BH020L01">
+			<VVTStyle HYC="0,8"></VVTStyle>
+		</Feature>
+		<Feature Name="간헐적 운하" Description="수송을 위해 자연수로를 개발하거나 인공적으로 만든 간헐적 운하의 경계" GeometryStyle="BH020L02">
+			<VVTStyle HYC="3,6"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="도랑" FACC="BH030" GeometryType="Line" SHPSource="LBH030" GDBSource="WatrcrsL" Map="250K" DisplayType="Geometry">
+		<Feature Name="영구적 도랑" Description="관개나 배수의 목적으로 건설된 수로로, 물이 영구적으로 나타나는 도랑의 경계" GeometryStyle="BH030L01">
+			<VVTStyle HYC="0,8"></VVTStyle>
+		</Feature>
+		<Feature Name="간헐적 도랑" Description="관개나 배수의 목적으로 건설된 수로로, 물이 간헐적으로 나타나는 도랑의 경계" GeometryStyle="BH030L02">
+			<VVTStyle HYC="3,6"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="강/하천" FACC="BH140" GeometryType="Line" SHPSource="LBH140" GDBSource="WatrcrsL" Map="250K" DisplayType="Geometry">
+		<Feature Name="영구적 강/하천" Description="자연적인 흐름의 수로로, 물이 영구적으로 나타나는 강/하천의 경계" GeometryStyle="BH140L01">
+			<VVTStyle HYC="0,8"></VVTStyle>
+		</Feature>
+		<Feature Name="간헐적 강/하천" Description="자연적인 흐름의 수로로, 물이 간헐적으로 나타나는 강/하천의 경계" GeometryStyle="BH140L02">
+			<VVTStyle HYC="3,6"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="수압관" FACC="BH110" GeometryType="Line" SHPSource="LBH110" GDBSource="MiscL" Map="250K" DisplayType="Geometry">
+		<Feature Name="지상 수압관" Description="일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 지상에 위치하는 수압관의 경계" GeometryStyle="BH110L01">
+			<VVTStyle LOC="0,8"></VVTStyle>
+		</Feature>
+		<Feature Name="고가수로 수압관" Description="일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 고가수로에 위치하는 수압관의 경계" GeometryStyle="BH110L02">
+			<VVTStyle LOC="4"></VVTStyle>
+		</Feature>
+		<Feature Name="지하 수압관" Description="일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 지하에 위치하는 수압관의 경계" GeometryStyle="BH110L03">
+			<VVTStyle LOC="25"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="급류" FACC="BH120" GeometryType="Line" SHPSource="LBH120" GDBSource="RapidsL" Map="250K" DisplayType="Geometry">
+		<Feature Name="급류" Description="강이나 시내에서 해류가 빠르고 돌이나 바위에 의해 표면이 부식된 지역의 경계" GeometryStyle="BH120L01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="폭포" FACC="BH180" GeometryType="Line" SHPSource="LBH180" GDBSource="RapidsL" Map="250K" DisplayType="Geometry">
+		<Feature Name="폭포" Description="물이 거의 수직에 가깝게 하강하는 폭포의 경계" GeometryStyle="BH180L01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="암초/암석지대" FACC="BD120" GeometryType="Line" SHPSource="LBD120" GDBSource="DangerL" Map="250K" DisplayType="Geometry">
+		<Feature Name="암초/암석지대" Description="해상운하에 위험한 바다의 바위 또는 산호인 암초/암석지대의 경계" GeometryStyle="BD120L01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="댐/보" FACC="BI020" GeometryType="Line" SHPSource="LBI020" GDBSource="DamL" Map="250K" DisplayType="Geometry">
+		<Feature Name="통행불가 댐/보" Description="물을 채우거나 물의 흐름을 조절하는 수로를 수송수단으로 통행불가능한 댐/보의 경계" GeometryStyle="BI020L01">
+			<VVTStyle TUC="0,35,999"></VVTStyle>
+		</Feature>
+		<Feature Name="통행가능한 댐/보" Description="물을 채우거나 물의 흐름을 조절하는 수로를 철도나 도로로 통행가능한 댐/보의 경계" GeometryStyle="BI020L02">
+			<VVTStyle TUC="1,3,4"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="수도관" FACC="BH010" GeometryType="Line" SHPSource="LBH010" GDBSource="AquedctL" Map="250K" DisplayType="Geometry">
+		<Feature Name="지상수도관" Description="멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 지상에 위치하는 수도관의 경계" GeometryStyle="BH010L01">
+			<VVTStyle LOC="0,8"></VVTStyle>
+		</Feature>
+		<Feature Name="고가수로수도관" Description="멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 고가수로에 위치하는 수도관의 경계" GeometryStyle="BH010L02">
+			<VVTStyle LOC="4"></VVTStyle>
+		</Feature>
+		<Feature Name="지하수도관" Description="멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 지하에 위치하는 수도관의 경계" GeometryStyle="BH010L03">
+			<VVTStyle LOC="25"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="갑문" FACC="BI030" GeometryType="Line" SHPSource="LBI030" GDBSource="LocKL" Map="250K" DisplayType="Geometry">
+		<Feature Name="갑문" Description="한 수위에서 다른 수위로 이동할때 오르거나 내리는 배를 위해 사용하는 울타리인 갑문의 경계" GeometryStyle="BI030L01"></Feature>
+	</Layer>
+	<Layer Category="고도" Name="등고선" FACC="CA010" GeometryType="Line" SHPSource="LCA010" GDBSource="ContourL" Map="250K" DisplayType="Geometry">
+		<Feature Name="계곡선" Description="똑같은 수직기준좌표 값을 가진 점과 연결된 선인 계곡선의 경계" GeometryStyle="CA010L01">
+			<VVTStyle HQC="1" MCC="0,30"></VVTStyle>
+		</Feature>
+		<Feature Name="주곡선" Description="똑같은 수직기준좌표 값을 가진 점과 연결된 선인 주곡선의 경계" GeometryStyle="CA010L02">
+			<VVTStyle HQC="2" MCC="0,30"></VVTStyle>
+		</Feature>
+		<Feature Name="보조곡선" Description="똑같은 수직기준좌표 값을 가진 점과 연결된 선 중, 보조곡선의 경계" GeometryStyle="CA010L03">
+			<VVTStyle HQC="3" MCC="0,30"></VVTStyle>
+		</Feature>
+		<Feature Name="저하등고선 계곡선" Description="똑같은 수직기준좌표 값을 가진 점과 연결된 선인 저하등고선 계곡선의 경계" GeometryStyle="CA010L04">
+			<VVTStyle HQC="5" MCC="0,30"></VVTStyle>
+		</Feature>
+		<Feature Name="저하등고선 주곡선" Description="똑같은 수직기준좌표 값을 가진 점과 연결된 선인 저하등고선 주곡선의 경계" GeometryStyle="CA010L05">
+			<VVTStyle HQC="6" MCC="0,30"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="고도" Name="등심선" FACC="BE015" GeometryType="Line" SHPSource="LBE015" GDBSource="DepthL" Map="250K" DisplayType="Geometry">
+		<Feature Name="등심선" Description="똑같은 깊이의 점을 연결한 등심선의 경계" GeometryStyle="BE015L01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="절벽/급사면" FACC="DB010" GeometryType="Line" SHPSource="LDB010" GDBSource="BluffL" Map="250K" DisplayType="Geometry">
+		<Feature Name="절벽/급사면" Description="바위나 땅의 가파른 면이나 수직적 또는 돌출한 면인 절벽/급사면의 경계" GeometryStyle="DB010L01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="절토" FACC="DB070" GeometryType="Line" SHPSource="LDB070" GDBSource="EmbanKL" Map="250K" DisplayType="Geometry">
+		<Feature Name="절토" Description="도로, 철도, 운하 등을 위해 통로를 제공하는 지표면특질의 동굴인 절토의 경계" GeometryStyle="DB070L01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="제방/성토" FACC="DB090" GeometryType="Line" SHPSource="LDB090" GDBSource="EmbanKL" Map="250K" DisplayType="Geometry">
+		<Feature Name="제방/성토" Description="흙이나 다른 재료로 쌓아올린 긴 토루인 제방의 경계" GeometryStyle="DB090L01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="빙벽" FACC="BJ040" GeometryType="Line" SHPSource="LBJ040" GDBSource="LndfrmL" Map="250K" DisplayType="Geometry">
+		<Feature Name="빙벽" Description="빙산의 벽인 빙벽의 경계" GeometryStyle="BJ040L01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="크레바스" FACC="DB060" GeometryType="Line" SHPSource="LDB060" GDBSource="LndfrmL" Map="250K" DisplayType="Geometry">
+		<Feature Name="크레바스" Description="빙하나 눈 골짜기에 형성된 깊은 균열의 경계" GeometryStyle="DB060L01">
+			<VVTStyle MCC="0,30"></VVTStyle>
+		</Feature>
+		<Feature Name="크레바스" Description="빙하나 눈 골짜기에 형성된 깊은 균열의 경계" GeometryStyle="DB060L02">
+			<VVTStyle MCC="103"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="지형" Name="에스커" FACC="DB100" GeometryType="Line" SHPSource="LDB100" GDBSource="LndfrmL" Map="250K" DisplayType="Geometry">
+		<Feature Name="에스커" Description="빙하가 흐르는 방향으로 형성된 둑 모양의 언덕인 에스커의 경계" GeometryStyle="DB100L01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="단층" FACC="DB110" GeometryType="Line" SHPSource="LDB110" GDBSource="LndfrmL" Map="250K" DisplayType="Geometry">
+		<Feature Name="단층" Description="같은 성질의 바위로 이루어진 층인 단층의 경계" GeometryStyle="DB110L01"></Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="경주장/경주로" FACC="AK130" GeometryType="Line" SHPSource="LAK130" GDBSource="LandmrKL" Map="250K" DisplayType="Geometry">
+		<Feature Name="경주장" Description="경주를 위한 코스가 있는 경주장의 경계" GeometryStyle="AK130L01"></Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="운송대" FACC="AF020" GeometryType="Line" SHPSource="LAF020" GDBSource="IndL" Map="250K" DisplayType="Geometry">
+		<Feature Name="운송대" Description="재료를 한 장소에서 다른 장소로 이동하기 위한 장치인 운송대의 경계" GeometryStyle="AF020L01"></Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="홈통(용수로)" FACC="BH060" GeometryType="Line" SHPSource="LBH060" GDBSource="IndL" Map="250K" DisplayType="Geometry">
+		<Feature Name="지상홈통(용수로)" Description="물을 받아 흐르게 하기 위해 지상에 설치하는 홈통의 경계" GeometryStyle="BH060L01">
+			<VVTStyle LOC="0,8,997"></VVTStyle>
+		</Feature>
+		<Feature Name="고가수로 홈통(용수로)" Description="물을 받아 흐르게 하기 위해 고가수로에 설치하는 홈통의 경계" GeometryStyle="BH060L02">
+			<VVTStyle LOC="25"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="지구물리학의 예상 격자" FACC="FA090" GeometryType="Line" SHPSource="LFA090" GDBSource="IndL" Map="250K" DisplayType="Geometry">
+		<Feature Name="지구물리학의 예상 격자" Description="지리학적 가능성의 경계" GeometryStyle="FA090L01"></Feature>
+	</Layer>
+	<Layer Category="공익설비" Name="고압선" FACC="AT030" GeometryType="Line" SHPSource="AT030" GDBSource="PowerL" Map="250K" DisplayType="Geometry">
+		<Feature Name="고압선" Description="먼 거리에 전류를 보내는 전주를 포함한 땅위 전선 시스템인 고압선 중, 산과 물을 넘지 않는 형태의 고압선의 경계" GeometryStyle="AT030L01">
+			<VVTStyle TST="0,1,998,999"></VVTStyle>
+		</Feature>
+		<Feature Name="기타 고압선" Description="먼 거리에 전류를 보내는 전주를 포함한 땅위 전선 시스템인 고압선 중, 산과 물을 넘는 형태 외의 고압선의 경계" GeometryStyle="AT030L02">
+			<VVTStyle TST="2,3"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="공익설비" Name="파이프라인" FACC="AQ113" GeometryType="Line" SHPSource="LAQ113" GDBSource="PipeL" Map="250K" DisplayType="Geometry">
+		<Feature Name="고가수로 파이프라인" Description="고체, 액체, 기체의 수송을 위한 관으로 고가수로의 파이프라인의 경계" GeometryStyle="AQ113L01">
+			<VVTStyle LOC="25" PRO="0,116"></VVTStyle>
+		</Feature>
+		<Feature Name="기타 고가수로파이프라인" Description="물을 제외한 기타 고체, 액체, 기체의 수송을 위한 관으로 고가수로의 파이프라인 경계" GeometryStyle="AQ113L02">
+			<VVTStyle LOC="25" PRO="13,38,39,67"></VVTStyle>
+		</Feature>
+		<Feature Name="지상 파이프라인" Description="고체, 액체, 기체의 수송을 위한 관으로 지상의 파이프라인의 경계" GeometryStyle="AQ113L03">
+			<VVTStyle LOC="0,8" PRO="0,116"></VVTStyle>
+		</Feature>
+		<Feature Name="기타 지상파이프라인" Description="물을 제외한 기타 고체, 액체, 기체의 수송을 위한 관으로 지상의 파이프라인 경계" GeometryStyle="AQ113L04">
+			<VVTStyle LOC="0,8" PRO="13,38,39,67"></VVTStyle>
+		</Feature>
+		<Feature Name="지하 파이프라인" Description="고체, 액체, 기체의 수송을 위한 관으로 수중의 파이프라인 경계" GeometryStyle="AQ113L05">
+			<VVTStyle LOC="4" PRO="0,116"></VVTStyle>
+		</Feature>
+		<Feature Name="기타 지하파이프라인" Description="물을 제외한 기타 고체, 액체, 기체의 수송을 위한 관으로 수중의 파이프라인 경계" GeometryStyle="AQ113L06">
+			<VVTStyle LOC="4" PRO="13,38,39,67"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="공익설비" Name="전화/전기선" FACC="AT060" GeometryType="Line" SHPSource="LAT060" GDBSource="TeleL" Map="250K" DisplayType="Geometry">
+		<Feature Name="전화/전기선" Description="먼 거리에 있는 전기적 신호를 송신하는 지지물을 포함한 전선 시스템의 경계" GeometryStyle="AT060L01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="활주로" FACC="GB055" GeometryType="Line" SHPSource="LGB055" GDBSource="RunwayL" Map="250K" DisplayType="Geometry">
+		<Feature Name="활주로" Description="항공기의 일반적인 이착륙을 위해 사용되는 활주로의 경계지역" GeometryStyle="GB055L01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="나루" FACC="AQ070" GeometryType="Line" SHPSource="LAQ070" GDBSource="FerryL" Map="250K" DisplayType="Geometry">
+		<Feature Name="나루" Description="한 해변에서 다른 해변까지 횡단하는 수면위의 통로가 있는 나루의 경계" GeometryStyle="AQ070L01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="여울목" FACC="BH070" GeometryType="Line" SHPSource="LBH070" GDBSource="FordL" Map="250K" DisplayType="Geometry">
+		<Feature Name="여울목" Description="교차형 만곡부로 사용되는 수괴의 얕은 곳인 여울목의 경계" GeometryStyle="BH070L01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="공중케이블/스키리프트" FACC="AQ010" GeometryType="Line" SHPSource="LAQ010" GDBSource="LiftL" Map="250K" DisplayType="Geometry">
+		<Feature Name="공중케이블/스키리프트" Description="고도가 있는 버팀목 사이로 연결된 케이블의 경계" GeometryStyle="AQ010L01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="부두" FACC="BB190" GeometryType="Line" SHPSource="LBB190" GDBSource="PierL" Map="250K" DisplayType="Geometry">
+		<Feature Name="부두" Description="배를 정박시키는 장소로 주로 사용되는 부두의 경계" GeometryStyle="BB190L01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="우마차로" FACC="AP010" GeometryType="Line" SHPSource="LAP010" GDBSource="TracKL" Map="250K" DisplayType="Geometry">
+		<Feature Name="우마차로" Description="미개발도로로써 모든 기후에 이용하는 우마차로의 경계" GeometryStyle="AP010L01">
+			<VVTStyle WTC="0,1,2"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="교통" Name="소로" FACC="AP050" GeometryType="Line" SHPSource="LAP050" GDBSource="TrailL" Map="250K" DisplayType="Geometry">
+		<Feature Name="소로" Description="사람이나 동물이 통행하는 작은 길인 소로의 경계" GeometryStyle="AP050L01">
+			<VVTStyle WTC="0,2"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="교통" Name="도로" FACC="AP030" GeometryType="Line" SHPSource="LAP030" GDBSource="RoadL" Map="250K" DisplayType="Geometry">
+		<Feature Name="분리대有 고속국도" Description="분리대가 있는 고속국도" GeometryStyle="AP030L15">
+			<VVTStyle EXS="28" TUC="2" MED="1" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="분리대無 고속국도" Description="분리대가 없는 고속국도" GeometryStyle="AP030L16">
+			<VVTStyle EXS="28" TUC="2" MED="0,2" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="분리대有 건설중 고속국도" Description="건설중이거나 손실되어 사용하지 못하는 고속국도 중 분리대가 있는 고속국도" GeometryStyle="AP030L17">
+			<VVTStyle EXS="5" TUC="2" MED="1" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="분리대無 건설중 고속국도" Description="건설중이거나 손실되어 사용하지 못하는 고속도로 중 분리대가 없는 고속국도" GeometryStyle="AP030L18">
+			<VVTStyle EXS="5" TUC="2" MED="0,2" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="2차선이상 포장도로" Description="차선이 2차선 이상인 포장도로" GeometryStyle="AP030L19">
+			<VVTStyle EXS="28" TUC="4" LTN="&gt;=2" RST="1" WTC="1" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="1차선 포장도로" Description="차선이 1차선인 포장도로" GeometryStyle="AP030L20">
+			<VVTStyle EXS="28" TUC="4" LTN="1" RST="1" WTC="1" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="2차선이상 비포장도로" Description="차선이 2차선 이상인 비포장도로" GeometryStyle="AP030L07">
+			<VVTStyle EXS="28" TUC="4" LTN="&gt;=2" RST="2" WTC="1" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="1차선 비포장도로" Description="차선이 1차선인 비포장도로" GeometryStyle="AP030L08">
+			<VVTStyle EXS="28" TUC="4" LTN="1" RST="2" WTC="1" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="5등(맑거나 건조시만 통행가능)" Description="맑거나 건조한 날씨에만 통행가능한 도로" GeometryStyle="AP030L09">
+			<VVTStyle TUC="4" WTC="2" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="건설중 2차선이상 포장도로" Description="건설중이거나 손실되어 사용하지 못하고, 차선이 2차선 이상인 포장도로" GeometryStyle="AP030L21">
+			<VVTStyle EXS="5" TUC="4" LTN="&gt;=2" RST="1" WTC="1" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="건설중 1차선 포장도로" Description="건설중이거나 손실되어 사용하지 못하고, 차선이 1차선인 포장도로" GeometryStyle="AP030L22">
+			<VVTStyle EXS="5" TUC="4" LTN="1" RST="1" WTC="1" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="포장 관통도로" Description="거리를 관통하는 포장도로" GeometryStyle="AP030L12">
+			<VVTStyle TUC="7" RST="1" WTC="1" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="비포장 관통도로" Description="거리를 관통하는 비포장도로" GeometryStyle="AP030L13">
+			<VVTStyle TUC="7" RST="2" WTC="1" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="가로/5등관통도로" Description="맑거나 건조한 날씨에만 통행가능한, 거리를 관통하는 도로" GeometryStyle="AP030L14">
+			<VVTStyle TUC="6" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="가로/5등관통도로" Description="맑거나 건조한 날씨에만 통행가능한, 거리를 관통하는 도로" GeometryStyle="AP030L14">
+			<VVTStyle TUC="7" WTC="2" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="미분류 도로" Description="도로의 경계" GeometryStyle="AP030L00">
+			<VVTStyle LOC="40"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="교통" Name="철도" FACC="AN010" GeometryType="Line" SHPSource="LAN010" GDBSource="RailrdL" Map="250K" DisplayType="Geometry">
+		<Feature Name="운행중 표준궤간 단선철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 단선인 철도의 경계" GeometryStyle="AN010L01">
+			<VVTStyle EXS="28" RGC="0,1,3" FCO="0,3" RRA="0,4" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="운행중 표준궤간 복선철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계" GeometryStyle="AN010L02">
+			<VVTStyle EXS="28" RGC="0,1,3" FCO="2,11" RRA="0,4" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="운행중 표준궤간 단전기선철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계" GeometryStyle="AN010L03">
+			<VVTStyle EXS="28" RGC="0,1,3" FCO="0,3" RRA="1,3" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="운행중 표준궤간 복선전기철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계" GeometryStyle="AN010L04">
+			<VVTStyle EXS="28" RGC="0,1,3" FCO="2,11" RRA="1,3" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="운행중 협궤 단선철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계" GeometryStyle="AN010L05">
+			<VVTStyle EXS="28" RGC="2" FCO="0,3" RRA="0,4" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="운행중 협궤 복선철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계" GeometryStyle="AN010L06">
+			<VVTStyle EXS="28" RGC="2" FCO="2,11" RRA="0,4" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="운행중 협궤 단전기선철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계" GeometryStyle="AN010L07">
+			<VVTStyle EXS="28" RGC="2" FCO="0,3" RRA="1,3" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="운행중 협궤 복선전기철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계" GeometryStyle="AN010L08">
+			<VVTStyle EXS="28" RGC="2" FCO="2,11" RRA="1,3" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="운행중 전차" Description="기차나 전차가 달릴 수 있는 운행중인 전차의 경계" GeometryStyle="AN010L09">
+			<VVTStyle RRC="2" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="운행중 도로내 철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일 중,  도로내에 있는  철도의 경계" GeometryStyle="AN010L10">
+			<VVTStyle RRC="21" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="비운행 표준궤간 단선철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계" GeometryStyle="AN010L11">
+			<VVTStyle EXS="5,6,7" RGC="0,1,3" FCO="0,3" RRA="0,4" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="비운행 표준궤간 복선철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계" GeometryStyle="AN010L12">
+			<VVTStyle EXS="5,6,7" RGC="0,1,3" FCO="2,11" RRA="0,4" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="비운행 표준궤간 단전기선철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계" GeometryStyle="AN010L13">
+			<VVTStyle EXS="5,6,7" RGC="0,1,3" FCO="0,3" RRA="1,3" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="비운행 표준궤간 복선전기철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계" GeometryStyle="AN010L14">
+			<VVTStyle EXS="5,6,7" RGC="0,1,3" FCO="2,11" RRA="1,3" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="비운행 협궤 단선철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계" GeometryStyle="AN010L15">
+			<VVTStyle EXS="5,6,7" RGC="2" FCO="0,3" RRA="0,4" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="비운행 협궤 복선철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계" GeometryStyle="AN010L16">
+			<VVTStyle EXS="5,6,7" RGC="2" FCO="2,11" RRA="0,4" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="비운행 협궤 단전기선철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계" GeometryStyle="AN010L17">
+			<VVTStyle EXS="5,6,7" RGC="2" FCO="0,3" RRA="1,3" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="비운행 협궤 복선전기철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계" GeometryStyle="AN010L18">
+			<VVTStyle EXS="5,6,7" RGC="2" FCO="2,11" RRA="1,3" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="제거된 철도" Description="기차나 전차가 달릴 수 있도록 놓여진 레일 중, 현재 제거되어 사용하지 않는 철도의 경계" GeometryStyle="AN010L19">
+			<VVTStyle EXS="8" LOC="&lt;&gt;40"></VVTStyle>
+		</Feature>
+		<Feature Name="미분류 철도" Description="기차나 전차가 달릴 수 있도록 놓여진 철도의 경계" GeometryStyle="AN010L00">
+			<VVTStyle LOC="40"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="교통" Name="측선/인입선" FACC="AN050" GeometryType="Line" SHPSource="LAN050" GDBSource="RailrdL" Map="250K" DisplayType="Geometry">
+		<Feature Name="표준궤간 철도_측선/인입선" Description="일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤인 인입선의 경계" GeometryStyle="AN050L01">
+			<VVTStyle RGC="0,1,3" RRA="0,4"></VVTStyle>
+		</Feature>
+		<Feature Name="표준궤간 전기철도_측선/인입선" Description="일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤이고 동력원이 전력인 인입선의 경계" GeometryStyle="AN050L02">
+			<VVTStyle RGC="0,1,3" RRA="1,3"></VVTStyle>
+		</Feature>
+		<Feature Name="협궤 철도_측선/인입선" Description="일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤인 인입선의 경계" GeometryStyle="AN050L03">
+			<VVTStyle RGC="2" RRA="0,4"></VVTStyle>
+		</Feature>
+		<Feature Name="협궤 전기철도_측선/인입선" Description="일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계" GeometryStyle="AN050L04">
+			<VVTStyle RGC="2" RRA="1,3"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="교통" Name="터널" FACC="AQ130" GeometryType="Line" SHPSource="LAQ130" GDBSource="TunnelL" Map="250K" DisplayType="Geometry">
+		<Feature Name="터널" Description="도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널의 경계" GeometryStyle="AQ130L01">
+			<VVTStyle TUC="0,1,3,4"></VVTStyle>
+		</Feature>
+		<Feature Name="수로터널" Description="도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널 중, 수송수단이 운하인 터널의 경계" GeometryStyle="AQ130L02">
+			<VVTStyle TUC="38"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="교통" Name="교량" FACC="AQ040" GeometryType="Line" SHPSource="LAQ040" GDBSource="BridgeL" Map="250K" DisplayType="Geometry">
+		<Feature Name="교량" Description="침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량의 경계" GeometryStyle="AQ040L01">
+			<VVTStyle TUC="&lt;&gt;17"></VVTStyle>
+		</Feature>
+		<Feature Name="인도교" Description="침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량 중, 도보가 가능한 교량의 경계" GeometryStyle="AQ040L02">
+			<VVTStyle TUC="17"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="교통" Name="눈사태/낙석방지설비" FACC="AL210" GeometryType="Line" SHPSource="LAL210" GDBSource="ShedL" Map="250K" DisplayType="Geometry">
+		<Feature Name="눈사태/낙석방지설비" Description="산사태 및 눈사태를 방지하기 위한 시설의 경계" GeometryStyle="AL210L01"></Feature>
+	</Layer>
+	<Layer Category="식생" Name="오아시스" FACC="EC020" GeometryType="Point" SHPSource="PEC020" GDBSource="OasisP" Map="250K" DisplayType="Geometry">
+		<Feature Name="오아시스" Description="사막 가운데에 샘이 솟고 풀과 나무가 자라는 오아시스의 위치지점" GeometryStyle="EC020P01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="웅덩이" FACC="BI010" GeometryType="Point" SHPSource="PBI010" GDBSource="WellsprP" Map="250K" DisplayType="Geometry">
+		<Feature Name="웅덩이" Description="우수를 저장하거나 모으기 위해 사용되는 인공 웅덩이인 웅덩이의 위치지점" GeometryStyle="BI010P01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="암초" FACC="BD130" GeometryType="Point" SHPSource="PBD130" GDBSource="DangerP" Map="250K" DisplayType="Geometry">
+		<Feature Name="수상암초" Description="해상운하에 위험한 바다의 바위 또는 산호인 암초/암석지대의 위치지점" GeometryStyle="BD130P01">
+			<VVTStyle VRR="0,1,8"></VVTStyle>
+		</Feature>
+		<Feature Name="수중암초" Description="해상운하에 위험한 바다의 바위 또는 산호인 암초/암석지대의 위치지점" GeometryStyle="BD130P02">
+			<VVTStyle VRR="2,4"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="난파선" FACC="BD180" GeometryType="Point" SHPSource="PBD180" GDBSource="DangerP" Map="250K" DisplayType="Geometry">
+		<Feature Name="난파선" Description="파괴된 배인 난파선의 위치지점" GeometryStyle="BD180P01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="취수탑" FACC="BI050" GeometryType="Point" SHPSource="PBI050" GDBSource="MiscP" Map="250K" DisplayType="Geometry">
+		<Feature Name="취수탑" Description="물의 취수구를 위해 사용하거나 수원 또는 댐과 관련된 탑 형태의 구조물인 취수탑의 위치지점" GeometryStyle="BI050P01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="급류" FACC="BH120" GeometryType="Point" SHPSource="PBH120" GDBSource="RapidsC" Map="250K" DisplayType="Geometry">
+		<Feature Name="급류" Description="강이나 시내에서 해류가 빠르고 돌이나 바위에 의해 표면이 부식된 지역의 위치지점" GeometryStyle="BH120P01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="강.하천 소멸/소산지점" FACC="BH145" GeometryType="Point" SHPSource="PBH145" GDBSource="RapidsC" Map="250K" DisplayType="Geometry">
+		<Feature Name="강.하천 소멸지점" Description="육지에서 강이나 조류가 통과하는 점인 소멸지점의 위치지점" GeometryStyle="BH145P01">
+			<VVTStyle HFC="2"></VVTStyle>
+		</Feature>
+		<Feature Name="강.하천 소산지점" Description="육지에서 강이나 조류가 통과하는 점인 소산지점의 위치지점" GeometryStyle="BH145P02">
+			<VVTStyle HFC="0,16"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="폭포" FACC="BH180" GeometryType="Point" SHPSource="PBH180" GDBSource="RapidsC" Map="250K" DisplayType="Geometry">
+		<Feature Name="폭포" Description="물이 거의 수직에 가깝게 하강하는 폭포의 위치지점" GeometryStyle="BH180P01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="유수화살표" FACC="BG010" GeometryType="Point" SHPSource="PBG010" GDBSource="JoghydroP" Map="250K" DisplayType="Geometry" AngleColumn="AOO">
+		<Feature Name="유수화살표" Description="흐르는 물의 방향을 나타내는 위치지점" GeometryStyle="BG010P01"></Feature>
+	</Layer>
+	<Layer Category="수부" Name="샘" FACC="BH170" GeometryType="Point" SHPSource="PBH170" GDBSource="WellsprP" Map="250K" DisplayType="Geometry">
+		<Feature Name="영구적 샘" Description="지표면특질 밑에서부터 물이 자연적으로 유출되는 영구적 샘의 위치지점" GeometryStyle="BH170P01">
+			<VVTStyle HYC="0,8"></VVTStyle>
+		</Feature>
+		<Feature Name="간헐적 샘" Description="지표면특질 밑에서부터 물이 자연적으로 유출되는 간헐적 샘의 위치지점" GeometryStyle="BH170P02">
+			<VVTStyle HYC="3,6"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="수부" Name="유정/우물" FACC="AA050" GeometryType="Point" SHPSource="PAA050" GDBSource="WellsprP" Map="250K" DisplayType="Geometry">
+		<Feature Name="영구적 우물" Description="영구적으로 물이 있는 우물의 위치지점" GeometryStyle="AA050P01">
+			<VVTStyle PRO="0,116" HYC="0,8"></VVTStyle>
+		</Feature>
+		<Feature Name="간헐적 우물" Description="간헐적으로 물이 있는 우물의 위치지점" GeometryStyle="AA050P02">
+			<VVTStyle PRO="0,116" HYC="3,6"></VVTStyle>
+		</Feature>
+		<Feature Name="유정" Description="지하의 유층으로부터 주로 원유를 퍼 올리기 위하여 판 구덩이 위치지점" GeometryStyle="AA050P03">
+			<VVTStyle PRO="38,67"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="지형" Name="암봉/빙붕" FACC="BJ060" GeometryType="Point" SHPSource="PBJ060" GDBSource="LndfrmP" Map="250K" DisplayType="Geometry">
+		<Feature Name="암봉/빙붕 암석" Description="암석으로 완전히 둘러싸인 암석 덩어리의 위치지점" GeometryStyle="BJ060P01">
+			<VVTStyle MCC="0,84,997"></VVTStyle>
+		</Feature>
+		<Feature Name="암봉/빙붕 빙하" Description="빙하로 완전히 둘러싸인 얼음 덩어리의 위치지점" GeometryStyle="BJ060P02">
+			<VVTStyle MCC="103"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="지형" Name="암석층" FACC="DB160" GeometryType="Point" SHPSource="PDB160" GDBSource="LndfrmP" Map="250K" DisplayType="Geometry">
+		<Feature Name="암석층" Description="시적 지형의 노출부, 층이나 바위층인 암석층의 위치지점" GeometryStyle="DB160P01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="동굴" FACC="DB030" GeometryType="Point" SHPSource="PDB030" GDBSource="MtnP" Map="250K" DisplayType="Geometry">
+		<Feature Name="동굴" Description="지표면특질에 개방된 소실계열이나 자연의 지하소실인 동굴의 위치지점" GeometryStyle="DB030P01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="고개" FACC="DB150" GeometryType="Point" SHPSource="PDB150" GDBSource="MtnP" Map="250K" DisplayType="Geometry">
+		<Feature Name="고개" Description="산맥에서 저지대를 통하는 자연경로인 고개의 위치지점" GeometryStyle="DB150P01"></Feature>
+	</Layer>
+	<Layer Category="지형" Name="지열구" FACC="DB115" GeometryType="Point" SHPSource="PDB115" GDBSource="ThermalP" Map="250K" DisplayType="Geometry">
+		<Feature Name="지열구" Description="지구 내부에서 유출되는 에너지 입구의 위치지점" GeometryStyle="DB115P01"></Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="건물" FACC="AL015" GeometryType="Point" SHPSource="PAL015" GDBSource="BuildP" Map="250K" DisplayType="Geometry">
+		<Feature Name="일반건물" Description="어떤 특별한 목적으로 설계되어, 일반적으로 벽담으로 둘러쌓이고 지붕이 있는 비교적 영구적인 구조의 건물의 위치지점" GeometryStyle="AL015P01">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="&lt;&gt;7,15,27,82" LMC="0,2"></VVTStyle>
+		</Feature>
+		<Feature Name="용도목표물 건물" Description="특별한 목적을 가지고 지어진 건물의 위치지점" GeometryStyle="AL015P01">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="&lt;&gt;7,15,27,82" LMC="1"></VVTStyle>
+		</Feature>
+		<Feature Name="정류소 기차역" Description="어떤 특별한 목적으로 설계되어 창고역으로 사용되는 건물의 위치지점" GeometryStyle="AL015P01">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="27"></VVTStyle>
+		</Feature>
+		<Feature Name="파괴된 건물" Description="학교의 목적으로 설계되어 사용되는 건물의 위치지점" GeometryStyle="AL015P02">
+			<VVTStyle HGT="&lt;46" EXS="7"></VVTStyle>
+		</Feature>
+		<Feature Name="학교" Description="학교의 목적으로 설계되어 사용되는 건물의 위치지점" GeometryStyle="AL015P03">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="15"></VVTStyle>
+		</Feature>
+		<Feature Name="등대" Description="등대의 목적으로 설계되어 사용되는 건물의 위치지점" GeometryStyle="AL015P05">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="82"></VVTStyle>
+		</Feature>
+		<Feature Name="장애물 건물" Description="높이가 46m 이상인 건물의 위치지점" GeometryStyle="AL015P08">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+		<Feature Name="교회/예배당/성당" Description="종교적 목적으로 설계되는 건물 중, 교회 건물의 위치지점" GeometryStyle="AL015P09">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="2,3,4"></VVTStyle>
+		</Feature>
+		<Feature Name="절" Description="종교적 목적으로 설계되는 건물 중, 절 건물의 위치지점" GeometryStyle="AL015P10">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="16"></VVTStyle>
+		</Feature>
+		<Feature Name="사당" Description="종교적 목적으로 설계되는 건물 중, 조상의 신주를 모시는 건물의 위치지점" GeometryStyle="AL015P11">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="14"></VVTStyle>
+		</Feature>
+		<Feature Name="회교사원" Description="종교적 목적으로 설계되는 건물 중, 회교 건물의 위치지점" GeometryStyle="AL015P12">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="9"></VVTStyle>
+		</Feature>
+		<Feature Name="유대교회당" Description="종교적 목적으로 설계되는 건물 중, 유대교 건물의 위치지점" GeometryStyle="AL015P13">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="20"></VVTStyle>
+		</Feature>
+		<Feature Name="탑모양 건물" Description="높이가 46m 미만인 탑모양 건물의 위치지점" GeometryStyle="AL015P14">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="11"></VVTStyle>
+		</Feature>
+		<Feature Name="불탑" Description="종교적 목적으로 설계되는 건물 중, 불탑의 위치지점" GeometryStyle="AL015P15">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="21"></VVTStyle>
+		</Feature>
+		<Feature Name="회교서원의 뾰족탑" Description="종교적 목적으로 설계되는 건물 중, 회교사원의 뾰족한 탑의 위치지점" GeometryStyle="AL015P16">
+			<VVTStyle HGT="&lt;46" EXS="0,5,6,28" BFC="7" HWT="6"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="요새" FACC="AH050" GeometryType="Point" SHPSource="PAH050" GDBSource="FortP" Map="250K" DisplayType="Geometry">
+		<Feature Name="요새" Description="군사적 방어 목적으로 건설된 요새의 위치지점" GeometryStyle="AH050P01"></Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="놀이기구" FACC="AK020" GeometryType="Point" SHPSource="PAK020" GDBSource="LandmrKP" Map="250K" DisplayType="Geometry">
+		<Feature Name="놀이기구" Description="높이가 46m 이상인 놀이기구의 위치지점" GeometryStyle="AK020P01">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="스키점프대" FACC="AK150" GeometryType="Point" SHPSource="PAK150" GDBSource="LandmrKP" Map="250K" DisplayType="Geometry">
+		<Feature Name="스키점프대" Description="높이가 46m 미만이고, 스키 경주를 위한 점프 코스의 위치지점" GeometryStyle="AK150P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="스키점프대 장애물" Description="높이가 46m 이상이고, 스키 경주를 위한 점프 코스의 위치지점" GeometryStyle="AK150P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="경기장/원형경기장" FACC="AK160" GeometryType="Point" SHPSource="PAK160" GDBSource="LandmrKP" Map="250K" DisplayType="Geometry">
+		<Feature Name="경기장/원형경기장" Description="높이가 46m 미만이고, 여러층의 좌석이 경기 또는 활동이 행해지는 지역 주위를 둘러싸고 경기, 대회, 콘서트, 또는 기타 이벤트의 개최 및 관람을 할 수 있는 위치지점" GeometryStyle="AK160P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="경기장/원형경기장 장애물" Description="높이가 46m 이상이고, 여러층의 좌석이 경기 또는 활동이 행해지는 지역 주위를 둘러싸고 경기, 대회, 콘서트, 또는 기타 이벤트의 개최 및 관람을 할 수 있는 위치지점" GeometryStyle="AK160P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="기념비" FACC="AL130" GeometryType="Point" SHPSource="PAL130" GDBSource="LandmrKP" Map="250K" DisplayType="Geometry">
+		<Feature Name="기념비" Description="사람이나 사건을 기억하기 위해 세워지거나 유지된 구조물로, 높이가 46m 미만인 기념비의 위치지점" GeometryStyle="AL130P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="기념비 장애물" Description="사람이나 사건을 기억하기 위해 세워지거나 유지된 구조물로, 높이가 46m이상인 기념비의 위치지점" GeometryStyle="AL130P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="오두막/막사" FACC="AL100" GeometryType="Point" SHPSource="PAL100" GDBSource="MiscpopP" Map="250K" DisplayType="Geometry">
+		<Feature Name="오두막/막사" Description="작은 단체나 개인이 숙소 또는 집으로 사용하는 오두막/막사의 위치지점" GeometryStyle="AL100P01"></Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="폐허" FACC="AL200" GeometryType="Point" SHPSource="PAL200" GDBSource="RuinsP" Map="250K" DisplayType="Geometry">
+		<Feature Name="폐허" Description="구조물의 질이 저하된 유적이 위치하는 폐허의 위치지점" GeometryStyle="AL200P01"></Feature>
+	</Layer>
+	<Layer Category="주거지역" Name="밀집지역/취락" FACC="AL020" GeometryType="Point" SHPSource="PAL020" GDBSource="BuiltupP" Map="250K" DisplayType="Geometry">
+		<Feature Name="취락" Description="인간이 집단으로 터전을 잡아 생활을 이어가는 장소의 위치지점" GeometryStyle="AL020P01"></Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="곡물/사료 저장소" FACC="AM020" GeometryType="Point" SHPSource="PAM020" GDBSource="AgristrP" Map="250K" DisplayType="Geometry">
+		<Feature Name="곡물/사료 저장소" Description="곡물이나 사료를 저장하기 위해 사용하는 곡물/사료저장소의 위치지점" GeometryStyle="AM020P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="곡물/사료 저장소 장애물" Description="곡물이나 사료를 저장하기 위해 사용하는 곡물/사료저장소의 위치지점" GeometryStyle="AM020P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="대형곡물창고" FACC="AM030" GeometryType="Point" SHPSource="PAM030" GDBSource="AgristrP" Map="250K" DisplayType="Geometry">
+		<Feature Name="대형곡물창고" Description="곡물의 저장, 처리, 선적, 하역을 위해 설치된 대형곡물장고의 위치지점" GeometryStyle="AM030P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="대형곡물창고 장애물" Description="곡물의 저장, 처리, 선적, 하역을 위해 설치된 대형곡물장고의 위치지점" GeometryStyle="AM030P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="광산" FACC="AA010" GeometryType="Point" SHPSource="PAA010" GDBSource="ExtractP" Map="250K" DisplayType="Geometry">
+		<Feature Name="운영중 광산" Description="자연자원을 추출하는 광산 중, 현재 가동중인 광산의 위치지점" GeometryStyle="AA010P01">
+			<VVTStyle EXS="0,3,28"></VVTStyle>
+		</Feature>
+		<Feature Name="비운영 광산" Description="자연자원을 추출하는 광산 중, 현재 가동하지 않는 광산의 위치지점" GeometryStyle="AA010P02">
+			<VVTStyle EXS="6"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="굴뚝" FACC="AF010" GeometryType="Point" SHPSource="PAF010" GDBSource="ObstrP" Map="250K" DisplayType="Geometry">
+		<Feature Name="굴뚝" Description="연소 가스와 방출 연기를 위한 통로나 송기관을 포함한 수직적 구조로, 높이가 46m 미만인 굴뚝의 위치지점" GeometryStyle="AF010P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="굴뚝 장애물" Description="연소 가스와 방출 연기를 위한 통로나 송기관을 포함한 수직적 구조로, 높이가 46m 이상인 굴뚝의 위치지점" GeometryStyle="AF010P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="냉각탑" FACC="AF030" GeometryType="Point" SHPSource="PAF030" GDBSource="ObstrP" Map="250K" DisplayType="Geometry">
+		<Feature Name="냉각탑" Description="액체를 냉각시키는데 사용하고, 높이가 46m 미만인 냉각탑의 위치지점" GeometryStyle="AF030P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="냉각탑 장애물" Description="액체를 냉각시키는데 사용하고, 높이가 46m 이상인 냉각탑의 위치지점" GeometryStyle="AF030P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="크레인" FACC="AF040" GeometryType="Point" SHPSource="PAF040" GDBSource="ObstrP" Map="250K" DisplayType="Geometry">
+		<Feature Name="크레인" Description="물체를 들어올리고 이동하는데 사용하는 크레인 중 높이가 46m 이상인 크레인의 위치 지점" GeometryStyle="AF040P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="풍차" FACC="AJ050" GeometryType="Point" SHPSource="PAJ050" GDBSource="ObstrP" Map="250K" DisplayType="Geometry">
+		<Feature Name="풍차" Description="타워와 같은 구조물에 달려 바람에 의해 작동하고, 높이가 46m 미만인 바람개비의 위치지점" GeometryStyle="AJ050P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="풍차 장애물" Description="타워와 같은 구조물에 달려 바람에 의해 작동하고, 높이가 46m 이상인 바람개비의 위치지점" GeometryStyle="AJ050P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="처리장" FACC="AC000" GeometryType="Point" SHPSource="PAC000" GDBSource="ProcessP" Map="250K" DisplayType="Geometry">
+		<Feature Name="처리장" Description="변형 또는 정제된 특별한 재료를 사용하는 처리장 및 처분장의 위치지점" GeometryStyle="AC000P01"></Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="굴착장치" FACC="AA040" GeometryType="Point" SHPSource="PAA040" GDBSource="RigwellP" Map="250K" DisplayType="Geometry">
+		<Feature Name="굴착장치" Description="높이가 46m 이상인 굴착장치 및 건조물의 위치지점" GeometryStyle="AA040P02"></Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="탱크" FACC="AM070" GeometryType="Point" SHPSource="PAM070" GDBSource="StorageP" Map="250K" DisplayType="Geometry">
+		<Feature Name="탱크" Description="액체나 가스의 저장을 위한 컨테이너인 탱크의 위치지점" GeometryStyle="AM070P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="탱크 장애물" Description="높이가 46m 이상인 액체나 가스의 저장을 위한 컨테이너인 탱크의 위치지점" GeometryStyle="AM070P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="급수탑" FACC="AM080" GeometryType="Point" SHPSource="PAM080" GDBSource="StorageP" Map="250K" DisplayType="Geometry">
+		<Feature Name="급수탑" Description="물을 보관하는데 사용된 구조물로, 높이가 46m 미만인 급수탑의 위치지점" GeometryStyle="AM080P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="급수탑 장애물" Description="물을 보관하는데 사용된 구조물로, 높이가 46m 이상인 급수탑의 위치지점" GeometryStyle="AM080P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="탑(통신탑 제외)" FACC="AL240" GeometryType="Point" SHPSource="PAL240" GDBSource="TowerP" Map="250K" DisplayType="Geometry">
+		<Feature Name="탑(통신탑 제외)" Description="관찰, 버팀, 저장 등을 위해 사용하는 비교적 높은 구조물로, 높이가 46m 미만인 탑의 위치지점" GeometryStyle="AL240P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="탑(통신탑 제외) 장애물" Description="관찰, 버팀, 저장 등을 위해 사용하는 비교적 높은 구조물로, 높이가 46m 이상인 탑의 위치지점" GeometryStyle="AL240P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="산업시설" Name="입자가속기" FACC="AL140" GeometryType="Point" SHPSource="PAL140" GDBSource="NuclearP" Map="250K" DisplayType="Geometry">
+		<Feature Name="입자가속기" Description="하전 입자에 높은 속력을 부여하는 장치의 위치지점" GeometryStyle="AL140P01"></Feature>
+	</Layer>
+	<Layer Category="공익설비" Name="접시안테나" FACC="AT010" GeometryType="Point" SHPSource="PAT010" GDBSource="CommP" Map="250K" DisplayType="Geometry">
+		<Feature Name="안테나" Description="송수신을 위해 전자파를 공간으로 보내거나 받기 위한 높이 46m 미만 장치의 위치지점" GeometryStyle="AT010P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="안테나 장애물" Description="송수신을 위해 전자파를 공간으로 보내거나 받기 위한 높이 46m 이상 장치의 위치지점" GeometryStyle="AT010P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="공익설비" Name="통신탑" FACC="AT080" GeometryType="Point" SHPSource="PAT080" GDBSource="CommP" Map="250K" DisplayType="Geometry">
+		<Feature Name="통신탑" Description="전기적 통신 신호를 송신 및 수신하기 위해 사용되는 비교적 높은 구조물로, 높이가 46m 미만인 통신탑의 위치지점" GeometryStyle="AT080P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="통신탑 장애물" Description="전기적 통신 신호를 송신 및 수신하기 위해 사용되는 비교적 높은 구조물로, 높이가 46m 이상인 통신탑의 위치지점" GeometryStyle="AT080P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="공익설비" Name="발전소" FACC="AD010" GeometryType="Point" SHPSource="PAD010" GDBSource="PowerP" Map="250K" DisplayType="Geometry">
+		<Feature Name="발전소" Description="전력 발생을 위해 필요한 건물(시설)과 장치가 있는 발전소의 위치지점" GeometryStyle="AD010P01"></Feature>
+	</Layer>
+	<Layer Category="공익설비" Name="양수장" FACC="AQ116" GeometryType="Point" SHPSource="PAQ116" GDBSource="PumpingP" Map="250K" DisplayType="Geometry">
+		<Feature Name="양수장" Description="압축이나 흡입에 의해 고체, 액체, 기체를 이동시키는 양수장의 위치지점" GeometryStyle="AQ116P01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="터널" FACC="AQ130" GeometryType="Point" SHPSource="PAQ130" GDBSource="TunnelP" Map="250K" DisplayType="Geometry">
+		<Feature Name="터널" Description="도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널의 위치지점" GeometryStyle="AQ130P01">
+			<VVTStyle TUC="0,1,3,4"></VVTStyle>
+		</Feature>
+		<Feature Name="수로터널" Description="도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널 중, 수송수단이 운하인 터널의 위치지점" GeometryStyle="AQ130P02">
+			<VVTStyle TUC="38"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="교통" Name="비행장/헬기장" FACC="GB005" GeometryType="Point" SHPSource="PGB005" GDBSource="AerofacP" Map="250K" DisplayType="Geometry">
+		<Feature Name="주비행장" Description="항공기의 이착륙을 위해 사용되는 육지 및 수계의 규정 지역 중, 주요 비행장의 위치지점" GeometryStyle="GB005P02">
+			<VVTStyle APT="1"></VVTStyle>
+		</Feature>
+		<Feature Name="부비행장" Description="항공기의 이착륙을 위해 사용되는 육지 및 수계의 규정 지역 중, 기타 비행장의 위치지점" GeometryStyle="GB005P03">
+			<VVTStyle APT="0,2,4"></VVTStyle>
+		</Feature>
+		<Feature Name="헬리곱터 발착장(병원)" Description="항공기의 이착륙을 위해 사용되는 육지 및 수계의 규정 지역 중, 병원 비행장의 위치지점" GeometryStyle="GB005P04">
+			<VVTStyle APT="11"></VVTStyle>
+		</Feature>
+		<Feature Name="헬기장/헬리곱터 발착장" Description="항공기의 이착륙을 위해 사용되는 육지 및 수계의 규정 지역인 공항/헬기장의 위치지점" GeometryStyle="GB005P05">
+			<VVTStyle APT="9"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="교통" Name="관제탑" FACC="AQ060" GeometryType="Point" SHPSource="PAQ060" GDBSource="MiscaeroP" Map="250K" DisplayType="Geometry">
+		<Feature Name="관제탑" Description="공기의 흐름, 철도, 해양 교통에 사용되는 사람과 설비를 수용하는 구조물인 관제탑 중, 높이가 46m 미만인 관제탑의 위치지점" GeometryStyle="AQ060P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="관제탑 장애물" Description="공기의 흐름, 철도, 해양 교통에 사용되는 사람과 설비를 수용하는 구조물인 관제탑 중, 높이가 46m 이상인 관제탑의 위치지점" GeometryStyle="AQ060P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="교통" Name="계류주" FACC="AQ110" GeometryType="Point" SHPSource="PAQ110" GDBSource="MiscaeroP" Map="250K" DisplayType="Geometry">
+		<Feature Name="계류주" Description="비행선을 매어두기 위한 높이 46m 미만의 탑과 같은 구조물의 위치지점" GeometryStyle="AQ110P01">
+			<VVTStyle HGT="&lt;46"></VVTStyle>
+		</Feature>
+		<Feature Name="계류주 장애물" Description="비행선을 매어두기 위한 높이 46m 이상의 탑과 같은 구조물의 위치지점" GeometryStyle="AQ110P02">
+			<VVTStyle HGT="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="교통" Name="눈사태/낙석방지설비" FACC="AL210" GeometryType="Point" SHPSource="PAL210" GDBSource="ShedC" Map="250K" DisplayType="Geometry">
+		<Feature Name="눈사태/낙석방지설비" Description="산사태 및 눈사태를 방지하기 위한 시설의 위치지점" GeometryStyle="AL210P01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="활주로" FACC="GB055" GeometryType="Point" SHPSource="PGB055" GDBSource="RunwayP" Map="250K" DisplayType="Geometry">
+		<Feature Name="활주로" Description="항공기의 일반적인 이착륙을 위해 사용되는 활주로의 위치지점" GeometryStyle="GB055P01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="휴게소" FACC="AQ135" GeometryType="Point" SHPSource="PAQ135" GDBSource="RestP" Map="250K" DisplayType="Geometry">
+		<Feature Name="휴게소" Description="차량의 저장 또는 휴식에 사용되는 공간의 위치지점" GeometryStyle="AQ135P01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="교량상부구조" FACC="AQ050" GeometryType="Point" SHPSource="PAQ050" GDBSource="JogTransP" Map="250K" DisplayType="Geometry">
+		<Feature Name="교량상부구조" Description="교량을 구성하고 있는 상부구조의 위치지점" GeometryStyle="AQ050P01">
+			<VVTStyle OHB="&gt;=46"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="교통" Name="인터체인지" FACC="AP020" GeometryType="Point" SHPSource="PAP020" GDBSource="InterC" Map="250K" DisplayType="Geometry">
+		<Feature Name="인터체인지" Description="한 도로에서 다른 도로까지의 교통접근을 위한 연결장치인 인터체인지의 위치지점" GeometryStyle="AP020P01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="부두" FACC="BB190" GeometryType="Point" SHPSource="PBB190" GDBSource="HarborP" Map="250K" DisplayType="Geometry">
+		<Feature Name="부두" Description="배를 정박시키는 장소로 주로 사용되는 부두의 위치지점" GeometryStyle="BB190P01"></Feature>
+	</Layer>
+	<Layer Category="경계" Name="기념/이정표 돌무더기" FACC="AL025" GeometryType="Point" SHPSource="PAL025" GDBSource="MarKersP" Map="250K" DisplayType="Geometry">
+		<Feature Name="기념/이정표 돌무더기" Description="기념 또는 이정표로써의 원추형 돌무덤의 위치지점" GeometryStyle="AL025P01"></Feature>
+	</Layer>
+	<Layer Category="교통" Name="도로번호" FACC="" GeometryType="Point" SHPSource="ROADNAME" GDBSource="" Map="250K" DisplayType="Both" LabelColumn="도로번호">
+		<Feature Name="고속국도" Description="고속국도 번호의 위치지점" GeometryStyle="ROADNAMEP01" LabelStyle="RoadnameT01">
+			<VVTStyle 도로등급="고속국도"></VVTStyle>
+		</Feature>
+		<Feature Name="국도번호" Description="국도 번호의 위치지점" GeometryStyle="ROADNAMEP02" LabelStyle="RoadnameT02">
+			<VVTStyle 도로등급="국도"></VVTStyle>
+		</Feature>
+		<Feature Name="지방도" Description="지방도 번호의 위치지점" GeometryStyle="ROADNAMEP03" LabelStyle="RoadnameT03">
+			<VVTStyle 도로등급="지방도"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="고도" Name="표고점" FACC="CA030" GeometryType="Point" SHPSource="PCA030" GDBSource="ElevP" Map="250K" DisplayType="Both" LabelColumn="ZV2">
+		<Feature Name="명확한 표고점(확인수치)" Description="수직기준좌표와 관련된 고도값 같은 것을 표시하는 명확한 표고점의 위치지점" GeometryStyle="CA030P01" LabelStyle="CA030T01">
+			<VVTStyle ACC="1" ELA="1"></VVTStyle>
+		</Feature>
+		<Feature Name="명확한 표고점(미확인수치)" Description="수직기준좌표와 관련된 고도값 같은 것을 표시하는 개략 표고점의 위치지점" GeometryStyle="CA030P01" LabelStyle="CA030T02">
+			<VVTStyle ACC="1" ELA="0,2"></VVTStyle>
+		</Feature>
+		<Feature Name="근사한 표고점(확인수치)" Description="수직기준좌표와 관련된 고도값 같은 것을 표시하는 명확한 표고점의 위치지점" GeometryStyle="CA030P04" LabelStyle="CA030T01">
+			<VVTStyle ACC="0,2" ELA="1"></VVTStyle>
+		</Feature>
+		<Feature Name="근사한 표고점(미확인수치)" Description="수직기준좌표와 관련된 고도값 같은 것을 표시하는 명확한 표고점의 위치지점" GeometryStyle="CA030P04" LabelStyle="CA030T02">
+			<VVTStyle ACC="0,2" ELA="0,2"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="항공정보" Name="특수사용공역" FACC="" GeometryType="Polygon" SHPSource="UFA" GDBSource="" Map="250K" DisplayType="Both" LabelColumn="name">
+		<Feature Name="초경량비행장치구역" Description="한정된 용도로 사용되며 비교적 자유롭게 운항할 수 있는 하위개념 비행장치의 비행에 적합하도록 통제의 의한 안전조치가 이루어지는 공중에 설정되는 경계지역" GeometryStyle="AirspaseUFAA01" LabelStyle="AirspaseT01"></Feature>
+	</Layer>
+	<Layer Category="항공정보" Name="자기편차" FACC="" GeometryType="Line" SHPSource="MagneticL" GDBSource="" Map="250K" DisplayType="Geometry">
+		<Feature Name="자기편차선" Description="지구 자기 영역에서 국한된 편차가 나타나는 경계" GeometryStyle="MVL01"></Feature>
+	</Layer>
+	<Layer Category="항공정보" Name="특수사용공역" FACC="" GeometryType="Line" SHPSource="SUAS" GDBSource="" Map="250K" DisplayType="Geometry">
+		<Feature Name="특수사용공역" Description="항공기의 비행에 적합하도록 통제의 의한 안전조치가 이루어지는 공중에 설정되는 지역의 경계" GeometryStyle="AirspaseSUASL01"></Feature>
+	</Layer>
+	<Layer Category="항공정보" Name="공역" FACC="" GeometryType="Line" SHPSource="BDRY" GDBSource="" Map="250K" DisplayType="Geometry">
+		<Feature Name="항공방어식별구역" Description="국가의 안전을 위해 모든 항공기의 즉각적인 식별, 위치 및 관제가 이뤄지는 구역으로 영토와 영공의 방어를 위해 정해 놓은 공중구역의 경계" GeometryStyle="AirspaseBDRYL01">
+			<VVTStyle TYPE="02"></VVTStyle>
+		</Feature>
+		<Feature Name="완중구역" Description="전송해야 할 정보를 잠시 저장하여 양 장치의 작동 시간 간격을 조정하기 위해 설정된 기억 장치 내의 영역의 경계" GeometryStyle="AirspaseBDRYL02">
+			<VVTStyle TYPE="05"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="항공정보" Name="해양등" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="Jog TransP" Map="250K" DisplayType="Both" LabelColumn="COL">
+		<Feature Name="해양 등" Description="항해에 도움을 주기 위해 빛을 내거나 밝게 보여주는 장치인 등대의 위치지점" GeometryStyle="BC040P29" LabelStyle="BC040T01"></Feature>
+	</Layer>
+	<Layer Category="항공정보" Name="항법무선시설" FACC="" GeometryType="Point" SHPSource="NAVL" GDBSource="" Map="250K" DisplayType="Both" LabelColumn="name">
+		<Feature Name="VOR 초단전방향무선표 무선시설기호도식" Description="(VHF Omni-directional Radio Range Stations)항공기가 지상국으로부터 어디에 있는지 어느 쪽으로 날아가고 있는지 등을 알려주는 일종의 내비게이션 역할을 하는 시설의  위치지점" GeometryStyle="NVALP01" LabelStyle="NAVLT01">
+			<VVTStyle TYPE="1"></VVTStyle>
+		</Feature>
+		<Feature Name="VORTAC 무선시설기호도식" Description="(VHF Omni-directionalRadioRange?TacticalAirNavigation)군과 민이 한께 이용할 수 있으며 군용기에 대해선는 TACAN에 의해서 거리와 바위의 정보를 제공하고 민간기에 대해서는 VOR에 의해 방위정보를 제공하는 시설의  위치지점" GeometryStyle="NVALP02" LabelStyle="NAVLT01">
+			<VVTStyle TYPE="2"></VVTStyle>
+		</Feature>
+		<Feature Name="TACAN 무선시설기호도식" Description="(Tactical Air Navigation)지상국에서 보내고 있는 응답신호에 의해 지상국과의 방위정보와 거리정보가 동시에 항공기의 지시기에 나타나는 시설의 위치지점" GeometryStyle="NVALP03" LabelStyle="NAVLT01">
+			<VVTStyle TYPE="3"></VVTStyle>
+		</Feature>
+		<Feature Name="VOR-DME 무선시설기호도식" Description="(VHF Omni-directional Radio RangeDistance Measuring Equipment)항공기에 방위 정보를 제공하는 VOR(초단파무선표지)와 거리정보를 제공하는 DME(거리측정장치)를 지상 송신국에 함께 설치하여, 항공기가 방위와 거리정보를 수신하여 그 위치를 결정하는 시설의  위치지점" GeometryStyle="NVALP04" LabelStyle="NAVLT01">
+			<VVTStyle TYPE="4"></VVTStyle>
+		</Feature>
+		<Feature Name="NDB 무지향성무선표지 무선시설기호도식" Description="(Non-directional Radio Beacons)무지향성 무선표지로 무지향성 전파를 공간에 발사해서 항공기에 NDB국의 위치와 방위를 알리는 항공기의 지표가 되는 시설의 위치지점" GeometryStyle="NVALP05" LabelStyle="NAVLT01">
+			<VVTStyle TYPE="5"></VVTStyle>
+		</Feature>
+	</Layer>
+	<Layer Category="주기" Name="지명" FACC="" GeometryType="Point" SHPSource="Geoname" GDBSource="" Map="250K" DisplayType="Label" LabelColumn="textstring">
+		<Feature Name="먹주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT01">
+			<VVTStyle FontSize="&gt;=4.5,&lt;5.5" 종류="경계_영문,경계_한글, 도로번호, 일반주기_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="먹주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT02">
+			<VVTStyle FontSize="&gt;=5.5,&lt;6.5" 종류="경계_영문,경계_한글,고개_영문,고개_한글,도로번호,산/산맥_영문,섬/반도/곶_영문,섬/반도/곶_한글,일반주기_영문,일반주기_한글,취락명_한글,표고수치,행선주기_영문,행선주기_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="먹주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT03">
+			<VVTStyle FontSize="&gt;=6.5,&lt;7.5" 종류="경계_영문,등심선수치,산/산맥_영문,산/산맥_한글,섬/반도/곶_영문,섬/반도/곶_한글,취락명_영문(주변국),표고수치,행선주기_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="먹주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT04">
+			<VVTStyle FontSize="&gt;=7.5,&lt;8.5" 종류="경계_영문,경계_한글,고개_영문,고개_한글,산/산맥_영문,산/산맥_한글,섬/반도/곶_영문,섬/반도/곶_한글,취락명_영문(주변국),취락명_한글,표고수치,행선주기_영문"></VVTStyle>
+		</Feature>
+		<Feature Name="먹주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT05">
+			<VVTStyle FontSize="&gt;=8.5,&lt;9.5" 종류="경계_영문,경계_한글,산/산맥_영문,산/산맥_한글,섬/반도/곶_영문,섬/반도/곶_한글,일반주기_한글,취락명_영문(주변국),취락명_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="먹주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT06">
+			<VVTStyle FontSize="&gt;=9.5,&lt;10.5" 종류="경계_영문,경계_한글,산/산맥_영문,산/산맥_한글,섬/반도/곶_영문,섬/반도/곶_한글,일반주기_영문,일반주기_한글,취락명_영문(주변국),취락명_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="먹주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT07">
+			<VVTStyle FontSize="&gt;=10.5,&lt;11.5" 종류="섬/반도/곶_영문,섬/반도/곶_한글,취락명_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="먹주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT08">
+			<VVTStyle FontSize="&gt;=11.5,&lt;12.5" 종류="산/산맥_영문,산/산맥_한글,섬/반도/곶_영문,섬/반도/곶_한글,일반주기_영문,일반주기_한글,취락명_영문(주변국),취락명_한글,표고수치"></VVTStyle>
+		</Feature>
+		<Feature Name="먹주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT09">
+			<VVTStyle FontSize="&gt;=13.5,&lt;14.5" 종류="섬/반도/곶_영문,섬/반도/곶_한글,취락명_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="먹주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT10">
+			<VVTStyle FontSize="&gt;=15.5,&lt;16.5" 종류="섬/반도/곶_영문,섬/반도/곶_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="적주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT11">
+			<VVTStyle FontSize="&gt;=5.5,&lt;6.5" 종류="등고선수치,취락명_영문"></VVTStyle>
+		</Feature>
+		<Feature Name="적주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT12">
+			<VVTStyle FontSize="&gt;=6.5,&lt;7.5" 종류="등고선수치"></VVTStyle>
+		</Feature>
+		<Feature Name="적주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT13">
+			<VVTStyle FontSize="&gt;=7.5,&lt;8.5" 종류="취락명_영문"></VVTStyle>
+		</Feature>
+		<Feature Name="적주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT14">
+			<VVTStyle FontSize="&gt;=8.5,&lt;9.5" 종류="취락명_영문"></VVTStyle>
+		</Feature>
+		<Feature Name="적주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT15">
+			<VVTStyle FontSize="&gt;=9.5,&lt;10.5" 종류="취락명_영문"></VVTStyle>
+		</Feature>
+		<Feature Name="적주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT16">
+			<VVTStyle FontSize="&gt;=10.5,&lt;11.5" 종류="취락명_영문"></VVTStyle>
+		</Feature>
+		<Feature Name="적주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT17">
+			<VVTStyle FontSize="&gt;=11.5,&lt;12.5" 종류="취락명_영문"></VVTStyle>
+		</Feature>
+		<Feature Name="적주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT18">
+			<VVTStyle FontSize="&gt;=13.5,&lt;14.5" 종류="취락명_영문"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT19">
+			<VVTStyle FontSize="&gt;=5.5,&lt;6.5" 종류="강/하천_영문,강/하천_한글,바다/만_영문,바다/만_한글,청주기_영문,청주기_한글,호수/저수지/늪_영문,호수/저수지/늪_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT20">
+			<VVTStyle FontSize="&gt;=6.5,&lt;7.5" 종류="강/하천_영문,강/하천_한글,바다/만_영문,바다/만_한글,청주기_영문,청주기_한글,호수/저수지/늪_영문,호수/저수지/늪_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT21">
+			<VVTStyle FontSize="&gt;=7.5,&lt;8.5" 종류="강/하천_영문,강/하천_한글,바다/만_영문,바다/만_한글,청주기_영문,청주기_한글,호수/저수지/늪_영문,호수/저수지/늪_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT22">
+			<VVTStyle FontSize="&gt;=8.5,&lt;9.5" 종류="강/하천_영문,강/하천_한글,바다/만_영문,바다/만_한글,호수/저수지/늪_영문,호수/저수지/늪_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT23">
+			<VVTStyle FontSize="&gt;=9.5,&lt;10.5" 종류="강/하천_영문,강/하천_한글,바다/만_영문,바다/만_한글,호수/저수지/늪_영문,호수/저수지/늪_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT24">
+			<VVTStyle FontSize="&gt;=11.5,&lt;12.5" 종류="바다/만_영문,바다/만_한글,호수/저수지/늪_영문,호수/저수지/늪_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT25">
+			<VVTStyle FontSize="&gt;=12.5,&lt;13.5" 종류="바다/만_영문"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT26">
+			<VVTStyle FontSize="&gt;=13.5,&lt;14.5" 종류="바다/만_영문,바다/만_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT27">
+			<VVTStyle FontSize="&gt;=14.5,&lt;15.5" 종류="바다/만_영문,바다/만_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT28">
+			<VVTStyle FontSize="&gt;=15.5,&lt;16.5" 종류="바다/만_영문,바다/만_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT29">
+			<VVTStyle FontSize="&gt;=17.5,&lt;18.5" 종류="바다/만_영문,바다/만_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT30">
+			<VVTStyle FontSize="&gt;=19.5,&lt;20.5" 종류="바다/만_영문,바다/만_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT31">
+			<VVTStyle FontSize="&gt;=21.5,&lt;22.5" 종류="바다/만_영문,바다/만_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="청주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT32">
+			<VVTStyle FontSize="&gt;=23.5,&lt;24.5" 종류="바다/만_영문,바다/만_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT33">
+			<VVTStyle FontSize="&gt;=5.5,&lt;6.5" 종류="장애물수치,해양등주기"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT34">
+			<VVTStyle FontSize="&gt;=6.5,&lt;7.5" 종류="공역주기,비행장주기,항법원조시설"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT35">
+			<VVTStyle FontSize="&gt;=7.5,&lt;8.5" 종류="공역주기,항공경고주기"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT36">
+			<VVTStyle FontSize="&gt;=8.5,&lt;9.5" 종류="공역주기"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT37">
+			<VVTStyle FontSize="&gt;=9.5,&lt;10.5" 종류="공역주기,항공경고주기"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT38">
+			<VVTStyle FontSize="&gt;=10.5,&lt;11.5" 종류="공역주기,항공경고주기"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT39">
+			<VVTStyle FontSize="&gt;=11.5,&lt;12.5" 종류="공역주기,자기편차선수치,항공경고주기"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT40">
+			<VVTStyle FontSize="&gt;=12.5,&lt;13.5" 종류="공역주기"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT41">
+			<VVTStyle FontSize="&gt;=13.5,&lt;14.5" 종류="공역주기"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT42">
+			<VVTStyle FontSize="&gt;=14.5,&lt;15.5" 종류="공역주기"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT43">
+			<VVTStyle FontSize="&gt;=15.5,&lt;16.5" 종류="공역주기"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT44">
+			<VVTStyle FontSize="&gt;=16.5,&lt;17.5" 종류="공역주기"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT45">
+			<VVTStyle FontSize="&gt;=17.5,&lt;18.5" 종류="공역주기,최대고도수치"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT46">
+			<VVTStyle FontSize="&gt;=19.5,&lt;20.5" 종류="공역주기"></VVTStyle>
+		</Feature>
+		<Feature Name="항공주기" Description="지도상의 표현되는 이름을 가진 지형지물의 위치지점" LabelStyle="GeonameAirT47">
+			<VVTStyle FontSize="&gt;=29.5,&lt;30.5" 종류="최대고도수치"></VVTStyle>
+		</Feature>
+	</Layer>
+</MapLayer>

@@ -1,0 +1,2266 @@
+<?xml version = "1.0" encoding = "euc-kr"?>
+<MapAttrColumnDomain Version="1.0">
+ 	<Attribute Name="AAC" Code="0" Value="미확인"/>
+	<Attribute Name="AAC" Code="1" Value="정확한"/>
+	<Attribute Name="ACC" Code="0" Value="미지의"/>
+	<Attribute Name="ACC" Code="1" Value="정확한"/>
+	<Attribute Name="ACC" Code="2" Value="근사한"/>
+	<Attribute Name="ACC" Code="3" Value="확신할 수 없는"/>
+	<Attribute Name="ACC" Code="5" Value="논의된"/>
+	<Attribute Name="ACC" Code="6" Value="확실한"/>
+	<Attribute Name="ACC" Code="7" Value="정확한"/>
+	<Attribute Name="ACC" Code="8" Value="폐지한"/>
+	<Attribute Name="ACC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="ACC" Code="998" Value="부적절한"/>
+	<Attribute Name="ACC" Code="999" Value="기타"/>
+	<Attribute Name="AHC" Code="0" Value="미확인"/>
+	<Attribute Name="AHC" Code="1" Value="영구적인"/>
+	<Attribute Name="AHC" Code="2" Value="간헐적인"/>
+	<Attribute Name="ALTITUDE" Code="0" Value="0"/>
+	<Attribute Name="AOO" Code="0" Value="실제값"/>
+	<Attribute Name="APP" Code="0" Value="0"/>
+	<Attribute Name="APT" Code="0" Value="미지의"/>
+	<Attribute Name="APT" Code="1" Value="주공항"/>
+	<Attribute Name="APT" Code="2" Value="소공항"/>
+	<Attribute Name="APT" Code="3" Value="빛/단지 일반적인 비행 항공기 조작"/>
+	<Attribute Name="APT" Code="4" Value="수상비행기 기지"/>
+	<Attribute Name="APT" Code="5" Value="글라이더 기지"/>
+	<Attribute Name="APT" Code="6" Value="초경량 비행기 기지"/>
+	<Attribute Name="APT" Code="7" Value="행글라이더 기지"/>
+	<Attribute Name="APT" Code="8" Value="행글라이더를 날리는 위치 기지"/>
+	<Attribute Name="APT" Code="9" Value="헬리콥터 발착장"/>
+	<Attribute Name="APT" Code="10" Value="헬리콥터 기지"/>
+	<Attribute Name="APT" Code="11" Value="병원에 있는 헬리콥터 발착장"/>
+	<Attribute Name="APT" Code="12" Value="긴급"/>
+	<Attribute Name="APT" Code="13" Value="낙하산놀이(모터보터로 끄는)부지"/>
+	<Attribute Name="APT" Code="14" Value="공항"/>
+	<Attribute Name="APT" Code="15" Value="확실하지 않는 착륙장"/>
+	<Attribute Name="APT" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="APT" Code="998" Value="적절하지 않은"/>
+	<Attribute Name="APT" Code="999" Value="기타"/>
+	<Attribute Name="ARA" Code="0" Value="0"/>
+	<Attribute Name="ARE" Code="0" Value="0"/>
+	<Attribute Name="ARH" Code="0" Value="0"/>
+	<Attribute Name="ARROWTYPE" Code="0" Value="0"/>
+	<Attribute Name="ATN" Code="0" Value="미확인"/>
+	<Attribute Name="ATN" Code="1" Value="표시가 있는"/>
+	<Attribute Name="ATN" Code="2" Value="표시가 없는"/>
+	<Attribute Name="BAC" Code="0" Value="미확인"/>
+	<Attribute Name="BAC" Code="1" Value="보통의"/>
+	<Attribute Name="BAC" Code="2" Value="밀집한"/>
+	<Attribute Name="BCC" Code="0" Value="미확인"/>
+	<Attribute Name="BCC" Code="1" Value="쉬운(2km이내)"/>
+	<Attribute Name="BCC" Code="2" Value="어려운(2km이내)"/>
+	<Attribute Name="BCC" Code="3" Value="불가능한(2km이내)"/>
+	<Attribute Name="BER" Code="0" Value="0"/>
+	<Attribute Name="BFC" Code="0" Value="미지의"/>
+	<Attribute Name="BFC" Code="1" Value="조립식 구조"/>
+	<Attribute Name="BFC" Code="2" Value="관공서"/>
+	<Attribute Name="BFC" Code="3" Value="의회 의사당"/>
+	<Attribute Name="BFC" Code="4" Value="성"/>
+	<Attribute Name="BFC" Code="5" Value="정부 내각 건물"/>
+	<Attribute Name="BFC" Code="6" Value="병원"/>
+	<Attribute Name="BFC" Code="7" Value="교회,예배소"/>
+	<Attribute Name="BFC" Code="8" Value="군 당국/작전건물"/>
+	<Attribute Name="BFC" Code="9" Value="박물관,기념관"/>
+	<Attribute Name="BFC" Code="10" Value="천문대, 기상대, 관측소"/>
+	<Attribute Name="BFC" Code="11" Value="왕궁, 관저"/>
+	<Attribute Name="BFC" Code="12" Value="경찰서"/>
+	<Attribute Name="BFC" Code="13" Value="교도소"/>
+	<Attribute Name="BFC" Code="14" Value="산림 경비초소"/>
+	<Attribute Name="BFC" Code="15" Value="학교"/>
+	<Attribute Name="BFC" Code="16" Value="가옥"/>
+	<Attribute Name="BFC" Code="17" Value="다중 단위의 거주"/>
+	<Attribute Name="BFC" Code="18" Value="묘지"/>
+	<Attribute Name="BFC" Code="19" Value="농가"/>
+	<Attribute Name="BFC" Code="20" Value="온실"/>
+	<Attribute Name="BFC" Code="21" Value="차고,격납고"/>
+	<Attribute Name="BFC" Code="22" Value="물방아/방앗간"/>
+	<Attribute Name="BFC" Code="23" Value="항공기의 모의 실험용"/>
+	<Attribute Name="BFC" Code="24" Value="창고"/>
+	<Attribute Name="BFC" Code="25" Value="기관차고"/>
+	<Attribute Name="BFC" Code="26" Value="객차고/객차정비소"/>
+	<Attribute Name="BFC" Code="27" Value="정거장"/>
+	<Attribute Name="BFC" Code="28" Value="행정 건물"/>
+	<Attribute Name="BFC" Code="29" Value="항공기 정비공장"/>
+	<Attribute Name="BFC" Code="30" Value="격납고"/>
+	<Attribute Name="BFC" Code="31" Value="세관"/>
+	<Attribute Name="BFC" Code="33" Value="보건소"/>
+	<Attribute Name="BFC" Code="34" Value="발포범위"/>
+	<Attribute Name="BFC" Code="35" Value="우체국"/>
+	<Attribute Name="BFC" Code="36" Value="막사/기숙사"/>
+	<Attribute Name="BFC" Code="37" Value="소방서"/>
+	<Attribute Name="BFC" Code="38" Value="교도소"/>
+	<Attribute Name="BFC" Code="39" Value="위병소"/>
+	<Attribute Name="BFC" Code="40" Value="전화교환대"/>
+	<Attribute Name="BFC" Code="41" Value="휴게소"/>
+	<Attribute Name="BFC" Code="42" Value="도로 유지소"/>
+	<Attribute Name="BFC" Code="50" Value="교회"/>
+	<Attribute Name="BFC" Code="51" Value="시장"/>
+	<Attribute Name="BFC" Code="52" Value="읍사무소(시청, 시공화당)"/>
+	<Attribute Name="BFC" Code="53" Value="은행"/>
+	<Attribute Name="BFC" Code="54" Value="서비스/연료보급소"/>
+	<Attribute Name="BFC" Code="55" Value="요트클럽"/>
+	<Attribute Name="BFC" Code="56" Value="대중여관"/>
+	<Attribute Name="BFC" Code="57" Value="레스토랑"/>
+	<Attribute Name="BFC" Code="58" Value="전망대"/>
+	<Attribute Name="BFC" Code="59" Value="연구와 개발의 노동자문위원회/연구시설"/>
+	<Attribute Name="BFC" Code="60" Value="대학교/단과대학"/>
+	<Attribute Name="BFC" Code="61" Value="법원"/>
+	<Attribute Name="BFC" Code="62" Value="공사관"/>
+	<Attribute Name="BFC" Code="63" Value="사절단"/>
+	<Attribute Name="BFC" Code="64" Value="대법관청"/>
+	<Attribute Name="BFC" Code="65" Value="대사관저"/>
+	<Attribute Name="BFC" Code="66" Value="대사관"/>
+	<Attribute Name="BFC" Code="67" Value="영사관"/>
+	<Attribute Name="BFC" Code="68" Value="위병소"/>
+	<Attribute Name="BFC" Code="69" Value="위병소/초소"/>
+	<Attribute Name="BFC" Code="70" Value="개 사육장"/>
+	<Attribute Name="BFC" Code="71" Value="착유공장(야채)"/>
+	<Attribute Name="BFC" Code="72" Value="통풍기"/>
+	<Attribute Name="BFC" Code="73" Value="목공소"/>
+	<Attribute Name="BFC" Code="74" Value="제재소"/>
+	<Attribute Name="BFC" Code="75" Value="가마/솥"/>
+	<Attribute Name="BFC" Code="76" Value="신호소/철도신호원의 건물"/>
+	<Attribute Name="BFC" Code="77" Value="항무관 사무소"/>
+	<Attribute Name="BFC" Code="78" Value="해양경찰"/>
+	<Attribute Name="BFC" Code="79" Value="구조대"/>
+	<Attribute Name="BFC" Code="80" Value="항구통제"/>
+	<Attribute Name="BFC" Code="81" Value="해양근거지"/>
+	<Attribute Name="BFC" Code="82" Value="등대"/>
+	<Attribute Name="BFC" Code="83" Value="전력생산"/>
+	<Attribute Name="BFC" Code="84" Value="정수장 호"/>
+	<Attribute Name="BFC" Code="85" Value="신문생산시설"/>
+	<Attribute Name="BFC" Code="86" Value="전화교환(주)"/>
+	<Attribute Name="BFC" Code="87" Value="강당"/>
+	<Attribute Name="BFC" Code="88" Value="오페라 하우스"/>
+	<Attribute Name="BFC" Code="89" Value="진행/처리"/>
+	<Attribute Name="BFC" Code="90" Value="펌프장"/>
+	<Attribute Name="BFC" Code="91" Value="이동식주택"/>
+	<Attribute Name="BFC" Code="92" Value="기상대"/>
+	<Attribute Name="BFC" Code="93" Value="의존성 주택공급/야영지"/>
+	<Attribute Name="BFC" Code="94" Value="철도역"/>
+	<Attribute Name="BFC" Code="95" Value="호텔"/>
+	<Attribute Name="BFC" Code="96" Value="영사관"/>
+	<Attribute Name="BFC" Code="97" Value="교역소"/>
+	<Attribute Name="BFC" Code="98" Value="오두막"/>
+	<Attribute Name="BFC" Code="99" Value="포병 중대"/>
+	<Attribute Name="BFC" Code="100" Value="의료센터"/>
+	<Attribute Name="BFC" Code="101" Value="사회관"/>
+	<Attribute Name="BFC" Code="102" Value="기름/가스시설건물"/>
+	<Attribute Name="BFC" Code="103" Value="외양간"/>
+	<Attribute Name="BFC" Code="104" Value="제지공장"/>
+	<Attribute Name="BFC" Code="105" Value="소년원"/>
+	<Attribute Name="BFC" Code="106" Value="요양지"/>
+	<Attribute Name="BFC" Code="107" Value="위성추적정거장"/>
+	<Attribute Name="BFC" Code="108" Value="사립전문학교"/>
+	<Attribute Name="BFC" Code="109" Value="양로원"/>
+	<Attribute Name="BFC" Code="110" Value="조선소"/>
+	<Attribute Name="BFC" Code="111" Value="운동시설"/>
+	<Attribute Name="BFC" Code="112" Value="제강공장"/>
+	<Attribute Name="BFC" Code="113" Value="고속도로"/>
+	<Attribute Name="BFC" Code="114" Value="비기독교 예배장소"/>
+	<Attribute Name="BFC" Code="115" Value="호스텔"/>
+	<Attribute Name="BFC" Code="116" Value="공장"/>
+	<Attribute Name="BFC" Code="117" Value="모텔"/>
+	<Attribute Name="BFC" Code="118" Value="시민문화회관"/>
+	<Attribute Name="BFC" Code="119" Value="시청"/>
+	<Attribute Name="BFC" Code="120" Value="자동차공장"/>
+	<Attribute Name="BFC" Code="121" Value="병기고"/>
+	<Attribute Name="BFC" Code="122" Value="쇼핑센터"/>
+	<Attribute Name="BFC" Code="123" Value="교정학회"/>
+	<Attribute Name="BFC" Code="124" Value="정비소"/>
+	<Attribute Name="BFC" Code="125" Value="헛간/기계류창고"/>
+	<Attribute Name="BFC" Code="126" Value="천문기지"/>
+	<Attribute Name="BFC" Code="127" Value="극장"/>
+	<Attribute Name="BFC" Code="128" Value="도서관"/>
+	<Attribute Name="BFC" Code="129" Value="공항터미널"/>
+	<Attribute Name="BFC" Code="130" Value="버스 정거장"/>
+	<Attribute Name="BFC" Code="131" Value="조종사 사무실"/>
+	<Attribute Name="BFC" Code="132" Value="Pilot Look-out"/>
+	<Attribute Name="BFC" Code="133" Value="상업용 빌딩"/>
+	<Attribute Name="BFC" Code="134" Value="성채"/>
+	<Attribute Name="BFC" Code="135" Value="목조의 작은 요새, 로켓 발사 관제소"/>
+	<Attribute Name="BFC" Code="136" Value="원형 포탑"/>
+	<Attribute Name="BFC" Code="137" Value="경계탑"/>
+	<Attribute Name="BFC" Code="138" Value="요새,성채"/>
+	<Attribute Name="BFC" Code="139" Value="냉각실"/>
+	<Attribute Name="BFC" Code="150" Value="막사"/>
+	<Attribute Name="BFC" Code="151" Value="기숙사"/>
+	<Attribute Name="BFC" Code="723" Value="결합된 소방서와 경찰서"/>
+	<Attribute Name="BFC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="BFC" Code="998" Value="적용 불가능"/>
+	<Attribute Name="BFC" Code="999" Value="기타"/>
+	<Attribute Name="BOT" Code="0" Value="미확인"/>
+	<Attribute Name="BOT" Code="4" Value="도개식"/>
+	<Attribute Name="BOT" Code="10" Value="선개/선회식"/>
+	<Attribute Name="BOT" Code="11" Value="승개식"/>
+	<Attribute Name="BOT" Code="12" Value="신축식"/>
+	<Attribute Name="BOT" Code="14" Value="잠수식"/>
+	<Attribute Name="BOT" Code="999" Value="기타"/>
+	<Attribute Name="BR2" Code="0" Value="0"/>
+	<Attribute Name="BRF" Code="0" Value="0"/>
+	<Attribute Name="BRG" Code="0" Value="0"/>
+	<Attribute Name="BRN" Code="0" Value="0"/>
+	<Attribute Name="BRR" Code="0" Value="0"/>
+	<Attribute Name="BRS" Code="0" Value="0"/>
+	<Attribute Name="BSC" Code="0" Value="미확인"/>
+	<Attribute Name="BSC" Code="1" Value="아치"/>
+	<Attribute Name="BSC" Code="2" Value="캔틸레버교"/>
+	<Attribute Name="BSC" Code="3" Value="납작한"/>
+	<Attribute Name="BSC" Code="5" Value="부교"/>
+	<Attribute Name="BSC" Code="6" Value="대들보"/>
+	<Attribute Name="BSC" Code="7" Value="현수교"/>
+	<Attribute Name="BSC" Code="8" Value="트러스교"/>
+	<Attribute Name="BSC" Code="9" Value="매달린"/>
+	<Attribute Name="BSC" Code="12" Value="운반기"/>
+	<Attribute Name="BSC" Code="15" Value="평석"/>
+	<Attribute Name="BSC" Code="16" Value="세로 보"/>
+	<Attribute Name="BSC" Code="28" Value="고가교"/>
+	<Attribute Name="BSC" Code="999" Value="기타"/>
+	<Attribute Name="BSS" Code="0" Value="미확인"/>
+	<Attribute Name="BSS" Code="2" Value="뾰족탑"/>
+	<Attribute Name="BSS" Code="3" Value="돔형"/>
+	<Attribute Name="BSS" Code="6" Value="첨탑"/>
+	<Attribute Name="BSS" Code="998" Value="적용할수 없는"/>
+	<Attribute Name="BSS" Code="999" Value="기타"/>
+	<Attribute Name="BST" Code="0" Value="미확인"/>
+	<Attribute Name="BST" Code="1" Value="뚜렷한"/>
+	<Attribute Name="BST" Code="2" Value="불명확한"/>
+	<Attribute Name="BST" Code="3" Value="논쟁준인"/>
+	<Attribute Name="BST" Code="4" Value="결정되지 않은"/>
+	<Attribute Name="BST" Code="998" Value="적용할 수 없는"/>
+	<Attribute Name="BST" Code="999" Value="기타"/>
+	<Attribute Name="BTC" Code="0" Value="미확인"/>
+	<Attribute Name="BTC" Code="4" Value="큰 항해부표"/>
+	<Attribute Name="BTC" Code="6" Value="표류하는"/>
+	<Attribute Name="BTC" Code="7" Value="계류"/>
+	<Attribute Name="BTC" Code="10" Value="해양관측용"/>
+	<Attribute Name="BUT" Code="0" Value="미확인"/>
+	<Attribute Name="BUT" Code="1" Value="방위부표"/>
+	<Attribute Name="BUT" Code="3" Value="고립장애표지"/>
+	<Attribute Name="BUT" Code="5" Value="측방표지"/>
+	<Attribute Name="BUT" Code="6" Value="표류하는"/>
+	<Attribute Name="BUT" Code="7" Value="계류용표지"/>
+	<Attribute Name="BUT" Code="10" Value="해양관측용표지"/>
+	<Attribute Name="BUT" Code="15" Value="특수표지"/>
+	<Attribute Name="BUT" Code="17" Value="유조선표지"/>
+	<Attribute Name="BUT" Code="18" Value="안전수역표지"/>
+	<Attribute Name="BUT" Code="86" Value="사설표지"/>
+	<Attribute Name="BUT" Code="95" Value="서방위표지"/>
+	<Attribute Name="BUT" Code="97" Value="동방위표지"/>
+	<Attribute Name="BUT" Code="98" Value="북방위표지"/>
+	<Attribute Name="BUT" Code="999" Value="기타"/>
+	<Attribute Name="BVL" Code="0" Value="미확인"/>
+	<Attribute Name="BVL" Code="1" Value="개방된(5%미만)"/>
+	<Attribute Name="BVL" Code="2" Value="희박한(5%~15%)"/>
+	<Attribute Name="BVL" Code="3" Value="중간의(15%~50%)"/>
+	<Attribute Name="BVL" Code="4" Value="조밀한(50%이상)"/>
+	<Attribute Name="BVR" Code="0" Value="미확인"/>
+	<Attribute Name="BVR" Code="1" Value="개방된(5%미만)"/>
+	<Attribute Name="BVR" Code="2" Value="희박한(5%~15%)"/>
+	<Attribute Name="BVR" Code="3" Value="중간의(15%~50%)"/>
+	<Attribute Name="BVR" Code="4" Value="조밀한(50%이상)"/>
+	<Attribute Name="C80" Code="0" Value="0"/>
+	<Attribute Name="C81" Code="0" Value="0"/>
+	<Attribute Name="C82" Code="0" Value="0"/>
+	<Attribute Name="C83" Code="0" Value="0"/>
+	<Attribute Name="C84" Code="0" Value="0"/>
+	<Attribute Name="C85" Code="0" Value="0"/>
+	<Attribute Name="C86" Code="0" Value="0"/>
+	<Attribute Name="C87" Code="0" Value="0"/>
+	<Attribute Name="C88" Code="0" Value="0"/>
+	<Attribute Name="C89" Code="0" Value="0"/>
+	<Attribute Name="C90" Code="0" Value="0"/>
+	<Attribute Name="C91" Code="0" Value="0"/>
+	<Attribute Name="CAB" Code="0" Value="미확인"/>
+	<Attribute Name="CAB" Code="2" Value="전력선"/>
+	<Attribute Name="CAB" Code="3" Value="전화선"/>
+	<Attribute Name="CAB" Code="4" Value="전신선"/>
+	<Attribute Name="CAB" Code="6" Value="송전선"/>
+	<Attribute Name="CAB" Code="999" Value="기타"/>
+	<Attribute Name="CCC" Code="0" Value="미확인"/>
+	<Attribute Name="CCC" Code="1" Value="검정"/>
+	<Attribute Name="CCC" Code="2" Value="파랑"/>
+	<Attribute Name="CCC" Code="5" Value="녹색"/>
+	<Attribute Name="CCC" Code="12" Value="빨강"/>
+	<Attribute Name="CCC" Code="15" Value="흰색"/>
+	<Attribute Name="CCC" Code="19" Value="노랑"/>
+	<Attribute Name="CCC" Code="20" Value="붉은과 흰색"/>
+	<Attribute Name="CCC" Code="29" Value="노랑과 검정"/>
+	<Attribute Name="CCC" Code="30" Value="노랑과 검정과 노랑"/>
+	<Attribute Name="CCC" Code="34" Value="검정과 노랑"/>
+	<Attribute Name="CCC" Code="35" Value="검정과 노랑과 검정"/>
+	<Attribute Name="CCC" Code="36" Value="검정과 붉은과 검정"/>
+	<Attribute Name="CCC" Code="37" Value="검정과 흰색"/>
+	<Attribute Name="CCC" Code="40" Value="흰색과 붉은"/>
+	<Attribute Name="CCC" Code="44" Value="흰색과 노랑"/>
+	<Attribute Name="CCC" Code="999" Value="기타"/>
+	<Attribute Name="CHA" Code="21" Value="불빛있는"/>
+	<Attribute Name="CHA" Code="23" Value="불빛없는"/>
+	<Attribute Name="COC" Code="0" Value="미확인"/>
+	<Attribute Name="COC" Code="1" Value="현저한"/>
+	<Attribute Name="COC" Code="6" Value="불분명한"/>
+	<Attribute Name="COC" Code="999" Value="기타"/>
+	<Attribute Name="COD" Code="0" Value="미지의"/>
+	<Attribute Name="COD" Code="1" Value="경계와 정보를 알고 있음"/>
+	<Attribute Name="COD" Code="2" Value="경계와 정보를 모름"/>
+	<Attribute Name="COD" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="COD" Code="998" Value="적용 불가능"/>
+	<Attribute Name="COD" Code="999" Value="기타"/>
+	<Attribute Name="COE" Code="0" Value="미확인"/>
+	<Attribute Name="COE" Code="1" Value="명확한"/>
+	<Attribute Name="COE" Code="2" Value="의심스러운"/>
+	<Attribute Name="COE" Code="3" Value="보고된"/>
+	<Attribute Name="COL" Code="0" Value="0"/>
+	<Attribute Name="CPA" Code="0" Value="미확인"/>
+	<Attribute Name="CPA" Code="2" Value="수평선의"/>
+	<Attribute Name="CPA" Code="3" Value="수준점상"/>
+	<Attribute Name="CPA" Code="5" Value="수직선상의"/>
+	<Attribute Name="CRA" Code="0" Value="미확인"/>
+	<Attribute Name="CRA" Code="3" Value="회전식"/>
+	<Attribute Name="CRA" Code="7" Value="타워식"/>
+	<Attribute Name="CRA" Code="999" Value="기타"/>
+	<Attribute Name="CRN" Code="0" Value="0"/>
+	<Attribute Name="CRV" Code="0" Value="0"/>
+	<Attribute Name="CRX" Code="0" Value="0"/>
+	<Attribute Name="CSM" Code="0" Value="미확인"/>
+	<Attribute Name="CSM" Code="1" Value="부러진"/>
+	<Attribute Name="CSM" Code="2" Value="거친"/>
+	<Attribute Name="CSM" Code="4" Value="미세한"/>
+	<Attribute Name="CSM" Code="6" Value="견고한"/>
+	<Attribute Name="CSM" Code="8" Value="유연한"/>
+	<Attribute Name="CSM" Code="9" Value="점착성의"/>
+	<Attribute Name="CSM" Code="17" Value="석회질의"/>
+	<Attribute Name="CSM" Code="26" Value="화강암질의"/>
+	<Attribute Name="CSM" Code="999" Value="기타"/>
+	<Attribute Name="CTL" Code="0" Value="0"/>
+	<Attribute Name="CUR" Code="0" Value="미확인"/>
+	<Attribute Name="CUR" Code="1" Value="썰물"/>
+	<Attribute Name="CUR" Code="2" Value="밀물"/>
+	<Attribute Name="CUR" Code="5" Value="대양류"/>
+	<Attribute Name="CUR" Code="999" Value="기타"/>
+	<Attribute Name="CVH" Code="0" Value="0"/>
+	<Attribute Name="CVL" Code="0" Value="0"/>
+	<Attribute Name="D80" Code="0" Value="0"/>
+	<Attribute Name="D81" Code="0" Value="0"/>
+	<Attribute Name="D82" Code="0" Value="0"/>
+	<Attribute Name="D83" Code="0" Value="0"/>
+	<Attribute Name="D84" Code="0" Value="0"/>
+	<Attribute Name="D85" Code="0" Value="0"/>
+	<Attribute Name="D86" Code="0" Value="0"/>
+	<Attribute Name="D87" Code="0" Value="0"/>
+	<Attribute Name="D88" Code="0" Value="0"/>
+	<Attribute Name="D89" Code="0" Value="0"/>
+	<Attribute Name="D90" Code="0" Value="0"/>
+	<Attribute Name="D91" Code="0" Value="0"/>
+	<Attribute Name="DAN" Code="0" Value="0"/>
+	<Attribute Name="DAT" Code="0" Value="0"/>
+	<Attribute Name="DEP" Code="0" Value="0"/>
+	<Attribute Name="DEPTH" Code="0" Value="0"/>
+	<Attribute Name="DF1" Code="0" Value="0"/>
+	<Attribute Name="DF2" Code="0" Value="0"/>
+	<Attribute Name="DF3" Code="0" Value="0"/>
+	<Attribute Name="DF4" Code="0" Value="0"/>
+	<Attribute Name="DGC" Code="0" Value="미확인"/>
+	<Attribute Name="DGC" Code="1" Value="상부"/>
+	<Attribute Name="DGC" Code="2" Value="사이드"/>
+	<Attribute Name="DMB" Code="0" Value="실제값"/>
+	<Attribute Name="DMT" Code="0" Value="실제값"/>
+	<Attribute Name="DOF" Code="0" Value="0"/>
+	<Attribute Name="DRP" Code="0" Value="0"/>
+	<Attribute Name="E_NAM" Code="0" Value="0"/>
+	<Attribute Name="E_TXT" Code="0" Value="0"/>
+	<Attribute Name="ELA" Code="0" Value="미확인"/>
+	<Attribute Name="ELA" Code="1" Value="정확한"/>
+	<Attribute Name="ELA" Code="2" Value="개략적인"/>
+	<Attribute Name="ELA" Code="998" Value="적절하지 않은"/>
+	<Attribute Name="ELA" Code="999" Value="기타"/>
+	<Attribute Name="EOL" Code="0" Value="0"/>
+	<Attribute Name="EXS" Code="0" Value="미지의"/>
+	<Attribute Name="EXS" Code="1" Value="명확한"/>
+	<Attribute Name="EXS" Code="2" Value="모호한"/>
+	<Attribute Name="EXS" Code="3" Value="보고된"/>
+	<Attribute Name="EXS" Code="4" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="EXS" Code="5" Value="건설중"/>
+	<Attribute Name="EXS" Code="6" Value="폐기된/쓰이지 않은"/>
+	<Attribute Name="EXS" Code="7" Value="파괴된"/>
+	<Attribute Name="EXS" Code="8" Value="제거된"/>
+	<Attribute Name="EXS" Code="10" Value="신청한"/>
+	<Attribute Name="EXS" Code="11" Value="임시의"/>
+	<Attribute Name="EXS" Code="12" Value="교체"/>
+	<Attribute Name="EXS" Code="13" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="EXS" Code="16" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="EXS" Code="17" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="EXS" Code="18" Value="영구적인"/>
+	<Attribute Name="EXS" Code="19" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="EXS" Code="20" Value="추천트랙"/>
+	<Attribute Name="EXS" Code="21" Value="추천트랙에 해당하지 않는"/>
+	<Attribute Name="EXS" Code="22" Value="편도"/>
+	<Attribute Name="EXS" Code="23" Value="양면교통의"/>
+	<Attribute Name="EXS" Code="25" Value="보존되지 않은"/>
+	<Attribute Name="EXS" Code="26" Value="보존된"/>
+	<Attribute Name="EXS" Code="27" Value="폐쇄한/고정된"/>
+	<Attribute Name="EXS" Code="28" Value="조작상의(운영상의)"/>
+	<Attribute Name="EXS" Code="29" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="EXS" Code="30" Value="고립되지 않은"/>
+	<Attribute Name="EXS" Code="31" Value="고립된"/>
+	<Attribute Name="EXS" Code="32" Value="항해할 수 있는"/>
+	<Attribute Name="EXS" Code="33" Value="파멸한"/>
+	<Attribute Name="EXS" Code="34" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="EXS" Code="35" Value="왼쪽 공백의 계획 값(기타)"/>
+	<Attribute Name="EXS" Code="36" Value="권한이 있고 사용할 수 있는"/>
+	<Attribute Name="EXS" Code="37" Value="권한이 있고 테스트 중인"/>
+	<Attribute Name="EXS" Code="38" Value="권한이 있고 서비스외의"/>
+	<Attribute Name="EXS" Code="39" Value="권한이 없고 사용할 수 있는"/>
+	<Attribute Name="EXS" Code="40" Value="권한이 없고 테스트 중인"/>
+	<Attribute Name="EXS" Code="41" Value="권한이 없고 서비스 외의"/>
+	<Attribute Name="EXS" Code="42" Value="계속되는 조작(작전)"/>
+	<Attribute Name="EXS" Code="43" Value="때때로 중단되는 조작"/>
+	<Attribute Name="EXS" Code="44" Value="근접한/대략"/>
+	<Attribute Name="EXS" Code="45" Value="자연그대로의"/>
+	<Attribute Name="EXS" Code="46" Value="인공의"/>
+	<Attribute Name="EXS" Code="47" Value="휩쓸은"/>
+	<Attribute Name="EXS" Code="48" Value="조정된"/>
+	<Attribute Name="EXS" Code="49" Value="조정되지 않은"/>
+	<Attribute Name="EXS" Code="50" Value="조수간만이 없는"/>
+	<Attribute Name="EXS" Code="51" Value="조수간만의/조수의 파동"/>
+	<Attribute Name="EXS" Code="52" Value="사라진"/>
+	<Attribute Name="EXS" Code="53" Value="불완전한"/>
+	<Attribute Name="EXS" Code="54" Value="고풍의/고대의"/>
+	<Attribute Name="EXS" Code="55" Value="검사안한/측량하지 않은"/>
+	<Attribute Name="EXS" Code="56" Value="수반하지 않은/관찰하지 않은"/>
+	<Attribute Name="EXS" Code="57" Value="확인된 수중음파 탐지기"/>
+	<Attribute Name="EXS" Code="58" Value="확인되지 않은 수중음파 탐지기"/>
+	<Attribute Name="EXS" Code="59" Value="이용불가능한"/>
+	<Attribute Name="EXS" Code="60" Value="한계가 없는(해안선)"/>
+	<Attribute Name="EXS" Code="61" Value="명확한"/>
+	<Attribute Name="EXS" Code="62" Value="부분적으로 파괴된"/>
+	<Attribute Name="EXS" Code="65" Value="불활성의"/>
+	<Attribute Name="EXS" Code="66" Value="손상된"/>
+	<Attribute Name="EXS" Code="70" Value="임시의"/>
+	<Attribute Name="EXS" Code="71" Value="위탁된"/>
+	<Attribute Name="EXS" Code="72" Value="계발된"/>
+	<Attribute Name="EXS" Code="73" Value="사적,유적"/>
+	<Attribute Name="EXS" Code="74" Value="동시에 발생된"/>
+	<Attribute Name="EXS" Code="75" Value="지켜보다"/>
+	<Attribute Name="EXS" Code="723" Value="항해할 수 있고 포기한"/>
+	<Attribute Name="EXS" Code="724" Value="항해할 수 있고 조작상의(사용할 수 있는)"/>
+	<Attribute Name="EXS" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="EXS" Code="998" Value="적용할 수 없는"/>
+	<Attribute Name="EXS" Code="999" Value="기타"/>
+	<Attribute Name="F_CODE" Code="0" Value="0"/>
+	<Attribute Name="FCL" Code="0" Value="0"/>
+	<Attribute Name="FCO" Code="0" Value="미지의"/>
+	<Attribute Name="FCO" Code="1" Value="분산된"/>
+	<Attribute Name="FCO" Code="2" Value="복잡한"/>
+	<Attribute Name="FCO" Code="3" Value="단일의"/>
+	<Attribute Name="FCO" Code="4" Value="경사진"/>
+	<Attribute Name="FCO" Code="5" Value="같은 폭으로 분리된"/>
+	<Attribute Name="FCO" Code="6" Value="다른 폭으로 분리된"/>
+	<Attribute Name="FCO" Code="7" Value="비분리"/>
+	<Attribute Name="FCO" Code="8" Value="불충분하게 정의된"/>
+	<Attribute Name="FCO" Code="9" Value="잘 정의된"/>
+	<Attribute Name="FCO" Code="11" Value="이중의"/>
+	<Attribute Name="FCO" Code="12" Value="그대로"/>
+	<Attribute Name="FCO" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="FCO" Code="998" Value="적용 불가능"/>
+	<Attribute Name="FCO" Code="999" Value="기타"/>
+	<Attribute Name="FEO" Code="0" Value="0"/>
+	<Attribute Name="FER" Code="0" Value="미확인"/>
+	<Attribute Name="FER" Code="1" Value="닻줄이 있는"/>
+	<Attribute Name="FER" Code="2" Value="닻줄이 없는"/>
+	<Attribute Name="FER" Code="999" Value="기타"/>
+	<Attribute Name="FHC" Code="0" Value="미분류된"/>
+	<Attribute Name="FHC" Code="3" Value="페리터미널"/>
+	<Attribute Name="FHC" Code="4" Value="어항"/>
+	<Attribute Name="FHC" Code="5" Value="요트전용항"/>
+	<Attribute Name="FHC" Code="6" Value="해군기지"/>
+	<Attribute Name="FHC" Code="7" Value="탱크터미널"/>
+		<Attribute Name="FHC" Code="8" Value="여객선터미널"/>
+	<Attribute Name="FHC" Code="9" Value="조선소"/>
+	<Attribute Name="FHC" Code="999" Value="기타"/>
+	<Attribute Name="FRT" Code="0" Value="미확인"/>
+	<Attribute Name="FRT" Code="1" Value="소총"/>
+	<Attribute Name="FRT" Code="2" Value="탱크"/>
+	<Attribute Name="FRT" Code="3" Value="포"/>
+	<Attribute Name="FRT" Code="4" Value="수류탄"/>
+	<Attribute Name="FRT" Code="5" Value="폭파영역"/>
+	<Attribute Name="FRT" Code="6" Value="충돌영역"/>
+	<Attribute Name="FRT" Code="999" Value="기타"/>
+	<Attribute Name="FTC" Code="0" Value="미지의"/>
+   <Attribute Name="FTC" Code="1" Value="빈터, 화전 이동경작"/>
+   <Attribute Name="FTC" Code="2" Value="영구경작지"/>
+	<Attribute Name="FTC" Code="3" Value="계단식(밭)"/>
+	<Attribute Name="FTC" Code="4" Value="도랑,물을 댐, 관개"/>
+	<Attribute Name="FTC" Code="5" Value="목초지"/>
+	<Attribute Name="FTC" Code="6" Value="정규적인 (재배형식)"/>
+	<Attribute Name="FTC" Code="7" Value="선형의 (재배형식)"/>
+	<Attribute Name="FTC" Code="8" Value="이동경작/교대경작"/>
+	<Attribute Name="FTC" Code="9" Value="적용 불가능"/>
+	<Attribute Name="FTC" Code="997" Value="들판 양식의 형태"/>
+	<Attribute Name="FTC" Code="998" Value="거주하지 않은"/>
+	<Attribute Name="FTC" Code="999" Value="기타"/>
+	<Attribute Name="GAW" Code="0" Value="0"/>
+	<Attribute Name="GNC" Code="0" Value="미분류된"/>
+	<Attribute Name="GNC" Code="2" Value="만조시"/>
+	<Attribute Name="GNC" Code="3" Value="수중"/>
+	<Attribute Name="GNC" Code="4" Value="갑문"/>
+	<Attribute Name="GNC" Code="999" Value="기타"/>
+	<Attribute Name="HDH" Code="0" Value="0"/>
+	<Attribute Name="HDI" Code="0" Value="미지의"/>
+	<Attribute Name="HDI" Code="9" Value="Wire Drag 이외의 다른 것에 의해"/>
+	<Attribute Name="HDI" Code="10" Value="알려진 수요"/>
+	<Attribute Name="HDI" Code="11" Value="안전한 수심"/>
+	<Attribute Name="HDI" Code="12" Value="알 수 없는 수심"/>
+	<Attribute Name="HDI" Code="13" Value="노출된 표고"/>
+	<Attribute Name="HDI" Code="14" Value="알려지지 않은 노출 표고"/>
+	<Attribute Name="HDI" Code="15" Value="적용 불가능"/>
+	<Attribute Name="HDI" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="HDI" Code="999" Value="기타"/>
+	<Attribute Name="HDP" Code="0" Value="0"/>
+	<Attribute Name="HFC" Code="0" Value="미지의"/>
+	<Attribute Name="HFC" Code="1" Value="수로화된 흐름"/>
+	<Attribute Name="HFC" Code="2" Value="소멸"/>
+	<Attribute Name="HFC" Code="7" Value="비-감조"/>
+	<Attribute Name="HFC" Code="8" Value="일반적인 수로"/>
+	<Attribute Name="HFC" Code="10" Value="조수의/조수의 파동"/>
+	<Attribute Name="HFC" Code="14" Value="땋아내린"/>
+	<Attribute Name="HFC" Code="16" Value="소산"/>
+	<Attribute Name="HFC" Code="19" Value="시냇물을 막는 방해물(골짜기)"/>
+	<Attribute Name="HFC" Code="21" Value="골짜기/앞은 여울"/>
+	<Attribute Name="HFC" Code="30" Value="하수구에서 소실"/>
+	<Attribute Name="HFC" Code="31" Value="하수구외의 다른곳에서 소실"/>
+	<Attribute Name="HFC" Code="32" Value="U자형 만곡부"/>
+	<Attribute Name="HFC" Code="33" Value="분할흐름(지류)"/>
+	<Attribute Name="HFC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="HFC" Code="998" Value="적용 불가능"/>
+	<Attribute Name="HFC" Code="999" Value="기타"/>
+	<Attribute Name="HGT" Code="0" Value="실제값"/>
+	<Attribute Name="HL1" Code="0" Value="미확인"/>
+	<Attribute Name="HL1" Code="1" Value="0.5m 이하"/>
+	<Attribute Name="HL1" Code="2" Value="0.5m ~ 1.0m 이하"/>
+	<Attribute Name="HL1" Code="3" Value="1.0m ~ 5.0m 이하"/>
+	<Attribute Name="HL1" Code="4" Value="5.0m 이상"/>
+	<Attribute Name="HLT" Code="0" Value="미확인"/>
+	<Attribute Name="HLT" Code="1" Value="분호등"/>
+	<Attribute Name="HLT" Code="3" Value="물결무늬"/>
+	<Attribute Name="HLT" Code="7" Value="방향지시"/>
+	<Attribute Name="HLT" Code="999" Value="기타"/>
+	<Attribute Name="HQC" Code="0" Value="미확인"/>
+	<Attribute Name="HQC" Code="1" Value="계곡선"/>
+	<Attribute Name="HQC" Code="2" Value="주곡선"/>
+	<Attribute Name="HQC" Code="3" Value="보조곡선(1/2)"/>
+	<Attribute Name="HQC" Code="5" Value="저하"/>
+	<Attribute Name="HQC" Code="14" Value="보조곡선(1/4)"/>
+	<Attribute Name="HR1" Code="0" Value="미확인"/>
+	<Attribute Name="HR1" Code="1" Value="0.5m 이하"/>
+	<Attribute Name="HR1" Code="2" Value="0.5m ~ 1.0m 이하"/>
+	<Attribute Name="HR1" Code="3" Value="1.0m ~ 5.0m 이하"/>
+	<Attribute Name="HR1" Code="4" Value="5.0m 이상"/>
+	<Attribute Name="HS1" Code="0" Value="미확인"/>
+	<Attribute Name="HS2" Code="0" Value="미확인"/>
+	<Attribute Name="HSB" Code="0" Value="0"/>
+	<Attribute Name="HWT" Code="0" Value="미지의"/>
+	<Attribute Name="HWT" Code="2" Value="주교좌 성당, 대성당"/>
+	<Attribute Name="HWT" Code="3" Value="예배당(큰 교회?학교?병원?개인 저택내의)"/>
+	<Attribute Name="HWT" Code="4" Value="교회(당), 성당"/>
+	<Attribute Name="HWT" Code="5" Value="도사의 무덤[암자]"/>
+	<Attribute Name="HWT" Code="6" Value="뾰족탑, 첨탑"/>
+	<Attribute Name="HWT" Code="7" Value="수도원"/>
+	<Attribute Name="HWT" Code="9" Value="이슬람교 성원, 회교 사원"/>
+	<Attribute Name="HWT" Code="11" Value="탑 모양의 정자"/>
+	<Attribute Name="HWT" Code="14" Value="성당, 사당, 묘"/>
+	<Attribute Name="HWT" Code="15" Value="옛 유대의 이동식 신전"/>
+	<Attribute Name="HWT" Code="16" Value="신전"/>
+	<Attribute Name="HWT" Code="20" Value="(예배를 위한) 유대인 집회; 유대교 회당"/>
+	<Attribute Name="HWT" Code="21" Value="사리탑, 불탑"/>
+	<Attribute Name="HWT" Code="22" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="HWT" Code="23" Value="기타"/>
+	<Attribute Name="HWT" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="HWT" Code="998" Value="적용 불가능"/>
+	<Attribute Name="HWT" Code="999" Value="기타"/>
+	<Attribute Name="HYC" Code="0" Value="미지의"/>
+	<Attribute Name="HYC" Code="2" Value="적용불가능"/>
+	<Attribute Name="HYC" Code="3" Value="건조한"/>
+	<Attribute Name="HYC" Code="6" Value="비-영구한/간헐적인/변동이 있는(부족한)"/>
+	<Attribute Name="HYC" Code="8" Value="연중 끊이지 않은/영구 불변의 것"/>
+	<Attribute Name="HYC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="HYC" Code="999" Value="기타"/>
+	<Attribute Name="IAC" Code="0" Value="IALA 미적용"/>
+	<Attribute Name="IAC" Code="3" Value="IALA A방식"/>
+	<Attribute Name="IAC" Code="4" Value="IALA B방식"/>
+	<Attribute Name="IAS" Code="0" Value="미확인"/>
+	<Attribute Name="IAS" Code="1" Value="채택된"/>
+	<Attribute Name="IAS" Code="2" Value="채택되지않은"/>
+	<Attribute Name="IBC" Code="0" Value="미정의된"/>
+	<Attribute Name="IBC" Code="1" Value="쇠사슬 앵커 계류"/>
+	<Attribute Name="IBC" Code="2" Value="계류"/>
+	<Attribute Name="IBC" Code="999" Value="기타"/>
+	<Attribute Name="IKO" Code="0" Value="0"/>
+	<Attribute Name="LAF " Code="0" Value="미확인"/>
+	<Attribute Name="LAF " Code="1" Value="한 개의 물표"/>
+	<Attribute Name="LAF " Code="2" Value="지향성불빛"/>
+	<Attribute Name="LAF " Code="3" Value="두개이상의 불빛"/>
+	<Attribute Name="LAF " Code="4" Value="두개이상의 비이콘"/>
+	<Attribute Name="LAF " Code="5" Value="두개이상의 물표"/>
+	<Attribute Name="LAF " Code="7" Value="지향성의 레디오비이콘"/>
+	<Attribute Name="LAF " Code="8" Value="모아레 불빛"/>
+	<Attribute Name="LAF " Code="9" Value="레디오반응 비이콘선"/>
+	<Attribute Name="LC1" Code="0" Value="0"/>
+	<Attribute Name="LC2" Code="0" Value="0"/>
+	<Attribute Name="LEG" Code="0" Value="0"/>
+	<Attribute Name="LEN" Code="0" Value="실제값"/>
+	<Attribute Name="LFA" Code="0" Value="미지의"/>
+	<Attribute Name="LFA" Code="1" Value="공항 터미널 조명"/>
+	<Attribute Name="LFA" Code="2" Value="격납고 앞의 포장된 광장의 투광조명"/>
+	<Attribute Name="LFA" Code="3" Value="경계조명"/>
+	<Attribute Name="LFA" Code="4" Value="활주로 중앙선 조명"/>
+	<Attribute Name="LFA" Code="5" Value="활주로 끝점 확인조명"/>
+	<Attribute Name="LFA" Code="6" Value="활주로 조명/활주로 가장자리 조명"/>
+	<Attribute Name="LFA" Code="7" Value="연속적인 플래시 라이트(섬광)"/>
+	<Attribute Name="LFA" Code="8" Value="유도로 조명"/>
+	<Attribute Name="LFA" Code="9" Value="시각적인 접근 경사 표지"/>
+	<Attribute Name="LFA" Code="10" Value="회전식 표지"/>
+	<Attribute Name="LFA" Code="11" Value="장애물 조명"/>
+	<Attribute Name="LFA" Code="12" Value="입구빛"/>
+	<Attribute Name="LFA" Code="13" Value="접지조명"/>
+	<Attribute Name="LFA" Code="14" Value="다른 항공기 조명"/>
+	<Attribute Name="LFA" Code="15" Value="ALSF-1 (접근 조명의 결과로 일어나는 섬광)"/>
+	<Attribute Name="LFA" Code="16" Value="ALSF-II"/>
+	<Attribute Name="LFA" Code="17" Value="(SSALF)"/>
+	<Attribute Name="LFA" Code="18" Value="(SSALR)"/>
+	<Attribute Name="LFA" Code="19" Value="(MALSF)"/>
+	<Attribute Name="LFA" Code="20" Value="(MALSR)"/>
+	<Attribute Name="LFA" Code="21" Value="착륙방향 표시기"/>
+	<Attribute Name="LFA" Code="22" Value="활주로 정렬표시 조명"/>
+	<Attribute Name="LFA" Code="23" Value="전 방향접근 착륙시스템"/>
+	<Attribute Name="LFA" Code="24" Value="다른 접근 조명"/>
+	<Attribute Name="LFA" Code="25" Value="정밀한 접근 통로 표시기"/>
+	<Attribute Name="LFA" Code="26" Value="스트로보"/>
+	<Attribute Name="LFA" Code="27" Value="침수된 활주로"/>
+	<Attribute Name="LFA" Code="28" Value="가변성의 활주로 빛"/>
+	<Attribute Name="LFA" Code="29" Value="휴대용 활주로 빛"/>
+	<Attribute Name="LFA" Code="30" Value="조명탄"/>
+	<Attribute Name="LFA" Code="31" Value="바람표지 빛"/>
+	<Attribute Name="LFA" Code="32" Value="시각적인 접근 경사 표지"/>
+	<Attribute Name="LFA" Code="33" Value="광학적인 착륙시스템"/>
+	<Attribute Name="LFA" Code="51" Value="항공술의"/>
+	<Attribute Name="LFA" Code="52" Value="보조(예비)의"/>
+	<Attribute Name="LFA" Code="53" Value="(항공, 교통)표지"/>
+	<Attribute Name="LFA" Code="54" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="LFA" Code="55" Value="어획"/>
+	<Attribute Name="LFA" Code="56" Value="안개 탐지기"/>
+	<Attribute Name="LFA" Code="57" Value="항구"/>
+	<Attribute Name="LFA" Code="58" Value="수평의"/>
+	<Attribute Name="LFA" Code="59" Value="장애물"/>
+	<Attribute Name="LFA" Code="60" Value="임시(용)의"/>
+	<Attribute Name="LFA" Code="61" Value="사적인"/>
+	<Attribute Name="LFA" Code="62" Value="범위"/>
+	<Attribute Name="LFA" Code="63" Value="계적의(주기적인)"/>
+	<Attribute Name="LFA" Code="64" Value="조수간만의"/>
+	<Attribute Name="LFA" Code="65" Value="수직의"/>
+	<Attribute Name="LFA" Code="66" Value="명료한"/>
+	<Attribute Name="LFA" Code="67" Value="초기의"/>
+	<Attribute Name="LFA" Code="68" Value="2차적인"/>
+	<Attribute Name="LFA" Code="69" Value="주요한"/>
+	<Attribute Name="LFA" Code="70" Value="중요치 않은"/>
+	<Attribute Name="LFA" Code="71" Value="시각적인 접근 표지"/>
+	<Attribute Name="LFA" Code="72" Value="동일표지"/>
+	<Attribute Name="LFA" Code="73" Value="이용할 수 없는"/>
+	<Attribute Name="LFA" Code="100" Value="긴급활주로 중앙선"/>
+	<Attribute Name="LFA" Code="101" Value="중앙선과 장벽"/>
+	<Attribute Name="LFA" Code="102" Value="U.S. Configuration (B)(미국형)"/>
+	<Attribute Name="LFA" Code="103" Value="홍콩커브"/>
+	<Attribute Name="LFA" Code="104" Value="좌측 편도 열"/>
+	<Attribute Name="LFA" Code="105" Value="중앙 열"/>
+	<Attribute Name="LFA" Code="106" Value="기존의 나토 표준"/>
+	<Attribute Name="LFA" Code="107" Value="나토 표준"/>
+	<Attribute Name="LFA" Code="108" Value="중앙과 두개의 열"/>
+	<Attribute Name="LFA" Code="109" Value="이동식 활주로의 진입"/>
+	<Attribute Name="LFA" Code="110" Value="중앙 열"/>
+	<Attribute Name="LFA" Code="111" Value="중앙 열"/>
+	<Attribute Name="LFA" Code="112" Value="함대의 평행한 열과 가로대"/>
+	<Attribute Name="LFA" Code="113" Value="2개의 평행한 열"/>
+	<Attribute Name="LFA" Code="114" Value="왼쪽 열"/>
+	<Attribute Name="LFA" Code="115" Value="공군 긴급용 보조 활주로"/>
+	<Attribute Name="LFA" Code="116" Value="Calvert (British)"/>
+	<Attribute Name="LFA" Code="117" Value="편도 열의 중앙선)"/>
+	<Attribute Name="LFA" Code="118" Value="좁은 다중 교차"/>
+	<Attribute Name="LFA" Code="119" Value="중앙선"/>
+	<Attribute Name="LFA" Code="120" Value="교차된 중앙선과 활주로진입 라이트"/>
+	<Attribute Name="LFA" Code="121" Value="교차"/>
+	<Attribute Name="LFA" Code="122" Value="네온 사닥다리"/>
+	<Attribute Name="LFA" Code="123" Value="싱가포르 중앙선 활주로 진입 라이트"/>
+	<Attribute Name="LFA" Code="124" Value="중앙선 2개의 가로대 활주로 진입 라이트"/>
+	<Attribute Name="LFA" Code="125" Value="네온 사닥다리"/>
+	<Attribute Name="LFA" Code="126" Value="PVASI pulsating"/>
+	<Attribute Name="LFA" Code="127" Value="APAP alignment of elements systems"/>
+	<Attribute Name="LFA" Code="128" Value="VASI (with indicator for threshold crossing height)"/>
+	<Attribute Name="LFA" Code="129" Value="LCVASI low cost"/>
+	<Attribute Name="LFA" Code="130" Value="높은 강렬한 활주로 등"/>
+	<Attribute Name="LFA" Code="131" Value="중간의 강렬한 활주로 등"/>
+	<Attribute Name="LFA" Code="132" Value="낮은 강렬한 활주로 등"/>
+	<Attribute Name="LFA" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="LFA" Code="998" Value="적용 불가능"/>
+	<Attribute Name="LFA" Code="999" Value="기타"/>
+	<Attribute Name="LGN" Code="0" Value="0"/>
+	<Attribute Name="LMC" Code="0" Value="미확인"/>
+	<Attribute Name="LMC" Code="1" Value="용도목표물"/>
+	<Attribute Name="LMC" Code="2" Value="비용도목표물"/>
+	<Attribute Name="LOC" Code="0" Value="미지의"/>
+	<Attribute Name="LOC" Code="1" Value="표면위/cover하지 않은(높이를 알고 있는)"/>
+	<Attribute Name="LOC" Code="2" Value="해도 기준 좌표계에서 표류하는"/>
+	<Attribute Name="LOC" Code="3" Value="건조한/Covers (높이를 모르는)"/>
+	<Attribute Name="LOC" Code="4" Value="지표밑/수중,지하"/>
+		<Attribute Name="LOC" Code="5" Value="Covered &lt; 20 Metres"/>
+	<Attribute Name="LOC" Code="6" Value="Covered &gt;= 20 Metres but &lt; 30 Metres"/>
+	<Attribute Name="LOC" Code="7" Value="Covered &gt;= 30 Metres"/>
+		<Attribute Name="LOC" Code="8" Value="지표면상의"/>
+	<Attribute Name="LOC" Code="9" Value="깊이를 알고있는"/>
+	<Attribute Name="LOC" Code="10" Value="깊이를 알고있는 (견인철사에 의해 제거된)"/>
+	<Attribute Name="LOC" Code="11" Value="깊이를 모르지만 같은 곳을 보는데는 안전한"/>
+	<Attribute Name="LOC" Code="12" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="LOC" Code="13" Value="선체의 외관"/>
+	<Attribute Name="LOC" Code="14" Value="돛대이관"/>
+	<Attribute Name="LOC" Code="15" Value="수면상의/부유하는"/>
+	<Attribute Name="LOC" Code="16" Value="부분적으로 수중의"/>
+	<Attribute Name="LOC" Code="17" Value="물밑의/바다 밑바닥상의"/>
+	<Attribute Name="LOC" Code="19" Value="표면위/cover하지 않은(높이를 알고 있는)"/>
+	<Attribute Name="LOC" Code="20" Value="굴뚝의 외관"/>
+	<Attribute Name="LOC" Code="21" Value="상부구조물 외관"/>
+	<Attribute Name="LOC" Code="22" Value="앞바다의"/>
+	<Attribute Name="LOC" Code="23" Value="바다 밑바닥 밑의"/>
+	<Attribute Name="LOC" Code="24" Value="바다 밑바닥 위에 매달거나 놓여진"/>
+	<Attribute Name="LOC" Code="25" Value="지표면이나 수면위에 매달거나 높임"/>
+	<Attribute Name="LOC" Code="28" Value="돛대와 굴뚝외관"/>
+	<Attribute Name="LOC" Code="30" Value="부유하지 않은"/>
+	<Attribute Name="LOC" Code="31" Value="높여진"/>
+	<Attribute Name="LOC" Code="32" Value="내려앉은"/>
+	<Attribute Name="LOC" Code="33" Value="수중이 아닌"/>
+	<Attribute Name="LOC" Code="34" Value="내륙"/>
+	<Attribute Name="LOC" Code="35" Value="머리위의"/>
+	<Attribute Name="LOC" Code="36" Value="밑바닥위의 높이"/>
+	<Attribute Name="LOC" Code="37" Value="정확한 위치를 알고 있는"/>
+	<Attribute Name="LOC" Code="38" Value="정확한 위치를 모르는"/>
+	<Attribute Name="LOC" Code="39" Value="깊이를 모르는"/>
+	<Attribute Name="LOC" Code="40" Value="지하의"/>
+	<Attribute Name="LOC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="LOC" Code="998" Value="적용 불가능"/>
+	<Attribute Name="LOC" Code="999" Value="기타"/>
+	<Attribute Name="LSA" Code="0" Value="0"/>
+	<Attribute Name="LTN" Code="0" Value="실제값"/>
+	<Attribute Name="LVN" Code="0" Value="0"/>
+	<Attribute Name="MAC" Code="0" Value="미확인"/>
+	<Attribute Name="MAC" Code="1" Value="관세지역"/>
+	<Attribute Name="MAC" Code="2" Value="준설지역"/>
+	<Attribute Name="MAC" Code="4" Value="기뢰구역"/>
+	<Attribute Name="MAC" Code="5" Value="항해금지지역"/>
+	<Attribute Name="MAC" Code="9" Value="공사중지역"/>
+	<Attribute Name="MAC" Code="11" Value="일반묘박지"/>
+	<Attribute Name="MAC" Code="12" Value="지정묘박지"/>
+	<Attribute Name="MAC" Code="13" Value="폭발물선 묘박지"/>
+	<Attribute Name="MAC" Code="14" Value="대형홀수선 묘박지"/>
+	<Attribute Name="MAC" Code="15" Value="투묘금지구역"/>
+	<Attribute Name="MAC" Code="16" Value="검역묘지"/>
+	<Attribute Name="MAC" Code="17" Value="예비묘박지"/>
+	<Attribute Name="MAC" Code="19" Value="유조선 묘박지"/>
+	<Attribute Name="MAC" Code="20" Value="해저전선지역"/>
+	<Attribute Name="MAC" Code="21" Value="파이프라인지역"/>
+	<Attribute Name="MAC" Code="22" Value="어로금지구역"/>
+	<Attribute Name="MAC" Code="25" Value="토사투기장"/>
+	<Attribute Name="MAC" Code="26" Value="미측량지역"/>
+	<Attribute Name="MAC" Code="28" Value="기뢰부설구역"/>
+	<Attribute Name="MAC" Code="29" Value="사격구역"/>
+	<Attribute Name="MAC" Code="30" Value="투기장"/>
+	<Attribute Name="MAC" Code="33" Value="가스지역"/>
+	<Attribute Name="MAC" Code="35" Value="폭발물투기장"/>
+	<Attribute Name="MAC" Code="37" Value="안전지대"/>
+	<Attribute Name="MAC" Code="40" Value="원형통항분리대"/>
+	<Attribute Name="MAC" Code="42" Value="주의지역"/>
+	<Attribute Name="MAC" Code="43" Value="피험지역"/>
+	<Attribute Name="MAC" Code="48" Value="도선사승선지점"/>
+	<Attribute Name="MAC" Code="49" Value="화물선적지역"/>
+	<Attribute Name="MAC" Code="58" Value="준설지역"/>
+	<Attribute Name="MAC" Code="102" Value="대기지역"/>
+	<Attribute Name="MAC" Code="113" Value="묘박 및 어로금지구역"/>
+	<Attribute Name="MAC" Code="117" Value="영해"/>
+	<Attribute Name="MAC" Code="121" Value="어업전관 수역"/>
+	<Attribute Name="MAC" Code="123" Value="경고지역"/>
+	<Attribute Name="MAC" Code="999" Value="기타"/>
+	<Attribute Name="MAG" Code="0" Value="0"/>
+	<Attribute Name="MAS" Code="1" Value="유지되는"/>
+	<Attribute Name="MAS" Code="2" Value="유지되지 않는"/>
+	<Attribute Name="MBL" Code="0" Value="미확인"/>
+	<Attribute Name="MBL" Code="6" Value="영해한계선"/>
+	<Attribute Name="MBL" Code="7" Value="영해직선기선"/>
+	<Attribute Name="MBL" Code="48" Value="도선사승선지졈"/>
+	<Attribute Name="MBL" Code="999" Value="기타"/>
+	<Attribute Name="MCA" Code="0" Value="0"/>
+	<Attribute Name="MCC" Code="0" Value="미지의"/>
+	<Attribute Name="MCC" Code="1" Value="항공기"/>
+	<Attribute Name="MCC" Code="2" Value="알루미늄"/>
+	<Attribute Name="MCC" Code="3" Value="탄약"/>
+	<Attribute Name="MCC" Code="4" Value="재"/>
+	<Attribute Name="MCC" Code="5" Value="아스팔트"/>
+	<Attribute Name="MCC" Code="6" Value="현무암"/>
+	<Attribute Name="MCC" Code="7" Value="기반암"/>
+	<Attribute Name="MCC" Code="8" Value="표석"/>
+	<Attribute Name="MCC" Code="9" Value="벽돌"/>
+	<Attribute Name="MCC" Code="10" Value="석회질"/>
+	<Attribute Name="MCC" Code="11" Value="시멘트"/>
+	<Attribute Name="MCC" Code="12" Value="초크, 분필"/>
+	<Attribute Name="MCC" Code="13" Value="화학적인"/>
+	<Attribute Name="MCC" Code="14" Value="타다 남은 찌꺼기, 탄 숯"/>
+	<Attribute Name="MCC" Code="15" Value="만각류"/>
+	<Attribute Name="MCC" Code="16" Value="점토"/>
+	<Attribute Name="MCC" Code="17" Value="석탄"/>
+	<Attribute Name="MCC" Code="18" Value="자갈"/>
+	<Attribute Name="MCC" Code="19" Value="코크스"/>
+	<Attribute Name="MCC" Code="20" Value="혼합,합성"/>
+	<Attribute Name="MCC" Code="21" Value="콘크리트"/>
+	<Attribute Name="MCC" Code="22" Value="복합적인,역암질의"/>
+	<Attribute Name="MCC" Code="23" Value="구리"/>
+	<Attribute Name="MCC" Code="24" Value="산호"/>
+	<Attribute Name="MCC" Code="25" Value="산호의 상단"/>
+	<Attribute Name="MCC" Code="26" Value="탈염된 물"/>
+	<Attribute Name="MCC" Code="27" Value="다이아몬드, 금강석"/>
+	<Attribute Name="MCC" Code="28" Value="규조"/>
+	<Attribute Name="MCC" Code="29" Value="백운암"/>
+	<Attribute Name="MCC" Code="30" Value="흙으로 만든"/>
+	<Attribute Name="MCC" Code="31" Value="전기(성)의"/>
+	<Attribute Name="MCC" Code="32" Value="침식지"/>
+	<Attribute Name="MCC" Code="33" Value="폭발물"/>
+	<Attribute Name="MCC" Code="34" Value="플리시"/>
+	<Attribute Name="MCC" Code="35" Value="식량"/>
+	<Attribute Name="MCC" Code="36" Value="유공충"/>
+	<Attribute Name="MCC" Code="37" Value="푸쿠스속의 해초"/>
+	<Attribute Name="MCC" Code="38" Value="가스"/>
+	<Attribute Name="MCC" Code="39" Value="가솔린"/>
+	<Attribute Name="MCC" Code="40" Value="유리"/>
+	<Attribute Name="MCC" Code="41" Value="(바다 밑의) 글로비게리나 연니"/>
+	<Attribute Name="MCC" Code="42" Value="금"/>
+	<Attribute Name="MCC" Code="43" Value="화강암"/>
+	<Attribute Name="MCC" Code="44" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="MCC" Code="45" Value="잔디/짚"/>
+	<Attribute Name="MCC" Code="46" Value="자갈"/>
+	<Attribute Name="MCC" Code="47" Value="초록바위"/>
+	<Attribute Name="MCC" Code="48" Value="지반"/>
+	<Attribute Name="MCC" Code="49" Value="지반(조개껍질)"/>
+	<Attribute Name="MCC" Code="50" Value="열"/>
+	<Attribute Name="MCC" Code="51" Value="철"/>
+	<Attribute Name="MCC" Code="52" Value="용암"/>
+	<Attribute Name="MCC" Code="53" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="MCC" Code="54" Value="납"/>
+	<Attribute Name="MCC" Code="55" Value="황토"/>
+	<Attribute Name="MCC" Code="56" Value="재목, 제재목"/>
+	<Attribute Name="MCC" Code="57" Value="쇄석"/>
+	<Attribute Name="MCC" Code="58" Value="녹석"/>
+	<Attribute Name="MCC" Code="59" Value="망간"/>
+	<Attribute Name="MCC" Code="60" Value="대리석"/>
+	<Attribute Name="MCC" Code="61" Value="이회, 이회토"/>
+	<Attribute Name="MCC" Code="62" Value="벽돌/돌"/>
+	<Attribute Name="MCC" Code="63" Value="지형,자모"/>
+	<Attribute Name="MCC" Code="64" Value="금속"/>
+	<Attribute Name="MCC" Code="65" Value="진흙"/>
+	<Attribute Name="MCC" Code="66" Value="홍합"/>
+	<Attribute Name="MCC" Code="67" Value="기름"/>
+	<Attribute Name="MCC" Code="68" Value="오일 발포제"/>
+	<Attribute Name="MCC" Code="69" Value="연한 개흙"/>
+	<Attribute Name="MCC" Code="70" Value="굴(진주조개)"/>
+	<Attribute Name="MCC" Code="71" Value="종이"/>
+	<Attribute Name="MCC" Code="72" Value="부분적 금속"/>
+	<Attribute Name="MCC" Code="73" Value="조약돌"/>
+	<Attribute Name="MCC" Code="74" Value="Plastic(플라스틱)"/>
+	<Attribute Name="MCC" Code="75" Value="이끼벌레류"/>
+	<Attribute Name="MCC" Code="76" Value="반암"/>
+	<Attribute Name="MCC" Code="77" Value="압축응력된 콘크리트"/>
+	<Attribute Name="MCC" Code="78" Value="익족류"/>
+	<Attribute Name="MCC" Code="79" Value="경석, 부석"/>
+	<Attribute Name="MCC" Code="80" Value="석영"/>
+	<Attribute Name="MCC" Code="81" Value="방산충"/>
+	<Attribute Name="MCC" Code="82" Value="방산성 재료"/>
+	<Attribute Name="MCC" Code="83" Value="철근 콘크리트"/>
+	<Attribute Name="MCC" Code="84" Value="암석/암석으로 된"/>
+	<Attribute Name="MCC" Code="85" Value="고무"/>
+	<Attribute Name="MCC" Code="86" Value="쇄석"/>
+	<Attribute Name="MCC" Code="87" Value="소금"/>
+	<Attribute Name="MCC" Code="88" Value="모래"/>
+	<Attribute Name="MCC" Code="89" Value="사암"/>
+	<Attribute Name="MCC" Code="90" Value="편암"/>
+	<Attribute Name="MCC" Code="91" Value="발굴[준설] 따위로 파낸 흙/광물 부스러기, 광미(鑛尾), 폐석"/>
+	<Attribute Name="MCC" Code="92" Value="화산암의 찌꺼기"/>
+	<Attribute Name="MCC" Code="93" Value="다시마"/>
+	<Attribute Name="MCC" Code="94" Value="해초, 바닷말; (미국속어) 시금치"/>
+	<Attribute Name="MCC" Code="95" Value="하수 오물, 오수"/>
+	<Attribute Name="MCC" Code="96" Value="조개껍질, 조가비"/>
+	<Attribute Name="MCC" Code="98" Value="둥글고 작은 돌, 조약돌"/>
+	<Attribute Name="MCC" Code="99" Value="침니"/>
+	<Attribute Name="MCC" Code="100" Value="은"/>
+	<Attribute Name="MCC" Code="101" Value="화산암재"/>
+	<Attribute Name="MCC" Code="102" Value="침전물"/>
+	<Attribute Name="MCC" Code="103" Value="눈/얼음"/>
+	<Attribute Name="MCC" Code="104" Value="흙,토양"/>
+	<Attribute Name="MCC" Code="105" Value="침상체"/>
+	<Attribute Name="MCC" Code="106" Value="스펀지"/>
+	<Attribute Name="MCC" Code="107" Value="강철"/>
+	<Attribute Name="MCC" Code="108" Value="돌, 돌멩이"/>
+	<Attribute Name="MCC" Code="109" Value="설탕, 당, 당질"/>
+	<Attribute Name="MCC" Code="110" Value="용천침전물, 석회화"/>
+	<Attribute Name="MCC" Code="111" Value="석회 용천침전물"/>
+	<Attribute Name="MCC" Code="112" Value="우라늄"/>
+	<Attribute Name="MCC" Code="113" Value="식생 생산물"/>
+	<Attribute Name="MCC" Code="114" Value="화산의, 화산성의, 화산 작용에 의한, 화성의"/>
+	<Attribute Name="MCC" Code="115" Value="화산재"/>
+	<Attribute Name="MCC" Code="116" Value="물"/>
+	<Attribute Name="MCC" Code="117" Value="목재"/>
+	<Attribute Name="MCC" Code="118" Value="아연"/>
+	<Attribute Name="MCC" Code="119" Value="증발암"/>
+	<Attribute Name="MCC" Code="120" Value="유리강화플라스틱"/>
+	<Attribute Name="MCC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="MCC" Code="998" Value="적용 불가능"/>
+	<Attribute Name="MCC" Code="999" Value="기타"/>
+	<Attribute Name="MCS" Code="0" Value="미지의"/>
+	<Attribute Name="MCS" Code="4" Value="재"/>
+	<Attribute Name="MCS" Code="8" Value="표석"/>
+	<Attribute Name="MCS" Code="12" Value="백악"/>
+	<Attribute Name="MCS" Code="14" Value="타다 남은 찌꺼기, 뜬숯"/>
+	<Attribute Name="MCS" Code="15" Value="만각류"/>
+	<Attribute Name="MCS" Code="16" Value="점토"/>
+	<Attribute Name="MCS" Code="18" Value="자갈"/>
+	<Attribute Name="MCS" Code="24" Value="산호"/>
+	<Attribute Name="MCS" Code="25" Value="산호의 상단"/>
+	<Attribute Name="MCS" Code="28" Value="규조류"/>
+	<Attribute Name="MCS" Code="36" Value="유공충강"/>
+	<Attribute Name="MCS" Code="37" Value="푸쿠스속의 해초"/>
+	<Attribute Name="MCS" Code="41" Value="글로비게리나 연니"/>
+	<Attribute Name="MCS" Code="45" Value="잔디/짚"/>
+	<Attribute Name="MCS" Code="46" Value="자갈, 밸러스트, 사력층"/>
+	<Attribute Name="MCS" Code="48" Value="지면"/>
+	<Attribute Name="MCS" Code="52" Value="용암"/>
+	<Attribute Name="MCS" Code="55" Value="뢰스, 황토"/>
+	<Attribute Name="MCS" Code="58" Value="녹석"/>
+	<Attribute Name="MCS" Code="59" Value="망간"/>
+	<Attribute Name="MCS" Code="61" Value="이회, 이회토"/>
+	<Attribute Name="MCS" Code="63" Value="매트"/>
+	<Attribute Name="MCS" Code="65" Value="진흙"/>
+	<Attribute Name="MCS" Code="66" Value="홍합; 마합류"/>
+	<Attribute Name="MCS" Code="69" Value="보드라운 진흙"/>
+	<Attribute Name="MCS" Code="70" Value="굴(진주조개)"/>
+	<Attribute Name="MCS" Code="73" Value="조약돌, 자갈"/>
+	<Attribute Name="MCS" Code="75" Value="이끼벌레류"/>
+	<Attribute Name="MCS" Code="78" Value="익족류"/>
+	<Attribute Name="MCS" Code="79" Value="경석"/>
+	<Attribute Name="MCS" Code="80" Value="석영"/>
+	<Attribute Name="MCS" Code="81" Value="방산충류"/>
+	<Attribute Name="MCS" Code="84" Value="암석/암석으로 된"/>
+	<Attribute Name="MCS" Code="88" Value="모래"/>
+	<Attribute Name="MCS" Code="90" Value="편암"/>
+	<Attribute Name="MCS" Code="92" Value="광재, 스코리아, 암재, 화산암의 찌꺼기"/>
+	<Attribute Name="MCS" Code="93" Value="다시마"/>
+	<Attribute Name="MCS" Code="94" Value="해초, 바닷말"/>
+	<Attribute Name="MCS" Code="96" Value="껍질, 조가비"/>
+	<Attribute Name="MCS" Code="98" Value="지붕널, 지붕 이는 판자; 널로 인 지붕"/>
+	<Attribute Name="MCS" Code="99" Value="침니"/>
+	<Attribute Name="MCS" Code="104" Value="흙, 토양, 토질"/>
+	<Attribute Name="MCS" Code="105" Value="침상체"/>
+	<Attribute Name="MCS" Code="106" Value="스펀지, 해면"/>
+	<Attribute Name="MCS" Code="108" Value="돌, 돌멩이"/>
+	<Attribute Name="MCS" Code="111" Value="석회화"/>
+	<Attribute Name="MCS" Code="112" Value="우라늄"/>
+	<Attribute Name="MCS" Code="113" Value="식생 생산물"/>
+	<Attribute Name="MCS" Code="114" Value="화산의; 화산성의; 화산 작용에 의한, 화성의; 화산이 있는"/>
+	<Attribute Name="MCS" Code="115" Value="화산재"/>
+	<Attribute Name="MCS" Code="116" Value="물"/>
+	<Attribute Name="MCS" Code="117" Value="목재"/>
+	<Attribute Name="MCS" Code="118" Value="아연"/>
+	<Attribute Name="MCS" Code="119" Value="증발암"/>
+	<Attribute Name="MCS" Code="120" Value="유리강화 플라스틱"/>
+	<Attribute Name="MCS" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="MCS" Code="998" Value="적용 불가능"/>
+	<Attribute Name="MCS" Code="999" Value="기타"/>
+	<Attribute Name="MCU" Code="0" Value="미확인"/>
+	<Attribute Name="MCU" Code="24" Value="산호"/>
+	<Attribute Name="MCU" Code="88" Value="모래"/>
+	<Attribute Name="MCU" Code="96" Value="조가비"/>
+	<Attribute Name="MED" Code="0" Value="미지의"/>
+	<Attribute Name="MED" Code="1" Value="중간의"/>
+	<Attribute Name="MED" Code="2" Value="중간이 없는"/>
+	<Attribute Name="MED" Code="6" Value="Median Width &lt;5 Metres"/>
+	<Attribute Name="MED" Code="7" Value="Median Width &gt;=5 Metres and &lt;20 Metres"/>
+	<Attribute Name="MED" Code="8" Value="Median Width &gt;=20 Metres and &lt;35 Metres"/>
+	<Attribute Name="MED" Code="9" Value="Median Width &gt;=35 Metres and &lt;80 Metres"/>
+	<Attribute Name="MED" Code="10" Value="Median Width &gt;=80"/>
+	<Attribute Name="MED" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="MED" Code="998" Value="적용 불가능"/>
+	<Attribute Name="MED" Code="999" Value="기타"/>
+	<Attribute Name="MIN" Code="0" Value="미지의"/>
+	<Attribute Name="MIN" Code="1" Value="토취"/>
+	<Attribute Name="MIN" Code="2" Value="수평 수갱"/>
+	<Attribute Name="MIN" Code="3" Value="검사 갱"/>
+	<Attribute Name="MIN" Code="4" Value="충적 광상, 사광"/>
+	<Attribute Name="MIN" Code="5" Value="채광 유망지; 광석 견본; 시굴"/>
+	<Attribute Name="MIN" Code="6" Value="대상지역"/>
+	<Attribute Name="MIN" Code="7" Value="수직 수갱"/>
+	<Attribute Name="MIN" Code="8" Value="이탄(토탄)개착"/>
+	<Attribute Name="MIN" Code="9" Value="지표면밑의 광상"/>
+	<Attribute Name="MIN" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="MIN" Code="998" Value="적용 불가능"/>
+	<Attribute Name="MIN" Code="999" Value="기타"/>
+	<Attribute Name="MLR" Code="0" Value="0"/>
+	<Attribute Name="MNE" Code="0" Value="미확인"/>
+	<Attribute Name="MNE" Code="2" Value="수평갱"/>
+	<Attribute Name="MNE" Code="3" Value="노출갱"/>
+	<Attribute Name="MNE" Code="4" Value="충적 광상/사광"/>
+	<Attribute Name="MNE" Code="5" Value="채광유망지/시굴"/>
+	<Attribute Name="MNE" Code="6" Value="가늘고 긴"/>
+	<Attribute Name="MNE" Code="7" Value="수직갱"/>
+	<Attribute Name="MNE" Code="9" Value="지하광산"/>
+	<Attribute Name="MVC" Code="0" Value="0"/>
+	<Attribute Name="NA2" Code="0" Value="0"/>
+	<Attribute Name="NA3" Code="0" Value="0"/>
+	<Attribute Name="NAM" Code="0" Value="실제값"/>
+	<Attribute Name="NAME" Code="0" Value="0"/>
+	<Attribute Name="NAS" Code="0" Value="미확인"/>
+	<Attribute Name="NAS" Code="1" Value="중앙집중형 주거"/>
+	<Attribute Name="NAS" Code="2" Value="연속적인 주거"/>
+	<Attribute Name="NAS" Code="998" Value="적용할 수 없는"/>
+	<Attribute Name="NAS" Code="999" Value="기타"/>
+	<Attribute Name="NM3" Code="0" Value="실제값"/>
+	<Attribute Name="NM4" Code="0" Value="실제값"/>
+	<Attribute Name="NOS" Code="0" Value="0"/>
+	<Attribute Name="NS2" Code="0" Value="미확인"/>
+	<Attribute Name="NS2" Code="52" Value="없음"/>
+	<Attribute Name="NS2" Code="54" Value="레이마크"/>
+	<Attribute Name="NST" Code="0" Value="미지의"/>
+	<Attribute Name="NST" Code="1" Value="순환 무선 표지"/>
+	<Attribute Name="NST" Code="2" Value="콘솔"/>
+	<Attribute Name="NST" Code="3" Value="DECCA"/>
+	<Attribute Name="NST" Code="4" Value="무선 방향 답신"/>
+	<Attribute Name="NST" Code="5" Value="지향성 무선 표지"/>
+	<Attribute Name="NST" Code="6" Value="답신거리"/>
+<Attribute Name="NST" Code="7" Value="Long Range Air Navigation System (LORAN)"/>
+	<Attribute Name="NST" Code="8" Value="OMEGA"/>
+	<Attribute Name="NST" Code="9" Value="VALUE INTENTIONALLY LEFT BLANK (Other)"/>
+	<Attribute Name="NST" Code="10" Value="레이다 응답 기준표"/>
+	<Attribute Name="NST" Code="11" Value="레이다"/>
+	<Attribute Name="NST" Code="12" Value="무선"/>
+	<Attribute Name="NST" Code="13" Value="무선전화"/>
+	<Attribute Name="NST" Code="14" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="NST" Code="15" Value="TV"/>
+<Attribute Name="NST" Code="16" Value="극초단파"/>
+	<Attribute Name="NST" Code="17" Value="비지향성 무선 표지"/>
+	<Attribute Name="NST" Code="18" Value="거리측정 장치"/>
+	<Attribute Name="NST" Code="19" Value="무선범위"/>
+	<Attribute Name="NST" Code="20" Value="VHF 전 지향성의 무선 범위"/>
+  <Attribute Name="NST" Code="21" Value="VHF 전 지향성의"/>
+  <Attribute Name="NST" Code="22" Value="VHF Omni Directional Radio Range and TACAN (VORTAC)Version 2.1: Added ' and TACAN' to description"/>
+	<Attribute Name="NST" Code="23" Value="전술 공중 항법 장치"/>
+	<Attribute Name="NST" Code="24" Value="기구 착륙 시스템"/>
+	<Attribute Name="NST" Code="25" Value="기구 착륙 시스템/거리 측정장치"/>
+	<Attribute Name="NST" Code="26" Value="로컬라이저"/>
+	<Attribute Name="NST" Code="27" Value="거리측정 장치"/>
+	<Attribute Name="NST" Code="28" Value="단순화된 지향성 설비"/>
+	<Attribute Name="NST" Code="29" Value="착륙거리 획득'"/>
+	<Attribute Name="NST" Code="30" Value="초단파 착륙시스템"/>
+	<Attribute Name="NST" Code="31" Value="부채꼴 이정표"/>
+	<Attribute Name="NST" Code="32" Value="뼈모양의 이정표"/>
+	<Attribute Name="NST" Code="33" Value="무선전신"/>
+	<Attribute Name="NST" Code="34" Value="지상통제 접근"/>
+	<Attribute Name="NST" Code="35" Value="레이다 안테나"/>
+	<Attribute Name="NST" Code="37" Value="정밀 접근 레이다"/>
+	<Attribute Name="NST" Code="38" Value="항공 무선"/>
+	<Attribute Name="NST" Code="39" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="NST" Code="40" Value="무선 표지"/>
+	<Attribute Name="NST" Code="41" Value="회전 루우프 무선 표지"/>
+	<Attribute Name="NST" Code="42" Value="가시비행 규칙(VFR)훈련 신호 제작자행"/>
+	<Attribute Name="NST" Code="43" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="NST" Code="44" Value="관제용 계기반 무선표지"/>
+	<Attribute Name="NST" Code="45" Value="레이다 국"/>
+	<Attribute Name="NST" Code="46" Value="항공 무선 범위"/>
+	<Attribute Name="NST" Code="47" Value="하이픽스"/>
+	<Attribute Name="NST" Code="48" Value="하이퍼픽스"/>
+	<Attribute Name="NST" Code="49" Value="3색 판넬"/>
+	<Attribute Name="NST" Code="50" Value="무선국"/>
+	<Attribute Name="NST" Code="51" Value="무선국 표지, 형태를 알지 못함"/>
+	<Attribute Name="NST" Code="52" Value="없슴"/>
+	<Attribute Name="NST" Code="53" Value="QTG 국(R)"/>
+	<Attribute Name="NST" Code="54" Value="이정표"/>
+	<Attribute Name="NST" Code="55" Value="레이다 반사기"/>
+<Attribute Name="NST" Code="56" Value="전파 탐지기"/>
+	<Attribute Name="NST" Code="57" Value="위치비이컨"/>
+	<Attribute Name="NST" Code="58" Value="거리측정장치"/>
+	<Attribute Name="NST" Code="59" Value="Differential GPS"/>
+	<Attribute Name="NST" Code="60" Value="인도등의 절의 산문"/>
+	<Attribute Name="NST" Code="61" Value="Syledis"/>
+	<Attribute Name="NST" Code="62" Value="Chaika (Chayka)"/>
+	<Attribute Name="NST" Code="63" Value="초극단파 상륙 체계 방위각 안내"/>
+	<Attribute Name="NST" Code="64" Value="초극단파 상륙 체계 고도 안내"/>
+	<Attribute Name="NST" Code="65" Value="정밀 접근 통로 표시기"/>
+	<Attribute Name="NST" Code="66" Value="경사로 보여주는 전파 표시기"/>
+	<Attribute Name="NST" Code="67" Value="경사로 보여주는 표시기"/>
+	<Attribute Name="NST" Code="68" Value="경사로 보여주는 3색 표시기"/>
+	<Attribute Name="NST" Code="69" Value="밫?Visual Approach Slope Indicator (TVASI)Version 2.1: New Attribute Value"/>
+	<Attribute Name="NST" Code="70" Value="Airport Surveillance Radar (ASR)(공항 감시 레이다)Version 2.1: New Attribute Value"/>
+	<Attribute Name="NST" Code="71" Value="PAR Touchdown ReflectorVersion 2.1: New Attribute Value"/>
+	<Attribute Name="NST" Code="72" Value="글라이드 슬로프"/>
+	<Attribute Name="NST" Code="73" Value="항로 감시 레이다"/>
+	<Attribute Name="NST" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="NST" Code="998" Value="적용 불가능"/>
+	<Attribute Name="NST" Code="999" Value="기타"/>
+	<Attribute Name="NST_TXT" Code="0" Value="0"/>
+	<Attribute Name="OFFICIAL" Code="0" Value="0"/>
+	<Attribute Name="OHB" Code="0" Value="실제값"/>
+	<Attribute Name="OHC" Code="0" Value="0"/>
+	<Attribute Name="OPC" Code="0" Value="미확인"/>
+	<Attribute Name="OPC" Code="1" Value="오일리크"/>
+	<Attribute Name="OPC" Code="2" Value="생산"/>
+	<Attribute Name="OPC" Code="3" Value="관측"/>
+	<Attribute Name="OPC" Code="999" Value="기타"/>
+	<Attribute Name="OPS" Code="1" Value="운영중인"/>
+	<Attribute Name="OPS" Code="2" Value="운영되지 않는"/>
+	<Attribute Name="ORD" Code="0" Value="미확인"/>
+	<Attribute Name="ORD" Code="1" Value="1차의"/>
+	<Attribute Name="ORD" Code="2" Value="2차의"/>
+	<Attribute Name="ORD" Code="3" Value="3차의"/>
+	<Attribute Name="ORD" Code="4" Value="4차의"/>
+	<Attribute Name="ORD" Code="5" Value="5차의"/>
+	<Attribute Name="ORD" Code="6" Value="국가의"/>
+	<Attribute Name="ORD" Code="998" Value="적용할 수 없는"/>
+	<Attribute Name="ORD" Code="999" Value="기타"/>
+	<Attribute Name="ORG_SOURCE" Code="0" Value="0"/>
+	<Attribute Name="ORIG_SOUR" Code="0" Value="0"/>
+	<Attribute Name="ORIG_SOURC" Code="0" Value="0"/>
+	<Attribute Name="OVERFLOW" Code="0" Value="0"/>
+	<Attribute Name="OWO" Code="1" Value="항해수역을 가로지르는"/>
+	<Attribute Name="OWO" Code="2" Value="항해수역을 가로지르지 않는"/>
+	<Attribute Name="PAT" Code="0" Value="미확인"/>
+	<Attribute Name="PAT" Code="4" Value="수평밴드"/>
+	<Attribute Name="PAT" Code="6" Value="수직줄무늬"/>
+	<Attribute Name="PAT" Code="98" Value="정사각형형태"/>
+	<Attribute Name="PAT" Code="999" Value="기타"/>
+	<Attribute Name="PAVE" Code="1" Value="포장"/>
+	<Attribute Name="PAVE" Code="2" Value="비포장"/>
+	<Attribute Name="PBV" Code="0" Value="미확인"/>
+	<Attribute Name="PBV" Code="1" Value="보트"/>
+	<Attribute Name="PBV" Code="2" Value="헬리콥터"/>
+	<Attribute Name="PER" Code="0" Value="0"/>
+	<Attribute Name="PFD" Code="0" Value="0"/>
+	<Attribute Name="PFE" Code="0" Value="0"/>
+	<Attribute Name="PFG" Code="0" Value="0"/>
+	<Attribute Name="PHT" Code="0" Value="실제값"/>
+	<Attribute Name="PLT" Code="0" Value="미정의된"/>
+	<Attribute Name="PLT" Code="1" Value="수송관"/>
+	<Attribute Name="PLT" Code="2" Value="배출구"/>
+	<Attribute Name="PLT" Code="3" Value="취수구"/>
+	<Attribute Name="PPC" Code="0" Value="미지의"/>
+	<Attribute Name="PPC" Code="1" Value="수력발전"/>
+	<Attribute Name="PPC" Code="2" Value="해"/>
+	<Attribute Name="PPC" Code="3" Value="태양"/>
+	<Attribute Name="PPC" Code="4" Value="화력"/>
+	<Attribute Name="PPC" Code="5" Value="바람"/>
+	<Attribute Name="PPC" Code="6" Value="조력"/>
+	<Attribute Name="PPC" Code="7" Value="내부 연소"/>
+	<Attribute Name="PPC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="PPC" Code="998" Value="적용 불가능"/>
+	<Attribute Name="PPC" Code="999" Value="기타"/>
+	<Attribute Name="PPT" Code="0" Value="미확인"/>
+	<Attribute Name="PPT" Code="1" Value="출생지"/>
+	<Attribute Name="PPT" Code="2" Value="판자촌"/>
+	<Attribute Name="PPT" Code="3" Value="텐트주거"/>
+	<Attribute Name="PPT" Code="998" Value="적용할 수 없는"/>
+	<Attribute Name="PPT" Code="999" Value="기타"/>
+	<Attribute Name="PRC" Code="0" Value="미확인"/>
+	<Attribute Name="PRC" Code="1" Value="영구적으로 개방된"/>
+	<Attribute Name="PRC" Code="2" Value="얼음의 영향"/>
+	<Attribute Name="PRC" Code="3" Value="만년설"/>
+	<Attribute Name="PRC" Code="4" Value="1월"/>
+	<Attribute Name="PRC" Code="5" Value="2월"/>
+	<Attribute Name="PRC" Code="6" Value="3월"/>
+	<Attribute Name="PRC" Code="7" Value="4월"/>
+	<Attribute Name="PRC" Code="8" Value="5월"/>
+	<Attribute Name="PRC" Code="9" Value="6월"/>
+	<Attribute Name="PRC" Code="10" Value="7월"/>
+	<Attribute Name="PRC" Code="11" Value="8월"/>
+	<Attribute Name="PRC" Code="12" Value="9월"/>
+	<Attribute Name="PRC" Code="13" Value="10월"/>
+	<Attribute Name="PRC" Code="14" Value="11월"/>
+	<Attribute Name="PRC" Code="15" Value="12월"/>
+	<Attribute Name="PRC" Code="16" Value="폐쇄된"/>
+	<Attribute Name="PRC" Code="998" Value="적용할 수 없는"/>
+	<Attribute Name="PRC" Code="999" Value="기타"/>
+	<Attribute Name="PRO" Code="0" Value="미지의"/>
+	<Attribute Name="PRO" Code="1" Value="항공기"/>
+	<Attribute Name="PRO" Code="2" Value="알루미늄"/>
+	<Attribute Name="PRO" Code="3" Value="탄약"/>
+	<Attribute Name="PRO" Code="4" Value="재"/>
+	<Attribute Name="PRO" Code="5" Value="아스팔트"/>
+	<Attribute Name="PRO" Code="6" Value="현무암"/>
+	<Attribute Name="PRO" Code="7" Value="반암"/>
+	<Attribute Name="PRO" Code="8" Value="표석"/>
+	<Attribute Name="PRO" Code="9" Value="벽돌"/>
+	<Attribute Name="PRO" Code="10" Value="석회질의"/>
+	<Attribute Name="PRO" Code="11" Value="시멘트"/>
+	<Attribute Name="PRO" Code="12" Value="백악"/>
+	<Attribute Name="PRO" Code="13" Value="화학제품"/>
+	<Attribute Name="PRO" Code="14" Value="탄재"/>
+	<Attribute Name="PRO" Code="15" Value="만각류"/>
+	<Attribute Name="PRO" Code="16" Value="점토"/>
+	<Attribute Name="PRO" Code="17" Value="석탄"/>
+	<Attribute Name="PRO" Code="18" Value="자갈"/>
+	<Attribute Name="PRO" Code="19" Value="코크스"/>
+	<Attribute Name="PRO" Code="20" Value="구성"/>
+	<Attribute Name="PRO" Code="21" Value="콘크리트"/>
+	<Attribute Name="PRO" Code="22" Value="역암"/>
+	<Attribute Name="PRO" Code="23" Value="구리"/>
+	<Attribute Name="PRO" Code="24" Value="산호"/>
+	<Attribute Name="PRO" Code="25" Value="산호의 상단"/>
+	<Attribute Name="PRO" Code="26" Value="탈염된 물"/>
+	<Attribute Name="PRO" Code="27" Value="다이아몬드"/>
+	<Attribute Name="PRO" Code="28" Value="규조"/>
+	<Attribute Name="PRO" Code="29" Value="백운암"/>
+	<Attribute Name="PRO" Code="30" Value="흙으로 만든"/>
+	<Attribute Name="PRO" Code="31" Value="전기(성)의"/>
+	<Attribute Name="PRO" Code="32" Value="침식지"/>
+	<Attribute Name="PRO" Code="33" Value="폭발물"/>
+	<Attribute Name="PRO" Code="34" Value="플리시"/>
+	<Attribute Name="PRO" Code="35" Value="식량"/>
+	<Attribute Name="PRO" Code="36" Value="유공충강"/>
+	<Attribute Name="PRO" Code="37" Value="초점"/>
+	<Attribute Name="PRO" Code="38" Value="가스"/>
+	<Attribute Name="PRO" Code="39" Value="가솔린"/>
+	<Attribute Name="PRO" Code="40" Value="유리"/>
+	<Attribute Name="PRO" Code="41" Value="글로비게리나"/>
+	<Attribute Name="PRO" Code="42" Value="금"/>
+	<Attribute Name="PRO" Code="43" Value="화강암"/>
+	<Attribute Name="PRO" Code="44" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="PRO" Code="45" Value="풀/짚"/>
+	<Attribute Name="PRO" Code="46" Value="자갈"/>
+	<Attribute Name="PRO" Code="47" Value="초록색 바위"/>
+	<Attribute Name="PRO" Code="48" Value="지면"/>
+	<Attribute Name="PRO" Code="49" Value="지면(껍질)"/>
+	<Attribute Name="PRO" Code="50" Value="열"/>
+	<Attribute Name="PRO" Code="51" Value="철"/>
+	<Attribute Name="PRO" Code="52" Value="용암"/>
+	<Attribute Name="PRO" Code="53" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="PRO" Code="54" Value="납"/>
+	<Attribute Name="PRO" Code="55" Value="황토"/>
+	<Attribute Name="PRO" Code="56" Value="재목"/>
+	<Attribute Name="PRO" Code="57" Value="쇄석"/>
+	<Attribute Name="PRO" Code="58" Value="녹석"/>
+	<Attribute Name="PRO" Code="59" Value="망간"/>
+	<Attribute Name="PRO" Code="60" Value="대리석"/>
+	<Attribute Name="PRO" Code="61" Value="이회토"/>
+	<Attribute Name="PRO" Code="62" Value="석공술(벽돌/돌)"/>
+	<Attribute Name="PRO" Code="63" Value="매트"/>
+	<Attribute Name="PRO" Code="64" Value="금속"/>
+	<Attribute Name="PRO" Code="65" Value="진흙"/>
+	<Attribute Name="PRO" Code="66" Value="홍합"/>
+	<Attribute Name="PRO" Code="67" Value="기름"/>
+	<Attribute Name="PRO" Code="68" Value="기름 발포제"/>
+	<Attribute Name="PRO" Code="69" Value="보드라운 진흙"/>
+	<Attribute Name="PRO" Code="70" Value="굴(진주조개)"/>
+	<Attribute Name="PRO" Code="71" Value="종이"/>
+	<Attribute Name="PRO" Code="72" Value="부분적 금속"/>
+	<Attribute Name="PRO" Code="73" Value="조약돌"/>
+	<Attribute Name="PRO" Code="74" Value="플라스틱"/>
+	<Attribute Name="PRO" Code="75" Value="이끼벌레류"/>
+	<Attribute Name="PRO" Code="76" Value="반암"/>
+	<Attribute Name="PRO" Code="77" Value="콘크리트 압축"/>
+	<Attribute Name="PRO" Code="78" Value="콘크리트 압축"/>
+	<Attribute Name="PRO" Code="79" Value="경석"/>
+	<Attribute Name="PRO" Code="80" Value="석영"/>
+	<Attribute Name="PRO" Code="81" Value="방산층"/>
+	<Attribute Name="PRO" Code="82" Value="방산성 재료"/>
+	<Attribute Name="PRO" Code="83" Value="철근 콘크리트"/>
+	<Attribute Name="PRO" Code="84" Value="암석/암석이 많은"/>
+	<Attribute Name="PRO" Code="85" Value="고무"/>
+	<Attribute Name="PRO" Code="86" Value="쇄석"/>
+	<Attribute Name="PRO" Code="87" Value="소금"/>
+	<Attribute Name="PRO" Code="88" Value="모래"/>
+	<Attribute Name="PRO" Code="89" Value="사암"/>
+	<Attribute Name="PRO" Code="90" Value="편암"/>
+	<Attribute Name="PRO" Code="91" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="PRO" Code="92" Value="화산암재"/>
+	<Attribute Name="PRO" Code="93" Value="다시마"/>
+	<Attribute Name="PRO" Code="94" Value="해초"/>
+	<Attribute Name="PRO" Code="95" Value="하수 오물"/>
+	<Attribute Name="PRO" Code="96" Value="껍데기"/>
+	<Attribute Name="PRO" Code="97" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="PRO" Code="98" Value="지붕널"/>
+	<Attribute Name="PRO" Code="99" Value="실트"/>
+	<Attribute Name="PRO" Code="100" Value="은"/>
+	<Attribute Name="PRO" Code="101" Value="슬래그"/>
+	<Attribute Name="PRO" Code="102" Value="슬러지"/>
+	<Attribute Name="PRO" Code="103" Value="눈/얼음"/>
+	<Attribute Name="PRO" Code="104" Value="흙"/>
+	<Attribute Name="PRO" Code="105" Value="침상체"/>
+	<Attribute Name="PRO" Code="106" Value="스폰지"/>
+	<Attribute Name="PRO" Code="107" Value="강철"/>
+	<Attribute Name="PRO" Code="108" Value="돌"/>
+	<Attribute Name="PRO" Code="109" Value="설탕"/>
+	<Attribute Name="PRO" Code="110" Value="석회화"/>
+	<Attribute Name="PRO" Code="111" Value="석회화"/>
+	<Attribute Name="PRO" Code="112" Value="우라늄"/>
+	<Attribute Name="PRO" Code="113" Value="식생 생산물"/>
+	<Attribute Name="PRO" Code="114" Value="화산의"/>
+	<Attribute Name="PRO" Code="115" Value="화산재"/>
+	<Attribute Name="PRO" Code="116" Value="물"/>
+	<Attribute Name="PRO" Code="117" Value="목재"/>
+	<Attribute Name="PRO" Code="118" Value="아연"/>
+	<Attribute Name="PRO" Code="119" Value="보크사이트"/>
+	<Attribute Name="PRO" Code="120" Value="Bananas"/>
+	<Attribute Name="PRO" Code="121" Value="무명"/>
+	<Attribute Name="PRO" Code="122" Value="대나무"/>
+	<Attribute Name="PRO" Code="123" Value="커피"/>
+	<Attribute Name="PRO" Code="124" Value="일반적인 과일과 견과"/>
+	<Attribute Name="PRO" Code="125" Value="야자"/>
+	<Attribute Name="PRO" Code="126" Value="야자과의 일종"/>
+	<Attribute Name="PRO" Code="127" Value="폐석, 광물 부스러기"/>
+	<Attribute Name="PRO" Code="128" Value="폐물"/>
+	<Attribute Name="PRO" Code="129" Value="담배"/>
+	<Attribute Name="PRO" Code="130" Value="없슴"/>
+	<Attribute Name="PRO" Code="131" Value="인원"/>
+	<Attribute Name="PRO" Code="132" Value="왼쪽 공백의 계획 값(적용 불가능)"/>
+	<Attribute Name="PRO" Code="133" Value="원거리 통신"/>
+	<Attribute Name="PRO" Code="134" Value="어류"/>
+	<Attribute Name="PRO" Code="135" Value="직물"/>
+	<Attribute Name="PRO" Code="137" Value="자동차와 트럭"/>
+	<Attribute Name="PRO" Code="138" Value="갑각류"/>
+	<Attribute Name="PRO" Code="139" Value="양식된 갑각류"/>
+	<Attribute Name="PRO" Code="140" Value="광석"/>
+	<Attribute Name="PRO" Code="141" Value="식수"/>
+	<Attribute Name="PRO" Code="142" Value="우유"/>
+	<Attribute Name="PRO" Code="143" Value="모래먼지와 나무조각"/>
+	<Attribute Name="PRO" Code="144" Value="금속 조각"/>
+	<Attribute Name="PRO" Code="145" Value="액화 천연 가스"/>
+	<Attribute Name="PRO" Code="146" Value="액화 석유 가스"/>
+	<Attribute Name="PRO" Code="147" Value="과실주"/>
+	<Attribute Name="PRO" Code="148" Value="곡물"/>
+	<Attribute Name="PRO" Code="149" Value="미네랄 오일"/>
+	<Attribute Name="PRO" Code="150" Value="폐석"/>
+	<Attribute Name="PRO" Code="151" Value="양식 진주"/>
+	<Attribute Name="PRO" Code="997" Value="적용 불가능"/>
+	<Attribute Name="PRO" Code="998" Value="복합의"/>
+	<Attribute Name="PRO" Code="999" Value="기타"/>
+	<Attribute Name="PSC" Code="0" Value="미확인"/>
+	<Attribute Name="PSC" Code="2" Value="거친"/>
+	<Attribute Name="PSC" Code="4" Value="고운"/>
+	<Attribute Name="PSC" Code="6" Value="단단한"/>
+	<Attribute Name="PSC" Code="28" Value="해저분출"/>
+	<Attribute Name="PSC" Code="999" Value="기타"/>
+	<Attribute Name="REF" Code="0" Value="미확인"/>
+	<Attribute Name="REF" Code="1" Value="유"/>
+	<Attribute Name="REF" Code="2" Value="무"/>
+	<Attribute Name="REF" Code="998" Value="적용할 수 없는"/>
+	<Attribute Name="REF" Code="999" Value="기타"/>
+	<Attribute Name="REL" Code="0" Value="미지의"/>
+	<Attribute Name="REL" Code="1" Value="불교"/>
+	<Attribute Name="REL" Code="2" Value="이슬람교"/>
+	<Attribute Name="REL" Code="3" Value="로마 카톨릭"/>
+	<Attribute Name="REL" Code="4" Value="기독교(규정되지 않은)"/>
+	<Attribute Name="REL" Code="5" Value="유태교"/>
+	<Attribute Name="REL" Code="6" Value="그리스 정교"/>
+	<Attribute Name="REL" Code="7" Value="신교도"/>
+	<Attribute Name="REL" Code="8" Value="(일불의)신도"/>
+	<Attribute Name="REL" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="REL" Code="998" Value="적용 불가능"/>
+	<Attribute Name="REL" Code="999" Value="기타"/>
+	<Attribute Name="RGC" Code="0" Value="미지의"/>
+	<Attribute Name="RGC" Code="1" Value="광범위"/>
+	<Attribute Name="RGC" Code="2" Value="좁은"/>
+	<Attribute Name="RGC" Code="3" Value="보통(표준)"/>
+	<Attribute Name="RGC" Code="4" Value="조금의"/>
+	<Attribute Name="RGC" Code="5" Value="표준 (US) 4ft. 8.5 in."/>
+	<Attribute Name="RGC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="RGC" Code="998" Value="적용 불가능"/>
+	<Attribute Name="RGC" Code="999" Value="기타"/>
+	<Attribute Name="RIT" Code="0" Value="미확인"/>
+	<Attribute Name="RIT" Code="1" Value="입체 교차로"/>
+	<Attribute Name="RIT" Code="2" Value="다이아몬드형"/>
+	<Attribute Name="RIT" Code="3" Value="갈라진 교차로"/>
+	<Attribute Name="RIT" Code="4" Value="로타리"/>
+	<Attribute Name="RIT" Code="5" Value="엇갈림식램프"/>
+	<Attribute Name="RIT" Code="6" Value="표준램프"/>
+	<Attribute Name="RIT" Code="7" Value="대칭램프"/>
+	<Attribute Name="RIT" Code="8" Value="T형입체교차로"/>
+	<Attribute Name="RIT" Code="9" Value="터번식교차로"/>
+	<Attribute Name="RIT" Code="10" Value="Y자형교차로"/>
+	<Attribute Name="RIT" Code="999" Value="기타"/>
+	<Attribute Name="ROTATEANGL" Code="0" Value="0"/>
+	<Attribute Name="RPA" Code="0" Value="미확인"/>
+	<Attribute Name="RPA" Code="1" Value="허가필요"/>
+	<Attribute Name="RPA" Code="2" Value="허가불필요"/>
+	<Attribute Name="RRA" Code="0" Value="미지의"/>
+	<Attribute Name="RRA" Code="1" Value="대전노선(선로공급)"/>
+	<Attribute Name="RRA" Code="3" Value="대전된 상부(고가공급)"/>
+	<Attribute Name="RRA" Code="4" Value="대전되지 않은(비전력)"/>
+	<Attribute Name="RRA" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="RRA" Code="998" Value="적용 불가능"/>
+	<Attribute Name="RRA" Code="999" Value="기타"/>
+	<Attribute Name="RRC" Code="0" Value="미지의"/>
+	<Attribute Name="RRC" Code="2" Value="차선"/>
+	<Attribute Name="RRC" Code="3" Value="단궤철도"/>
+	<Attribute Name="RRC" Code="6" Value="지하철"/>
+	<Attribute Name="RRC" Code="8" Value="벌목도로"/>
+	<Attribute Name="RRC" Code="10" Value="소형의"/>
+	<Attribute Name="RRC" Code="11" Value="빠른 운송로-레일"/>
+	<Attribute Name="RRC" Code="13" Value="해양철도"/>
+	<Attribute Name="RRC" Code="14" Value="광차선로"/>
+	<Attribute Name="RRC" Code="15" Value="포함된 철도(케이블철도)"/>
+	<Attribute Name="RRC" Code="16" Value="주노선"/>
+	<Attribute Name="RRC" Code="17" Value="분기선(지선)"/>
+	<Attribute Name="RRC" Code="21" Value="도로안의 철도"/>
+	<Attribute Name="RRC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="RRC" Code="998" Value="적용 불가능"/>
+	<Attribute Name="RRC" Code="999" Value="기타"/>
+	<Attribute Name="RSA" Code="0" Value="미지의"/>
+	<Attribute Name="RSA" Code="1" Value="버팀벽"/>
+	<Attribute Name="RSA" Code="2" Value="미끄러짐"/>
+	<Attribute Name="RSA" Code="3" Value="통과"/>
+	<Attribute Name="RSA" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="RSA" Code="998" Value="적용 불가능"/>
+	<Attribute Name="RSA" Code="999" Value="기타"/>
+	<Attribute Name="RST" Code="0" Value="미지의"/>
+	<Attribute Name="RST" Code="1" Value="견고한/포장된"/>
+	<Attribute Name="RST" Code="2" Value="헐거운/포장안된"/>
+	<Attribute Name="RST" Code="3" Value="헐거운/가벼운"/>
+	<Attribute Name="RST" Code="4" Value="통나무를 깔아 만든"/>
+	<Attribute Name="RST" Code="5" Value="풀/땟장(부드러운)"/>
+	<Attribute Name="RST" Code="6" Value="자연그대로"/>
+	<Attribute Name="RST" Code="7" Value="영구적인"/>
+	<Attribute Name="RST" Code="8" Value="임시적인"/>
+	<Attribute Name="RST" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="RST" Code="998" Value="적용 불가능"/>
+	<Attribute Name="RST" Code="999" Value="기타"/>
+	<Attribute Name="RTT" Code="0" Value="미지의"/>
+	<Attribute Name="RTT" Code="1" Value="추천 경로"/>
+	<Attribute Name="RTT" Code="2" Value="깊은 견인선 보다 다른 것을 위한 추천 경로"/>
+	<Attribute Name="RTT" Code="3" Value="깊은 견인선을 위한"/>
+	<Attribute Name="RTT" Code="4" Value="깊은 수로"/>
+	<Attribute Name="RTT" Code="5" Value="운송로"/>
+	<Attribute Name="RTT" Code="6" Value="감시 레이다 지로"/>
+	<Attribute Name="RTT" Code="7" Value="측정된 거리선"/>
+	<Attribute Name="RTT" Code="8" Value="안전한 항로/수로"/>
+	<Attribute Name="RTT" Code="9" Value="교통 차선"/>
+	<Attribute Name="RTT" Code="10" Value="로타리 차선"/>
+	<Attribute Name="RTT" Code="11" Value="두 방향 교통로"/>
+	<Attribute Name="RTT" Code="12" Value="추천 경로"/>
+	<Attribute Name="RTT" Code="13" Value="교통의 흐름의 추천 방향"/>
+	<Attribute Name="RTT" Code="14" Value="주요 경로"/>
+	<Attribute Name="RTT" Code="15" Value="2차 경로"/>
+	<Attribute Name="RTT" Code="16" Value="제한된 접근경로(예, 고속도로/아우토반/주간고속도로)"/>
+	<Attribute Name="RTT" Code="17" Value="Q-Route"/>
+	<Attribute Name="RTT" Code="18" Value="추천 경로"/>
+	<Attribute Name="RTT" Code="96" Value="추천 교통차선의 일부"/>
+	<Attribute Name="RTT" Code="97" Value="중앙선"/>
+	<Attribute Name="RTT" Code="98" Value="깊은 수로-중앙선"/>
+	<Attribute Name="RTT" Code="99" Value="깊은 수로-일부"/>
+	<Attribute Name="RTT" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="RTT" Code="998" Value="적용 불가능"/>
+	<Attribute Name="RTT" Code="999" Value="기타"/>
+	<Attribute Name="SCALE" Code="0" Value="0"/>
+	<Attribute Name="SCC" Code="0" Value="미지의"/>
+	<Attribute Name="SCC" Code="1" Value="알칼리의"/>
+	<Attribute Name="SCC" Code="2" Value="부적절한"/>
+	<Attribute Name="SCC" Code="3" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SCC" Code="4" Value="광물(광천수, 탄산수)"/>
+	<Attribute Name="SCC" Code="5" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SCC" Code="6" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SCC" Code="9" Value="담수/음료수"/>
+	<Attribute Name="SCC" Code="10" Value="소금"/>
+	<Attribute Name="SCC" Code="11" Value="신선한"/>
+	<Attribute Name="SCC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="SCC" Code="999" Value="기타"/>
+	<Attribute Name="SFC" Code="0" Value="미확인"/>
+	<Attribute Name="SFC" Code="3" Value="어초"/>
+	<Attribute Name="SFC" Code="4" Value="우물"/>
+	<Attribute Name="SFC" Code="5" Value="해저 생산플랫폼"/>
+	<Attribute Name="SFC" Code="6" Value="난파"/>
+	<Attribute Name="SFC" Code="7" Value="여울"/>
+	<Attribute Name="SFC" Code="999" Value="기타"/>
+	<Attribute Name="SGC" Code="0" Value="실제값"/>
+	<Attribute Name="SHC" Code="0" Value="0"/>
+	<Attribute Name="SHO" Code="0" Value="미확인"/>
+	<Attribute Name="SHO" Code="2" Value="편평한"/>
+	<Attribute Name="SHO" Code="6" Value="가파른"/>
+	<Attribute Name="SHO" Code="999" Value="기타"/>
+	<Attribute Name="SHP" Code="0" Value="미확인"/>
+	<Attribute Name="SHP" Code="1" Value="기둥"/>
+	<Attribute Name="SHP" Code="2" Value="버들"/>
+	<Attribute Name="SHP" Code="3" Value="탑형입표"/>
+	<Attribute Name="SHP" Code="5" Value="파일입표"/>
+	<Attribute Name="SHP" Code="999" Value="기타"/>
+	<Attribute Name="SIC" Code="0" Value="미확인"/>
+	<Attribute Name="SIC" Code="1" Value="눈"/>
+	<Attribute Name="SIC" Code="2" Value="얼음"/>
+	<Attribute Name="SL1" Code="0" Value="미확인"/>
+	<Attribute Name="SL1" Code="1" Value="0 ~ 30 이하"/>
+	<Attribute Name="SL1" Code="2" Value="30 ~ 45 이하"/>
+	<Attribute Name="SL1" Code="3" Value="45 ~ 60 이하"/>
+	<Attribute Name="SL1" Code="4" Value="60 이상"/>
+	<Attribute Name="SLT" Code="0" Value="미지의"/>
+	<Attribute Name="SLT" Code="6" Value="홍수림/니파 야자"/>
+	<Attribute Name="SLT" Code="8" Value="습지, 늪"/>
+	<Attribute Name="SLT" Code="10" Value="암석이 많은"/>
+	<Attribute Name="SLT" Code="11" Value="잡석"/>
+	<Attribute Name="SLT" Code="13" Value="모래"/>
+	<Attribute Name="SLT" Code="14" Value="돌, 자갈"/>
+	<Attribute Name="SLT" Code="15" Value="왼쪽 공백의 계획 값(기타)"/>
+	<Attribute Name="SLT" Code="16" Value="산호"/>
+	<Attribute Name="SLT" Code="17" Value="얼음"/>
+	<Attribute Name="SLT" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="SLT" Code="998" Value="적용 불가능"/>
+	<Attribute Name="SLT" Code="999" Value="기타"/>
+	<Attribute Name="SMC" Code="0" Value="미확인"/>
+	<Attribute Name="SMC" Code="2" Value="알루미늄"/>
+	<Attribute Name="SMC" Code="4" Value="재"/>
+	<Attribute Name="SMC" Code="5" Value="아스팔트"/>
+	<Attribute Name="SMC" Code="6" Value="현무암"/>
+	<Attribute Name="SMC" Code="7" Value="바닥의"/>
+	<Attribute Name="SMC" Code="8" Value="큰돌"/>
+	<Attribute Name="SMC" Code="9" Value="벽돌"/>
+	<Attribute Name="SMC" Code="10" Value="석회석"/>
+	<Attribute Name="SMC" Code="12" Value="백악"/>
+	<Attribute Name="SMC" Code="14" Value="탄 재"/>
+	<Attribute Name="SMC" Code="15" Value="만각류"/>
+	<Attribute Name="SMC" Code="16" Value="점토"/>
+	<Attribute Name="SMC" Code="17" Value="석탄"/>
+	<Attribute Name="SMC" Code="18" Value="굵은 돌"/>
+	<Attribute Name="SMC" Code="20" Value="혼합물"/>
+	<Attribute Name="SMC" Code="21" Value="콘크리트"/>
+	<Attribute Name="SMC" Code="22" Value="역암"/>
+	<Attribute Name="SMC" Code="24" Value="산호"/>
+	<Attribute Name="SMC" Code="25" Value="산호의 상단"/>
+	<Attribute Name="SMC" Code="28" Value="돌말"/>
+	<Attribute Name="SMC" Code="29" Value="백운석"/>
+	<Attribute Name="SMC" Code="30" Value="흙으로 만든"/>
+	<Attribute Name="SMC" Code="36" Value="유곤충"/>
+	<Attribute Name="SMC" Code="41" Value="글로비게리나"/>
+	<Attribute Name="SMC" Code="43" Value="화강암"/>
+	<Attribute Name="SMC" Code="45" Value="목초"/>
+	<Attribute Name="SMC" Code="46" Value="자갈"/>
+	<Attribute Name="SMC" Code="47" Value="청색 암초"/>
+	<Attribute Name="SMC" Code="48" Value="지면"/>
+	<Attribute Name="SMC" Code="49" Value="지면(외관)"/>
+	<Attribute Name="SMC" Code="52" Value="화산암"/>
+	<Attribute Name="SMC" Code="55" Value="황토"/>
+	<Attribute Name="SMC" Code="58" Value="녹석"/>
+	<Attribute Name="SMC" Code="61" Value="이회토"/>
+	<Attribute Name="SMC" Code="62" Value="석조(벽돌/석재)"/>
+	<Attribute Name="SMC" Code="64" Value="금속"/>
+	<Attribute Name="SMC" Code="65" Value="진흙"/>
+	<Attribute Name="SMC" Code="66" Value="홍합"/>
+	<Attribute Name="SMC" Code="69" Value="보드라운 진흙"/>
+	<Attribute Name="SMC" Code="70" Value="굴"/>
+	<Attribute Name="SMC" Code="72" Value="부분 금속"/>
+	<Attribute Name="SMC" Code="73" Value="조약돌"/>
+	<Attribute Name="SMC" Code="78" Value="반암"/>
+	<Attribute Name="SMC" Code="79" Value="속돌"/>
+	<Attribute Name="SMC" Code="80" Value="석영"/>
+	<Attribute Name="SMC" Code="81" Value="방산충류"/>
+	<Attribute Name="SMC" Code="83" Value="철근 콘크리트"/>
+	<Attribute Name="SMC" Code="84" Value="바위"/>
+	<Attribute Name="SMC" Code="86" Value="거품"/>
+	<Attribute Name="SMC" Code="87" Value="소금"/>
+	<Attribute Name="SMC" Code="88" Value="모래"/>
+	<Attribute Name="SMC" Code="89" Value="사암"/>
+	<Attribute Name="SMC" Code="90" Value="편암"/>
+	<Attribute Name="SMC" Code="92" Value="화산암재"/>
+	<Attribute Name="SMC" Code="96" Value="조가비"/>
+	<Attribute Name="SMC" Code="98" Value="동굴고 작은돌"/>
+	<Attribute Name="SMC" Code="99" Value="실트"/>
+	<Attribute Name="SMC" Code="103" Value="눈/얼음"/>
+	<Attribute Name="SMC" Code="104" Value="토양"/>
+	<Attribute Name="SMC" Code="106" Value="해면"/>
+	<Attribute Name="SMC" Code="107" Value="강철"/>
+	<Attribute Name="SMC" Code="108" Value="석재"/>
+	<Attribute Name="SMC" Code="109" Value="돌"/>
+	<Attribute Name="SMC" Code="110" Value="온천의 침전물"/>
+	<Attribute Name="SMC" Code="111" Value="석회화"/>
+	<Attribute Name="SMC" Code="113" Value="초목"/>
+	<Attribute Name="SMC" Code="114" Value="화산의"/>
+	<Attribute Name="SMC" Code="115" Value="화산회"/>
+	<Attribute Name="SMC" Code="116" Value="광천수"/>
+	<Attribute Name="SMC" Code="117" Value="목질"/>
+	<Attribute Name="SMC" Code="119" Value="비뚤어진 표면"/>
+	<Attribute Name="SMC" Code="120" Value="모래와 자갈"/>
+	<Attribute Name="SMC" Code="121" Value="사석"/>
+	<Attribute Name="SMC" Code="122" Value="증발암"/>
+	<Attribute Name="SMC" Code="124" Value="모래와 큰알돌"/>
+	<Attribute Name="SMC" Code="126" Value="모래와 진흙"/>
+	<Attribute Name="SMC" Code="127" Value="카르스트 지형"/>
+	<Attribute Name="SMC" Code="200" Value="작은 초목"/>
+	<Attribute Name="SMC" Code="201" Value="수목들"/>
+	<Attribute Name="SMC" Code="202" Value="습지대 초목"/>
+	<Attribute Name="SMC" Code="250" Value="미확인"/>
+	<Attribute Name="SMC" Code="251" Value="미확인"/>
+	<Attribute Name="SMC" Code="252" Value="미확인"/>
+	<Attribute Name="SMC" Code="253" Value="미확인"/>
+	<Attribute Name="SMC" Code="254" Value="미확인"/>
+	<Attribute Name="SMC" Code="255" Value="미확인"/>
+	<Attribute Name="SMC" Code="256" Value="미확인"/>
+	<Attribute Name="SMC" Code="257" Value="얼음"/>
+	<Attribute Name="SMC" Code="258" Value="눈"/>
+	<Attribute Name="SMC" Code="262" Value="홍토"/>
+	<Attribute Name="SMC" Code="999" Value="기타"/>
+	<Attribute Name="SND" Code="1" Value="수심 간출높이"/>
+	<Attribute Name="SND" Code="2" Value="바닥이 보이지 않는"/>
+	<Attribute Name="SND" Code="10" Value="보통의"/>
+	<Attribute Name="SND" Code="93" Value="의심스러운 수심"/>
+	<Attribute Name="SND" Code="999" Value="기타"/>
+	<Attribute Name="SOH" Code="0" Value="미확인"/>
+	<Attribute Name="SOH" Code="1" Value="위험한"/>
+	<Attribute Name="SOH" Code="2" Value="위험하지 않은"/>
+	<Attribute Name="SOH" Code="3" Value="장애"/>
+	<Attribute Name="SOH" Code="999" Value="기타"/>
+	<Attribute Name="SOURCE" Code="0" Value="0"/>
+	<Attribute Name="SOURCE_DAT" Code="0" Value="0"/>
+	<Attribute Name="SR1" Code="0" Value="미확인"/>
+	<Attribute Name="SR1" Code="1" Value="0 ~ 30 이하"/>
+	<Attribute Name="SR1" Code="2" Value="30 ~ 45 이하"/>
+	<Attribute Name="SR1" Code="3" Value="45 ~ 60 이하"/>
+	<Attribute Name="SR1" Code="4" Value="60 이상"/>
+	<Attribute Name="SSC" Code="0" Value="미지의"/>
+	<Attribute Name="SSC" Code="1" Value="배럴, 톤"/>
+	<Attribute Name="SSC" Code="2" Value="소형 비행선"/>
+	<Attribute Name="SSC" Code="3" Value="선체(띄우게)"/>
+	<Attribute Name="SSC" Code="4" Value="소총탄"/>
+	<Attribute Name="SSC" Code="5" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="6" Value="원뿔형/뾰족한/NUN"/>
+	<Attribute Name="SSC" Code="7" Value="원통형이(수직)/캔(피복)"/>
+	<Attribute Name="SSC" Code="9" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="10" Value="기둥/방추체"/>
+	<Attribute Name="SSC" Code="11" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="12" Value="피라미드"/>
+	<Attribute Name="SSC" Code="13" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="14" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="15" Value="고체/충전된"/>
+	<Attribute Name="SSC" Code="16" Value="스파아"/>
+	<Attribute Name="SSC" Code="17" Value="구면(반구)"/>
+	<Attribute Name="SSC" Code="18" Value="트러스"/>
+	<Attribute Name="SSC" Code="19" Value="레이도움과 같은"/>
+	<Attribute Name="SSC" Code="20" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="21" Value="인공 산맥"/>
+	<Attribute Name="SSC" Code="22" Value="초생달"/>
+	<Attribute Name="SSC" Code="23" Value="대회전식 관람자"/>
+	<Attribute Name="SSC" Code="24" Value="둘러 싼"/>
+	<Attribute Name="SSC" Code="25" Value="롤러 코스터"/>
+	<Attribute Name="SSC" Code="26" Value="측면의"/>
+	<Attribute Name="SSC" Code="27" Value="토루"/>
+	<Attribute Name="SSC" Code="28" Value="잔물결"/>
+	<Attribute Name="SSC" Code="29" Value="별"/>
+	<Attribute Name="SSC" Code="30" Value="가로지르는 것"/>
+	<Attribute Name="SSC" Code="31" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="33" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="34" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="35" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="36" Value="풍력기"/>
+	<Attribute Name="SSC" Code="38" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="40" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="46" Value="개방"/>
+	<Attribute Name="SSC" Code="52" Value="A 구조"/>
+	<Attribute Name="SSC" Code="53" Value="H 구조"/>
+	<Attribute Name="SSC" Code="54" Value="I 구조"/>
+	<Attribute Name="SSC" Code="56" Value="Y 구조"/>
+	<Attribute Name="SSC" Code="57" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="58" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="59" Value="끼워 넣어진 가스탱크(가스 계량기)"/>
+	<Attribute Name="SSC" Code="60" Value="마스터"/>
+	<Attribute Name="SSC" Code="61" Value="삼발이"/>
+	<Attribute Name="SSC" Code="62" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="63" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="SSC" Code="65" Value="편평한 꼭대기와 같은 원통형"/>
+	<Attribute Name="SSC" Code="66" Value="도움형 꼭대기와 같은 원통형"/>
+	<Attribute Name="SSC" Code="71" Value="원통형/침투형"/>
+	<Attribute Name="SSC" Code="73" Value="상부부표"/>
+	<Attribute Name="SSC" Code="74" Value="T 구조"/>
+	<Attribute Name="SSC" Code="75" Value="4면체"/>
+	<Attribute Name="SSC" Code="76" Value="굴뚝"/>
+	<Attribute Name="SSC" Code="77" Value="아치"/>
+	<Attribute Name="SSC" Code="78" Value="다중-아치"/>
+	<Attribute Name="SSC" Code="79" Value="둥근"/>
+	<Attribute Name="SSC" Code="80" Value="직사각형의"/>
+	<Attribute Name="SSC" Code="81" Value="용의 이빨"/>
+	<Attribute Name="SSC" Code="82" Value="I 빔"/>
+	<Attribute Name="SSC" Code="83" Value="면적"/>
+	<Attribute Name="SSC" Code="84" Value="불규칙한"/>
+	<Attribute Name="SSC" Code="85" Value="다이아몬드 형태의 부표"/>
+	<Attribute Name="SSC" Code="86" Value="타원"/>
+	<Attribute Name="SSC" Code="87" Value="돔"/>
+	<Attribute Name="SSC" Code="88" Value="기둥으로 지탱한 구면"/>
+	<Attribute Name="SSC" Code="89" Value="탑을 지탱하는 원통형이나 뾰족한표"/>
+	<Attribute Name="SSC" Code="90" Value="높이 치솟은 건물"/>
+	<Attribute Name="SSC" Code="91" Value="원통의"/>
+	<Attribute Name="SSC" Code="92" Value="입방의"/>
+	<Attribute Name="SSC" Code="93" Value="장대의"/>
+	<Attribute Name="SSC" Code="94" Value="판자"/>
+	<Attribute Name="SSC" Code="95" Value="기둥"/>
+	<Attribute Name="SSC" Code="96" Value="장식판"/>
+	<Attribute Name="SSC" Code="97" Value="상"/>
+	<Attribute Name="SSC" Code="98" Value="십자가"/>
+	<Attribute Name="SSC" Code="107" Value="탑"/>
+	<Attribute Name="SSC" Code="108" Value="스캐너"/>
+	<Attribute Name="SSC" Code="109" Value="방첨탑"/>
+	<Attribute Name="SSC" Code="110" Value="레이돔, 탑"/>
+	<Attribute Name="SSC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="SSC" Code="998" Value="적용 불가능"/>
+	<Attribute Name="SSC" Code="999" Value="기타"/>
+	<Attribute Name="SSR" Code="6" Value="원뿔"/>
+	<Attribute Name="SSR" Code="38" Value="곡선"/>
+	<Attribute Name="SSR" Code="40" Value="둥근 지붕"/>
+	<Attribute Name="SSR" Code="41" Value="평평한"/>
+	<Attribute Name="SSR" Code="47" Value="톱니"/>
+	<Attribute Name="SST" Code="0" Value="미확인"/>
+	<Attribute Name="SST" Code="1" Value="벨"/>
+	<Attribute Name="SST" Code="6" Value="경적"/>
+	<Attribute Name="SST" Code="9" Value="사이렌"/>
+	<Attribute Name="SST" Code="16" Value="없음"/>
+	<Attribute Name="SST" Code="999" Value="기타"/>
+	<Attribute Name="SST_TXT" Code="0" Value="0"/>
+	<Attribute Name="STA" Code="0" Value="미확인"/>
+	<Attribute Name="STA" Code="2" Value="소방선"/>
+	<Attribute Name="STA" Code="3" Value="해양경찰"/>
+	<Attribute Name="STA" Code="5" Value="구조"/>
+	<Attribute Name="STA" Code="6" Value="항구통제"/>
+	<Attribute Name="STA" Code="11" Value="도선"/>
+	<Attribute Name="STA" Code="13" Value="신호기"/>
+	<Attribute Name="STA" Code="15" Value="폭풍"/>
+	<Attribute Name="STA" Code="17" Value="조석"/>
+	<Attribute Name="STA" Code="21" Value="기상"/>
+	<Attribute Name="STA" Code="27" Value="조류"/>
+	<Attribute Name="STA" Code="35" Value="경고"/>
+	<Attribute Name="STA" Code="999" Value="기타"/>
+	<Attribute Name="STC" Code="0" Value="미확인"/>
+	<Attribute Name="STC" Code="1" Value="측량"/>
+	<Attribute Name="STC" Code="2" Value="입체영상"/>
+	<Attribute Name="STC" Code="3" Value="단영상"/>
+	<Attribute Name="STC" Code="4" Value="지도제작"/>
+	<Attribute Name="STC" Code="5" Value="보고정보된"/>
+	<Attribute Name="STC" Code="8" Value="SAR"/>
+	<Attribute Name="STC" Code="999" Value="기타"/>
+	<Attribute Name="SVC" Code="0" Value="미확인"/>
+	<Attribute Name="SVC" Code="3" Value="NP 139"/>
+	<Attribute Name="SVC" Code="5" Value="다른방법으로 보정된"/>
+	<Attribute Name="SWC" Code="0" Value="미확인"/>
+	<Attribute Name="SWC" Code="1" Value="마른"/>
+	<Attribute Name="SWC" Code="2" Value="축축한"/>
+	<Attribute Name="SWC" Code="3" Value="젖은"/>
+	<Attribute Name="SWC" Code="4" Value="얼은"/>
+	<Attribute Name="SWC" Code="999" Value="기타"/>
+	<Attribute Name="SWT" Code="0" Value="미확인"/>
+	<Attribute Name="SWT" Code="1" Value="간헐"/>
+	<Attribute Name="SWT" Code="2" Value="온천"/>
+	<Attribute Name="SWT" Code="3" Value="화산 분기공"/>
+	<Attribute Name="SWT" Code="4" Value="수맥까지 파내려간"/>
+	<Attribute Name="SWT" Code="5" Value="물웅덩이"/>
+	<Attribute Name="SWT" Code="6" Value="벽으로 싸여진"/>
+	<Attribute Name="SWT" Code="999" Value="기타"/>
+	<Attribute Name="TID" Code="0" Value="미지의"/>
+	<Attribute Name="TID" Code="1" Value="비감조"/>
+	<Attribute Name="TID" Code="2" Value="조수/변동이 있는 조수"/>
+	<Attribute Name="TID" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="TID" Code="998" Value="적용 불가능"/>
+	<Attribute Name="TID" Code="999" Value="기타"/>
+	<Attribute Name="TIM" Code="0" Value="0"/>
+	<Attribute Name="TMC" Code="0" Value="미확인"/>
+	<Attribute Name="TMC" Code="1" Value="동방위표지"/>
+	<Attribute Name="TMC" Code="2" Value="고립장애표지"/>
+	<Attribute Name="TMC" Code="3" Value="북방위표지"/>
+	<Attribute Name="TMC" Code="6" Value="X표지"/>
+	<Attribute Name="TMC" Code="8" Value="남방위표지"/>
+	<Attribute Name="TMC" Code="9" Value="서방위표지"/>
+	<Attribute Name="TMC" Code="21" Value="원뿔형"/>
+	<Attribute Name="TMC" Code="25" Value="캔형"/>
+	<Attribute Name="TMC" Code="26" Value="캔형"/>
+	<Attribute Name="TMC" Code="27" Value="구형"/>
+	<Attribute Name="TMC" Code="32" Value="2중 원뿔형"/>
+	<Attribute Name="TMC" Code="33" Value="없음"/>
+	<Attribute Name="TMC" Code="40" Value="사각형"/>
+	<Attribute Name="TMC" Code="999" Value="기타"/>
+	<Attribute Name="TRA" Code="0" Value="미확인"/>
+	<Attribute Name="TRA" Code="1" Value="횡단가능"/>
+	<Attribute Name="TRA" Code="2" Value="횡단불가능"/>
+	<Attribute Name="TSP" Code="0" Value="미확인"/>
+	<Attribute Name="TSP" Code="1" Value="화살표"/>
+	<Attribute Name="TSP" Code="2" Value="외곽경계"/>
+	<Attribute Name="TSP" Code="3" Value="분리대 면"/>
+	<Attribute Name="TSP" Code="4" Value="분리대 선"/>
+	<Attribute Name="TSP" Code="5" Value="분리대 점"/>
+	<Attribute Name="TSP" Code="6" Value="입항 구역"/>
+	<Attribute Name="TSP" Code="7" Value="출항 구역"/>
+	<Attribute Name="TSP" Code="999" Value="기타"/>
+	<Attribute Name="TST" Code="0" Value="미지의"/>
+	<Attribute Name="TST" Code="1" Value="일반적으로 매단 지주"/>
+	<Attribute Name="TST" Code="2" Value="현 수선(산위의)"/>
+	<Attribute Name="TST" Code="3" Value="현 수선(수면위의)"/>
+	<Attribute Name="TST" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="TST" Code="998" Value="적용 불가능"/>
+	<Attribute Name="TST" Code="999" Value="기타"/>
+	<Attribute Name="TTC" Code="0" Value="미지의"/>
+	<Attribute Name="TTC" Code="1" Value="육교"/>
+	<Attribute Name="TTC" Code="2" Value="관측기/조망"/>
+	<Attribute Name="TTC" Code="3" Value="왼쪽 공백의 계획 값 (기타)"/>
+	<Attribute Name="TTC" Code="4" Value="확실하지 않은"/>
+	<Attribute Name="TTC" Code="5" Value="조명탑"/>
+	<Attribute Name="TTC" Code="6" Value="급수탑"/>
+	<Attribute Name="TTC" Code="7" Value="무선 전신탑"/>
+	<Attribute Name="TTC" Code="8" Value="냉각탑"/>
+	<Attribute Name="TTC" Code="9" Value="레이다 탑"/>
+	<Attribute Name="TTC" Code="10" Value="전망대"/>
+	<Attribute Name="TTC" Code="11" Value="텔레비전 방송탑"/>
+	<Attribute Name="TTC" Code="12" Value="불"/>
+	<Attribute Name="TTC" Code="13" Value="계선주, 명료한 선적 플랫폼, 한개의 닻을 내리는 구간"/>
+	<Attribute Name="TTC" Code="14" Value="전력선"/>
+	<Attribute Name="TTC" Code="15" Value="먼거리 형태"/>
+	<Attribute Name="TTC" Code="16" Value="제어"/>
+	<Attribute Name="TTC" Code="17" Value="극초단파"/>
+	<Attribute Name="TTC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="TTC" Code="998" Value="적용 불가능"/>
+	<Attribute Name="TTC" Code="999" Value="기타"/>
+	<Attribute Name="TUC" Code="0" Value="미지의"/>
+	<Attribute Name="TUC" Code="1" Value="도로와 철도"/>
+	<Attribute Name="TUC" Code="2" Value="고속도로"/>
+	<Attribute Name="TUC" Code="3" Value="철도"/>
+	<Attribute Name="TUC" Code="4" Value="도로"/>
+	<Attribute Name="TUC" Code="6" Value="거리(시가)"/>
+	<Attribute Name="TUC" Code="7" Value="경로를 통과"/>
+	<Attribute Name="TUC" Code="8" Value="항로 관제실"/>
+	<Attribute Name="TUC" Code="12" Value="선박"/>
+	<Attribute Name="TUC" Code="13" Value="항공"/>
+	<Attribute Name="TUC" Code="14" Value="버스"/>
+	<Attribute Name="TUC" Code="17" Value="보행"/>
+	<Attribute Name="TUC" Code="18" Value="도관, 송유관"/>
+	<Attribute Name="TUC" Code="19" Value="동물"/>
+	<Attribute Name="TUC" Code="20" Value="항공기"/>
+	<Attribute Name="TUC" Code="21" Value="배"/>
+	<Attribute Name="TUC" Code="22" Value="자동차의"/>
+	<Attribute Name="TUC" Code="23" Value="보트"/>
+	<Attribute Name="TUC" Code="24" Value="적하모터보트/바지선"/>
+	<Attribute Name="TUC" Code="25" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="TUC" Code="26" Value="승객"/>
+	<Attribute Name="TUC" Code="27" Value="(스키, 관망용의)체어 리프트"/>
+	<Attribute Name="TUC" Code="28" Value="스키를 끄는 밧줄"/>
+	<Attribute Name="TUC" Code="29" Value="썰매를 끄는 밧줄"/>
+	<Attribute Name="TUC" Code="30" Value="손수레를 끄는 밧줄"/>
+	<Attribute Name="TUC" Code="31" Value="오토바이"/>
+	<Attribute Name="TUC" Code="32" Value="자전거"/>
+	<Attribute Name="TUC" Code="33" Value="광물"/>
+	<Attribute Name="TUC" Code="34" Value="수로"/>
+	<Attribute Name="TUC" Code="35" Value="수송 용도가 아닌"/>
+	<Attribute Name="TUC" Code="36" Value="고속도로에의 진입로/간선도로나 어떤 시설로 들어가는 진입로"/>
+	<Attribute Name="TUC" Code="37" Value="연수 육로"/>
+	<Attribute Name="TUC" Code="38" Value="운하"/>
+	<Attribute Name="TUC" Code="39" Value="트레일러 경로"/>
+	<Attribute Name="TUC" Code="40" Value="(영)지하도, (미)지하철"/>
+	<Attribute Name="TUC" Code="41" Value="도수관"/>
+	<Attribute Name="TUC" Code="42" Value="쌍방 도로와 주로"/>
+	<Attribute Name="TUC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="TUC" Code="998" Value="적용 불가능"/>
+	<Attribute Name="TUC" Code="999" Value="기타"/>
+	<Attribute Name="TXT" Code="0" Value="실제값"/>
+	<Attribute Name="UBC" Code="0" Value="0"/>
+	<Attribute Name="UMC" Code="0" Value="미확인"/>
+	<Attribute Name="USE" Code="0" Value="미지의"/>
+	<Attribute Name="USE" Code="1" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="USE" Code="2" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="USE" Code="3" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="USE" Code="4" Value="국가의"/>
+	<Attribute Name="USE" Code="5" Value="정부의"/>
+	<Attribute Name="USE" Code="6" Value="사설의"/>
+	<Attribute Name="USE" Code="7" Value="부족의"/>
+	<Attribute Name="USE" Code="8" Value="군대의"/>
+	<Attribute Name="USE" Code="9" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="USE" Code="10" Value="왼쪽 공백의 계획 값(기타)"/>
+	<Attribute Name="USE" Code="11" Value="모텔/호텔"/>
+	<Attribute Name="USE" Code="12" Value="아파트"/>
+	<Attribute Name="USE" Code="13" Value="개방된"/>
+	<Attribute Name="USE" Code="14" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="USE" Code="15" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="USE" Code="16" Value="시"/>
+	<Attribute Name="USE" Code="17" Value="광고 게시판"/>
+	<Attribute Name="USE" Code="18" Value="스코어 보드"/>
+	<Attribute Name="USE" Code="19" Value="고속도로 표지판"/>
+	<Attribute Name="USE" Code="20" Value="폐쇄된"/>
+	<Attribute Name="USE" Code="21" Value="제한된"/>
+	<Attribute Name="USE" Code="22" Value="연합군/일반국민"/>
+	<Attribute Name="USE" Code="23" Value="국제적인"/>
+	<Attribute Name="USE" Code="24" Value="확인되지 않은 항공기 착륙구역"/>
+	<Attribute Name="USE" Code="25" Value="연합의"/>
+	<Attribute Name="USE" Code="26" Value="초기의/첫번째"/>
+	<Attribute Name="USE" Code="30" Value="두번째의/두번째"/>
+	<Attribute Name="USE" Code="31" Value="제3의/3번째의"/>
+	<Attribute Name="USE" Code="32" Value="섬의"/>
+	<Attribute Name="USE" Code="33" Value="지방의"/>
+	<Attribute Name="USE" Code="37" Value="각주 연합의"/>
+	<Attribute Name="USE" Code="41" Value="산업의"/>
+	<Attribute Name="USE" Code="42" Value="상업상의"/>
+	<Attribute Name="USE" Code="43" Value="공공시설의"/>
+	<Attribute Name="USE" Code="44" Value="주거의"/>
+	<Attribute Name="USE" Code="45" Value="농업의"/>
+	<Attribute Name="USE" Code="48" Value="레이다 교란용"/>
+	<Attribute Name="USE" Code="49" Value="일반시민/일반국민의"/>
+	<Attribute Name="USE" Code="50" Value="한정된"/>
+	<Attribute Name="USE" Code="51" Value="전신(전보)"/>
+	<Attribute Name="USE" Code="52" Value="전화"/>
+	<Attribute Name="USE" Code="53" Value="동력"/>
+	<Attribute Name="USE" Code="57" Value="해양의"/>
+	<Attribute Name="USE" Code="60" Value="사태"/>
+	<Attribute Name="USE" Code="61" Value="망명자"/>
+	<Attribute Name="USE" Code="62" Value="포로"/>
+	<Attribute Name="USE" Code="68" Value="동물보호구역"/>
+	<Attribute Name="USE" Code="69" Value="제방, 둑"/>
+	<Attribute Name="USE" Code="70" Value="특별보류지/지정보류지"/>
+	<Attribute Name="USE" Code="73" Value="종점/종착역"/>
+	<Attribute Name="USE" Code="74" Value="낮은 고도 도중에"/>
+	<Attribute Name="USE" Code="75" Value="높은 고도 도중에"/>
+	<Attribute Name="USE" Code="76" Value="낮고 높은 고도 도중에"/>
+	<Attribute Name="USE" Code="77" Value="짧은 이착륙 접근"/>
+	<Attribute Name="USE" Code="78" Value="가시적인 접근"/>
+	<Attribute Name="USE" Code="79" Value="정밀하지 않은 기구의 접근"/>
+	<Attribute Name="USE" Code="80" Value="정밀한 기구의 접근"/>
+	<Attribute Name="USE" Code="81" Value="입장"/>
+	<Attribute Name="USE" Code="82" Value="출구"/>
+	<Attribute Name="USE" Code="83" Value="처리"/>
+	<Attribute Name="USE" Code="84" Value="지류(공급기)"/>
+	<Attribute Name="USE" Code="85" Value="초기 접근 위치 결정"/>
+	<Attribute Name="USE" Code="86" Value="최후 접근 위치 결정"/>
+	<Attribute Name="USE" Code="87" Value="가시적 허락 "/>
+	<Attribute Name="USE" Code="88" Value="접근하지 못한"/>
+	<Attribute Name="USE" Code="89" Value="레이다"/>
+	<Attribute Name="USE" Code="90" Value="마일수 분석"/>
+	<Attribute Name="USE" Code="91" Value="NAVAID 변환"/>
+	<Attribute Name="USE" Code="92" Value="고도계 변화"/>
+	<Attribute Name="USE" Code="93" Value="의무적인 보고"/>
+	<Attribute Name="USE" Code="94" Value="비의무적인 보고"/>
+	<Attribute Name="USE" Code="95" Value="경계 에이프런/포장 주기장"/>
+	<Attribute Name="USE" Code="96" Value="사용중인 에이프런/포장 주기장"/>
+	<Attribute Name="USE" Code="97" Value="매어단 물건/에이프런"/>
+	<Attribute Name="USE" Code="98" Value="비행할 수 있는 에이프런"/>
+	<Attribute Name="USE" Code="99" Value="엔진 테스트 발사대/에이프런"/>
+	<Attribute Name="USE" Code="100" Value="잠깐 머무르는 에이프런"/>
+	<Attribute Name="USE" Code="101" Value="창고 에이프런"/>
+	<Attribute Name="USE" Code="102" Value="그루터기가 많은 에이프런"/>
+	<Attribute Name="USE" Code="103" Value="분산된 포장 주기장"/>
+	<Attribute Name="USE" Code="104" Value="발사대 포장 주기장"/>
+	<Attribute Name="USE" Code="105" Value="연료를 공급하는 포장 주기장"/>
+	<Attribute Name="USE" Code="106" Value="주차 포장 주기장"/>
+	<Attribute Name="USE" Code="107" Value="엔진 전단계 포장 주기장"/>
+	<Attribute Name="USE" Code="108" Value="발사시키는 포장 주기장"/>
+	<Attribute Name="USE" Code="109" Value="포장 주기장에서 떠오르는 한계"/>
+	<Attribute Name="USE" Code="110" Value="포장 주기장 보존"/>
+	<Attribute Name="USE" Code="111" Value="제 4기의/4번째의"/>
+	<Attribute Name="USE" Code="112" Value="다섯의/5번째의"/>
+	<Attribute Name="USE" Code="113" Value="지역의"/>
+	<Attribute Name="USE" Code="114" Value="공유의"/>
+	<Attribute Name="USE" Code="115" Value="눈사태 방지 설비"/>
+	<Attribute Name="USE" Code="116" Value="낙석 방지 설비"/>
+	<Attribute Name="USE" Code="117" Value="하구"/>
+	<Attribute Name="USE" Code="118" Value="통풍구멍"/>
+	<Attribute Name="USE" Code="119" Value="배의 정박"/>
+	<Attribute Name="USE" Code="120" Value="휴양의"/>
+	<Attribute Name="USE" Code="121" Value="항공기 설비/공항 참조점"/>
+	<Attribute Name="USE" Code="122" Value="방화대"/>
+	<Attribute Name="USE" Code="123" Value="관광객"/>
+	<Attribute Name="USE" Code="124" Value="관개"/>
+	<Attribute Name="USE" Code="125" Value="보유한"/>
+	<Attribute Name="USE" Code="127" Value="인도와 같은"/>
+	<Attribute Name="USE" Code="128" Value="혼합도시나 건물이 밀집한 땅"/>
+	<Attribute Name="USE" Code="129" Value="군대지구"/>
+	<Attribute Name="USE" Code="130" Value="수송"/>
+	<Attribute Name="USE" Code="131" Value="댐"/>
+	<Attribute Name="USE" Code="132" Value="컨테이너"/>
+	<Attribute Name="USE" Code="133" Value="단일 point 정박지"/>
+	<Attribute Name="USE" Code="134" Value="공익 사업과 통신"/>
+	<Attribute Name="USE" Code="136" Value="돋운 흙 같은"/>
+	<Attribute Name="USE" Code="139" Value="돋운 흙 같은"/>
+	<Attribute Name="USE" Code="140" Value="의학의"/>
+	<Attribute Name="USE" Code="141" Value="숲 보호구역"/>
+	<Attribute Name="USE" Code="142" Value="Flood Control and/or Rate Measurement"/>
+	<Attribute Name="USE" Code="143" Value="초기 포인트"/>
+	<Attribute Name="USE" Code="144" Value="제어 포인트"/>
+	<Attribute Name="USE" Code="145" Value="Nav Check Point"/>
+	<Attribute Name="USE" Code="146" Value="끝점"/>
+	<Attribute Name="USE" Code="147" Value="시작점"/>
+	<Attribute Name="USE" Code="148" Value="항구"/>
+	<Attribute Name="USE" Code="150" Value="다른 항목"/>
+	<Attribute Name="USE" Code="151" Value="다른 출구"/>
+	<Attribute Name="USE" Code="152" Value="다른 항목 또는 종료"/>
+	<Attribute Name="USE" Code="153" Value="선회, 분기점, 갈랫길"/>
+	<Attribute Name="USE" Code="154" Value="나침반 조정"/>
+	<Attribute Name="USE" Code="155" Value="금지구역"/>
+	<Attribute Name="USE" Code="156" Value="표시구,보시구"/>
+	<Attribute Name="USE" Code="157" Value="시계"/>
+	<Attribute Name="USE" Code="158" Value="보류된"/>
+	<Attribute Name="USE" Code="159" Value="위탁의"/>
+	<Attribute Name="USE" Code="160" Value="선착장"/>
+	<Attribute Name="USE" Code="900" Value="Butts"/>
+	<Attribute Name="USE" Code="901" Value="학교"/>
+	<Attribute Name="USE" Code="986" Value="VALUE INTENTIONALLY LEFT BLANK"/>
+	<Attribute Name="USE" Code="990" Value="거주하지 않은"/>
+	<Attribute Name="USE" Code="991" Value="적용 불가능"/>
+	<Attribute Name="USE" Code="992" Value="Drag Strip"/>
+	<Attribute Name="USE" Code="993" Value="정수장"/>
+	<Attribute Name="USE" Code="994" Value="방공호"/>
+	<Attribute Name="USE" Code="995" Value="식수"/>
+	<Attribute Name="USE" Code="996" Value="삼각측량"/>
+	<Attribute Name="USE" Code="997" Value="케이블 간판/송유관 표시"/>
+	<Attribute Name="USE" Code="998" Value="해면 상륙 지대"/>
+	<Attribute Name="USE" Code="999" Value="기타"/>
+	<Attribute Name="USS" Code="0" Value="미확인"/>
+	<Attribute Name="USS" Code="4" Value="국가의"/>
+	<Attribute Name="USS" Code="5" Value="주정부의"/>
+	<Attribute Name="USS" Code="6" Value="사설의"/>
+	<Attribute Name="USS" Code="7" Value="부족의"/>
+	<Attribute Name="USS" Code="8" Value="군대의"/>
+	<Attribute Name="USS" Code="11" Value="모텔/호텔"/>
+	<Attribute Name="USS" Code="12" Value="아파트"/>
+	<Attribute Name="USS" Code="16" Value="시"/>
+	<Attribute Name="USS" Code="17" Value="광고게시판"/>
+	<Attribute Name="USS" Code="18" Value="스코어보드"/>
+	<Attribute Name="USS" Code="20" Value="폐쇄된"/>
+	<Attribute Name="USS" Code="21" Value="제한된 접근경로"/>
+	<Attribute Name="USS" Code="22" Value="연합군/민간의"/>
+	<Attribute Name="USS" Code="23" Value="국제적인"/>
+	<Attribute Name="USS" Code="25" Value="연합의"/>
+	<Attribute Name="USS" Code="26" Value="첫번째의"/>
+	<Attribute Name="USS" Code="30" Value="두번째의"/>
+	<Attribute Name="USS" Code="31" Value="세번째의"/>
+	<Attribute Name="USS" Code="32" Value="섬의"/>
+	<Attribute Name="USS" Code="33" Value="지방의"/>
+	<Attribute Name="USS" Code="37" Value="주정부간의"/>
+	<Attribute Name="USS" Code="41" Value="산업의"/>
+	<Attribute Name="USS" Code="42" Value="상업의"/>
+	<Attribute Name="USS" Code="43" Value="제도상의"/>
+	<Attribute Name="USS" Code="44" Value="거주의"/>
+	<Attribute Name="USS" Code="49" Value="민간/공공의"/>
+	<Attribute Name="USS" Code="50" Value="한정된"/>
+	<Attribute Name="USS" Code="57" Value="해군의"/>
+	<Attribute Name="USS" Code="69" Value="제방/도랑의"/>
+	<Attribute Name="USS" Code="70" Value="예비/예약의"/>
+	<Attribute Name="USS" Code="73" Value="터미널"/>
+	<Attribute Name="USS" Code="113" Value="지역의"/>
+	<Attribute Name="USS" Code="990" Value="비주거의"/>
+	<Attribute Name="USS" Code="999" Value="기타"/>
+	<Attribute Name="VAL" Code="0" Value="0"/>
+	<Attribute Name="VAV" Code="0" Value="0"/>
+	<Attribute Name="VC3" Code="0" Value="0"/>
+	<Attribute Name="VCA" Code="0" Value="미확인"/>
+	<Attribute Name="VCA" Code="1" Value="사용자에 요구되지 않은"/>
+	<Attribute Name="VCA" Code="2" Value="지형이 거칠은"/>
+	<Attribute Name="VCA" Code="3" Value="사용영상 없는"/>
+	<Attribute Name="VCA" Code="4" Value="같은 값내의 다른높이"/>
+	<Attribute Name="VCA" Code="5" Value="기준에 미달되는"/>
+	<Attribute Name="VCA" Code="6" Value="원천지도 없는"/>
+	<Attribute Name="VCA" Code="7" Value="적절한 영상 없음"/>
+	<Attribute Name="VCA" Code="8" Value="데이터 불필요"/>
+	<Attribute Name="VCA" Code="998" Value="적용할 수 없는"/>
+	<Attribute Name="VCA" Code="999" Value="기타"/>
+	<Attribute Name="VCD" Code="0" Value="미확인"/>
+	<Attribute Name="VCD" Code="7" Value="평균고조면"/>
+	<Attribute Name="VCD" Code="9" Value="대조평균고조면"/>
+	<Attribute Name="VCD" Code="10" Value="평균고고조면"/>
+	<Attribute Name="VCD" Code="15" Value="평균해면"/>
+	<Attribute Name="VCD" Code="24" Value="대조평균고고조면"/>
+	<Attribute Name="VCD" Code="28" Value="고극조위"/>
+	<Attribute Name="VCD" Code="999" Value="기타"/>
+	<Attribute Name="VCT" Code="0" Value="미확인"/>
+	<Attribute Name="VCT" Code="1" Value="기복"/>
+	<Attribute Name="VCT" Code="998" Value="적용할 수 없는"/>
+	<Attribute Name="VCT" Code="999" Value="기타"/>
+	<Attribute Name="VDC" Code="0" Value="미지의"/>
+	<Attribute Name="VDC" Code="1" Value="왼쪽 공백의 계획된 값"/>
+	<Attribute Name="VDC" Code="2" Value="고수위"/>
+	<Attribute Name="VDC" Code="3" Value="보다 높은 고수위"/>
+	<Attribute Name="VDC" Code="4" Value="인도의 샘 저수위"/>
+	<Attribute Name="VDC" Code="5" Value="저수위"/>
+	<Attribute Name="VDC" Code="6" Value="보다 낮은 저수위"/>
+	<Attribute Name="VDC" Code="7" Value="평균 고수위"/>
+	<Attribute Name="VDC" Code="8" Value="평균 고수위 소조"/>
+	<Attribute Name="VDC" Code="9" Value="평균 고수위 샘물"/>
+	<Attribute Name="VDC" Code="10" Value="평균 보다 높은 고수위"/>
+	<Attribute Name="VDC" Code="11" Value="평균 저수위"/>
+	<Attribute Name="VDC" Code="12" Value="평균 저수위 소조"/>
+	<Attribute Name="VDC" Code="13" Value="평균 저수위 샘물"/>
+	<Attribute Name="VDC" Code="14" Value="평균 보다 낮은 저수위"/>
+	<Attribute Name="VDC" Code="15" Value="평균 해수면"/>
+	<Attribute Name="VDC" Code="16" Value="평균 고수위"/>
+	<Attribute Name="VDC" Code="17" Value="소조"/>
+	<Attribute Name="VDC" Code="18" Value="대조"/>
+	<Attribute Name="VDC" Code="19" Value="평균 보다 낮은 저수위 샘"/>
+	<Attribute Name="VDC" Code="20" Value="최저의 천문학적인 조석"/>
+	<Attribute Name="VDC" Code="21" Value="해도 기준좌표계(면세되지 않은)"/>
+		<Attribute Name="VDC" Code="22" Value="최고의 천문학적인 조석"/>
+	<Attribute Name="VDC" Code="24" Value="평균 수위 보다 높은 수위"/>
+	<Attribute Name="VDC" Code="26" Value="최고 정상 고수위"/>
+	<Attribute Name="VDC" Code="28" Value="최고 고수위"/>
+	<Attribute Name="VDC" Code="30" Value="인도 샘 고수위"/>
+	<Attribute Name="VDC" Code="90" Value="최저 저수위"/>
+	<Attribute Name="VDC" Code="91" Value="최저 저수위 샘"/>
+	<Attribute Name="VDC" Code="92" Value="평균에 근접한 저수위 샘"/>
+	<Attribute Name="VDC" Code="93" Value="저수위 샘"/>
+	<Attribute Name="VDC" Code="94" Value="최저에 근접한 천문학적 조석"/>
+	<Attribute Name="VDC" Code="95" Value="거의 최저의 저수위"/>
+	<Attribute Name="VDC" Code="96" Value="평균에 근접한 저수위"/>
+	<Attribute Name="VDC" Code="97" Value="평균에 근접한 보다 낮은 저수위"/>
+	<Attribute Name="VDC" Code="98" Value="평균에 근접한 해수면"/>
+	<Attribute Name="VDC" Code="99" Value="고수위 샘"/>
+	<Attribute Name="VDC" Code="100" Value="Equinoctial Spring Low Water"/>
+	<Attribute Name="VDC" Code="101" Value="Local Datum"/>
+	<Attribute Name="VDC" Code="102" Value="International Great Lakes Datum 1985"/>
+	<Attribute Name="VDC" Code="103" Value="Mean Water Level"/>
+	<Attribute Name="VDC" Code="104" Value="Lower Low Water Large Tide"/>
+	<Attribute Name="VDC" Code="105" Value="Higher High Water Large Tide"/>
+	<Attribute Name="VDC" Code="106" Value="Highest Astronomical Tide"/>
+	<Attribute Name="VDC" Code="107" Value="Nearly Highest High Water Version 2.1: New Attribute Value to map S-57 attribute VERDAT to"/>
+	<Attribute Name="VDC" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="VDC" Code="998" Value="적용 불가능"/>
+	<Attribute Name="VDC" Code="999" Value="기타"/>
+	<Attribute Name="VEG" Code="0" Value="미지의"/>
+	<Attribute Name="VEG" Code="1" Value="건조한 농작물"/>
+	<Attribute Name="VEG" Code="2" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="VEG" Code="3" Value="왼쪽 공백의 계획 값"/>
+	<Attribute Name="VEG" Code="4" Value="쌀을 채워 넣음"/>
+	<Attribute Name="VEG" Code="5" Value="산만한 숲 또는 가로수에 의한 경작"/>
+	<Attribute Name="VEG" Code="6" Value="크랜베리"/>
+	<Attribute Name="VEG" Code="7" Value="토탄"/>
+	<Attribute Name="VEG" Code="8" Value="목초지, 초원, 대초원 지대"/>
+	<Attribute Name="VEG" Code="9" Value="산만한 수목을 가진 대초원"/>
+	<Attribute Name="VEG" Code="10" Value="열대의 목초"/>
+	<Attribute Name="VEG" Code="11" Value="카수아리나 속의 관목"/>
+	<Attribute Name="VEG" Code="12" Value="구과식물의"/>
+	<Attribute Name="VEG" Code="16" Value="니파 야자"/>
+	<Attribute Name="VEG" Code="17" Value="야자"/>
+	<Attribute Name="VEG" Code="18" Value="습지대에서 자라는 열대식물"/>
+	<Attribute Name="VEG" Code="19" Value="열대해변의 특수한 숲"/>
+	<Attribute Name="VEG" Code="20" Value="과수원"/>
+	<Attribute Name="VEG" Code="22" Value="밀"/>
+	<Attribute Name="VEG" Code="23" Value="옥수수"/>
+	<Attribute Name="VEG" Code="24" Value="낙엽성의"/>
+	<Attribute Name="VEG" Code="25" Value="상록수"/>
+	<Attribute Name="VEG" Code="26" Value="코르크나무"/>
+	<Attribute Name="VEG" Code="27" Value="전나무"/>
+	<Attribute Name="VEG" Code="28" Value="너도 밤나무"/>
+	<Attribute Name="VEG" Code="29" Value="유칼리 나무"/>
+	<Attribute Name="VEG" Code="30" Value="오크나무(떡깔나무)"/>
+	<Attribute Name="VEG" Code="31" Value="소나무"/>
+	<Attribute Name="VEG" Code="32" Value="호도나무"/>
+	<Attribute Name="VEG" Code="33" Value="단풍나무"/>
+	<Attribute Name="VEG" Code="34" Value="포플러"/>
+	<Attribute Name="VEG" Code="35" Value="올리브"/>
+	<Attribute Name="VEG" Code="36" Value="밤나무"/>
+	<Attribute Name="VEG" Code="37" Value="낙엽송"/>
+	<Attribute Name="VEG" Code="38" Value="싸이프레스"/>
+	<Attribute Name="VEG" Code="39" Value="복숭아나무"/>
+	<Attribute Name="VEG" Code="40" Value="사과나무"/>
+	<Attribute Name="VEG" Code="41" Value="캐롭 "/>
+	<Attribute Name="VEG" Code="42" Value="아몬드"/>
+	<Attribute Name="VEG" Code="43" Value="감귤류의 식물"/>
+	<Attribute Name="VEG" Code="44" Value="느릅나무"/>
+	<Attribute Name="VEG" Code="45" Value="털가시나무"/>
+	<Attribute Name="VEG" Code="46" Value="자작나무"/>
+	<Attribute Name="VEG" Code="47" Value="양물푸레나무"/>
+	<Attribute Name="VEG" Code="48" Value="개암나무"/>
+	<Attribute Name="VEG" Code="49" Value="혼합된 낙엽"/>
+	<Attribute Name="VEG" Code="50" Value="혼합된 수목"/>
+	<Attribute Name="VEG" Code="51" Value="목초/관목"/>
+	<Attribute Name="VEG" Code="52" Value="숲을 벌채한"/>
+	<Attribute Name="VEG" Code="53" Value="중간 밀도에서 개방된 관목림 지역"/>
+	<Attribute Name="VEG" Code="54" Value="밀접한 밀도에서 중간정도의 관목림 지역"/>
+	<Attribute Name="VEG" Code="55" Value="수목과 함께"/>
+	<Attribute Name="VEG" Code="56" Value="수목이 없는"/>
+	<Attribute Name="VEG" Code="57" Value="Agriculture with scattered trees or rows of trees"/>
+	<Attribute Name="VEG" Code="58" Value="갈대"/>
+	<Attribute Name="VEG" Code="59" Value="이끼"/>
+	<Attribute Name="VEG" Code="60" Value="켈프"/>
+	<Attribute Name="VEG" Code="61" Value="해조"/>
+	<Attribute Name="VEG" Code="62" Value="해초"/>
+	<Attribute Name="VEG" Code="63" Value="Saragasso"/>
+	<Attribute Name="VEG" Code="64" Value="아직 마르지 않은"/>
+	<Attribute Name="VEG" Code="65" Value="고산식물"/>
+	<Attribute Name="VEG" Code="66" Value="정원"/>
+	<Attribute Name="VEG" Code="67" Value="히스/히스가 무성한 황야"/>
+	<Attribute Name="VEG" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="VEG" Code="998" Value="적용 불가능"/>
+	<Attribute Name="VEG" Code="999" Value="기타"/>
+	<Attribute Name="VRR" Code="0" Value="미지의"/>
+	<Attribute Name="VRR" Code="1" Value="표면위/ Cover하지 않은 (고수위에서)"/>
+	<Attribute Name="VRR" Code="2" Value="수심측량 기준좌표계에서 표류하는"/>
+	<Attribute Name="VRR" Code="4" Value="지표면의/수중의"/>
+	<Attribute Name="VRR" Code="8" Value="간출암"/>
+	<Attribute Name="VRR" Code="9" Value="적용불가능"/>
+	<Attribute Name="VRR" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="VRR" Code="999" Value="기타"/>
+	<Attribute Name="WD1" Code="0" Value="실제값"/>
+	<Attribute Name="WD3" Code="0" Value="0"/>
+	<Attribute Name="WEIGHT" Code="0" Value="0"/>
+	<Attribute Name="WFT" Code="0" Value="미지의"/>
+	<Attribute Name="WFT" Code="1" Value="수갱"/>
+	<Attribute Name="WFT" Code="2" Value="월면의 샘"/>
+	<Attribute Name="WFT" Code="3" Value="수맥까지 파내려간 우물"/>
+	<Attribute Name="WFT" Code="4" Value="분수"/>
+	<Attribute Name="WFT" Code="5" Value="파거나 천공한 우물"/>
+	<Attribute Name="WFT" Code="6" Value="Dug"/>
+	<Attribute Name="WFT" Code="7" Value="교련"/>
+	<Attribute Name="WFT" Code="997" Value="거주하지 않은"/>
+	<Attribute Name="WFT" Code="998" Value="적용 불가능"/>
+	<Attribute Name="WFT" Code="999" Value="기타"/>
+	<Attribute Name="WGP" Code="0" Value="0"/>
+	<Attribute Name="WID" Code="0" Value="실제값"/>
+	<Attribute Name="WPC" Code="0" Value="미확인"/>
+	<Attribute Name="WPC" Code="1" Value="매립공사"/>
+	<Attribute Name="WPC" Code="2" Value="건축공사"/>
+	<Attribute Name="WTC" Code="0" Value="미지의"/>
+	<Attribute Name="WTC" Code="1" Value="모든 일기"/>
+	<Attribute Name="WTC" Code="2" Value="적정하거나 건조한 날씨"/>
+	<Attribute Name="ZV2" Code="0" Value="실제값"/>
+	<Attribute Name="ZV3" Code="0" Value="실제값"/>
+	<Attribute Name="USE_1" Code="0" Value="미확인"/>
+	<Attribute Name="USE_1" Code="4" Value="국가의"/>
+	<Attribute Name="USE_1" Code="5" Value="주정부의"/>
+	<Attribute Name="USE_1" Code="6" Value="사설의"/>
+	<Attribute Name="USE_1" Code="7" Value="부족의"/>
+	<Attribute Name="USE_1" Code="8" Value="군대의"/>
+	<Attribute Name="USE_1" Code="11" Value="모텔/호텔"/>
+	<Attribute Name="USE_1" Code="12" Value="아파트"/>
+	<Attribute Name="USE_1" Code="16" Value="시"/>
+	<Attribute Name="USE_1" Code="17" Value="광고게시판"/>
+	<Attribute Name="USE_1" Code="18" Value="스코어보드"/>
+	<Attribute Name="USE_1" Code="20" Value="폐쇄된"/>
+	<Attribute Name="USE_1" Code="21" Value="제한된 접근경로"/>
+	<Attribute Name="USE_1" Code="22" Value="연합군/민간의"/>
+	<Attribute Name="USE_1" Code="23" Value="국제적인"/>
+	<Attribute Name="USE_1" Code="25" Value="연합의"/>
+	<Attribute Name="USE_1" Code="26" Value="첫번째의"/>
+	<Attribute Name="USE_1" Code="30" Value="두번째의"/>
+	<Attribute Name="USE_1" Code="31" Value="세번째의"/>
+	<Attribute Name="USE_1" Code="32" Value="섬의"/>
+	<Attribute Name="USE_1" Code="33" Value="지방의"/>
+	<Attribute Name="USE_1" Code="37" Value="주정부간의"/>
+	<Attribute Name="USE_1" Code="41" Value="산업의"/>
+	<Attribute Name="USE_1" Code="42" Value="상업의"/>
+	<Attribute Name="USE_1" Code="43" Value="제도상의"/>
+	<Attribute Name="USE_1" Code="44" Value="거주의"/>
+	<Attribute Name="USE_1" Code="49" Value="민간/공공의"/>
+	<Attribute Name="USE_1" Code="50" Value="한정된"/>
+	<Attribute Name="USE_1" Code="57" Value="해군의"/>
+	<Attribute Name="USE_1" Code="69" Value="제방/도랑의"/>
+	<Attribute Name="USE_1" Code="70" Value="예비/예약의"/>
+	<Attribute Name="USE_1" Code="73" Value="터미널"/>
+	<Attribute Name="USE_1" Code="113" Value="지역의"/>
+	<Attribute Name="USE_1" Code="990" Value="비주거의"/>
+	<Attribute Name="USE_1" Code="999" Value="기타"/>
+	<Attribute Name="LAF" Code="0" Value="미확인"/>
+	<Attribute Name="LAF" Code="1" Value="한 개의 사물"/>
+	<Attribute Name="LAF" Code="2" Value="방향등"/>
+	<Attribute Name="LAF" Code="3" Value="두개이상의 등대"/>
+	<Attribute Name="LAF" Code="4" Value="두개이상의 신호소"/>
+	<Attribute Name="LAF" Code="5" Value="두개이상의 사물"/>
+	<Attribute Name="LAF" Code="7" Value="방향무선신호소"/>
+	<Attribute Name="LAF" Code="8" Value="무아레효과등"/>
+	<Attribute Name="LAF" Code="9" Value="무선트랜스폰더신호소"/>
+	<Attribute Name="ARE_" Code="0" Value="0"/>
+	<Attribute Name="LEN_" Code="0" Value="0"/>
+	
+	
+</MapAttrColumnDomain>

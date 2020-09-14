@@ -1,0 +1,424 @@
+<?xml version = "1.0" encoding = "euc-kr"?>
+<MapAttrColumnDomain Version="1.0">
+  <Attribute Name="AAC" Value="정확도"/>
+  <Attribute Name="ACC" Value="정확도 카데고리"/>
+  <Attribute Name="AFT" Value="항공시설종류"/>
+  <Attribute Name="AHC" Value="수로구분"/>
+  <Attribute Name="ALTITUDE" Value="고도"/>
+  <Attribute Name="AOO" Value="방위각"/>
+  <Attribute Name="APT" Value="비행장 유형"/>
+  <Attribute Name="ARA" Value="면적(m2)"/>
+  <Attribute Name="ARE" Value="면적(m)"/>
+  <Attribute Name="ARH" Value="면적(ha)"/>
+  <Attribute Name="ARROWTYPE" Value="화살종류"/>
+  <Attribute Name="ATN" Value="항해보조표시"/>
+  <Attribute Name="BAC" Value="밀집지역분류"/>
+  <Attribute Name="BCC" Value="우회상태"/>
+  <Attribute Name="BER" Value="부두번호"/>
+  <Attribute Name="BFC" Value="건물 구조 부문"/>
+  <Attribute Name="BOT" Value="개폐형태"/>
+  <Attribute Name="BR2" Value="부방송주파수2(Hz)"/>
+  <Attribute Name="BRF" Value="주방송주파수(Hz)"/>
+  <Attribute Name="BRG" Value="방향각"/>
+  <Attribute Name="BRN" Value="교량참조수"/>
+  <Attribute Name="BRR" Value="상호방위각"/>
+  <Attribute Name="BRS" Value="바다쪽 방위각"/>
+  <Attribute Name="BSC" Value="교량 상부구조"/>
+  <Attribute Name="BSS" Value="건물 상부구조"/>
+  <Attribute Name="BST" Value="경계의 상태"/>
+  <Attribute Name="BTC" Value="비콘/부표형태"/>
+  <Attribute Name="BUT" Value="부표형태의 종류"/>
+  <Attribute Name="BVL" Value="좌측제방 식생밀도"/>
+  <Attribute Name="BVR" Value="우측제방 식생밀도"/>
+  <Attribute Name="C80" Value="상대수위 조류속도"/>
+  <Attribute Name="C81" Value="상대수위 1시간후 조류속도"/>
+  <Attribute Name="C82" Value="상대수위 2시간후 조류속도"/>
+  <Attribute Name="C83" Value="상대수위 3시간후 조류속도"/>
+  <Attribute Name="C84" Value="상대수위 4시간후 조류속도"/>
+  <Attribute Name="C85" Value="상대수위 5시간후 조류속도"/>
+  <Attribute Name="C86" Value="상대수위 6시간후 조류속도"/>
+  <Attribute Name="C87" Value="상대수위 5시간전 조류속도"/>
+  <Attribute Name="C88" Value="상대수위 4시간전 조류속도"/>
+  <Attribute Name="C89" Value="상대수위 3시간전 조류속도"/>
+  <Attribute Name="C90" Value="상대수위 2시간전 조류속도"/>
+  <Attribute Name="C91" Value="상대수위 1시간전 조류속도"/>
+  <Attribute Name="CAB" Value="케이블 분류"/>
+  <Attribute Name="CCC" Value="색상종류"/>
+  <Attribute Name="CHA" Value="등대특성"/>
+  <Attribute Name="COC" Value="해상의 시간판독상태"/>
+  <Attribute Name="COD" Value="묘사(윤곽,설계)의 확실성"/>
+  <Attribute Name="COE" Value="존재의 확실성"/>
+  <Attribute Name="COL" Value="빛의 특성"/>
+  <Attribute Name="CPA" Value="통제점 속성"/>
+  <Attribute Name="CRA" Value="기중기형태"/>
+  <Attribute Name="CRN" Value="최저 조류속도(kn)"/>
+  <Attribute Name="CRV" Value="깊이값(m)"/>
+  <Attribute Name="CRX" Value="최고 조류속도(kn)"/>
+  <Attribute Name="CSM" Value="보조물질의 특징"/>
+  <Attribute Name="CTL" Value="누적차선길이(m)"/>
+  <Attribute Name="CUR" Value="조류종류"/>
+  <Attribute Name="CVH" Value="심해 최고등심선(m)"/>
+  <Attribute Name="CVL" Value="심해 최저등심선(m)"/>
+  <Attribute Name="D80" Value="상대수위 조류방향"/>
+  <Attribute Name="D81" Value="상대수위 1시간후 조류방향"/>
+  <Attribute Name="D82" Value="상대수위 2시간후 조류방향"/>
+  <Attribute Name="D83" Value="상대수위 3시간후 조류방향"/>
+  <Attribute Name="D84" Value="상대수위 4시간후 조류방향"/>
+  <Attribute Name="D85" Value="상대수위 5시간후 조류방향"/>
+  <Attribute Name="D86" Value="상대수위 6시간후 조류방향"/>
+  <Attribute Name="D87" Value="상대수위 5시간전 조류방향"/>
+  <Attribute Name="D88" Value="상대수위 4시간전 조류방향"/>
+  <Attribute Name="D89" Value="상대수위 3시간전 조류방향"/>
+  <Attribute Name="D90" Value="상대수위 2시간전 조류방향"/>
+  <Attribute Name="D91" Value="상대수위 1시간전 조류방향"/>
+  <Attribute Name="DAN" Value="항해보조표시"/>
+  <Attribute Name="DAT" Value="날짜정보"/>
+  <Attribute Name="DEP" Value="수면깊이(m)"/>
+  <Attribute Name="DEPTH" Value="수심(m)"/>
+  <Attribute Name="DF1" Value="항로방향1(deg)"/>
+  <Attribute Name="DF2" Value="항로방향2(deg)"/>
+  <Attribute Name="DF3" Value="항로방향3(deg)"/>
+  <Attribute Name="DF4" Value="항로방향4(deg)"/>
+  <Attribute Name="DGC" Value="폐문형태"/>
+  <Attribute Name="DMB" Value="밀도(농도)의 측정(잡목/관목)"/>
+  <Attribute Name="DMT" Value="밀도(농도)의 측정 (지붕덮개의 %)"/>
+  <Attribute Name="DOF" Value="방향(deg)"/>
+  <Attribute Name="DRP" Value="참조점특징"/>
+  <Attribute Name="E_NAM" Value="영문명"/>
+  <Attribute Name="E_TXT" Value="영문표현"/>
+  <Attribute Name="ELA" Value="고도 정확도"/>
+  <Attribute Name="EOL" Value="빛의 높이(m)"/>
+  <Attribute Name="EXS" Value="존재카테고리"/>
+  <Attribute Name="F_CODE" Value="지형지물코드"/>
+  <Attribute Name="FCL" Value="나루터횡단거리(m)"/>
+  <Attribute Name="FCO" Value="지형지물 구성"/>
+  <Attribute Name="FEO" Value="지형지물방위"/>
+  <Attribute Name="FER" Value="나루터 유형"/>
+  <Attribute Name="FHC" Value="항구시설 분류"/>
+  <Attribute Name="FRT" Value="사격장 종류"/>
+  <Attribute Name="FTC" Value="농장경영 형태 카테고리"/>
+  <Attribute Name="GAW" Value="게이지 폭(cm)"/>
+  <Attribute Name="GNC" Value="해상통로분류"/>
+  <Attribute Name="HDH" Value="수심 간출높이(m)"/>
+  <Attribute Name="HDI" Value="수로깊이(수심)/높이 정보"/>
+  <Attribute Name="HDP" Value="수심깊이(m)"/>
+  <Attribute Name="HFC" Value="수문모양 부문"/>
+  <Attribute Name="HGT" Value="표면레벨위의 높이"/>
+  <Attribute Name="HL1" Value="좌측제방 높이1"/>
+  <Attribute Name="HLT" Value="불빛의 형태"/>
+  <Attribute Name="HQC" Value="지세종류"/>
+  <Attribute Name="HR1" Value="우측제방 높이1"/>
+  <Attribute Name="HS1" Value="월간조류1"/>
+  <Attribute Name="HS2" Value="월간조류2"/>
+  <Attribute Name="HSB" Value="해저수직높이(m)"/>
+  <Attribute Name="HWT" Value="종교건물"/>
+  <Attribute Name="HYC" Value="수문 부문"/>
+  <Attribute Name="IAC" Value="IALA방식"/>
+  <Attribute Name="IAS" Value="국제해사기구 채택"/>
+  <Attribute Name="IBC" Value="부표종류"/>
+  <Attribute Name="IKO" Value="ICAO 지정"/>
+  <Attribute Name="LAF" Value="선의 형태"/>
+  <Attribute Name="LEN" Value="길이/직경"/>
+  <Attribute Name="LFA" Value="광원형태"/>
+  <Attribute Name="LGN" Value="길이"/>
+  <Attribute Name="LMC" Value="용도목표물여부"/>
+  <Attribute Name="LOC" Value="위치부문"/>
+  <Attribute Name="LSA" Value="불빛의 방향"/>
+  <Attribute Name="LTN" Value="경로/통로수"/>
+  <Attribute Name="LVN" Value="자기편차"/>
+  <Attribute Name="MAC" Value="해상한계구역"/>
+  <Attribute Name="MAG" Value="자기의 변화(deg)"/>
+  <Attribute Name="MAS" Value="유지상태"/>
+  <Attribute Name="MBL" Value="해상경계"/>
+  <Attribute Name="MCA" Value="모르스부호 속성"/>
+  <Attribute Name="MCC" Value="재료구성 부문"/>
+  <Attribute Name="MCS" Value="재료구성 2차"/>
+  <Attribute Name="MCU" Value="하위구성물질"/>
+  <Attribute Name="MED" Value="중간 카테고리"/>
+  <Attribute Name="MIN" Value="광산 부문"/>
+  <Attribute Name="MLR" Value="불빛가시거리"/>
+  <Attribute Name="MNE" Value="채광형태"/>
+  <Attribute Name="MVC" Value="통과최대높이(m)"/>
+  <Attribute Name="NA2" Value="별칭2"/>
+  <Attribute Name="NAM" Value="이름(명칭)"/>
+  <Attribute Name="NAME" Value="이름/명칭"/>
+  <Attribute Name="NAS" Value="정착지 유형"/>
+  <Attribute Name="NM3" Value="Name 3(분류명)"/>
+  <Attribute Name="NM4" Value="Name 4"/>
+  <Attribute Name="NOS" Value="경간수"/>
+  <Attribute Name="NS2" Value="항해시스템형태2"/>
+  <Attribute Name="NST" Value="항해 시스템 형태"/>
+  <Attribute Name="NST_TXT" Value="항해시스템형태제원"/>
+  <Attribute Name="OFFICIAL" Value="관리기관"/>
+  <Attribute Name="OHB" Value="교량의 전반적인 높이"/>
+  <Attribute Name="OHC" Value="통과높이(m)"/>
+  <Attribute Name="OPC" Value="근해플랫폼 구분"/>
+  <Attribute Name="OPS" Value="운영상태"/>
+  <Attribute Name="ORD" Value="지형지물의 상대 중요도"/>
+  <Attribute Name="ORG_SOURCE" Value="원천자료"/>
+  <Attribute Name="ORIG_SOUR" Value="벡터자료 작업 일시"/>
+  <Attribute Name="ORIG_SOURC" Value="벡터자료 작업 일시"/>
+  <Attribute Name="OVERFLOW" Value="범람주기"/>
+  <Attribute Name="OWO" Value="해상장애물"/>
+  <Attribute Name="PAT" Value="색상패턴종류"/>
+  <Attribute Name="PAVE" Value="포장여부"/>
+  <Attribute Name="PBV" Value="도선사 승선 수송수단"/>
+  <Attribute Name="PER" Value="빛의 주기(sec)"/>
+  <Attribute Name="PFD" Value="현저한 지형지물의 깊이"/>
+  <Attribute Name="PFE" Value="1m해상도보다 현저한 깊이(m)"/>
+  <Attribute Name="PFG" Value="해상도 1m이상의 대상물 높이(m)"/>
+  <Attribute Name="PHT" Value="현저한 높이"/>
+  <Attribute Name="PLT" Value="파이프 기능"/>
+  <Attribute Name="PPC" Value="발전소 카테고리"/>
+  <Attribute Name="PPT" Value="주거형태"/>
+  <Attribute Name="PRC" Value="기후나 다른 제한요소"/>
+  <Attribute Name="PRO" Value="생산물 카테고리"/>
+  <Attribute Name="PSC" Value="물질 표면 특성"/>
+  <Attribute Name="REF" Value="레이더반사기유무"/>
+  <Attribute Name="REL" Value="종파"/>
+  <Attribute Name="RGC" Value="철도 게이지(궤간) 카테고리"/>
+  <Attribute Name="RIT" Value="인터체인지형태"/>
+  <Attribute Name="ROTATEANGL" Value="회전각도"/>
+  <Attribute Name="RPA" Value="항구접근허가"/>
+  <Attribute Name="RRA" Value="철도 동력의 원인"/>
+  <Attribute Name="RRC" Value="철도 카테고리"/>
+  <Attribute Name="RSA" Value="레일 축선/버팀벽 속성"/>
+  <Attribute Name="RST" Value="도로/활주로 표면 형태"/>
+  <Attribute Name="RTT" Value="경로가 예정된 용도"/>
+  <Attribute Name="SCALE" Value="지도축척"/>
+  <Attribute Name="SCC" Value="샘물/우물 특성 카테고리"/>
+  <Attribute Name="SFC" Value="해저지형 또는 활주로표면 형태"/>
+  <Attribute Name="SGC" Value="경사도/경사"/>
+  <Attribute Name="SHC" Value="안전수평거리(m)"/>
+  <Attribute Name="SHO" Value="해안선 형태"/>
+  <Attribute Name="SHP" Value="입표 형태"/>
+  <Attribute Name="SIC" Value="눈/얼음 종류"/>
+  <Attribute Name="SL1" Value="좌측경사(1)"/>
+  <Attribute Name="SLT" Value="해안선 형태 카테고리"/>
+  <Attribute Name="SMC" Value="표면구성물질"/>
+  <Attribute Name="SND" Value="수심상태분류"/>
+  <Attribute Name="SOH" Value="위험요소 여부"/>
+  <Attribute Name="SOURCE" Value="원천 자료"/>
+  <Attribute Name="SOURCE_DAT" Value="제작년월일"/>
+  <Attribute Name="SR1" Value="우측경사(1)"/>
+  <Attribute Name="SSC" Value="구조 형상 카테고리"/>
+  <Attribute Name="SSR" Value="지붕형태"/>
+  <Attribute Name="SST" Value="음향신호형태"/>
+  <Attribute Name="SST_TXT" Value="음향신호제원"/>
+  <Attribute Name="STA" Value="신호유형"/>
+  <Attribute Name="STC" Value="원천자료취득유형"/>
+  <Attribute Name="SVC" Value="수심보정유형"/>
+  <Attribute Name="SWC" Value="토양습도상태"/>
+  <Attribute Name="SWT" Value="우물종류"/>
+  <Attribute Name="TID" Value="조수/비감조 부문"/>
+  <Attribute Name="TIM" Value="시간(hr)"/>
+  <Attribute Name="TMC" Value="두표의 특징"/>
+  <Attribute Name="TRA" Value="도보횡단여부"/>
+  <Attribute Name="TSP" Value="통항분리대"/>
+  <Attribute Name="TST" Value="송전선을 매다는 지주"/>
+  <Attribute Name="TTC" Value="탑 형태 부문"/>
+  <Attribute Name="TUC" Value="수송수단 부문"/>
+  <Attribute Name="TXT" Value="문자속성"/>
+  <Attribute Name="UBC" Value="교량밑 통과높이(m)"/>
+  <Attribute Name="UMC" Value="기본구성물질의 특성"/>
+  <Attribute Name="USE" Value="용도"/>
+  <Attribute Name="USS" Value="용도"/>
+  <Attribute Name="VAL" Value="값(unit)"/>
+  <Attribute Name="VAV" Value="편차(deg)"/>
+  <Attribute Name="VC3" Value="수직안전높이(m)"/>
+  <Attribute Name="VCA" Value="미수집이유"/>
+  <Attribute Name="VCD" Value="항해 가능수직 기준점"/>
+  <Attribute Name="VCT" Value="미수집정보 형태"/>
+  <Attribute Name="VDC" Value="수준 기준 좌표계 카테고리"/>
+  <Attribute Name="VEG" Value="식생 특성"/>
+  <Attribute Name="VGT" Value="화산 지질 형태"/>
+  <Attribute Name="VRR" Value="수직기준 부문"/>
+  <Attribute Name="WD1" Value="주행도로의 최소폭"/>
+  <Attribute Name="WD3" Value="최소제방폭(dm)"/>
+  <Attribute Name="WEIGHT" Value="하중"/>
+  <Attribute Name="WFT" Value="우물 지형지물 유형"/>
+  <Attribute Name="WGP" Value="1m해상도 보다 넓은폭(m)"/>
+  <Attribute Name="WID" Value="폭"/>
+  <Attribute Name="WPC" Value="작업종류"/>
+  <Attribute Name="WTC" Value="날씨 유형 카테고리"/>
+  <Attribute Name="ZV2" Value="최고 Z-값"/>
+  <Attribute Name="ZV3" Value="비행장/공항 고도(표고)"/>
+  <Attribute Name="USE_" Value="용도"/>
+  <Attribute Name="LAF" Value="연결선"/>
+  <Attribute Name="ARE_" Value="면적(m)"/>
+  <Attribute Name="LEN_" Value="길이(m)"/>
+  <Attribute Name="GLOBALID" Value="GLOBALID"/>
+  <Attribute Name="FCODE" Value="지형지물코드명"/>
+  <Attribute Name="BDC" Value="교량구조"/>
+  <Attribute Name="PFH" Value="지물높이"/>
+  <Attribute Name="LC1" Value="도로등급형태1"/>
+  <Attribute Name="LC2" Value="도로등급형태2"/>
+  <Attribute Name="TYPE" Value="종류"/>
+  <Attribute Name="SINGLEMULT" Value="단일또는다중장애물여부"/>
+  <Attribute Name="GRIDCODE" Value="GRIDCODE"/>
+  <Attribute Name="ELEV_MIN" Value="ELEV_MIN"/>
+  <Attribute Name="SUAS_IDENT" Value="특수사용공역의유일코드"/>
+  <Attribute Name="SECTOR" Value="SECTOR"/>
+  <Attribute Name="TYPE" Value="종류"/>
+  <Attribute Name="NAME" Value="이름/명칭"/>
+  <Attribute Name="ICAO" Value="ICAO"/>
+  <Attribute Name="CON_AGCY" Value="CON_AGCY"/>
+  <Attribute Name="LOC_HDATUM" Value="LOC_HDATUM"/>
+  <Attribute Name="WGS_DATUM" Value="WGS_DATUM"/>
+  <Attribute Name="COMM_NAME" Value="COMM_NAME"/>
+  <Attribute Name="FREQ1" Value="FREQ1"/>
+  <Attribute Name="FREQ2" Value="FREQ2"/>
+  <Attribute Name="LEVEL" Value="분류레벨"/>
+  <Attribute Name="UPPER_ALT" Value="UPPER_ALT"/>
+  <Attribute Name="LOWER_ALT" Value="LOWER_ALT"/>
+  <Attribute Name="EFF_TIMES" Value="EFF_TIMES"/>
+  <Attribute Name="WX" Value="WX"/>
+  <Attribute Name="CYCLE_DATE" Value="CYCLE_DATE"/>
+  <Attribute Name="EFF_DATE" Value="EFF_DATE"/>
+  <Attribute Name="CC" Value="국가코드"/>
+  <Attribute Name="SYMBOL" Value="비행장기호코드"/>
+  <Attribute Name="ELEV_FT" Value="피트단위의고도(JOG-Air)"/>
+  <Attribute Name="ELEV_M" Value="미터단위의고도(JOG-Ground)"/>
+  <Attribute Name="LO_IDENT" Value="LO_IDENT"/>
+  <Attribute Name="LO_TRUE_HD" Value="진북으로부터재어진LO의방향"/>
+  <Attribute Name="LO_MAG_HDG" Value="자북으로부터재어진LO의방향"/>
+  <Attribute Name="LO_COND" Value="LO_COND"/>
+  <Attribute Name="HI_IDENT" Value="HI_IDENT"/>
+  <Attribute Name="HI_TRUE_HD" Value="진북으로부터재어진HI의방향"/>
+  <Attribute Name="HI_MAG_HDG" Value="자북으로부터재어진HI의방향"/>
+  <Attribute Name="HI_COND" Value="HI_COND"/>
+  <Attribute Name="LEN_FT" Value="피트단위의길이"/>
+  <Attribute Name="LEN_M" Value="미터단위의길이"/>
+  <Attribute Name="WIDTH_FT" Value="피트단위의폭"/>
+  <Attribute Name="WIDTH_M" Value="미터단위의폭"/>
+  <Attribute Name="SFC" Value="해저지형또는활주로표면 형태"/>
+  <Attribute Name="IFDT" Value="비행장레코드의편집날짜"/>
+  <Attribute Name="ELEV_FT" Value="피트 단위의 고도(JOG-Air)"/>
+  <Attribute Name="ELEV_M" Value="미터 단위의 고도(JOG-Ground)"/>
+  <Attribute Name="ARPT_IDENT" Value="비행장의유일코드"/>
+  <Attribute Name="ELEV" Value="고도"/>
+  <Attribute Name="MAG_VAR" Value="MAG_VAR"/>
+  <Attribute Name="WAC" Value="비행장이위치한WAC영역을기반으로한설치번호"/>
+  <Attribute Name="BEACON" Value="비콘의유무,비행장의위치를알려주는등화시스템"/>
+  <Attribute Name="BDRY_IDENT" Value="경계공역의유일코드"/>
+  <Attribute Name="CON_AUTH" Value="CON_AUTH"/>
+  <Attribute Name="COMM_FREQ1" Value="COMM_FREQ1"/>
+  <Attribute Name="COMM_FREQ2" Value="COMM_FREQ2"/>
+  <Attribute Name="CLASS" Value="분류등급"/>
+  <Attribute Name="CLASS_EXC" Value="CLASS_EXC"/>
+  <Attribute Name="CL_EX_RMK" Value="CL_EX_RMK"/>
+  <Attribute Name="RNP" Value="RNP"/>
+  <Attribute Name="UP_RVSM" Value="UP_RVSM"/>
+  <Attribute Name="LO_RVSM" Value="LO_RVSM"/>
+  <Attribute Name="DVOFP_TMP" Value="DVOFP_TMP"/>
+  <Attribute Name="VOSEQNO" Value="VOSEQNO"/>
+  <Attribute Name="VOIDENTIFI" Value="VOIDENTIFI"/>
+  <Attribute Name="COUNTRYCD" Value="국가코드"/>
+  <Attribute Name="PROVINCECD" Value="주코드"/>
+  <Attribute Name="LATITUDE" Value="지리좌표중위도"/>
+  <Attribute Name="LONGITUDE" Value="지리좌표중경도"/>
+  <Attribute Name="FEATURETYP" Value="지형지물의종류"/>
+  <Attribute Name="TYPENAME" Value="장애물종류명칭"/>
+  <Attribute Name="HEIGHTAGL" Value="장애물의높이"/>
+  <Attribute Name="HEIGHTAMSL" Value="장애물의고도"/>
+  <Attribute Name="LOCATIONEL" Value="LOCATIONEL"/>
+  <Attribute Name="HORIZDATUM" Value="수평기준계"/>
+  <Attribute Name="HGTAGLACC" Value="장애물의높이정확도"/>
+  <Attribute Name="HGTAMSLACC" Value="장애물의고도정확도"/>
+  <Attribute Name="LOCELEVACC" Value="LOCELEVACC"/>
+  <Attribute Name="HORIZACC" Value="수평정확도"/>
+  <Attribute Name="DERIVINGOR" Value="DERIVINGOR"/>
+  <Attribute Name="SURFACEMAT" Value="표면물질설명"/>
+  <Attribute Name="SINGLEMULT" Value="단일또는다중장애물여부"/>
+  <Attribute Name="MULTIPLENO" Value="MULTIPLENO"/>
+  <Attribute Name="PROCESSCD" Value="처리과정"/>
+  <Attribute Name="LIGHTINGCD" Value="등화시스템유무"/>
+  <Attribute Name="SOURCEDT" Value="원천자료획득일"/>
+  <Attribute Name="REVISIONDT" Value="자료갱신일"/>
+  <Attribute Name="INITIALREC" Value="INITIALREC"/>
+  <Attribute Name="SECURITYCL" Value="장애물기록의보안등급분류"/>
+  <Attribute Name="COORDINATE" Value="지리좌표"/>
+  <Attribute Name="VALIDATION" Value="자료유효성여부"/>
+  <Attribute Name="TRANSACTIO" Value="갱신작업번호"/>
+  <Attribute Name="CONTROLREL" Value="장애물기록의통제/공개여부"/>
+  <Attribute Name="DELETINGOR" Value="DELETINGOR"/>
+  <Attribute Name="ACTIVEDELE" Value="ACTIVEDELE"/>
+  <Attribute Name="DEFICIENCY" Value="자료에결함이있는지에대한정보"/>
+  <Attribute Name="PREVVOIDEN" Value="PREVVOIDEN"/>
+  <Attribute Name="ORIGINALID" Value="원천자료의유일코드"/>
+  <Attribute Name="WACINNR" Value="WACINNR"/>
+  <Attribute Name="OUTPUTREMA" Value="코드로제시되지않는자료에대한설명"/>
+  <Attribute Name="FACC" Value="지형지물별관리코드체계"/>
+  <Attribute Name="FACNAME" Value="지형지물별관리코드체계명"/>
+  <Attribute Name="HGT" Value="높이(m)"/>
+  <Attribute Name="ZV2" Value="최고높이(m)"/>
+  <Attribute Name="HGT_M" Value="HGT_M"/>
+  <Attribute Name="ZV2_M" Value="ZV2_M"/>
+  <Attribute Name="CONTOUR" Value="CONTOUR"/>
+  <Attribute Name="NAV_IDENT" Value="항법원조시설의유일코드"/>
+  <Attribute Name="CTRY" Value="CTRY"/>
+  <Attribute Name="NAV_KEY_CD" Value="NAV_KEY_CD"/>
+  <Attribute Name="STATE_PROV" Value="STATE_PROV"/>
+  <Attribute Name="FREQ" Value="FREQ"/>
+  <Attribute Name="USAGE_CD" Value="USAGE_CD"/>
+  <Attribute Name="CHAN" Value="CHAN"/>
+  <Attribute Name="RCC" Value="RCC"/>
+  <Attribute Name="FREQ_PROT" Value="FREQ_PROT"/>
+  <Attribute Name="POWER" Value="POWER"/>
+  <Attribute Name="NAV_RANGE" Value="NAV_RANGE"/>
+  <Attribute Name="WGS_LAT" Value="WGS_LAT"/>
+  <Attribute Name="WGS_DLAT" Value="WGS_DLAT"/>
+  <Attribute Name="WGS_LONG" Value="WGS_LONG"/>
+  <Attribute Name="WGS_DLONG" Value="WGS_DLONG"/>
+  <Attribute Name="SLAVED_VAR" Value="SLAVED_VAR"/>
+  <Attribute Name="DWGS_LAT" Value="DWGS_LAT"/>
+  <Attribute Name="DWGS_DLAT" Value="DWGS_DLAT"/>
+  <Attribute Name="DWGS_LON" Value="DWGS_LON"/>
+  <Attribute Name="DWGS_DLON" Value="DWGS_DLON"/>
+  <Attribute Name="DME_ELEV" Value="DME_ELEV"/>
+  <Attribute Name="ARPT_ICAO" Value="ARPT_ICAO"/>
+  <Attribute Name="OS" Value="OS"/>
+  <Attribute Name="ATS_IDENT" Value="항공로의유일코드"/>
+  <Attribute Name="DIRECTION" Value="방향"/>
+  <Attribute Name="SEQ_NBR" Value="SEQ_NBR"/>
+  <Attribute Name="BIDIRECT" Value="BIDIRECT"/>
+  <Attribute Name="FREQ_CLASS" Value="FREQ_CLASS"/>
+  <Attribute Name="LEVEL_" Value="분류레벨"/>
+  <Attribute Name="STATUS" Value="상태"/>
+  <Attribute Name="WPT1_ICAO" Value="WPT1_ICAO"/>
+  <Attribute Name="W1_NAV_TY" Value="W1_NAV_TY"/>
+  <Attribute Name="WPT1_IDENT" Value="WPT1_IDENT"/>
+  <Attribute Name="WPT1_CTRY" Value="WPT1_CTRY"/>
+  <Attribute Name="W1_DESC_1" Value="W1_DESC_1"/>
+  <Attribute Name="W1_DESC_2" Value="W1_DESC_2"/>
+  <Attribute Name="W1_DESC_3" Value="W1_DESC_3"/>
+  <Attribute Name="W1_DESC_4" Value="W1_DESC_4"/>
+  <Attribute Name="W1_WGSLAT" Value="W1_WGSLAT"/>
+  <Attribute Name="W1_WGSDLAT" Value="W1_WGSDLAT"/>
+  <Attribute Name="W1_WGSLON" Value="W1_WGSLON"/>
+  <Attribute Name="W1_WGSDLON" Value="W1_WGSDLON"/>
+  <Attribute Name="WPT2_ICAO" Value="WPT2_ICAO"/>
+  <Attribute Name="W2_NAVTYPE" Value="W2_NAVTYPE"/>
+  <Attribute Name="WPT2_IDENT" Value="WPT2_IDENT"/>
+  <Attribute Name="WPT2_CTRY" Value="WPT2_CTRY"/>
+  <Attribute Name="W2_DESC_1" Value="W2_DESC_1"/>
+  <Attribute Name="W2_DESC_2" Value="W2_DESC_2"/>
+  <Attribute Name="W2_DESC_3" Value="W2_DESC_3"/>
+  <Attribute Name="W2_DESC_4" Value="W2_DESC_4"/>
+  <Attribute Name="W2_WGSLAT" Value="W2_WGSLAT"/>
+  <Attribute Name="W2_WGSDLAT" Value="W2_WGSDLAT"/>
+  <Attribute Name="W2_WGSLON" Value="W2_WGSLON"/>
+  <Attribute Name="W2_WGSDLON" Value="W2_WGSDLON"/>
+  <Attribute Name="OUTBD_CRS" Value="OUTBD_CRS"/>
+  <Attribute Name="DISTANCE" Value="거리"/>
+  <Attribute Name="INBD_CRS" Value="INBD_CRS"/>
+  <Attribute Name="MIN_ALT" Value="MIN_ALT"/>
+  <Attribute Name="UP_LIMIT" Value="UP_LIMIT"/>
+  <Attribute Name="LO_LIMIT" Value="LO_LIMIT"/>
+  <Attribute Name="MAA" Value="MAA"/>
+  <Attribute Name="CRUISE_LV" Value="CRUISE_LV"/>
+  <Attribute Name="RVSM" Value="RVSM"/>
+  <Attribute Name="FIX_TURN" Value="FIX_TURN"/>
+  <Attribute Name="FIX_TURN0" Value="FIX_TURN0"/>
+  <Attribute Name="SHAPE_LENG" Value="SHAPE_LENG"/>
+</MapAttrColumnDomain>
