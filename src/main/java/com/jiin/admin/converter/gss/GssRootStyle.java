@@ -1,4 +1,4 @@
-package com.jiin.admin.converter.xml;
+package com.jiin.admin.converter.gss;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
