@@ -20,7 +20,20 @@ import java.io.IOException;
 import java.util.*;
 
 @Service
-public class ConveterGssXml {
+public class ConverterGssXml {
+
+    /**
+     * 스타일 컨버터 Sample 사용법
+     */
+    public static void main(String... args) throws IOException, SAXException, ParserConfigurationException, JAXBException {
+        String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
+        File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
+        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
+        File savefile = new File(dataPath + "/g25k_style_generate.json");
+        ConverterGssXml parse = new ConverterGssXml();
+        parse.convertLayerJsonFile(stylefile,layerfile,savefile);
+    }
+
 
     public GssContainer parseGssXml(File target) throws ParserConfigurationException, JAXBException, IOException, SAXException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -230,12 +243,5 @@ public class ConveterGssXml {
     }
 
 
-    public static void main(String... args) throws IOException, SAXException, ParserConfigurationException, JAXBException {
-        String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
-        File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
-        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
-        File savefile = new File(dataPath + "/g25k_style_generate.json");
-        ConveterGssXml parse = new ConveterGssXml();
-        parse.convertLayerJsonFile(stylefile,layerfile,savefile);
-    }
+
 }
