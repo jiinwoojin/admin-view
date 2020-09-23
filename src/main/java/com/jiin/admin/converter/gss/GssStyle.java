@@ -1,4 +1,4 @@
-package com.jiin.admin.converter.xml;
+package com.jiin.admin.converter.gss;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
@@ -6,10 +6,13 @@ import java.util.List;
 @XmlRootElement(name = "Style")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GssStyle {
+    @XmlAttribute
     private String name;
+    @XmlAttribute
     private String type;
     private String Font;
-    private String Size;
+    private String Color;
+    private Integer Size;
     private String Bold;
     private String Itailc;
     private String Underline;
@@ -22,8 +25,8 @@ public class GssStyle {
     private String Prefix;
     private String Postfix;
     private String Align;
-    private String OffsetX;
-    private String OffsetY;
+    private Float OffsetX;
+    private Float OffsetY;
 
     private List<GssPointLayer> PointLayer;
     private List<GssLineLayer> LineLayer;
@@ -37,11 +40,11 @@ public class GssStyle {
         Font = font;
     }
 
-    public String getSize() {
+    public Integer getSize() {
         return Size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Integer size) {
         Size = size;
     }
 
@@ -165,19 +168,19 @@ public class GssStyle {
         this.type = type;
     }
 
-    public String getOffsetX() {
+    public Float getOffsetX() {
         return OffsetX;
     }
 
-    public void setOffsetX(String offsetX) {
+    public void setOffsetX(Float offsetX) {
         OffsetX = offsetX;
     }
 
-    public String getOffsetY() {
+    public Float getOffsetY() {
         return OffsetY;
     }
 
-    public void setOffsetY(String offsetY) {
+    public void setOffsetY(Float offsetY) {
         OffsetY = offsetY;
     }
 
@@ -195,6 +198,14 @@ public class GssStyle {
 
     public void setLineLayer(List<GssLineLayer> lineLayer) {
         LineLayer = lineLayer;
+    }
+
+    public String getColor() {
+        return Color;
+    }
+
+    public void setColor(String color) {
+        Color = color;
     }
 }
 

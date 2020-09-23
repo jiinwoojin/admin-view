@@ -1,6 +1,4 @@
-package com.jiin.admin.converter.xml;
-
-import lombok.Data;
+package com.jiin.admin.converter.gss;
 
 import javax.xml.bind.annotation.*;
 import java.util.List;
@@ -8,9 +6,10 @@ import java.util.List;
 @XmlRootElement(name = "LineLayer")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GssLineLayer {
+    @XmlAttribute
     private String type;
     private String Color;
-    private String Width;
+    private Integer Width;
     private String JoinType;
     private String DashCap;
     private String StartCap;
@@ -25,7 +24,7 @@ public class GssLineLayer {
     private String TextureLine;
     private String Transparent;
     @XmlElementWrapper(name="Dash")
-    private List<Integer> DashItem;
+    private List<Float> DashItem;
 
     public String getType() {
         return type;
@@ -43,11 +42,11 @@ public class GssLineLayer {
         Color = color;
     }
 
-    public String getWidth() {
+    public Integer getWidth() {
         return Width;
     }
 
-    public void setWidth(String width) {
+    public void setWidth(Integer width) {
         Width = width;
     }
 
@@ -75,11 +74,11 @@ public class GssLineLayer {
         DashOffset = dashOffset;
     }
 
-    public List<Integer> getDashItem() {
+    public List<Float> getDashItem() {
         return DashItem;
     }
 
-    public void setDashItem(List<Integer> dashItem) {
+    public void setDashItem(List<Float> dashItem) {
         DashItem = dashItem;
     }
 

@@ -1,12 +1,11 @@
-package com.jiin.admin.converter.xml;
-
-import lombok.Data;
+package com.jiin.admin.converter.gss;
 
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "PointLayer")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GssPointLayer {
+    @XmlAttribute
     private String type;
     private String Color;
     private String Size;

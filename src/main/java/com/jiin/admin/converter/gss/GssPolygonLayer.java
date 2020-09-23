@@ -1,15 +1,18 @@
-package com.jiin.admin.converter.xml;
+package com.jiin.admin.converter.gss;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 @XmlRootElement(name = "LineLayer")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GssPolygonLayer {
+    @XmlAttribute
     private String type;
     private String Picture;
+    private String Color;
     private String TextureFill;
     private String Transparent;
     private List<GssLineLayer> LineLayer;
@@ -52,5 +55,13 @@ public class GssPolygonLayer {
 
     public void setLineLayer(List<GssLineLayer> lineLayer) {
         LineLayer = lineLayer;
+    }
+
+    public String getColor() {
+        return Color;
+    }
+
+    public void setColor(String color) {
+        Color = color;
     }
 }
