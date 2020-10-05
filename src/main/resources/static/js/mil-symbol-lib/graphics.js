@@ -189,7 +189,7 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 	if(format !== undefined){
 		milSymbolLoader.map._drawing_milsymbol._svg_symbol = null
 		milSymbolLoader.map._drawing_milsymbol._geojson = null
-		milSymbolLoader.map._drawing_milsymbol._modifiers = null
+		milSymbolLoader.map._drawing_milsymbol._modifiers = modifiers
 		console.log("symbolCode",symbolCode)
 		if(format === 'SVG'){
 			milSymbolLoader.map._drawing_milsymbol._svg_symbol = armyc2.c2sd.renderer.MilStdSVGRenderer.Render(symbolCode,modifiers); // Save Graphics symbol
@@ -210,6 +210,9 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 					.replace(/\"BBB\"/gi,"\"PL   \"")
 					.replace(/\"CCC\"/gi,"\"FSCL\"")
 					.replace(/\"DDD\"/gi,"\"FSCL\"")
+			}else if(symbolCode === "GFG-GLA---****X"){
+				// 작전활동부호-화력지원-선-적함선소실선
+				//console.log(milSymbolLoader.map._drawing_milsymbol._geojson)
 			}
 			milSymbolLoader.map._drawing_milsymbol._modifiers = modifiers;
 		}

@@ -516,14 +516,11 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
             /*milSymbolLoader.map.loadImage(imageData,function(e,image){
                 milSymbolLoader.map.addImage(drawId + "-image", image)
             })*/
-
             var image = new Image();
             image.crossOrigin = 'anonymous';
-
             image.addEventListener('load', function(e) {
                 milSymbolLoader.map.addImage(drawId + "-image", image)
             });
-
             image.src = imageData;
         }else{
             var cs = milSymbolLoader.getCS(function_sidc)
@@ -543,11 +540,9 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
 
             var image = new Image();
             image.crossOrigin = 'anonymous';
-
             image.addEventListener('load', function(e) {
                 milSymbolLoader.map.addImage(drawId + "-image", image)
             });
-
             image.src = imageData;
         }
         datas.push({
@@ -571,6 +566,34 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
         drawMsymbol(options._symbol_serial, 'geoJSON', null, symStd, cs, function_sidc)
         var geojson = milSymbolLoader.map._drawing_milsymbol._geojson
         var data = JSON.parse(geojson)
+        if(data.properties.symbolID === "GFG-GLA---****X"){
+            // 작전활동부호-화력지원-선-적함선소실선
+            var point1 = turf.point(coord[coord.length - 2]);
+            var point2 = turf.point(coord[coord.length - 1]);
+            var bearing = turf.bearing(point1, point2);
+            console.log(bearing)
+            var angle = -(-90 + bearing)
+            var svg = '<svg width="120px" height="120px" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" version="1.1"><g transform="translate(60,60) scale(0.1,-0.1) rotate('+angle+' 0 0)" ><path d="M91.9 465.4c-40-10.4-68.3-28.5-87.2-56.5c-27.2-39.5-16.5-86.4 26.6-118.8c25.5-19.5 64.2-33.5 83.1-30.4 c4.9 0.8 12.3 0.5 16.5-0.8s16.2-4.4 26.6-6.9c84.2-20 102.9-87.5 35.9-128.1c-17-10.1-44.4-17.3-76.8-19.5 c-49.6-3.6-94.9-29.1-116-64.7C-6 28.2-6.9 24.6-6.9-0.3c0-29.9 3.6-40.3 19.7-57.6c10.1-11 37.9-31.5 42.5-31.5 c2.2 0 6-1.6 9.1-3.6c8.2-5.2 44.4-13.7 51.3-12.1c9.1 2.5 53.5-8.5 72.1-17.8c18.9-9.3 29.3-18.4 38.9-33.5 c9.3-14.5 9.3-38.1 0-52.9c-19.2-30.4-60.3-48.3-117.1-51.3c-41.4-2.2-87.2-28.3-108.6-62.3c-3.3-5.5-7.7-17.6-9.6-26.6 c-6.6-31.8 6-61.2 37.3-86.4c15.9-12.9 36.5-23.9 44.4-23.9c2.2 0 7.1-1.6 11.2-3.8c4.1-1.9 13.2-4.4 20.3-5.2 c15.6-2.2 22.2 2.7 20.8 15.6c-0.8 8-1.6 8.5-14.5 10.4c-46.6 6-83.1 30.7-93.3 63.1c-4.7 14.3-4.7 15.6 0 29.9 c3.6 11 8.8 18.7 20.3 30.2c24.1 23.6 53.2 34.6 99 37c48.3 2.7 99.8 32.4 115.7 66.7c8.2 17.6 8.2 48.8 0 66.4 c-6.6 14-32.4 39.5-47.5 46.9c-28.5 14-54.9 21.7-73.2 21.4c-16.2-0.3-27.2 1.4-40.6 5.5C71.9-69.4 46.9-56 36.8-46.1 c-9.9 9.6-23 34.6-23 44.2c0 12.9 9.9 32.4 23 45.5C51.6 58.4 82 75.1 94.1 75.1c3.8 0 12.6 1.6 18.9 3.8 c6.6 1.9 19.5 3.8 28.8 3.8c42.5 0.5 95.2 31.8 110.8 65.6c9.3 20.3 8.8 49.9-1.6 68.8c-19.7 36.5-68.3 62.8-119.3 65 c-40.9 1.6-85.3 20.8-103.1 43.9c-3.6 4.7-8.5 15.1-11 22.8c-4.1 12.1-4.1 16.2-1.4 26.1c5.5 17.8 13.2 28.3 29.9 41.1 c19.2 14.3 31.8 19.7 56.8 24.1c10.7 1.6 20.8 3.6 22.8 4.1c3.8 1.1 4.4 9.1 0.5 18.7C123.2 471.4 116.8 471.7 91.9 465.4z M318.2 464.6c-24.7-6.9-40-14-56.8-26.9c-16.5-12.3-34.8-34.3-37.3-44.4c-0.8-3.8-3-12.6-4.9-19.5 c-4.9-19.2 4.4-46.9 22.5-66.7c25.8-28.3 56.8-42.5 108.1-49.6c43.6-6.3 67.5-16.2 88-36.8c25-25 22.8-60.1-5.2-83.9 c-17.8-15.4-49.4-28.8-67.5-28.8c-12.9 0-55.7-9.3-72.4-15.6c-18.4-6.9-43.9-26.3-56.2-43.1c-7.1-9.3-12.3-20.6-15.6-33.2 c-4.9-18.7-4.9-19.7 0-35.7c6.3-20.3 16.7-35.9 33.5-50.2c13.2-11.5 37-24.4 51.6-28.3c4.7-1.1 13.2-3.6 19.2-4.9 c6-1.6 15.4-3 20.6-3c11 0 46.9-8.5 59-14c14.5-6.3 32.6-21.7 41.7-34.8c20.8-30.4 5.5-66.4-37.6-88.3c-15.4-8-24.4-10.4-46.6-13.7 c-48.3-6.9-57.1-9.1-75.2-17.8c-34.6-16.5-56.5-40.3-66.1-71c-5.5-18.1-3.6-33.7 7.1-56c15.1-31 59.2-58.7 108.3-67.7 c11.2-2.2 18.1 4.4 17 16.2c-0.8 8-1.6 8.5-14.5 10.1c-29.1 3.6-68.3 23.3-80.6 40.3c-20.8 29.3-18.4 56.8 7.7 82.8 c18.1 18.1 42 28.8 77.1 34.3c47.2 7.4 55.1 9.3 75.7 19.2c23.6 11.5 49.9 36.2 55.7 52.1c1.9 6 4.4 19.7 4.9 30.2 c1.4 24.7-5.2 40.6-25.5 60.6c-24.1 23.6-70.5 42-105.3 42.2c-8.2 0-18.7 1.9-23 4.1c-4.1 2.2-9.9 4.1-12.3 4.1 c-11.5 0.3-43.6 20.8-54 34.6c-21.7 28.3-18.4 59.2 8.5 84.5c21.7 20.6 41.7 28.3 94.9 35.7C433.6 91.8 480 131.1 480 181.2 c0 51.3-53.2 94.6-124 100.9c-37.3 3.6-67.7 15.4-89.1 35.1c-29.9 27.4-29.9 63.4-0.5 91.3c18.4 17.3 36.5 26.1 64.2 31l24.7 4.7 l0.8 9.1C357.7 470.9 349.4 473.4 318.2 464.6z" fill="#000000" /></g></svg>'
+            var imageData = btoa(unescape(encodeURIComponent(svg)))
+            var image = new Image();
+            image.crossOrigin = 'anonymous';
+            image.addEventListener('load', function(e) {
+                milSymbolLoader.map.addImage(drawId + "-image", image)
+            });
+            image.src = "data:image/svg+xml;base64," + imageData;
+            datas.push({
+                type: 'Feature',
+                properties: {
+                    type: 'Image',
+                    imageId: drawId + "-image",
+                    drawId : drawId
+                },
+                geometry: {
+                    type: 'Point',
+                    coordinates: coord[coord.length - 1]
+                }
+            })
+        }
         jQuery.each(data.features, function(idx, feature){
             feature.properties._symStd = symStd
             feature.properties._cs = cs
@@ -582,9 +605,9 @@ milSymbolLoader.milsymbolsGenerator = function(evt){
                 feature.properties.labelAlign = (feature.properties.labelAlign === "right" ? "right" : feature.properties.labelAlign === "left" ? "left" : feature.properties.labelAlign === "center" ? "center" : "center")
             }
         })
-        //console.log(data.features)
         datas = datas.concat(data.features);
     }
+    console.log(datas)
     // draw milsymbol
     var source = milSymbolLoader.map.getSource('milsymbols-source-feature')
     if(source === undefined){

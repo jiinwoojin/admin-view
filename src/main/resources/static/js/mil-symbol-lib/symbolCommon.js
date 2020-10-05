@@ -1,6 +1,6 @@
 /**
 * Option Data Type
- * JSON 
+ * JSON
  * { "mil_code"+"_"+"key" : "code_kor_name", ... }
  */
 
@@ -21,38 +21,38 @@ var symStd = ms2525C;
 
 //Activates tab for choosen standard
 function activateTab(id){
-	
+
 	// Symbol Menu Control
 	document.getElementById("2525C").className = "";
 	document.getElementById('m_style').className = "";
 	document.getElementById('m_value').className = "";
 	document.getElementById(id).className = "active";
-	
+
 	var openDIV = 'letter';
-	
+
 	document.getElementById("letterSIDCtab").className = "";
 	document.getElementById("styleSIDCtab").className = "";
 	document.getElementById("valueSIDCtab").className = "";
-	
+
 	if(id != '2525C'){
 		openDIV = ((id == "m_style")?"style":"letter");
 		openDIV = ((id == "m_value")?"value":"style");
 	}
 	// Symbol Menu Control
-	
+
 	activeStandard = "letter";
 	standardVersion = "US";
 
 	if(function_sidc == ''){
 		ms.setStandard("2525");
-		//Make Select Options  
+		//Make Select Options
 		letterSIDC.sidccodingscheme(); // coding sheme
 		getBatteDimension(); // battle dimension draw
-		
-		letterSIDC.affiliation(); 
+
+		letterSIDC.affiliation();
 		letterSIDC.status();
 	}
-	
+
 	document.getElementById(openDIV+"SIDCtab").className = "active";
 }
 
@@ -71,8 +71,8 @@ function changeSIDC(){
 }
 
 
-function drawSymbol(){ 
-	
+function drawSymbol(){
+
 	var cs = document.getElementById('SIDCCODINGSCHEME').value;
 	var SUB_mod = document.getElementsByClassName('SUB_mod');
 	var sidc = document.getElementById('SIDC').value;//20200313
@@ -82,6 +82,7 @@ function drawSymbol(){
 		if ( $('input:checkbox[id=MonoColorChk]').is(':checked') ) {//20200304
 			$('.MonoColor2').removeAttr('style');
 		}
+		bChangeID = false;
 		drawMsymbol();
 	} else {
 		if ( $('input:checkbox[id=MonoColorChk]').is(':checked') ) {//20200304
@@ -90,7 +91,7 @@ function drawSymbol(){
 		bChangeID = false;
 		drawSsymbol();
 	}
-	
+
 	for(var i = 0; i < SUB_mod.length; i++){
 		if (cs.charAt(0) == 'G' || cs.charAt(0) == 'W'){
 			SUB_mod[i].style.display = 'none';
@@ -156,9 +157,9 @@ function monoColorSetting(sidc){//20200313
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------
-/** 
- * 2018.01.29 tree 형식 
- * */	
+/**
+ * 2018.01.29 tree 형식
+ * */
 	// get battle dimension li list
 	function getBatteDimension(){
 		/*var ul = $('#FUNCTIONS');
@@ -170,7 +171,7 @@ function monoColorSetting(sidc){//20200313
 		       dataType: 'json',
 		       async: false,
 		       success: function(data){
-				$.each(data, function(index, item){	
+				$.each(data, function(index, item){
 				if(item !== undefined){
 					var li = document.createElement('li');
 					li.id = item['MIL_CODE']+'_'+index+'_'+item['PROPERTIES']+'_'+item['MODIFIER'];
@@ -202,7 +203,7 @@ function monoColorSetting(sidc){//20200313
 	}
 	var jsonData;
 	// function UI Tree로 변경
-	function getFunction(id_num, e){ 
+	function getFunction(id_num, e){
 		$('#FUNCTION_' + id_num).remove();
 		// get keyCode
 		var Selector = e.parentElement;
@@ -215,26 +216,26 @@ function monoColorSetting(sidc){//20200313
 			bChangeID = true;
 		}else{
 			bChangeID = false;
-		}		
-		
+		}
+
 		var milCode = Selector.id;
 		var keyCode = '';
 			keyCode = Selector.id.split('_')[1];
 		var ul = document.createElement('ul');
 		ul.id = 'FUNCTION_' + id_num;
 		ul.classList.add('treeview-menu');
-		
+
 		if(typeof $(e).closest("#FUNCTIONS > li.menu-open").attr("id") !== 'undefined' ){
 			milCode = $(e).closest("#FUNCTIONS > li.menu-open").attr("id");
 		}
-		$('#SIDCCODINGSCHEME option:eq('+milCode.split('_')[1].charAt(0)+')').prop("selected", true);//20200207	
+		$('#SIDCCODINGSCHEME option:eq('+milCode.split('_')[1].charAt(0)+')').prop("selected", true);//20200207
 		//20200212
 		if ( Selector.id.split('_')[0].charAt(10) === '*' || Selector.id.split('_')[0].charAt(10) === '-') {
 			$('#SIDCSYMBOLMODIFIER11 option:eq(0)').prop("selected", true);
 		}else{
 			$("#SIDCSYMBOLMODIFIER11").val(Selector.id.split('_')[0].charAt(10)).prop("selected", true);
 		}
-		
+
 		var JSONfile = CONTEXT + '/json/milsym/'+milCode.charAt(0)+'.json';
 		$.ajax({
 				url: JSONfile,
@@ -260,10 +261,10 @@ function monoColorSetting(sidc){//20200313
 								}else{
 									selectMotion(this);
 									getFunction((id_num+1), this);
-									saveFuncSIDC(this.parentElement.id);									
+									saveFuncSIDC(this.parentElement.id);
 								}
 							}
-						
+
 							var span = document.createElement('span');
 							span.innerText =  data[key]['CODE_KOR_NAME'];
 							if(data[key+'.1'] != undefined){
@@ -286,11 +287,11 @@ function monoColorSetting(sidc){//20200313
 		});
 		$('#FUNCTION_' + id_num).show();// 주석 처리하면 초기 리스트도 보이지 않음.
 	}
-	
+
 	// 수정정보 setting
 	function getsidcInfo(sidc){
 		getBatteDimension(); // battle dimension draw
-		var BD_list = $('#FUNCTIONS').children('li');	
+		var BD_list = $('#FUNCTIONS').children('li');
 		var sidc_val = '';
 		if(sidc.charAt(0) == 'G' || sidc.charAt(0) == 'W'){
 			sidc_val = SymbolUtilities.getBasicSymbolID(sidc);
@@ -300,13 +301,13 @@ function monoColorSetting(sidc){//20200313
 			if(sidc.charAt(0) == 'O'){
 				symbolID += '*';
 			}else{
-				symbolID += '-';	
-			}	        
+				symbolID += '-';
+			}
 	        symbolID += sidc.substring(2,3);
 	        symbolID += '*';//20200208
 			symbolID += sidc.substring(4,10);
 			if( sidc.substring(10,11) != "-" && sidc.substring(10,11) != "*" //20200211
-				&& sidc.substring(10,11) != "M" && sidc.substring(10,11) != "N") {  //20200304 
+				&& sidc.substring(10,11) != "M" && sidc.substring(10,11) != "N") {  //20200304
 				symbolID += sidc.substring(10,11);
 			}else{
 				symbolID += '-';
@@ -315,7 +316,7 @@ function monoColorSetting(sidc){//20200313
 			//symbolID += '-----';
 			sidc_val = symbolID;
 		}
-		
+
 		battle_sidc = sidc_val;
 		var selID = "";
 		for(var i = 0; i < BD_list.length; i++){
@@ -325,14 +326,14 @@ function monoColorSetting(sidc){//20200313
 			match_sidc = sidc_val.substring(0,2);
 			if (sidc.charAt(0) == 'W'){
 				match_sidc = "W-"
-			}			
+			}
 			if(match_BD === match_sidc){
 				var selector = BD_list[i].children[0];
 				selectMotion(selector);
 				getFunction(1,selector);
 				BD_list[i].classList.add('menu-open');
 				BD_list[i].parentElement.classList.add('active');
-				//sidc_val = sidc.substring(2,10).toUpperCase();//20200207					
+				//sidc_val = sidc.substring(2,10).toUpperCase();//20200207
 				function_sidc = sidc;
 				if (sidc.charAt(0) === 'W'){
 					searchItem = '';
@@ -344,7 +345,7 @@ function monoColorSetting(sidc){//20200313
 						success: function(data){
 							$.each(Object.keys(data), function(index, item){
 								sidcKey = item;
-								var milItem = data[item];	
+								var milItem = data[item];
 								if(milItem.MIL_CODE === sidc){
 									milCode = milItem.MIL_CODE;
 									careateSidc = milItem.MIL_CODE+'_'+item+'_'+milItem.PROPERTIES+'_'+milItem.MODIFIER;
@@ -357,7 +358,7 @@ function monoColorSetting(sidc){//20200313
 									milCodeSearch = false;
 									searchItem = item;
 									//return false;
-								}	
+								}
 							});
 						}
 					});
@@ -368,7 +369,7 @@ function monoColorSetting(sidc){//20200313
 						var func_list = $(selector).parent().children('ul').children('li');
 						for(var k = 0; k < func_list.length; k++){
 							var func;
-								func = func_list[k].id.split('_')[1];								
+								func = func_list[k].id.split('_')[1];
 							if(func == tempItem){
 								selID = func_list[k].id;
 								selector = func_list[k].children[0];
@@ -380,7 +381,7 @@ function monoColorSetting(sidc){//20200313
 								break;
 							}
 						}
-					} 
+					}
 				}else{
 					sidc_val = sidc_val.substring(2,10).toUpperCase();//20200207
 					for(var j = 1; j <= 8; j ++) {
@@ -388,7 +389,7 @@ function monoColorSetting(sidc){//20200313
 						if(func_val == '-') { //20200213
 							changeModifer(function_sidc + "___");
 							return;
-						}	
+						}
 						var func_list = $(selector).parent().children('ul').children('li');
 						for(var k = 0; k < func_list.length; k++){
 							var func;
@@ -424,9 +425,9 @@ function monoColorSetting(sidc){//20200313
 		changeModifer(selID);
 	}
 
-	
+
 	// Multiple 도 가능하게 수정 function
-	function saveFuncSIDC(id){	
+	function saveFuncSIDC(id){
 		var cs = document.getElementById('SIDCCODINGSCHEME').value;
 		var key_code = "";
 		var symbol_code = "";
@@ -443,47 +444,47 @@ function monoColorSetting(sidc){//20200313
 		} else {
 			function_sidc = symbol_code;
 		}
-		
-		if ( selectedID !== id) {			
+
+		if ( selectedID !== id) {
 			bChangeID = true;
 		}else{
 			bChangeID = false;
-		}	
-		changeModifer(id);		
-		
+		}
+		changeModifer(id);
+
 		if(cs.charAt(0) == 'G' || cs.charAt(0) == 'W'){
 			drawMsymbol();
 		} else {
 			drawSsymbol();
 		}
-		
-		letterSIDC.status(); //20200212 속성->상태구분 변경		
+
+		letterSIDC.status(); //20200212 속성->상태구분 변경
 	}
 
 	// 기본설정과 수식정보, 속성 및 확인 버튼 control UPDATE //20200208
 	function changeModifer(id){
 		var property = "";
 		var modifer = "";
-		
+
 		if ( id.split('_').length == 4 ) {
 			property = id.split('_')[2].split('.');
 			modifer = id.split('_')[3].split('.');
 		}
-		
-		// A:피아구분, B:상태구분. C:부호크기. D:투명, E:피아색상, F:선굵기  ( <== 고정 ) 
+
+		// A:피아구분, B:상태구분. C:부호크기. D:투명, E:피아색상, F:선굵기  ( <== 고정 )
 		// G:운용조건, H:문자크기, I:기능부호, J:외형부호, K:외형채움, L:민간구분
 		$('#property_G').addClass("hidden");
-		$('#property_G').children('div').children('select').attr("disabled", true); 
+		$('#property_G').children('div').children('select').attr("disabled", true);
 		$('#property_H').addClass("hidden");
 		$('#property_I').addClass("hidden");
 		$('#property_J').addClass("hidden");
 		$('#property_K').addClass("hidden");
 		$('#property_L').addClass("hidden");
-		$('#property_L').children('label').children('input').attr("disabled", true); 
-		for (var i = 0; i < property.length; i++) {			
+		$('#property_L').children('label').children('input').attr("disabled", true);
+		for (var i = 0; i < property.length; i++) {
 			if (property[i] === 'G1') {
-				$('#property_G').removeClass("hidden");				
-				$('#property_G').children('div').children('select').attr("disabled", false); 
+				$('#property_G').removeClass("hidden");
+				$('#property_G').children('div').children('select').attr("disabled", false);
 			}else if (property[i] === 'G0') {
 				$('#property_G').removeClass("hidden");
 			}
@@ -501,17 +502,17 @@ function monoColorSetting(sidc){//20200313
 			}
 			if (property[i] === 'L1') {
 				$('#property_L').removeClass("hidden");
-				$('#property_L').children('label').children('input').attr("disabled", false); 
+				$('#property_L').children('label').children('input').attr("disabled", false);
 			}else if (property[i] === 'L0') {
 				$('#property_L').removeClass("hidden");
 			}
 		}
-		
+
 		// A:기본부호지정, B:부대단위, C:장비수량, D:기동부대식별,
-		// F:부대증감, G:군 및 국가 구분, H:추가사항, H1:추가사항, H2:추가사항, 
+		// F:부대증감, G:군 및 국가 구분, H:추가사항, H1:추가사항, H2:추가사항,
 		// J:평가등급, K:전투효과, L:신호정보장비, M:상급부대, N:적군표시,
 		// P:피아식별모드/코드, Q:이동방향, R:이동수단, R2:신호정보 장비 이동성,
-		// S:지휘소표시/실제위치표시, T:고유명칭, T1:고유명칭1, V:장비명, W:활동시각, W1:활동시각1, 
+		// S:지휘소표시/실제위치표시, T:고유명칭, T1:고유명칭1, V:장비명, W:활동시각, W1:활동시각1,
 		// X:고도/심도, X1:고도/심도1, XN:고도/심도[], Y:위치, Z:속도, AA:지휘통제소, AB:가장/가상식별부호,
 		// AD:기반형태, AE:장비분해시간, AF:공통명칭, AG:보조장비 식별부호,
 		// AH:불확정영역, AI:선위의 추측선, AJ:속도선, AM:거리(미터), AN:각도(도)
@@ -555,7 +556,7 @@ function monoColorSetting(sidc){//20200313
 		$('#modifier_AJ').addClass("hidden");
 		$('#modifier_AM').addClass("hidden");
 		$('#modifier_AN').addClass("hidden");
-		for (var j = 0; j < modifer.length; j++) {		
+		for (var j = 0; j < modifer.length; j++) {
 			/*if (modifer[j] === 'A') {
 				$('#modifier_A').removeClass("hidden");
 			} */
@@ -590,7 +591,7 @@ function monoColorSetting(sidc){//20200313
 				$('#modifier_K').removeClass("hidden");
 			}
 			if (modifer[j] === 'L') {
-				$('#modifier_L').removeClass("hidden");				
+				$('#modifier_L').removeClass("hidden");
 			}
 			if (modifer[j] === 'M') {
 				$('#modifier_M').removeClass("hidden");
@@ -600,10 +601,10 @@ function monoColorSetting(sidc){//20200313
 			}
 			if (modifer[j] === 'P') {
 				$('#modifier_P').removeClass("hidden");
-			}		
+			}
 			if (modifer[j] === 'Q') {
 				$('#modifier_Q').removeClass("hidden");
-			}		
+			}
 			if (modifer[j] === 'R') {
 				$('#modifier_R').removeClass("hidden");
 			}
@@ -660,7 +661,7 @@ function monoColorSetting(sidc){//20200313
 			}
 			if (modifer[j] === 'AG') {
 				$('#modifier_AG').removeClass("hidden");
-			}			
+			}
 			if (modifer[j] === 'AH') {
 				$('#modifier_AH').removeClass("hidden");
 			}
@@ -688,7 +689,7 @@ function monoColorSetting(sidc){//20200313
 			$('#CanvasSymbol #ImageSymbol').css("display","");
 		}
 		if ( bChangeID ) {
-			for (var j = 0; j < modifer.length; j++) {		
+			for (var j = 0; j < modifer.length; j++) {
 				if (modifer[j] === 'B') {
 					$('#SIDCSYMBOLMODIFIER12').find("option:eq(0)").prop("selected", true);
 				}else if (modifer[j] === 'J' || modifer[j] === 'R' || modifer[j] === 'R2' || modifer[j] === 'AD' || modifer[j] === 'AG') {
@@ -697,7 +698,7 @@ function monoColorSetting(sidc){//20200313
 					}
 				}else{
 					if ( modifer[j] !== '' && $('#'+modifer[j]) !== undefined) {
-						$('#'+modifer[j]).val("");					
+						$('#'+modifer[j]).val("");
 					}
 				}
 			}
@@ -705,12 +706,12 @@ function monoColorSetting(sidc){//20200313
 			selectedID = id;
 		}
 	}
-	
+
 	function selectMotion(e){
 		$(e).parent().parent('ul').find('a').css('color', '#2c3b41');
 		$(e).css('color', '#8aa4af');
 	}
-	
+
 	// 수식정보  html 생성
 	function createModifiers(symbolCode){
 		// C -> 숫자(특수한경우), H -> 문자(20), N -> ENY표시, T -> 문자(15), V -> 문자(20), W -> 숫자,기호 YY:MM:DD(16)
@@ -762,7 +763,7 @@ function monoColorSetting(sidc){//20200313
 				"Z":{"kor_name":"속도","input_id":"speed","code":"8 자"},
 				"AA":{"kor_name":"지휘통제소","input_id":"specialHeadquarters","code":"9 자"}
 		};
-		
+
 		var tableArea = document.getElementById('textField');
 		tableArea.innerHTML = '';
 
@@ -785,7 +786,7 @@ function monoColorSetting(sidc){//20200313
 								var input = document.createElement('input');
 								input.type = 'text';
 								input.id = info[keys];
-								
+
 								td.appendChild(input);
 							} else if(keys == "code"){
 								var code = document.createElement('code');
@@ -829,7 +830,7 @@ function monoColorSetting(sidc){//20200313
 			}
 		} */
 	}
-	
+
 	function createStyles(){
 		var coding_scheme = document.getElementById('SIDCCODINGSCHEME').value;
 		if(coding_scheme.charAt(0) == 'G' || coding_scheme.charAt(0) == 'W'){
@@ -837,17 +838,17 @@ function monoColorSetting(sidc){//20200313
 		} else {
 			type = 'Ssymbol';
 		}
-		
-		/* var ids = ["MonoColor","InfoColor","outlineColor"]; 
+
+		/* var ids = ["MonoColor","InfoColor","outlineColor"];
 		for(var i = 0; i < ids.length; i++){
 			var id = ids[i];
 			if(type == 'Msymbol' && ids[i] == 'outlineColor')
 				break;
-			
+
 			getColor(id, type);
 		} */
 	}
-	
+
 	function getColor(id, type){
 		var values = {};
 		var selector = document.getElementById(id);
@@ -870,30 +871,30 @@ function monoColorSetting(sidc){//20200313
 					"#7fffd4":"아쿠아색","#008080":"틸색","#00ffff":"파란색",
 					"#000080":"남색","#ff0080":"자홍색","#ff00ff":"보라색"}
 		}
-		
+
 		selector.innerHTML = '';
 		for (var key in values){
 			selector.add(new Option(values[key], key));
 		}
 	}
-	
-	
+
+
 	function getDrawGraphicsInfo(sidc){
 		var drawInfo = {};
 		drawInfo.draw_type = '';
 		drawInfo.constraint = '';
 		drawInfo.min_point = 0;
 		drawInfo.max_point = 0;
-		
+
 		var code = SymbolUtilities.getBasicSymbolID(sidc);
-		
+
 		var symbolDef = SymbolDefTable.getSymbolDef(code, symStd);
-		
+
 		symbolDefNew = symbolDef;
 		if(symbolDef != null){
 			drawInfo.min_point = symbolDef.minPoints;
 			drawInfo.max_point = symbolDef.maxPoints;
-			
+
 			if(symbolDef != null){
 				switch(symbolDef.drawCategory){
 				case 0 : return; // Do not draw
@@ -912,11 +913,11 @@ function monoColorSetting(sidc){//20200313
 				break;
 				case 8 : drawInfo.draw_type = 'Point'; // Point
 				break;
-				case 9 : drawInfo.draw_type = 'LineString'; // polyline with 2 points (entered in reverse order)  
+				case 9 : drawInfo.draw_type = 'LineString'; // polyline with 2 points (entered in reverse order)
 				break;
 				case 15 : drawInfo.draw_type = 'LineString'; // Super Auto Shape
 				break;
-				case 16 : drawInfo.draw_type = 'Point'; // figure Circle, requires modifier 1 AM 
+				case 16 : drawInfo.draw_type = 'Point'; // figure Circle, requires modifier 1 AM
 				drawInfo.constraint = {'AM':'1'};
 				break;
 				case 17 : drawInfo.draw_type = 'Point'; // Rectangle that requires 2 AM modifier and 1 AN
@@ -940,7 +941,7 @@ function monoColorSetting(sidc){//20200313
 		}
 		return drawInfo;
 	}
-	
+
 	function buildSymbolID(basicID)	{
 	    if(basicID != '' && basicID.charAt(0) !== 'W')   {
 	        var affiliation = document.getElementById("SIDCAFFILIATION")[document.getElementById("SIDCAFFILIATION").selectedIndex].value;
@@ -975,7 +976,7 @@ function monoColorSetting(sidc){//20200313
 				SIDCSYMBOLMODIFIER12 = document.getElementById("SIDCSYMBOLMODIFIER12")[document.getElementById("SIDCSYMBOLMODIFIER12").selectedIndex].value;
 			}
 			var modifiers = SIDCSYMBOLMODIFIER11 + SIDCSYMBOLMODIFIER12;
-			if(basicID.charAt(0) !== 'G')   {				
+			if(basicID.charAt(0) !== 'G')   {
 				if (options.AG !== "") {
 					modifiers = "N" + options.AG;
 				}
