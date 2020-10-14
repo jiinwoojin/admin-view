@@ -259,6 +259,17 @@ function drawMsymbol(id, format, sidc, symStd, cs, function_sidc){
 	}
 }
 
+// rgb color + opacity
+function convertHex(hex,opacity){
+	hex = hex.replace('#','');
+	r = parseInt(hex.substring(0,2), 16);
+	g = parseInt(hex.substring(2,4), 16);
+	b = parseInt(hex.substring(4,6), 16);
+
+	result = armyc2.c2sd.renderer.utilities.Color.rgbToHexString(r, g, b, opacity);
+	return result;
+}
+
 // 좌표값을 받아 controlPoints
 function setCoordinates(coordinates){
 	var coordData = [];
