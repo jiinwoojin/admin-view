@@ -22,7 +22,7 @@
                 <span>GSS Style > Mapbox Style</span>
             </div>
             <hr/>
-            <h3 class="section_tit">CACHE 생성</h3>
+            <h3 class="section_tit">GSS STYLE 변환</h3>
             <iframe id="frmConverter" name="frmConverter" style="display: none;"></iframe>
             <form action="to-convert" target="_blank" accept-charset="utf-8" method="post" enctype="multipart/form-data">
                 <div class="form-row">
@@ -58,7 +58,7 @@
                         <input type="text" class="form-control" readonly="readonly" th:value="${STYLE_PATH}">
                     </div>
                     <div class="col-3">
-                        <label>GSS 스타일 파일</label>
+                        <label style="color: #ff0000; font-weight: bold;">GSS 스타일 파일</label>
                         <input type="file" class="form-control-file" name="file" >
                     </div>
                 </div>
