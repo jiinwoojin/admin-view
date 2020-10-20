@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout" lang="ko">
+<th:block layout:fragment="content-title-fragment">
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2 class="page_tit">STYLE 변환</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/view/manage/map-list?pg=1&sz=8&lType=ALL&units=ALL}">지도 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">STYLE 변환</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="form-group">
+                <span>GSS Style > Mapbox Style</span>
+            </div>
+            <hr/>
+            <h3 class="section_tit">CACHE 생성</h3>
+            <iframe id="frmConverter" name="frmConverter" style="display: none;"></iframe>
+            <form action="to-convert" target="_blank" accept-charset="utf-8" method="post" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="col-4">
+                        <label>Mapbox Version</label>
+                        <input type="text" class="form-control" name="version" value="8">
+                    </div>
+                    <div class="col-4">
+                        <label>Mapbox Id</label>
+                        <input type="text" class="form-control" name="id" value="uzymq5sw3">
+                    </div>
+                    <div class="col-4">
+                        <label>Mapbox Name</label>
+                        <input type="text" class="form-control" name="name" value="G25k_style">
+                    </div>
+                    <div class="col-6">
+                        <label>Mapbox Sprite</label>
+                        <input type="text" class="form-control" name="sprite" value="http://211.172.246.71:11000/GSymbol/GSSSymbol">
+                    </div>
+                    <div class="col-6">
+                        <label>Mapbox Glyphs</label>
+                        <input type="text" class="form-control" name="glyphs" value="http://211.172.246.71:11000/fonts/{fontstack}/{range}.pbf">
+                    </div>
+                    <div class="col-6">
+                        <label>Mapbox Tiles</label>
+                        <input type="text" class="form-control" name="tiles" value="http://211.172.246.71:11000/maps/g25k/{z}/{x}/{y}.pbf">
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-row">
+                    <div class="col-9">
+                        <label>GSS STYLE PATH</label>
+                        <input type="text" class="form-control" readonly="readonly" th:value="${STYLE_PATH}">
+                    </div>
+                    <div class="col-3">
+                        <label>GSS 스타일 파일</label>
+                        <input type="file" class="form-control-file" name="file" >
+                    </div>
+                </div>
+                <hr/>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fas fa-save"></i> 변환
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</th:block>
+</html>

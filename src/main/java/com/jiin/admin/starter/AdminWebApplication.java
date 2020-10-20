@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.annotation.Resource;
 
-@SpringBootApplication(scanBasePackages = {"com.jiin.admin.config", "com.jiin.admin.servlet"})
+@SpringBootApplication(scanBasePackages = {"com.jiin.admin.config", "com.jiin.admin.servlet","com.jiin.admin.converter"})
 @EnableJpaRepositories(basePackages = {"com.jiin.admin.website"}, transactionManagerRef = "transactionManager_BASE")
 @EntityScan("com.jiin.admin.entity")
 public class AdminWebApplication extends SpringBootServletInitializer implements CommandLineRunner {

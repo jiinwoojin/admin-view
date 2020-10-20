@@ -16,7 +16,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.*;
 
 @Service
@@ -30,8 +32,16 @@ public class ConverterGssXml {
         File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
         File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
         File savefile = new File(dataPath + "/g25k_style_generate.json");
+        FileWriter writer = new FileWriter(savefile);
+        Map param = new HashMap();
+        param.put("mapbox-version",8);
+        param.put("mapbox-id","uzymq5sw3");
+        param.put("mapbox-name","G25k_style");
+        param.put("mapbox-sprite","http://211.172.246.71:11000/GSymbol/GSSSymbol");
+        param.put("mapbox-glyphs","http://211.172.246.71:11000/fonts/{fontstack}/{range}.pbf");
+        param.put("mapbox-tiles","http://211.172.246.71:11000/maps/g25k/{z}/{x}/{y}.pbf");
         ConverterGssXml parse = new ConverterGssXml();
-        parse.convertLayerJsonFile(stylefile,layerfile,savefile);
+        parse.convertLayerJsonFile(stylefile,layerfile,writer,param);
     }
 
 
@@ -64,17 +74,17 @@ public class ConverterGssXml {
         return null;
     }
 
-    public void convertLayerJsonFile(File styleFile, File layerFile, File outputFile) throws ParserConfigurationException, JAXBException, IOException, SAXException {
+    public void convertLayerJsonFile(File styleFile, File layerFile, Writer output, Map param) throws ParserConfigurationException, JAXBException, IOException, SAXException {
         String sourceName = "tegola";
         MapboxRoot mapbox = new MapboxRoot();
-        mapbox.setVersion(8);
-        mapbox.setId("uzymq5sw3");
-        mapbox.setName("G25k_style");
-        mapbox.setSprite("http://211.172.246.71:11000/GSymbol/GSSSymbol");
-        mapbox.setGlyphs("http://211.172.246.71:11000/fonts/{fontstack}/{range}.pbf");
+        mapbox.setVersion(Integer.parseInt(param.get("mapbox-version").toString()));
+        mapbox.setId((String) param.get("mapbox-id"));
+        mapbox.setName((String) param.get("mapbox-name"));
+        mapbox.setSprite((String) param.get("mapbox-sprite"));
+        mapbox.setGlyphs((String) param.get("mapbox-glyphs"));
         MapboxSource source = new MapboxSource();
         source.setType("vector");
-        source.setTiles(Arrays.asList(new String[]{"http://211.172.246.71:11000/maps/g25k/{z}/{x}/{y}.pbf"}));
+        source.setTiles(Arrays.asList(new String[]{(String) param.get("mapbox-tiles")}));
         source.setMinZoom(0);
         source.setMaxZoom(20);
         mapbox.putSources(sourceName,source);
@@ -200,7 +210,7 @@ public class ConverterGssXml {
         new ObjectMapper()
                 .enable(SerializationFeature.INDENT_OUTPUT)
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-                .writeValue(outputFile,mapbox);
+                .writeValue(output,mapbox);
     }
 
     private List<Object> parseFilter(List<GssVVTStyle> vvtStyles) {
