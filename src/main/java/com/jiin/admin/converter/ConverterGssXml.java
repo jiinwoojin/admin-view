@@ -33,15 +33,15 @@ public class ConverterGssXml {
         File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
         File savefile = new File(dataPath + "/g25k_style_generate.json");
         FileWriter writer = new FileWriter(savefile);
-        Map param = new HashMap();
-        param.put("mapbox-version",8);
-        param.put("mapbox-id","uzymq5sw3");
-        param.put("mapbox-name","G25k_style");
-        param.put("mapbox-sprite","http://211.172.246.71:11000/GSymbol/GSSSymbol");
-        param.put("mapbox-glyphs","http://211.172.246.71:11000/fonts/{fontstack}/{range}.pbf");
-        param.put("mapbox-tiles","http://211.172.246.71:11000/maps/g25k/{z}/{x}/{y}.pbf");
+        ConverterVO param = new ConverterVO();
+        param.setVersion(8);
+        param.setId("uzymq5sw3");
+        param.setName("G25k_style");
+        param.setSprite("http://211.172.246.71:11000/GSymbol/GSSSymbol");
+        param.setGlyphs("http://211.172.246.71:11000/fonts/{fontstack}/{range}.pbf");
+        param.setTiles(new String[]{"http://211.172.246.71:11000/maps/g25k/{z}/{x}/{y}.pbf"});
         ConverterGssXml parse = new ConverterGssXml();
-        parse.convertLayerJsonFile(stylefile,layerfile,writer,param);
+        parse.convertLayerJson(stylefile,layerfile,writer,param);
     }
 
 
@@ -74,17 +74,17 @@ public class ConverterGssXml {
         return null;
     }
 
-    public void convertLayerJsonFile(File styleFile, File layerFile, Writer output, Map param) throws ParserConfigurationException, JAXBException, IOException, SAXException {
+    public void convertLayerJson(File styleFile, File layerFile, Writer output, ConverterVO param) throws ParserConfigurationException, JAXBException, IOException, SAXException {
         String sourceName = "tegola";
         MapboxRoot mapbox = new MapboxRoot();
-        mapbox.setVersion(Integer.parseInt(param.get("mapbox-version").toString()));
-        mapbox.setId((String) param.get("mapbox-id"));
-        mapbox.setName((String) param.get("mapbox-name"));
-        mapbox.setSprite((String) param.get("mapbox-sprite"));
-        mapbox.setGlyphs((String) param.get("mapbox-glyphs"));
+        mapbox.setVersion(param.getVersion());
+        mapbox.setId(param.getId());
+        mapbox.setName(param.getName());
+        mapbox.setSprite(param.getSprite());
+        mapbox.setGlyphs(param.getGlyphs());
         MapboxSource source = new MapboxSource();
         source.setType("vector");
-        source.setTiles(Arrays.asList(new String[]{(String) param.get("mapbox-tiles")}));
+        source.setTiles(Arrays.asList(param.getTiles()));
         source.setMinZoom(0);
         source.setMaxZoom(20);
         mapbox.putSources(sourceName,source);
