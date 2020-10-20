@@ -42,9 +42,9 @@ public class MVCStyleController {
             @RequestParam("file") MultipartFile file,
             ConverterVO param,
             Model model, HttpServletResponse response) throws ParserConfigurationException, IOException, SAXException, JAXBException {
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
         if(file == null || file.isEmpty()){
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("text/html; charset=UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);
             PrintWriter out = response.getWriter();
             out.write("스타일 파일이 업로드되지 않았습니다.");

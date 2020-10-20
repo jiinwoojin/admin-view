@@ -32,7 +32,7 @@ public class ConverterGssXml {
         String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
         //
         File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
-        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
+        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_SMALL_SCALE_LAYER.xml");
         File savefile = new File(dataPath + "/g25k_style_generate.json");
         FileWriter writer = new FileWriter(savefile);
         ConverterVO param = new ConverterVO();
@@ -123,7 +123,7 @@ public class ConverterGssXml {
                         MapboxLayer mapboxLayer = new MapboxLayer();
                         String layerId = shpSource + "_" + styleName;
                         if(mapbox.existLayerId(layerId)){
-                            layerId = layerId + "-" + (++i);
+                            layerId = layerId + "_" + (++i);
                         }
                         mapboxLayer.setId(layerId);
                         mapboxLayer.setSource(sourceName);
@@ -187,7 +187,7 @@ public class ConverterGssXml {
                         MapboxLayer mapboxLayer = new MapboxLayer();
                         String layerId = shpSource + "_" + labelStyleName;
                         if(mapbox.existLayerId(layerId)){
-                            layerId = layerId + "-" + (++i);
+                            layerId = layerId + "_" + (++i);
                         }
                         mapboxLayer.setId(layerId);
                         mapboxLayer.setSource(sourceName);
@@ -232,6 +232,9 @@ public class ConverterGssXml {
                     if(value.matches("[=<>].+")){
                         expr = value.replaceAll("[^=<>]*","");
                         value = value.replaceAll("[=<>]*","");
+                    }
+                    if(expr.equals("<>")){
+                        expr = "!=";
                     }
                     filters.add(new String[]{expr, key.toString().toLowerCase(), value});
                 }

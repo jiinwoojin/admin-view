@@ -101,6 +101,6 @@ public class MapboxRoot {
         this.layers.add(layer);
     }
     public boolean existLayerId(String layerId) {
-        return this.layerIds.contains(layerIds);
+        return this.layerIds.contains(layerId);
     }
 }

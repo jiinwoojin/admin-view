@@ -33,64 +33,267 @@
       "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
-    "id" : "aec030_EC030A01",
+    "id" : "aec030_EC030A06",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aec030",
-    "filter" : [ "any", [ "==", "veg", "11" ], [ "==", "veg", "12" ], [ "==", "veg", "18" ], [ "==", "veg", "25" ], [ "==", "veg", "29" ], [ "==", "veg", "38" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "fill-pattern" : "DenseWood_01"
+      "fill-color" : "rgba(212, 245, 212, 1)"
     }
   }, {
-    "id" : "aec030_EC030A02",
+    "id" : "gng_elev_tint_ETint_1",
     "type" : "fill",
     "source" : "tegola",
-    "source-layer" : "aec030",
-    "filter" : [ "any", [ "==", "veg", "24" ] ],
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "0" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "fill-pattern" : "DenseWood_02"
+      "fill-color" : "rgba(255, 255, 255, 1)"
     }
   }, {
-    "id" : "aec030_EC030A03",
+    "id" : "gng_elev_tint_ETint_6",
     "type" : "fill",
     "source" : "tegola",
-    "source-layer" : "aec030",
-    "filter" : [ "any", [ "==", "veg", "0" ], [ "==", "veg", "50" ], [ "==", "veg", "999" ] ],
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "1" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "fill-pattern" : "DenseWood_03"
+      "fill-color" : "rgba(201, 242, 201, 1)"
     }
   }, {
-    "id" : "aec030_EC030A04",
+    "id" : "gng_elev_tint_ETint_7",
     "type" : "fill",
     "source" : "tegola",
-    "source-layer" : "aec030",
-    "filter" : [ "any", [ "==", "veg", "19" ] ],
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "fill-pattern" : "Tropical_forest"
+      "fill-color" : "rgba(235, 250, 232, 1)"
     }
   }, {
-    "id" : "aec030_EC030A05",
+    "id" : "gng_elev_tint_ETint_9",
     "type" : "fill",
     "source" : "tegola",
-    "source-layer" : "aec030",
-    "filter" : [ "any", [ "==", "veg", "16" ], [ "==", "veg", "17" ], [ "==", "veg", "52" ] ],
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "3" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "fill-pattern" : "Palm"
+      "fill-color" : "rgba(255, 245, 166, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_10",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "4" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(224, 176, 176, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_12",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "5" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(204, 135, 135, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_1_1",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "0" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_6_2",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "1" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(201, 242, 201, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_7_3",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "2" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(235, 250, 232, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_8",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "3" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 250, 209, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_4",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "4" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 247, 191, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_9_4",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "5" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 245, 166, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_10_5",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "6" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(224, 176, 176, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_11",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "7" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(219, 161, 161, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_12_6",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "8" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(204, 135, 135, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_1_7",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "0" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_1_8",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "1" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_2",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "2" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-pattern" : "ETint_01"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_3",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "3" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-pattern" : "ETint_02"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_4_9",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "4" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 247, 191, 1)"
+    }
+  }, {
+    "id" : "gng_elev_tint_ETint_5",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "gng_elev_tint",
+    "filter" : [ "any", [ "==", "gridcode", "5" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-pattern" : "ETint_03"
     }
   }, {
     "id" : "abh135_BH135A01",
@@ -126,39 +329,6 @@
       "fill-pattern" : "Grassland"
     }
   }, {
-    "id" : "aeb020_EB020A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aeb020",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-pattern" : "Bush"
-    }
-  }, {
-    "id" : "aec010_EC010A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aec010",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-pattern" : "Stemwood"
-    }
-  }, {
-    "id" : "aea030_EA030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aea030",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-pattern" : "Orchard"
-    }
-  }, {
     "id" : "aea040_EA040A01",
     "type" : "fill",
     "source" : "tegola",
@@ -192,10 +362,10 @@
       "fill-pattern" : "Wetland"
     }
   }, {
-    "id" : "aed010_ED010A01",
+    "id" : "abh095_BH095A01",
     "type" : "fill",
     "source" : "tegola",
-    "source-layer" : "aed010",
+    "source-layer" : "abh095",
     "layout" : {
       "visibility" : "visible"
     },
@@ -203,26 +373,26 @@
       "fill-pattern" : "Wetland"
     }
   }, {
-    "id" : "aed020_ED020A01",
+    "id" : "abj110_BJ110A01",
     "type" : "fill",
     "source" : "tegola",
-    "source-layer" : "aed020",
+    "source-layer" : "abj110",
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "fill-pattern" : "Wetland"
+      "fill-color" : "rgba(24, 224, 84, 1)"
     }
   }, {
-    "id" : "aea055_EA055A01",
+    "id" : "aec020_EC020A01",
     "type" : "fill",
     "source" : "tegola",
-    "source-layer" : "aea055",
+    "source-layer" : "aec020",
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "fill-pattern" : "Vineyard"
+      "fill-color" : "rgba(255, 255, 255, 1)"
     }
   }, {
     "id" : "aec040_EC040A01",
@@ -236,33 +406,11 @@
       "fill-color" : "rgba(255, 255, 255, 1)"
     }
   }, {
-    "id" : "abh077_BH077A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abh077",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aba023_BA023A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aba023",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(201, 201, 201, 1)"
-    }
-  }, {
     "id" : "abh080_BH080A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh080",
-    "filter" : [ "any", [ "==", "hyc", "0" ], [ "==", "hyc", "8" ] ],
+    "filter" : [ "any", [ "==", "hyc", "0" ], [ "==", "hyc", "1" ], [ "==", "hyc", "8" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -270,7 +418,7 @@
       "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
-    "id" : "abh080_BH080A02",
+    "id" : "abh080_BH080A03",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh080",
@@ -279,10 +427,10 @@
       "visibility" : "visible"
     },
     "paint" : {
-      "fill-pattern" : "Blueline(S)"
+      "fill-pattern" : "BlueDotA"
     }
   }, {
-    "id" : "abh080_BH080A03",
+    "id" : "abh080_BH080A03_10",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh080",
@@ -298,7 +446,7 @@
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh130",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "28" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "1" ], [ "==", "exs", "28" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -322,7 +470,7 @@
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh140",
-    "filter" : [ "any", [ "==", "hyc", "0" ], [ "==", "hyc", "8" ] ],
+    "filter" : [ "any", [ "==", "hyc", "0" ], [ "==", "hyc", "1" ], [ "==", "hyc", "8" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -342,56 +490,10 @@
       "fill-pattern" : "LightBlue_Dot"
     }
   }, {
-    "id" : "abh020_BH020A01",
+    "id" : "abh140_BH140A01_11",
     "type" : "fill",
     "source" : "tegola",
-    "source-layer" : "abh020",
-    "filter" : [ "any", [ "==", "hyc", "0" ], [ "==", "hyc", "8" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(184, 214, 243, 1)"
-    }
-  }, {
-    "id" : "abh020_BH020A02",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abh020",
-    "filter" : [ "any", [ "==", "hyc", "6" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-pattern" : "LightBlue_Dot"
-    }
-  }, {
-    "id" : "abh030_BH030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abh030",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(184, 214, 243, 1)"
-    }
-  }, {
-    "id" : "abd140_BD140A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abd140",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(184, 214, 243, 1)"
-    }
-  }, {
-    "id" : "abh010_BH010A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abh010",
+    "source-layer" : "abh140",
     "layout" : {
       "visibility" : "visible"
     },
@@ -423,63 +525,26 @@
       "fill-pattern" : "Flood"
     }
   }, {
-    "id" : "abb041_BB041A01",
+    "id" : "aba020_BA023A01",
     "type" : "fill",
     "source" : "tegola",
-    "source-layer" : "abb041",
-    "filter" : [ "any", [ "==", "vrr", "0" ], [ "==", "vrr", "1" ] ],
+    "source-layer" : "aba020",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(201, 201, 201, 1)"
+    }
+  }, {
+    "id" : "abh190_BH190A01",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "abh190",
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abb041_BB041A02",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abb041",
-    "filter" : [ "any", [ "==", "vrr", "8" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abb140_BB140A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abb140",
-    "filter" : [ "any", [ "==", "vrr", "0" ], [ "==", "vrr", "1" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abb140_BB140A02",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abb140",
-    "filter" : [ "any", [ "==", "vrr", "0" ], [ "==", "vrr", "1" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abd100_BD100A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abd100",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
     "id" : "abd120_BD120A01",
@@ -504,17 +569,6 @@
       "fill-pattern" : "Dam"
     }
   }, {
-    "id" : "abi030_BI030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abi030",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
     "id" : "ada005_DA005A01",
     "type" : "fill",
     "source" : "tegola",
@@ -526,22 +580,11 @@
       "fill-color" : "rgba(255, 255, 255, 1)"
     }
   }, {
-    "id" : "adb090_DB090A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "adb090",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
     "id" : "ada010_DA010A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "ada010",
-    "filter" : [ "any", [ "==", "smc", "0" ], [ "==", "smc", "52" ], [ "==", "smc", "55" ], [ "==", "smc", "65" ], [ "==", "smc", "84" ], [ "==", "smc", "104" ], [ "==", "smc", "119" ], [ "==", "smc", "122" ], [ "==", "smc", "124" ], [ "==", "smc", "127" ], [ "==", "smc", "999" ] ],
+    "filter" : [ "any", [ "==", "mcc", "0" ], [ "==", "mcc", "55" ], [ "==", "mcc", "119" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -549,23 +592,11 @@
       "fill-pattern" : "Ground"
     }
   }, {
-    "id" : "ada010_DA010A02",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "ada010",
-    "filter" : [ "any", [ "==", "smc", "46" ], [ "==", "smc", "120" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-pattern" : "Gravel(A)"
-    }
-  }, {
     "id" : "ada010_DA010A03",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "ada010",
-    "filter" : [ "any", [ "==", "smc", "88" ] ],
+    "filter" : [ "any", [ "==", "mcc", "8" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -573,28 +604,28 @@
       "fill-pattern" : "Moraine"
     }
   }, {
+    "id" : "ada010_DA010A02",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "ada010",
+    "filter" : [ "any", [ "==", "mcc", "46" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-pattern" : "Gravel(A)"
+    }
+  }, {
     "id" : "ada010_DA010A04",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "ada010",
-    "filter" : [ "any", [ "==", "smc", "8" ], [ "==", "smc", "126" ] ],
+    "filter" : [ "any", [ "==", "mcc", "88" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "fill-pattern" : "Dune"
-    }
-  }, {
-    "id" : "ada010_DA010A05",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "ada010",
-    "filter" : [ "any", [ "==", "smc", "103" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-pattern" : "Ground_ice"
     }
   }, {
     "id" : "abh150_BH150A01",
@@ -714,30 +745,6 @@
       "fill-pattern" : "Moraine"
     }
   }, {
-    "id" : "adb060_DB060A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "adb060",
-    "filter" : [ "any", [ "==", "mcc", "0" ], [ "==", "mcc", "84" ], [ "==", "mcc", "997" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-pattern" : "Crevasse(R)"
-    }
-  }, {
-    "id" : "adb060_DB060A02",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "adb060",
-    "filter" : [ "any", [ "==", "mcc", "103" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-pattern" : "Crevasse(B)"
-    }
-  }, {
     "id" : "adb160_DB160A01",
     "type" : "fill",
     "source" : "tegola",
@@ -747,6 +754,61 @@
     },
     "paint" : {
       "fill-color" : "rgba(255, 255, 255, 1)"
+    }
+  }, {
+    "id" : "abj080_BJ080A01",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "abj080",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-pattern" : "Ice"
+    }
+  }, {
+    "id" : "abj070_BJ070A01",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "abj070",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-pattern" : "Ice"
+    }
+  }, {
+    "id" : "abj065_BJ065A01",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "abj065",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    }
+  }, {
+    "id" : "abj100_BJ100A01",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "abj100",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    }
+  }, {
+    "id" : "abj030_BJ030A01",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "abj030",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-pattern" : "Salt_lake"
     }
   }, {
     "id" : "aal020_AL020A01",
@@ -771,87 +833,10 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aak030_AK030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak030",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak060_AK060A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak060",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak070_AK070A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak070",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak090_AK090A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak090",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak100_AK100A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak100",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
     "id" : "aak120_AK120A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aak120",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak180_AK180A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak180",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aal030_AL030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal030",
     "layout" : {
       "visibility" : "visible"
     },
@@ -881,17 +866,6 @@
       "fill-color" : "rgba(201, 201, 201, 1)"
     }
   }, {
-    "id" : "aal170_AL170A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal170",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
     "id" : "aal200_AL200A01",
     "type" : "fill",
     "source" : "tegola",
@@ -903,66 +877,11 @@
       "fill-color" : "rgba(255, 255, 255, 1)"
     }
   }, {
-    "id" : "aak040_AK040A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak040",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak160_AK160A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak160",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak170_AK170A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak170",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(196, 225, 255, 1)"
-    }
-  }, {
-    "id" : "aal005_AL005A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal005",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "afa015_FA015A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "afa015",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
     "id" : "aal015_AL015A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "<>", "bfc", "15" ], [ "==", "bfc", "6" ], [ "==", "bfc", "7" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "lmc", "0" ], [ "==", "lmc", "2" ], [ "<", "hgt", "46" ], [ "!=", "bfc", "7" ], [ "==", "bfc", "15" ], [ "==", "bfc", "27" ], [ "==", "bfc", "82" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -970,11 +889,23 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aal015_AL015A01",
+    "id" : "aal015_AL015A01_12",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "hwt", "14" ], [ "<", "hgt", "46" ], [ "==", "bfc", "7" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "lmc", "1" ], [ "<", "hgt", "46" ], [ "!=", "bfc", "7" ], [ "==", "bfc", "15" ], [ "==", "bfc", "27" ], [ "==", "bfc", "82" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(0, 0, 0, 1)"
+    }
+  }, {
+    "id" : "aal015_AL015A01_13",
+    "type" : "fill",
+    "source" : "tegola",
+    "source-layer" : "aal015",
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "==", "hwt", "9" ], [ "==", "bfc", "7" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1006,18 +937,6 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aal015_AL015A04",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "==", "bfc", "6" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(0, 0, 0, 1)"
-    }
-  }, {
     "id" : "aal015_AL015A05",
     "type" : "fill",
     "source" : "tegola",
@@ -1034,7 +953,7 @@
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "hwt", "2" ], [ "==", "hwt", "3" ], [ "==", "hwt", "4" ], [ "<", "hgt", "46" ], [ "==", "bfc", "7" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "==", "hwt", "2" ], [ "==", "hwt", "3" ], [ "==", "hwt", "4" ], [ "==", "bfc", "7" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1046,7 +965,7 @@
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "hwt", "16" ], [ "<", "hgt", "46" ], [ "==", "bfc", "7" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "==", "hwt", "14" ], [ "==", "bfc", "7" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1058,7 +977,7 @@
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "hwt", "9" ], [ "<", "hgt", "46" ], [ "==", "bfc", "7" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "==", "hwt", "20" ], [ "==", "bfc", "7" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1070,7 +989,7 @@
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "hwt", "20" ], [ "<", "hgt", "46" ], [ "==", "bfc", "7" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "==", "hwt", "11" ], [ "==", "bfc", "7" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1082,7 +1001,7 @@
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "hwt", "11" ], [ "<", "hgt", "46" ], [ "==", "bfc", "7" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "==", "hwt", "21" ], [ "==", "bfc", "7" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1094,29 +1013,7 @@
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "hwt", "21" ], [ "<", "hgt", "46" ], [ "==", "bfc", "7" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(0, 0, 0, 1)"
-    }
-  }, {
-    "id" : "aam020_AM020A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aam020",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(0, 0, 0, 1)"
-    }
-  }, {
-    "id" : "aam030_AM030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aam030",
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "==", "hwt", "6" ], [ "==", "bfc", "7" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1135,22 +1032,11 @@
       "fill-color" : "rgba(255, 255, 255, 1)"
     }
   }, {
-    "id" : "aab010_AB010A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aab010",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
     "id" : "aaa010_AA010A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aaa010",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "28" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "3" ], [ "==", "exs", "28" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1170,30 +1056,6 @@
       "fill-pattern" : "Mine_NonOperataion"
     }
   }, {
-    "id" : "aaa012_AA012A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aaa012",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "28" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-pattern" : "Mine_Operataion"
-    }
-  }, {
-    "id" : "aaa012_AA012A02",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aaa012",
-    "filter" : [ "any", [ "==", "exs", "6" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-pattern" : "Mine_NonOperataion"
-    }
-  }, {
     "id" : "abh155_BH155A01",
     "type" : "fill",
     "source" : "tegola",
@@ -1203,17 +1065,6 @@
     },
     "paint" : {
       "fill-pattern" : "Salt"
-    }
-  }, {
-    "id" : "aal140_AL140A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal140",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
     "id" : "aac000_AC000A01",
@@ -1227,39 +1078,6 @@
       "fill-color" : "rgba(255, 255, 255, 1)"
     }
   }, {
-    "id" : "aam010_AM010A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aam010",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aam060_AM060A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aam060",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aam070_AM070A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aam070",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(0, 0, 0, 1)"
-    }
-  }, {
     "id" : "aac030_AC030A01",
     "type" : "fill",
     "source" : "tegola",
@@ -1269,17 +1087,6 @@
     },
     "paint" : {
       "fill-pattern" : "Blueline(S)"
-    }
-  }, {
-    "id" : "aaj030_AJ030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aaj030",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
     }
   }, {
     "id" : "abh040_BH040A01",
@@ -1304,109 +1111,10 @@
       "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
-    "id" : "aat050_AT050A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aat050",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
     "id" : "aad010_AD010A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aad010",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aaq116_AQ116A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aaq116",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aad030_AD030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aad030",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "agb005_GB005A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "agb005",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "agb030_GB030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "agb030",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "agb035_GB035A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "agb035",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "agb065_GB065A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "agb065",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abb010_BB010A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abb010",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-pattern" : "Seaplane_01"
-    }
-  }, {
-    "id" : "abb090_BB090A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abb090",
     "layout" : {
       "visibility" : "visible"
     },
@@ -1434,105 +1142,6 @@
     },
     "paint" : {
       "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "agb015_GB015A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "agb015",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(115, 140, 230, 1)"
-    }
-  }, {
-    "id" : "agb045_GB045A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "agb045",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(115, 140, 230, 1)"
-    }
-  }, {
-    "id" : "agb055_GB055A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "agb055",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(115, 140, 230, 1)"
-    }
-  }, {
-    "id" : "agb075_GB075A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "agb075",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(115, 140, 230, 1)"
-    }
-  }, {
-    "id" : "aaq140_AQ140A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aaq140",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aal060_AL060A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal060",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aal210_AL210A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal210",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-pattern" : "Blackline"
-    }
-  }, {
-    "id" : "afa170_FA170A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "afa170",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 0.0)"
-    }
-  }, {
-    "id" : "afa070_FA070A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "afa070",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 0.0)"
     }
   }, {
     "id" : "lal070_AL070L01",
@@ -1614,11 +1223,11 @@
       "line-width" : 6
     }
   }, {
-    "id" : "lfa000_FA000L01",
+    "id" : "lfa000_FA000L01_14",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
-    "filter" : [ "any", [ "==", "uss", "23" ] ],
+    "filter" : [ "any", [ "==", "use", "0" ], [ "==", "use", "23" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1641,11 +1250,11 @@
       "line-dasharray" : [ 31.0, 4.0, 8.0, 4.0 ]
     }
   }, {
-    "id" : "lfa000_FA000L02",
+    "id" : "lfa000_FA000L02_15",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
-    "filter" : [ "any", [ "==", "uss", "26" ] ],
+    "filter" : [ "any", [ "==", "use", "26" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1653,90 +1262,6 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
       "line-dasharray" : [ 31.0, 4.0, 8.0, 4.0 ]
-    }
-  }, {
-    "id" : "lfa000_FA000L03",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lfa000",
-    "filter" : [ "any", [ "==", "ord", "2" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 2,
-      "line-dasharray" : [ 31.0, 4.0, 8.0, 4.0, 8.0, 4.0, 8.0 ]
-    }
-  }, {
-    "id" : "lfa000_FA000L03",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lfa000",
-    "filter" : [ "any", [ "==", "uss", "30" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 2,
-      "line-dasharray" : [ 31.0, 4.0, 8.0, 4.0, 8.0, 4.0, 8.0 ]
-    }
-  }, {
-    "id" : "lfa000_FA000L04",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lfa000",
-    "filter" : [ "any", [ "==", "ord", "3" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 31.0, 4.0, 8.0, 4.0, 8.0, 4.0, 8.0, 4.0, 8.0 ]
-    }
-  }, {
-    "id" : "lfa000_FA000L04",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lfa000",
-    "filter" : [ "any", [ "==", "uss", "31" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 31.0, 4.0, 8.0, 4.0, 8.0, 4.0, 8.0, 4.0, 8.0 ]
-    }
-  }, {
-    "id" : "lfa000_FA000L05",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lfa000",
-    "filter" : [ "any", [ "==", "ord", "4" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 31.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0 ]
-    }
-  }, {
-    "id" : "lfa000_FA000L05",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lfa000",
-    "filter" : [ "any", [ "==", "uss", "32" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 31.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0 ]
     }
   }, {
     "id" : "lfa020_FA020L01",
@@ -1789,87 +1314,23 @@
       "line-width" : 6
     }
   }, {
-    "id" : "lal005_AL005L01",
+    "id" : "lec030_EC030L01",
     "type" : "line",
     "source" : "tegola",
-    "source-layer" : "lal005",
+    "source-layer" : "lec030",
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
-    }
-  }, {
-    "id" : "lfa050_FA050L01",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lfa050",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 12.0, 6.0, 12.0, 6.0 ]
-    }
-  }, {
-    "id" : "lea020_EA020L01",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lea020",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(111, 182, 59, 1)",
-      "line-width" : 2
+      "line-color" : "rgba(153, 235, 153, 1)",
+      "line-width" : 1
     }
   }, {
     "id" : "lbb040_BB040L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbb040",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 2
-    }
-  }, {
-    "id" : "lbb041_BB041L01",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lbb041",
     "filter" : [ "any", [ "==", "vrr", "0" ], [ "==", "vrr", "1" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 2
-    }
-  }, {
-    "id" : "lbb041_BB041L02",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lbb041",
-    "filter" : [ "any", [ "==", "vrr", "8" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 2,
-      "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
-    }
-  }, {
-    "id" : "lbb043_BB043L01",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lbb043",
     "layout" : {
       "visibility" : "visible"
     },
@@ -1946,7 +1407,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh020",
-    "filter" : [ "any", [ "==", "hyc", "6" ] ],
+    "filter" : [ "any", [ "==", "hyc", "3" ], [ "==", "hyc", "6" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2010,11 +1471,23 @@
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
     }
   }, {
+    "id" : "lbh140_BH140L01_16",
+    "type" : "line",
+    "source" : "tegola",
+    "source-layer" : "lbh140",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(0, 99, 198, 1)",
+      "line-width" : 1
+    }
+  }, {
     "id" : "lbh110_BH110L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh110",
-    "filter" : [ "any", [ "==", "loc", "0" ], [ "==", "loc", "8" ], [ "==", "loc", "997" ] ],
+    "filter" : [ "any", [ "==", "loc", "0" ], [ "==", "loc", "8" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2027,7 +1500,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh110",
-    "filter" : [ "any", [ "==", "loc", "25" ] ],
+    "filter" : [ "any", [ "==", "loc", "4" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2040,24 +1513,12 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh110",
-    "filter" : [ "any", [ "==", "loc", "40" ] ],
+    "filter" : [ "any", [ "==", "loc", "25" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
-      "line-width" : 1
-    }
-  }, {
-    "id" : "lbi040_BI040L01",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lbi040",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
     }
   }, {
@@ -2085,7 +1546,30 @@
       "line-width" : 2
     }
   }, {
+    "id" : "lbd120_BD120L01",
+    "type" : "line",
+    "source" : "tegola",
+    "source-layer" : "lbd120",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-pattern" : "Rock_Outline"
+    }
+  }, {
     "id" : "lbi020_BI020L01",
+    "type" : "line",
+    "source" : "tegola",
+    "source-layer" : "lbi020",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(0, 0, 0, 1)",
+      "line-width" : 4
+    }
+  }, {
+    "id" : "lbi020_BI020L01_17",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbi020",
@@ -2111,17 +1595,6 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lbd120_BD120L01",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lbd120",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-pattern" : "Rock_Outline"
-    }
-  }, {
     "id" : "lbh010_BH010L01",
     "type" : "line",
     "source" : "tegola",
@@ -2139,7 +1612,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh010",
-    "filter" : [ "any", [ "==", "loc", "25" ] ],
+    "filter" : [ "any", [ "==", "loc", "4" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2152,12 +1625,36 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh010",
-    "filter" : [ "any", [ "==", "loc", "40" ] ],
+    "filter" : [ "any", [ "==", "loc", "25" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(115, 140, 230, 1)",
+      "line-width" : 1
+    }
+  }, {
+    "id" : "lbi030_BI030L01",
+    "type" : "line",
+    "source" : "tegola",
+    "source-layer" : "lbi030",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(0, 0, 0, 1)",
+      "line-width" : 1
+    }
+  }, {
+    "id" : "lca010_CA010L02",
+    "type" : "line",
+    "source" : "tegola",
+    "source-layer" : "lca010",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(194, 137, 137, 1)",
       "line-width" : 1
     }
   }, {
@@ -2174,7 +1671,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lca010_CA010L02",
+    "id" : "lca010_CA010L02_18",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lca010",
@@ -2293,7 +1790,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "ldb060",
-    "filter" : [ "any", [ "==", "mcc", "0" ], [ "==", "mcc", "84" ], [ "==", "mcc", "997" ] ],
+    "filter" : [ "any", [ "==", "mcc", "0" ], [ "==", "mcc", "30" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2351,19 +1848,6 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lak150_AK150L01",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lak150",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
-    }
-  }, {
     "id" : "laf020_AF020L01",
     "type" : "line",
     "source" : "tegola",
@@ -2400,6 +1884,44 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
+      "line-width" : 2
+    }
+  }, {
+    "id" : "lfa090_FA090L01",
+    "type" : "line",
+    "source" : "tegola",
+    "source-layer" : "lfa090",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(0, 0, 0, 1)",
+      "line-width" : 1
+    }
+  }, {
+    "id" : "lat030_AT030L04",
+    "type" : "line",
+    "source" : "tegola",
+    "source-layer" : "lat030",
+    "filter" : [ "any", [ "==", "tst", "0" ], [ "==", "tst", "1" ], [ "==", "tst", "998" ], [ "==", "tst", "999" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(115, 140, 230, 1)",
+      "line-width" : 1
+    }
+  }, {
+    "id" : "lat030_AT030L05",
+    "type" : "line",
+    "source" : "tegola",
+    "source-layer" : "lat030",
+    "filter" : [ "any", [ "==", "tst", "2" ], [ "==", "tst", "3" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 2
     }
   }, {
@@ -2459,7 +1981,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq113",
-    "filter" : [ "any", [ "<>", "loc", "0" ], [ "==", "loc", "8" ], [ "==", "loc", "25" ], [ "==", "pro", "0" ], [ "==", "pro", "116" ] ],
+    "filter" : [ "any", [ "!=", "loc", "0" ], [ "==", "loc", "8" ], [ "==", "loc", "25" ], [ "==", "pro", "0" ], [ "==", "pro", "116" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2473,7 +1995,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq113",
-    "filter" : [ "any", [ "<>", "loc", "0" ], [ "==", "loc", "8" ], [ "==", "loc", "25" ], [ "==", "pro", "13" ], [ "==", "pro", "38" ], [ "==", "pro", "39" ], [ "==", "pro", "67" ] ],
+    "filter" : [ "any", [ "!=", "loc", "0" ], [ "==", "loc", "8" ], [ "==", "loc", "25" ], [ "==", "pro", "13" ], [ "==", "pro", "38" ], [ "==", "pro", "39" ], [ "==", "pro", "67" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2481,6 +2003,31 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
+    }
+  }, {
+    "id" : "lat060_AT060L01",
+    "type" : "line",
+    "source" : "tegola",
+    "source-layer" : "lat060",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(0, 0, 0, 1)",
+      "line-width" : 1,
+      "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
+    }
+  }, {
+    "id" : "lgb055_GB055L01",
+    "type" : "line",
+    "source" : "tegola",
+    "source-layer" : "lgb055",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(115, 140, 230, 1)",
+      "line-width" : 1
     }
   }, {
     "id" : "laq070_AQ070L01",
@@ -2534,30 +2081,6 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lal210_AL210L01",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lal210",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
-    }
-  }, {
-    "id" : "lal060_AL060L01",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lal060",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
-    }
-  }, {
     "id" : "lap010_AP010L01",
     "type" : "line",
     "source" : "tegola",
@@ -2572,24 +2095,11 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "lap010_AP010L02",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lap010",
-    "filter" : [ "any", [ "==", "wtc", "3" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
-    }
-  }, {
     "id" : "lap050_AP050L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap050",
+    "filter" : [ "any", [ "==", "wtc", "0" ], [ "==", "wtc", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2599,83 +2109,83 @@
       "line-dasharray" : [ 6.0, 6.0, 6.0, 6.0 ]
     }
   }, {
-    "id" : "lap030_AP030L01",
+    "id" : "lap030_AP030L15",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "tuc", "2" ], [ "==", "med", "1" ] ],
+    "filter" : [ "any", [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "==", "tuc", "2" ], [ "==", "med", "1" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "line-color" : "rgba(111, 182, 137, 1)",
+      "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5
     }
   }, {
-    "id" : "lap030_AP030L02",
+    "id" : "lap030_AP030L16",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "tuc", "2" ], [ "==", "med", "0" ], [ "==", "med", "2" ] ],
+    "filter" : [ "any", [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "==", "tuc", "2" ], [ "==", "med", "0" ], [ "==", "med", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "line-color" : "rgba(111, 182, 137, 1)",
+      "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5
     }
   }, {
-    "id" : "lap030_AP030L03",
+    "id" : "lap030_AP030L17",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "==", "exs", "5" ], [ "<>", "loc", "40" ], [ "==", "tuc", "2" ], [ "==", "med", "1" ] ],
+    "filter" : [ "any", [ "==", "exs", "5" ], [ "!=", "loc", "40" ], [ "==", "tuc", "2" ], [ "==", "med", "1" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "line-color" : "rgba(16, 170, 108, 1)",
+      "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
       "line-dasharray" : [ 12.0, 6.0, 12.0, 6.0 ]
     }
   }, {
-    "id" : "lap030_AP030L04",
+    "id" : "lap030_AP030L18",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "==", "exs", "5" ], [ "<>", "loc", "40" ], [ "==", "tuc", "2" ], [ "==", "med", "0" ], [ "==", "med", "2" ] ],
+    "filter" : [ "any", [ "==", "exs", "5" ], [ "!=", "loc", "40" ], [ "==", "tuc", "2" ], [ "==", "med", "0" ], [ "==", "med", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "line-color" : "rgba(16, 170, 108, 1)",
-      "line-width" : 4,
+      "line-color" : "rgba(0, 0, 0, 1)",
+      "line-width" : 5,
       "line-dasharray" : [ 12.0, 6.0, 12.0, 6.0 ]
     }
   }, {
-    "id" : "lap030_AP030L05",
+    "id" : "lap030_AP030L19",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "rst", "1" ], [ "==", "tuc", "4" ], [ ">=", "ltn", "2" ], [ "==", "wtc", "1" ] ],
+    "filter" : [ "any", [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "==", "rst", "1" ], [ "==", "tuc", "4" ], [ ">=", "ltn", "2" ], [ "==", "wtc", "1" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "line-color" : "rgba(162, 83, 72, 1)",
+      "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5
     }
   }, {
-    "id" : "lap030_AP030L06",
+    "id" : "lap030_AP030L20",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "rst", "1" ], [ "==", "tuc", "4" ], [ "==", "ltn", "1" ], [ "==", "wtc", "1" ] ],
+    "filter" : [ "any", [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "==", "rst", "1" ], [ "==", "tuc", "4" ], [ "==", "ltn", "1" ], [ "==", "wtc", "1" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "line-color" : "rgba(162, 83, 72, 1)",
+      "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 4
     }
   }, {
@@ -2683,7 +2193,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "rst", "2" ], [ "==", "tuc", "4" ], [ ">=", "ltn", "2" ], [ "==", "wtc", "1" ] ],
+    "filter" : [ "any", [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "!=", "rst", "1" ], [ "==", "tuc", "4" ], [ ">=", "ltn", "2" ], [ "==", "wtc", "1" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2696,7 +2206,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "rst", "2" ], [ "==", "tuc", "4" ], [ "==", "ltn", "1" ], [ "==", "wtc", "1" ] ],
+    "filter" : [ "any", [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "!=", "rst", "1" ], [ "==", "tuc", "4" ], [ "==", "ltn", "1" ], [ "==", "wtc", "1" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2709,7 +2219,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "<>", "loc", "40" ], [ "==", "tuc", "4" ], [ "==", "wtc", "2" ] ],
+    "filter" : [ "any", [ "!=", "loc", "40" ], [ "==", "tuc", "4" ], [ "==", "wtc", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2718,30 +2228,30 @@
       "line-width" : 3
     }
   }, {
-    "id" : "lap030_AP030L10",
+    "id" : "lap030_AP030L21",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "==", "exs", "5" ], [ "<>", "loc", "40" ], [ "==", "rst", "1" ], [ "==", "tuc", "4" ], [ ">=", "ltn", "2" ], [ "==", "wtc", "1" ] ],
+    "filter" : [ "any", [ "==", "exs", "5" ], [ "!=", "loc", "40" ], [ "==", "rst", "1" ], [ "==", "tuc", "4" ], [ ">=", "ltn", "2" ], [ "==", "wtc", "1" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "line-color" : "rgba(162, 83, 72, 1)",
+      "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
       "line-dasharray" : [ 14.0, 6.0, 14.0, 6.0 ]
     }
   }, {
-    "id" : "lap030_AP030L11",
+    "id" : "lap030_AP030L22",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "==", "exs", "5" ], [ "<>", "loc", "40" ], [ "==", "rst", "1" ], [ "==", "tuc", "4" ], [ "==", "ltn", "1" ], [ "==", "wtc", "1" ] ],
+    "filter" : [ "any", [ "==", "exs", "5" ], [ "!=", "loc", "40" ], [ "==", "rst", "1" ], [ "==", "tuc", "4" ], [ "==", "ltn", "1" ], [ "==", "wtc", "1" ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "line-color" : "rgba(162, 83, 72, 1)",
+      "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 4,
       "line-dasharray" : [ 14.0, 6.0, 14.0, 6.0 ]
     }
@@ -2750,7 +2260,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "<>", "loc", "40" ], [ "==", "rst", "1" ], [ "==", "tuc", "7" ], [ "==", "wtc", "1" ] ],
+    "filter" : [ "any", [ "!=", "loc", "40" ], [ "==", "rst", "1" ], [ "==", "tuc", "7" ], [ "==", "wtc", "1" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2763,7 +2273,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "<>", "loc", "40" ], [ "==", "rst", "2" ], [ "==", "tuc", "7" ], [ "==", "wtc", "1" ] ],
+    "filter" : [ "any", [ "!=", "loc", "40" ], [ "==", "rst", "2" ], [ "==", "tuc", "7" ], [ "==", "wtc", "1" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2776,7 +2286,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "<>", "loc", "40" ], [ "==", "tuc", "6" ] ],
+    "filter" : [ "any", [ "!=", "loc", "40" ], [ "==", "tuc", "6" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2785,11 +2295,11 @@
       "line-width" : 5
     }
   }, {
-    "id" : "lap030_AP030L14",
+    "id" : "lap030_AP030L14_19",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
-    "filter" : [ "any", [ "<>", "loc", "40" ], [ "==", "tuc", "7" ], [ "==", "wtc", "2" ] ],
+    "filter" : [ "any", [ "!=", "loc", "40" ], [ "==", "tuc", "7" ], [ "==", "wtc", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2807,23 +2317,11 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "lap020_AP020L01",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lap020",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(111, 182, 137, 1)",
-      "line-width" : 2
-    }
-  }, {
     "id" : "lan010_AN010L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
+    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "==", "fco", "0" ], [ "==", "fco", "3" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2836,7 +2334,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
+    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "==", "fco", "2" ], [ "==", "fco", "11" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2849,7 +2347,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
+    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "==", "fco", "0" ], [ "==", "fco", "3" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2862,7 +2360,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
+    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "==", "fco", "2" ], [ "==", "fco", "11" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2875,7 +2373,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "2" ] ],
+    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "==", "fco", "0" ], [ "==", "fco", "3" ], [ "==", "rgc", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2888,7 +2386,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "2" ] ],
+    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "==", "fco", "2" ], [ "==", "fco", "11" ], [ "==", "rgc", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2901,7 +2399,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "2" ] ],
+    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "==", "fco", "0" ], [ "==", "fco", "3" ], [ "==", "rgc", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2914,7 +2412,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "2" ] ],
+    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "28" ], [ "!=", "loc", "40" ], [ "==", "fco", "2" ], [ "==", "fco", "11" ], [ "==", "rgc", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2927,7 +2425,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "<>", "loc", "40" ], [ "==", "rrc", "2" ] ],
+    "filter" : [ "any", [ "!=", "loc", "40" ], [ "==", "rrc", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2940,7 +2438,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "<>", "loc", "40" ], [ "==", "rrc", "21" ] ],
+    "filter" : [ "any", [ "!=", "loc", "40" ], [ "==", "rrc", "21" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2953,7 +2451,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
+    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "!=", "loc", "40" ], [ "==", "fco", "0" ], [ "==", "fco", "3" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2967,7 +2465,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
+    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "!=", "loc", "40" ], [ "==", "fco", "2" ], [ "==", "fco", "11" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2981,7 +2479,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
+    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "!=", "loc", "40" ], [ "==", "fco", "0" ], [ "==", "fco", "3" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2995,7 +2493,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
+    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "!=", "loc", "40" ], [ "==", "fco", "2" ], [ "==", "fco", "11" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -3009,7 +2507,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "2" ] ],
+    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "!=", "loc", "40" ], [ "==", "fco", "0" ], [ "==", "fco", "3" ], [ "==", "rgc", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -3023,7 +2521,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "2" ] ],
+    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "!=", "loc", "40" ], [ "==", "fco", "2" ], [ "==", "fco", "11" ], [ "==", "rgc", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -3037,7 +2535,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "2" ] ],
+    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "!=", "loc", "40" ], [ "==", "fco", "0" ], [ "==", "fco", "3" ], [ "==", "rgc", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -3051,7 +2549,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "2" ] ],
+    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "!=", "loc", "40" ], [ "==", "fco", "2" ], [ "==", "fco", "11" ], [ "==", "rgc", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -3065,7 +2563,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
-    "filter" : [ "any", [ "==", "exs", "8" ], [ "<>", "loc", "40" ] ],
+    "filter" : [ "any", [ "==", "exs", "8" ], [ "!=", "loc", "40" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -3136,281 +2634,11 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lsu002_SU002L01",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "loc", "40" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 12.0, 4.0, 12.0, 4.0 ]
-    }
-  }, {
-    "id" : "lsu002_AN010L01",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
-    }
-  }, {
-    "id" : "lsu002_AN010L02",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
-    }
-  }, {
-    "id" : "lsu002_AN010L03",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
-    }
-  }, {
-    "id" : "lsu002_AN010L04",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
-    }
-  }, {
-    "id" : "lsu002_AN010L05",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "2" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
-    }
-  }, {
-    "id" : "lsu002_AN010L06",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "2" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
-    }
-  }, {
-    "id" : "lsu002_AN010L07",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "2" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
-    }
-  }, {
-    "id" : "lsu002_AN010L08",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "28" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "2" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
-    }
-  }, {
-    "id" : "lsu002_AN010L09",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "<>", "loc", "40" ], [ "==", "rrc", "2" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
-    }
-  }, {
-    "id" : "lsu002_AN010L10",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "<>", "loc", "40" ], [ "==", "rrc", "21" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
-    }
-  }, {
-    "id" : "lsu002_AN010L11",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 30.0, 8.0 ]
-    }
-  }, {
-    "id" : "lsu002_AN010L12",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 30.0, 8.0 ]
-    }
-  }, {
-    "id" : "lsu002_AN010L13",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 30.0, 8.0 ]
-    }
-  }, {
-    "id" : "lsu002_AN010L14",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "0" ], [ "==", "rgc", "1" ], [ "==", "rgc", "3" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 30.0, 8.0 ]
-    }
-  }, {
-    "id" : "lsu002_AN010L15",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "2" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 30.0, 8.0 ]
-    }
-  }, {
-    "id" : "lsu002_AN010L16",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "0" ], [ "==", "rra", "4" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "2" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 30.0, 8.0 ]
-    }
-  }, {
-    "id" : "lsu002_AN010L17",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ "==", "ltn", "0" ], [ "==", "ltn", "1" ], [ "==", "rgc", "2" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 30.0, 8.0 ]
-    }
-  }, {
-    "id" : "lsu002_AN010L18",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "rra", "1" ], [ "==", "rra", "3" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "7" ], [ "<>", "loc", "40" ], [ ">=", "ltn", "2" ], [ "==", "rgc", "2" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 30.0, 8.0 ]
-    }
-  }, {
-    "id" : "lsu002_AN010L19",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lsu002",
-    "filter" : [ "any", [ "==", "exs", "8" ], [ "<>", "loc", "40" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-dasharray" : [ 6.0, 6.0, 6.0, 6.0 ]
-    }
-  }, {
     "id" : "laq130_AQ130L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq130",
-    "filter" : [ "any", [ "==", "tuc", "2" ], [ "==", "tuc", "3" ], [ "==", "tuc", "4" ], [ "==", "tuc", "17" ] ],
+    "filter" : [ "any", [ "==", "tuc", "0" ], [ "==", "tuc", "1" ], [ "==", "tuc", "3" ], [ "==", "tuc", "4" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -3423,7 +2651,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq130",
-    "filter" : [ "any", [ "==", "tuc", "38" ], [ "==", "tuc", "41" ] ],
+    "filter" : [ "any", [ "==", "tuc", "38" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -3436,7 +2664,7 @@
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq040",
-    "filter" : [ "any", [ "==", "tuc", "3" ], [ "==", "tuc", "4" ] ],
+    "filter" : [ "any", [ "!=", "tuc", "17" ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -3458,50 +2686,41 @@
       "line-width" : 2
     }
   }, {
-    "id" : "laq040_AQ040L04",
+    "id" : "lal210_AL210L01",
     "type" : "line",
     "source" : "tegola",
-    "source-layer" : "laq040",
-    "filter" : [ "any", [ "==", "tuc", "41" ] ],
+    "source-layer" : "lal210",
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
-      "line-color" : "rgba(0, 99, 198, 1)",
+      "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
-    }
-  }, {
-    "id" : "lat030_AT030L01",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lat030",
-    "filter" : [ "any", [ "==", "tst", "0" ], [ "==", "tst", "1" ], [ "==", "tst", "998" ], [ "==", "tst", "999" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(115, 140, 230, 1)",
-      "line-width" : 1
-    }
-  }, {
-    "id" : "lat030_AT030L02",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "lat030",
-    "filter" : [ "any", [ "==", "tst", "2" ], [ "==", "tst", "3" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(115, 140, 230, 1)",
-      "line-width" : 2
     }
   }, {
     "id" : "pal015_AL015P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "<>", "bfc", "94" ], [ "==", "bfc", "15" ], [ "==", "bfc", "6" ], [ "==", "bfc", "82" ], [ "==", "bfc", "7" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "lmc", "0" ], [ "==", "lmc", "2" ], [ "<", "hgt", "46" ], [ "!=", "bfc", "7" ], [ "==", "bfc", "15" ], [ "==", "bfc", "27" ], [ "==", "bfc", "82" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    }
+  }, {
+    "id" : "pal015_AL015P01_20",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "pal015",
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "lmc", "1" ], [ "<", "hgt", "46" ], [ "!=", "bfc", "7" ], [ "==", "bfc", "15" ], [ "==", "bfc", "27" ], [ "==", "bfc", "82" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    }
+  }, {
+    "id" : "pal015_AL015P01_21",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "pal015",
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "==", "bfc", "27" ] ],
     "layout" : {
       "visibility" : "visible"
     }
@@ -3519,43 +2738,34 @@
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "hwt", "14" ], [ "<", "hgt", "46" ], [ "==", "bfc", "7" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "==", "hwt", "14" ], [ "==", "bfc", "7" ] ],
     "layout" : {
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal015_AL015P01",
+    "id" : "pal015_AL015P01_22",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "<>", "bfc", "94" ], [ "==", "bfc", "15" ], [ "==", "bfc", "6" ], [ "==", "bfc", "82" ], [ "==", "bfc", "7" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "lmc", "1" ], [ "<", "hgt", "46" ], [ "!=", "bfc", "7" ], [ "==", "bfc", "27" ], [ "==", "bfc", "82" ], [ "==", "bfc", "83" ] ],
     "layout" : {
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal015_AL015P02",
+    "id" : "pal015_AL015P01_23",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
-    "filter" : [ "any", [ "==", "exs", "7" ], [ "<", "hgt", "46" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "==", "bfc", "27" ] ],
     "layout" : {
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal015_AL015P07",
+    "id" : "pal015_AL015P01_24",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
-    "filter" : [ "any", [ "==", "acc", "2" ], [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "<", "hgt", "46" ], [ "==", "bfc", "94" ] ],
-    "layout" : {
-      "visibility" : "visible"
-    }
-  }, {
-    "id" : "pal015_AL015P11",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "pal015",
-    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "hwt", "14" ], [ "<", "hgt", "46" ], [ "==", "bfc", "7" ] ],
+    "filter" : [ "any", [ "==", "exs", "0" ], [ "==", "exs", "5" ], [ "==", "exs", "6" ], [ "==", "exs", "28" ], [ "==", "lmc", "1" ], [ "<", "hgt", "46" ], [ "==", "bfc", "83" ] ],
     "layout" : {
       "visibility" : "visible"
     }
@@ -3564,6 +2774,15 @@
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pah050",
+    "layout" : {
+      "visibility" : "visible"
+    }
+  }, {
+    "id" : "pak160_AK160P01",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "pak160",
+    "filter" : [ "any", [ "<", "hgt", "46" ] ],
     "layout" : {
       "visibility" : "visible"
     }
@@ -3592,19 +2811,19 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pac020_AC020P01",
+    "id" : "pam070_AM070P01",
     "type" : "symbol",
     "source" : "tegola",
-    "source-layer" : "pac020",
+    "source-layer" : "pam070",
     "filter" : [ "any", [ "<", "hgt", "46" ] ],
     "layout" : {
       "visibility" : "visible"
     }
   }, {
-    "id" : "pam070_AM070P01",
+    "id" : "pal140_AL140P01",
     "type" : "symbol",
     "source" : "tegola",
-    "source-layer" : "pam070",
+    "source-layer" : "pal140",
     "layout" : {
       "visibility" : "visible"
     }
@@ -3617,14 +2836,6 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pad020_AD020P01",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "pad020",
-    "layout" : {
-      "visibility" : "visible"
-    }
-  }, {
     "id" : "paq116_AQ116P01",
     "type" : "symbol",
     "source" : "tegola",
@@ -3633,26 +2844,18 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pad030_AD030P01",
+    "id" : "paq135_AQ135P01",
     "type" : "symbol",
     "source" : "tegola",
-    "source-layer" : "pad030",
+    "source-layer" : "paq135",
     "layout" : {
       "visibility" : "visible"
     }
   }, {
-    "id" : "pgb065_GB065P01",
+    "id" : "pap020_AP020P01",
     "type" : "symbol",
     "source" : "tegola",
-    "source-layer" : "pgb065",
-    "layout" : {
-      "visibility" : "visible"
-    }
-  }, {
-    "id" : "pal019_AL019P01",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "pal019",
+    "source-layer" : "pap020",
     "layout" : {
       "visibility" : "visible"
     }
@@ -3662,6 +2865,42 @@
     "source" : "tegola",
     "source-layer" : "pca030",
     "filter" : [ "any", [ "==", "acc", "1" ], [ "==", "ela", "1" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    }
+  }, {
+    "id" : "pca030_CA030P01_25",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "pca030",
+    "filter" : [ "any", [ "==", "acc", "1" ], [ "==", "ela", "1" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    }
+  }, {
+    "id" : "pca030_CA030P01_26",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "pca030",
+    "filter" : [ "any", [ "==", "acc", "1" ], [ "==", "ela", "0" ], [ "==", "ela", "2" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    }
+  }, {
+    "id" : "pca030_CA030P04",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "pca030",
+    "filter" : [ "any", [ "==", "acc", "0" ], [ "==", "acc", "2" ], [ "==", "ela", "1" ] ],
+    "layout" : {
+      "visibility" : "visible"
+    }
+  }, {
+    "id" : "pca030_CA030P04_27",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "pca030",
+    "filter" : [ "any", [ "==", "acc", "0" ], [ "==", "acc", "2" ], [ "==", "ela", "0" ], [ "==", "ela", "2" ] ],
     "layout" : {
       "visibility" : "visible"
     }
