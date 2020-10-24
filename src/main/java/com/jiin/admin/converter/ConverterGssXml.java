@@ -32,7 +32,7 @@ public class ConverterGssXml {
         String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
         //
         File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
-        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_SMALL_SCALE_LAYER.xml");
+        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
         File savefile = new File(dataPath + "/g25k_style_generate.json");
         FileWriter writer = new FileWriter(savefile);
         ConverterVO param = new ConverterVO();
@@ -225,9 +225,9 @@ public class ConverterGssXml {
             Iterator<QName> keys = vvtStyle.getValueMap().keySet().iterator();
             while( keys.hasNext() ){
                 QName key = keys.next();
-                String[] values = ((String) vvtStyle.getValueMap().get(key)).split(",");
-                for(String value : values){
-                    value = value.trim();
+                String valueStr = (String) vvtStyle.getValueMap().get(key);
+                if(valueStr.indexOf(",") == -1){
+                    String value = valueStr;
                     String expr = "==";
                     if(value.matches("[=<>].+")){
                         expr = value.replaceAll("[^=<>]*","");
@@ -237,7 +237,25 @@ public class ConverterGssXml {
                         expr = "!=";
                     }
                     filters.add(new String[]{expr, key.toString().toLowerCase(), value});
+                }else{
+                    List<Object> allfilters = new ArrayList<>();
+                    allfilters.add("all");
+                    String[] values = ((String) vvtStyle.getValueMap().get(key)).split(",");
+                    for(String value : values){
+                        value = value.trim();
+                        String expr = "==";
+                        if(value.matches("[=<>].+")){
+                            expr = value.replaceAll("[^=<>]*","");
+                            value = value.replaceAll("[=<>]*","");
+                        }
+                        if(expr.equals("<>")){
+                            expr = "!=";
+                        }
+                        allfilters.add(new String[]{expr, key.toString().toLowerCase(), value});
+                    }
+                    filters.add(allfilters);
                 }
+
             }
         }
         return filters;
