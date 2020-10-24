@@ -27,6 +27,8 @@ public class MapboxPaint {
     private String fillPattern;
     @JsonProperty(value = "text-color")
     private String textColor;
+    @JsonProperty(value = "line-pattern")
+    private String linePattern;
     @JsonProperty(value = "line-color")
     private String lineColor;
     @JsonProperty(value = "line-width")
@@ -98,5 +100,13 @@ public class MapboxPaint {
 
     public void setLineWidth(Integer lineWidth) {
         this.lineWidth = lineWidth;
+    }
+
+    public String getLinePattern() {
+        return linePattern;
+    }
+
+    public void setLinePattern(String linePattern) {
+        this.linePattern = linePattern;
     }
 }

@@ -148,7 +148,7 @@ public class ConverterGssXml {
                                 MapboxPaint paint = new MapboxPaint();
                                 GssLineLayer gssPaint = style.getLineLayer().get(0);
                                 if(gssPaint.getType().equals("PICTURE")){
-                                    paint.setFillPattern(parsePicture(gssPaint.getPicture()));
+                                    paint.setLinePattern(parsePicture(gssPaint.getPicture()));
                                 }else{
                                     if(gssPaint.getColor() != null) paint.setLineColor(parseColor(gssPaint.getColor()));
                                     if(gssPaint.getWidth() != null) paint.setLineWidth(gssPaint.getWidth());
