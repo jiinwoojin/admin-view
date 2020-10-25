@@ -113,64 +113,31 @@ public class ConverterGssXml {
                     if(displayType.equals("Both") || displayType.equals("Geometry")){
                         // Geometry
                         String styleName = feature.getGeometryStyle();
-                        List<GssVVTStyle> vvtStyles = feature.getVVTStyle();
                         GssStyle style = findGssStyle(styleName,styles);
                         if(style == null){
                             System.out.println("not find Style!! - " + shpSource + " - " + styleName);
                             continue;
                         }
                         /** add feature > layer + style **/
-                        MapboxLayer mapboxLayer = new MapboxLayer();
-                        String layerId = shpSource + "_" + styleName;
-                        if(mapbox.existLayerId(layerId)){
-                            layerId = layerId + "_" + (++i);
-                        }
-                        mapboxLayer.setId(layerId);
-                        mapboxLayer.setSource(sourceName);
-                        mapboxLayer.setSourceLayer(shpSource);
-                        mapboxLayer.setFilter(parseFilter(feature.getVVTStyle()));
-                        MapboxLayout layout = new MapboxLayout();
                         if(featureType.equals("Polygon")){
-                            mapboxLayer.setType("fill");
                             if(style.getPolygonLayer() != null){
-                                MapboxPaint paint = new MapboxPaint();
-                                GssPolygonLayer gssPaint = style.getPolygonLayer().get(0);
-                                if(gssPaint.getType().equals("PICTURE")){
-                                    paint.setFillPattern(parsePicture(gssPaint.getPicture()));
-                                }else{
-                                    if(gssPaint.getColor() != null) paint.setFillColor(parseColor(gssPaint.getColor()));
+                                for(GssPolygonLayer styleLayer : style.getPolygonLayer()){
+                                    i = makeStyleLayer(featureType,styleLayer,shpSource,styleName,i,sourceName,feature.getVVTStyle(),mapbox);
                                 }
-                                mapboxLayer.setPaint(paint);
                             }
                         }else if(featureType.equals("Line")){
-                            mapboxLayer.setType("line");
                             if(style.getLineLayer() != null){
-                                MapboxPaint paint = new MapboxPaint();
-                                GssLineLayer gssPaint = style.getLineLayer().get(0);
-                                if(gssPaint.getType().equals("PICTURE")){
-                                    paint.setLinePattern(parsePicture(gssPaint.getPicture()));
-                                }else{
-                                    if(gssPaint.getColor() != null) paint.setLineColor(parseColor(gssPaint.getColor()));
-                                    if(gssPaint.getWidth() != null) paint.setLineWidth(gssPaint.getWidth());
-                                    if(gssPaint.getDashItem() != null) paint.setLineDasharray(gssPaint.getDashItem().toArray(new Float[]{}));
+                                for(GssLineLayer styleLayer : style.getLineLayer()){
+                                    i = makeStyleLayer(featureType,styleLayer,shpSource,styleName,i,sourceName,feature.getVVTStyle(),mapbox);
                                 }
-                                mapboxLayer.setPaint(paint);
                             }
                         }else if(featureType.equals("Point")){
-                            mapboxLayer.setType("symbol");
                             if(style.getPointLayer() != null){
-                                GssPointLayer gssPaint = style.getPointLayer().get(0);
-                                if(gssPaint.getType().equals("PICTURE")){
-                                    layout.setIconImage(parsePicture(gssPaint.getPicture()));
-                                    layout.setIconAllowOverlap(true);
-                                    continue;
-                                }else{
-
+                                for(GssPointLayer styleLayer : style.getPointLayer()){
+                                    i = makeStyleLayer(featureType,styleLayer,shpSource,styleName,i,sourceName,feature.getVVTStyle(),mapbox);
                                 }
                             }
                         }
-                        mapboxLayer.setLayout(layout);
-                        mapbox.addLayers(mapboxLayer);
                     }else if(displayType.equals("Both") || displayType.equals("Label")){
                         // Label
                         String labelStyleName = feature.getLabelStyle();
@@ -215,6 +182,53 @@ public class ConverterGssXml {
                 .writeValue(output,mapbox);
     }
 
+    private int makeStyleLayer(String featureType, Object styleLayer, String shpSource, String styleName, int i, String sourceName, List<GssVVTStyle> vvtStyle, MapboxRoot mapbox) {
+        MapboxLayer mapboxLayer = new MapboxLayer();
+        String layerId = shpSource + "_" + styleName;
+        if(mapbox.existLayerId(layerId)){
+            layerId = layerId + "_" + (++i);
+        }
+        mapboxLayer.setId(layerId);
+        mapboxLayer.setSource(sourceName);
+        mapboxLayer.setSourceLayer(shpSource);
+        mapboxLayer.setFilter(parseFilter(vvtStyle));
+        MapboxPaint paint = new MapboxPaint();
+        MapboxLayout layout = new MapboxLayout();
+        if(featureType.equals("Polygon")){
+            mapboxLayer.setType("fill");
+            GssPolygonLayer gssPaint = (GssPolygonLayer) styleLayer;
+            if(gssPaint.getType().equals("PICTURE")){
+                paint.setFillPattern(parsePicture(gssPaint.getPicture()));
+            }else{
+                if(gssPaint.getColor() != null) paint.setFillColor(parseColor(gssPaint.getColor()));
+            }
+        }else if(featureType.equals("Line")){
+            mapboxLayer.setType("line");
+            GssLineLayer gssPaint = (GssLineLayer) styleLayer;
+            if(gssPaint.getType().equals("PICTURE")){
+                paint.setLinePattern(parsePicture(gssPaint.getPicture()));
+            }else{
+                if(gssPaint.getColor() != null) paint.setLineColor(parseColor(gssPaint.getColor()));
+                if(gssPaint.getWidth() != null) paint.setLineWidth(gssPaint.getWidth());
+                if(gssPaint.getDashItem() != null) paint.setLineDasharray(gssPaint.getDashItem().toArray(new Integer[]{}));
+                if(gssPaint.getSpace() != null) paint.setLineGapWidth(gssPaint.getSpace());
+            }
+        }else if(featureType.equals("Point")) {
+            mapboxLayer.setType("symbol");
+            GssPointLayer gssPaint = (GssPointLayer) styleLayer;
+            if(gssPaint.getType().equals("PICTURE")){
+                layout.setIconImage(parsePicture(gssPaint.getPicture()));
+                layout.setIconAllowOverlap(true);
+            }else{
+
+            }
+        }
+        mapboxLayer.setPaint(paint);
+        mapboxLayer.setLayout(layout);
+        mapbox.addLayers(mapboxLayer);
+        return i;
+    }
+
     private List<Object> parseFilter(List<GssVVTStyle> vvtStyles) {
         if(vvtStyles == null){
             return null;
@@ -226,36 +240,16 @@ public class ConverterGssXml {
             while( keys.hasNext() ){
                 QName key = keys.next();
                 String valueStr = (String) vvtStyle.getValueMap().get(key);
-                if(valueStr.indexOf(",") == -1){
-                    String value = valueStr;
-                    String expr = "==";
-                    if(value.matches("[=<>].+")){
-                        expr = value.replaceAll("[^=<>]*","");
-                        value = value.replaceAll("[=<>]*","");
-                    }
-                    if(expr.equals("<>")){
-                        expr = "!=";
-                    }
-                    filters.add(new String[]{expr, key.toString().toLowerCase(), value});
-                }else{
-                    List<Object> allfilters = new ArrayList<>();
-                    allfilters.add("all");
-                    String[] values = ((String) vvtStyle.getValueMap().get(key)).split(",");
-                    for(String value : values){
-                        value = value.trim();
-                        String expr = "==";
-                        if(value.matches("[=<>].+")){
-                            expr = value.replaceAll("[^=<>]*","");
-                            value = value.replaceAll("[=<>]*","");
-                        }
-                        if(expr.equals("<>")){
-                            expr = "!=";
-                        }
-                        allfilters.add(new String[]{expr, key.toString().toLowerCase(), value});
-                    }
-                    filters.add(allfilters);
+                String value = valueStr;
+                String expr = "==";
+                if(value.matches("[=<>].+")){
+                    expr = value.replaceAll("[^=<>]*","");
+                    value = value.replaceAll("[=<>]*","");
                 }
-
+                if(expr.equals("<>")){
+                    expr = "!=";
+                }
+                filters.add(new String[]{expr, key.toString().toLowerCase(), value});
             }
         }
         return filters;

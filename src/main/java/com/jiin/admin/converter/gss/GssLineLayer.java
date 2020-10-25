@@ -23,8 +23,9 @@ public class GssLineLayer {
     private String Picture;
     private String TextureLine;
     private String Transparent;
+    private Integer Space;
     @XmlElementWrapper(name="Dash")
-    private List<Float> DashItem;
+    private List<Integer> DashItem;
 
     public String getType() {
         return type;
@@ -74,13 +75,6 @@ public class GssLineLayer {
         DashOffset = dashOffset;
     }
 
-    public List<Float> getDashItem() {
-        return DashItem;
-    }
-
-    public void setDashItem(List<Float> dashItem) {
-        DashItem = dashItem;
-    }
 
     public String getStartCap() {
         return StartCap;
@@ -160,5 +154,21 @@ public class GssLineLayer {
 
     public void setTransparent(String transparent) {
         Transparent = transparent;
+    }
+
+    public Integer getSpace() {
+        return Space;
+    }
+
+    public void setSpace(Integer space) {
+        Space = space;
+    }
+
+    public List<Integer> getDashItem() {
+        return DashItem;
+    }
+
+    public void setDashItem(List<Integer> dashItem) {
+        DashItem = dashItem;
     }
 }
