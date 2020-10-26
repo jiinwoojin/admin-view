@@ -29,6 +29,9 @@ public class MapboxLayout {
     @JsonProperty(value = "text-justify")
     private String textJustify;
 
+    @JsonProperty(value = "line-join")
+    private String lineJoin;
+
     public String getTextField() {
         return textField;
     }
@@ -99,5 +102,13 @@ public class MapboxLayout {
 
     public void setIconAllowOverlap(Boolean iconAllowOverlap) {
         this.iconAllowOverlap = iconAllowOverlap;
+    }
+
+    public String getLineJoin() {
+        return lineJoin;
+    }
+
+    public void setLineJoin(String lineJoin) {
+        this.lineJoin = lineJoin;
     }
 }

@@ -141,19 +141,19 @@ public class ConverterGssXml {
                     }else if(displayType.equals("Both") || displayType.equals("Label")){
                         // Label
                         String labelStyleName = feature.getLabelStyle();
-                        if(labelColumn == null){
+                        if (labelColumn == null) {
                             System.out.println("not find labelColumn!! - " + shpSource + " - " + labelStyleName);
                             continue;
                         }
                         GssStyle labelStyle = findGssStyle(labelStyleName,styles);
-                        if(labelStyle == null){
+                        if (labelStyle == null) {
                             System.out.println("not find labelStyle!! - " + shpSource + " - " + labelStyleName);
                             continue;
                         }
                         /** add feature > layer + label style **/
                         MapboxLayer mapboxLayer = new MapboxLayer();
-                        String layerId = shpSource + "_" + labelStyleName;
-                        if(mapbox.existLayerId(layerId)){
+                        String layerId = shpSource.toUpperCase() + "_" + labelStyleName;
+                        if (mapbox.existLayerId(layerId)) {
                             layerId = layerId + "_" + (++i);
                         }
                         mapboxLayer.setId(layerId);
@@ -162,13 +162,26 @@ public class ConverterGssXml {
                         mapboxLayer.setFilter(parseFilter(feature.getVVTStyle()));
                         mapboxLayer.setType("symbol");
                         MapboxLayout layout = new MapboxLayout();
-                        layout.setTextField("{"+labelColumn.toLowerCase()+"}");
-                        if(labelStyle.getFont() != null) layout.setTextFont(new String[]{labelStyle.getFont()});
-                        if(labelStyle.getSize() != null) layout.setTextSize(labelStyle.getSize());
-                        if(labelStyle.getOffsetX() != null && labelStyle.getOffsetY() != null)
+
+                        String labelColumnName;
+
+                        if (labelColumn.equalsIgnoreCase("표기한글")) {
+                            labelColumnName = "textstring";
+                        } else if (labelColumn.equalsIgnoreCase("도로번호")) {
+                            labelColumnName = "road_num";
+                        } else {
+                            labelColumnName = labelColumn.toLowerCase();
+                        }
+
+                        layout.setTextField("{" + labelColumnName + "}");
+                        if (labelStyle.getFont() != null) layout.setTextFont(new String[]{"Gosanja"});   // TODO 추후 변경해야함
+                        if (labelStyle.getSize() != null) layout.setTextSize(labelStyle.getSize());
+                        if (labelStyle.getOffsetX() != null && labelStyle.getOffsetY() != null) {
                             layout.setTextOffset(new Float[]{labelStyle.getOffsetX(),labelStyle.getOffsetY()});
+                        }
+
                         MapboxPaint paint = new MapboxPaint();
-                        if(labelStyle.getColor() != null) paint.setTextColor(parseColor(labelStyle.getColor()));
+                        if (labelStyle.getColor() != null) paint.setTextColor(parseColor(labelStyle.getColor()));
                         mapboxLayer.setPaint(paint);
                         mapboxLayer.setLayout(layout);
                         mapbox.addLayers(mapboxLayer);
@@ -212,6 +225,17 @@ public class ConverterGssXml {
                 if(gssPaint.getWidth() != null) paint.setLineWidth(gssPaint.getWidth());
                 if(gssPaint.getDashItem() != null) paint.setLineDasharray(gssPaint.getDashItem().toArray(new Integer[]{}));
                 if(gssPaint.getSpace() != null) paint.setLineGapWidth(gssPaint.getSpace());
+                if (gssPaint.getJoinType() != null) {   // TODO 이후 공통으로 이동 해야함
+                    switch (gssPaint.getJoinType()) {
+                        case "1":
+                            break;
+                        case "2":
+                            layout.setLineJoin("round");
+                            break;
+                        case "3":
+                            break;
+                    }
+                }
             }
         }else if(featureType.equals("Point")) {
             mapboxLayer.setType("symbol");
@@ -230,26 +254,60 @@ public class ConverterGssXml {
     }
 
     private List<Object> parseFilter(List<GssVVTStyle> vvtStyles) {
-        if(vvtStyles == null){
+        if (vvtStyles == null) {
             return null;
         }
+
         List<Object> filters = new ArrayList<>();
-        filters.add("any");
-        for(GssVVTStyle vvtStyle : vvtStyles){
+        filters.add("all");
+        for (GssVVTStyle vvtStyle : vvtStyles) {
             Iterator<QName> keys = vvtStyle.getValueMap().keySet().iterator();
-            while( keys.hasNext() ){
+            while ( keys.hasNext() ) {
                 QName key = keys.next();
                 String valueStr = (String) vvtStyle.getValueMap().get(key);
                 String value = valueStr;
+
+                String keyStr = key.toString().toLowerCase();
+
+                if (keyStr.equalsIgnoreCase("tlm분류")) {
+                    keyStr = "tlmkind";
+                }
+
+                List<Object> filter = new ArrayList<>();
+
                 String expr = "==";
-                if(value.matches("[=<>].+")){
+                if (value.matches("[=<>].+")) {
                     expr = value.replaceAll("[^=<>]*","");
                     value = value.replaceAll("[=<>]*","");
                 }
-                if(expr.equals("<>")){
+                if (value.contains(",")) {
+                    if (expr.equalsIgnoreCase("<>")) {
+                        expr = "!in";
+                    } else {
+                        expr = "in";
+                    }
+                }
+                if (expr.equals("<>")) {
                     expr = "!=";
                 }
-                filters.add(new String[]{expr, key.toString().toLowerCase(), value});
+
+                filter.add(expr);
+                filter.add(keyStr);
+
+                if (value.contains(",")) {
+                    String[] values = value.split(",");
+                    for (String v : values) {
+                        filter.add(Integer.parseInt(v.trim()));
+                    }
+                } else {
+                    if (value.matches("^[0-9]+$")) {
+                        filter.add(Integer.parseInt(value));
+                    } else {
+                        filter.add(value);
+                    }
+                }
+
+                filters.add(filter);
             }
         }
         return filters;
