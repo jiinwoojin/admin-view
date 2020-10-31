@@ -242,6 +242,7 @@ public class ConverterGssXml {
                 }
             }
         }
+        return i;
     }
 
     private int makeStyleLayer(String featureType, Object styleLayer, String shpSource, String styleName, int i, String sourceName, List<GssVVTStyle> vvtStyle, MapboxRoot mapbox) throws JsonProcessingException {
