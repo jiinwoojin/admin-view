@@ -1,10 +1,12 @@
 package com.jiin.admin.converter;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.jiin.admin.converter.gss.*;
 import com.jiin.admin.converter.mapbox.*;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -81,6 +83,7 @@ public class ConverterGssXml {
 
     public void convertLayerJson(File styleFile, File layerFile, Writer output, ConverterVO param) throws ParserConfigurationException, JAXBException, IOException, SAXException {
         String sourceName = param.getSourceName();
+        String font = param.getFont();
         MapboxRoot mapbox = new MapboxRoot();
         mapbox.setVersion(param.getVersion());
         mapbox.setId(param.getId());
@@ -112,43 +115,70 @@ public class ConverterGssXml {
         GssRootLayer result = (GssRootLayer) parseGssXml(layerFile);
         List<GssLayer> layers = result.getLayer();
         int i = 0;
-        for(GssLayer layer : layers){
-            String shpSource = layer.getSHPSource().toLowerCase();
-            String featureType = layer.getGeometryType();
-            String labelColumn = layer.getLabelColumn();
-            String displayType = layer.getDisplayType();
-            List<GssFeature> features = layer.getFeature();
-            if(features != null){
-                for(GssFeature feature : features) {
-                    if (displayType.equals("Both") || displayType.equals("Geometry")) {
-                        // Geometry
-                        String styleName = feature.getGeometryStyle();
-                        GssStyle style = findGssStyle(styleName, styles);
-                        if (style == null) {
-                            System.out.println("not find Style!! - " + shpSource + " - " + styleName);
-                            continue;
-                        }
-                        /** add feature > layer + style **/
-                        if (featureType.equals("Polygon")) {
-                            if (style.getPolygonLayer() != null) {
+        for(GssLayer layer : layers) {
+            makeLayer(i, "Polygon", layer, sourceName, font, styles ,mapbox);
+        }
+        for(GssLayer layer : layers) {
+            makeLayer(i, "Line", layer, sourceName, font, styles ,mapbox);
+        }
+        for(GssLayer layer : layers) {
+            makeLayer(i, "Point", layer, sourceName, font, styles ,mapbox);
+        }
+        for(GssLayer layer : layers) {
+            makeLayer(i, "Label", layer, sourceName, font, styles ,mapbox);
+        }
+        new ObjectMapper()
+                .enable(SerializationFeature.INDENT_OUTPUT)
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .writeValue(output,mapbox);
+    }
+    private void makeLayer(int i, String type, GssLayer layer, String sourceName, String font, GssContainer styles, MapboxRoot mapbox) throws JsonProcessingException {
+        String shpSource = layer.getSHPSource().toLowerCase();
+        String featureType = layer.getGeometryType();
+        String labelColumn = layer.getLabelColumn();
+        String displayType = layer.getDisplayType();
+        List<GssFeature> features = layer.getFeature();
+        if(features != null){
+            for(GssFeature feature : features) {
+                if (displayType.equals("Both") || displayType.equals("Geometry")) {
+                    // Geometry
+                    String styleName = feature.getGeometryStyle();
+                    GssStyle style = findGssStyle(styleName, styles);
+                    if (style == null) {
+                        System.out.println("not find Style!! - " + shpSource + " - " + styleName);
+                        continue;
+                    }
+                    /** add feature > layer + style **/
+                    if (featureType.equals("Polygon")) {
+                        if (style.getPolygonLayer() != null) {
+                            if(type.equals("Polygon")){
                                 for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
                                     i = makeStyleLayer(featureType, styleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
                                 }
-                                for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
-                                    if (styleLayer.getLineLayer() != null) {
-                                        for (GssLineLayer innerStyleLayer : styleLayer.getLineLayer()) {
-                                            i = makeStyleLayer("Line", innerStyleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                            }
+                            if(type.equals("Line")){
+                                if (style.getPolygonLayer() != null) {
+                                    //line
+                                    for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
+                                        if (styleLayer.getLineLayer() != null) {
+                                            for (GssLineLayer innerStyleLayer : styleLayer.getLineLayer()) {
+                                                i = makeStyleLayer("Line", innerStyleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                                            }
                                         }
                                     }
                                 }
                             }
-                        } else if (featureType.equals("Line")) {
+                        }
+                    }else if (featureType.equals("Line")) {
+                        if(type.equals("Line")){
                             if (style.getLineLayer() != null) {
                                 for (GssLineLayer styleLayer : style.getLineLayer()) {
                                     i = makeStyleLayer(featureType, styleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
                                 }
                             }
-                        } else if (featureType.equals("Point")) {
+                        }
+                    }else if (featureType.equals("Point")) {
+                        if(type.equals("Point")){
                             if (style.getPointLayer() != null) {
                                 for (GssPointLayer styleLayer : style.getPointLayer()) {
                                     i = makeStyleLayer(featureType, styleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
@@ -157,8 +187,7 @@ public class ConverterGssXml {
                         }
                     }
                 }
-                // 라벨링
-                for(GssFeature feature : features){
+                if(type.equals("Label")){
                     if(displayType.equals("Both") || displayType.equals("Label")){
                         // Label
                         String labelStyleName = feature.getLabelStyle();
@@ -195,7 +224,7 @@ public class ConverterGssXml {
                         }
 
                         layout.setTextField("{" + labelColumnName + "}");
-                        if (labelStyle.getFont() != null) layout.setTextFont(new String[]{param.getFont()});
+                        if (labelStyle.getFont() != null) layout.setTextFont(new String[]{font});
                         if (labelStyle.getSize() != null) layout.setTextSize(labelStyle.getSize());
                         if (labelStyle.getOffsetX() != null
                                 && labelStyle.getOffsetY() != null
@@ -213,13 +242,9 @@ public class ConverterGssXml {
                 }
             }
         }
-        new ObjectMapper()
-                .enable(SerializationFeature.INDENT_OUTPUT)
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-                .writeValue(output,mapbox);
     }
 
-    private int makeStyleLayer(String featureType, Object styleLayer, String shpSource, String styleName, int i, String sourceName, List<GssVVTStyle> vvtStyle, MapboxRoot mapbox) {
+    private int makeStyleLayer(String featureType, Object styleLayer, String shpSource, String styleName, int i, String sourceName, List<GssVVTStyle> vvtStyle, MapboxRoot mapbox) throws JsonProcessingException {
         MapboxLayer mapboxLayer = new MapboxLayer();
         String layerId = shpSource + "_" + styleName;
         if(mapbox.existLayerId(layerId)){
@@ -274,7 +299,10 @@ public class ConverterGssXml {
 
             }
         }
-        mapboxLayer.setPaint(paint);
+        String json = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL).writeValueAsString(paint);
+        if(!json.equals("{}")){
+            mapboxLayer.setPaint(paint);
+        }
         mapboxLayer.setLayout(layout);
         mapbox.addLayers(mapboxLayer);
         return i;
