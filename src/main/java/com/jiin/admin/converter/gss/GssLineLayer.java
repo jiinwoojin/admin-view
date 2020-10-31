@@ -19,9 +19,10 @@ public class GssLineLayer {
     private String DashOffset;
     private String VerticalType;
     private Integer StartPos;
-    private String Interval;
-    private String LeftLength;
-    private String RightLength;
+    private Integer Interval;
+    private Integer Offset;
+    private Integer LeftLength;
+    private Integer RightLength;
     private String Picture;
     private String TextureLine;
     private String Transparent;
@@ -98,28 +99,12 @@ public class GssLineLayer {
         StartPos = startPos;
     }
 
-    public String getInterval() {
+    public Integer getInterval() {
         return Interval;
     }
 
-    public void setInterval(String interval) {
+    public void setInterval(Integer interval) {
         Interval = interval;
-    }
-
-    public String getLeftLength() {
-        return LeftLength;
-    }
-
-    public void setLeftLength(String leftLength) {
-        LeftLength = leftLength;
-    }
-
-    public String getRightLength() {
-        return RightLength;
-    }
-
-    public void setRightLength(String rightLength) {
-        RightLength = rightLength;
     }
 
     public void setStartCap(String startCap) {
@@ -196,4 +181,27 @@ public class GssLineLayer {
     }
 
 
+    public Integer getLeftLength() {
+        return LeftLength;
+    }
+
+    public void setLeftLength(Integer leftLength) {
+        LeftLength = leftLength;
+    }
+
+    public Integer getRightLength() {
+        return RightLength;
+    }
+
+    public void setRightLength(Integer rightLength) {
+        RightLength = rightLength;
+    }
+
+    public Integer getOffset() {
+        return Offset;
+    }
+
+    public void setOffset(Integer offset) {
+        Offset = offset;
+    }
 }

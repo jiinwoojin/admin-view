@@ -37,6 +37,8 @@ public class MapboxPaint {
     private Float[] lineDasharray;
     @JsonProperty(value = "line-gap-width")
     private Integer lineGapWidth;
+    @JsonProperty(value = "line-offset")
+    private Integer lineOffset;
 
 
 
@@ -118,5 +120,13 @@ public class MapboxPaint {
 
     public void setLineGapWidth(Integer lineGapWidth) {
         this.lineGapWidth = lineGapWidth;
+    }
+
+    public Integer getLineOffset() {
+        return lineOffset;
+    }
+
+    public void setLineOffset(Integer lineOffset) {
+        this.lineOffset = lineOffset;
     }
 }

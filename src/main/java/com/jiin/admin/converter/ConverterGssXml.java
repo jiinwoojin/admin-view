@@ -161,8 +161,17 @@ public class ConverterGssXml {
                                     //line
                                     for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
                                         if (styleLayer.getLineLayer() != null) {
-                                            for (GssLineLayer innerStyleLayer : styleLayer.getLineLayer()) {
-                                                i = makeStyleLayer("Line", innerStyleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                                            for (GssLineLayer linestyle : styleLayer.getLineLayer()) {
+                                                if(linestyle.getType().equals("VERTICAL")){
+                                                    List<Integer> dash = new ArrayList<>();
+                                                    dash.add(1);
+                                                    dash.add(linestyle.getInterval());
+                                                    linestyle.setDashItem(dash);
+                                                    int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
+                                                    linestyle.setWidth(newWidth);
+                                                    linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
+                                                }
+                                                i = makeStyleLayer("Line", linestyle, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
                                             }
                                         }
                                     }
@@ -172,8 +181,17 @@ public class ConverterGssXml {
                     }else if (featureType.equals("Line")) {
                         if(type.equals("Line")){
                             if (style.getLineLayer() != null) {
-                                for (GssLineLayer styleLayer : style.getLineLayer()) {
-                                    i = makeStyleLayer(featureType, styleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                                for (GssLineLayer linestyle : style.getLineLayer()) {
+                                    if(linestyle.getType().equals("VERTICAL")){
+                                        List<Integer> dash = new ArrayList<>();
+                                        dash.add(1);
+                                        dash.add(linestyle.getInterval());
+                                        linestyle.setDashItem(dash);
+                                        int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
+                                        linestyle.setWidth(newWidth);
+                                        linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
+                                    }
+                                    i = makeStyleLayer(featureType, linestyle, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
                                 }
                             }
                         }
@@ -273,6 +291,7 @@ public class ConverterGssXml {
             }else{
                 if(gssPaint.getColor() != null) paint.setLineColor(parseColor(gssPaint.getColor()));
                 if(gssPaint.getWidth() != null) paint.setLineWidth(gssPaint.getWidth());
+                if(gssPaint.getOffset() != null) paint.setLineOffset(gssPaint.getOffset());
                 if(gssPaint.getDashItem() != null) {
                     // width, startPos 에 따라 가변
                     paint.setLineDasharray(gssPaint.parseDashItem().toArray(new Float[]{}));
