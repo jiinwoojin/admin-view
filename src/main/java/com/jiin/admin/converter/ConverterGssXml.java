@@ -116,23 +116,23 @@ public class ConverterGssXml {
         List<GssLayer> layers = result.getLayer();
         int i = 0;
         for(GssLayer layer : layers) {
-            makeLayer(i, "Polygon", layer, sourceName, font, styles ,mapbox);
+            i = makeLayer(i, "Polygon", layer, sourceName, font, styles ,mapbox);
         }
         for(GssLayer layer : layers) {
-            makeLayer(i, "Line", layer, sourceName, font, styles ,mapbox);
+            i = makeLayer(i, "Line", layer, sourceName, font, styles ,mapbox);
         }
         for(GssLayer layer : layers) {
-            makeLayer(i, "Point", layer, sourceName, font, styles ,mapbox);
+            i = makeLayer(i, "Point", layer, sourceName, font, styles ,mapbox);
         }
         for(GssLayer layer : layers) {
-            makeLayer(i, "Label", layer, sourceName, font, styles ,mapbox);
+            i = makeLayer(i, "Label", layer, sourceName, font, styles ,mapbox);
         }
         new ObjectMapper()
                 .enable(SerializationFeature.INDENT_OUTPUT)
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL)
                 .writeValue(output,mapbox);
     }
-    private void makeLayer(int i, String type, GssLayer layer, String sourceName, String font, GssContainer styles, MapboxRoot mapbox) throws JsonProcessingException {
+    private int makeLayer(int i, String type, GssLayer layer, String sourceName, String font, GssContainer styles, MapboxRoot mapbox) throws JsonProcessingException {
         String shpSource = layer.getSHPSource().toLowerCase();
         String featureType = layer.getGeometryType();
         String labelColumn = layer.getLabelColumn();
