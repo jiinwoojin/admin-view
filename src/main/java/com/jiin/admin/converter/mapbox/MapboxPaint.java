@@ -34,7 +34,7 @@ public class MapboxPaint {
     @JsonProperty(value = "line-width")
     private Integer lineWidth;
     @JsonProperty(value = "line-dasharray")
-    private Integer[] lineDasharray;
+    private Float[] lineDasharray;
     @JsonProperty(value = "line-gap-width")
     private Integer lineGapWidth;
 
@@ -88,11 +88,11 @@ public class MapboxPaint {
         this.width = width;
     }
 
-    public Integer[] getLineDasharray() {
+    public Float[] getLineDasharray() {
         return lineDasharray;
     }
 
-    public void setLineDasharray(Integer[] lineDasharray) {
+    public void setLineDasharray(Float[] lineDasharray) {
         this.lineDasharray = lineDasharray;
     }
 

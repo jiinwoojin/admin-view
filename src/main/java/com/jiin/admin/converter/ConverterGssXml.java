@@ -38,10 +38,13 @@ public class ConverterGssXml {
         ConverterVO param = new ConverterVO();
         param.setVersion(8);
         param.setId("uzymq5sw3");
-        param.setName("G25k_style");
-        param.setSprite("http://211.172.246.71:11000/GSymbol/GSSSymbol");
-        param.setGlyphs("http://211.172.246.71:11000/fonts/{fontstack}/{range}.pbf");
-        param.setTiles(new String[]{"http://211.172.246.71:11000/maps/g25k/{z}/{x}/{y}.pbf"});
+        param.setName("g25k_style");
+        param.setMaputnikRenderer("mbgljs");
+        param.setSourceName("tegola");
+        param.setFont("Gosanja");
+        param.setSprite("http://192.168.0.11/GSymbol/GSSSymbol");
+        param.setGlyphs("http://192.168.0.11/fonts/{fontstack}/{range}.pbf");
+        param.setTiles(new String[]{"http://192.168.0.11/maps/g25k/{z}/{x}/{y}.pbf"});
         ConverterGssXml parse = new ConverterGssXml();
         parse.convertLayerJson(stylefile,layerfile,writer,param);
     }
@@ -77,10 +80,17 @@ public class ConverterGssXml {
     }
 
     public void convertLayerJson(File styleFile, File layerFile, Writer output, ConverterVO param) throws ParserConfigurationException, JAXBException, IOException, SAXException {
-        String sourceName = "tegola";
+        String sourceName = param.getSourceName();
         MapboxRoot mapbox = new MapboxRoot();
         mapbox.setVersion(param.getVersion());
         mapbox.setId(param.getId());
+        Map meta = new HashMap();
+        if(param.getMaputnikRenderer() != null){
+            meta.put("maputnik:renderer",param.getMaputnikRenderer());
+        }
+        if(!meta.isEmpty()){
+            mapbox.setMetadata(meta);
+        }
         mapbox.setName(param.getName());
         mapbox.setSprite(param.getSprite());
         mapbox.setGlyphs(param.getGlyphs());
@@ -109,36 +119,47 @@ public class ConverterGssXml {
             String displayType = layer.getDisplayType();
             List<GssFeature> features = layer.getFeature();
             if(features != null){
-                for(GssFeature feature : features){
-                    if(displayType.equals("Both") || displayType.equals("Geometry")){
+                for(GssFeature feature : features) {
+                    if (displayType.equals("Both") || displayType.equals("Geometry")) {
                         // Geometry
                         String styleName = feature.getGeometryStyle();
-                        GssStyle style = findGssStyle(styleName,styles);
-                        if(style == null){
+                        GssStyle style = findGssStyle(styleName, styles);
+                        if (style == null) {
                             System.out.println("not find Style!! - " + shpSource + " - " + styleName);
                             continue;
                         }
                         /** add feature > layer + style **/
-                        if(featureType.equals("Polygon")){
-                            if(style.getPolygonLayer() != null){
-                                for(GssPolygonLayer styleLayer : style.getPolygonLayer()){
-                                    i = makeStyleLayer(featureType,styleLayer,shpSource,styleName,i,sourceName,feature.getVVTStyle(),mapbox);
+                        if (featureType.equals("Polygon")) {
+                            if (style.getPolygonLayer() != null) {
+                                for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
+                                    i = makeStyleLayer(featureType, styleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                                }
+                                for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
+                                    if (styleLayer.getLineLayer() != null) {
+                                        for (GssLineLayer innerStyleLayer : styleLayer.getLineLayer()) {
+                                            i = makeStyleLayer("Line", innerStyleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                                        }
+                                    }
                                 }
                             }
-                        }else if(featureType.equals("Line")){
-                            if(style.getLineLayer() != null){
-                                for(GssLineLayer styleLayer : style.getLineLayer()){
-                                    i = makeStyleLayer(featureType,styleLayer,shpSource,styleName,i,sourceName,feature.getVVTStyle(),mapbox);
+                        } else if (featureType.equals("Line")) {
+                            if (style.getLineLayer() != null) {
+                                for (GssLineLayer styleLayer : style.getLineLayer()) {
+                                    i = makeStyleLayer(featureType, styleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
                                 }
                             }
-                        }else if(featureType.equals("Point")){
-                            if(style.getPointLayer() != null){
-                                for(GssPointLayer styleLayer : style.getPointLayer()){
-                                    i = makeStyleLayer(featureType,styleLayer,shpSource,styleName,i,sourceName,feature.getVVTStyle(),mapbox);
+                        } else if (featureType.equals("Point")) {
+                            if (style.getPointLayer() != null) {
+                                for (GssPointLayer styleLayer : style.getPointLayer()) {
+                                    i = makeStyleLayer(featureType, styleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
                                 }
                             }
                         }
-                    }else if(displayType.equals("Both") || displayType.equals("Label")){
+                    }
+                }
+                // 라벨링
+                for(GssFeature feature : features){
+                    if(displayType.equals("Both") || displayType.equals("Label")){
                         // Label
                         String labelStyleName = feature.getLabelStyle();
                         if (labelColumn == null) {
@@ -174,9 +195,12 @@ public class ConverterGssXml {
                         }
 
                         layout.setTextField("{" + labelColumnName + "}");
-                        if (labelStyle.getFont() != null) layout.setTextFont(new String[]{"Gosanja"});   // TODO 추후 변경해야함
+                        if (labelStyle.getFont() != null) layout.setTextFont(new String[]{param.getFont()});
                         if (labelStyle.getSize() != null) layout.setTextSize(labelStyle.getSize());
-                        if (labelStyle.getOffsetX() != null && labelStyle.getOffsetY() != null) {
+                        if (labelStyle.getOffsetX() != null
+                                && labelStyle.getOffsetY() != null
+                                && !Objects.equals(labelStyle.getOffsetX(),0f)
+                                && !Objects.equals(labelStyle.getOffsetY(),0f)) {
                             layout.setTextOffset(new Float[]{labelStyle.getOffsetX(),labelStyle.getOffsetY()});
                         }
 
@@ -223,7 +247,10 @@ public class ConverterGssXml {
             }else{
                 if(gssPaint.getColor() != null) paint.setLineColor(parseColor(gssPaint.getColor()));
                 if(gssPaint.getWidth() != null) paint.setLineWidth(gssPaint.getWidth());
-                if(gssPaint.getDashItem() != null) paint.setLineDasharray(gssPaint.getDashItem().toArray(new Integer[]{}));
+                if(gssPaint.getDashItem() != null) {
+                    // width, startPos 에 따라 가변
+                    paint.setLineDasharray(gssPaint.parseDashItem().toArray(new Float[]{}));
+                }
                 if(gssPaint.getSpace() != null) paint.setLineGapWidth(gssPaint.getSpace());
                 if (gssPaint.getJoinType() != null) {   // TODO 이후 공통으로 이동 해야함
                     switch (gssPaint.getJoinType()) {

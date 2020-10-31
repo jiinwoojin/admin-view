@@ -1,6 +1,8 @@
 package com.jiin.admin.converter.gss;
 
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @XmlRootElement(name = "LineLayer")
@@ -16,7 +18,7 @@ public class GssLineLayer {
     private String EndCap;
     private String DashOffset;
     private String VerticalType;
-    private String StartPos;
+    private Integer StartPos;
     private String Interval;
     private String LeftLength;
     private String RightLength;
@@ -88,11 +90,11 @@ public class GssLineLayer {
         VerticalType = verticalType;
     }
 
-    public String getStartPos() {
+    public Integer getStartPos() {
         return StartPos;
     }
 
-    public void setStartPos(String startPos) {
+    public void setStartPos(Integer startPos) {
         StartPos = startPos;
     }
 
@@ -168,7 +170,30 @@ public class GssLineLayer {
         return DashItem;
     }
 
+    /**
+     * 넓이값에 따라 수치값 조정
+     * @return
+     */
+    public List<Float> parseDashItem() {
+        Integer startPos = getStartPos();
+        Float width = Float.valueOf(getWidth());
+        List<Float> newvalues = new ArrayList<>();
+        if(startPos != null){
+            newvalues.add(0f);
+            Float valuef = Float.valueOf(startPos) / width;
+            newvalues.add(Float.valueOf(String.format("%.1f",valuef)));
+        }
+        List<Integer> values = getDashItem();
+        for(Integer value : values){
+            Float valuef = Float.valueOf(value) / width;
+            newvalues.add(Float.valueOf(String.format("%.1f",valuef)));
+        }
+        return newvalues;
+    }
+
     public void setDashItem(List<Integer> dashItem) {
         DashItem = dashItem;
     }
+
+
 }

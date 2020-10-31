@@ -30,6 +30,9 @@ public class ConverterVO {
     private String sprite;
     private String glyphs;
     private String[] tiles;
+    private String maputnikRenderer;
+    private String sourceName;
+    private String font;
 
 
     public String getId() {
@@ -78,5 +81,29 @@ public class ConverterVO {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    public String getMaputnikRenderer() {
+        return maputnikRenderer;
+    }
+
+    public void setMaputnikRenderer(String maputnikRenderer) {
+        this.maputnikRenderer = maputnikRenderer;
+    }
+
+    public String getSourceName() {
+        return sourceName;
+    }
+
+    public void setSourceName(String sourceName) {
+        this.sourceName = sourceName;
+    }
+
+    public String getFont() {
+        return font;
+    }
+
+    public void setFont(String font) {
+        this.font = font;
     }
 }
