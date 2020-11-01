@@ -153,27 +153,35 @@ public class ConverterGssXml {
                         if (style.getPolygonLayer() != null) {
                             if(type.equals("Polygon")){
                                 for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
-                                    i = makeStyleLayer(featureType, styleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                                    if(styleLayer.getTextureFill() == null || styleLayer.getTextureFill().equals(true)){
+                                        i = makeStyleLayer(featureType, styleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                                    }
                                 }
                             }
                             if(type.equals("Line")){
-                                if (style.getPolygonLayer() != null) {
-                                    //line
-                                    for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
-                                        if (styleLayer.getLineLayer() != null) {
-                                            for (GssLineLayer linestyle : styleLayer.getLineLayer()) {
-                                                if(linestyle.getType().equals("VERTICAL")){
-                                                    List<Integer> dash = new ArrayList<>();
-                                                    dash.add(1);
-                                                    dash.add(linestyle.getInterval());
-                                                    linestyle.setDashItem(dash);
-                                                    int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
-                                                    linestyle.setWidth(newWidth);
-                                                    linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
-                                                }
-                                                i = makeStyleLayer("Line", linestyle, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                                //line
+                                for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
+                                    if (styleLayer.getLineLayer() != null) {
+                                        for (GssLineLayer linestyle : styleLayer.getLineLayer()) {
+                                            if(linestyle.getType().equals("VERTICAL")){
+                                                List<Integer> dash = new ArrayList<>();
+                                                dash.add(1);
+                                                dash.add(linestyle.getInterval());
+                                                linestyle.setDashItem(dash);
+                                                int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
+                                                linestyle.setWidth(newWidth);
+                                                linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
                                             }
+                                            i = makeStyleLayer("Line", linestyle, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
                                         }
+                                    }
+                                }
+                            }
+                            if(type.equals("Point")){
+                                //point
+                                for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
+                                    if(styleLayer.getTextureFill() != null && styleLayer.getTextureFill().equals(false)){
+                                        i = makeStyleLayer("Point", styleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
                                     }
                                 }
                             }
@@ -311,12 +319,18 @@ public class ConverterGssXml {
             }
         }else if(featureType.equals("Point")) {
             mapboxLayer.setType("symbol");
-            GssPointLayer gssPaint = (GssPointLayer) styleLayer;
-            if(gssPaint.getType().equals("PICTURE")){
-                layout.setIconImage(parsePicture(gssPaint.getPicture()));
-                layout.setIconAllowOverlap(true);
-            }else{
-
+            if(styleLayer instanceof GssPointLayer){
+                GssPointLayer gssPaint = (GssPointLayer) styleLayer;
+                if(gssPaint.getType().equals("PICTURE")){
+                    layout.setIconImage(parsePicture(gssPaint.getPicture()));
+                    layout.setIconAllowOverlap(true);
+                }
+            } else if(styleLayer instanceof GssPolygonLayer){
+                GssPolygonLayer gssPaint = (GssPolygonLayer) styleLayer;
+                if(gssPaint.getType().equals("PICTURE")){
+                    layout.setIconImage(parsePicture(gssPaint.getPicture()));
+                    layout.setIconAllowOverlap(true);
+                }
             }
         }
         String json = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL).writeValueAsString(paint);

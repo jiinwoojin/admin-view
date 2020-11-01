@@ -13,7 +13,7 @@ public class GssPolygonLayer {
     private String type;
     private String Picture;
     private String Color;
-    private String TextureFill;
+    private Boolean TextureFill;
     private String Transparent;
     private List<GssLineLayer> LineLayer;
 
@@ -31,14 +31,6 @@ public class GssPolygonLayer {
 
     public void setPicture(String picture) {
         Picture = picture;
-    }
-
-    public String getTextureFill() {
-        return TextureFill;
-    }
-
-    public void setTextureFill(String textureFill) {
-        TextureFill = textureFill;
     }
 
     public String getTransparent() {
@@ -63,5 +55,13 @@ public class GssPolygonLayer {
 
     public void setColor(String color) {
         Color = color;
+    }
+
+    public Boolean getTextureFill() {
+        return TextureFill;
+    }
+
+    public void setTextureFill(Boolean textureFill) {
+        TextureFill = textureFill;
     }
 }
