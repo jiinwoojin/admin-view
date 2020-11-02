@@ -24,7 +24,7 @@
       "background-color" : "rgba(255, 255, 255, 1)"
     }
   }, {
-    "id" : "aba040_BA040A01",
+    "id" : "ABA040_BA040A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aba040",
@@ -35,7 +35,7 @@
       "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
-    "id" : "aec030_EC030A01",
+    "id" : "AEC030_EC030A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aec030",
@@ -47,7 +47,7 @@
       "fill-pattern" : "DenseWood_01"
     }
   }, {
-    "id" : "aec030_EC030A02",
+    "id" : "AEC030_EC030A02",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aec030",
@@ -59,7 +59,7 @@
       "fill-pattern" : "DenseWood_02"
     }
   }, {
-    "id" : "aec030_EC030A03",
+    "id" : "AEC030_EC030A03",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aec030",
@@ -71,7 +71,7 @@
       "fill-pattern" : "DenseWood_03"
     }
   }, {
-    "id" : "aec030_EC030A04",
+    "id" : "AEC030_EC030A04",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aec030",
@@ -83,7 +83,7 @@
       "fill-pattern" : "Tropical_forest"
     }
   }, {
-    "id" : "aec030_EC030A05",
+    "id" : "AEC030_EC030A05",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aec030",
@@ -95,7 +95,7 @@
       "fill-pattern" : "Palm"
     }
   }, {
-    "id" : "abh135_BH135A01",
+    "id" : "ABH135_BH135A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh135",
@@ -106,7 +106,7 @@
       "fill-pattern" : "Paddy"
     }
   }, {
-    "id" : "aea010_EA010A01",
+    "id" : "AEA010_EA010A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aea010",
@@ -117,7 +117,7 @@
       "fill-color" : "rgba(255, 227, 231, 1)"
     }
   }, {
-    "id" : "aeb010_EB010A01",
+    "id" : "AEB010_EB010A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aeb010",
@@ -128,7 +128,7 @@
       "fill-pattern" : "Grassland"
     }
   }, {
-    "id" : "aeb020_EB020A01",
+    "id" : "AEB020_EB020A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aeb020",
@@ -139,7 +139,7 @@
       "fill-pattern" : "Bush"
     }
   }, {
-    "id" : "aec010_EC010A01",
+    "id" : "AEC010_EC010A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aec010",
@@ -150,7 +150,7 @@
       "fill-pattern" : "Stemwood"
     }
   }, {
-    "id" : "aea030_EA030A01",
+    "id" : "AEA030_EA030A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aea030",
@@ -161,7 +161,7 @@
       "fill-pattern" : "Orchard"
     }
   }, {
-    "id" : "aea040_EA040A01",
+    "id" : "AEA040_EA040A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aea040",
@@ -172,7 +172,7 @@
       "fill-pattern" : "Orchard"
     }
   }, {
-    "id" : "aea050_EA050A01",
+    "id" : "AEA050_EA050A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aea050",
@@ -183,7 +183,7 @@
       "fill-pattern" : "Vineyard"
     }
   }, {
-    "id" : "abh015_BH015A01",
+    "id" : "ABH015_BH015A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh015",
@@ -194,7 +194,7 @@
       "fill-pattern" : "Wetland"
     }
   }, {
-    "id" : "aed010_ED010A01",
+    "id" : "AED010_ED010A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aed010",
@@ -205,7 +205,7 @@
       "fill-pattern" : "Wetland"
     }
   }, {
-    "id" : "aed020_ED020A01",
+    "id" : "AED020_ED020A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aed020",
@@ -216,7 +216,7 @@
       "fill-pattern" : "Wetland"
     }
   }, {
-    "id" : "aea055_EA055A01",
+    "id" : "AEA055_EA055A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aea055",
@@ -227,40 +227,7 @@
       "fill-pattern" : "Vineyard"
     }
   }, {
-    "id" : "aec040_EC040A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aec040",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abh077_BH077A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abh077",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abh077_BH077A01_1",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abh077",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aba023_BA023A01",
+    "id" : "ABA023_BA023A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aba023",
@@ -271,7 +238,7 @@
       "fill-color" : "rgba(201, 201, 201, 1)"
     }
   }, {
-    "id" : "abh080_BH080A01",
+    "id" : "ABH080_BH080A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh080",
@@ -283,7 +250,7 @@
       "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
-    "id" : "abh080_BH080A02",
+    "id" : "ABH080_BH080A02",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh080",
@@ -295,7 +262,7 @@
       "fill-pattern" : "Blueline(S)"
     }
   }, {
-    "id" : "abh080_BH080A03",
+    "id" : "ABH080_BH080A03",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh080",
@@ -307,7 +274,7 @@
       "fill-pattern" : "BlueDotA"
     }
   }, {
-    "id" : "abh130_BH130A01",
+    "id" : "ABH130_BH130A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh130",
@@ -319,7 +286,7 @@
       "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
-    "id" : "abh130_BH130A02",
+    "id" : "ABH130_BH130A02",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh130",
@@ -331,7 +298,7 @@
       "fill-pattern" : "Blueline(S)"
     }
   }, {
-    "id" : "abh140_BH140A01",
+    "id" : "ABH140_BH140A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh140",
@@ -343,7 +310,7 @@
       "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
-    "id" : "abh140_BH140A02",
+    "id" : "ABH140_BH140A02",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh140",
@@ -355,7 +322,7 @@
       "fill-pattern" : "LightBlue_Dot"
     }
   }, {
-    "id" : "abh020_BH020A01",
+    "id" : "ABH020_BH020A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh020",
@@ -367,7 +334,7 @@
       "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
-    "id" : "abh020_BH020A02",
+    "id" : "ABH020_BH020A02",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh020",
@@ -379,7 +346,7 @@
       "fill-pattern" : "LightBlue_Dot"
     }
   }, {
-    "id" : "abh030_BH030A01",
+    "id" : "ABH030_BH030A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh030",
@@ -390,7 +357,7 @@
       "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
-    "id" : "abd140_BD140A01",
+    "id" : "ABD140_BD140A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abd140",
@@ -401,7 +368,7 @@
       "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
-    "id" : "abh010_BH010A01",
+    "id" : "ABH010_BH010A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh010",
@@ -412,7 +379,7 @@
       "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
-    "id" : "abh090_BH090A01",
+    "id" : "ABH090_BH090A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh090",
@@ -424,7 +391,7 @@
       "fill-pattern" : "Flood"
     }
   }, {
-    "id" : "abh090_BH090A02",
+    "id" : "ABH090_BH090A02_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh090",
@@ -436,55 +403,7 @@
       "fill-pattern" : "Flood"
     }
   }, {
-    "id" : "abb041_BB041A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abb041",
-    "filter" : [ "all", [ "in", "vrr", 0, 1 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abb041_BB041A02",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abb041",
-    "filter" : [ "all", [ "==", "vrr", 8 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abb140_BB140A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abb140",
-    "filter" : [ "all", [ "in", "vrr", 0, 1 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abb140_BB140A02",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abb140",
-    "filter" : [ "all", [ "in", "vrr", 0, 1 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abd100_BD100A01",
+    "id" : "ABD100_BD100A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abd100",
@@ -495,18 +414,7 @@
       "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
-    "id" : "abd120_BD120A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abd120",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abi020_BI020A01",
+    "id" : "ABI020_BI020A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abi020",
@@ -517,51 +425,7 @@
       "fill-pattern" : "Dam"
     }
   }, {
-    "id" : "abi030_BI030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abi030",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "ada005_DA005A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "ada005",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "adb090_DB090A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "adb090",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "adb090_DB090A01_2",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "adb090",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "ada010_DA010A01",
+    "id" : "ADA010_DA010A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "ada010",
@@ -573,7 +437,7 @@
       "fill-pattern" : "Ground"
     }
   }, {
-    "id" : "ada010_DA010A02",
+    "id" : "ADA010_DA010A02",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "ada010",
@@ -585,7 +449,7 @@
       "fill-pattern" : "Gravel(A)"
     }
   }, {
-    "id" : "ada010_DA010A03",
+    "id" : "ADA010_DA010A03",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "ada010",
@@ -597,7 +461,7 @@
       "fill-pattern" : "Moraine"
     }
   }, {
-    "id" : "ada010_DA010A04",
+    "id" : "ADA010_DA010A04",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "ada010",
@@ -609,7 +473,7 @@
       "fill-pattern" : "Dune"
     }
   }, {
-    "id" : "ada010_DA010A05",
+    "id" : "ADA010_DA010A05",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "ada010",
@@ -621,7 +485,7 @@
       "fill-pattern" : "Ground_ice"
     }
   }, {
-    "id" : "abh150_BH150A01",
+    "id" : "ABH150_BH150A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh150",
@@ -632,7 +496,7 @@
       "fill-pattern" : "BlueDotA"
     }
   }, {
-    "id" : "abh160_BH160A01",
+    "id" : "ABH160_BH160A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh160",
@@ -643,7 +507,7 @@
       "fill-pattern" : "Salt_lake"
     }
   }, {
-    "id" : "adb170_DB170A01",
+    "id" : "ADB170_DB170A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "adb170",
@@ -655,7 +519,7 @@
       "fill-pattern" : "Dune"
     }
   }, {
-    "id" : "adb170_DB170A02",
+    "id" : "ADB170_DB170A02",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "adb170",
@@ -667,7 +531,7 @@
       "fill-pattern" : "Crescent"
     }
   }, {
-    "id" : "adb170_DB170A03",
+    "id" : "ADB170_DB170A03",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "adb170",
@@ -679,7 +543,7 @@
       "fill-pattern" : "Lateral"
     }
   }, {
-    "id" : "adb170_DB170A04",
+    "id" : "ADB170_DB170A04",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "adb170",
@@ -691,7 +555,7 @@
       "fill-pattern" : "Mounds"
     }
   }, {
-    "id" : "adb170_DB170A05",
+    "id" : "ADB170_DB170A05",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "adb170",
@@ -703,7 +567,7 @@
       "fill-pattern" : "Ripple"
     }
   }, {
-    "id" : "adb170_DB170A06",
+    "id" : "ADB170_DB170A06",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "adb170",
@@ -715,7 +579,7 @@
       "fill-pattern" : "Star"
     }
   }, {
-    "id" : "adb170_DB170A07",
+    "id" : "ADB170_DB170A07",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "adb170",
@@ -727,7 +591,7 @@
       "fill-pattern" : "Transverse"
     }
   }, {
-    "id" : "abj020_BJ020A01",
+    "id" : "ABJ020_BJ020A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abj020",
@@ -738,7 +602,7 @@
       "fill-pattern" : "Moraine"
     }
   }, {
-    "id" : "adb060_DB060A01",
+    "id" : "ADB060_DB060A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "adb060",
@@ -750,7 +614,7 @@
       "fill-pattern" : "Crevasse(R)"
     }
   }, {
-    "id" : "adb060_DB060A02",
+    "id" : "ADB060_DB060A02_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "adb060",
@@ -762,29 +626,7 @@
       "fill-pattern" : "Crevasse(B)"
     }
   }, {
-    "id" : "adb160_DB160A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "adb160",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "adb160_DB160A01_3",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "adb160",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aal020_AL020A01",
+    "id" : "AAL020_AL020A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal020",
@@ -795,7 +637,7 @@
       "fill-color" : "rgba(148, 148, 148, 1)"
     }
   }, {
-    "id" : "aah050_AH050A01",
+    "id" : "AAH050_AH050A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aah050",
@@ -806,95 +648,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aak030_AK030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak030",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak060_AK060A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak060",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak070_AK070A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak070",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak090_AK090A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak090",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak100_AK100A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak100",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak120_AK120A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak120",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak180_AK180A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak180",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aal030_AL030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal030",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aal105_AL105A01",
+    "id" : "AAL105_AL105A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal105",
@@ -905,7 +659,7 @@
       "fill-color" : "rgba(201, 201, 201, 1)"
     }
   }, {
-    "id" : "aal135_AL135A01",
+    "id" : "AAL135_AL135A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal135",
@@ -916,51 +670,7 @@
       "fill-color" : "rgba(201, 201, 201, 1)"
     }
   }, {
-    "id" : "aal170_AL170A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal170",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aal200_AL200A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal200",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak040_AK040A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak040",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak160_AK160A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aak160",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aak170_AK170A01",
+    "id" : "AAK170_AK170A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aak170",
@@ -971,29 +681,7 @@
       "fill-color" : "rgba(196, 225, 255, 1)"
     }
   }, {
-    "id" : "aal005_AL005A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal005",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "afa015_FA015A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "afa015",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aal015_AL015A01",
+    "id" : "AAL015_AL015A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -1005,7 +693,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aal015_AL015A01_4",
+    "id" : "AAL015_AL015A01_02",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -1017,19 +705,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aal015_AL015A02",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "==", "exs", 7 ], [ "<", "hgt", 46 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aal015_AL015A03",
+    "id" : "AAL015_AL015A03_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -1041,7 +717,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aal015_AL015A04",
+    "id" : "AAL015_AL015A04_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -1053,19 +729,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aal015_AL015A05",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aal015_AL015A06",
+    "id" : "AAL015_AL015A06_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -1077,7 +741,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aal015_AL015A07",
+    "id" : "AAL015_AL015A07_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -1089,7 +753,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aal015_AL015A08",
+    "id" : "AAL015_AL015A08_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -1101,7 +765,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aal015_AL015A09",
+    "id" : "AAL015_AL015A09_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -1113,7 +777,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aal015_AL015A10",
+    "id" : "AAL015_AL015A10_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -1125,7 +789,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aal015_AL015A11",
+    "id" : "AAL015_AL015A11_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -1137,7 +801,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aam020_AM020A01",
+    "id" : "AAM020_AM020A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aam020",
@@ -1148,7 +812,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aam030_AM030A01",
+    "id" : "AAM030_AM030A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aam030",
@@ -1159,29 +823,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aab000_AB000A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aab000",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aab010_AB010A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aab010",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abh155_BH155A01",
+    "id" : "ABH155_BH155A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh155",
@@ -1192,7 +834,7 @@
       "fill-pattern" : "Salt"
     }
   }, {
-    "id" : "aal140_AL140A01",
+    "id" : "AAL140_AL140A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal140",
@@ -1203,40 +845,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aac000_AC000A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aac000",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aam010_AM010A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aam010",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aam060_AM060A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aam060",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aam070_AM070A01",
+    "id" : "AAM070_AM070A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aam070",
@@ -1247,7 +856,7 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "aac030_AC030A01",
+    "id" : "AAC030_AC030A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aac030",
@@ -1258,18 +867,7 @@
       "fill-pattern" : "Blueline(S)"
     }
   }, {
-    "id" : "aaj030_AJ030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aaj030",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abh040_BH040A01",
+    "id" : "ABH040_BH040A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh040",
@@ -1280,7 +878,7 @@
       "fill-pattern" : "Blueline(S)"
     }
   }, {
-    "id" : "abh050_BH050A01",
+    "id" : "ABH050_BH050A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abh050",
@@ -1291,106 +889,7 @@
       "fill-color" : "rgba(184, 214, 243, 1)"
     }
   }, {
-    "id" : "aat050_AT050A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aat050",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aad010_AD010A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aad010",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aaq116_AQ116A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aaq116",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aad030_AD030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aad030",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "agb005_GB005A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "agb005",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "agb030_GB030A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "agb030",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "agb035_GB035A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "agb035",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "agb065_GB065A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "agb065",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abb090_BB090A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "abb090",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "abb190_BB190A01",
+    "id" : "ABB190_BB190A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "abb190",
@@ -1401,18 +900,7 @@
       "fill-color" : "rgba(255, 255, 255, 0.0)"
     }
   }, {
-    "id" : "aan060_AN060A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aan060",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "agb015_GB015A01",
+    "id" : "AGB015_GB015A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "agb015",
@@ -1423,7 +911,7 @@
       "fill-color" : "rgba(115, 140, 230, 1)"
     }
   }, {
-    "id" : "agb045_GB045A01",
+    "id" : "AGB045_GB045A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "agb045",
@@ -1434,7 +922,7 @@
       "fill-color" : "rgba(115, 140, 230, 1)"
     }
   }, {
-    "id" : "agb055_GB055A01",
+    "id" : "AGB055_GB055A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "agb055",
@@ -1445,7 +933,7 @@
       "fill-color" : "rgba(115, 140, 230, 1)"
     }
   }, {
-    "id" : "agb075_GB075A01",
+    "id" : "AGB075_GB075A01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "agb075",
@@ -1456,40 +944,7 @@
       "fill-color" : "rgba(115, 140, 230, 1)"
     }
   }, {
-    "id" : "aaq140_AQ140A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aaq140",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aal060_AL060A01",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal060",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aal060_AL060A01_5",
-    "type" : "fill",
-    "source" : "tegola",
-    "source-layer" : "aal060",
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "fill-color" : "rgba(255, 255, 255, 1)"
-    }
-  }, {
-    "id" : "aal210_AL210A01",
+    "id" : "AAL210_AL210A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "aal210",
@@ -1500,7 +955,7 @@
       "fill-pattern" : "Blackline"
     }
   }, {
-    "id" : "afa170_FA170A01",
+    "id" : "AFA170_FA170A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "afa170",
@@ -1511,7 +966,7 @@
       "fill-color" : "rgba(255, 255, 255, 0.0)"
     }
   }, {
-    "id" : "afa170_FA170A01_6",
+    "id" : "AFA170_FA170A01_02",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "afa170",
@@ -1522,7 +977,7 @@
       "fill-color" : "rgba(255, 255, 255, 0.0)"
     }
   }, {
-    "id" : "afa070_FA070A01",
+    "id" : "AFA070_FA070A01_01",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "afa070",
@@ -1533,7 +988,7 @@
       "fill-color" : "rgba(255, 255, 255, 0.0)"
     }
   }, {
-    "id" : "afa070_FA070A01_7",
+    "id" : "AFA070_FA070A01_02",
     "type" : "fill",
     "source" : "tegola",
     "source-layer" : "afa070",
@@ -1544,259 +999,7 @@
       "fill-color" : "rgba(255, 255, 255, 0.0)"
     }
   }, {
-    "id" : "aba040_BA040A01_8",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aba040",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aec030_EC030A01_9",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aec030",
-    "filter" : [ "all", [ "in", "veg", 11, 12, 18, 25, 29, 38 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aec030_EC030A02_10",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aec030",
-    "filter" : [ "all", [ "==", "veg", 24 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aec030_EC030A03_11",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aec030",
-    "filter" : [ "all", [ "in", "veg", 0, 50, 999 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aec030_EC030A04_12",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aec030",
-    "filter" : [ "all", [ "==", "veg", 19 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aec030_EC030A05_13",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aec030",
-    "filter" : [ "all", [ "in", "veg", 16, 17, 52 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh135_BH135A01_14",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh135",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aea010_EA010A01_15",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aea010",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aeb010_EB010A01_16",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aeb010",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aeb020_EB020A01_17",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aeb020",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aec010_EC010A01_18",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aec010",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aea030_EA030A01_19",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aea030",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aea040_EA040A01_20",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aea040",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aea050_EA050A01_21",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aea050",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh015_BH015A01_22",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh015",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aed010_ED010A01_23",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aed010",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aed020_ED020A01_24",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aed020",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aea055_EA055A01_25",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aea055",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aec040_EC040A01_26",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aec040",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh077_BH077A01_27",
+    "id" : "ABH077_BH077A01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abh077",
@@ -1809,7 +1012,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "abh077_BH077A01_28",
+    "id" : "ABH077_BH077A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abh077",
@@ -1820,7 +1023,7 @@
       "line-pattern" : "Blue_Circle"
     }
   }, {
-    "id" : "aba023_BA023A01_29",
+    "id" : "ABA023_BA023A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aba023",
@@ -1834,146 +1037,7 @@
       "line-dasharray" : [ 1.0, 6.0, 1.0, 6.0 ]
     }
   }, {
-    "id" : "abh080_BH080A01_30",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh080",
-    "filter" : [ "all", [ "in", "hyc", 0, 8 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh080_BH080A02_31",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh080",
-    "filter" : [ "all", [ "==", "hyc", 6 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh080_BH080A03_32",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh080",
-    "filter" : [ "all", [ "==", "hyc", 3 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh130_BH130A01_33",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh130",
-    "filter" : [ "all", [ "in", "exs", 0, 28 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh130_BH130A02_34",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh130",
-    "filter" : [ "all", [ "==", "exs", 5 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh140_BH140A01_35",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh140",
-    "filter" : [ "all", [ "in", "hyc", 0, 8 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh140_BH140A02_36",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh140",
-    "filter" : [ "all", [ "in", "hyc", 3, 6 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh020_BH020A01_37",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh020",
-    "filter" : [ "all", [ "in", "hyc", 0, 8 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh020_BH020A02_38",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh020",
-    "filter" : [ "all", [ "==", "hyc", 6 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh030_BH030A01_39",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh030",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abd140_BD140A01_40",
+    "id" : "ABD140_BD140A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abd140",
@@ -1987,34 +1051,7 @@
       "line-dasharray" : [ 1.0, 6.0, 1.0, 6.0 ]
     }
   }, {
-    "id" : "abh010_BH010A01_41",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh010",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh090_BH090A01_42",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh090",
-    "filter" : [ "all", [ "in", "exs", 0, 45 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh090_BH090A02_43",
+    "id" : "ABH090_BH090A02_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abh090",
@@ -2029,7 +1066,7 @@
       "line-dasharray" : [ 4.5, 1.5, 4.5, 1.5 ]
     }
   }, {
-    "id" : "abb041_BB041A01_44",
+    "id" : "ABB041_BB041A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abb041",
@@ -2043,7 +1080,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "abb041_BB041A02_45",
+    "id" : "ABB041_BB041A02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abb041",
@@ -2058,7 +1095,7 @@
       "line-dasharray" : [ 1.5, 0.5, 1.5, 0.5 ]
     }
   }, {
-    "id" : "abb140_BB140A01_46",
+    "id" : "ABB140_BB140A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abb140",
@@ -2072,7 +1109,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "abb140_BB140A02_47",
+    "id" : "ABB140_BB140A02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abb140",
@@ -2087,7 +1124,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "abd100_BD100A01_48",
+    "id" : "ABD100_BD100A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abd100",
@@ -2101,7 +1138,7 @@
       "line-dasharray" : [ 1.0, 6.0, 1.0, 6.0 ]
     }
   }, {
-    "id" : "abd120_BD120A01_49",
+    "id" : "ABD120_BD120A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abd120",
@@ -2112,7 +1149,7 @@
       "line-pattern" : "Rock_Outline"
     }
   }, {
-    "id" : "abi020_BI020A01_50",
+    "id" : "ABI020_BI020A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abi020",
@@ -2125,7 +1162,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "abi030_BI030A01_51",
+    "id" : "ABI030_BI030A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abi030",
@@ -2138,7 +1175,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "ada005_DA005A01_52",
+    "id" : "ADA005_DA005A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "ada005",
@@ -2151,7 +1188,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "adb090_DB090A01_53",
+    "id" : "ADB090_DB090A01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "adb090",
@@ -2164,7 +1201,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "adb090_DB090A01_54",
+    "id" : "ADB090_DB090A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "adb090",
@@ -2178,77 +1215,7 @@
       "line-offset" : 6
     }
   }, {
-    "id" : "ada010_DA010A01_55",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "ada010",
-    "filter" : [ "all", [ "in", "smc", 0, 52, 55, 65, 84, 104, 119, 122, 124, 127, 999 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "ada010_DA010A02_56",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "ada010",
-    "filter" : [ "all", [ "in", "smc", 46, 120 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "ada010_DA010A03_57",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "ada010",
-    "filter" : [ "all", [ "==", "smc", 88 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "ada010_DA010A04_58",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "ada010",
-    "filter" : [ "all", [ "in", "smc", 8, 126 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "ada010_DA010A05_59",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "ada010",
-    "filter" : [ "all", [ "==", "smc", 103 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abh150_BH150A01_60",
+    "id" : "ABH150_BH150A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abh150",
@@ -2261,131 +1228,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "abh160_BH160A01_61",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abh160",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "adb170_DB170A01_62",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 0 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "adb170_DB170A02_63",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 22 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "adb170_DB170A03_64",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 26 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "adb170_DB170A04_65",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 27 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "adb170_DB170A05_66",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 28 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "adb170_DB170A06_67",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 29 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "adb170_DB170A07_68",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 30 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "abj020_BJ020A01_69",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "abj020",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "adb060_DB060A01_70",
+    "id" : "ADB060_DB060A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "adb060",
@@ -2399,7 +1242,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "adb060_DB060A02_71",
+    "id" : "ADB060_DB060A02_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "adb060",
@@ -2413,7 +1256,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "adb160_DB160A01_72",
+    "id" : "ADB160_DB160A01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "adb160",
@@ -2426,7 +1269,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "adb160_DB160A01_73",
+    "id" : "ADB160_DB160A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "adb160",
@@ -2440,7 +1283,7 @@
       "line-offset" : 6
     }
   }, {
-    "id" : "aal020_AL020A01_74",
+    "id" : "AAL020_AL020A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aal020",
@@ -2453,20 +1296,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "aah050_AH050A01_75",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aah050",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aak030_AK030A01_76",
+    "id" : "AAK030_AK030A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aak030",
@@ -2480,7 +1310,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "aak060_AK060A01_77",
+    "id" : "AAK060_AK060A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aak060",
@@ -2494,7 +1324,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "aak070_AK070A01_78",
+    "id" : "AAK070_AK070A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aak070",
@@ -2508,7 +1338,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "aak090_AK090A01_79",
+    "id" : "AAK090_AK090A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aak090",
@@ -2522,7 +1352,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "aak100_AK100A01_80",
+    "id" : "AAK100_AK100A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aak100",
@@ -2536,7 +1366,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "aak120_AK120A01_81",
+    "id" : "AAK120_AK120A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aak120",
@@ -2550,7 +1380,7 @@
       "line-dasharray" : [ 14.0, 5.0, 2.0, 5.0 ]
     }
   }, {
-    "id" : "aak180_AK180A01_82",
+    "id" : "AAK180_AK180A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aak180",
@@ -2564,7 +1394,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "aal030_AL030A01_83",
+    "id" : "AAL030_AL030A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aal030",
@@ -2578,7 +1408,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "aal105_AL105A01_84",
+    "id" : "AAL105_AL105A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aal105",
@@ -2591,7 +1421,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "aal135_AL135A01_85",
+    "id" : "AAL135_AL135A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aal135",
@@ -2604,7 +1434,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "aal170_AL170A01_86",
+    "id" : "AAL170_AL170A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aal170",
@@ -2617,7 +1447,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "aal200_AL200A01_87",
+    "id" : "AAL200_AL200A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aal200",
@@ -2631,7 +1461,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aak040_AK040A01_88",
+    "id" : "AAK040_AK040A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aak040",
@@ -2645,7 +1475,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aak160_AK160A01_89",
+    "id" : "AAK160_AK160A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aak160",
@@ -2658,7 +1488,7 @@
       "line-width" : 4
     }
   }, {
-    "id" : "aak170_AK170A01_90",
+    "id" : "AAK170_AK170A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aak170",
@@ -2671,7 +1501,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "aal005_AL005A01_91",
+    "id" : "AAL005_AL005A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aal005",
@@ -2685,7 +1515,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "afa015_FA015A01_92",
+    "id" : "AFA015_FA015A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "afa015",
@@ -2699,35 +1529,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "aal015_AL015A01_93",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "!in", "bfc", 15, 6, 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A01_94",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 14 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A02_95",
+    "id" : "AAL015_AL015A02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -2741,63 +1543,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "aal015_AL015A03_96",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 15 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A03_97",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 15 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 0.9)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A04_98",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 6 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A04_99",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 6 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 0.1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A05_100",
+    "id" : "AAL015_AL015A05_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -2811,215 +1557,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "aal015_AL015A05_101",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 0.1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A06_102",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "in", "hwt", 2, 3, 4 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A06_103",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "in", "hwt", 2, 3, 4 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 0.1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A07_104",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 16 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A07_105",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 16 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 0.1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A08_106",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 9 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A08_107",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 9 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 0.1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A09_108",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 20 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A09_109",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 20 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 0.1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A10_110",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 11 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A10_111",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 11 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 0.1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A11_112",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 21 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aal015_AL015A11_113",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 21 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 0.1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aam020_AM020A01_114",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aam020",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aam030_AM030A01_115",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aam030",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aab000_AB000A01_116",
+    "id" : "AAB000_AB000A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aab000",
@@ -3033,7 +1571,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aab010_AB010A01_117",
+    "id" : "AAB010_AB010A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aab010",
@@ -3047,7 +1585,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aaa010_AA010A01",
+    "id" : "AAA010_AA010A01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aaa010",
@@ -3062,7 +1600,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aaa010_AA010A02",
+    "id" : "AAA010_AA010A02_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aaa010",
@@ -3077,7 +1615,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aaa012_AA012A01",
+    "id" : "AAA012_AA012A01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aaa012",
@@ -3092,7 +1630,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aaa012_AA012A02",
+    "id" : "AAA012_AA012A02_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aaa012",
@@ -3107,7 +1645,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "abh155_BH155A01_118",
+    "id" : "ABH155_BH155A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abh155",
@@ -3120,20 +1658,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "aal140_AL140A01_119",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aal140",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aac000_AC000A01_120",
+    "id" : "AAC000_AC000A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aac000",
@@ -3147,7 +1672,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aam010_AM010A01_121",
+    "id" : "AAM010_AM010A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aam010",
@@ -3161,7 +1686,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aam060_AM060A01_122",
+    "id" : "AAM060_AM060A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aam060",
@@ -3175,20 +1700,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aam070_AM070A01_123",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "aam070",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aac030_AC030A01_124",
+    "id" : "AAC030_AC030A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aac030",
@@ -3201,7 +1713,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "aaj030_AJ030A01_125",
+    "id" : "AAJ030_AJ030A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aaj030",
@@ -3215,7 +1727,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "abh040_BH040A01_126",
+    "id" : "ABH040_BH040A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abh040",
@@ -3228,7 +1740,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "abh050_BH050A01_127",
+    "id" : "ABH050_BH050A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abh050",
@@ -3241,7 +1753,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "aat050_AT050A01_128",
+    "id" : "AAT050_AT050A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aat050",
@@ -3255,7 +1767,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aad010_AD010A01_129",
+    "id" : "AAD010_AD010A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aad010",
@@ -3269,7 +1781,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aaq116_AQ116A01_130",
+    "id" : "AAQ116_AQ116A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aaq116",
@@ -3283,7 +1795,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aad030_AD030A01_131",
+    "id" : "AAD030_AD030A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aad030",
@@ -3297,7 +1809,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "agb005_GB005A01_132",
+    "id" : "AGB005_GB005A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "agb005",
@@ -3311,7 +1823,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "agb030_GB030A01_133",
+    "id" : "AGB030_GB030A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "agb030",
@@ -3325,7 +1837,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "agb035_GB035A01_134",
+    "id" : "AGB035_GB035A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "agb035",
@@ -3339,7 +1851,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "agb065_GB065A01_135",
+    "id" : "AGB065_GB065A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "agb065",
@@ -3352,7 +1864,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "abb010_BB010A01",
+    "id" : "ABB010_BB010A01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abb010",
@@ -3366,7 +1878,7 @@
       "line-dasharray" : [ 10.0, 2.0, 10.0, 2.0 ]
     }
   }, {
-    "id" : "abb090_BB090A01_136",
+    "id" : "ABB090_BB090A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abb090",
@@ -3380,7 +1892,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "abb190_BB190A01_137",
+    "id" : "ABB190_BB190A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abb190",
@@ -3393,7 +1905,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "aan060_AN060A01_138",
+    "id" : "AAN060_AN060A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aan060",
@@ -3406,59 +1918,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "agb015_GB015A01_139",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "agb015",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "agb045_GB045A01_140",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "agb045",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "agb055_GB055A01_141",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "agb055",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "agb075_GB075A01_142",
-    "type" : "line",
-    "source" : "tegola",
-    "source-layer" : "agb075",
-    "layout" : {
-      "visibility" : "visible",
-      "line-join" : "round"
-    },
-    "paint" : {
-      "line-color" : "rgba(255, 255, 255, 1)",
-      "line-width" : 0
-    }
-  }, {
-    "id" : "aaq140_AQ140A01_143",
+    "id" : "AAQ140_AQ140A01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aaq140",
@@ -3472,7 +1932,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "aal060_AL060A01_144",
+    "id" : "AAL060_AL060A01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aal060",
@@ -3485,7 +1945,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "aal060_AL060A01_145",
+    "id" : "AAL060_AL060A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aal060",
@@ -3496,7 +1956,7 @@
       "line-pattern" : "Dragonteeth"
     }
   }, {
-    "id" : "aal210_AL210A01_146",
+    "id" : "AAL210_AL210A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aal210",
@@ -3509,7 +1969,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "afa170_FA170A01_147",
+    "id" : "AFA170_FA170A01_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "afa170",
@@ -3522,7 +1982,7 @@
       "line-width" : 6
     }
   }, {
-    "id" : "afa170_FA170A01_148",
+    "id" : "AFA170_FA170A01_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "afa170",
@@ -3536,7 +1996,7 @@
       "line-dasharray" : [ 15.5, 1.0, 2.0, 1.0, 2.0, 1.0 ]
     }
   }, {
-    "id" : "afa070_FA070A01_149",
+    "id" : "AFA070_FA070A01_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "afa070",
@@ -3549,7 +2009,7 @@
       "line-width" : 6
     }
   }, {
-    "id" : "afa070_FA070A01_150",
+    "id" : "AFA070_FA070A01_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "afa070",
@@ -3563,7 +2023,7 @@
       "line-dasharray" : [ 15.5, 1.0, 2.0, 1.0, 2.0, 1.0 ]
     }
   }, {
-    "id" : "lal070_AL070L01",
+    "id" : "LAL070_AL070L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lal070",
@@ -3577,7 +2037,7 @@
       "line-dasharray" : [ 40.0, 15.0 ]
     }
   }, {
-    "id" : "lal070_AL070L01_151",
+    "id" : "LAL070_AL070L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lal070",
@@ -3588,7 +2048,7 @@
       "line-pattern" : "Fence"
     }
   }, {
-    "id" : "lal260_AL260L01",
+    "id" : "LAL260_AL260L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lal260",
@@ -3601,7 +2061,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lba010_BA010L01",
+    "id" : "LBA010_BA010L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lba010",
@@ -3615,7 +2075,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lba010_BA010L02",
+    "id" : "LBA010_BA010L02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lba010",
@@ -3630,7 +2090,7 @@
       "line-dasharray" : [ 20.0, 3.0, 20.0, 3.0 ]
     }
   }, {
-    "id" : "lba010_BA010L03",
+    "id" : "LBA010_BA010L03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lba010",
@@ -3645,7 +2105,7 @@
       "line-dasharray" : [ 20.0, 3.0, 20.0, 3.0 ]
     }
   }, {
-    "id" : "lfa000_FA000L01",
+    "id" : "LFA000_FA000L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
@@ -3659,7 +2119,7 @@
       "line-width" : 6
     }
   }, {
-    "id" : "lfa000_FA000L01_152",
+    "id" : "LFA000_FA000L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
@@ -3674,7 +2134,7 @@
       "line-dasharray" : [ 15.5, 1.0, 2.0, 1.0, 2.0, 1.0 ]
     }
   }, {
-    "id" : "lfa000_FA000L01_153",
+    "id" : "LFA000_FA000L01_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
@@ -3688,7 +2148,7 @@
       "line-width" : 6
     }
   }, {
-    "id" : "lfa000_FA000L01_154",
+    "id" : "LFA000_FA000L01_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
@@ -3703,7 +2163,7 @@
       "line-dasharray" : [ 15.5, 1.0, 2.0, 1.0, 2.0, 1.0 ]
     }
   }, {
-    "id" : "lfa000_FA000L02",
+    "id" : "LFA000_FA000L02_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
@@ -3718,7 +2178,7 @@
       "line-dasharray" : [ 10.3, 1.3, 2.7, 1.3 ]
     }
   }, {
-    "id" : "lfa000_FA000L02_155",
+    "id" : "LFA000_FA000L02_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
@@ -3733,7 +2193,7 @@
       "line-dasharray" : [ 10.3, 1.3, 2.7, 1.3 ]
     }
   }, {
-    "id" : "lfa000_FA000L03",
+    "id" : "LFA000_FA000L03_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
@@ -3748,7 +2208,7 @@
       "line-dasharray" : [ 15.5, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0 ]
     }
   }, {
-    "id" : "lfa000_FA000L03_156",
+    "id" : "LFA000_FA000L03_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
@@ -3763,7 +2223,7 @@
       "line-dasharray" : [ 15.5, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0 ]
     }
   }, {
-    "id" : "lfa000_FA000L04",
+    "id" : "LFA000_FA000L04_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
@@ -3778,7 +2238,7 @@
       "line-dasharray" : [ 31.0, 4.0, 8.0, 4.0, 8.0, 4.0, 8.0, 4.0, 8.0 ]
     }
   }, {
-    "id" : "lfa000_FA000L04_157",
+    "id" : "LFA000_FA000L04_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
@@ -3793,7 +2253,7 @@
       "line-dasharray" : [ 31.0, 4.0, 8.0, 4.0, 8.0, 4.0, 8.0, 4.0, 8.0 ]
     }
   }, {
-    "id" : "lfa000_FA000L05",
+    "id" : "LFA000_FA000L05_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
@@ -3808,7 +2268,7 @@
       "line-dasharray" : [ 31.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0 ]
     }
   }, {
-    "id" : "lfa000_FA000L05_158",
+    "id" : "LFA000_FA000L05_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa000",
@@ -3823,7 +2283,7 @@
       "line-dasharray" : [ 31.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0, 2.0, 4.0 ]
     }
   }, {
-    "id" : "lfa020_FA020L01",
+    "id" : "LFA020_FA020L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa020",
@@ -3837,7 +2297,7 @@
       "line-dasharray" : [ 9.0, 3.0, 9.0, 3.0 ]
     }
   }, {
-    "id" : "lfa060_FA060L01",
+    "id" : "LFA060_FA060L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa060",
@@ -3850,7 +2310,7 @@
       "line-width" : 6
     }
   }, {
-    "id" : "lfa060_FA060L01_159",
+    "id" : "LFA060_FA060L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa060",
@@ -3864,7 +2324,7 @@
       "line-dasharray" : [ 15.5, 1.5, 2.5, 1.5, 2.5, 1.5 ]
     }
   }, {
-    "id" : "lfa110_FA110L01",
+    "id" : "LFA110_FA110L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa110",
@@ -3878,7 +2338,7 @@
       "line-dasharray" : [ 4.0, 1.7, 4.0, 1.7 ]
     }
   }, {
-    "id" : "lfa170_FA170L01",
+    "id" : "LFA170_FA170L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa170",
@@ -3891,7 +2351,7 @@
       "line-width" : 6
     }
   }, {
-    "id" : "lfa170_FA170L01_160",
+    "id" : "LFA170_FA170L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa170",
@@ -3905,7 +2365,7 @@
       "line-dasharray" : [ 15.5, 1.5, 2.5, 1.5, 2.5, 1.5 ]
     }
   }, {
-    "id" : "lal005_AL005L01",
+    "id" : "LAL005_AL005L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lal005",
@@ -3919,7 +2379,7 @@
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
     }
   }, {
-    "id" : "lfa050_FA050L01",
+    "id" : "LFA050_FA050L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa050",
@@ -3933,7 +2393,7 @@
       "line-dasharray" : [ 12.0, 6.0, 12.0, 6.0 ]
     }
   }, {
-    "id" : "lfa050_FA050L01_161",
+    "id" : "LFA050_FA050L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lfa050",
@@ -3947,7 +2407,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lea020_EA020L01",
+    "id" : "LEA020_EA020L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lea020",
@@ -3960,7 +2420,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lea020_EA020L01_162",
+    "id" : "LEA020_EA020L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lea020",
@@ -3974,7 +2434,7 @@
       "line-offset" : -3
     }
   }, {
-    "id" : "lbb040_BB040L01",
+    "id" : "LBB040_BB040L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbb040",
@@ -3987,7 +2447,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lbb041_BB041L01",
+    "id" : "LBB041_BB041L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbb041",
@@ -4001,7 +2461,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lbb041_BB041L02",
+    "id" : "LBB041_BB041L02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbb041",
@@ -4016,7 +2476,7 @@
       "line-dasharray" : [ 1.5, 0.5, 1.5, 0.5 ]
     }
   }, {
-    "id" : "lbb043_BB043L01",
+    "id" : "LBB043_BB043L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbb043",
@@ -4029,7 +2489,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lbb140_BB140L01",
+    "id" : "LBB140_BB140L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbb140",
@@ -4043,7 +2503,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lbb140_BB140L02",
+    "id" : "LBB140_BB140L02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbb140",
@@ -4058,7 +2518,7 @@
       "line-dasharray" : [ 1.5, 0.5, 1.5, 0.5 ]
     }
   }, {
-    "id" : "lbb230_BB230L01",
+    "id" : "LBB230_BB230L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbb230",
@@ -4071,7 +2531,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lbh210_BH210L01",
+    "id" : "LBH210_BH210L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh210",
@@ -4084,7 +2544,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lbh020_BH020L01",
+    "id" : "LBH020_BH020L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh020",
@@ -4098,7 +2558,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lbh020_BH020L02",
+    "id" : "LBH020_BH020L02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh020",
@@ -4113,7 +2573,7 @@
       "line-dasharray" : [ 3.3, 1.0, 3.3, 1.0 ]
     }
   }, {
-    "id" : "lbh030_BH030L01",
+    "id" : "LBH030_BH030L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh030",
@@ -4127,7 +2587,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lbh030_BH030L02",
+    "id" : "LBH030_BH030L02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh030",
@@ -4142,7 +2602,7 @@
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
     }
   }, {
-    "id" : "lbh140_BH140L01",
+    "id" : "LBH140_BH140L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh140",
@@ -4156,7 +2616,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lbh140_BH140L02",
+    "id" : "LBH140_BH140L02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh140",
@@ -4171,7 +2631,7 @@
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
     }
   }, {
-    "id" : "lbh110_BH110L01",
+    "id" : "LBH110_BH110L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh110",
@@ -4185,7 +2645,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lbh110_BH110L02",
+    "id" : "LBH110_BH110L02_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh110",
@@ -4198,7 +2658,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lbh110_BH110L02_163",
+    "id" : "LBH110_BH110L02_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh110",
@@ -4212,7 +2672,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lbh110_BH110L03",
+    "id" : "LBH110_BH110L03_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh110",
@@ -4225,7 +2685,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lbh110_BH110L03_164",
+    "id" : "LBH110_BH110L03_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh110",
@@ -4240,7 +2700,7 @@
       "line-dasharray" : [ 5.0, 5.0 ]
     }
   }, {
-    "id" : "lbi040_BI040L01",
+    "id" : "LBI040_BI040L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbi040",
@@ -4253,7 +2713,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lbh120_BH120L01",
+    "id" : "LBH120_BH120L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh120",
@@ -4266,7 +2726,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lbh180_BH180L01",
+    "id" : "LBH180_BH180L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh180",
@@ -4279,7 +2739,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lbi020_BI020L01",
+    "id" : "LBI020_BI020L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbi020",
@@ -4293,7 +2753,7 @@
       "line-width" : 4
     }
   }, {
-    "id" : "lbi020_BI020L02",
+    "id" : "LBI020_BI020L02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbi020",
@@ -4308,7 +2768,7 @@
       "line-gap-width" : 7
     }
   }, {
-    "id" : "lbd120_BD120L01",
+    "id" : "LBD120_BD120L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbd120",
@@ -4319,7 +2779,7 @@
       "line-pattern" : "Rock_Outline"
     }
   }, {
-    "id" : "lbh010_BH010L01",
+    "id" : "LBH010_BH010L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh010",
@@ -4333,7 +2793,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lbh010_BH010L02",
+    "id" : "LBH010_BH010L02_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh010",
@@ -4346,7 +2806,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lbh010_BH010L02_165",
+    "id" : "LBH010_BH010L02_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh010",
@@ -4360,7 +2820,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lbh010_BH010L03",
+    "id" : "LBH010_BH010L03_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh010",
@@ -4373,7 +2833,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lbh010_BH010L03_166",
+    "id" : "LBH010_BH010L03_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh010",
@@ -4388,7 +2848,7 @@
       "line-dasharray" : [ 5.0, 5.0 ]
     }
   }, {
-    "id" : "lca010_CA010L01",
+    "id" : "LCA010_CA010L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lca010",
@@ -4402,7 +2862,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lca010_CA010L02",
+    "id" : "LCA010_CA010L02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lca010",
@@ -4416,7 +2876,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lca010_CA010L03",
+    "id" : "LCA010_CA010L03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lca010",
@@ -4431,7 +2891,7 @@
       "line-dasharray" : [ 8.0, 3.0 ]
     }
   }, {
-    "id" : "lca010_CA010L04",
+    "id" : "LCA010_CA010L04_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lca010",
@@ -4445,7 +2905,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lca010_CA010L04_167",
+    "id" : "LCA010_CA010L04_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lca010",
@@ -4460,7 +2920,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lca010_CA010L05",
+    "id" : "LCA010_CA010L05_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lca010",
@@ -4474,7 +2934,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lca010_CA010L05_168",
+    "id" : "LCA010_CA010L05_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lca010",
@@ -4489,7 +2949,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lbe015_BE015L01",
+    "id" : "LBE015_BE015L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbe015",
@@ -4502,7 +2962,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "ldb010_DB010L01",
+    "id" : "LDB010_DB010L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "ldb010",
@@ -4515,7 +2975,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "ldb010_DB010L01_169",
+    "id" : "LDB010_DB010L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "ldb010",
@@ -4529,7 +2989,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "ldb070_DB070L01",
+    "id" : "LDB070_DB070L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "ldb070",
@@ -4543,7 +3003,7 @@
       "line-dasharray" : [ 12.0, 4.0 ]
     }
   }, {
-    "id" : "ldb070_DB070L01_170",
+    "id" : "LDB070_DB070L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "ldb070",
@@ -4557,7 +3017,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "ldb090_DB090L01",
+    "id" : "LDB090_DB090L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "ldb090",
@@ -4570,7 +3030,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "ldb090_DB090L01_171",
+    "id" : "LDB090_DB090L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "ldb090",
@@ -4584,7 +3044,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lbj040_BJ040L01",
+    "id" : "LBJ040_BJ040L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbj040",
@@ -4598,7 +3058,7 @@
       "line-dasharray" : [ 20.0, 3.0 ]
     }
   }, {
-    "id" : "lbj040_BJ040L01_172",
+    "id" : "LBJ040_BJ040L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbj040",
@@ -4612,7 +3072,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "ldb060_DB060L01",
+    "id" : "LDB060_DB060L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "ldb060",
@@ -4626,7 +3086,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "ldb060_DB060L02",
+    "id" : "LDB060_DB060L02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "ldb060",
@@ -4640,7 +3100,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "ldb100_DB100L01",
+    "id" : "LDB100_DB100L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "ldb100",
@@ -4653,7 +3113,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "ldb110_DB110L01",
+    "id" : "LDB110_DB110L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "ldb110",
@@ -4666,7 +3126,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lak130_AK130L01",
+    "id" : "LAK130_AK130L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lak130",
@@ -4679,7 +3139,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lak150_AK150L01",
+    "id" : "LAK150_AK150L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lak150",
@@ -4693,7 +3153,7 @@
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
     }
   }, {
-    "id" : "laf020_AF020L01",
+    "id" : "LAF020_AF020L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laf020",
@@ -4707,7 +3167,7 @@
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
     }
   }, {
-    "id" : "lbh060_BH060L01",
+    "id" : "LBH060_BH060L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh060",
@@ -4721,7 +3181,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lbh060_BH060L02",
+    "id" : "LBH060_BH060L02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh060",
@@ -4735,7 +3195,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "laq113_AQ113L01",
+    "id" : "LAQ113_AQ113L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq113",
@@ -4748,7 +3208,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "laq113_AQ113L01_173",
+    "id" : "LAQ113_AQ113L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq113",
@@ -4762,7 +3222,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "laq113_AQ113L02",
+    "id" : "LAQ113_AQ113L02_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq113",
@@ -4775,7 +3235,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "laq113_AQ113L02_174",
+    "id" : "LAQ113_AQ113L02_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq113",
@@ -4789,7 +3249,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "laq113_AQ113L03",
+    "id" : "LAQ113_AQ113L03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq113",
@@ -4803,7 +3263,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "laq113_AQ113L04",
+    "id" : "LAQ113_AQ113L04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq113",
@@ -4817,7 +3277,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "laq113_AQ113L05",
+    "id" : "LAQ113_AQ113L05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq113",
@@ -4832,7 +3292,7 @@
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
     }
   }, {
-    "id" : "laq113_AQ113L06",
+    "id" : "LAQ113_AQ113L06",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq113",
@@ -4847,7 +3307,7 @@
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
     }
   }, {
-    "id" : "laq070_AQ070L01",
+    "id" : "LAQ070_AQ070L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq070",
@@ -4861,7 +3321,7 @@
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
     }
   }, {
-    "id" : "lbh070_BH070L01",
+    "id" : "LBH070_BH070L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbh070",
@@ -4875,7 +3335,7 @@
       "line-dasharray" : [ 9.0, 2.0 ]
     }
   }, {
-    "id" : "laq010_AQ010L01",
+    "id" : "LAQ010_AQ010L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq010",
@@ -4889,7 +3349,7 @@
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
     }
   }, {
-    "id" : "lbb190_BB190L01",
+    "id" : "LBB190_BB190L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lbb190",
@@ -4902,7 +3362,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lal210_AL210L01",
+    "id" : "LAL210_AL210L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lal210",
@@ -4916,7 +3376,7 @@
       "line-gap-width" : 8
     }
   }, {
-    "id" : "lal210_AL210L01_175",
+    "id" : "LAL210_AL210L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lal210",
@@ -4927,7 +3387,7 @@
       "line-pattern" : "Blackline"
     }
   }, {
-    "id" : "lal060_AL060L01",
+    "id" : "LAL060_AL060L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lal060",
@@ -4940,7 +3400,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lal060_AL060L01_176",
+    "id" : "LAL060_AL060L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lal060",
@@ -4951,7 +3411,7 @@
       "line-pattern" : "Dragonteeth"
     }
   }, {
-    "id" : "lap010_AP010L01",
+    "id" : "LAP010_AP010L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap010",
@@ -4966,7 +3426,7 @@
       "line-dasharray" : [ 4.0, 1.0, 4.0, 1.0 ]
     }
   }, {
-    "id" : "lap010_AP010L02",
+    "id" : "LAP010_AP010L02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap010",
@@ -4981,7 +3441,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "lap050_AP050L01",
+    "id" : "LAP050_AP050L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap050",
@@ -4995,7 +3455,7 @@
       "line-dasharray" : [ 6.0, 6.0, 6.0, 6.0 ]
     }
   }, {
-    "id" : "lap030_AP030L01",
+    "id" : "LAP030_AP030L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5009,7 +3469,7 @@
       "line-width" : 5
     }
   }, {
-    "id" : "lap030_AP030L01_177",
+    "id" : "LAP030_AP030L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5023,7 +3483,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lap030_AP030L02",
+    "id" : "LAP030_AP030L02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5037,7 +3497,7 @@
       "line-width" : 5
     }
   }, {
-    "id" : "lap030_AP030L03",
+    "id" : "LAP030_AP030L03_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5052,7 +3512,7 @@
       "line-dasharray" : [ 2.4, 1.2, 2.4, 1.2 ]
     }
   }, {
-    "id" : "lap030_AP030L03_178",
+    "id" : "LAP030_AP030L03_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5067,7 +3527,7 @@
       "line-dasharray" : [ 12.0, 6.0, 12.0, 6.0 ]
     }
   }, {
-    "id" : "lap030_AP030L04",
+    "id" : "LAP030_AP030L04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5082,7 +3542,7 @@
       "line-dasharray" : [ 3.0, 1.5, 3.0, 1.5 ]
     }
   }, {
-    "id" : "lap030_AP030L05",
+    "id" : "LAP030_AP030L05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5096,7 +3556,7 @@
       "line-width" : 5
     }
   }, {
-    "id" : "lap030_AP030L06",
+    "id" : "LAP030_AP030L06",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5110,7 +3570,7 @@
       "line-width" : 4
     }
   }, {
-    "id" : "lap030_AP030L07",
+    "id" : "LAP030_AP030L07_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5125,7 +3585,7 @@
       "line-gap-width" : 3
     }
   }, {
-    "id" : "lap030_AP030L07_179",
+    "id" : "LAP030_AP030L07_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5139,7 +3599,7 @@
       "line-width" : 3
     }
   }, {
-    "id" : "lap030_AP030L07_180",
+    "id" : "LAP030_AP030L07_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5154,7 +3614,7 @@
       "line-dasharray" : [ 4.0, 2.7, 4.0, 2.7 ]
     }
   }, {
-    "id" : "lap030_AP030L08",
+    "id" : "LAP030_AP030L08_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5169,7 +3629,7 @@
       "line-gap-width" : 2
     }
   }, {
-    "id" : "lap030_AP030L08_181",
+    "id" : "LAP030_AP030L08_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5183,7 +3643,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lap030_AP030L08_182",
+    "id" : "LAP030_AP030L08_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5198,7 +3658,7 @@
       "line-dasharray" : [ 6.0, 4.0, 6.0, 4.0 ]
     }
   }, {
-    "id" : "lap030_AP030L09",
+    "id" : "LAP030_AP030L09",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5212,7 +3672,7 @@
       "line-width" : 3
     }
   }, {
-    "id" : "lap030_AP030L10",
+    "id" : "LAP030_AP030L10",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5227,7 +3687,7 @@
       "line-dasharray" : [ 2.8, 1.2, 2.8, 1.2 ]
     }
   }, {
-    "id" : "lap030_AP030L11",
+    "id" : "LAP030_AP030L11",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5242,7 +3702,7 @@
       "line-dasharray" : [ 3.5, 1.5, 3.5, 1.5 ]
     }
   }, {
-    "id" : "lap030_AP030L12",
+    "id" : "LAP030_AP030L12_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5256,7 +3716,7 @@
       "line-width" : 5
     }
   }, {
-    "id" : "lap030_AP030L12_183",
+    "id" : "LAP030_AP030L12_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5270,7 +3730,7 @@
       "line-width" : 3
     }
   }, {
-    "id" : "lap030_AP030L13",
+    "id" : "LAP030_AP030L13_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5285,7 +3745,7 @@
       "line-gap-width" : 3
     }
   }, {
-    "id" : "lap030_AP030L13_184",
+    "id" : "LAP030_AP030L13_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5299,7 +3759,7 @@
       "line-width" : 3
     }
   }, {
-    "id" : "lap030_AP030L13_185",
+    "id" : "LAP030_AP030L13_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5314,7 +3774,7 @@
       "line-dasharray" : [ 4.0, 2.7, 4.0, 2.7 ]
     }
   }, {
-    "id" : "lap030_AP030L14",
+    "id" : "LAP030_AP030L14_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5328,7 +3788,7 @@
       "line-width" : 5
     }
   }, {
-    "id" : "lap030_AP030L14_186",
+    "id" : "LAP030_AP030L14_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5342,7 +3802,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lap030_AP030L14_187",
+    "id" : "LAP030_AP030L14_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5356,7 +3816,7 @@
       "line-width" : 5
     }
   }, {
-    "id" : "lap030_AP030L14_188",
+    "id" : "LAP030_AP030L14_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap030",
@@ -5370,7 +3830,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lap020_AP020L01",
+    "id" : "LAP020_AP020L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lap020",
@@ -5383,7 +3843,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "lan010_AN010L01",
+    "id" : "LAN010_AN010L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5397,7 +3857,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan010_AN010L01_189",
+    "id" : "LAN010_AN010L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5412,7 +3872,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L02",
+    "id" : "LAN010_AN010L02_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5426,7 +3886,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan010_AN010L02_190",
+    "id" : "LAN010_AN010L02_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5441,7 +3901,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L02_191",
+    "id" : "LAN010_AN010L02_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5456,7 +3916,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L03",
+    "id" : "LAN010_AN010L03_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5470,7 +3930,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan010_AN010L03_192",
+    "id" : "LAN010_AN010L03_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5485,7 +3945,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L03_193",
+    "id" : "LAN010_AN010L03_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5500,7 +3960,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L03_194",
+    "id" : "LAN010_AN010L03_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5515,7 +3975,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L04",
+    "id" : "LAN010_AN010L04_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5529,7 +3989,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan010_AN010L04_195",
+    "id" : "LAN010_AN010L04_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5544,7 +4004,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L04_196",
+    "id" : "LAN010_AN010L04_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5559,7 +4019,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L04_197",
+    "id" : "LAN010_AN010L04_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5574,7 +4034,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L04_198",
+    "id" : "LAN010_AN010L04_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5589,7 +4049,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L05",
+    "id" : "LAN010_AN010L05_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5603,7 +4063,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan010_AN010L05_199",
+    "id" : "LAN010_AN010L05_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5618,7 +4078,7 @@
       "line-offset" : -4
     }
   }, {
-    "id" : "lan010_AN010L05_200",
+    "id" : "LAN010_AN010L05_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5633,7 +4093,7 @@
       "line-offset" : 4
     }
   }, {
-    "id" : "lan010_AN010L06",
+    "id" : "LAN010_AN010L06_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5647,7 +4107,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan010_AN010L06_201",
+    "id" : "LAN010_AN010L06_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5662,7 +4122,7 @@
       "line-offset" : -3
     }
   }, {
-    "id" : "lan010_AN010L06_202",
+    "id" : "LAN010_AN010L06_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5677,7 +4137,7 @@
       "line-offset" : -3
     }
   }, {
-    "id" : "lan010_AN010L06_203",
+    "id" : "LAN010_AN010L06_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5692,7 +4152,7 @@
       "line-offset" : 3
     }
   }, {
-    "id" : "lan010_AN010L06_204",
+    "id" : "LAN010_AN010L06_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5707,7 +4167,7 @@
       "line-offset" : 3
     }
   }, {
-    "id" : "lan010_AN010L07",
+    "id" : "LAN010_AN010L07_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5721,7 +4181,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan010_AN010L07_205",
+    "id" : "LAN010_AN010L07_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5736,7 +4196,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L07_206",
+    "id" : "LAN010_AN010L07_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5751,7 +4211,7 @@
       "line-offset" : 5
     }
   }, {
-    "id" : "lan010_AN010L07_207",
+    "id" : "LAN010_AN010L07_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5766,7 +4226,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L07_208",
+    "id" : "LAN010_AN010L07_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5781,7 +4241,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L08",
+    "id" : "LAN010_AN010L08_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5795,7 +4255,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan010_AN010L08_209",
+    "id" : "LAN010_AN010L08_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5810,7 +4270,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L08_210",
+    "id" : "LAN010_AN010L08_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5825,7 +4285,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L08_211",
+    "id" : "LAN010_AN010L08_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5840,7 +4300,7 @@
       "line-offset" : 5
     }
   }, {
-    "id" : "lan010_AN010L08_212",
+    "id" : "LAN010_AN010L08_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5855,7 +4315,7 @@
       "line-offset" : 5
     }
   }, {
-    "id" : "lan010_AN010L08_213",
+    "id" : "LAN010_AN010L08_06",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5870,7 +4330,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L08_214",
+    "id" : "LAN010_AN010L08_07",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5885,7 +4345,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L09",
+    "id" : "LAN010_AN010L09_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5899,7 +4359,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan010_AN010L09_215",
+    "id" : "LAN010_AN010L09_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5914,7 +4374,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L10",
+    "id" : "LAN010_AN010L10_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5928,7 +4388,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan010_AN010L10_216",
+    "id" : "LAN010_AN010L10_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5943,7 +4403,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L11",
+    "id" : "LAN010_AN010L11_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5958,7 +4418,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lan010_AN010L11_217",
+    "id" : "LAN010_AN010L11_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5973,7 +4433,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L12",
+    "id" : "LAN010_AN010L12_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -5988,7 +4448,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lan010_AN010L12_218",
+    "id" : "LAN010_AN010L12_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6003,7 +4463,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L12_219",
+    "id" : "LAN010_AN010L12_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6018,7 +4478,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L13",
+    "id" : "LAN010_AN010L13_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6033,7 +4493,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lan010_AN010L13_220",
+    "id" : "LAN010_AN010L13_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6048,7 +4508,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L13_221",
+    "id" : "LAN010_AN010L13_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6063,7 +4523,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L13_222",
+    "id" : "LAN010_AN010L13_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6078,7 +4538,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L14",
+    "id" : "LAN010_AN010L14_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6093,7 +4553,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lan010_AN010L14_223",
+    "id" : "LAN010_AN010L14_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6108,7 +4568,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L14_224",
+    "id" : "LAN010_AN010L14_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6123,7 +4583,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L14_225",
+    "id" : "LAN010_AN010L14_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6138,7 +4598,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L14_226",
+    "id" : "LAN010_AN010L14_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6153,7 +4613,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L15",
+    "id" : "LAN010_AN010L15_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6168,7 +4628,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lan010_AN010L15_227",
+    "id" : "LAN010_AN010L15_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6183,7 +4643,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L15_228",
+    "id" : "LAN010_AN010L15_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6198,7 +4658,7 @@
       "line-offset" : 5
     }
   }, {
-    "id" : "lan010_AN010L16",
+    "id" : "LAN010_AN010L16_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6213,7 +4673,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lan010_AN010L16_229",
+    "id" : "LAN010_AN010L16_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6228,7 +4688,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L16_230",
+    "id" : "LAN010_AN010L16_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6243,7 +4703,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L16_231",
+    "id" : "LAN010_AN010L16_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6258,7 +4718,7 @@
       "line-offset" : 5
     }
   }, {
-    "id" : "lan010_AN010L16_232",
+    "id" : "LAN010_AN010L16_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6273,7 +4733,7 @@
       "line-offset" : 5
     }
   }, {
-    "id" : "lan010_AN010L17",
+    "id" : "LAN010_AN010L17_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6288,7 +4748,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lan010_AN010L17_233",
+    "id" : "LAN010_AN010L17_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6303,7 +4763,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L17_234",
+    "id" : "LAN010_AN010L17_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6318,7 +4778,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L17_235",
+    "id" : "LAN010_AN010L17_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6333,7 +4793,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L18",
+    "id" : "LAN010_AN010L18_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6348,7 +4808,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lan010_AN010L18_236",
+    "id" : "LAN010_AN010L18_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6363,7 +4823,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L18_237",
+    "id" : "LAN010_AN010L18_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6378,7 +4838,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan010_AN010L18_238",
+    "id" : "LAN010_AN010L18_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6393,7 +4853,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L18_239",
+    "id" : "LAN010_AN010L18_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6408,7 +4868,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan010_AN010L19",
+    "id" : "LAN010_AN010L19",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan010",
@@ -6423,7 +4883,7 @@
       "line-dasharray" : [ 6.0, 6.0, 6.0, 6.0 ]
     }
   }, {
-    "id" : "lan050_AN050L01",
+    "id" : "LAN050_AN050L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6437,7 +4897,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan050_AN050L01_240",
+    "id" : "LAN050_AN050L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6452,7 +4912,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan050_AN050L02",
+    "id" : "LAN050_AN050L02_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6466,7 +4926,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan050_AN050L02_241",
+    "id" : "LAN050_AN050L02_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6481,7 +4941,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lan050_AN050L02_242",
+    "id" : "LAN050_AN050L02_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6496,7 +4956,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan050_AN050L02_243",
+    "id" : "LAN050_AN050L02_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6511,7 +4971,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan050_AN050L03",
+    "id" : "LAN050_AN050L03_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6525,7 +4985,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan050_AN050L03_244",
+    "id" : "LAN050_AN050L03_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6540,7 +5000,7 @@
       "line-offset" : -4
     }
   }, {
-    "id" : "lan050_AN050L03_245",
+    "id" : "LAN050_AN050L03_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6555,7 +5015,7 @@
       "line-offset" : 4
     }
   }, {
-    "id" : "lan050_AN050L04",
+    "id" : "LAN050_AN050L04_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6569,7 +5029,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lan050_AN050L04_246",
+    "id" : "LAN050_AN050L04_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6584,7 +5044,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan050_AN050L04_247",
+    "id" : "LAN050_AN050L04_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6599,7 +5059,7 @@
       "line-offset" : 5
     }
   }, {
-    "id" : "lan050_AN050L04_248",
+    "id" : "LAN050_AN050L04_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6614,7 +5074,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lan050_AN050L04_249",
+    "id" : "LAN050_AN050L04_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lan050",
@@ -6629,7 +5089,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_SU002L01",
+    "id" : "LSU002_SU002L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6644,7 +5104,7 @@
       "line-dasharray" : [ 12.0, 4.0, 12.0, 4.0 ]
     }
   }, {
-    "id" : "lsu002_AN010L01",
+    "id" : "LSU002_AN010L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6658,7 +5118,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lsu002_AN010L01_250",
+    "id" : "LSU002_AN010L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6673,7 +5133,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L02",
+    "id" : "LSU002_AN010L02_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6687,7 +5147,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lsu002_AN010L02_251",
+    "id" : "LSU002_AN010L02_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6702,7 +5162,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L02_252",
+    "id" : "LSU002_AN010L02_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6717,7 +5177,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L03",
+    "id" : "LSU002_AN010L03_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6731,7 +5191,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lsu002_AN010L03_253",
+    "id" : "LSU002_AN010L03_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6746,7 +5206,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L03_254",
+    "id" : "LSU002_AN010L03_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6761,7 +5221,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L03_255",
+    "id" : "LSU002_AN010L03_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6776,7 +5236,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L04",
+    "id" : "LSU002_AN010L04_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6790,7 +5250,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lsu002_AN010L04_256",
+    "id" : "LSU002_AN010L04_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6805,7 +5265,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L04_257",
+    "id" : "LSU002_AN010L04_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6820,7 +5280,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L04_258",
+    "id" : "LSU002_AN010L04_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6835,7 +5295,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L04_259",
+    "id" : "LSU002_AN010L04_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6850,7 +5310,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L05",
+    "id" : "LSU002_AN010L05_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6864,7 +5324,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lsu002_AN010L05_260",
+    "id" : "LSU002_AN010L05_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6879,7 +5339,7 @@
       "line-offset" : -4
     }
   }, {
-    "id" : "lsu002_AN010L05_261",
+    "id" : "LSU002_AN010L05_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6894,7 +5354,7 @@
       "line-offset" : 4
     }
   }, {
-    "id" : "lsu002_AN010L06",
+    "id" : "LSU002_AN010L06_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6908,7 +5368,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lsu002_AN010L06_262",
+    "id" : "LSU002_AN010L06_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6923,7 +5383,7 @@
       "line-offset" : -3
     }
   }, {
-    "id" : "lsu002_AN010L06_263",
+    "id" : "LSU002_AN010L06_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6938,7 +5398,7 @@
       "line-offset" : -3
     }
   }, {
-    "id" : "lsu002_AN010L06_264",
+    "id" : "LSU002_AN010L06_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6953,7 +5413,7 @@
       "line-offset" : 3
     }
   }, {
-    "id" : "lsu002_AN010L06_265",
+    "id" : "LSU002_AN010L06_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6968,7 +5428,7 @@
       "line-offset" : 3
     }
   }, {
-    "id" : "lsu002_AN010L07",
+    "id" : "LSU002_AN010L07_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6982,7 +5442,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lsu002_AN010L07_266",
+    "id" : "LSU002_AN010L07_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -6997,7 +5457,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L07_267",
+    "id" : "LSU002_AN010L07_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7012,7 +5472,7 @@
       "line-offset" : 5
     }
   }, {
-    "id" : "lsu002_AN010L07_268",
+    "id" : "LSU002_AN010L07_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7027,7 +5487,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L07_269",
+    "id" : "LSU002_AN010L07_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7042,7 +5502,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L08",
+    "id" : "LSU002_AN010L08_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7056,7 +5516,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lsu002_AN010L08_270",
+    "id" : "LSU002_AN010L08_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7071,7 +5531,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L08_271",
+    "id" : "LSU002_AN010L08_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7086,7 +5546,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L08_272",
+    "id" : "LSU002_AN010L08_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7101,7 +5561,7 @@
       "line-offset" : 5
     }
   }, {
-    "id" : "lsu002_AN010L08_273",
+    "id" : "LSU002_AN010L08_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7116,7 +5576,7 @@
       "line-offset" : 5
     }
   }, {
-    "id" : "lsu002_AN010L08_274",
+    "id" : "LSU002_AN010L08_06",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7131,7 +5591,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L08_275",
+    "id" : "LSU002_AN010L08_07",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7146,7 +5606,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L09",
+    "id" : "LSU002_AN010L09_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7160,7 +5620,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lsu002_AN010L09_276",
+    "id" : "LSU002_AN010L09_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7175,7 +5635,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L10",
+    "id" : "LSU002_AN010L10_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7189,7 +5649,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lsu002_AN010L10_277",
+    "id" : "LSU002_AN010L10_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7204,7 +5664,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L11",
+    "id" : "LSU002_AN010L11_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7219,7 +5679,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lsu002_AN010L11_278",
+    "id" : "LSU002_AN010L11_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7234,7 +5694,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L12",
+    "id" : "LSU002_AN010L12_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7249,7 +5709,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lsu002_AN010L12_279",
+    "id" : "LSU002_AN010L12_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7264,7 +5724,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L12_280",
+    "id" : "LSU002_AN010L12_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7279,7 +5739,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L13",
+    "id" : "LSU002_AN010L13_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7294,7 +5754,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lsu002_AN010L13_281",
+    "id" : "LSU002_AN010L13_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7309,7 +5769,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L13_282",
+    "id" : "LSU002_AN010L13_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7324,7 +5784,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L13_283",
+    "id" : "LSU002_AN010L13_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7339,7 +5799,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L14",
+    "id" : "LSU002_AN010L14_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7354,7 +5814,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lsu002_AN010L14_284",
+    "id" : "LSU002_AN010L14_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7369,7 +5829,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L14_285",
+    "id" : "LSU002_AN010L14_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7384,7 +5844,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L14_286",
+    "id" : "LSU002_AN010L14_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7399,7 +5859,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L14_287",
+    "id" : "LSU002_AN010L14_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7414,7 +5874,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L15",
+    "id" : "LSU002_AN010L15_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7429,7 +5889,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lsu002_AN010L15_288",
+    "id" : "LSU002_AN010L15_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7444,7 +5904,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L15_289",
+    "id" : "LSU002_AN010L15_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7459,7 +5919,7 @@
       "line-offset" : 5
     }
   }, {
-    "id" : "lsu002_AN010L16",
+    "id" : "LSU002_AN010L16_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7474,7 +5934,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lsu002_AN010L16_290",
+    "id" : "LSU002_AN010L16_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7489,7 +5949,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L16_291",
+    "id" : "LSU002_AN010L16_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7504,7 +5964,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L16_292",
+    "id" : "LSU002_AN010L16_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7519,7 +5979,7 @@
       "line-offset" : 5
     }
   }, {
-    "id" : "lsu002_AN010L16_293",
+    "id" : "LSU002_AN010L16_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7534,7 +5994,7 @@
       "line-offset" : 5
     }
   }, {
-    "id" : "lsu002_AN010L17",
+    "id" : "LSU002_AN010L17_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7549,7 +6009,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lsu002_AN010L17_294",
+    "id" : "LSU002_AN010L17_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7564,7 +6024,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L17_295",
+    "id" : "LSU002_AN010L17_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7579,7 +6039,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L17_296",
+    "id" : "LSU002_AN010L17_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7594,7 +6054,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L18",
+    "id" : "LSU002_AN010L18_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7609,7 +6069,7 @@
       "line-dasharray" : [ 30.0, 8.0 ]
     }
   }, {
-    "id" : "lsu002_AN010L18_297",
+    "id" : "LSU002_AN010L18_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7624,7 +6084,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L18_298",
+    "id" : "LSU002_AN010L18_03",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7639,7 +6099,7 @@
       "line-offset" : 0
     }
   }, {
-    "id" : "lsu002_AN010L18_299",
+    "id" : "LSU002_AN010L18_04",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7654,7 +6114,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L18_300",
+    "id" : "LSU002_AN010L18_05",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7669,7 +6129,7 @@
       "line-offset" : -5
     }
   }, {
-    "id" : "lsu002_AN010L19",
+    "id" : "LSU002_AN010L19",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lsu002",
@@ -7684,7 +6144,7 @@
       "line-dasharray" : [ 6.0, 6.0, 6.0, 6.0 ]
     }
   }, {
-    "id" : "laq130_AQ130L01",
+    "id" : "LAQ130_AQ130L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq130",
@@ -7698,7 +6158,7 @@
       "line-gap-width" : 6
     }
   }, {
-    "id" : "laq130_AQ130L01_301",
+    "id" : "LAQ130_AQ130L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq130",
@@ -7713,7 +6173,7 @@
       "line-dasharray" : [ 5.0, 5.0 ]
     }
   }, {
-    "id" : "laq130_AQ130L02",
+    "id" : "LAQ130_AQ130L02_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq130",
@@ -7727,7 +6187,7 @@
       "line-gap-width" : 6
     }
   }, {
-    "id" : "laq130_AQ130L02_302",
+    "id" : "LAQ130_AQ130L02_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq130",
@@ -7742,7 +6202,7 @@
       "line-dasharray" : [ 5.0, 5.0 ]
     }
   }, {
-    "id" : "laq040_AQ040L01",
+    "id" : "LAQ040_AQ040L01_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq040",
@@ -7757,7 +6217,7 @@
       "line-gap-width" : 5
     }
   }, {
-    "id" : "laq040_AQ040L01_303",
+    "id" : "LAQ040_AQ040L01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq040",
@@ -7771,7 +6231,7 @@
       "line-gap-width" : 4
     }
   }, {
-    "id" : "laq040_AQ040L02",
+    "id" : "LAQ040_AQ040L02_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq040",
@@ -7785,7 +6245,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "laq040_AQ040L02_304",
+    "id" : "LAQ040_AQ040L02_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq040",
@@ -7799,7 +6259,7 @@
       "line-gap-width" : 0
     }
   }, {
-    "id" : "laq040_AQ040L04",
+    "id" : "LAQ040_AQ040L04_01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq040",
@@ -7812,7 +6272,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "laq040_AQ040L04_305",
+    "id" : "LAQ040_AQ040L04_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "laq040",
@@ -7826,7 +6286,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lat030_AT030L01",
+    "id" : "LAT030_AT030L01",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lat030",
@@ -7840,7 +6300,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "lat030_AT030L02",
+    "id" : "LAT030_AT030L02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "lat030",
@@ -7854,7 +6314,7 @@
       "line-width" : 2
     }
   }, {
-    "id" : "aal015_AL015A03_306",
+    "id" : "AAL015_AL015A03_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -7865,7 +6325,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "aal015_AL015A04_307",
+    "id" : "AAL015_AL015A04_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -7876,7 +6336,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "aal015_AL015A05_308",
+    "id" : "AAL015_AL015A05_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -7887,7 +6347,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "aal015_AL015A06_309",
+    "id" : "AAL015_AL015A06_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -7898,7 +6358,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "aal015_AL015A07_310",
+    "id" : "AAL015_AL015A07_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -7909,7 +6369,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "aal015_AL015A08_311",
+    "id" : "AAL015_AL015A08_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -7920,7 +6380,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "aal015_AL015A09_312",
+    "id" : "AAL015_AL015A09_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -7931,7 +6391,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "aal015_AL015A10_313",
+    "id" : "AAL015_AL015A10_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -7942,7 +6402,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "aal015_AL015A11_314",
+    "id" : "AAL015_AL015A11_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -7953,7 +6413,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "aaa010_AA010A01_315",
+    "id" : "AAA010_AA010A01_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "aaa010",
@@ -7964,7 +6424,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "aaa010_AA010A02_316",
+    "id" : "AAA010_AA010A02_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "aaa010",
@@ -7975,7 +6435,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "aaa012_AA012A01_317",
+    "id" : "AAA012_AA012A01_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "aaa012",
@@ -7986,7 +6446,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "aaa012_AA012A02_318",
+    "id" : "AAA012_AA012A02_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "aaa012",
@@ -7997,7 +6457,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "abb010_BB010A01_319",
+    "id" : "ABB010_BB010A01_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "abb010",
@@ -8007,7 +6467,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbi010_BI010P01",
+    "id" : "PBI010_BI010P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbi010",
@@ -8017,7 +6477,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbd100_BD100P01",
+    "id" : "PBD100_BD100P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbd100",
@@ -8027,7 +6487,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbd130_BD130P01",
+    "id" : "PBD130_BD130P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbd130",
@@ -8038,7 +6498,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbd130_BD130P02",
+    "id" : "PBD130_BD130P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbd130",
@@ -8049,7 +6509,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbd180_BD180P01",
+    "id" : "PBD180_BD180P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbd180",
@@ -8059,7 +6519,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paq068_AQ068P01",
+    "id" : "PAQ068_AQ068P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paq068",
@@ -8069,7 +6529,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbi040_BI040P01",
+    "id" : "PBI040_BI040P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbi040",
@@ -8079,7 +6539,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbi050_BI050P01",
+    "id" : "PBI050_BI050P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbi050",
@@ -8089,7 +6549,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbh120_BH120P01",
+    "id" : "PBH120_BH120P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbh120",
@@ -8099,7 +6559,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbh145_BH145P01",
+    "id" : "PBH145_BH145P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbh145",
@@ -8110,7 +6570,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbh145_BH145P02",
+    "id" : "PBH145_BH145P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbh145",
@@ -8121,7 +6581,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbh180_BH180P01",
+    "id" : "PBH180_BH180P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbh180",
@@ -8131,7 +6591,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbi030_BI030P01",
+    "id" : "PBI030_BI030P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbi030",
@@ -8141,7 +6601,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbd140_BD140P01",
+    "id" : "PBD140_BD140P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbd140",
@@ -8151,7 +6611,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbg010_BG010P01",
+    "id" : "PBG010_BG010P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbg010",
@@ -8161,7 +6621,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbh170_BH170P01",
+    "id" : "PBH170_BH170P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbh170",
@@ -8172,7 +6632,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbh170_BH170P02",
+    "id" : "PBH170_BH170P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbh170",
@@ -8183,7 +6643,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbj060_BJ060P01",
+    "id" : "PBJ060_BJ060P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbj060",
@@ -8194,7 +6654,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pbj060_BJ060P02",
+    "id" : "PBJ060_BJ060P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbj060",
@@ -8205,7 +6665,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pdb160_DB160P01",
+    "id" : "PDB160_DB160P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pdb160",
@@ -8215,7 +6675,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pdb030_DB030P01",
+    "id" : "PDB030_DB030P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pdb030",
@@ -8225,7 +6685,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pdb150_DB150P01",
+    "id" : "PDB150_DB150P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pdb150",
@@ -8235,7 +6695,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pdb115_DB115P01",
+    "id" : "PDB115_DB115P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pdb115",
@@ -8245,7 +6705,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pdb180_DB180P01",
+    "id" : "PDB180_DB180P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pdb180",
@@ -8255,7 +6715,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P01",
+    "id" : "PAL015_AL015P01_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8264,7 +6724,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal015_AL015P02",
+    "id" : "PAL015_AL015P02_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8273,7 +6733,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal015_AL015P02_320",
+    "id" : "PAL015_AL015P02_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8282,7 +6742,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal015_AL015P03",
+    "id" : "PAL015_AL015P03_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8293,7 +6753,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P04",
+    "id" : "PAL015_AL015P04_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8304,7 +6764,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P05",
+    "id" : "PAL015_AL015P05_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8315,7 +6775,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P06",
+    "id" : "PAL015_AL015P06_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8326,7 +6786,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P08",
+    "id" : "PAL015_AL015P08_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8337,7 +6797,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P09",
+    "id" : "PAL015_AL015P09_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8348,7 +6808,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P10",
+    "id" : "PAL015_AL015P10_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8359,7 +6819,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P11",
+    "id" : "PAL015_AL015P11_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8368,7 +6828,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal015_AL015P12",
+    "id" : "PAL015_AL015P12_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8379,7 +6839,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P13",
+    "id" : "PAL015_AL015P13_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8390,7 +6850,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P14",
+    "id" : "PAL015_AL015P14_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8401,7 +6861,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P15",
+    "id" : "PAL015_AL015P15_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8412,7 +6872,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P16",
+    "id" : "PAL015_AL015P16_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8423,7 +6883,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P01_321",
+    "id" : "PAL015_AL015P01_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8432,7 +6892,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal015_AL015P02_322",
+    "id" : "PAL015_AL015P02_03",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8441,7 +6901,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal015_AL015P02_323",
+    "id" : "PAL015_AL015P02_04",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8450,7 +6910,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal015_AL015P03_324",
+    "id" : "PAL015_AL015P03_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8461,7 +6921,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P04_325",
+    "id" : "PAL015_AL015P04_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8472,7 +6932,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P05_326",
+    "id" : "PAL015_AL015P05_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8483,7 +6943,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P06_327",
+    "id" : "PAL015_AL015P06_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8494,7 +6954,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P07",
+    "id" : "PAL015_AL015P07_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8503,7 +6963,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal015_AL015P07_328",
+    "id" : "PAL015_AL015P07_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8512,7 +6972,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal015_AL015P08_329",
+    "id" : "PAL015_AL015P08_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8523,7 +6983,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P09_330",
+    "id" : "PAL015_AL015P09_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8534,7 +6994,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P10_331",
+    "id" : "PAL015_AL015P10_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8545,7 +7005,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P11_332",
+    "id" : "PAL015_AL015P11_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8554,7 +7014,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal015_AL015P12_333",
+    "id" : "PAL015_AL015P12_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8565,7 +7025,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P13_334",
+    "id" : "PAL015_AL015P13_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8576,7 +7036,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P14_335",
+    "id" : "PAL015_AL015P14_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8587,7 +7047,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P15_336",
+    "id" : "PAL015_AL015P15_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8598,7 +7058,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal015_AL015P16_337",
+    "id" : "PAL015_AL015P16_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal015",
@@ -8609,7 +7069,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pah050_AH050P01",
+    "id" : "PAH050_AH050P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pah050",
@@ -8617,7 +7077,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pak020_AK020P01",
+    "id" : "PAK020_AK020P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pak020",
@@ -8628,7 +7088,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pak150_AK150P01",
+    "id" : "PAK150_AK150P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pak150",
@@ -8639,7 +7099,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pak150_AK150P02",
+    "id" : "PAK150_AK150P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pak150",
@@ -8650,7 +7110,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pak160_AK160P02",
+    "id" : "PAK160_AK160P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pak160",
@@ -8661,7 +7121,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal030_AL030P01",
+    "id" : "PAL030_AL030P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal030",
@@ -8671,7 +7131,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal130_AL130P01",
+    "id" : "PAL130_AL130P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal130",
@@ -8682,7 +7142,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal130_AL130P02",
+    "id" : "PAL130_AL130P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal130",
@@ -8693,7 +7153,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal100_AL100P01",
+    "id" : "PAL100_AL100P01_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal100",
@@ -8701,7 +7161,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal100_AL100P01_338",
+    "id" : "PAL100_AL100P01_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal100",
@@ -8709,7 +7169,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal105_AL105P01",
+    "id" : "PAL105_AL105P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal105",
@@ -8719,7 +7179,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal250_AL250P01",
+    "id" : "PAL250_AL250P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal250",
@@ -8729,7 +7189,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal200_AL200P01",
+    "id" : "PAL200_AL200P01_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal200",
@@ -8737,7 +7197,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal200_AL200P01_339",
+    "id" : "PAL200_AL200P01_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal200",
@@ -8745,7 +7205,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pam020_AM020P01",
+    "id" : "PAM020_AM020P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pam020",
@@ -8756,7 +7216,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pam020_AM020P02",
+    "id" : "PAM020_AM020P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pam020",
@@ -8767,7 +7227,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pam030_AM030P01",
+    "id" : "PAM030_AM030P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pam030",
@@ -8778,7 +7238,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pam030_AM030P02",
+    "id" : "PAM030_AM030P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pam030",
@@ -8789,7 +7249,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paa010_AA010P01",
+    "id" : "PAA010_AA010P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paa010",
@@ -8800,7 +7260,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paa010_AA010P02",
+    "id" : "PAA010_AA010P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paa010",
@@ -8811,7 +7271,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paa012_AA012P01",
+    "id" : "PAA012_AA012P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paa012",
@@ -8822,7 +7282,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paa012_AA012P02",
+    "id" : "PAA012_AA012P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paa012",
@@ -8833,7 +7293,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paf010_AF010P01",
+    "id" : "PAF010_AF010P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paf010",
@@ -8844,7 +7304,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paf010_AF010P02",
+    "id" : "PAF010_AF010P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paf010",
@@ -8855,7 +7315,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paf030_AF030P01",
+    "id" : "PAF030_AF030P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paf030",
@@ -8866,7 +7326,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paf030_AF030P02",
+    "id" : "PAF030_AF030P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paf030",
@@ -8877,7 +7337,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paf040_AF040P01",
+    "id" : "PAF040_AF040P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paf040",
@@ -8888,7 +7348,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paf040_AF040P02",
+    "id" : "PAF040_AF040P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paf040",
@@ -8899,7 +7359,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paf070_AF070P01",
+    "id" : "PAF070_AF070P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paf070",
@@ -8910,7 +7370,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paf070_AF070P02",
+    "id" : "PAF070_AF070P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paf070",
@@ -8921,7 +7381,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paj050_AJ050P01",
+    "id" : "PAJ050_AJ050P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paj050",
@@ -8932,7 +7392,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paj050_AJ050P02",
+    "id" : "PAJ050_AJ050P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paj050",
@@ -8943,7 +7403,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paj051_AJ051P01",
+    "id" : "PAJ051_AJ051P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paj051",
@@ -8954,7 +7414,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paj051_AJ051P02",
+    "id" : "PAJ051_AJ051P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paj051",
@@ -8965,7 +7425,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pac000_AC000P01",
+    "id" : "PAC000_AC000P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pac000",
@@ -8973,7 +7433,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "paa040_AA040P01",
+    "id" : "PAA040_AA040P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paa040",
@@ -8984,7 +7444,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paa040_AA040P02",
+    "id" : "PAA040_AA040P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paa040",
@@ -8995,7 +7455,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paa050_AA050P01",
+    "id" : "PAA050_AA050P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paa050",
@@ -9006,7 +7466,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paa050_AA050P02",
+    "id" : "PAA050_AA050P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paa050",
@@ -9017,7 +7477,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paa050_AA050P03",
+    "id" : "PAA050_AA050P03",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paa050",
@@ -9028,7 +7488,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pac020_AC020P01",
+    "id" : "PAC020_AC020P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pac020",
@@ -9037,7 +7497,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pac020_AC020P02",
+    "id" : "PAC020_AC020P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pac020",
@@ -9048,7 +7508,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pam060_AM060P01",
+    "id" : "PAM060_AM060P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pam060",
@@ -9058,7 +7518,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pam070_AM070P01",
+    "id" : "PAM070_AM070P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pam070",
@@ -9066,7 +7526,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pam080_AM080P01",
+    "id" : "PAM080_AM080P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pam080",
@@ -9077,7 +7537,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pam080_AM080P02",
+    "id" : "PAM080_AM080P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pam080",
@@ -9088,7 +7548,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal240_AL240P01",
+    "id" : "PAL240_AL240P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal240",
@@ -9099,7 +7559,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal240_AL240P02",
+    "id" : "PAL240_AL240P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal240",
@@ -9110,7 +7570,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pat010_AT010P01",
+    "id" : "PAT010_AT010P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pat010",
@@ -9121,7 +7581,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pat010_AT010P02",
+    "id" : "PAT010_AT010P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pat010",
@@ -9132,7 +7592,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pat080_AT080P01",
+    "id" : "PAT080_AT080P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pat080",
@@ -9143,7 +7603,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pat080_AT080P02",
+    "id" : "PAT080_AT080P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pat080",
@@ -9154,7 +7614,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pad010_AD010P01",
+    "id" : "PAD010_AD010P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pad010",
@@ -9162,7 +7622,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pad020_AD020P01",
+    "id" : "PAD020_AD020P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pad020",
@@ -9170,7 +7630,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "paq116_AQ116P01",
+    "id" : "PAQ116_AQ116P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paq116",
@@ -9178,7 +7638,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pad030_AD030P01",
+    "id" : "PAD030_AD030P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pad030",
@@ -9186,7 +7646,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pat040_AT040P02",
+    "id" : "PAT040_AT040P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pat040",
@@ -9197,7 +7657,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pat040_AT040P01",
+    "id" : "PAT040_AT040P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pat040",
@@ -9208,7 +7668,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pgb005_GB005P01",
+    "id" : "PGB005_GB005P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pgb005",
@@ -9218,7 +7678,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pgb030_GB035P01",
+    "id" : "PGB030_GB035P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pgb030",
@@ -9229,7 +7689,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pgb030_GB035P02",
+    "id" : "PGB030_GB035P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pgb030",
@@ -9240,7 +7700,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pgb035_GB030P01",
+    "id" : "PGB035_GB030P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pgb035",
@@ -9250,7 +7710,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pgb065_GB065P01",
+    "id" : "PGB065_GB065P01_01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pgb065",
@@ -9258,7 +7718,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pgb065_GB065P01_340",
+    "id" : "PGB065_GB065P01_02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pgb065",
@@ -9266,7 +7726,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pbb010_BB010P01",
+    "id" : "PBB010_BB010P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pbb010",
@@ -9276,7 +7736,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paq060_AQ060P01",
+    "id" : "PAQ060_AQ060P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paq060",
@@ -9287,7 +7747,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paq060_AQ060P02",
+    "id" : "PAQ060_AQ060P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paq060",
@@ -9298,7 +7758,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paq110_AQ110P01",
+    "id" : "PAQ110_AQ110P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paq110",
@@ -9309,7 +7769,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paq110_AQ110P02",
+    "id" : "PAQ110_AQ110P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paq110",
@@ -9320,7 +7780,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pgb010_GB010P01",
+    "id" : "PGB010_GB010P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pgb010",
@@ -9330,7 +7790,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pan075_AN075P01",
+    "id" : "PAN075_AN075P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pan075",
@@ -9340,7 +7800,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pal019_AL019P01",
+    "id" : "PAL019_AL019P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal019",
@@ -9348,7 +7808,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pal210_AL210P01",
+    "id" : "PAL210_AL210P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pal210",
@@ -9358,7 +7818,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "paq050_AQ050P01",
+    "id" : "PAQ050_AQ050P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "paq050",
@@ -9368,7 +7828,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "roadname_ROADNAMEP01",
+    "id" : "ROADNAME_ROADNAMEP01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "roadname",
@@ -9379,7 +7839,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "roadname_ROADNAMEP02",
+    "id" : "ROADNAME_ROADNAMEP02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "roadname",
@@ -9390,7 +7850,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "roadname_ROADNAMEP03",
+    "id" : "ROADNAME_ROADNAMEP03",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "roadname",
@@ -9401,7 +7861,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "pca030_CA030P01",
+    "id" : "PCA030_CA030P01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pca030",
@@ -9410,7 +7870,7 @@
       "visibility" : "visible"
     }
   }, {
-    "id" : "pca030_CA030P02",
+    "id" : "PCA030_CA030P02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "pca030",
@@ -9421,7 +7881,7 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "ROADNAME_RoadnameT01",
+    "id" : "ROADNAME_ROADNAMET01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "roadname",
@@ -9436,7 +7896,7 @@
       "text-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "ROADNAME_RoadnameT02",
+    "id" : "ROADNAME_ROADNAMET02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "roadname",
@@ -9451,7 +7911,7 @@
       "text-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "ROADNAME_RoadnameT03",
+    "id" : "ROADNAME_ROADNAMET03",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "roadname",
@@ -9496,7 +7956,7 @@
       "text-color" : "rgba(166, 38, 38, 1)"
     }
   }, {
-    "id" : "GEONAME_GeonameLandT01",
+    "id" : "GEONAME_GEONAMELANDT01",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "geoname",
@@ -9511,7 +7971,7 @@
       "text-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "GEONAME_GeonameLandT02",
+    "id" : "GEONAME_GEONAMELANDT02",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "geoname",
@@ -9526,7 +7986,7 @@
       "text-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "GEONAME_GeonameLandT03",
+    "id" : "GEONAME_GEONAMELANDT03",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "geoname",
@@ -9541,7 +8001,7 @@
       "text-color" : "rgba(0, 99, 189, 1)"
     }
   }, {
-    "id" : "GEONAME_GeonameLandT04",
+    "id" : "GEONAME_GEONAMELANDT04",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "geoname",
@@ -9556,7 +8016,7 @@
       "text-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "GEONAME_GeonameLandT05",
+    "id" : "GEONAME_GEONAMELANDT05",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "geoname",
@@ -9571,7 +8031,7 @@
       "text-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "GEONAME_GeonameLandT07",
+    "id" : "GEONAME_GEONAMELANDT07",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "geoname",
@@ -9586,7 +8046,7 @@
       "text-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "GEONAME_GeonameLandT08",
+    "id" : "GEONAME_GEONAMELANDT08",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "geoname",
@@ -9601,7 +8061,7 @@
       "text-color" : "rgba(0, 99, 189, 1)"
     }
   }, {
-    "id" : "GEONAME_GeonameLandT09",
+    "id" : "GEONAME_GEONAMELANDT09",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "geoname",
@@ -9616,7 +8076,7 @@
       "text-color" : "rgba(0, 95, 189, 1)"
     }
   }, {
-    "id" : "GEONAME_GeonameLandT10",
+    "id" : "GEONAME_GEONAMELANDT10",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "geoname",
@@ -9631,7 +8091,7 @@
       "text-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
-    "id" : "GEONAME_GeonameLandT11",
+    "id" : "GEONAME_GEONAMELANDT11",
     "type" : "symbol",
     "source" : "tegola",
     "source-layer" : "geoname",

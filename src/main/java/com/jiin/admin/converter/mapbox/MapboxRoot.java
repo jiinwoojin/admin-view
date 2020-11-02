@@ -103,4 +103,16 @@ public class MapboxRoot {
     public boolean existLayerId(String layerId) {
         return this.layerIds.contains(layerId);
     }
+
+    public void cleanLayerId() {
+        for(MapboxLayer layer : layers){
+            String layerId = layer.getId();
+            if(layerId.split("_").length == 3){
+                String checkLayerId = layerId.split("_")[0] + "_" + layerId.split("_")[1] + "_02";
+                if(!existLayerId(checkLayerId)){
+                    layer.setId(layerId.split("_")[0] + "_" + layerId.split("_")[1]);
+                }
+            }
+        }
+    }
 }

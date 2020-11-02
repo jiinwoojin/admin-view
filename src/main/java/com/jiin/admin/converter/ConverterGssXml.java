@@ -114,25 +114,25 @@ public class ConverterGssXml {
         GssContainer styles = parseGssXml(styleFile);
         GssRootLayer result = (GssRootLayer) parseGssXml(layerFile);
         List<GssLayer> layers = result.getLayer();
-        int i = 0;
         for(GssLayer layer : layers) {
-            i = makeLayer(i, "Polygon", layer, sourceName, font, styles ,mapbox);
+            makeLayer("Polygon", layer, sourceName, font, styles ,mapbox);
         }
         for(GssLayer layer : layers) {
-            i = makeLayer(i, "Line", layer, sourceName, font, styles ,mapbox);
+            makeLayer("Line", layer, sourceName, font, styles ,mapbox);
         }
         for(GssLayer layer : layers) {
-            i = makeLayer(i, "Point", layer, sourceName, font, styles ,mapbox);
+            makeLayer("Point", layer, sourceName, font, styles ,mapbox);
         }
         for(GssLayer layer : layers) {
-            i = makeLayer(i, "Label", layer, sourceName, font, styles ,mapbox);
+            makeLayer("Label", layer, sourceName, font, styles ,mapbox);
         }
+        mapbox.cleanLayerId();
         new ObjectMapper()
                 .enable(SerializationFeature.INDENT_OUTPUT)
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL)
                 .writeValue(output,mapbox);
     }
-    private int makeLayer(int i, String type, GssLayer layer, String sourceName, String font, GssContainer styles, MapboxRoot mapbox) throws JsonProcessingException {
+    private void makeLayer(String type, GssLayer layer, String sourceName, String font, GssContainer styles, MapboxRoot mapbox) throws JsonProcessingException {
         String shpSource = layer.getSHPSource().toLowerCase();
         String featureType = layer.getGeometryType();
         String labelColumn = layer.getLabelColumn();
@@ -154,7 +154,7 @@ public class ConverterGssXml {
                             if(type.equals("Polygon")){
                                 for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
                                     if(styleLayer.getTextureFill() == null || styleLayer.getTextureFill().equals(true)){
-                                        i = makeStyleLayer(featureType, styleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                                        makeStyleLayer(featureType, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
                                     }
                                 }
                             }
@@ -172,7 +172,7 @@ public class ConverterGssXml {
                                                 linestyle.setWidth(newWidth);
                                                 linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
                                             }
-                                            i = makeStyleLayer("Line", linestyle, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                                            makeStyleLayer("Line", linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
                                         }
                                     }
                                 }
@@ -181,7 +181,7 @@ public class ConverterGssXml {
                                 //point
                                 for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
                                     if(styleLayer.getTextureFill() != null && styleLayer.getTextureFill().equals(false)){
-                                        i = makeStyleLayer("Point", styleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                                        makeStyleLayer("Point", styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
                                     }
                                 }
                             }
@@ -199,7 +199,7 @@ public class ConverterGssXml {
                                         linestyle.setWidth(newWidth);
                                         linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
                                     }
-                                    i = makeStyleLayer(featureType, linestyle, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                                    makeStyleLayer(featureType, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
                                 }
                             }
                         }
@@ -207,7 +207,7 @@ public class ConverterGssXml {
                         if(type.equals("Point")){
                             if (style.getPointLayer() != null) {
                                 for (GssPointLayer styleLayer : style.getPointLayer()) {
-                                    i = makeStyleLayer(featureType, styleLayer, shpSource, styleName, i, sourceName, feature.getVVTStyle(), mapbox);
+                                    makeStyleLayer(featureType, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
                                 }
                             }
                         }
@@ -228,10 +228,8 @@ public class ConverterGssXml {
                         }
                         /** add feature > layer + label style **/
                         MapboxLayer mapboxLayer = new MapboxLayer();
-                        String layerId = shpSource.toUpperCase() + "_" + labelStyleName;
-                        if (mapbox.existLayerId(layerId)) {
-                            layerId = layerId + "_" + (++i);
-                        }
+                        String layerId = (shpSource + "_" + labelStyleName).toUpperCase();
+                        layerId = layerId + "_" + getLayerIdIndex(layerId);
                         mapboxLayer.setId(layerId);
                         mapboxLayer.setSource(sourceName);
                         mapboxLayer.setSourceLayer(shpSource);
@@ -268,16 +266,10 @@ public class ConverterGssXml {
                 }
             }
         }
-        return i;
     }
 
-    private int makeStyleLayer(String featureType, Object styleLayer, String shpSource, String styleName, int i, String sourceName, List<GssVVTStyle> vvtStyle, MapboxRoot mapbox) throws JsonProcessingException {
+    private void makeStyleLayer(String featureType, Object styleLayer, String shpSource, String styleName, String sourceName, List<GssVVTStyle> vvtStyle, MapboxRoot mapbox) throws JsonProcessingException {
         MapboxLayer mapboxLayer = new MapboxLayer();
-        String layerId = shpSource + "_" + styleName;
-        if(mapbox.existLayerId(layerId)){
-            layerId = layerId + "_" + (++i);
-        }
-        mapboxLayer.setId(layerId);
         mapboxLayer.setSource(sourceName);
         mapboxLayer.setSourceLayer(shpSource);
         mapboxLayer.setFilter(parseFilter(vvtStyle));
@@ -289,6 +281,9 @@ public class ConverterGssXml {
             if(gssPaint.getType().equals("PICTURE")){
                 paint.setFillPattern(parsePicture(gssPaint.getPicture()));
             }else{
+                if(gssPaint.getType().equals("SIMPLE") && gssPaint.getColor().equals("255, 255, 255, 255")){
+                    return; // color white ignore
+                }
                 if(gssPaint.getColor() != null) paint.setFillColor(parseColor(gssPaint.getColor()));
             }
         }else if(featureType.equals("Line")){
@@ -297,6 +292,9 @@ public class ConverterGssXml {
             if(gssPaint.getType().equals("PICTURE")){
                 paint.setLinePattern(parsePicture(gssPaint.getPicture()));
             }else{
+                if(gssPaint.getType().equals("SIMPLE") && gssPaint.getWidth() == 0){
+                    return; // width 0 ignore
+                }
                 if(gssPaint.getColor() != null) paint.setLineColor(parseColor(gssPaint.getColor()));
                 if(gssPaint.getWidth() != null) paint.setLineWidth(gssPaint.getWidth());
                 if(gssPaint.getOffset() != null) paint.setLineOffset(gssPaint.getOffset());
@@ -337,9 +335,21 @@ public class ConverterGssXml {
         if(!json.equals("{}")){
             mapboxLayer.setPaint(paint);
         }
+        // check layer id
+        String layerId = (shpSource + "_" + styleName).toUpperCase();
+        layerId = layerId + "_" + getLayerIdIndex(layerId);
+        mapboxLayer.setId(layerId);
         mapboxLayer.setLayout(layout);
         mapbox.addLayers(mapboxLayer);
-        return i;
+    }
+    Map<String, Integer> LAYER_ID_INDEX = new HashMap();
+    private String getLayerIdIndex(String layerId) {
+        if(!LAYER_ID_INDEX.containsKey(layerId)){
+            LAYER_ID_INDEX.put(layerId,0);
+        }
+        int index = LAYER_ID_INDEX.get(layerId) + 1;
+        LAYER_ID_INDEX.put(layerId,index);
+        return String.format("%02d", index);
     }
 
     private List<Object> parseFilter(List<GssVVTStyle> vvtStyles) {
