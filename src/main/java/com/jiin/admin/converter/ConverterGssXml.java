@@ -156,6 +156,10 @@ public class ConverterGssXml {
                                     if(styleLayer.getTextureFill() == null || styleLayer.getTextureFill().equals(true)){
                                         makeStyleLayer(featureType, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
                                     }
+                                    //point
+                                    if(styleLayer.getTextureFill() != null && styleLayer.getTextureFill().equals(false)){
+                                        makeStyleLayer("Point", styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
+                                    }
                                 }
                             }
                             if(type.equals("Line")){
@@ -174,14 +178,6 @@ public class ConverterGssXml {
                                             }
                                             makeStyleLayer("Line", linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
                                         }
-                                    }
-                                }
-                            }
-                            if(type.equals("Point")){
-                                //point
-                                for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
-                                    if(styleLayer.getTextureFill() != null && styleLayer.getTextureFill().equals(false)){
-                                        makeStyleLayer("Point", styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
                                     }
                                 }
                             }

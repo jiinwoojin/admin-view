@@ -717,6 +717,17 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
+    "id" : "AAL015_AL015A03_02",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "aal015",
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 15 ] ],
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "School(A)",
+      "icon-allow-overlap" : true
+    }
+  }, {
     "id" : "AAL015_AL015A04_01",
     "type" : "fill",
     "source" : "tegola",
@@ -727,6 +738,28 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    }
+  }, {
+    "id" : "AAL015_AL015A04_02",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "aal015",
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 6 ] ],
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "Hospital(A)",
+      "icon-allow-overlap" : true
+    }
+  }, {
+    "id" : "AAL015_AL015A05_01",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "aal015",
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "Obstacle",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "AAL015_AL015A06_01",
@@ -741,6 +774,17 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
+    "id" : "AAL015_AL015A06_02",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "aal015",
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "in", "hwt", 2, 3, 4 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "Church(A)",
+      "icon-allow-overlap" : true
+    }
+  }, {
     "id" : "AAL015_AL015A07_01",
     "type" : "fill",
     "source" : "tegola",
@@ -751,6 +795,17 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    }
+  }, {
+    "id" : "AAL015_AL015A07_02",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "aal015",
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 16 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "Temple(A)",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "AAL015_AL015A08_01",
@@ -765,6 +820,17 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
+    "id" : "AAL015_AL015A08_02",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "aal015",
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 9 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "Mosque(A)",
+      "icon-allow-overlap" : true
+    }
+  }, {
     "id" : "AAL015_AL015A09_01",
     "type" : "fill",
     "source" : "tegola",
@@ -775,6 +841,17 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    }
+  }, {
+    "id" : "AAL015_AL015A09_02",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "aal015",
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 20 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "Synagogue(A)",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "AAL015_AL015A10_01",
@@ -789,6 +866,17 @@
       "fill-color" : "rgba(0, 0, 0, 1)"
     }
   }, {
+    "id" : "AAL015_AL015A10_02",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "aal015",
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 11 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "Tower(A)",
+      "icon-allow-overlap" : true
+    }
+  }, {
     "id" : "AAL015_AL015A11_01",
     "type" : "fill",
     "source" : "tegola",
@@ -799,6 +887,17 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    }
+  }, {
+    "id" : "AAL015_AL015A11_02",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "aal015",
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 21 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "Pagoda(A)",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "AAM020_AM020A01",
@@ -821,6 +920,50 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    }
+  }, {
+    "id" : "AAA010_AA010A01_01",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "aaa010",
+    "filter" : [ "all", [ "in", "exs", 0, 28 ] ],
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "Mine_Operataion",
+      "icon-allow-overlap" : true
+    }
+  }, {
+    "id" : "AAA010_AA010A02_01",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "aaa010",
+    "filter" : [ "all", [ "==", "exs", 6 ] ],
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "Mine_NonOperataion",
+      "icon-allow-overlap" : true
+    }
+  }, {
+    "id" : "AAA012_AA012A01_01",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "aaa012",
+    "filter" : [ "all", [ "in", "exs", 0, 28 ] ],
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "Mine_Operataion",
+      "icon-allow-overlap" : true
+    }
+  }, {
+    "id" : "AAA012_AA012A02_01",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "aaa012",
+    "filter" : [ "all", [ "==", "exs", 6 ] ],
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "Mine_NonOperataion",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "ABH155_BH155A01_01",
@@ -887,6 +1030,16 @@
     },
     "paint" : {
       "fill-color" : "rgba(184, 214, 243, 1)"
+    }
+  }, {
+    "id" : "ABB010_BB010A01_01",
+    "type" : "symbol",
+    "source" : "tegola",
+    "source-layer" : "abb010",
+    "layout" : {
+      "visibility" : "visible",
+      "icon-image" : "Seaplane_01",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "ABB190_BB190A01_01",
@@ -1543,7 +1696,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "AAL015_AL015A05_01",
+    "id" : "AAL015_AL015A05_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aal015",
@@ -1585,7 +1738,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "AAA010_AA010A01_01",
+    "id" : "AAA010_AA010A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aaa010",
@@ -1600,7 +1753,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "AAA010_AA010A02_01",
+    "id" : "AAA010_AA010A02_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aaa010",
@@ -1615,7 +1768,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "AAA012_AA012A01_01",
+    "id" : "AAA012_AA012A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aaa012",
@@ -1630,7 +1783,7 @@
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
     }
   }, {
-    "id" : "AAA012_AA012A02_01",
+    "id" : "AAA012_AA012A02_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "aaa012",
@@ -1864,7 +2017,7 @@
       "line-width" : 1
     }
   }, {
-    "id" : "ABB010_BB010A01_01",
+    "id" : "ABB010_BB010A01_02",
     "type" : "line",
     "source" : "tegola",
     "source-layer" : "abb010",
@@ -6312,159 +6465,6 @@
     "paint" : {
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 2
-    }
-  }, {
-    "id" : "AAL015_AL015A03_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 15 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "School(A)",
-      "icon-allow-overlap" : true
-    }
-  }, {
-    "id" : "AAL015_AL015A04_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 6 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Hospital(A)",
-      "icon-allow-overlap" : true
-    }
-  }, {
-    "id" : "AAL015_AL015A05_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Obstacle",
-      "icon-allow-overlap" : true
-    }
-  }, {
-    "id" : "AAL015_AL015A06_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "in", "hwt", 2, 3, 4 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Church(A)",
-      "icon-allow-overlap" : true
-    }
-  }, {
-    "id" : "AAL015_AL015A07_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 16 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Temple(A)",
-      "icon-allow-overlap" : true
-    }
-  }, {
-    "id" : "AAL015_AL015A08_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 9 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Mosque(A)",
-      "icon-allow-overlap" : true
-    }
-  }, {
-    "id" : "AAL015_AL015A09_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 20 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Synagogue(A)",
-      "icon-allow-overlap" : true
-    }
-  }, {
-    "id" : "AAL015_AL015A10_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 11 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Tower(A)",
-      "icon-allow-overlap" : true
-    }
-  }, {
-    "id" : "AAL015_AL015A11_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 21 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Pagoda(A)",
-      "icon-allow-overlap" : true
-    }
-  }, {
-    "id" : "AAA010_AA010A01_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "aaa010",
-    "filter" : [ "all", [ "in", "exs", 0, 28 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Mine_Operataion",
-      "icon-allow-overlap" : true
-    }
-  }, {
-    "id" : "AAA010_AA010A02_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "aaa010",
-    "filter" : [ "all", [ "==", "exs", 6 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Mine_NonOperataion",
-      "icon-allow-overlap" : true
-    }
-  }, {
-    "id" : "AAA012_AA012A01_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "aaa012",
-    "filter" : [ "all", [ "in", "exs", 0, 28 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Mine_Operataion",
-      "icon-allow-overlap" : true
-    }
-  }, {
-    "id" : "AAA012_AA012A02_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "aaa012",
-    "filter" : [ "all", [ "==", "exs", 6 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Mine_NonOperataion",
-      "icon-allow-overlap" : true
-    }
-  }, {
-    "id" : "ABB010_BB010A01_02",
-    "type" : "symbol",
-    "source" : "tegola",
-    "source-layer" : "abb010",
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Seaplane_01",
-      "icon-allow-overlap" : true
     }
   }, {
     "id" : "PBI010_BI010P01",
