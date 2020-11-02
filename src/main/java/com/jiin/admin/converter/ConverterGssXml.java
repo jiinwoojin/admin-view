@@ -42,7 +42,7 @@ public class ConverterGssXml {
         param.setId("uzymq5sw3");
         param.setName("g25k_style");
         param.setMaputnikRenderer("mbgljs");
-        param.setSourceName("tegola");
+        param.setSourceName("g25k");
         param.setFont("Gosanja");
         param.setSprite("http://192.168.0.11/GSymbol/GSSSymbol");
         param.setGlyphs("http://192.168.0.11/fonts/{fontstack}/{range}.pbf");
@@ -156,15 +156,7 @@ public class ConverterGssXml {
                                     if(styleLayer.getTextureFill() == null || styleLayer.getTextureFill().equals(true)){
                                         makeStyleLayer(featureType, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
                                     }
-                                    //point
-                                    if(styleLayer.getTextureFill() != null && styleLayer.getTextureFill().equals(false)){
-                                        makeStyleLayer("Point", styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
-                                    }
-                                }
-                            }
-                            if(type.equals("Line")){
-                                //line
-                                for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
+                                    //line
                                     if (styleLayer.getLineLayer() != null) {
                                         for (GssLineLayer linestyle : styleLayer.getLineLayer()) {
                                             if(linestyle.getType().equals("VERTICAL")){
@@ -178,6 +170,10 @@ public class ConverterGssXml {
                                             }
                                             makeStyleLayer("Line", linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
                                         }
+                                    }
+                                    //point
+                                    if(styleLayer.getTextureFill() != null && styleLayer.getTextureFill().equals(false)){
+                                        makeStyleLayer("Point", styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
                                     }
                                 }
                             }
