@@ -6721,7 +6721,10 @@
     "source-layer" : "pal015",
     "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "!in", "bfc", 94, 15, 6, 82, 7 ] ],
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAL015_AL015P02_01",
@@ -6730,7 +6733,10 @@
     "source-layer" : "pal015",
     "filter" : [ "all", [ "==", "exs", 7 ], [ "<", "hgt", 46 ] ],
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAL015_AL015P02_02",
@@ -6739,7 +6745,10 @@
     "source-layer" : "pal015",
     "filter" : [ "all", [ "==", "exs", 7 ], [ "<", "hgt", 46 ] ],
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.2
     }
   }, {
     "id" : "PAL015_AL015P03_01",
@@ -6825,7 +6834,10 @@
     "source-layer" : "pal015",
     "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 14 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAL015_AL015P12_01",
@@ -6889,7 +6901,10 @@
     "source-layer" : "pal015",
     "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "!in", "bfc", 94, 15, 6, 82, 7 ] ],
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAL015_AL015P02_03",
@@ -6898,7 +6913,10 @@
     "source-layer" : "pal015",
     "filter" : [ "all", [ "==", "exs", 7 ], [ "<", "hgt", 46 ] ],
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAL015_AL015P02_04",
@@ -6907,7 +6925,10 @@
     "source-layer" : "pal015",
     "filter" : [ "all", [ "==", "exs", 7 ], [ "<", "hgt", 46 ] ],
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.2
     }
   }, {
     "id" : "PAL015_AL015P03_02",
@@ -6960,7 +6981,10 @@
     "source-layer" : "pal015",
     "filter" : [ "all", [ "==", "acc", 2 ], [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 94 ] ],
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.7
     }
   }, {
     "id" : "PAL015_AL015P07_02",
@@ -6969,7 +6993,10 @@
     "source-layer" : "pal015",
     "filter" : [ "all", [ "==", "acc", 2 ], [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 94 ] ],
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.6
     }
   }, {
     "id" : "PAL015_AL015P08_02",
@@ -7011,7 +7038,10 @@
     "source-layer" : "pal015",
     "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "hwt", 14 ], [ "<", "hgt", 46 ], [ "==", "bfc", 7 ] ],
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAL015_AL015P12_02",
@@ -7074,7 +7104,10 @@
     "source" : "g25k",
     "source-layer" : "pah050",
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAK020_AK020P01",
@@ -7158,7 +7191,10 @@
     "source" : "g25k",
     "source-layer" : "pal100",
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAL100_AL100P01_02",
@@ -7166,7 +7202,10 @@
     "source" : "g25k",
     "source-layer" : "pal100",
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.2
     }
   }, {
     "id" : "PAL105_AL105P01",
@@ -7194,7 +7233,10 @@
     "source" : "g25k",
     "source-layer" : "pal200",
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAL200_AL200P01_02",
@@ -7202,7 +7244,10 @@
     "source" : "g25k",
     "source-layer" : "pal200",
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.2
     }
   }, {
     "id" : "PAM020_AM020P01",
@@ -7430,7 +7475,10 @@
     "source" : "g25k",
     "source-layer" : "pac000",
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAA040_AA040P01",
@@ -7494,7 +7542,10 @@
     "source-layer" : "pac020",
     "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAC020_AC020P02",
@@ -7524,6 +7575,10 @@
     "source-layer" : "pam070",
     "layout" : {
       "visibility" : "visible"
+    },
+    "paint" : {
+      "circle-color" : "rgba(0, 0, 0, 1)",
+      "circle-radius" : 3.5
     }
   }, {
     "id" : "PAM080_AM080P01",
@@ -7619,7 +7674,10 @@
     "source" : "g25k",
     "source-layer" : "pad010",
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAD020_AD020P01",
@@ -7627,7 +7685,10 @@
     "source" : "g25k",
     "source-layer" : "pad020",
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAQ116_AQ116P01",
@@ -7635,7 +7696,10 @@
     "source" : "g25k",
     "source-layer" : "paq116",
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAD030_AD030P01",
@@ -7643,7 +7707,10 @@
     "source" : "g25k",
     "source-layer" : "pad030",
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAT040_AT040P02",
@@ -7715,7 +7782,10 @@
     "source" : "g25k",
     "source-layer" : "pgb065",
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.4
     }
   }, {
     "id" : "PGB065_GB065P01_02",
@@ -7723,7 +7793,10 @@
     "source" : "g25k",
     "source-layer" : "pgb065",
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PBB010_BB010P01",
@@ -7805,7 +7878,10 @@
     "source" : "g25k",
     "source-layer" : "pal019",
     "layout" : {
-      "visibility" : "visible"
+      "visibility" : "visible",
+      "icon-image" : "Rectangle",
+      "icon-allow-overlap" : true,
+      "icon-size" : 0.3
     }
   }, {
     "id" : "PAL210_AL210P01",
@@ -7868,6 +7944,10 @@
     "filter" : [ "all", [ "==", "acc", 1 ], [ "==", "ela", 1 ] ],
     "layout" : {
       "visibility" : "visible"
+    },
+    "paint" : {
+      "circle-color" : "rgba(0, 0, 0, 1)",
+      "circle-radius" : 2.0
     }
   }, {
     "id" : "PCA030_CA030P02",

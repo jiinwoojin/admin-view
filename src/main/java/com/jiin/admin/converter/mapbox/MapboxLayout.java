@@ -28,9 +28,10 @@ public class MapboxLayout {
     private Boolean textAllowOverlap;
     @JsonProperty(value = "text-justify")
     private String textJustify;
-
     @JsonProperty(value = "line-join")
     private String lineJoin;
+    @JsonProperty(value = "icon-size")
+    private Float iconSize;
 
     public String getTextField() {
         return textField;
@@ -110,5 +111,13 @@ public class MapboxLayout {
 
     public void setLineJoin(String lineJoin) {
         this.lineJoin = lineJoin;
+    }
+
+    public Float getIconSize() {
+        return iconSize;
+    }
+
+    public void setIconSize(Float iconSize) {
+        this.iconSize = iconSize;
     }
 }

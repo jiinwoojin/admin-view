@@ -39,7 +39,10 @@ public class MapboxPaint {
     private Integer lineGapWidth;
     @JsonProperty(value = "line-offset")
     private Integer lineOffset;
-
+    @JsonProperty(value = "circle-color")
+    private String circleColor;
+    @JsonProperty(value = "circle-radius")
+    private Float circleRadius;
 
 
     public String getBackgroundColor() {
@@ -128,5 +131,21 @@ public class MapboxPaint {
 
     public void setLineOffset(Integer lineOffset) {
         this.lineOffset = lineOffset;
+    }
+
+    public Float getCircleRadius() {
+        return circleRadius;
+    }
+
+    public void setCircleRadius(Float circleRadius) {
+        this.circleRadius = circleRadius;
+    }
+
+    public String getCircleColor() {
+        return circleColor;
+    }
+
+    public void setCircleColor(String circleColor) {
+        this.circleColor = circleColor;
     }
 }

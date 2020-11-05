@@ -311,7 +311,18 @@ public class ConverterGssXml {
             mapboxLayer.setType("symbol");
             if(styleLayer instanceof GssPointLayer){
                 GssPointLayer gssPaint = (GssPointLayer) styleLayer;
-                if(gssPaint.getType().equals("PICTURE")){
+                if(gssPaint.getType().equals("SIMPLE")){
+                    if(gssPaint.getShape() != null){
+                        if(gssPaint.getShape().equals("0")){
+                            paint.setCircleColor(parseColor(gssPaint.getColor()));
+                            paint.setCircleRadius(Float.parseFloat(gssPaint.getSize()) / 2f);
+                        }else if(gssPaint.getShape().equals("1")){
+                            layout.setIconImage("Rectangle");
+                            layout.setIconAllowOverlap(true);
+                            layout.setIconSize(Float.parseFloat(gssPaint.getSize()) / 2f * 0.1f);
+                        }
+                    }
+                }else if(gssPaint.getType().equals("PICTURE")){
                     layout.setIconImage(parsePicture(gssPaint.getPicture()));
                     layout.setIconAllowOverlap(true);
                 }
