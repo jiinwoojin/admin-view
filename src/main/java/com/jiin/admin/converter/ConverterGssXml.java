@@ -314,6 +314,7 @@ public class ConverterGssXml {
                 if(gssPaint.getType().equals("SIMPLE")){
                     if(gssPaint.getShape() != null){
                         if(gssPaint.getShape().equals("0")){
+                            mapboxLayer.setType("circle");
                             paint.setCircleColor(parseColor(gssPaint.getColor()));
                             paint.setCircleRadius(Float.parseFloat(gssPaint.getSize()) / 2f);
                         }else if(gssPaint.getShape().equals("1")){

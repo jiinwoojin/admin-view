@@ -7570,7 +7570,7 @@
     }
   }, {
     "id" : "PAM070_AM070P01",
-    "type" : "symbol",
+    "type" : "circle",
     "source" : "g25k",
     "source-layer" : "pam070",
     "layout" : {
@@ -7938,7 +7938,7 @@
     }
   }, {
     "id" : "PCA030_CA030P01",
-    "type" : "symbol",
+    "type" : "circle",
     "source" : "g25k",
     "source-layer" : "pca030",
     "filter" : [ "all", [ "==", "acc", 1 ], [ "==", "ela", 1 ] ],
