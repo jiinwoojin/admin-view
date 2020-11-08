@@ -28,10 +28,18 @@ public class MapboxLayout {
     private Boolean textAllowOverlap;
     @JsonProperty(value = "text-justify")
     private String textJustify;
+    @JsonProperty(value = "text-rotation-alignment")
+    private String textRotationAlignment;
     @JsonProperty(value = "line-join")
     private String lineJoin;
     @JsonProperty(value = "icon-size")
     private Float iconSize;
+    @JsonProperty(value = "icon-rotate")
+    private String[] iconRotate;
+    @JsonProperty(value = "icon-rotation-alignment")
+    private String iconRotationAlignment;
+
+
 
     public String getTextField() {
         return textField;
@@ -119,5 +127,29 @@ public class MapboxLayout {
 
     public void setIconSize(Float iconSize) {
         this.iconSize = iconSize;
+    }
+
+    public String[] getIconRotate() {
+        return iconRotate;
+    }
+
+    public void setIconRotate(String[] iconRotate) {
+        this.iconRotate = iconRotate;
+    }
+
+    public String getIconRotationAlignment() {
+        return iconRotationAlignment;
+    }
+
+    public void setIconRotationAlignment(String iconRotationAlignment) {
+        this.iconRotationAlignment = iconRotationAlignment;
+    }
+
+    public String getTextRotationAlignment() {
+        return textRotationAlignment;
+    }
+
+    public void setTextRotationAlignment(String textRotationAlignment) {
+        this.textRotationAlignment = textRotationAlignment;
     }
 }

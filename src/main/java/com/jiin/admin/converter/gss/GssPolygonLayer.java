@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
-@XmlRootElement(name = "LineLayer")
+@XmlRootElement(name = "PolygonLayer")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GssPolygonLayer {
     @XmlAttribute

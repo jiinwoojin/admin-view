@@ -12,6 +12,10 @@ public class GssPointLayer {
     private String Shape;
     private String Picture;
     private String Transparent;
+    public GssPointLayer() { }
+    public GssPointLayer(String type) {
+        this.type = type;
+    }
 
     public String getType() {
         return type;

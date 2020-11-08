@@ -24,7 +24,7 @@ public class GssLineLayer {
     private Integer LeftLength;
     private Integer RightLength;
     private String Picture;
-    private String TextureLine;
+    private Boolean TextureLine;
     private String Transparent;
     private Integer Space;
     @XmlElementWrapper(name="Dash")
@@ -127,13 +127,7 @@ public class GssLineLayer {
         Picture = picture;
     }
 
-    public String getTextureLine() {
-        return TextureLine;
-    }
 
-    public void setTextureLine(String textureLine) {
-        TextureLine = textureLine;
-    }
 
     public String getTransparent() {
         return Transparent;
@@ -203,5 +197,13 @@ public class GssLineLayer {
 
     public void setOffset(Integer offset) {
         Offset = offset;
+    }
+
+    public Boolean getTextureLine() {
+        return TextureLine;
+    }
+
+    public void setTextureLine(Boolean textureLine) {
+        TextureLine = textureLine;
     }
 }

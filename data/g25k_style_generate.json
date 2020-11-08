@@ -241,14 +241,13 @@
     }
   }, {
     "id" : "ABH077_BH077A01_02",
-    "type" : "line",
+    "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "abh077",
     "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-pattern" : "Blue_Circle"
+      "visibility" : "visible",
+      "icon-image" : "Blue_Circle",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "ABA023_BA023A01_01",
@@ -554,14 +553,13 @@
     }
   }, {
     "id" : "ABD120_BD120A01",
-    "type" : "line",
+    "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "abd120",
     "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-pattern" : "Rock_Outline"
+      "visibility" : "visible",
+      "icon-image" : "Rock_Outline",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "ABI020_BI020A01_01",
@@ -2044,14 +2042,13 @@
     }
   }, {
     "id" : "AAL060_AL060A01_02",
-    "type" : "line",
+    "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "aal060",
     "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-pattern" : "Dragonteeth"
+      "visibility" : "visible",
+      "icon-image" : "Dragonteeth",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "AAL210_AL210A01_01",
@@ -2191,14 +2188,13 @@
     }
   }, {
     "id" : "LAL070_AL070L01_02",
-    "type" : "line",
+    "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "lal070",
     "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-pattern" : "Fence"
+      "visibility" : "visible",
+      "icon-image" : "Fence",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "LAL260_AL260L01",
@@ -2922,14 +2918,13 @@
     }
   }, {
     "id" : "LBD120_BD120L01",
-    "type" : "line",
+    "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "lbd120",
     "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-pattern" : "Rock_Outline"
+      "visibility" : "visible",
+      "icon-image" : "Rock_Outline",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "LBH010_BH010L01",
@@ -3554,14 +3549,13 @@
     }
   }, {
     "id" : "LAL060_AL060L01_02",
-    "type" : "line",
+    "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "lal060",
     "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-pattern" : "Dragonteeth"
+      "visibility" : "visible",
+      "icon-image" : "Dragonteeth",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "LAP010_AP010L01",
@@ -6618,7 +6612,9 @@
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tide_way",
-      "icon-allow-overlap" : true
+      "icon-allow-overlap" : true,
+      "icon-rotate" : [ "get", "aoo" ],
+      "icon-rotation-alignment" : "map"
     }
   }, {
     "id" : "PBH170_BH170P01",
@@ -6682,7 +6678,9 @@
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Crave",
-      "icon-allow-overlap" : true
+      "icon-allow-overlap" : true,
+      "icon-rotate" : [ "get", "aoo" ],
+      "icon-rotation-alignment" : "map"
     }
   }, {
     "id" : "PDB150_DB150P01",
@@ -6692,7 +6690,9 @@
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Pass",
-      "icon-allow-overlap" : true
+      "icon-allow-overlap" : true,
+      "icon-rotate" : [ "get", "aoo" ],
+      "icon-rotation-alignment" : "map"
     }
   }, {
     "id" : "PDB115_DB115P01",
@@ -6734,21 +6734,8 @@
     "filter" : [ "all", [ "==", "exs", 7 ], [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
-      "icon-image" : "Rectangle",
-      "icon-allow-overlap" : true,
-      "icon-size" : 0.3
-    }
-  }, {
-    "id" : "PAL015_AL015P02_02",
-    "type" : "symbol",
-    "source" : "g25k",
-    "source-layer" : "pal015",
-    "filter" : [ "all", [ "==", "exs", 7 ], [ "<", "hgt", 46 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Rectangle",
-      "icon-allow-overlap" : true,
-      "icon-size" : 0.2
+      "icon-image" : "Dragonteeth",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "PAL015_AL015P03_01",
@@ -6907,28 +6894,15 @@
       "icon-size" : 0.3
     }
   }, {
-    "id" : "PAL015_AL015P02_03",
+    "id" : "PAL015_AL015P02_02",
     "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "pal015",
     "filter" : [ "all", [ "==", "exs", 7 ], [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
-      "icon-image" : "Rectangle",
-      "icon-allow-overlap" : true,
-      "icon-size" : 0.3
-    }
-  }, {
-    "id" : "PAL015_AL015P02_04",
-    "type" : "symbol",
-    "source" : "g25k",
-    "source-layer" : "pal015",
-    "filter" : [ "all", [ "==", "exs", 7 ], [ "<", "hgt", 46 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Rectangle",
-      "icon-allow-overlap" : true,
-      "icon-size" : 0.2
+      "icon-image" : "Dragonteeth",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "PAL015_AL015P03_02",
@@ -6975,28 +6949,15 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "PAL015_AL015P07_01",
+    "id" : "PAL015_AL015P07",
     "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "pal015",
     "filter" : [ "all", [ "==", "acc", 2 ], [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 94 ] ],
     "layout" : {
       "visibility" : "visible",
-      "icon-image" : "Rectangle",
-      "icon-allow-overlap" : true,
-      "icon-size" : 0.7
-    }
-  }, {
-    "id" : "PAL015_AL015P07_02",
-    "type" : "symbol",
-    "source" : "g25k",
-    "source-layer" : "pal015",
-    "filter" : [ "all", [ "==", "acc", 2 ], [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 94 ] ],
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Rectangle",
-      "icon-allow-overlap" : true,
-      "icon-size" : 0.6
+      "icon-image" : "Dragonteeth",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "PAL015_AL015P08_02",
@@ -7186,26 +7147,14 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "PAL100_AL100P01_01",
+    "id" : "PAL100_AL100P01",
     "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "pal100",
     "layout" : {
       "visibility" : "visible",
-      "icon-image" : "Rectangle",
-      "icon-allow-overlap" : true,
-      "icon-size" : 0.3
-    }
-  }, {
-    "id" : "PAL100_AL100P01_02",
-    "type" : "symbol",
-    "source" : "g25k",
-    "source-layer" : "pal100",
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Rectangle",
-      "icon-allow-overlap" : true,
-      "icon-size" : 0.2
+      "icon-image" : "Dragonteeth",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "PAL105_AL105P01",
@@ -7228,26 +7177,14 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "PAL200_AL200P01_01",
+    "id" : "PAL200_AL200P01",
     "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "pal200",
     "layout" : {
       "visibility" : "visible",
-      "icon-image" : "Rectangle",
-      "icon-allow-overlap" : true,
-      "icon-size" : 0.3
-    }
-  }, {
-    "id" : "PAL200_AL200P01_02",
-    "type" : "symbol",
-    "source" : "g25k",
-    "source-layer" : "pal200",
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Rectangle",
-      "icon-allow-overlap" : true,
-      "icon-size" : 0.2
+      "icon-image" : "Dragonteeth",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "PAM020_AM020P01",
@@ -7777,26 +7714,14 @@
       "icon-allow-overlap" : true
     }
   }, {
-    "id" : "PGB065_GB065P01_01",
+    "id" : "PGB065_GB065P01",
     "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "pgb065",
     "layout" : {
       "visibility" : "visible",
-      "icon-image" : "Rectangle",
-      "icon-allow-overlap" : true,
-      "icon-size" : 0.4
-    }
-  }, {
-    "id" : "PGB065_GB065P01_02",
-    "type" : "symbol",
-    "source" : "g25k",
-    "source-layer" : "pgb065",
-    "layout" : {
-      "visibility" : "visible",
-      "icon-image" : "Rectangle",
-      "icon-allow-overlap" : true,
-      "icon-size" : 0.3
+      "icon-image" : "Dragonteeth",
+      "icon-allow-overlap" : true
     }
   }, {
     "id" : "PBB010_BB010P01",
@@ -7970,7 +7895,8 @@
       "visibility" : "visible",
       "text-field" : "{road_num}",
       "text-font" : [ "Gosanja" ],
-      "text-size" : 9
+      "text-size" : 9,
+      "text-rotation-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -7985,7 +7911,8 @@
       "visibility" : "visible",
       "text-field" : "{road_num}",
       "text-font" : [ "Gosanja" ],
-      "text-size" : 9
+      "text-size" : 9,
+      "text-rotation-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -8000,7 +7927,8 @@
       "visibility" : "visible",
       "text-field" : "{road_num}",
       "text-font" : [ "Gosanja" ],
-      "text-size" : 9
+      "text-size" : 9,
+      "text-rotation-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -8045,7 +7973,8 @@
       "visibility" : "visible",
       "text-field" : "{textstring}",
       "text-font" : [ "Gosanja" ],
-      "text-size" : 10
+      "text-size" : 10,
+      "text-rotation-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -8060,7 +7989,8 @@
       "visibility" : "visible",
       "text-field" : "{textstring}",
       "text-font" : [ "Gosanja" ],
-      "text-size" : 9
+      "text-size" : 9,
+      "text-rotation-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -8075,7 +8005,8 @@
       "visibility" : "visible",
       "text-field" : "{textstring}",
       "text-font" : [ "Gosanja" ],
-      "text-size" : 10
+      "text-size" : 10,
+      "text-rotation-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 99, 189, 1)"
@@ -8090,7 +8021,8 @@
       "visibility" : "visible",
       "text-field" : "{textstring}",
       "text-font" : [ "Gosanja" ],
-      "text-size" : 9
+      "text-size" : 9,
+      "text-rotation-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -8105,7 +8037,8 @@
       "visibility" : "visible",
       "text-field" : "{textstring}",
       "text-font" : [ "Gosanja" ],
-      "text-size" : 9
+      "text-size" : 9,
+      "text-rotation-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -8120,7 +8053,8 @@
       "visibility" : "visible",
       "text-field" : "{textstring}",
       "text-font" : [ "Gosanja" ],
-      "text-size" : 9
+      "text-size" : 9,
+      "text-rotation-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -8135,7 +8069,8 @@
       "visibility" : "visible",
       "text-field" : "{textstring}",
       "text-font" : [ "Gosanja" ],
-      "text-size" : 10
+      "text-size" : 10,
+      "text-rotation-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 99, 189, 1)"
@@ -8150,7 +8085,8 @@
       "visibility" : "visible",
       "text-field" : "{textstring}",
       "text-font" : [ "Gosanja" ],
-      "text-size" : 9
+      "text-size" : 9,
+      "text-rotation-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 95, 189, 1)"
@@ -8165,7 +8101,8 @@
       "visibility" : "visible",
       "text-field" : "{textstring}",
       "text-font" : [ "Gosanja" ],
-      "text-size" : 9
+      "text-size" : 9,
+      "text-rotation-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -8180,7 +8117,8 @@
       "visibility" : "visible",
       "text-field" : "{textstring}",
       "text-font" : [ "Gosanja" ],
-      "text-size" : 9
+      "text-size" : 9,
+      "text-rotation-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"

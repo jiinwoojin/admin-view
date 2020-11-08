@@ -136,6 +136,10 @@ public class ConverterGssXml {
         String shpSource = layer.getSHPSource().toLowerCase();
         String featureType = layer.getGeometryType();
         String labelColumn = layer.getLabelColumn();
+        String angleColumn = layer.getAngleColumn();
+        if(angleColumn != null){
+            angleColumn = angleColumn.toLowerCase();
+        }
         String displayType = layer.getDisplayType();
         List<GssFeature> features = layer.getFeature();
         if(features != null){
@@ -154,26 +158,31 @@ public class ConverterGssXml {
                             if(type.equals("Polygon")){
                                 for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
                                     if(styleLayer.getTextureFill() == null || styleLayer.getTextureFill().equals(true)){
-                                        makeStyleLayer(featureType, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
+                                        makeStyleLayer(featureType, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }
                                     //line
                                     if (styleLayer.getLineLayer() != null) {
                                         for (GssLineLayer linestyle : styleLayer.getLineLayer()) {
-                                            if(linestyle.getType().equals("VERTICAL")){
-                                                List<Integer> dash = new ArrayList<>();
-                                                dash.add(1);
-                                                dash.add(linestyle.getInterval());
-                                                linestyle.setDashItem(dash);
-                                                int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
-                                                linestyle.setWidth(newWidth);
-                                                linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
+                                            if(linestyle.getTextureLine() != null && linestyle.getTextureLine().equals(false)){
+                                                //point
+                                                makeStyleLayer("Point", linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                            }else{
+                                                if(linestyle.getType().equals("VERTICAL")){
+                                                    List<Integer> dash = new ArrayList<>();
+                                                    dash.add(1);
+                                                    dash.add(linestyle.getInterval());
+                                                    linestyle.setDashItem(dash);
+                                                    int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
+                                                    linestyle.setWidth(newWidth);
+                                                    linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
+                                                }
+                                                makeStyleLayer("Line", linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                             }
-                                            makeStyleLayer("Line", linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
                                         }
                                     }
                                     //point
                                     if(styleLayer.getTextureFill() != null && styleLayer.getTextureFill().equals(false)){
-                                        makeStyleLayer("Point", styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
+                                        makeStyleLayer("Point", styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }
                                 }
                             }
@@ -182,24 +191,36 @@ public class ConverterGssXml {
                         if(type.equals("Line")){
                             if (style.getLineLayer() != null) {
                                 for (GssLineLayer linestyle : style.getLineLayer()) {
-                                    if(linestyle.getType().equals("VERTICAL")){
-                                        List<Integer> dash = new ArrayList<>();
-                                        dash.add(1);
-                                        dash.add(linestyle.getInterval());
-                                        linestyle.setDashItem(dash);
-                                        int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
-                                        linestyle.setWidth(newWidth);
-                                        linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
+                                    if(linestyle.getTextureLine() != null && linestyle.getTextureLine().equals(false)){
+                                        //point
+                                        makeStyleLayer("Point", linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                    }else{
+                                        if(linestyle.getType().equals("VERTICAL")){
+                                            List<Integer> dash = new ArrayList<>();
+                                            dash.add(1);
+                                            dash.add(linestyle.getInterval());
+                                            linestyle.setDashItem(dash);
+                                            int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
+                                            linestyle.setWidth(newWidth);
+                                            linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
+                                        }
+                                        makeStyleLayer(featureType, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }
-                                    makeStyleLayer(featureType, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
                                 }
                             }
                         }
                     }else if (featureType.equals("Point")) {
                         if(type.equals("Point")){
-                            if (style.getPointLayer() != null) {
-                                for (GssPointLayer styleLayer : style.getPointLayer()) {
-                                    makeStyleLayer(featureType, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), mapbox);
+                            if(Arrays.asList(new String[]{"AL015P02","AL015P07","AL100P01","AL200P01","GB065P01"}).contains(style.getName())){
+                                // 파괸된 건물, 위치불분명 철도역, 오두막/막사, 폐허, 수상비행기지 > 심볼로 대채하여 표현 / Dragonteeth 심볼
+                                GssPointLayer gssPaint = new GssPointLayer("PICTURE");
+                                gssPaint.setPicture("Dragonteeth");
+                                makeStyleLayer(featureType, gssPaint, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                            }else{
+                                if (style.getPointLayer() != null) {
+                                    for (GssPointLayer styleLayer : style.getPointLayer()) {
+                                        makeStyleLayer(featureType, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                    }
                                 }
                             }
                         }
@@ -228,13 +249,16 @@ public class ConverterGssXml {
                         mapboxLayer.setFilter(parseFilter(feature.getVVTStyle()));
                         mapboxLayer.setType("symbol");
                         MapboxLayout layout = new MapboxLayout();
-
+                        if(shpSource.equalsIgnoreCase("geoname") || shpSource.equalsIgnoreCase("roadname")){
+                            layout.setTextRotationAlignment("map");
+                        }
                         String labelColumnName;
-
                         if (labelColumn.equalsIgnoreCase("표기한글")) {
                             labelColumnName = "textstring";
                         } else if (labelColumn.equalsIgnoreCase("도로번호")) {
                             labelColumnName = "road_num";
+                        } else if (labelColumn.equalsIgnoreCase("도로등급")) {
+                            labelColumnName = "road_grade";
                         } else {
                             labelColumnName = labelColumn.toLowerCase();
                         }
@@ -248,6 +272,39 @@ public class ConverterGssXml {
                                 && !Objects.equals(labelStyle.getOffsetY(),0f)) {
                             layout.setTextOffset(new Float[]{labelStyle.getOffsetX(),labelStyle.getOffsetY()});
                         }
+                        /*
+		<Font>굴림</Font>
+		<Size>9</Size>
+		<Color>255, 0, 0, 0</Color>
+		<Bold>false</Bold>
+		<Itailc>false</Itailc>
+		<Underline>false</Underline>
+		<Outline>false</Outline>
+		<OutlineColor>255, 0, 0, 0</OutlineColor>
+		<Box>false</Box>
+		<BoxColor>255, 0, 0, 0</BoxColor>
+		<SeaWaterLevel>false</SeaWaterLevel>
+		<Decimal>-1</Decimal>
+		<Prefix></Prefix>
+		<Postfix></Postfix>
+		<OffsetX>5</OffsetX>
+		<OffsetY>0</OffsetY>
+		<Align>3</Align>
+	</Style>
+
+	"layout": {
+	"visibility": "none",
+	"text-justify": "left",
+	"text-offset": [1.5, 0],
+	"text-allow-overlap": true
+	},
+	"paint": {"text-color": "rgba(0, 0, 0, 1)"}
+
+	"visibility" : "visible",
+      "text-field" : "{zv2}",
+      "text-font" : [ "Gosanja" ],
+      "text-size" : 9
+                        * */
 
                         MapboxPaint paint = new MapboxPaint();
                         if (labelStyle.getColor() != null) paint.setTextColor(parseColor(labelStyle.getColor()));
@@ -260,7 +317,7 @@ public class ConverterGssXml {
         }
     }
 
-    private void makeStyleLayer(String featureType, Object styleLayer, String shpSource, String styleName, String sourceName, List<GssVVTStyle> vvtStyle, MapboxRoot mapbox) throws JsonProcessingException {
+    private void makeStyleLayer(String featureType, Object styleLayer, String shpSource, String styleName, String sourceName, List<GssVVTStyle> vvtStyle, String angleColumn,  MapboxRoot mapbox) throws JsonProcessingException {
         MapboxLayer mapboxLayer = new MapboxLayer();
         mapboxLayer.setSource(sourceName);
         mapboxLayer.setSourceLayer(shpSource);
@@ -272,6 +329,10 @@ public class ConverterGssXml {
             GssPolygonLayer gssPaint = (GssPolygonLayer) styleLayer;
             if(gssPaint.getType().equals("PICTURE")){
                 paint.setFillPattern(parsePicture(gssPaint.getPicture()));
+                if(angleColumn != null){
+                    layout.setIconRotate(new String[]{"get", angleColumn});
+                    layout.setIconRotationAlignment("map");
+                }
             }else{
                 if(gssPaint.getType().equals("SIMPLE") && gssPaint.getColor().equals("255, 255, 255, 255")){
                     return; // color white ignore
@@ -283,6 +344,10 @@ public class ConverterGssXml {
             GssLineLayer gssPaint = (GssLineLayer) styleLayer;
             if(gssPaint.getType().equals("PICTURE")){
                 paint.setLinePattern(parsePicture(gssPaint.getPicture()));
+                if(angleColumn != null){
+                    layout.setIconRotate(new String[]{"get", angleColumn});
+                    layout.setIconRotationAlignment("map");
+                }
             }else{
                 if(gssPaint.getType().equals("SIMPLE") && gssPaint.getWidth() == 0){
                     return; // width 0 ignore
@@ -326,12 +391,30 @@ public class ConverterGssXml {
                 }else if(gssPaint.getType().equals("PICTURE")){
                     layout.setIconImage(parsePicture(gssPaint.getPicture()));
                     layout.setIconAllowOverlap(true);
+                    if(angleColumn != null){
+                        layout.setIconRotate(new String[]{"get", angleColumn});
+                        layout.setIconRotationAlignment("map");
+                    }
                 }
             } else if(styleLayer instanceof GssPolygonLayer){
                 GssPolygonLayer gssPaint = (GssPolygonLayer) styleLayer;
                 if(gssPaint.getType().equals("PICTURE")){
                     layout.setIconImage(parsePicture(gssPaint.getPicture()));
                     layout.setIconAllowOverlap(true);
+                    if(angleColumn != null){
+                        layout.setIconRotate(new String[]{"get", angleColumn});
+                        layout.setIconRotationAlignment("map");
+                    }
+                }
+            } else if(styleLayer instanceof GssLineLayer){
+                GssLineLayer gssPaint = (GssLineLayer) styleLayer;
+                if(gssPaint.getType().equals("PICTURE")){
+                    layout.setIconImage(parsePicture(gssPaint.getPicture()));
+                    layout.setIconAllowOverlap(true);
+                    if(angleColumn != null){
+                        layout.setIconRotate(new String[]{"get", angleColumn});
+                        layout.setIconRotationAlignment("map");
+                    }
                 }
             }
         }

@@ -1,7 +1,5 @@
 package com.jiin.admin.converter.gss;
 
-import lombok.Data;
-
 import javax.xml.bind.annotation.*;
 import java.util.List;
 
@@ -26,6 +24,8 @@ public class GssLayer {
     private String DisplayType;
     @XmlAttribute(name = "LabelColumn")
     private String LabelColumn;
+    @XmlAttribute(name = "AngleColumn")
+    private String AngleColumn;
     @XmlElement
     private List<GssFeature> Feature;
 
@@ -107,5 +107,13 @@ public class GssLayer {
 
     public void setLabelColumn(String labelColumn) {
         LabelColumn = labelColumn;
+    }
+
+    public String getAngleColumn() {
+        return AngleColumn;
+    }
+
+    public void setAngleColumn(String angleColumn) {
+        AngleColumn = angleColumn;
     }
 }
