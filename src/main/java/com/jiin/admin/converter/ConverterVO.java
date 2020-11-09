@@ -41,7 +41,14 @@ public class ConverterVO {
         S100K("100K"),
         S250K("250K"),
         S500K("500K"),
-        S1M("1M");
+        S1M("1M"),
+        S2M("2M"),
+        KR1("KR1"),
+        KR2("KR2"),
+        KR3("KR3"),
+        KR4("KR4"),
+        KR5("KR5"),
+        ;
         private final String value;
         Scale(String value) {
             this.value = value;
