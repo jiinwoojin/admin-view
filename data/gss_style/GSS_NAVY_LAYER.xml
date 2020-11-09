@@ -679,7 +679,7 @@
 			<VVTStyle USS="0,51,52" EXS="28"></VVTStyle>
 		</Feature>
 		<Feature Name="폐기된 전신전화선" Description="먼 거리에 있는 전기적 신호를 송신하는 지지물을 포함한 폐기된 전신전화선 시스템의 경계" GeometryStyle="AT005L02">
-			<VVTStyle USS="0,51,52" EXS="28"></VVTStyle>
+			<VVTStyle USS="0,51,52" EXS="6"></VVTStyle>
 		</Feature>
 		<Feature Name="전기선" Description="전류가 흐르도록 하는 전기선의 경계" GeometryStyle="AT005L03">
 			<VVTStyle USS="53" EXS="6,28"></VVTStyle>

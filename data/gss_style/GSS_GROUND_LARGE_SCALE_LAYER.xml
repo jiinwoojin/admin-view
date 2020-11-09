@@ -3,6 +3,9 @@
 	<Layer Category="수부" Name="바다" FACC="BA040" GeometryType="Polygon" SHPSource="ABA040" GDBSource="CoastA" Map="25K,50K,100K" DisplayType="Geometry">
 		<Feature Name="바다" Description="일반적으로 조수의 파동을 가진 바다의 경계지역" GeometryStyle="BA040A01"></Feature>
 	</Layer>
+	<Layer Category="수부" Name="섬" FACC="BA030" GeometryType="Polygon" SHPSource="ABA030" GDBSource="CoastA" Map="25K,50K,100K" DisplayType="Geometry">
+		<Feature Name="섬" Description="일반적으로 대륙보다 작으며 물로 둘러 쌓인 육지지역" GeometryStyle="BA030A02"></Feature>
+	</Layer>
 	<Layer Category="식생" Name="총림" FACC="EC030" GeometryType="Polygon" SHPSource="AEC030" GDBSource="TreesA" Map="25K,50K,100K" DisplayType="Geometry">
 		<Feature Name="기타 총림" Description="카수아리나속의 관목, 구과식물, 필라오, 노송나무 등 여러 나무의 경계지역" GeometryStyle="EC030A01">
 			<VVTStyle VEG="11,12,18,25,29,38"></VVTStyle>
@@ -1410,6 +1413,9 @@
 		</Feature>
 		<Feature Name="마을명_한글" Description="마을이나 지방, 산천, 지역의 위치지점" LabelStyle="GeonameLandT11">
 			<VVTStyle TLM분류="마을명_한글"></VVTStyle>
+		</Feature>
+		<Feature Name="산명_한글" Description="마을이나 지방, 산천, 지역의 위치지점" LabelStyle="GeonameLandT12">
+			<VVTStyle TLM분류="산명_한글"></VVTStyle>
 		</Feature>
 	</Layer>
 </MapLayer>

@@ -311,7 +311,7 @@
 		<OffsetY>0</OffsetY>
 		<PointLayer type="SIMPLE">
 			<Color>255, 0, 0, 0</Color>
-			<Size>6</Size>
+			<Size>4</Size>
 			<Shape>1</Shape>
 		</PointLayer>
 	</Style>
@@ -542,7 +542,7 @@
 		<OffsetX>0</OffsetX>
 		<OffsetY>0</OffsetY>
 		<PointLayer type="PICTURE">
-			<Picture>Colony_03.png</Picture>
+			<Picture>Colony_02.png</Picture>
 		</PointLayer>
 	</Style>
 	<Style name="AL020P05" type="point">
@@ -2994,7 +2994,7 @@
 		<OffsetX>0</OffsetX>
 		<OffsetY>0</OffsetY>
 		<PointLayer type="PICTURE">
-			<Picture>Cy;Cl_bottom.png</Picture>
+			<Picture>Cy_Cl_bottom.png</Picture>
 		</PointLayer>
 	</Style>
 	<Style name="BF010P07" type="point">
@@ -10016,6 +10016,19 @@
 			</LineLayer>
 		</PolygonLayer>
 	</Style>
+	<Style name="BA030A02" type="polygon">
+		<PolygonLayer type="SIMPLE">
+			<Color>255, 255, 255, 255</Color>
+			<Transparent>false</Transparent>
+			<LineLayer type="SIMPLE">
+				<Color>255, 255, 255, 255</Color>
+				<Width>0</Width>
+				<JoinType>2</JoinType>
+				<StartCap>0</StartCap>
+				<EndCap>0</EndCap>
+			</LineLayer>
+		</PolygonLayer>
+	</Style>
 	<Style name="BA040A01" type="polygon">
 		<PolygonLayer type="SIMPLE">
 			<Color>255, 184, 214, 243</Color>
@@ -13817,63 +13830,6 @@
 		<OffsetY>0</OffsetY>
 		<Align>4</Align>
 	</Style>
-	<Style name="BC020P01" type="Label">
-		<Font>±¼¸²</Font>
-		<Size>10</Size>
-		<Color>255, 0, 0, 0</Color>
-		<Bold>false</Bold>
-		<Itailc>false</Itailc>
-		<Underline>false</Underline>
-		<Outline>false</Outline>
-		<OutlineColor>255, 0, 0, 0</OutlineColor>
-		<Box>false</Box>
-		<BoxColor>255, 0, 0, 0</BoxColor>
-		<SeaWaterLevel>false</SeaWaterLevel>
-		<Decimal>-1</Decimal>
-		<Prefix></Prefix>
-		<Postfix></Postfix>
-		<OffsetX>10</OffsetX>
-		<OffsetY>-15</OffsetY>
-		<Align>3</Align>
-	</Style>
-	<Style name="BC020P02" type="Label">
-		<Font>±¼¸²</Font>
-		<Size>10</Size>
-		<Color>255, 0, 0, 0</Color>
-		<Bold>false</Bold>
-		<Itailc>false</Itailc>
-		<Underline>false</Underline>
-		<Outline>false</Outline>
-		<OutlineColor>255, 0, 0, 0</OutlineColor>
-		<Box>false</Box>
-		<BoxColor>255, 0, 0, 0</BoxColor>
-		<SeaWaterLevel>false</SeaWaterLevel>
-		<Decimal>-1</Decimal>
-		<Prefix></Prefix>
-		<Postfix></Postfix>
-		<OffsetX>10</OffsetX>
-		<OffsetY>0</OffsetY>
-		<Align>3</Align>
-	</Style>
-	<Style name="BC020P03" type="Label">
-		<Font>±¼¸²</Font>
-		<Size>10</Size>
-		<Color>255, 0, 0, 0</Color>
-		<Bold>false</Bold>
-		<Itailc>false</Itailc>
-		<Underline>false</Underline>
-		<Outline>false</Outline>
-		<OutlineColor>255, 0, 0, 0</OutlineColor>
-		<Box>false</Box>
-		<BoxColor>255, 0, 0, 0</BoxColor>
-		<SeaWaterLevel>false</SeaWaterLevel>
-		<Decimal>0</Decimal>
-		<Prefix></Prefix>
-		<Postfix>s</Postfix>
-		<OffsetX>50</OffsetX>
-		<OffsetY>0</OffsetY>
-		<Align>3</Align>
-	</Style>
 	<Style name="BC020T01" type="Label">
 		<Font>±¼¸²</Font>
 		<Size>8</Size>
@@ -15460,6 +15416,25 @@
 		<Align>4</Align>
 	</Style>
 	<Style name="GeonameLandT11" type="Label">
+		<Font>±¼¸²</Font>
+		<Size>9</Size>
+		<Color>255, 0, 0, 0</Color>
+		<Bold>false</Bold>
+		<Itailc>false</Itailc>
+		<Underline>false</Underline>
+		<Outline>false</Outline>
+		<OutlineColor>255, 0, 0, 0</OutlineColor>
+		<Box>false</Box>
+		<BoxColor>255, 0, 0, 0</BoxColor>
+		<SeaWaterLevel>false</SeaWaterLevel>
+		<Decimal>-1</Decimal>
+		<Prefix></Prefix>
+		<Postfix></Postfix>
+		<OffsetX>0</OffsetX>
+		<OffsetY>0</OffsetY>
+		<Align>4</Align>
+	</Style>
+	<Style name="GeonameLandT12" type="Label">
 		<Font>±¼¸²</Font>
 		<Size>9</Size>
 		<Color>255, 0, 0, 0</Color>

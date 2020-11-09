@@ -452,7 +452,7 @@
 	<Layer Category="산업시설" Name="지구물리학의 예상 격자" FACC="FA090" GeometryType="Line" SHPSource="LFA090" GDBSource="IndL" Map="250K" DisplayType="Geometry">
 		<Feature Name="지구물리학의 예상 격자" Description="지리학적 가능성의 경계" GeometryStyle="FA090L01"></Feature>
 	</Layer>
-	<Layer Category="공익설비" Name="고압선" FACC="AT030" GeometryType="Line" SHPSource="AT030" GDBSource="PowerL" Map="250K" DisplayType="Geometry">
+	<Layer Category="공익설비" Name="고압선" FACC="AT030" GeometryType="Line" SHPSource="LAT030" GDBSource="PowerL" Map="250K" DisplayType="Geometry">
 		<Feature Name="고압선" Description="먼 거리에 전류를 보내는 전주를 포함한 땅위 전선 시스템인 고압선 중, 산과 물을 넘지 않는 형태의 고압선의 경계" GeometryStyle="AT030L01">
 			<VVTStyle TST="0,1,998,999"></VVTStyle>
 		</Feature>
@@ -1029,7 +1029,7 @@
 		</Feature>
 	</Layer>
 	<Layer Category="항공정보" Name="해양등" FACC="BC040" GeometryType="Point" SHPSource="PBC040" GDBSource="Jog TransP" Map="250K" DisplayType="Both" LabelColumn="COL">
-		<Feature Name="해양 등" Description="항해에 도움을 주기 위해 빛을 내거나 밝게 보여주는 장치인 등대의 위치지점" GeometryStyle="BC040P29" LabelStyle="BC040T01"></Feature>
+		<Feature Name="해양등" Description="항해에 도움을 주기 위해 빛을 내거나 밝게 보여주는 장치인 등대의 위치지점" GeometryStyle="BC040P29" LabelStyle="BC040T01"></Feature>
 	</Layer>
 	<Layer Category="항공정보" Name="항법무선시설" FACC="" GeometryType="Point" SHPSource="NAVL" GDBSource="" Map="250K" DisplayType="Both" LabelColumn="name">
 		<Feature Name="VOR 초단전방향무선표 무선시설기호도식" Description="(VHF Omni-directional Radio Range Stations)항공기가 지상국으로부터 어디에 있는지 어느 쪽으로 날아가고 있는지 등을 알려주는 일종의 내비게이션 역할을 하는 시설의  위치지점" GeometryStyle="NVALP01" LabelStyle="NAVLT01">

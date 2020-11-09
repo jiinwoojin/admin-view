@@ -34,7 +34,7 @@ public class ConverterGssXml {
         String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
         //
         File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
-        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_SMALL_SCALE_LAYER.xml");
+        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
         File savefile = new File(dataPath + "/g25k_style_generate.json");
         FileWriter writer = new FileWriter(savefile);
         ConverterVO param = new ConverterVO();
@@ -44,7 +44,7 @@ public class ConverterGssXml {
         param.setMaputnikRenderer("mbgljs");
         param.setSourceName("g25k");
         param.setFont("Gosanja");
-        param.setScale(ConverterVO.Scale.S250K);
+        param.setScale(ConverterVO.Scale.S25K);
         param.setSprite("http://192.168.0.11/GSymbol/GSSSymbol");
         param.setGlyphs("http://192.168.0.11/fonts/{fontstack}/{range}.pbf");
         param.setTiles(new String[]{"http://192.168.0.11/maps/g25k/{z}/{x}/{y}.pbf"});
