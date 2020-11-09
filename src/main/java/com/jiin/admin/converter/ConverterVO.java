@@ -33,6 +33,48 @@ public class ConverterVO {
     private String maputnikRenderer;
     private String sourceName;
     private String font;
+    private Scale scale;
+    private String scaleStr;
+    enum Scale {
+        S25K("25K"),
+        S50K("50K"),
+        S100K("100K"),
+        S250K("250K"),
+        S500K("500K"),
+        S1M("1M");
+        private final String value;
+        Scale(String value) {
+            this.value = value;
+        }
+        public String getValue() {
+            return value;
+        }
+        public static Scale find(String value) {
+            for(Scale scale : Scale.values()){
+                if(scale.getValue().equals(value)){
+                    return scale;
+                }
+            }
+            return null;
+        }
+    }
+
+
+    public String getScaleStr() {
+        return scaleStr;
+    }
+
+    public void setScaleStr(String scaleStr) {
+        this.scaleStr = scaleStr;
+    }
+
+    public Scale getScale() {
+        return scale;
+    }
+
+    public void setScale(Scale scale) {
+        this.scale = scale;
+    }
 
 
     public String getId() {

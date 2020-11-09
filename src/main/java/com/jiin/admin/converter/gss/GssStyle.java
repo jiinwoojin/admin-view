@@ -27,6 +27,7 @@ public class GssStyle {
     private String Align;
     private Float OffsetX;
     private Float OffsetY;
+    private String Picture;
 
     private List<GssPointLayer> PointLayer;
     private List<GssLineLayer> LineLayer;
@@ -206,6 +207,14 @@ public class GssStyle {
 
     public void setColor(String color) {
         Color = color;
+    }
+
+    public String getPicture() {
+        return Picture;
+    }
+
+    public void setPicture(String picture) {
+        Picture = picture;
     }
 }
 

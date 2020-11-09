@@ -30,6 +30,8 @@ public class MapboxLayout {
     private String textJustify;
     @JsonProperty(value = "text-rotation-alignment")
     private String textRotationAlignment;
+    @JsonProperty(value = "text-keep-upright")
+    private Boolean textKeepUpright;
     @JsonProperty(value = "line-join")
     private String lineJoin;
     @JsonProperty(value = "icon-size")
@@ -48,6 +50,12 @@ public class MapboxLayout {
     private Boolean iconOptional;
     @JsonProperty(value = "icon-anchor")
     private String iconAnchor;
+    @JsonProperty(value = "icon-offset")
+    private Float[] iconOffset;
+    @JsonProperty(value = "icon-keep-upright")
+    private Boolean iconKeepUpright;
+    @JsonProperty(value = "icon-text-fit")
+    private String iconTextFit;
 
     public String getTextField() {
         return textField;
@@ -199,5 +207,37 @@ public class MapboxLayout {
 
     public void setIconAnchor(String iconAnchor) {
         this.iconAnchor = iconAnchor;
+    }
+
+    public Float[] getIconOffset() {
+        return iconOffset;
+    }
+
+    public void setIconOffset(Float[] iconOffset) {
+        this.iconOffset = iconOffset;
+    }
+
+    public Boolean getIconKeepUpright() {
+        return iconKeepUpright;
+    }
+
+    public void setIconKeepUpright(Boolean iconKeepUpright) {
+        this.iconKeepUpright = iconKeepUpright;
+    }
+
+    public Boolean getTextKeepUpright() {
+        return textKeepUpright;
+    }
+
+    public void setTextKeepUpright(Boolean textKeepUpright) {
+        this.textKeepUpright = textKeepUpright;
+    }
+
+    public String getIconTextFit() {
+        return iconTextFit;
+    }
+
+    public void setIconTextFit(String iconTextFit) {
+        this.iconTextFit = iconTextFit;
     }
 }

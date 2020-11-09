@@ -50,15 +50,26 @@
                         <label>Mapbox Tiles</label>
                         <input type="text" class="form-control" name="tiles" value="http://192.168.0.11/maps/g25k/{z}/{x}/{y}.pbf">
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <label>Source Name</label>
                         <input type="text" class="form-control" name="sourceName" value="g25k">
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
+                        <label>Scale(25K,50K,100K,...)</label>
+                        <select class="form-control" name="scaleStr">
+                            <option value="25K">25K</option>
+                            <option value="50K">50K</option>
+                            <option value="100K">100K</option>
+                            <option value="250K">250K</option>
+                            <option value="500K">500K</option>
+                            <option value="1M">1M</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
                         <label>Maputnik Renderer (meta)</label>
                         <input type="text" class="form-control" name="maputnikRenderer" value="mbgljs">
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <label>Maputnik Renderer (meta)</label>
                         <input type="text" class="form-control" name="font" value="Gosanja">
                     </div>

@@ -34,7 +34,7 @@ public class ConverterGssXml {
         String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
         //
         File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
-        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
+        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_SMALL_SCALE_LAYER.xml");
         File savefile = new File(dataPath + "/g25k_style_generate.json");
         FileWriter writer = new FileWriter(savefile);
         ConverterVO param = new ConverterVO();
@@ -44,6 +44,7 @@ public class ConverterGssXml {
         param.setMaputnikRenderer("mbgljs");
         param.setSourceName("g25k");
         param.setFont("Gosanja");
+        param.setScale(ConverterVO.Scale.S250K);
         param.setSprite("http://192.168.0.11/GSymbol/GSSSymbol");
         param.setGlyphs("http://192.168.0.11/fonts/{fontstack}/{range}.pbf");
         param.setTiles(new String[]{"http://192.168.0.11/maps/g25k/{z}/{x}/{y}.pbf"});
@@ -82,6 +83,9 @@ public class ConverterGssXml {
     }
 
     public void convertLayerJson(File styleFile, File layerFile, Writer output, ConverterVO param) throws ParserConfigurationException, JAXBException, IOException, SAXException {
+        if(param.getScaleStr() != null){
+            param.setScale(ConverterVO.Scale.find(param.getScaleStr()));
+        }
         String sourceName = param.getSourceName();
         String font = param.getFont();
         MapboxRoot mapbox = new MapboxRoot();
@@ -115,16 +119,16 @@ public class ConverterGssXml {
         GssRootLayer result = (GssRootLayer) parseGssXml(layerFile);
         List<GssLayer> layers = result.getLayer();
         for(GssLayer layer : layers) {
-            makeLayer("Polygon", layer, sourceName, font, styles ,mapbox);
+            makeLayer("Polygon", layer, sourceName, font, styles, param, mapbox);
         }
         for(GssLayer layer : layers) {
-            makeLayer("Line", layer, sourceName, font, styles ,mapbox);
+            makeLayer("Line", layer, sourceName, font, styles, param, mapbox);
         }
         for(GssLayer layer : layers) {
-            makeLayer("Point", layer, sourceName, font, styles ,mapbox);
+            makeLayer("Point", layer, sourceName, font, styles, param, mapbox);
         }
         for(GssLayer layer : layers) {
-            makeLayer("Label", layer, sourceName, font, styles ,mapbox);
+            makeLayer("Label", layer, sourceName, font, styles, param, mapbox);
         }
         mapbox.cleanLayerId();
         new ObjectMapper()
@@ -132,7 +136,12 @@ public class ConverterGssXml {
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL)
                 .writeValue(output,mapbox);
     }
-    private void makeLayer(String type, GssLayer layer, String sourceName, String font, GssContainer styles, MapboxRoot mapbox) throws JsonProcessingException {
+    private void makeLayer(String type, GssLayer layer, String sourceName, String font, GssContainer styles, ConverterVO param, MapboxRoot mapbox) throws JsonProcessingException {
+        String mapScale = layer.getMap();
+        if(!mapScale.contains(param.getScale().getValue())){
+            // 축적불일치 / Map="25K,50K,100K"
+            return;
+        }
         String shpSource = layer.getSHPSource().toLowerCase();
         String featureType = layer.getGeometryType();
         String labelColumn = layer.getLabelColumn();
@@ -262,50 +271,33 @@ public class ConverterGssXml {
                         } else {
                             labelColumnName = labelColumn.toLowerCase();
                         }
-
                         layout.setTextField("{" + labelColumnName + "}");
                         if (labelStyle.getFont() != null) layout.setTextFont(new String[]{font});
                         if (labelStyle.getSize() != null) layout.setTextSize(labelStyle.getSize());
                         if (labelStyle.getOffsetX() != null
                                 && labelStyle.getOffsetY() != null
-                                && !Objects.equals(labelStyle.getOffsetX(),0f)
-                                && !Objects.equals(labelStyle.getOffsetY(),0f)) {
-                            layout.setTextOffset(new Float[]{labelStyle.getOffsetX(),labelStyle.getOffsetY()});
+                                && (
+                                        !Objects.equals(labelStyle.getOffsetX(),0f)
+                                        ||
+                                        !Objects.equals(labelStyle.getOffsetY(),0f)
+                                )) {
+                            String x = String.format("%.1f",labelStyle.getOffsetX() / 3.3f);
+                            String y = String.format("%.1f",labelStyle.getOffsetY() / 3.3f);
+                            layout.setTextOffset(new Float[]{Float.parseFloat(x),Float.parseFloat(y)});
                         }
-                        /*
-		<Font>굴림</Font>
-		<Size>9</Size>
-		<Color>255, 0, 0, 0</Color>
-		<Bold>false</Bold>
-		<Itailc>false</Itailc>
-		<Underline>false</Underline>
-		<Outline>false</Outline>
-		<OutlineColor>255, 0, 0, 0</OutlineColor>
-		<Box>false</Box>
-		<BoxColor>255, 0, 0, 0</BoxColor>
-		<SeaWaterLevel>false</SeaWaterLevel>
-		<Decimal>-1</Decimal>
-		<Prefix></Prefix>
-		<Postfix></Postfix>
-		<OffsetX>5</OffsetX>
-		<OffsetY>0</OffsetY>
-		<Align>3</Align>
-	</Style>
-
-	"layout": {
-	"visibility": "none",
-	"text-justify": "left",
-	"text-offset": [1.5, 0],
-	"text-allow-overlap": true
-	},
-	"paint": {"text-color": "rgba(0, 0, 0, 1)"}
-
-	"visibility" : "visible",
-      "text-field" : "{zv2}",
-      "text-font" : [ "Gosanja" ],
-      "text-size" : 9
-                        * */
-
+                        if(labelStyle.getPicture() != null){
+                            layout.setTextJustify("left");
+                            layout.setTextRotationAlignment("map");
+                            layout.setTextAllowOverlap(true);
+                            layout.setTextKeepUpright(false);
+                            layout.setIconImage(parsePicture(labelStyle.getPicture()));
+                            layout.setIconAllowOverlap(true);
+                            layout.setIconRotationAlignment("map");
+                            layout.setIconAnchor("left");
+                            layout.setIconKeepUpright(false);
+                            layout.setIconTextFit("none");
+                            layout.setIconOffset(new Float[]{25f, -5f});
+                        }
                         MapboxPaint paint = new MapboxPaint();
                         if (labelStyle.getColor() != null) paint.setTextColor(parseColor(labelStyle.getColor()));
                         mapboxLayer.setPaint(paint);
