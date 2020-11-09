@@ -411,6 +411,11 @@ public class ConverterGssXml {
                 if(gssPaint.getType().equals("PICTURE")){
                     layout.setIconImage(parsePicture(gssPaint.getPicture()));
                     layout.setIconAllowOverlap(true);
+                    layout.setSymbolPlacement("line");
+                    layout.setIconAnchor("center");
+                    layout.setSymbolSpacing(14);
+                    layout.setIconIgnorePlacement(true);
+                    layout.setIconOptional(true);
                     if(angleColumn != null){
                         layout.setIconRotate(new String[]{"get", angleColumn});
                         layout.setIconRotationAlignment("map");

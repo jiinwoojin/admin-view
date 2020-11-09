@@ -38,8 +38,16 @@ public class MapboxLayout {
     private String[] iconRotate;
     @JsonProperty(value = "icon-rotation-alignment")
     private String iconRotationAlignment;
-
-
+    @JsonProperty(value = "symbol-placement")
+    private String symbolPlacement;
+    @JsonProperty(value = "symbol-spacing")
+    private Integer symbolSpacing;
+    @JsonProperty(value = "icon-ignore-placement")
+    private Boolean iconIgnorePlacement;
+    @JsonProperty(value = "icon-optional")
+    private Boolean iconOptional;
+    @JsonProperty(value = "icon-anchor")
+    private String iconAnchor;
 
     public String getTextField() {
         return textField;
@@ -151,5 +159,45 @@ public class MapboxLayout {
 
     public void setTextRotationAlignment(String textRotationAlignment) {
         this.textRotationAlignment = textRotationAlignment;
+    }
+
+    public String getSymbolPlacement() {
+        return symbolPlacement;
+    }
+
+    public void setSymbolPlacement(String symbolPlacement) {
+        this.symbolPlacement = symbolPlacement;
+    }
+
+    public Integer getSymbolSpacing() {
+        return symbolSpacing;
+    }
+
+    public void setSymbolSpacing(Integer symbolSpacing) {
+        this.symbolSpacing = symbolSpacing;
+    }
+
+    public Boolean getIconIgnorePlacement() {
+        return iconIgnorePlacement;
+    }
+
+    public void setIconIgnorePlacement(Boolean iconIgnorePlacement) {
+        this.iconIgnorePlacement = iconIgnorePlacement;
+    }
+
+    public Boolean getIconOptional() {
+        return iconOptional;
+    }
+
+    public void setIconOptional(Boolean iconOptional) {
+        this.iconOptional = iconOptional;
+    }
+
+    public String getIconAnchor() {
+        return iconAnchor;
+    }
+
+    public void setIconAnchor(String iconAnchor) {
+        this.iconAnchor = iconAnchor;
     }
 }
