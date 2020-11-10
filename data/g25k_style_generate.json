@@ -566,7 +566,7 @@
       "icon-image" : "Rock_Outline",
       "icon-allow-overlap" : true,
       "symbol-placement" : "line",
-      "symbol-spacing" : 14,
+      "symbol-spacing" : 5,
       "icon-ignore-placement" : true,
       "icon-optional" : true,
       "icon-anchor" : "center"
@@ -2060,7 +2060,7 @@
       "icon-image" : "Dragonteeth",
       "icon-allow-overlap" : true,
       "symbol-placement" : "line",
-      "symbol-spacing" : 14,
+      "symbol-spacing" : 50,
       "icon-ignore-placement" : true,
       "icon-optional" : true,
       "icon-anchor" : "center"
@@ -2211,7 +2211,7 @@
       "icon-image" : "Fence",
       "icon-allow-overlap" : true,
       "symbol-placement" : "line",
-      "symbol-spacing" : 14,
+      "symbol-spacing" : 55,
       "icon-ignore-placement" : true,
       "icon-optional" : true,
       "icon-anchor" : "center"
@@ -2933,7 +2933,7 @@
       "icon-image" : "Rock_Outline",
       "icon-allow-overlap" : true,
       "symbol-placement" : "line",
-      "symbol-spacing" : 14,
+      "symbol-spacing" : 6,
       "icon-ignore-placement" : true,
       "icon-optional" : true,
       "icon-anchor" : "center"
@@ -3544,7 +3544,9 @@
       "visibility" : "visible"
     },
     "paint" : {
-      "line-pattern" : "Blackline"
+      "line-pattern" : "Blackline",
+      "line-width" : 10,
+      "line-translate-anchor" : "viewport"
     }
   }, {
     "id" : "LAL060_AL060L01_01",
@@ -3569,7 +3571,7 @@
       "icon-image" : "Dragonteeth",
       "icon-allow-overlap" : true,
       "symbol-placement" : "line",
-      "symbol-spacing" : 14,
+      "symbol-spacing" : 50,
       "icon-ignore-placement" : true,
       "icon-optional" : true,
       "icon-anchor" : "center"

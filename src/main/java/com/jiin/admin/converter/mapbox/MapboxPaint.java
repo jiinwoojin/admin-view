@@ -39,6 +39,8 @@ public class MapboxPaint {
     private Integer lineGapWidth;
     @JsonProperty(value = "line-offset")
     private Integer lineOffset;
+    @JsonProperty(value = "line-translate-anchor")
+    private String lineTranslateAnchor;
     @JsonProperty(value = "circle-color")
     private String circleColor;
     @JsonProperty(value = "circle-radius")
@@ -147,5 +149,13 @@ public class MapboxPaint {
 
     public void setCircleColor(String circleColor) {
         this.circleColor = circleColor;
+    }
+
+    public String getLineTranslateAnchor() {
+        return lineTranslateAnchor;
+    }
+
+    public void setLineTranslateAnchor(String lineTranslateAnchor) {
+        this.lineTranslateAnchor = lineTranslateAnchor;
     }
 }

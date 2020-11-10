@@ -336,6 +336,8 @@ public class ConverterGssXml {
             GssLineLayer gssPaint = (GssLineLayer) styleLayer;
             if(gssPaint.getType().equals("PICTURE")){
                 paint.setLinePattern(parsePicture(gssPaint.getPicture()));
+                paint.setLineWidth(gssPaint.getWidth());
+                paint.setLineTranslateAnchor("viewport");
                 if(angleColumn != null){
                     layout.setIconRotate(new String[]{"get", angleColumn});
                     layout.setIconRotationAlignment("map");
@@ -405,7 +407,7 @@ public class ConverterGssXml {
                     layout.setIconAllowOverlap(true);
                     layout.setSymbolPlacement("line");
                     layout.setIconAnchor("center");
-                    layout.setSymbolSpacing(14);
+                    layout.setSymbolSpacing(gssPaint.getInterval());
                     layout.setIconIgnorePlacement(true);
                     layout.setIconOptional(true);
                     if(angleColumn != null){
