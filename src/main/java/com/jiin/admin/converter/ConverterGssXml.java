@@ -266,8 +266,6 @@ public class ConverterGssXml {
                             labelColumnName = "textstring";
                         } else if (labelColumn.equalsIgnoreCase("도로번호")) {
                             labelColumnName = "road_num";
-                        } else if (labelColumn.equalsIgnoreCase("도로등급")) {
-                            labelColumnName = "road_grade";
                         } else {
                             labelColumnName = labelColumn.toLowerCase();
                         }
@@ -456,6 +454,8 @@ public class ConverterGssXml {
 
                 if (keyStr.equalsIgnoreCase("tlm분류")) {
                     keyStr = "tlmkind";
+                } else if (keyStr.equalsIgnoreCase("도로등급")) {
+                    keyStr = "road_grade";
                 }
 
                 List<Object> filter = new ArrayList<>();
