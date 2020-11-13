@@ -39,9 +39,9 @@ public class ConverterGssXml {
         param.setId("uzymq5sw3");
         param.setName("g25k_style");
         param.setMaputnikRenderer("mbgljs");
-        param.setSourceName("g25K");
-        param.setFont("Gosanja");
         param.setScale(ConverterVO.Scale.g25k);
+        param.setFont("Gosanja");
+        param.setSourceName(param.getScale().name());
         param.setSprite("http://192.168.0.11/GSymbol/GSSSymbol");
         param.setGlyphs("http://192.168.0.11/fonts/{fontstack}/{range}.pbf");
         param.setTiles(new String[]{"http://192.168.0.11/maps/"+param.getScale().name()+"/{z}/{x}/{y}.pbf"});
@@ -171,15 +171,7 @@ public class ConverterGssXml {
                                                 //point
                                                 makeStyleLayer("Point", layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                             }else{
-                                                if(linestyle.getType().equals("VERTICAL")){
-                                                    List<Integer> dash = new ArrayList<>();
-                                                    dash.add(1);
-                                                    dash.add(linestyle.getInterval());
-                                                    linestyle.setDashItem(dash);
-                                                    int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
-                                                    linestyle.setWidth(newWidth);
-                                                    linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
-                                                }
+                                                lineStyleByType(linestyle);
                                                 makeStyleLayer("Line", layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                             }
                                         }
@@ -199,15 +191,7 @@ public class ConverterGssXml {
                                         //point
                                         makeStyleLayer("Point", layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }else{
-                                        if(linestyle.getType().equals("VERTICAL")){
-                                            List<Integer> dash = new ArrayList<>();
-                                            dash.add(1);
-                                            dash.add(linestyle.getInterval());
-                                            linestyle.setDashItem(dash);
-                                            int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
-                                            linestyle.setWidth(newWidth);
-                                            linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
-                                        }
+                                        lineStyleByType(linestyle);
                                         makeStyleLayer(featureType, layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }
                                 }
@@ -309,6 +293,49 @@ public class ConverterGssXml {
         }
     }
 
+    private void lineStyleByType(GssLineLayer linestyle) {
+        if(linestyle.getType().equals("SIMPLE")){
+
+        }else if(linestyle.getType().equals("DASH")){
+
+        }else if(linestyle.getType().equals("PICTURE")){
+
+        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getSubType() == 0){
+            // Both
+        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getSubType() == 1){
+            // Left (or Inside)
+        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getSubType() == 2){
+            // Right (or Outside)
+        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getSubType() == 3){
+            // Both Circle
+        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getSubType() == 4){
+            // Left Circle
+        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getSubType() == 5){
+            // Right Circle
+        }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 0){
+            // Simple
+            List<Integer> dash = new ArrayList<>();
+            dash.add(1);
+            dash.add(linestyle.getInterval());
+            linestyle.setDashItem(dash);
+            int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
+            linestyle.setWidth(newWidth);
+            linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
+        }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 1){
+            // End Round
+        }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 2){
+            // Bridge
+        }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 3){
+            // Left Only
+        }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 4){
+            // Right Only
+        }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 5){
+            // Tunnel
+        }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 6){
+            // PipeLine
+        }
+    }
+
     private void makeStyleLayer(String featureType, GssLayer layer, GssFeature feature, GssStyle style, Object styleLayer, String shpSource, String styleName, String sourceName, List<GssVVTStyle> vvtStyle, String angleColumn,  MapboxRoot mapbox) throws JsonProcessingException {
         MapboxLayer mapboxLayer = new MapboxLayer();
         mapboxLayer.setSource(sourceName);
@@ -383,7 +410,8 @@ public class ConverterGssXml {
                             layout.setIconImage("Rectangle");
                             layout.setIconAllowOverlap(true);
                             layout.setIconRotationAlignment("map");
-                            layout.setIconSize(Float.parseFloat(gssPaint.getSize()) / 2f * 0.1f);
+                            String size = String.format("%.2f",Float.parseFloat(gssPaint.getSize()) * 0.0625f);
+                            layout.setIconSize(Float.parseFloat(size));
                         }
                     }
                 }else if(gssPaint.getType().equals("PICTURE")){
@@ -470,9 +498,16 @@ public class ConverterGssXml {
                     keyStr = "road_grade";
                 }
                 String rawvalue = valueStr;
-                String[] rawvalues = new String[]{rawvalue};
-                if (rawvalue.matches("[=<>].+") && rawvalue.contains(",")) {
-                    rawvalues = rawvalue.split(",");
+                String[] rawvalues = rawvalue.split(",");
+                boolean isGroup = false;
+                for (int i = 0; i < rawvalues.length; i++) {
+                    if(i > 0 && rawvalues[i].matches("[=<>].+")){
+                        isGroup = true;
+                    }
+                }
+                //
+                if(isGroup == false){
+                    rawvalues = new String[]{rawvalue};
                 }
                 for (String value : rawvalues) {
                     List<Object> filter = new ArrayList<>();
@@ -496,17 +531,23 @@ public class ConverterGssXml {
                     if (value.contains(",")) {
                         String[] values = value.split(",");
                         for (String v : values) {
-                            if (!shpSource.toUpperCase().startsWith("NAVL") && v.matches("^[0-9.]+$")) {
+                            v = v.trim();
+                            if (!shpSource.toUpperCase().startsWith("NAVL") && v.matches("^[0-9]+$")) {
+                                filter.add(Integer.parseInt(v));
+                            }else if (!shpSource.toUpperCase().startsWith("NAVL") && v.matches("^[0-9.]+$")) {
                                 filter.add(Float.parseFloat(v));
                             } else {
-                                filter.add(v.trim());
+                                filter.add(v);
                             }
                         }
                     } else {
-                        if (!shpSource.toUpperCase().startsWith("NAVL") && value.matches("^[0-9.]+$")) {
+                        value = value.trim();
+                        if (!shpSource.toUpperCase().startsWith("NAVL") && value.matches("^[0-9]+$")) {
+                            filter.add(Integer.parseInt(value));
+                        } else if (!shpSource.toUpperCase().startsWith("NAVL") && value.matches("^[0-9.]+$")) {
                             filter.add(Float.parseFloat(value));
                         } else {
-                            filter.add(value.trim());
+                            filter.add(value);
                         }
                     }
                     filters.add(filter);

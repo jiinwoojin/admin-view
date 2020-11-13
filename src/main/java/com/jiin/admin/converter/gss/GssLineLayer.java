@@ -8,8 +8,10 @@ import java.util.List;
 @XmlRootElement(name = "LineLayer")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GssLineLayer {
-    @XmlAttribute
-    private String type;
+    @XmlAttribute(name="type")
+    private String Type;
+    @XmlElement(name="Type")
+    private Integer SubType;
     private String Color;
     private Integer Width;
     private String JoinType;
@@ -30,13 +32,6 @@ public class GssLineLayer {
     @XmlElementWrapper(name="Dash")
     private List<Integer> DashItem;
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getColor() {
         return Color;
@@ -205,5 +200,21 @@ public class GssLineLayer {
 
     public void setTextureLine(Boolean textureLine) {
         TextureLine = textureLine;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setType(String type) {
+        Type = type;
+    }
+
+    public Integer getSubType() {
+        return SubType;
+    }
+
+    public void setSubType(Integer subType) {
+        SubType = subType;
     }
 }
