@@ -7,7 +7,7 @@
   "sources" : {
     "g25K" : {
       "type" : "vector",
-      "tiles" : [ "http://192.168.0.11/maps/g25K/{z}/{x}/{y}.pbf" ],
+      "tiles" : [ "http://192.168.0.11/maps/g25k/{z}/{x}/{y}.pbf" ],
       "minZoom" : 0,
       "maxZoom" : 20
     }

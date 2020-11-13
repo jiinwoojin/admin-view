@@ -36,11 +36,11 @@ public class ConverterVO {
     private Scale scale;
     private String scaleStr;
     enum Scale {
-        g25K("25K"),
-        g50K("50K"),
-        g100K("100K"),
-        a250K("250K"),
-        a500K("500K"),
+        g25k("25K"),
+        g50k("50K"),
+        g100k("100K"),
+        a250k("250K"),
+        a500k("500K"),
         S1M("1M"),
         S2M("2M"),
         KR1("KR1"),

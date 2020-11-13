@@ -41,7 +41,7 @@ public class ConverterGssXml {
         param.setMaputnikRenderer("mbgljs");
         param.setSourceName("g25K");
         param.setFont("Gosanja");
-        param.setScale(ConverterVO.Scale.g25K);
+        param.setScale(ConverterVO.Scale.g25k);
         param.setSprite("http://192.168.0.11/GSymbol/GSSSymbol");
         param.setGlyphs("http://192.168.0.11/fonts/{fontstack}/{range}.pbf");
         param.setTiles(new String[]{"http://192.168.0.11/maps/"+param.getScale().name()+"/{z}/{x}/{y}.pbf"});
