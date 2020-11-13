@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.jiin.admin.converter.gss.*;
 import com.jiin.admin.converter.mapbox.*;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -34,21 +33,23 @@ public class ConverterGssXml {
         String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
         //
         File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
-        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
-        File savefile = new File(dataPath + "/g25k_style_generate.json");
-        FileWriter writer = new FileWriter(savefile);
+        File layerfile = new File(dataPath + "/gss_style/GSS_AIR_JOGA_LAYER.xml");
         ConverterVO param = new ConverterVO();
         param.setVersion(8);
         param.setId("uzymq5sw3");
         param.setName("g25k_style");
         param.setMaputnikRenderer("mbgljs");
-        param.setSourceName("g25k");
+        param.setSourceName("a250k");
         param.setFont("Gosanja");
-        param.setScale(ConverterVO.Scale.S25K);
+        param.setScale(ConverterVO.Scale.a250K);
         param.setSprite("http://192.168.0.11/GSymbol/GSSSymbol");
         param.setGlyphs("http://192.168.0.11/fonts/{fontstack}/{range}.pbf");
-        param.setTiles(new String[]{"http://192.168.0.11/maps/g25k/{z}/{x}/{y}.pbf"});
+        param.setTiles(new String[]{"http://192.168.0.11/maps/a250k/{z}/{x}/{y}.pbf"});
         ConverterGssXml parse = new ConverterGssXml();
+        //
+        File savefile = new File(dataPath + "/"+param.getScale().name()+"_style_generate.json");
+        FileWriter writer = new FileWriter(savefile);
+        //
         parse.convertLayerJson(stylefile,layerfile,writer,param);
     }
 
@@ -120,14 +121,8 @@ public class ConverterGssXml {
         List<GssLayer> layers = result.getLayer();
         for(GssLayer layer : layers) {
             makeLayer("Polygon", layer, sourceName, font, styles, param, mapbox);
-        }
-        for(GssLayer layer : layers) {
             makeLayer("Line", layer, sourceName, font, styles, param, mapbox);
-        }
-        for(GssLayer layer : layers) {
             makeLayer("Point", layer, sourceName, font, styles, param, mapbox);
-        }
-        for(GssLayer layer : layers) {
             makeLayer("Label", layer, sourceName, font, styles, param, mapbox);
         }
         mapbox.cleanLayerId();
@@ -167,14 +162,14 @@ public class ConverterGssXml {
                             if(type.equals("Polygon")){
                                 for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
                                     if(styleLayer.getTextureFill() == null || styleLayer.getTextureFill().equals(true)){
-                                        makeStyleLayer(featureType, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                        makeStyleLayer(featureType, style, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }
                                     //line
                                     if (styleLayer.getLineLayer() != null) {
                                         for (GssLineLayer linestyle : styleLayer.getLineLayer()) {
                                             if(linestyle.getTextureLine() != null && linestyle.getTextureLine().equals(false)){
                                                 //point
-                                                makeStyleLayer("Point", linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                                makeStyleLayer("Point", style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                             }else{
                                                 if(linestyle.getType().equals("VERTICAL")){
                                                     List<Integer> dash = new ArrayList<>();
@@ -185,13 +180,13 @@ public class ConverterGssXml {
                                                     linestyle.setWidth(newWidth);
                                                     linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
                                                 }
-                                                makeStyleLayer("Line", linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                                makeStyleLayer("Line", style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                             }
                                         }
                                     }
                                     //point
                                     if(styleLayer.getTextureFill() != null && styleLayer.getTextureFill().equals(false)){
-                                        makeStyleLayer("Point", styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                        makeStyleLayer("Point", style, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }
                                 }
                             }
@@ -202,7 +197,7 @@ public class ConverterGssXml {
                                 for (GssLineLayer linestyle : style.getLineLayer()) {
                                     if(linestyle.getTextureLine() != null && linestyle.getTextureLine().equals(false)){
                                         //point
-                                        makeStyleLayer("Point", linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                        makeStyleLayer("Point", style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }else{
                                         if(linestyle.getType().equals("VERTICAL")){
                                             List<Integer> dash = new ArrayList<>();
@@ -213,7 +208,7 @@ public class ConverterGssXml {
                                             linestyle.setWidth(newWidth);
                                             linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
                                         }
-                                        makeStyleLayer(featureType, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                        makeStyleLayer(featureType, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }
                                 }
                             }
@@ -224,11 +219,11 @@ public class ConverterGssXml {
                                 // 파괸된 건물, 위치불분명 철도역, 오두막/막사, 폐허, 수상비행기지 > 심볼로 대채하여 표현 / Dragonteeth 심볼
                                 GssPointLayer gssPaint = new GssPointLayer("PICTURE");
                                 gssPaint.setPicture("Dragonteeth");
-                                makeStyleLayer(featureType, gssPaint, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                makeStyleLayer(featureType, style, gssPaint, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                             }else{
                                 if (style.getPointLayer() != null) {
                                     for (GssPointLayer styleLayer : style.getPointLayer()) {
-                                        makeStyleLayer(featureType, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                        makeStyleLayer(featureType, style, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }
                                 }
                             }
@@ -255,9 +250,10 @@ public class ConverterGssXml {
                         mapboxLayer.setId(layerId);
                         mapboxLayer.setSource(sourceName);
                         mapboxLayer.setSourceLayer(shpSource);
-                        mapboxLayer.setFilter(parseFilter(feature.getVVTStyle()));
+                        mapboxLayer.setFilter(parseFilter(feature.getVVTStyle(),shpSource));
                         mapboxLayer.setType("symbol");
                         MapboxLayout layout = new MapboxLayout();
+                        layout.setTextAllowOverlap(true);
                         if(shpSource.equalsIgnoreCase("geoname") || shpSource.equalsIgnoreCase("roadname")){
                             layout.setTextRotationAlignment("map");
                         }
@@ -281,12 +277,18 @@ public class ConverterGssXml {
                                 )) {
                             String x = String.format("%.1f",labelStyle.getOffsetX() / 3.3f);
                             String y = String.format("%.1f",labelStyle.getOffsetY() / 3.3f);
-                            layout.setTextOffset(new Float[]{Float.parseFloat(x),Float.parseFloat(y)});
+                            labelStyle.setOffsetX(Float.parseFloat(x));
+                            labelStyle.setOffsetY(Float.parseFloat(y));
+                            //
+                            if(shpSource.equalsIgnoreCase("NAVL")){ //항법무선시설 라벨
+                                labelStyle.setOffsetX(95f);
+                                labelStyle.setOffsetY(-1f);
+                            }
+                            layout.setTextOffset(new Float[]{labelStyle.getOffsetX(),labelStyle.getOffsetY()});
                         }
                         if(labelStyle.getPicture() != null){
                             layout.setTextJustify("left");
                             layout.setTextRotationAlignment("map");
-                            layout.setTextAllowOverlap(true);
                             layout.setTextKeepUpright(false);
                             layout.setIconImage(parsePicture(labelStyle.getPicture()));
                             layout.setIconAllowOverlap(true);
@@ -307,11 +309,11 @@ public class ConverterGssXml {
         }
     }
 
-    private void makeStyleLayer(String featureType, Object styleLayer, String shpSource, String styleName, String sourceName, List<GssVVTStyle> vvtStyle, String angleColumn,  MapboxRoot mapbox) throws JsonProcessingException {
+    private void makeStyleLayer(String featureType, GssStyle style, Object styleLayer, String shpSource, String styleName, String sourceName, List<GssVVTStyle> vvtStyle, String angleColumn,  MapboxRoot mapbox) throws JsonProcessingException {
         MapboxLayer mapboxLayer = new MapboxLayer();
         mapboxLayer.setSource(sourceName);
         mapboxLayer.setSourceLayer(shpSource);
-        mapboxLayer.setFilter(parseFilter(vvtStyle));
+        mapboxLayer.setFilter(parseFilter(vvtStyle,shpSource));
         MapboxPaint paint = new MapboxPaint();
         MapboxLayout layout = new MapboxLayout();
         if(featureType.equals("Polygon")){
@@ -377,12 +379,20 @@ public class ConverterGssXml {
                         }else if(gssPaint.getShape().equals("1")){
                             layout.setIconImage("Rectangle");
                             layout.setIconAllowOverlap(true);
+                            layout.setIconRotationAlignment("map");
                             layout.setIconSize(Float.parseFloat(gssPaint.getSize()) / 2f * 0.1f);
                         }
                     }
                 }else if(gssPaint.getType().equals("PICTURE")){
                     layout.setIconImage(parsePicture(gssPaint.getPicture()));
                     layout.setIconAllowOverlap(true);
+                    layout.setIconRotationAlignment("map");
+                    if (style.getOffsetX() != null && style.getOffsetY() != null
+                        &&
+                        (!Objects.equals(style.getOffsetX(),0f) || !Objects.equals(style.getOffsetY(),0f)
+                    )) {
+                        layout.setIconOffset(new Float[]{style.getOffsetX(),style.getOffsetY()});
+                    }
                     if(angleColumn != null){
                         layout.setIconRotate(new String[]{"get", angleColumn});
                         layout.setIconRotationAlignment("map");
@@ -436,7 +446,7 @@ public class ConverterGssXml {
         return String.format("%02d", index);
     }
 
-    private List<Object> parseFilter(List<GssVVTStyle> vvtStyles) {
+    private List<Object> parseFilter(List<GssVVTStyle> vvtStyles, String shpSource) {
         if (vvtStyles == null) {
             return null;
         }
@@ -448,51 +458,56 @@ public class ConverterGssXml {
             while ( keys.hasNext() ) {
                 QName key = keys.next();
                 String valueStr = (String) vvtStyle.getValueMap().get(key);
-                String value = valueStr;
-
                 String keyStr = key.toString().toLowerCase();
-
                 if (keyStr.equalsIgnoreCase("tlm분류")) {
+                    keyStr = "tlmkind";
+                } else if (keyStr.equalsIgnoreCase("종류")) {
                     keyStr = "tlmkind";
                 } else if (keyStr.equalsIgnoreCase("도로등급")) {
                     keyStr = "road_grade";
                 }
-
-                List<Object> filter = new ArrayList<>();
-
-                String expr = "==";
-                if (value.matches("[=<>].+")) {
-                    expr = value.replaceAll("[^=<>]*","");
-                    value = value.replaceAll("[=<>]*","");
+                String rawvalue = valueStr;
+                String[] rawvalues = new String[]{rawvalue};
+                if (rawvalue.matches("[=<>].+") && rawvalue.contains(",")) {
+                    rawvalues = rawvalue.split(",");
                 }
-                if (value.contains(",")) {
-                    if (expr.equalsIgnoreCase("<>")) {
-                        expr = "!in";
+                for (String value : rawvalues) {
+                    List<Object> filter = new ArrayList<>();
+                    String expr = "==";
+                    if (value.matches("[=<>].+")) {
+                        expr = value.replaceAll("[^=<>]*","");
+                        value = value.replaceAll("[=<>]*","");
+                    }
+                    if (value.contains(",")) {
+                        if (expr.equalsIgnoreCase("<>")) {
+                            expr = "!in";
+                        } else {
+                            expr = "in";
+                        }
+                    }
+                    if (expr.equals("<>")) {
+                        expr = "!=";
+                    }
+                    filter.add(expr);
+                    filter.add(keyStr);
+                    if (value.contains(",")) {
+                        String[] values = value.split(",");
+                        for (String v : values) {
+                            if (!shpSource.toUpperCase().startsWith("NAVL") && v.matches("^[0-9.]+$")) {
+                                filter.add(Float.parseFloat(v));
+                            } else {
+                                filter.add(v.trim());
+                            }
+                        }
                     } else {
-                        expr = "in";
+                        if (!shpSource.toUpperCase().startsWith("NAVL") && value.matches("^[0-9.]+$")) {
+                            filter.add(Float.parseFloat(value));
+                        } else {
+                            filter.add(value.trim());
+                        }
                     }
+                    filters.add(filter);
                 }
-                if (expr.equals("<>")) {
-                    expr = "!=";
-                }
-
-                filter.add(expr);
-                filter.add(keyStr);
-
-                if (value.contains(",")) {
-                    String[] values = value.split(",");
-                    for (String v : values) {
-                        filter.add(Integer.parseInt(v.trim()));
-                    }
-                } else {
-                    if (value.matches("^[0-9]+$")) {
-                        filter.add(Integer.parseInt(value));
-                    } else {
-                        filter.add(value);
-                    }
-                }
-
-                filters.add(filter);
             }
         }
         return filters;
