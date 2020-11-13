@@ -162,14 +162,14 @@ public class ConverterGssXml {
                             if(type.equals("Polygon")){
                                 for (GssPolygonLayer styleLayer : style.getPolygonLayer()) {
                                     if(styleLayer.getTextureFill() == null || styleLayer.getTextureFill().equals(true)){
-                                        makeStyleLayer(featureType, style, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                        makeStyleLayer(featureType, layer, feature, style, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }
                                     //line
                                     if (styleLayer.getLineLayer() != null) {
                                         for (GssLineLayer linestyle : styleLayer.getLineLayer()) {
                                             if(linestyle.getTextureLine() != null && linestyle.getTextureLine().equals(false)){
                                                 //point
-                                                makeStyleLayer("Point", style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                                makeStyleLayer("Point", layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                             }else{
                                                 if(linestyle.getType().equals("VERTICAL")){
                                                     List<Integer> dash = new ArrayList<>();
@@ -180,13 +180,13 @@ public class ConverterGssXml {
                                                     linestyle.setWidth(newWidth);
                                                     linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
                                                 }
-                                                makeStyleLayer("Line", style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                                makeStyleLayer("Line", layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                             }
                                         }
                                     }
                                     //point
                                     if(styleLayer.getTextureFill() != null && styleLayer.getTextureFill().equals(false)){
-                                        makeStyleLayer("Point", style, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                        makeStyleLayer("Point", layer, feature, style, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }
                                 }
                             }
@@ -197,7 +197,7 @@ public class ConverterGssXml {
                                 for (GssLineLayer linestyle : style.getLineLayer()) {
                                     if(linestyle.getTextureLine() != null && linestyle.getTextureLine().equals(false)){
                                         //point
-                                        makeStyleLayer("Point", style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                        makeStyleLayer("Point", layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }else{
                                         if(linestyle.getType().equals("VERTICAL")){
                                             List<Integer> dash = new ArrayList<>();
@@ -208,7 +208,7 @@ public class ConverterGssXml {
                                             linestyle.setWidth(newWidth);
                                             linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
                                         }
-                                        makeStyleLayer(featureType, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                        makeStyleLayer(featureType, layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }
                                 }
                             }
@@ -219,11 +219,11 @@ public class ConverterGssXml {
                                 // 파괸된 건물, 위치불분명 철도역, 오두막/막사, 폐허, 수상비행기지 > 심볼로 대채하여 표현 / Dragonteeth 심볼
                                 GssPointLayer gssPaint = new GssPointLayer("PICTURE");
                                 gssPaint.setPicture("Dragonteeth");
-                                makeStyleLayer(featureType, style, gssPaint, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                makeStyleLayer(featureType, layer, feature, style, gssPaint, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                             }else{
                                 if (style.getPointLayer() != null) {
                                     for (GssPointLayer styleLayer : style.getPointLayer()) {
-                                        makeStyleLayer(featureType, style, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                        makeStyleLayer(featureType, layer, feature, style, styleLayer, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }
                                 }
                             }
@@ -309,13 +309,16 @@ public class ConverterGssXml {
         }
     }
 
-    private void makeStyleLayer(String featureType, GssStyle style, Object styleLayer, String shpSource, String styleName, String sourceName, List<GssVVTStyle> vvtStyle, String angleColumn,  MapboxRoot mapbox) throws JsonProcessingException {
+    private void makeStyleLayer(String featureType, GssLayer layer, GssFeature feature, GssStyle style, Object styleLayer, String shpSource, String styleName, String sourceName, List<GssVVTStyle> vvtStyle, String angleColumn,  MapboxRoot mapbox) throws JsonProcessingException {
         MapboxLayer mapboxLayer = new MapboxLayer();
         mapboxLayer.setSource(sourceName);
         mapboxLayer.setSourceLayer(shpSource);
         mapboxLayer.setFilter(parseFilter(vvtStyle,shpSource));
         MapboxPaint paint = new MapboxPaint();
         MapboxLayout layout = new MapboxLayout();
+        MapboxMetadata metadata = new MapboxMetadata();
+        metadata.setComment(layer.getCategory() + "::" + layer.getName() + "::" + feature.getName() + "::" + feature.getDescription());
+        mapboxLayer.setMetadata(metadata);
         if(featureType.equals("Polygon")){
             mapboxLayer.setType("fill");
             GssPolygonLayer gssPaint = (GssPolygonLayer) styleLayer;

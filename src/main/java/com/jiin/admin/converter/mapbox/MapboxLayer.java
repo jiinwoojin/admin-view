@@ -23,6 +23,8 @@ public class MapboxLayer {
     private MapboxLayout layout;
     @JsonProperty("paint")
     private MapboxPaint paint;
+    @JsonProperty("metadata")
+    private MapboxMetadata metadata;
 
 
     public String getId() {
@@ -80,5 +82,13 @@ public class MapboxLayer {
 
     public void setFilter(List<Object> filter) {
         this.filter = filter;
+    }
+
+    public MapboxMetadata getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(MapboxMetadata metadata) {
+        this.metadata = metadata;
     }
 }

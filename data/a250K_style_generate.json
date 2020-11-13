@@ -33,6 +33,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(184, 214, 243, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::바다::바다::일반적으로 조수의 파동을 가진 바다의 경계지역"
     }
   }, {
     "id" : "AEC030_EC030A01",
@@ -44,6 +47,9 @@
     },
     "paint" : {
       "fill-pattern" : "DenseWood_01"
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::산림::산림::수목이 집단적으로 생육하고 있는 경계지역"
     }
   }, {
     "id" : "AIR_ELEV_TINT_ETINT_2_01",
@@ -56,6 +62,9 @@
     },
     "paint" : {
       "fill-pattern" : "ETint_01"
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::단채식::단채식::등고선을 기준으로 하여 고도(高度)에 따라 지형과 기복을 나타내는 경계지역"
     }
   }, {
     "id" : "AIR_ELEV_TINT_ETINT_3_01",
@@ -68,6 +77,9 @@
     },
     "paint" : {
       "fill-pattern" : "ETint_02"
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::단채식::단채식::등고선을 기준으로 하여 고도(高度)에 따라 지형과 기복을 나타내는 경계지역"
     }
   }, {
     "id" : "AIR_ELEV_TINT_ETINT_4_01",
@@ -80,6 +92,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(255, 247, 191, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::단채식::단채식::등고선을 기준으로 하여 고도(高度)에 따라 지형과 기복을 나타내는 경계지역"
     }
   }, {
     "id" : "AIR_ELEV_TINT_ETINT_5_01",
@@ -92,6 +107,9 @@
     },
     "paint" : {
       "fill-pattern" : "ETint_03"
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::단채식::단채식::등고선을 기준으로 하여 고도(高度)에 따라 지형과 기복을 나타내는 경계지역"
     }
   }, {
     "id" : "ABH135_BH135A01",
@@ -103,6 +121,9 @@
     },
     "paint" : {
       "fill-pattern" : "Paddy"
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::논::논::쌀을 재배하기 위해 주기적으로 사용되는 물로 뒤덮인 지역인 논의 경계지역"
     }
   }, {
     "id" : "AEA010_EA010A01",
@@ -114,6 +135,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(255, 227, 231, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::밭::밭::농작물 재배를 위해 경작되어진 지역인 밭의 경계지역"
     }
   }, {
     "id" : "AEB010_EB010A01",
@@ -125,6 +149,9 @@
     },
     "paint" : {
       "fill-pattern" : "Grassland"
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::초지::초지::수목이나 목초를 재배하고 관리하는 초지의 경계지역"
     }
   }, {
     "id" : "AEA040_EA040A01",
@@ -136,6 +163,9 @@
     },
     "paint" : {
       "fill-pattern" : "Orchard"
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::과수원::과수원::과실, 견과나 다른 생산물을 산출하는 나무를 체계적으로 재배하고 보호하는 과수원의 경계지역"
     }
   }, {
     "id" : "AEA050_EA050A01",
@@ -147,6 +177,9 @@
     },
     "paint" : {
       "fill-pattern" : "Vineyard"
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::포도원::포도원::포도나무를 체계적으로 재배하는 포도원의 경계지역"
     }
   }, {
     "id" : "ABH015_BH015A01",
@@ -158,6 +191,9 @@
     },
     "paint" : {
       "fill-pattern" : "Wetland"
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::소택지::소택지::토사와 잔류물이 배수되거나 주기적으로 범람하는 소택지의 경계지역"
     }
   }, {
     "id" : "ABH095_BH095A01",
@@ -169,6 +205,9 @@
     },
     "paint" : {
       "fill-pattern" : "Wetland"
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::늪/습지::늪/습지::수목을 포함한 식생이 존재하고, 때때로 물이 차는 지역인 늪지의 경계지역"
     }
   }, {
     "id" : "ABJ110_BJ110A01_01",
@@ -180,6 +219,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(24, 224, 84, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::툰드라::툰드라::하등식생의 생성이 유지되는 북극지방과 아(亞)북극지방에 있는 대초원 같은 지역인 툰드라의 경계지역"
     }
   }, {
     "id" : "ABJ110_BJ110A01_02",
@@ -194,6 +236,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::툰드라::툰드라::하등식생의 생성이 유지되는 북극지방과 아(亞)북극지방에 있는 대초원 같은 지역인 툰드라의 경계지역"
     }
   }, {
     "id" : "AEC020_EC020A01",
@@ -207,6 +252,9 @@
     "paint" : {
       "line-color" : "rgba(153, 235, 153, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::오아시스::오아시스::사막 가운데에 샘이 솟고 풀과 나무가 자라는 오아시스의 경계지역"
     }
   }, {
     "id" : "ABH080_BH080A01",
@@ -219,6 +267,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(184, 214, 243, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::호수::영구적 호수::육지에 의해 둘러싸인 수괴로, 물이 영구적으로 나타나는 호수의 경계지역"
     }
   }, {
     "id" : "ABH080_BH080A03_01",
@@ -231,6 +282,9 @@
     },
     "paint" : {
       "fill-pattern" : "BlueDotA"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::호수::간헐적 호수::육지에 의해 둘러싸인 수괴로, 물이 간헐적으로 나타나는 호수의 경계지역"
     }
   }, {
     "id" : "ABH080_BH080A03_02",
@@ -243,6 +297,9 @@
     },
     "paint" : {
       "fill-pattern" : "BlueDotA"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::호수::건조한 호수::육지에 의해 둘러싸인 수괴로, 물이 나타나는 건조한 호수의 경계지역"
     }
   }, {
     "id" : "ABH130_BH130A01",
@@ -255,6 +312,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(184, 214, 243, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::저수지::운영중 저수지::물을 저장하기 위해 형성한 운영중인 저수지의 경계지역"
     }
   }, {
     "id" : "ABH130_BH130A02",
@@ -267,6 +327,9 @@
     },
     "paint" : {
       "fill-pattern" : "Blueline(S)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::저수지::건설중 저수지::물을 저장하기 위해 형성한 저수지 중 건설중인 저수지의의 경계지역"
     }
   }, {
     "id" : "ABH140_BH140A01",
@@ -279,6 +342,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(184, 214, 243, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::강/하천::영구적 강/하천::자연적인 흐름의 수로인 영구적 강/하천의 경계지역"
     }
   }, {
     "id" : "ABH140_BH140A02",
@@ -291,6 +357,9 @@
     },
     "paint" : {
       "fill-pattern" : "LightBlue_Dot"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::강/하천::간헐적 강/하천::자연적인 흐름의 수로인 간헐적 강/하천의 경계지역"
     }
   }, {
     "id" : "ABH090_BH090A01",
@@ -303,6 +372,9 @@
     },
     "paint" : {
       "fill-pattern" : "Flood"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::범람지역::자연 범람지역::조수를 제외하고 주기적으로 물이 자연적으로 범람하는 곳의 경계지역"
     }
   }, {
     "id" : "ABH090_BH090A02_01",
@@ -315,6 +387,9 @@
     },
     "paint" : {
       "fill-pattern" : "Flood"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::범람지역::조정 범람지역::조수를 제외하고 주기적으로 물이 범람하는 곳의  경계지역"
     }
   }, {
     "id" : "ABH090_BH090A02_02",
@@ -330,6 +405,9 @@
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 2,
       "line-dasharray" : [ 4.5, 1.5, 4.5, 1.5 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::범람지역::조정 범람지역::조수를 제외하고 주기적으로 물이 범람하는 곳의  경계지역"
     }
   }, {
     "id" : "ABH190_BH190A01",
@@ -345,6 +423,9 @@
       "icon-ignore-placement" : true,
       "icon-optional" : true,
       "icon-anchor" : "center"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::석호/초호::석호/산호::강/호수 인근의 작은 늪의 경계지역"
     }
   }, {
     "id" : "ABD120_BD120A01",
@@ -360,6 +441,9 @@
       "icon-ignore-placement" : true,
       "icon-optional" : true,
       "icon-anchor" : "center"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::암초/암석지대::암초/암석지대::해상운하에 위험한 바다의 바위 또는 산호인 암초/암석지대의 경계지역"
     }
   }, {
     "id" : "ABI020_BI020A01_01",
@@ -371,6 +455,9 @@
     },
     "paint" : {
       "fill-pattern" : "Dam"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::댐/보::댐/보::물을 채우거나 물의 흐름을 조절하는 수로를 횡단하는 영구적 장벽인 댐/보의 경계지역"
     }
   }, {
     "id" : "ABI020_BI020A01_02",
@@ -384,6 +471,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::댐/보::댐/보::물을 채우거나 물의 흐름을 조절하는 수로를 횡단하는 영구적 장벽인 댐/보의 경계지역"
     }
   }, {
     "id" : "ADA005_DA005A01",
@@ -397,6 +487,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::아스팔트 호::아스팔트 호::천연 지각의 웅덩이에 괴어있는 아스팔트의 경계지역"
     }
   }, {
     "id" : "ADA010_DA010A01",
@@ -409,6 +502,9 @@
     },
     "paint" : {
       "fill-pattern" : "Ground"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::지표면 특질::지표면 특질::지구위 표면 토질 특성 중, 형태를 알 수 없는 지표면특질의 경계지역"
     }
   }, {
     "id" : "ADA010_DA010A03",
@@ -421,6 +517,9 @@
     },
     "paint" : {
       "fill-pattern" : "Moraine"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::지표면 특질::진흙 지표면 특질::지구위 표면 토질 특성 중, 진흙 지표면특질의 경계지역"
     }
   }, {
     "id" : "ADA010_DA010A02",
@@ -433,6 +532,9 @@
     },
     "paint" : {
       "fill-pattern" : "Gravel(A)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::지표면 특질::자갈 지표면 특질::지구위 표면 토질 특성 중, 자갈 지표면특질의 경계지역"
     }
   }, {
     "id" : "ADA010_DA010A04",
@@ -445,6 +547,9 @@
     },
     "paint" : {
       "fill-pattern" : "Dune"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::지표면 특질::갈모래 지표면 특질::지구위 표면 토질 특성 중, 갈모래 지표면특질의 경계지역"
     }
   }, {
     "id" : "ABH150_BH150A01_01",
@@ -456,6 +561,9 @@
     },
     "paint" : {
       "fill-pattern" : "BlueDotA"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::자연염전::자연염전::자연적으로 생성된 염전의 경계지역"
     }
   }, {
     "id" : "ABH150_BH150A01_02",
@@ -469,6 +577,9 @@
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::자연염전::자연염전::자연적으로 생성된 염전의 경계지역"
     }
   }, {
     "id" : "ABH160_BH160A01",
@@ -480,6 +591,9 @@
     },
     "paint" : {
       "fill-pattern" : "Salt_lake"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::염호::염호::호수의 물 1ℓ에 용존하는 총염분이 500㎎을 초과하는 염호의 경계지역"
     }
   }, {
     "id" : "ADB170_DB170A01",
@@ -492,6 +606,9 @@
     },
     "paint" : {
       "fill-pattern" : "Dune"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::사구::사구::산마루나 모래언덕인 알 수 없는 형태의 사구의 경계지역"
     }
   }, {
     "id" : "ADB170_DB170A02",
@@ -504,6 +621,9 @@
     },
     "paint" : {
       "fill-pattern" : "Crescent"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::사구::크리센트::산마루나 모래언덕인 크리센트 형태의 사구의 경계지역"
     }
   }, {
     "id" : "ADB170_DB170A03",
@@ -516,6 +636,9 @@
     },
     "paint" : {
       "fill-pattern" : "Lateral"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::사구::측면 사구::산마루나 모래언덕인 측면 형태의 사구의 경계지역"
     }
   }, {
     "id" : "ADB170_DB170A04",
@@ -528,6 +651,9 @@
     },
     "paint" : {
       "fill-pattern" : "Mounds"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::사구::언덕 사구::산마루나 모래언덕인 언덕 형태의 사구의 경계지역"
     }
   }, {
     "id" : "ADB170_DB170A05",
@@ -540,6 +666,9 @@
     },
     "paint" : {
       "fill-pattern" : "Ripple"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::사구::잔물결 사구::산마루나 모래언덕인 잔물결 형태의 사구의 경계지역"
     }
   }, {
     "id" : "ADB170_DB170A06",
@@ -552,6 +681,9 @@
     },
     "paint" : {
       "fill-pattern" : "Star"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::사구::별 사구::산마루나 모래언덕인 별 형태의 사구의 경계지역"
     }
   }, {
     "id" : "ADB170_DB170A07",
@@ -564,6 +696,9 @@
     },
     "paint" : {
       "fill-pattern" : "Transverse"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::사구::가로놓인 사구::산마루나 모래언덕인 가로지른 형태의 사구의 경계지역"
     }
   }, {
     "id" : "ABJ020_BJ020A01",
@@ -575,6 +710,9 @@
     },
     "paint" : {
       "fill-pattern" : "Moraine"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::빙퇴석::빙퇴석::빙하가 녹거나 침식 등으로 쌓이게 된 흙과 돌의 퇴적물인 빙퇴석의 경계지역"
     }
   }, {
     "id" : "ADB160_DB160A01_01",
@@ -588,6 +726,9 @@
     "paint" : {
       "line-color" : "rgba(170, 90, 90, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::암석층::암석층::가시적 지형의 노출부, 층이나 바위층인 암석층의 경계지역"
     }
   }, {
     "id" : "ADB160_DB160A01_02",
@@ -602,6 +743,9 @@
       "line-width" : 6,
       "line-dasharray" : [ 0.0, 1.7, 0.2, 1.7 ],
       "line-offset" : 6
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::암석층::암석층::가시적 지형의 노출부, 층이나 바위층인 암석층의 경계지역"
     }
   }, {
     "id" : "ABJ080_BJ080A01",
@@ -613,6 +757,9 @@
     },
     "paint" : {
       "fill-pattern" : "Ice"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::극빙::극빙::만들어진 지 일 년 이상이 되고 두께가 3미터를 넘는 바다 얼음인 극빙의 경계지역"
     }
   }, {
     "id" : "ABJ070_BJ070A01",
@@ -624,6 +771,9 @@
     },
     "paint" : {
       "fill-pattern" : "Ice"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::유빙::유빙::물 위에 떠서 흘러가는 얼음덩이 유빙의 경계지역"
     }
   }, {
     "id" : "ABJ065_BJ065A01",
@@ -638,6 +788,9 @@
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 10.0, 5.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::빙붕::빙붕::남극대륙과 이어져 바다에 떠 있는 300~900m두께의 얼음으로 된 대륙붕의 경계지역"
     }
   }, {
     "id" : "ABJ100_BJ100A01",
@@ -652,6 +805,9 @@
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 10.0, 5.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::빙원::빙원::지표의 전면이 두꺼운 얼음으로 덮여 있는 극지방의 벌판인 빙원의 경계지역"
     }
   }, {
     "id" : "ABJ030_BJ030A01_01",
@@ -663,6 +819,9 @@
     },
     "paint" : {
       "fill-pattern" : "Salt_lake"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::빙하::빙하::눈이 오랫동안 쌓여 다져져 육지의 일부를 덮고 있는 얼음층인 빙하의 경계지역"
     }
   }, {
     "id" : "ABJ030_BJ030A01_02",
@@ -677,6 +836,9 @@
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 5.0, 5.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::빙하::빙하::눈이 오랫동안 쌓여 다져져 육지의 일부를 덮고 있는 얼음층인 빙하의 경계지역"
     }
   }, {
     "id" : "AAL020_AL020A01_01",
@@ -688,6 +850,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(148, 148, 148, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::밀집지역::밀집지역::여러가지 목적의 구조물이 밀집되어 있는 밀집지역의 경계지역"
     }
   }, {
     "id" : "AAL020_AL020A01_02",
@@ -701,6 +866,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::밀집지역::밀집지역::여러가지 목적의 구조물이 밀집되어 있는 밀집지역의 경계지역"
     }
   }, {
     "id" : "AAH050_AH050A01",
@@ -712,6 +880,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::요새::요새::군사적 방어 목적으로 건설된 요새의 경계지역"
     }
   }, {
     "id" : "AAK120_AK120A01",
@@ -726,6 +897,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 14.0, 5.0, 2.0, 5.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::공원::공원::오락이나 조경의 목적으로 이용되는 공원의 경계지역"
     }
   }, {
     "id" : "AAL105_AL105A01_01",
@@ -737,6 +911,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(201, 201, 201, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::작은 부락::작은 부락::거주지가 집중되어 있는 정착지의 경계지역"
     }
   }, {
     "id" : "AAL105_AL105A01_02",
@@ -750,6 +927,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::작은 부락::작은 부락::거주지가 집중되어 있는 정착지의 경계지역"
     }
   }, {
     "id" : "AAL135_AL135A01_01",
@@ -761,6 +941,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(201, 201, 201, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::원주민 부락::원주민 부락::지역에 본디부터 살고 있는 사람들이 모여 사는 정착지의 경계지역"
     }
   }, {
     "id" : "AAL135_AL135A01_02",
@@ -774,6 +957,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::원주민 부락::원주민 부락::지역에 본디부터 살고 있는 사람들이 모여 사는 정착지의 경계지역"
     }
   }, {
     "id" : "AAL200_AL200A01",
@@ -788,6 +974,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::폐허::폐허::구조물의 질이 저하된 유적이 위치하는 폐허의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A01_01",
@@ -800,6 +989,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::일반건물::어떤 특별한 목적으로 설계되어, 일반적으로 벽담으로 둘러쌓이고 지붕이 있는 비교적 영구적인 구조의 건물의 위치지점"
     }
   }, {
     "id" : "AAL015_AL015A01_02",
@@ -812,6 +1004,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::용도목표물 건물::종교적 목적을 위한 건물, 학교, 창고, 등대를 제외한 기타 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A01_03",
@@ -824,6 +1019,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::사당::종교적 목적으로 설계되는 건물 중, 조상의 신주를 모시는 건물의 위치지점"
     }
   }, {
     "id" : "AAL015_AL015A02",
@@ -838,6 +1036,9 @@
     "paint" : {
       "line-color" : "rgba(120, 120, 120, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::파괴된 건물::어떤 특별한 목적으로 설계되어 일반적으로 벽담으로 둘러쌓여 지붕이 있는 비교적 영구적인 구조의 건물로, 현재 존재하는 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A03_01",
@@ -850,6 +1051,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::학교::학교의 목적으로 설계되어 사용되는 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A03_02",
@@ -861,6 +1065,9 @@
       "visibility" : "visible",
       "icon-image" : "School(A)",
       "icon-allow-overlap" : true
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::학교::학교의 목적으로 설계되어 사용되는 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A05_01",
@@ -875,6 +1082,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::건물 장애물::높이가 46m 이상인 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A05_02",
@@ -886,6 +1096,9 @@
       "visibility" : "visible",
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::건물 장애물::높이가 46m 이상인 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A06_01",
@@ -898,6 +1111,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::교회::종교적 목적으로 설계되는 건물 중, 교회 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A06_02",
@@ -909,6 +1125,9 @@
       "visibility" : "visible",
       "icon-image" : "Church(A)",
       "icon-allow-overlap" : true
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::교회::종교적 목적으로 설계되는 건물 중, 교회 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A07_01",
@@ -921,6 +1140,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::절::종교적 목적으로 설계되는 건물 중, 절 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A07_02",
@@ -932,6 +1154,9 @@
       "visibility" : "visible",
       "icon-image" : "Temple(A)",
       "icon-allow-overlap" : true
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::절::종교적 목적으로 설계되는 건물 중, 절 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A08_01",
@@ -944,6 +1169,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::회교사원::종교적 목적으로 설계되는 건물 중, 회교 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A08_02",
@@ -955,6 +1183,9 @@
       "visibility" : "visible",
       "icon-image" : "Mosque(A)",
       "icon-allow-overlap" : true
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::회교사원::종교적 목적으로 설계되는 건물 중, 회교 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A09_01",
@@ -967,6 +1198,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::유대교회당::종교적 목적으로 설계되는 건물 중, 유대교 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A09_02",
@@ -978,6 +1212,9 @@
       "visibility" : "visible",
       "icon-image" : "Synagogue(A)",
       "icon-allow-overlap" : true
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::유대교회당::종교적 목적으로 설계되는 건물 중, 유대교 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A10_01",
@@ -990,6 +1227,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::탑모양 건물::높이가 46m 미만인 탑모양 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A10_02",
@@ -1001,6 +1241,9 @@
       "visibility" : "visible",
       "icon-image" : "Tower(A)",
       "icon-allow-overlap" : true
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::탑모양 건물::높이가 46m 미만인 탑모양 건물의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A11_01",
@@ -1013,6 +1256,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(0, 0, 0, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::불탑::종교적 목적으로 설계되는 건물 중, 불탑의 경계지역"
     }
   }, {
     "id" : "AAL015_AL015A11_02",
@@ -1024,6 +1270,9 @@
       "visibility" : "visible",
       "icon-image" : "Pagoda(A)",
       "icon-allow-overlap" : true
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::불탑::종교적 목적으로 설계되는 건물 중, 불탑의 경계지역"
     }
   }, {
     "id" : "AAB000_AB000A01",
@@ -1038,6 +1287,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::쓰레기장::쓰레기장::폐물 또는 폐기된 재료를 수집하고 처리하는 쓰레기장의 경계지역"
     }
   }, {
     "id" : "AAA010_AA010A01_01",
@@ -1053,6 +1305,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::광산지역::운영중 광산지역::자연자원을 추출하는 광산 중, 현재 가동중인 광산의 경계지역"
     }
   }, {
     "id" : "AAA010_AA010A01_02",
@@ -1064,6 +1319,9 @@
       "visibility" : "visible",
       "icon-image" : "Mine_Operataion",
       "icon-allow-overlap" : true
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::광산지역::운영중 광산지역::자연자원을 추출하는 광산 중, 현재 가동중인 광산의 경계지역"
     }
   }, {
     "id" : "AAA010_AA010A02_01",
@@ -1079,6 +1337,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::광산지역::비운영 광산지역::자연자원을 추출하는 광산 중, 현재 가동하지 않는 광산의 경계지역"
     }
   }, {
     "id" : "AAA010_AA010A02_02",
@@ -1090,6 +1351,9 @@
       "visibility" : "visible",
       "icon-image" : "Mine_NonOperataion",
       "icon-allow-overlap" : true
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::광산지역::비운영 광산지역::자연자원을 추출하는 광산 중, 현재 가동하지 않는 광산의 경계지역"
     }
   }, {
     "id" : "ABH155_BH155A01_01",
@@ -1101,6 +1365,9 @@
     },
     "paint" : {
       "fill-pattern" : "Salt"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::염전::염전::염전의 경계지역"
     }
   }, {
     "id" : "ABH155_BH155A01_02",
@@ -1114,6 +1381,9 @@
     "paint" : {
       "line-color" : "rgba(0, 255, 255, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::염전::염전::염전의 경계지역"
     }
   }, {
     "id" : "AAC000_AC000A01",
@@ -1128,6 +1398,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::처리장::처리장::변형 또는 정제된 특별한 재료를 사용하는 처리장 및 처분장의 경계지역"
     }
   }, {
     "id" : "AAC030_AC030A01_01",
@@ -1139,6 +1412,9 @@
     },
     "paint" : {
       "fill-pattern" : "Blueline(S)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::침전지::침전지::증발 또는 침전에 의한 액체로부터 응결된 고체물질이 있는 침전지 및 침전못의 경계지역"
     }
   }, {
     "id" : "AAC030_AC030A01_02",
@@ -1152,6 +1428,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::침전지::침전지::증발 또는 침전에 의한 액체로부터 응결된 고체물질이 있는 침전지 및 침전못의 경계지역"
     }
   }, {
     "id" : "ABH040_BH040A01_01",
@@ -1163,6 +1442,9 @@
     },
     "paint" : {
       "fill-pattern" : "Blueline(S)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::정수장::정수장::여과기나 탄산수에 사용되는 재료 층을 포함한 정수장의 경계지역"
     }
   }, {
     "id" : "ABH040_BH040A01_02",
@@ -1176,6 +1458,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::정수장::정수장::여과기나 탄산수에 사용되는 재료 층을 포함한 정수장의 경계지역"
     }
   }, {
     "id" : "ABH050_BH050A01_01",
@@ -1187,6 +1472,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(184, 214, 243, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::양어장/양식장::양어장/양식장::어류의 양식을 위해 사용되는 바다의 울타리인 양어장/양식장의 경계지역"
     }
   }, {
     "id" : "ABH050_BH050A01_02",
@@ -1200,6 +1488,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::양어장/양식장::양어장/양식장::어류의 양식을 위해 사용되는 바다의 울타리인 양어장/양식장의 경계지역"
     }
   }, {
     "id" : "AAD010_AD010A01",
@@ -1214,6 +1505,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 8.0, 2.0, 8.0, 2.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::발전소 부지::발전소 부지::전력 발생을 위해 필요한 건물(시설)과 장치가 있는 발전소의 경계지역"
     }
   }, {
     "id" : "ABB190_BB190A01_01",
@@ -1225,6 +1519,9 @@
     },
     "paint" : {
       "fill-color" : "rgba(255, 255, 255, 0.0)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::부두::부두::배를 정박시키는 장소로 주로 사용되는 부두의 경계지역"
     }
   }, {
     "id" : "ABB190_BB190A01_02",
@@ -1238,6 +1535,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::부두::부두::배를 정박시키는 장소로 주로 사용되는 부두의 경계지역"
     }
   }, {
     "id" : "AAN060_AN060A01",
@@ -1251,6 +1551,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::조차장::조차장::하역 또는 기차 및 전차의 조립을 위해 제공되는 조차장의 경계지역"
     }
   }, {
     "id" : "LAL070_AL070L01_01",
@@ -1265,6 +1568,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 40.0, 15.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::울타리::울타리::폐쇄 또는 경계를 나타내기 위해 비교적 가벼운 구조물의 인공장벽을 세워둔 울타리의 경계"
     }
   }, {
     "id" : "LAL070_AL070L01_02",
@@ -1280,6 +1586,9 @@
       "icon-ignore-placement" : true,
       "icon-optional" : true,
       "icon-anchor" : "center"
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::울타리::울타리::폐쇄 또는 경계를 나타내기 위해 비교적 가벼운 구조물의 인공장벽을 세워둔 울타리의 경계"
     }
   }, {
     "id" : "LAL260_AL260L01",
@@ -1293,6 +1602,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::담::담::보호, 경계 또는 폐쇄의 목적으로 무거운 재료로 만든 담의 경계"
     }
   }, {
     "id" : "LBA010_BA010L01",
@@ -1307,6 +1619,9 @@
     "paint" : {
       "line-color" : "rgba(41, 133, 255, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::해안선::명확한 해안선::육지와 수면이 접한 선인 해안선 중, 식별이 명확한 해안선의 경계"
     }
   }, {
     "id" : "LBA010_BA010L02",
@@ -1322,6 +1637,9 @@
       "line-color" : "rgba(41, 133, 255, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 20.0, 3.0, 20.0, 3.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::해안선::불명확한해안선::육지와 수면이 접한 선인 해안선 중, 식별이 불명확한 지역에 존재하는 해안선의 경계"
     }
   }, {
     "id" : "LBA010_BA010L03",
@@ -1337,6 +1655,9 @@
       "line-color" : "rgba(41, 133, 255, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 20.0, 3.0, 20.0, 3.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::해안선::불명확한 습지해안선::육지와 수면이 접한 선인 해안선 중, 식별이 불명확한 습지나 늪에 존재하는 해안선의 경계"
     }
   }, {
     "id" : "LFA000_FA000L01_01",
@@ -1351,6 +1672,9 @@
     "paint" : {
       "line-color" : "rgba(209, 149, 137, 1)",
       "line-width" : 6
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::국가경계::국가경계::한 국가와 다른국가 사이의 경계"
     }
   }, {
     "id" : "LFA000_FA000L01_02",
@@ -1366,6 +1690,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 2,
       "line-dasharray" : [ 15.5, 1.0, 2.0, 1.0, 2.0, 1.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::국가경계::국가경계::한 국가와 다른국가 사이의 경계"
     }
   }, {
     "id" : "LFA000_FA000L01_03",
@@ -1380,6 +1707,9 @@
     "paint" : {
       "line-color" : "rgba(209, 149, 137, 1)",
       "line-width" : 6
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::국가경계::국가경계::한 국가와 다른국가 사이의 경계"
     }
   }, {
     "id" : "LFA000_FA000L01_04",
@@ -1395,6 +1725,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 2,
       "line-dasharray" : [ 15.5, 1.0, 2.0, 1.0, 2.0, 1.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::국가경계::국가경계::한 국가와 다른국가 사이의 경계"
     }
   }, {
     "id" : "LFA000_FA000L02_01",
@@ -1410,6 +1743,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
       "line-dasharray" : [ 10.3, 1.3, 2.7, 1.3 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::국가경계::1차경계::통제 지역 사이의 행정구역 중, 상대 중요도가 1순위인 행정지역의 경계"
     }
   }, {
     "id" : "LFA000_FA000L02_02",
@@ -1425,6 +1761,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
       "line-dasharray" : [ 10.3, 1.3, 2.7, 1.3 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::국가경계::1차경계::통제 지역 사이의 행정구역 중, 상대 중요도가 1순위인 행정지역의 경계"
     }
   }, {
     "id" : "LFA020_FA020L01",
@@ -1439,6 +1778,9 @@
       "line-color" : "rgba(170, 90, 90, 1)",
       "line-width" : 2,
       "line-dasharray" : [ 9.0, 3.0, 9.0, 3.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::휴전선::휴전선::휴전의 결과로 설치된 휴전선의 경계"
     }
   }, {
     "id" : "LFA060_FA060L01_01",
@@ -1452,6 +1794,9 @@
     "paint" : {
       "line-color" : "rgba(209, 149, 137, 1)",
       "line-width" : 6
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::분계선::분계선::다양한 정치권에 의해 비공식적으로 기록된 현재의 분리선인 비무장지대 남북한계선의 경계"
     }
   }, {
     "id" : "LFA060_FA060L01_02",
@@ -1466,6 +1811,9 @@
       "line-color" : "rgba(170, 90, 90, 1)",
       "line-width" : 2,
       "line-dasharray" : [ 15.5, 1.5, 2.5, 1.5, 2.5, 1.5 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::분계선::분계선::다양한 정치권에 의해 비공식적으로 기록된 현재의 분리선인 비무장지대 남북한계선의 경계"
     }
   }, {
     "id" : "LFA110_FA110L01",
@@ -1480,6 +1828,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
       "line-dasharray" : [ 4.0, 1.7, 4.0, 1.7 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::날짜변경선::날짜변경선::일반적으로 180개의 경선과 일치하고 각각의 역일이 시작되는 곳으로 지정되는 날짜변경선의 경계"
     }
   }, {
     "id" : "LFA170_FA170L01_01",
@@ -1493,6 +1844,9 @@
     "paint" : {
       "line-color" : "rgba(209, 149, 137, 1)",
       "line-width" : 6
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::주둔지역::주둔지역::외국병력에 의해 일시적으로 소유하고 통제된 지역인 유엔관리구역(중립구역)의 경계"
     }
   }, {
     "id" : "LFA170_FA170L01_02",
@@ -1507,6 +1861,9 @@
       "line-color" : "rgba(170, 90, 90, 1)",
       "line-width" : 2,
       "line-dasharray" : [ 15.5, 1.5, 2.5, 1.5, 2.5, 1.5 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::주둔지역::주둔지역::외국병력에 의해 일시적으로 소유하고 통제된 지역인 유엔관리구역(중립구역)의 경계"
     }
   }, {
     "id" : "LEC030_EC030L01",
@@ -1520,6 +1877,9 @@
     "paint" : {
       "line-color" : "rgba(153, 235, 153, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::방풍림::방풍림::강풍을 막기 위하여 조성된 숲인 방풍림의 경계"
     }
   }, {
     "id" : "LBB040_BB040L01",
@@ -1534,6 +1894,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::방파제::수면위 방파제::해안 지역, 항구, 정박지등을 파도로부터 보호하고 그 강도를 줄여주는 구조물로, 수면위에 위치한 경계"
     }
   }, {
     "id" : "LBB140_BB140L01",
@@ -1548,6 +1911,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::돌제::수면위 돌제::조력으로부터 항구나 해변을 보호하는 구조물이 수면위에 존재하는 돌제의 경계"
     }
   }, {
     "id" : "LBB140_BB140L02",
@@ -1563,6 +1929,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 2,
       "line-dasharray" : [ 1.5, 0.5, 1.5, 0.5 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::돌제::돌제::조력으로부터 항구나 해변을 보호하는 구조물이 수면아래와 위에 존재하는 돌제의 경계"
     }
   }, {
     "id" : "LBB230_BB230L01",
@@ -1576,6 +1945,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::해벽::해벽::침식작용으로부터 해안을 보호하기 위해 설치된 구조물인 해벽의 경계"
     }
   }, {
     "id" : "LBH210_BH210L01",
@@ -1589,6 +1961,9 @@
     "paint" : {
       "line-color" : "rgba(41, 133, 255, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수애선::수애선::해안선, 호수, 섬을 포함하는 모든 내륙 수로 지형지물을 위한 육지나 바다의 경계를 나타나는 수애선의 경계"
     }
   }, {
     "id" : "LBH020_BH020L01",
@@ -1603,6 +1978,9 @@
     "paint" : {
       "line-color" : "rgba(184, 214, 243, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::운하::영구적 운하::수송을 위해 자연수로를 개발하거나 인공적으로 만든 영구적 운하의 경계"
     }
   }, {
     "id" : "LBH020_BH020L02",
@@ -1618,6 +1996,9 @@
       "line-color" : "rgba(184, 214, 243, 1)",
       "line-width" : 3,
       "line-dasharray" : [ 3.3, 1.0, 3.3, 1.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::운하::간헐적 운하::수송을 위해 자연수로를 개발하거나 인공적으로 만든 간헐적 운하의 경계"
     }
   }, {
     "id" : "LBH030_BH030L01",
@@ -1632,6 +2013,9 @@
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::도랑::영구적 도랑::관개나 배수의 목적으로 건설된 수로로, 물이 영구적으로 나타나는 도랑의 경계"
     }
   }, {
     "id" : "LBH030_BH030L02",
@@ -1647,6 +2031,9 @@
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::도랑::간헐적 도랑::관개나 배수의 목적으로 건설된 수로로, 물이 간헐적으로 나타나는 도랑의 경계"
     }
   }, {
     "id" : "LBH140_BH140L01",
@@ -1661,6 +2048,9 @@
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::강/하천::영구적 강/하천::자연적인 흐름의 수로로, 물이 영구적으로 나타나는 강/하천의 경계"
     }
   }, {
     "id" : "LBH140_BH140L02",
@@ -1676,6 +2066,9 @@
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::강/하천::간헐적 강/하천::자연적인 흐름의 수로로, 물이 간헐적으로 나타나는 강/하천의 경계"
     }
   }, {
     "id" : "LBH110_BH110L01",
@@ -1690,6 +2083,9 @@
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수압관::지상 수압관::일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 지상에 위치하는 수압관의 경계"
     }
   }, {
     "id" : "LBH110_BH110L02_01",
@@ -1703,6 +2099,9 @@
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수압관::고가수로 수압관::일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 고가수로에 위치하는 수압관의 경계"
     }
   }, {
     "id" : "LBH110_BH110L02_02",
@@ -1717,6 +2116,9 @@
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수압관::고가수로 수압관::일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 고가수로에 위치하는 수압관의 경계"
     }
   }, {
     "id" : "LBH110_BH110L03_01",
@@ -1730,6 +2132,9 @@
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수압관::지하 수압관::일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 지하에 위치하는 수압관의 경계"
     }
   }, {
     "id" : "LBH110_BH110L03_02",
@@ -1745,6 +2150,9 @@
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 5.0, 5.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수압관::지하 수압관::일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 지하에 위치하는 수압관의 경계"
     }
   }, {
     "id" : "LBH120_BH120L01",
@@ -1758,6 +2166,9 @@
     "paint" : {
       "line-color" : "rgba(49, 168, 217, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::급류::급류::강이나 시내에서 해류가 빠르고 돌이나 바위에 의해 표면이 부식된 지역의 경계"
     }
   }, {
     "id" : "LBH180_BH180L01",
@@ -1771,6 +2182,9 @@
     "paint" : {
       "line-color" : "rgba(49, 168, 217, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::폭포::폭포::물이 거의 수직에 가깝게 하강하는 폭포의 경계"
     }
   }, {
     "id" : "LBD120_BD120L01",
@@ -1786,6 +2200,9 @@
       "icon-ignore-placement" : true,
       "icon-optional" : true,
       "icon-anchor" : "center"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::암초/암석지대::암초/암석지대::해상운하에 위험한 바다의 바위 또는 산호인 암초/암석지대의 경계"
     }
   }, {
     "id" : "LBI020_BI020L01",
@@ -1800,6 +2217,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 4
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::댐/보::통행불가 댐/보::물을 채우거나 물의 흐름을 조절하는 수로를 수송수단으로 통행불가능한 댐/보의 경계"
     }
   }, {
     "id" : "LBI020_BI020L02",
@@ -1815,6 +2235,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-gap-width" : 7
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::댐/보::통행가능한 댐/보::물을 채우거나 물의 흐름을 조절하는 수로를 철도나 도로로 통행가능한 댐/보의 경계"
     }
   }, {
     "id" : "LBH010_BH010L01",
@@ -1829,6 +2252,9 @@
     "paint" : {
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수도관::지상수도관::멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 지상에 위치하는 수도관의 경계"
     }
   }, {
     "id" : "LBH010_BH010L02_01",
@@ -1842,6 +2268,9 @@
     "paint" : {
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수도관::고가수로수도관::멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 고가수로에 위치하는 수도관의 경계"
     }
   }, {
     "id" : "LBH010_BH010L02_02",
@@ -1856,6 +2285,9 @@
     "paint" : {
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수도관::고가수로수도관::멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 고가수로에 위치하는 수도관의 경계"
     }
   }, {
     "id" : "LBH010_BH010L03_01",
@@ -1869,6 +2301,9 @@
     "paint" : {
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수도관::지하수도관::멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 지하에 위치하는 수도관의 경계"
     }
   }, {
     "id" : "LBH010_BH010L03_02",
@@ -1884,6 +2319,9 @@
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 5.0, 5.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수도관::지하수도관::멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 지하에 위치하는 수도관의 경계"
     }
   }, {
     "id" : "LBI030_BI030L01",
@@ -1897,6 +2335,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::갑문::갑문::한 수위에서 다른 수위로 이동할때 오르거나 내리는 배를 위해 사용하는 울타리인 갑문의 경계"
     }
   }, {
     "id" : "LCA010_CA010L01",
@@ -1911,6 +2352,9 @@
     "paint" : {
       "line-color" : "rgba(194, 137, 137, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::등고선::계곡선::똑같은 수직기준좌표 값을 가진 점과 연결된 선인 계곡선의 경계"
     }
   }, {
     "id" : "LCA010_CA010L02",
@@ -1925,6 +2369,9 @@
     "paint" : {
       "line-color" : "rgba(194, 137, 137, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::등고선::주곡선::똑같은 수직기준좌표 값을 가진 점과 연결된 선인 주곡선의 경계"
     }
   }, {
     "id" : "LCA010_CA010L03",
@@ -1940,6 +2387,9 @@
       "line-color" : "rgba(194, 137, 137, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 8.0, 3.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::등고선::보조곡선::똑같은 수직기준좌표 값을 가진 점과 연결된 선 중, 보조곡선의 경계"
     }
   }, {
     "id" : "LCA010_CA010L04_01",
@@ -1954,6 +2404,9 @@
     "paint" : {
       "line-color" : "rgba(194, 137, 137, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::등고선::저하등고선 계곡선::똑같은 수직기준좌표 값을 가진 점과 연결된 선인 저하등고선 계곡선의 경계"
     }
   }, {
     "id" : "LCA010_CA010L04_02",
@@ -1969,6 +2422,9 @@
       "line-width" : 10,
       "line-dasharray" : [ 0.0, 0.0, 0.1, 5.0 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::등고선::저하등고선 계곡선::똑같은 수직기준좌표 값을 가진 점과 연결된 선인 저하등고선 계곡선의 경계"
     }
   }, {
     "id" : "LCA010_CA010L05_01",
@@ -1983,6 +2439,9 @@
     "paint" : {
       "line-color" : "rgba(194, 137, 137, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::등고선::저하등고선 주곡선::똑같은 수직기준좌표 값을 가진 점과 연결된 선인 저하등고선 주곡선의 경계"
     }
   }, {
     "id" : "LCA010_CA010L05_02",
@@ -1998,6 +2457,9 @@
       "line-width" : 10,
       "line-dasharray" : [ 0.0, 0.0, 0.1, 5.0 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::등고선::저하등고선 주곡선::똑같은 수직기준좌표 값을 가진 점과 연결된 선인 저하등고선 주곡선의 경계"
     }
   }, {
     "id" : "LBE015_BE015L01",
@@ -2011,6 +2473,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::등심선::등심선::똑같은 깊이의 점을 연결한 등심선의 경계"
     }
   }, {
     "id" : "LDB010_DB010L01_01",
@@ -2024,6 +2489,9 @@
     "paint" : {
       "line-color" : "rgba(194, 137, 137, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::절벽/급사면::절벽/급사면::바위나 땅의 가파른 면이나 수직적 또는 돌출한 면인 절벽/급사면의 경계"
     }
   }, {
     "id" : "LDB010_DB010L01_02",
@@ -2038,6 +2506,9 @@
       "line-width" : 4,
       "line-dasharray" : [ 0.0, 0.3, 0.3, 1.3 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::절벽/급사면::절벽/급사면::바위나 땅의 가파른 면이나 수직적 또는 돌출한 면인 절벽/급사면의 경계"
     }
   }, {
     "id" : "LDB070_DB070L01_01",
@@ -2052,6 +2523,9 @@
       "line-color" : "rgba(170, 90, 90, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 12.0, 4.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::절토::절토::도로, 철도, 운하 등을 위해 통로를 제공하는 지표면특질의 동굴인 절토의 경계"
     }
   }, {
     "id" : "LDB070_DB070L01_02",
@@ -2066,6 +2540,9 @@
       "line-width" : 4,
       "line-dasharray" : [ 0.0, 2.5, 0.3, 3.8 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::절토::절토::도로, 철도, 운하 등을 위해 통로를 제공하는 지표면특질의 동굴인 절토의 경계"
     }
   }, {
     "id" : "LDB090_DB090L01_01",
@@ -2079,6 +2556,9 @@
     "paint" : {
       "line-color" : "rgba(170, 90, 90, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::제방/성토::제방/성토::흙이나 다른 재료로 쌓아올린 긴 토루인 제방의 경계"
     }
   }, {
     "id" : "LDB090_DB090L01_02",
@@ -2093,6 +2573,9 @@
       "line-width" : 6,
       "line-dasharray" : [ 0.0, 3.3, 0.2, 2.5 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::제방/성토::제방/성토::흙이나 다른 재료로 쌓아올린 긴 토루인 제방의 경계"
     }
   }, {
     "id" : "LBJ040_BJ040L01_01",
@@ -2107,6 +2590,9 @@
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 2,
       "line-dasharray" : [ 20.0, 3.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::빙벽::빙벽::빙산의 벽인 빙벽의 경계"
     }
   }, {
     "id" : "LBJ040_BJ040L01_02",
@@ -2121,6 +2607,9 @@
       "line-width" : 10,
       "line-dasharray" : [ 0.0, 2.5, 0.1, 4.4 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::빙벽::빙벽::빙산의 벽인 빙벽의 경계"
     }
   }, {
     "id" : "LDB060_DB060L01",
@@ -2135,6 +2624,9 @@
     "paint" : {
       "line-color" : "rgba(166, 38, 38, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::크레바스::크레바스::빙하나 눈 골짜기에 형성된 깊은 균열의 경계"
     }
   }, {
     "id" : "LDB060_DB060L02",
@@ -2149,6 +2641,9 @@
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::크레바스::크레바스::빙하나 눈 골짜기에 형성된 깊은 균열의 경계"
     }
   }, {
     "id" : "LDB100_DB100L01",
@@ -2162,6 +2657,9 @@
     "paint" : {
       "line-color" : "rgba(170, 90, 90, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::에스커::에스커::빙하가 흐르는 방향으로 형성된 둑 모양의 언덕인 에스커의 경계"
     }
   }, {
     "id" : "LDB110_DB110L01",
@@ -2175,6 +2673,9 @@
     "paint" : {
       "line-color" : "rgba(170, 90, 90, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::단층::단층::같은 성질의 바위로 이루어진 층인 단층의 경계"
     }
   }, {
     "id" : "LAK130_AK130L01",
@@ -2188,6 +2689,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::경주장/경주로::경주장::경주를 위한 코스가 있는 경주장의 경계"
     }
   }, {
     "id" : "LAF020_AF020L01",
@@ -2202,6 +2706,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::운송대::운송대::재료를 한 장소에서 다른 장소로 이동하기 위한 장치인 운송대의 경계"
     }
   }, {
     "id" : "LBH060_BH060L01",
@@ -2216,6 +2723,9 @@
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::홈통(용수로)::지상홈통(용수로)::물을 받아 흐르게 하기 위해 지상에 설치하는 홈통의 경계"
     }
   }, {
     "id" : "LBH060_BH060L02",
@@ -2230,6 +2740,9 @@
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::홈통(용수로)::고가수로 홈통(용수로)::물을 받아 흐르게 하기 위해 고가수로에 설치하는 홈통의 경계"
     }
   }, {
     "id" : "LFA090_FA090L01",
@@ -2243,6 +2756,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::지구물리학의 예상 격자::지구물리학의 예상 격자::지리학적 가능성의 경계"
     }
   }, {
     "id" : "LAT030_AT030L01",
@@ -2257,6 +2773,9 @@
     "paint" : {
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::고압선::고압선::먼 거리에 전류를 보내는 전주를 포함한 땅위 전선 시스템인 고압선 중, 산과 물을 넘지 않는 형태의 고압선의 경계"
     }
   }, {
     "id" : "LAT030_AT030L02",
@@ -2271,6 +2790,9 @@
     "paint" : {
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::고압선::기타 고압선::먼 거리에 전류를 보내는 전주를 포함한 땅위 전선 시스템인 고압선 중, 산과 물을 넘는 형태 외의 고압선의 경계"
     }
   }, {
     "id" : "LAQ113_AQ113L01_01",
@@ -2284,6 +2806,9 @@
     "paint" : {
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::파이프라인::고가수로 파이프라인::고체, 액체, 기체의 수송을 위한 관으로 고가수로의 파이프라인의 경계"
     }
   }, {
     "id" : "LAQ113_AQ113L01_02",
@@ -2298,6 +2823,9 @@
     "paint" : {
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::파이프라인::고가수로 파이프라인::고체, 액체, 기체의 수송을 위한 관으로 고가수로의 파이프라인의 경계"
     }
   }, {
     "id" : "LAQ113_AQ113L02_01",
@@ -2311,6 +2839,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::파이프라인::기타 고가수로파이프라인::물을 제외한 기타 고체, 액체, 기체의 수송을 위한 관으로 고가수로의 파이프라인 경계"
     }
   }, {
     "id" : "LAQ113_AQ113L02_02",
@@ -2325,6 +2856,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::파이프라인::기타 고가수로파이프라인::물을 제외한 기타 고체, 액체, 기체의 수송을 위한 관으로 고가수로의 파이프라인 경계"
     }
   }, {
     "id" : "LAQ113_AQ113L03",
@@ -2339,6 +2873,9 @@
     "paint" : {
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::파이프라인::지상 파이프라인::고체, 액체, 기체의 수송을 위한 관으로 지상의 파이프라인의 경계"
     }
   }, {
     "id" : "LAQ113_AQ113L04",
@@ -2353,6 +2890,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::파이프라인::기타 지상파이프라인::물을 제외한 기타 고체, 액체, 기체의 수송을 위한 관으로 지상의 파이프라인 경계"
     }
   }, {
     "id" : "LAQ113_AQ113L05",
@@ -2368,6 +2908,9 @@
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::파이프라인::지하 파이프라인::고체, 액체, 기체의 수송을 위한 관으로 수중의 파이프라인 경계"
     }
   }, {
     "id" : "LAQ113_AQ113L06",
@@ -2383,6 +2926,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::파이프라인::기타 지하파이프라인::물을 제외한 기타 고체, 액체, 기체의 수송을 위한 관으로 수중의 파이프라인 경계"
     }
   }, {
     "id" : "LAT060_AT060L01",
@@ -2397,6 +2943,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::전화/전기선::전화/전기선::먼 거리에 있는 전기적 신호를 송신하는 지지물을 포함한 전선 시스템의 경계"
     }
   }, {
     "id" : "LGB055_GB055L01",
@@ -2411,6 +2960,9 @@
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 1,
       "line-gap-width" : 3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::활주로::활주로::항공기의 일반적인 이착륙을 위해 사용되는 활주로의 경계지역"
     }
   }, {
     "id" : "LAQ070_AQ070L01",
@@ -2425,6 +2977,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 3.0, 1.0, 3.0, 1.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::나루::나루::한 해변에서 다른 해변까지 횡단하는 수면위의 통로가 있는 나루의 경계"
     }
   }, {
     "id" : "LBH070_BH070L01",
@@ -2439,6 +2994,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 9.0, 2.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::여울목::여울목::교차형 만곡부로 사용되는 수괴의 얕은 곳인 여울목의 경계"
     }
   }, {
     "id" : "LAQ010_AQ010L01",
@@ -2453,6 +3011,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 6.0, 3.0, 6.0, 3.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::공중케이블/스키리프트::공중케이블/스키리프트::고도가 있는 버팀목 사이로 연결된 케이블의 경계"
     }
   }, {
     "id" : "LBB190_BB190L01",
@@ -2466,6 +3027,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::부두::부두::배를 정박시키는 장소로 주로 사용되는 부두의 경계"
     }
   }, {
     "id" : "LAP010_AP010L01",
@@ -2481,6 +3045,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 2,
       "line-dasharray" : [ 4.0, 1.0, 4.0, 1.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::우마차로::우마차로::미개발도로로써 모든 기후에 이용하는 우마차로의 경계"
     }
   }, {
     "id" : "LAP050_AP050L01",
@@ -2496,6 +3063,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 6.0, 6.0, 6.0, 6.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::소로::소로::사람이나 동물이 통행하는 작은 길인 소로의 경계"
     }
   }, {
     "id" : "LAP030_AP030L15_01",
@@ -2510,6 +3080,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::분리대有 고속국도::분리대가 있는 고속국도"
     }
   }, {
     "id" : "LAP030_AP030L15_02",
@@ -2524,6 +3097,9 @@
     "paint" : {
       "line-color" : "rgba(111, 182, 137, 1)",
       "line-width" : 3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::분리대有 고속국도::분리대가 있는 고속국도"
     }
   }, {
     "id" : "LAP030_AP030L15_03",
@@ -2538,6 +3114,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::분리대有 고속국도::분리대가 있는 고속국도"
     }
   }, {
     "id" : "LAP030_AP030L16_01",
@@ -2552,6 +3131,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::분리대無 고속국도::분리대가 없는 고속국도"
     }
   }, {
     "id" : "LAP030_AP030L16_02",
@@ -2566,6 +3148,9 @@
     "paint" : {
       "line-color" : "rgba(111, 182, 137, 1)",
       "line-width" : 3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::분리대無 고속국도::분리대가 없는 고속국도"
     }
   }, {
     "id" : "LAP030_AP030L17_01",
@@ -2581,6 +3166,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
       "line-dasharray" : [ 2.4, 1.2, 2.4, 1.2 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::분리대有 건설중 고속국도::건설중이거나 손실되어 사용하지 못하는 고속국도 중 분리대가 있는 고속국도"
     }
   }, {
     "id" : "LAP030_AP030L17_02",
@@ -2596,6 +3184,9 @@
       "line-color" : "rgba(16, 170, 108, 1)",
       "line-width" : 3,
       "line-dasharray" : [ 4.0, 2.0, 4.0, 2.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::분리대有 건설중 고속국도::건설중이거나 손실되어 사용하지 못하는 고속국도 중 분리대가 있는 고속국도"
     }
   }, {
     "id" : "LAP030_AP030L17_03",
@@ -2611,6 +3202,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 12.0, 6.0, 12.0, 6.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::분리대有 건설중 고속국도::건설중이거나 손실되어 사용하지 못하는 고속국도 중 분리대가 있는 고속국도"
     }
   }, {
     "id" : "LAP030_AP030L18_01",
@@ -2626,6 +3220,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
       "line-dasharray" : [ 2.4, 1.2, 2.4, 1.2 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::분리대無 건설중 고속국도::건설중이거나 손실되어 사용하지 못하는 고속도로 중 분리대가 없는 고속국도"
     }
   }, {
     "id" : "LAP030_AP030L18_02",
@@ -2641,6 +3238,9 @@
       "line-color" : "rgba(16, 170, 108, 1)",
       "line-width" : 3,
       "line-dasharray" : [ 4.0, 2.0, 4.0, 2.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::분리대無 건설중 고속국도::건설중이거나 손실되어 사용하지 못하는 고속도로 중 분리대가 없는 고속국도"
     }
   }, {
     "id" : "LAP030_AP030L19_01",
@@ -2655,6 +3255,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::2차선이상 포장도로::차선이 2차선 이상인 포장도로"
     }
   }, {
     "id" : "LAP030_AP030L19_02",
@@ -2669,6 +3272,9 @@
     "paint" : {
       "line-color" : "rgba(162, 83, 72, 1)",
       "line-width" : 3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::2차선이상 포장도로::차선이 2차선 이상인 포장도로"
     }
   }, {
     "id" : "LAP030_AP030L20_01",
@@ -2683,6 +3289,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 4
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::1차선 포장도로::차선이 1차선인 포장도로"
     }
   }, {
     "id" : "LAP030_AP030L20_02",
@@ -2697,6 +3306,9 @@
     "paint" : {
       "line-color" : "rgba(162, 83, 72, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::1차선 포장도로::차선이 1차선인 포장도로"
     }
   }, {
     "id" : "LAP030_AP030L07_01",
@@ -2712,6 +3324,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-gap-width" : 3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::2차선이상 비포장도로::차선이 2차선 이상인 비포장도로"
     }
   }, {
     "id" : "LAP030_AP030L07_02",
@@ -2726,6 +3341,9 @@
     "paint" : {
       "line-color" : "rgba(255, 255, 255, 1)",
       "line-width" : 3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::2차선이상 비포장도로::차선이 2차선 이상인 비포장도로"
     }
   }, {
     "id" : "LAP030_AP030L07_03",
@@ -2741,6 +3359,9 @@
       "line-color" : "rgba(162, 83, 72, 1)",
       "line-width" : 3,
       "line-dasharray" : [ 4.0, 2.7, 4.0, 2.7 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::2차선이상 비포장도로::차선이 2차선 이상인 비포장도로"
     }
   }, {
     "id" : "LAP030_AP030L08_01",
@@ -2756,6 +3377,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-gap-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::1차선 비포장도로::차선이 1차선인 비포장도로"
     }
   }, {
     "id" : "LAP030_AP030L08_02",
@@ -2770,6 +3394,9 @@
     "paint" : {
       "line-color" : "rgba(255, 255, 255, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::1차선 비포장도로::차선이 1차선인 비포장도로"
     }
   }, {
     "id" : "LAP030_AP030L08_03",
@@ -2785,6 +3412,9 @@
       "line-color" : "rgba(162, 83, 72, 1)",
       "line-width" : 2,
       "line-dasharray" : [ 6.0, 4.0, 6.0, 4.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::1차선 비포장도로::차선이 1차선인 비포장도로"
     }
   }, {
     "id" : "LAP030_AP030L09",
@@ -2799,6 +3429,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::5등(맑거나 건조시만 통행가능)::맑거나 건조한 날씨에만 통행가능한 도로"
     }
   }, {
     "id" : "LAP030_AP030L21_01",
@@ -2814,6 +3447,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
       "line-dasharray" : [ 2.8, 1.2, 2.8, 1.2 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::건설중 2차선이상 포장도로::건설중이거나 손실되어 사용하지 못하고, 차선이 2차선 이상인 포장도로"
     }
   }, {
     "id" : "LAP030_AP030L21_02",
@@ -2829,6 +3465,9 @@
       "line-color" : "rgba(162, 83, 72, 1)",
       "line-width" : 3,
       "line-dasharray" : [ 4.7, 2.0, 4.7, 2.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::건설중 2차선이상 포장도로::건설중이거나 손실되어 사용하지 못하고, 차선이 2차선 이상인 포장도로"
     }
   }, {
     "id" : "LAP030_AP030L22_01",
@@ -2844,6 +3483,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 4,
       "line-dasharray" : [ 3.5, 1.5, 3.5, 1.5 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::건설중 1차선 포장도로::건설중이거나 손실되어 사용하지 못하고, 차선이 1차선인 포장도로"
     }
   }, {
     "id" : "LAP030_AP030L22_02",
@@ -2859,6 +3501,9 @@
       "line-color" : "rgba(162, 83, 72, 1)",
       "line-width" : 2,
       "line-dasharray" : [ 7.0, 3.0, 7.0, 3.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::건설중 1차선 포장도로::건설중이거나 손실되어 사용하지 못하고, 차선이 1차선인 포장도로"
     }
   }, {
     "id" : "LAP030_AP030L12_01",
@@ -2873,6 +3518,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::포장 관통도로::거리를 관통하는 포장도로"
     }
   }, {
     "id" : "LAP030_AP030L12_02",
@@ -2887,6 +3535,9 @@
     "paint" : {
       "line-color" : "rgba(128, 0, 0, 1)",
       "line-width" : 3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::포장 관통도로::거리를 관통하는 포장도로"
     }
   }, {
     "id" : "LAP030_AP030L13_01",
@@ -2902,6 +3553,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-gap-width" : 3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::비포장 관통도로::거리를 관통하는 비포장도로"
     }
   }, {
     "id" : "LAP030_AP030L13_02",
@@ -2916,6 +3570,9 @@
     "paint" : {
       "line-color" : "rgba(255, 255, 255, 1)",
       "line-width" : 3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::비포장 관통도로::거리를 관통하는 비포장도로"
     }
   }, {
     "id" : "LAP030_AP030L13_03",
@@ -2931,6 +3588,9 @@
       "line-color" : "rgba(128, 0, 0, 1)",
       "line-width" : 3,
       "line-dasharray" : [ 4.0, 2.7, 4.0, 2.7 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::비포장 관통도로::거리를 관통하는 비포장도로"
     }
   }, {
     "id" : "LAP030_AP030L14_01",
@@ -2945,6 +3605,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::가로/5등관통도로::맑거나 건조한 날씨에만 통행가능한, 거리를 관통하는 도로"
     }
   }, {
     "id" : "LAP030_AP030L14_02",
@@ -2959,6 +3622,9 @@
     "paint" : {
       "line-color" : "rgba(255, 255, 255, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::가로/5등관통도로::맑거나 건조한 날씨에만 통행가능한, 거리를 관통하는 도로"
     }
   }, {
     "id" : "LAP030_AP030L14_03",
@@ -2973,6 +3639,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::가로/5등관통도로::맑거나 건조한 날씨에만 통행가능한, 거리를 관통하는 도로"
     }
   }, {
     "id" : "LAP030_AP030L14_04",
@@ -2987,6 +3656,9 @@
     "paint" : {
       "line-color" : "rgba(255, 255, 255, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로::가로/5등관통도로::맑거나 건조한 날씨에만 통행가능한, 거리를 관통하는 도로"
     }
   }, {
     "id" : "LAN010_AN010L01_01",
@@ -3001,6 +3673,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L01_02",
@@ -3016,6 +3691,9 @@
       "line-width" : 6,
       "line-dasharray" : [ 0.0, 3.3, 0.2, 6.7 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L02_01",
@@ -3030,6 +3708,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L02_02",
@@ -3045,6 +3726,9 @@
       "line-width" : 6,
       "line-dasharray" : [ 0.0, 3.3, 0.2, 6.7 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L02_03",
@@ -3060,6 +3744,9 @@
       "line-width" : 6,
       "line-dasharray" : [ 0.0, 3.8, 0.2, 6.7 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L03_01",
@@ -3074,6 +3761,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L03_02",
@@ -3089,6 +3779,9 @@
       "line-width" : 10,
       "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L03_03",
@@ -3104,6 +3797,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L03_04",
@@ -3119,6 +3815,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L04_01",
@@ -3133,6 +3832,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L04_02",
@@ -3148,6 +3850,9 @@
       "line-width" : 10,
       "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L04_03",
@@ -3163,6 +3868,9 @@
       "line-width" : 10,
       "line-dasharray" : [ 0.0, 2.3, 0.1, 4.0 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L04_04",
@@ -3178,6 +3886,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L04_05",
@@ -3193,6 +3904,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 5.2, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L05_01",
@@ -3207,6 +3921,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L05_02",
@@ -3222,6 +3939,9 @@
       "line-width" : 4,
       "line-dasharray" : [ 0.0, 5.0, 0.3, 20.0 ],
       "line-offset" : -4
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L05_03",
@@ -3237,6 +3957,9 @@
       "line-width" : 4,
       "line-dasharray" : [ 0.0, 15.0, 0.3, 20.0 ],
       "line-offset" : 4
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L06_01",
@@ -3251,6 +3974,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L06_02",
@@ -3266,6 +3992,9 @@
       "line-width" : 3,
       "line-dasharray" : [ 0.0, 6.7, 0.3, 26.7 ],
       "line-offset" : -3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L06_03",
@@ -3281,6 +4010,9 @@
       "line-width" : 3,
       "line-dasharray" : [ 0.0, 8.0, 0.3, 26.7 ],
       "line-offset" : -3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L06_04",
@@ -3296,6 +4028,9 @@
       "line-width" : 3,
       "line-dasharray" : [ 0.0, 20.0, 0.3, 26.7 ],
       "line-offset" : 3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L06_05",
@@ -3311,6 +4046,9 @@
       "line-width" : 3,
       "line-dasharray" : [ 0.0, 21.3, 0.3, 26.7 ],
       "line-offset" : 3
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L07_01",
@@ -3325,6 +4063,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L07_02",
@@ -3340,6 +4081,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.0, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L07_03",
@@ -3355,6 +4099,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 12.0, 0.2, 16.0 ],
       "line-offset" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L07_04",
@@ -3370,6 +4117,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L07_05",
@@ -3385,6 +4135,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L08_01",
@@ -3399,6 +4152,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L08_02",
@@ -3414,6 +4170,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.0, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L08_03",
@@ -3429,6 +4188,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L08_04",
@@ -3444,6 +4206,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 12.0, 0.2, 16.0 ],
       "line-offset" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L08_05",
@@ -3459,6 +4224,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 12.6, 0.2, 16.0 ],
       "line-offset" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L08_06",
@@ -3474,6 +4242,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L08_07",
@@ -3489,6 +4260,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 5.2, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L09_01",
@@ -3503,6 +4277,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 전차::기차나 전차가 달릴 수 있는 운행중인 전차의 경계"
     }
   }, {
     "id" : "LAN010_AN010L09_02",
@@ -3518,6 +4295,9 @@
       "line-width" : 6,
       "line-dasharray" : [ 0.0, 3.3, 0.2, 5.0 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 전차::기차나 전차가 달릴 수 있는 운행중인 전차의 경계"
     }
   }, {
     "id" : "LAN010_AN010L10_01",
@@ -3532,6 +4312,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 도로내 철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중,  도로내에 있는  철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L10_02",
@@ -3547,6 +4330,9 @@
       "line-width" : 6,
       "line-dasharray" : [ 0.0, 3.3, 0.2, 6.7 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::운행중 도로내 철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중,  도로내에 있는  철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L11_01",
@@ -3562,6 +4348,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 30.0, 8.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L11_02",
@@ -3577,6 +4366,9 @@
       "line-width" : 6,
       "line-dasharray" : [ 0.0, 3.3, 0.2, 6.7 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L12_01",
@@ -3592,6 +4384,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 30.0, 8.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L12_02",
@@ -3607,6 +4402,9 @@
       "line-width" : 6,
       "line-dasharray" : [ 0.0, 2.8, 0.2, 6.7 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L12_03",
@@ -3622,6 +4420,9 @@
       "line-width" : 6,
       "line-dasharray" : [ 0.0, 3.3, 0.2, 6.7 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L13_01",
@@ -3637,6 +4438,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 30.0, 8.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L13_02",
@@ -3652,6 +4456,9 @@
       "line-width" : 10,
       "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L13_03",
@@ -3667,6 +4474,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L13_04",
@@ -3682,6 +4492,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L14_01",
@@ -3697,6 +4510,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 30.0, 8.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L14_02",
@@ -3712,6 +4528,9 @@
       "line-width" : 10,
       "line-dasharray" : [ 0.0, 1.7, 0.1, 4.0 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L14_03",
@@ -3727,6 +4546,9 @@
       "line-width" : 10,
       "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L14_04",
@@ -3742,6 +4564,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 2.8, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L14_05",
@@ -3757,6 +4582,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L15_01",
@@ -3772,6 +4600,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 30.0, 8.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L15_02",
@@ -3787,6 +4618,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.0, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L15_03",
@@ -3802,6 +4636,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 12.0, 0.2, 16.0 ],
       "line-offset" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L16_01",
@@ -3817,6 +4654,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 30.0, 8.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L16_02",
@@ -3832,6 +4672,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L16_03",
@@ -3847,6 +4690,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.0, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L16_04",
@@ -3862,6 +4708,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 11.4, 0.2, 16.0 ],
       "line-offset" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L16_05",
@@ -3877,6 +4726,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 12.0, 0.2, 16.0 ],
       "line-offset" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L17_01",
@@ -3892,6 +4744,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 30.0, 8.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L17_02",
@@ -3907,6 +4762,9 @@
       "line-width" : 10,
       "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L17_03",
@@ -3922,6 +4780,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L17_04",
@@ -3937,6 +4798,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L18_01",
@@ -3952,6 +4816,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 30.0, 8.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L18_02",
@@ -3967,6 +4834,9 @@
       "line-width" : 10,
       "line-dasharray" : [ 0.0, 1.7, 0.1, 4.0 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L18_03",
@@ -3982,6 +4852,9 @@
       "line-width" : 10,
       "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L18_04",
@@ -3997,6 +4870,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 2.8, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L18_05",
@@ -4012,6 +4888,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN010_AN010L19",
@@ -4027,6 +4906,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 6.0, 6.0, 6.0, 6.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::철도::제거된 철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 현재 제거되어 사용하지 않는 철도의 경계"
     }
   }, {
     "id" : "LAN050_AN050L01_01",
@@ -4041,6 +4923,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::표준궤간 철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤인 인입선의 경계"
     }
   }, {
     "id" : "LAN050_AN050L01_02",
@@ -4056,6 +4941,9 @@
       "line-width" : 6,
       "line-dasharray" : [ 0.0, 3.3, 0.2, 6.7 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::표준궤간 철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤인 인입선의 경계"
     }
   }, {
     "id" : "LAN050_AN050L02_01",
@@ -4070,6 +4958,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::표준궤간 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤이고 동력원이 전력인 인입선의 경계"
     }
   }, {
     "id" : "LAN050_AN050L02_02",
@@ -4085,6 +4976,9 @@
       "line-width" : 10,
       "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
       "line-offset" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::표준궤간 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤이고 동력원이 전력인 인입선의 경계"
     }
   }, {
     "id" : "LAN050_AN050L02_03",
@@ -4100,6 +4994,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::표준궤간 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤이고 동력원이 전력인 인입선의 경계"
     }
   }, {
     "id" : "LAN050_AN050L02_04",
@@ -4115,6 +5012,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::표준궤간 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤이고 동력원이 전력인 인입선의 경계"
     }
   }, {
     "id" : "LAN050_AN050L03_01",
@@ -4129,6 +5029,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::협궤 철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤인 인입선의 경계"
     }
   }, {
     "id" : "LAN050_AN050L03_02",
@@ -4144,6 +5047,9 @@
       "line-width" : 4,
       "line-dasharray" : [ 0.0, 5.0, 0.3, 20.0 ],
       "line-offset" : -4
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::협궤 철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤인 인입선의 경계"
     }
   }, {
     "id" : "LAN050_AN050L03_03",
@@ -4159,6 +5065,9 @@
       "line-width" : 4,
       "line-dasharray" : [ 0.0, 15.0, 0.3, 20.0 ],
       "line-offset" : 4
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::협궤 철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤인 인입선의 경계"
     }
   }, {
     "id" : "LAN050_AN050L04_01",
@@ -4173,6 +5082,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::협궤 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계"
     }
   }, {
     "id" : "LAN050_AN050L04_02",
@@ -4188,6 +5100,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.0, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::협궤 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계"
     }
   }, {
     "id" : "LAN050_AN050L04_03",
@@ -4203,6 +5118,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 12.0, 0.2, 16.0 ],
       "line-offset" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::협궤 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계"
     }
   }, {
     "id" : "LAN050_AN050L04_04",
@@ -4218,6 +5136,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::협궤 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계"
     }
   }, {
     "id" : "LAN050_AN050L04_05",
@@ -4233,6 +5154,9 @@
       "line-width" : 5,
       "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
       "line-offset" : -5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::측선/인입선::협궤 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계"
     }
   }, {
     "id" : "LAQ130_AQ130L01_01",
@@ -4247,6 +5171,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-gap-width" : 6
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::터널::터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널의 경계"
     }
   }, {
     "id" : "LAQ130_AQ130L01_02",
@@ -4262,6 +5189,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 5.0, 5.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::터널::터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널의 경계"
     }
   }, {
     "id" : "LAQ130_AQ130L02_01",
@@ -4276,6 +5206,9 @@
       "line-color" : "rgba(0, 0, 255, 1)",
       "line-width" : 1,
       "line-gap-width" : 6
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::터널::수로터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널 중, 수송수단이 운하인 터널의 경계"
     }
   }, {
     "id" : "LAQ130_AQ130L02_02",
@@ -4291,6 +5224,9 @@
       "line-color" : "rgba(0, 0, 255, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 5.0, 5.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::터널::수로터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널 중, 수송수단이 운하인 터널의 경계"
     }
   }, {
     "id" : "LAQ040_AQ040L01_01",
@@ -4306,6 +5242,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-gap-width" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::교량::교량::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량의 경계"
     }
   }, {
     "id" : "LAQ040_AQ040L01_02",
@@ -4320,6 +5259,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-gap-width" : 4
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::교량::교량::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량의 경계"
     }
   }, {
     "id" : "LAQ040_AQ040L02_01",
@@ -4334,6 +5276,9 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 2
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::교량::인도교::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량 중, 도보가 가능한 교량의 경계"
     }
   }, {
     "id" : "LAQ040_AQ040L02_02",
@@ -4348,6 +5293,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-gap-width" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::교량::인도교::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량 중, 도보가 가능한 교량의 경계"
     }
   }, {
     "id" : "LAL210_AL210L01_01",
@@ -4362,6 +5310,9 @@
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 1,
       "line-gap-width" : 8
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::눈사태/낙석방지설비::눈사태/낙석방지설비::산사태 및 눈사태를 방지하기 위한 시설의 경계"
     }
   }, {
     "id" : "LAL210_AL210L01_02",
@@ -4375,6 +5326,9 @@
       "line-pattern" : "Blackline",
       "line-width" : 10,
       "line-translate-anchor" : "viewport"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::눈사태/낙석방지설비::눈사태/낙석방지설비::산사태 및 눈사태를 방지하기 위한 시설의 경계"
     }
   }, {
     "id" : "PEC020_EC020P01",
@@ -4386,6 +5340,9 @@
       "icon-image" : "Oasis",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::오아시스::오아시스::사막 가운데에 샘이 솟고 풀과 나무가 자라는 오아시스의 위치지점"
     }
   }, {
     "id" : "PBI010_BI010P01",
@@ -4397,6 +5354,9 @@
       "icon-image" : "Puddle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::웅덩이::웅덩이::우수를 저장하거나 모으기 위해 사용되는 인공 웅덩이인 웅덩이의 위치지점"
     }
   }, {
     "id" : "PBD130_BD130P01",
@@ -4409,6 +5369,9 @@
       "icon-image" : "Rock_01",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::암초::수상암초::해상운하에 위험한 바다의 바위 또는 산호인 암초/암석지대의 위치지점"
     }
   }, {
     "id" : "PBD130_BD130P02",
@@ -4421,6 +5384,9 @@
       "icon-image" : "Rock_SeaSurface",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::암초::수중암초::해상운하에 위험한 바다의 바위 또는 산호인 암초/암석지대의 위치지점"
     }
   }, {
     "id" : "PBD180_BD180P01",
@@ -4432,6 +5398,9 @@
       "icon-image" : "Wreck_HallShowing",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::난파선::난파선::파괴된 배인 난파선의 위치지점"
     }
   }, {
     "id" : "PBI050_BI050P01",
@@ -4443,6 +5412,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::취수탑::취수탑::물의 취수구를 위해 사용하거나 수원 또는 댐과 관련된 탑 형태의 구조물인 취수탑의 위치지점"
     }
   }, {
     "id" : "PBH120_BH120P01",
@@ -4454,6 +5426,9 @@
       "icon-image" : "Torrent",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::급류::급류::강이나 시내에서 해류가 빠르고 돌이나 바위에 의해 표면이 부식된 지역의 위치지점"
     }
   }, {
     "id" : "PBH145_BH145P01",
@@ -4466,6 +5441,9 @@
       "icon-image" : "Extinction_01",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::강.하천 소멸/소산지점::강.하천 소멸지점::육지에서 강이나 조류가 통과하는 점인 소멸지점의 위치지점"
     }
   }, {
     "id" : "PBH145_BH145P02",
@@ -4478,6 +5456,9 @@
       "icon-image" : "Extinction_02",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::강.하천 소멸/소산지점::강.하천 소산지점::육지에서 강이나 조류가 통과하는 점인 소산지점의 위치지점"
     }
   }, {
     "id" : "PBH180_BH180P01",
@@ -4489,6 +5470,9 @@
       "icon-image" : "Torrent",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::폭포::폭포::물이 거의 수직에 가깝게 하강하는 폭포의 위치지점"
     }
   }, {
     "id" : "PBG010_BG010P01",
@@ -4501,6 +5485,9 @@
       "icon-allow-overlap" : true,
       "icon-rotate" : [ "get", "aoo" ],
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::유수화살표::유수화살표::흐르는 물의 방향을 나타내는 위치지점"
     }
   }, {
     "id" : "PBH170_BH170P01",
@@ -4513,6 +5500,9 @@
       "icon-image" : "Spring_Permanent",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::샘::영구적 샘::지표면특질 밑에서부터 물이 자연적으로 유출되는 영구적 샘의 위치지점"
     }
   }, {
     "id" : "PBH170_BH170P02",
@@ -4525,6 +5515,9 @@
       "icon-image" : "Spring_Occasional",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::샘::간헐적 샘::지표면특질 밑에서부터 물이 자연적으로 유출되는 간헐적 샘의 위치지점"
     }
   }, {
     "id" : "PAA050_AA050P01",
@@ -4537,6 +5530,9 @@
       "icon-image" : "Blue_Circle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::유정/우물::영구적 우물::영구적으로 물이 있는 우물의 위치지점"
     }
   }, {
     "id" : "PAA050_AA050P02",
@@ -4549,6 +5545,9 @@
       "icon-image" : "Well02",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::유정/우물::간헐적 우물::간헐적으로 물이 있는 우물의 위치지점"
     }
   }, {
     "id" : "PAA050_AA050P03",
@@ -4561,6 +5560,9 @@
       "icon-image" : "Well(oil)",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::유정/우물::유정::지하의 유층으로부터 주로 원유를 퍼 올리기 위하여 판 구덩이 위치지점"
     }
   }, {
     "id" : "PBJ060_BJ060P01",
@@ -4573,6 +5575,9 @@
       "icon-image" : "Nunatak",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::암봉/빙붕::암봉/빙붕 암석::암석으로 완전히 둘러싸인 암석 덩어리의 위치지점"
     }
   }, {
     "id" : "PBJ060_BJ060P02",
@@ -4585,6 +5590,9 @@
       "icon-image" : "Shelfice",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::암봉/빙붕::암봉/빙붕 빙하::빙하로 완전히 둘러싸인 얼음 덩어리의 위치지점"
     }
   }, {
     "id" : "PDB160_DB160P01",
@@ -4596,6 +5604,9 @@
       "icon-image" : "Rock_02",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::암석층::암석층::시적 지형의 노출부, 층이나 바위층인 암석층의 위치지점"
     }
   }, {
     "id" : "PDB030_DB030P01",
@@ -4607,6 +5618,9 @@
       "icon-image" : "Crave",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::동굴::동굴::지표면특질에 개방된 소실계열이나 자연의 지하소실인 동굴의 위치지점"
     }
   }, {
     "id" : "PDB150_DB150P01",
@@ -4618,6 +5632,9 @@
       "icon-image" : "Pass",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::고개::고개::산맥에서 저지대를 통하는 자연경로인 고개의 위치지점"
     }
   }, {
     "id" : "PDB115_DB115P01",
@@ -4629,6 +5646,9 @@
       "icon-image" : "Geotherm",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::지열구::지열구::지구 내부에서 유출되는 에너지 입구의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P01_01",
@@ -4642,6 +5662,9 @@
       "icon-allow-overlap" : true,
       "icon-size" : 0.2,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::일반건물::어떤 특별한 목적으로 설계되어, 일반적으로 벽담으로 둘러쌓이고 지붕이 있는 비교적 영구적인 구조의 건물의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P01_02",
@@ -4655,6 +5678,9 @@
       "icon-allow-overlap" : true,
       "icon-size" : 0.2,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::용도목표물 건물::특별한 목적을 가지고 지어진 건물의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P01_03",
@@ -4668,6 +5694,9 @@
       "icon-allow-overlap" : true,
       "icon-size" : 0.2,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::정류소 기차역::어떤 특별한 목적으로 설계되어 창고역으로 사용되는 건물의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P02",
@@ -4680,6 +5709,9 @@
       "icon-image" : "Dragonteeth",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::파괴된 건물::학교의 목적으로 설계되어 사용되는 건물의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P03",
@@ -4692,6 +5724,9 @@
       "icon-image" : "School(P)",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::학교::학교의 목적으로 설계되어 사용되는 건물의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P05",
@@ -4704,6 +5739,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::등대::등대의 목적으로 설계되어 사용되는 건물의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P08",
@@ -4716,6 +5754,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::장애물 건물::높이가 46m 이상인 건물의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P09",
@@ -4728,6 +5769,9 @@
       "icon-image" : "Church(P)",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::교회/예배당/성당::종교적 목적으로 설계되는 건물 중, 교회 건물의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P10",
@@ -4740,6 +5784,9 @@
       "icon-image" : "Temple(P)",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::절::종교적 목적으로 설계되는 건물 중, 절 건물의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P11",
@@ -4753,6 +5800,9 @@
       "icon-allow-overlap" : true,
       "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::사당::종교적 목적으로 설계되는 건물 중, 조상의 신주를 모시는 건물의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P12",
@@ -4765,6 +5815,9 @@
       "icon-image" : "Mosque(P)",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::회교사원::종교적 목적으로 설계되는 건물 중, 회교 건물의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P13",
@@ -4777,6 +5830,9 @@
       "icon-image" : "Synagogue(P)",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::유대교회당::종교적 목적으로 설계되는 건물 중, 유대교 건물의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P14",
@@ -4789,6 +5845,9 @@
       "icon-image" : "Tower(A)",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::탑모양 건물::높이가 46m 미만인 탑모양 건물의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P15",
@@ -4801,6 +5860,9 @@
       "icon-image" : "Pagoda(P)",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::불탑::종교적 목적으로 설계되는 건물 중, 불탑의 위치지점"
     }
   }, {
     "id" : "PAL015_AL015P16",
@@ -4813,6 +5875,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::회교서원의 뾰족탑::종교적 목적으로 설계되는 건물 중, 회교사원의 뾰족한 탑의 위치지점"
     }
   }, {
     "id" : "PAH050_AH050P01",
@@ -4825,6 +5890,9 @@
       "icon-allow-overlap" : true,
       "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::요새::요새::군사적 방어 목적으로 건설된 요새의 위치지점"
     }
   }, {
     "id" : "PAK020_AK020P01",
@@ -4837,6 +5905,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::놀이기구::놀이기구::높이가 46m 이상인 놀이기구의 위치지점"
     }
   }, {
     "id" : "PAK150_AK150P01",
@@ -4849,6 +5920,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::스키점프대::스키점프대::높이가 46m 미만이고, 스키 경주를 위한 점프 코스의 위치지점"
     }
   }, {
     "id" : "PAK150_AK150P02",
@@ -4861,6 +5935,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::스키점프대::스키점프대 장애물::높이가 46m 이상이고, 스키 경주를 위한 점프 코스의 위치지점"
     }
   }, {
     "id" : "PAK160_AK160P01",
@@ -4874,6 +5951,9 @@
       "icon-allow-overlap" : true,
       "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::경기장/원형경기장::경기장/원형경기장::높이가 46m 미만이고, 여러층의 좌석이 경기 또는 활동이 행해지는 지역 주위를 둘러싸고 경기, 대회, 콘서트, 또는 기타 이벤트의 개최 및 관람을 할 수 있는 위치지점"
     }
   }, {
     "id" : "PAK160_AK160P02",
@@ -4886,6 +5966,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::경기장/원형경기장::경기장/원형경기장 장애물::높이가 46m 이상이고, 여러층의 좌석이 경기 또는 활동이 행해지는 지역 주위를 둘러싸고 경기, 대회, 콘서트, 또는 기타 이벤트의 개최 및 관람을 할 수 있는 위치지점"
     }
   }, {
     "id" : "PAL130_AL130P01",
@@ -4898,6 +5981,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::기념비::기념비::사람이나 사건을 기억하기 위해 세워지거나 유지된 구조물로, 높이가 46m 미만인 기념비의 위치지점"
     }
   }, {
     "id" : "PAL130_AL130P02",
@@ -4910,6 +5996,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::기념비::기념비 장애물::사람이나 사건을 기억하기 위해 세워지거나 유지된 구조물로, 높이가 46m이상인 기념비의 위치지점"
     }
   }, {
     "id" : "PAL100_AL100P01",
@@ -4921,6 +6010,9 @@
       "icon-image" : "Dragonteeth",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::오두막/막사::오두막/막사::작은 단체나 개인이 숙소 또는 집으로 사용하는 오두막/막사의 위치지점"
     }
   }, {
     "id" : "PAL200_AL200P01",
@@ -4932,6 +6024,9 @@
       "icon-image" : "Dragonteeth",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::폐허::폐허::구조물의 질이 저하된 유적이 위치하는 폐허의 위치지점"
     }
   }, {
     "id" : "PAL020_AL020P01",
@@ -4943,6 +6038,9 @@
       "icon-image" : "Coastal_Policestation",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::밀집지역/취락::취락::인간이 집단으로 터전을 잡아 생활을 이어가는 장소의 위치지점"
     }
   }, {
     "id" : "PAM020_AM020P01",
@@ -4955,6 +6053,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::곡물/사료 저장소::곡물/사료 저장소::곡물이나 사료를 저장하기 위해 사용하는 곡물/사료저장소의 위치지점"
     }
   }, {
     "id" : "PAM020_AM020P02",
@@ -4967,6 +6068,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::곡물/사료 저장소::곡물/사료 저장소 장애물::곡물이나 사료를 저장하기 위해 사용하는 곡물/사료저장소의 위치지점"
     }
   }, {
     "id" : "PAM030_AM030P01",
@@ -4979,6 +6083,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::대형곡물창고::대형곡물창고::곡물의 저장, 처리, 선적, 하역을 위해 설치된 대형곡물장고의 위치지점"
     }
   }, {
     "id" : "PAM030_AM030P02",
@@ -4991,6 +6098,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::대형곡물창고::대형곡물창고 장애물::곡물의 저장, 처리, 선적, 하역을 위해 설치된 대형곡물장고의 위치지점"
     }
   }, {
     "id" : "PAA010_AA010P01",
@@ -5003,6 +6113,9 @@
       "icon-image" : "Mine_Operataion",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::광산::운영중 광산::자연자원을 추출하는 광산 중, 현재 가동중인 광산의 위치지점"
     }
   }, {
     "id" : "PAA010_AA010P02",
@@ -5015,6 +6128,9 @@
       "icon-image" : "Mine_NonOperataion",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::광산::비운영 광산::자연자원을 추출하는 광산 중, 현재 가동하지 않는 광산의 위치지점"
     }
   }, {
     "id" : "PAF010_AF010P01",
@@ -5027,6 +6143,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::굴뚝::굴뚝::연소 가스와 방출 연기를 위한 통로나 송기관을 포함한 수직적 구조로, 높이가 46m 미만인 굴뚝의 위치지점"
     }
   }, {
     "id" : "PAF010_AF010P02",
@@ -5039,6 +6158,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::굴뚝::굴뚝 장애물::연소 가스와 방출 연기를 위한 통로나 송기관을 포함한 수직적 구조로, 높이가 46m 이상인 굴뚝의 위치지점"
     }
   }, {
     "id" : "PAF030_AF030P01",
@@ -5051,6 +6173,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::냉각탑::냉각탑::액체를 냉각시키는데 사용하고, 높이가 46m 미만인 냉각탑의 위치지점"
     }
   }, {
     "id" : "PAF030_AF030P02",
@@ -5063,6 +6188,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::냉각탑::냉각탑 장애물::액체를 냉각시키는데 사용하고, 높이가 46m 이상인 냉각탑의 위치지점"
     }
   }, {
     "id" : "PAF040_AF040P02",
@@ -5075,6 +6203,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::크레인::크레인::물체를 들어올리고 이동하는데 사용하는 크레인 중 높이가 46m 이상인 크레인의 위치 지점"
     }
   }, {
     "id" : "PAJ050_AJ050P01",
@@ -5087,6 +6218,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::풍차::풍차::타워와 같은 구조물에 달려 바람에 의해 작동하고, 높이가 46m 미만인 바람개비의 위치지점"
     }
   }, {
     "id" : "PAJ050_AJ050P02",
@@ -5099,6 +6233,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::풍차::풍차 장애물::타워와 같은 구조물에 달려 바람에 의해 작동하고, 높이가 46m 이상인 바람개비의 위치지점"
     }
   }, {
     "id" : "PAC000_AC000P01",
@@ -5111,6 +6248,9 @@
       "icon-allow-overlap" : true,
       "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::처리장::처리장::변형 또는 정제된 특별한 재료를 사용하는 처리장 및 처분장의 위치지점"
     }
   }, {
     "id" : "PAA040_AA040P02",
@@ -5122,6 +6262,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::굴착장치::굴착장치::높이가 46m 이상인 굴착장치 및 건조물의 위치지점"
     }
   }, {
     "id" : "PAM070_AM070P01",
@@ -5135,6 +6278,9 @@
     "paint" : {
       "circle-color" : "rgba(0, 0, 0, 1)",
       "circle-radius" : 3.5
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::탱크::탱크::액체나 가스의 저장을 위한 컨테이너인 탱크의 위치지점"
     }
   }, {
     "id" : "PAM070_AM070P02",
@@ -5147,6 +6293,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::탱크::탱크 장애물::높이가 46m 이상인 액체나 가스의 저장을 위한 컨테이너인 탱크의 위치지점"
     }
   }, {
     "id" : "PAM080_AM080P01",
@@ -5159,6 +6308,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::급수탑::급수탑::물을 보관하는데 사용된 구조물로, 높이가 46m 미만인 급수탑의 위치지점"
     }
   }, {
     "id" : "PAM080_AM080P02",
@@ -5171,6 +6323,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::급수탑::급수탑 장애물::물을 보관하는데 사용된 구조물로, 높이가 46m 이상인 급수탑의 위치지점"
     }
   }, {
     "id" : "PAL240_AL240P01",
@@ -5183,6 +6338,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::탑(통신탑 제외)::탑(통신탑 제외)::관찰, 버팀, 저장 등을 위해 사용하는 비교적 높은 구조물로, 높이가 46m 미만인 탑의 위치지점"
     }
   }, {
     "id" : "PAL240_AL240P02",
@@ -5195,6 +6353,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::탑(통신탑 제외)::탑(통신탑 제외) 장애물::관찰, 버팀, 저장 등을 위해 사용하는 비교적 높은 구조물로, 높이가 46m 이상인 탑의 위치지점"
     }
   }, {
     "id" : "PAL140_AL140P01",
@@ -5207,6 +6368,9 @@
       "icon-allow-overlap" : true,
       "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::입자가속기::입자가속기::하전 입자에 높은 속력을 부여하는 장치의 위치지점"
     }
   }, {
     "id" : "PAT010_AT010P01",
@@ -5219,6 +6383,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::접시안테나::안테나::송수신을 위해 전자파를 공간으로 보내거나 받기 위한 높이 46m 미만 장치의 위치지점"
     }
   }, {
     "id" : "PAT010_AT010P02",
@@ -5231,6 +6398,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::접시안테나::안테나 장애물::송수신을 위해 전자파를 공간으로 보내거나 받기 위한 높이 46m 이상 장치의 위치지점"
     }
   }, {
     "id" : "PAT080_AT080P01",
@@ -5243,6 +6413,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::통신탑::통신탑::전기적 통신 신호를 송신 및 수신하기 위해 사용되는 비교적 높은 구조물로, 높이가 46m 미만인 통신탑의 위치지점"
     }
   }, {
     "id" : "PAT080_AT080P02",
@@ -5255,6 +6428,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::통신탑::통신탑 장애물::전기적 통신 신호를 송신 및 수신하기 위해 사용되는 비교적 높은 구조물로, 높이가 46m 이상인 통신탑의 위치지점"
     }
   }, {
     "id" : "PAD010_AD010P01",
@@ -5267,6 +6443,9 @@
       "icon-allow-overlap" : true,
       "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::발전소::발전소::전력 발생을 위해 필요한 건물(시설)과 장치가 있는 발전소의 위치지점"
     }
   }, {
     "id" : "PAQ116_AQ116P01",
@@ -5279,6 +6458,9 @@
       "icon-allow-overlap" : true,
       "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::양수장::양수장::압축이나 흡입에 의해 고체, 액체, 기체를 이동시키는 양수장의 위치지점"
     }
   }, {
     "id" : "PAQ130_AQ130P01",
@@ -5291,6 +6473,9 @@
       "icon-image" : "Tunnel_01",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::터널::터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널의 위치지점"
     }
   }, {
     "id" : "PAQ130_AQ130P02",
@@ -5303,6 +6488,9 @@
       "icon-image" : "Tunnel_02",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::터널::수로터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널 중, 수송수단이 운하인 터널의 위치지점"
     }
   }, {
     "id" : "PGB005_GB005P02",
@@ -5315,6 +6503,9 @@
       "icon-image" : "Airport_Main",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::비행장/헬기장::주비행장::항공기의 이착륙을 위해 사용되는 육지 및 수계의 규정 지역 중, 주요 비행장의 위치지점"
     }
   }, {
     "id" : "PGB005_GB005P03",
@@ -5327,6 +6518,9 @@
       "icon-image" : "Airport_Sub",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::비행장/헬기장::부비행장::항공기의 이착륙을 위해 사용되는 육지 및 수계의 규정 지역 중, 기타 비행장의 위치지점"
     }
   }, {
     "id" : "PGB005_GB005P04",
@@ -5339,6 +6533,9 @@
       "icon-image" : "Heliport_02",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::비행장/헬기장::헬리곱터 발착장(병원)::항공기의 이착륙을 위해 사용되는 육지 및 수계의 규정 지역 중, 병원 비행장의 위치지점"
     }
   }, {
     "id" : "PGB005_GB005P05",
@@ -5351,6 +6548,9 @@
       "icon-image" : "Heliport_03",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::비행장/헬기장::헬기장/헬리곱터 발착장::항공기의 이착륙을 위해 사용되는 육지 및 수계의 규정 지역인 공항/헬기장의 위치지점"
     }
   }, {
     "id" : "PAQ060_AQ060P01",
@@ -5363,6 +6563,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::관제탑::관제탑::공기의 흐름, 철도, 해양 교통에 사용되는 사람과 설비를 수용하는 구조물인 관제탑 중, 높이가 46m 미만인 관제탑의 위치지점"
     }
   }, {
     "id" : "PAQ060_AQ060P02",
@@ -5375,6 +6578,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::관제탑::관제탑 장애물::공기의 흐름, 철도, 해양 교통에 사용되는 사람과 설비를 수용하는 구조물인 관제탑 중, 높이가 46m 이상인 관제탑의 위치지점"
     }
   }, {
     "id" : "PAQ110_AQ110P01",
@@ -5387,6 +6593,9 @@
       "icon-image" : "Tower",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::계류주::계류주::비행선을 매어두기 위한 높이 46m 미만의 탑과 같은 구조물의 위치지점"
     }
   }, {
     "id" : "PAQ110_AQ110P02",
@@ -5399,6 +6608,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::계류주::계류주 장애물::비행선을 매어두기 위한 높이 46m 이상의 탑과 같은 구조물의 위치지점"
     }
   }, {
     "id" : "PAL210_AL210P01",
@@ -5410,6 +6622,9 @@
       "icon-image" : "Snowshed",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::눈사태/낙석방지설비::눈사태/낙석방지설비::산사태 및 눈사태를 방지하기 위한 시설의 위치지점"
     }
   }, {
     "id" : "PGB055_GB055P01",
@@ -5421,6 +6636,9 @@
       "icon-image" : "Runway",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::활주로::활주로::항공기의 일반적인 이착륙을 위해 사용되는 활주로의 위치지점"
     }
   }, {
     "id" : "PAQ135_AQ135P01",
@@ -5433,6 +6651,9 @@
       "icon-allow-overlap" : true,
       "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::휴게소::휴게소::차량의 저장 또는 휴식에 사용되는 공간의 위치지점"
     }
   }, {
     "id" : "PAQ050_AQ050P01",
@@ -5445,6 +6666,9 @@
       "icon-image" : "Obstacle",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::교량상부구조::교량상부구조::교량을 구성하고 있는 상부구조의 위치지점"
     }
   }, {
     "id" : "PAP020_AP020P01_01",
@@ -5457,6 +6681,9 @@
       "icon-allow-overlap" : true,
       "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::인터체인지::인터체인지::한 도로에서 다른 도로까지의 교통접근을 위한 연결장치인 인터체인지의 위치지점"
     }
   }, {
     "id" : "PAP020_AP020P01_02",
@@ -5469,6 +6696,9 @@
       "icon-allow-overlap" : true,
       "icon-size" : 0.2,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::인터체인지::인터체인지::한 도로에서 다른 도로까지의 교통접근을 위한 연결장치인 인터체인지의 위치지점"
     }
   }, {
     "id" : "PBB190_BB190P01",
@@ -5480,6 +6710,9 @@
       "icon-image" : "Harbor",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::부두::부두::배를 정박시키는 장소로 주로 사용되는 부두의 위치지점"
     }
   }, {
     "id" : "PAL025_AL025P01",
@@ -5491,6 +6724,9 @@
       "icon-image" : "Stone",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "경계::기념/이정표 돌무더기::기념/이정표 돌무더기::기념 또는 이정표로써의 원추형 돌무덤의 위치지점"
     }
   }, {
     "id" : "ROADNAME_ROADNAMEP01",
@@ -5503,6 +6739,9 @@
       "icon-image" : "Highway",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로번호::고속국도::고속국도 번호의 위치지점"
     }
   }, {
     "id" : "ROADNAME_ROADNAMEP02",
@@ -5515,6 +6754,9 @@
       "icon-image" : "Highway(N)",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로번호::국도번호::국도 번호의 위치지점"
     }
   }, {
     "id" : "ROADNAME_ROADNAMEP03",
@@ -5527,6 +6769,9 @@
       "icon-image" : "LocalRoad",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::도로번호::지방도::지방도 번호의 위치지점"
     }
   }, {
     "id" : "ROADNAME_ROADNAMET01",
@@ -5591,6 +6836,9 @@
     "paint" : {
       "circle-color" : "rgba(0, 0, 0, 1)",
       "circle-radius" : 2.0
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::표고점::명확한 표고점(확인수치)::수직기준좌표와 관련된 고도값 같은 것을 표시하는 명확한 표고점의 위치지점"
     }
   }, {
     "id" : "PCA030_CA030P01_02",
@@ -5604,6 +6852,9 @@
     "paint" : {
       "circle-color" : "rgba(0, 0, 0, 1)",
       "circle-radius" : 2.0
+    },
+    "metadata" : {
+      "maputnik:comment" : "고도::표고점::명확한 표고점(미확인수치)::수직기준좌표와 관련된 고도값 같은 것을 표시하는 개략 표고점의 위치지점"
     }
   }, {
     "id" : "PCA030_CA030T01_01",
@@ -5705,6 +6956,9 @@
     "paint" : {
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::특수사용공역::초경량비행장치구역::한정된 용도로 사용되며 비교적 자유롭게 운항할 수 있는 하위개념 비행장치의 비행에 적합하도록 통제의 의한 안전조치가 이루어지는 공중에 설정되는 경계지역"
     }
   }, {
     "id" : "UFA_AIRSPASET01",
@@ -5734,6 +6988,9 @@
       "line-color" : "rgba(115, 140, 230, 1)",
       "line-width" : 1,
       "line-dasharray" : [ 14.0, 5.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::자기편차::자기편차선::지구 자기 영역에서 국한된 편차가 나타나는 경계"
     }
   }, {
     "id" : "SUAS_AIRSPASESUASL01_01",
@@ -5748,6 +7005,9 @@
       "line-color" : "rgba(94, 58, 230, 1)",
       "line-width" : 1,
       "line-gap-width" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::특수사용공역::특수사용공역::항공기의 비행에 적합하도록 통제의 의한 안전조치가 이루어지는 공중에 설정되는 지역의 경계"
     }
   }, {
     "id" : "SUAS_AIRSPASESUASL01_02",
@@ -5761,6 +7021,9 @@
     "paint" : {
       "line-color" : "rgba(144, 165, 226, 1)",
       "line-width" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::특수사용공역::특수사용공역::항공기의 비행에 적합하도록 통제의 의한 안전조치가 이루어지는 공중에 설정되는 지역의 경계"
     }
   }, {
     "id" : "BDRY_AIRSPASEBDRYL01_01",
@@ -5776,6 +7039,9 @@
       "line-color" : "rgba(94, 58, 230, 1)",
       "line-width" : 1,
       "line-gap-width" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::공역::항공방어식별구역::국가의 안전을 위해 모든 항공기의 즉각적인 식별, 위치 및 관제가 이뤄지는 구역으로 영토와 영공의 방어를 위해 정해 놓은 공중구역의 경계"
     }
   }, {
     "id" : "BDRY_AIRSPASEBDRYL01_02",
@@ -5790,6 +7056,9 @@
     "paint" : {
       "line-color" : "rgba(144, 165, 226, 1)",
       "line-width" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::공역::항공방어식별구역::국가의 안전을 위해 모든 항공기의 즉각적인 식별, 위치 및 관제가 이뤄지는 구역으로 영토와 영공의 방어를 위해 정해 놓은 공중구역의 경계"
     }
   }, {
     "id" : "BDRY_AIRSPASEBDRYL02_01",
@@ -5805,6 +7074,9 @@
       "line-color" : "rgba(94, 58, 230, 1)",
       "line-width" : 1,
       "line-gap-width" : 5
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::공역::완중구역::전송해야 할 정보를 잠시 저장하여 양 장치의 작동 시간 간격을 조정하기 위해 설정된 기억 장치 내의 영역의 경계"
     }
   }, {
     "id" : "BDRY_AIRSPASEBDRYL02_02",
@@ -5820,6 +7092,9 @@
       "line-color" : "rgba(144, 165, 226, 1)",
       "line-width" : 5,
       "line-dasharray" : [ 6.0, 1.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::공역::완중구역::전송해야 할 정보를 잠시 저장하여 양 장치의 작동 시간 간격을 조정하기 위해 설정된 기억 장치 내의 영역의 경계"
     }
   }, {
     "id" : "PBC040_BC040P29",
@@ -5831,6 +7106,9 @@
       "icon-image" : "Airport_Main",
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map"
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::해양등::해양등::항해에 도움을 주기 위해 빛을 내거나 밝게 보여주는 장치인 등대의 위치지점"
     }
   }, {
     "id" : "PBC040_BC040T01",
@@ -5860,6 +7138,9 @@
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map",
       "icon-offset" : [ 62.0, 1.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::항법무선시설::VOR 초단전방향무선표 무선시설기호도식::(VHF Omni-directional Radio Range Stations)항공기가 지상국으로부터 어디에 있는지 어느 쪽으로 날아가고 있는지 등을 알려주는 일종의 내비게이션 역할을 하는 시설의  위치지점"
     }
   }, {
     "id" : "NAVL_NVALP02",
@@ -5873,6 +7154,9 @@
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map",
       "icon-offset" : [ 62.0, 1.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::항법무선시설::VORTAC 무선시설기호도식::(VHF Omni-directionalRadioRange?TacticalAirNavigation)군과 민이 한께 이용할 수 있으며 군용기에 대해선는 TACAN에 의해서 거리와 바위의 정보를 제공하고 민간기에 대해서는 VOR에 의해 방위정보를 제공하는 시설의  위치지점"
     }
   }, {
     "id" : "NAVL_NVALP03",
@@ -5886,6 +7170,9 @@
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map",
       "icon-offset" : [ 62.0, 1.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::항법무선시설::TACAN 무선시설기호도식::(Tactical Air Navigation)지상국에서 보내고 있는 응답신호에 의해 지상국과의 방위정보와 거리정보가 동시에 항공기의 지시기에 나타나는 시설의 위치지점"
     }
   }, {
     "id" : "NAVL_NVALP04",
@@ -5899,6 +7186,9 @@
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map",
       "icon-offset" : [ 62.0, 1.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::항법무선시설::VOR-DME 무선시설기호도식::(VHF Omni-directional Radio RangeDistance Measuring Equipment)항공기에 방위 정보를 제공하는 VOR(초단파무선표지)와 거리정보를 제공하는 DME(거리측정장치)를 지상 송신국에 함께 설치하여, 항공기가 방위와 거리정보를 수신하여 그 위치를 결정하는 시설의  위치지점"
     }
   }, {
     "id" : "NAVL_NVALP05",
@@ -5912,6 +7202,9 @@
       "icon-allow-overlap" : true,
       "icon-rotation-alignment" : "map",
       "icon-offset" : [ 62.0, 1.0 ]
+    },
+    "metadata" : {
+      "maputnik:comment" : "항공정보::항법무선시설::NDB 무지향성무선표지 무선시설기호도식::(Non-directional Radio Beacons)무지향성 무선표지로 무지향성 전파를 공간에 발사해서 항공기에 NDB국의 위치와 방위를 알리는 항공기의 지표가 되는 시설의 위치지점"
     }
   }, {
     "id" : "NAVL_NAVLT01_01",
