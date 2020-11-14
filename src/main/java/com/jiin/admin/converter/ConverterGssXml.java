@@ -34,13 +34,13 @@ public class ConverterGssXml {
         String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
         //
         File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
-        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
+        File layerfile = new File(dataPath + "/gss_style/GSS_AIR_JOGA_LAYER.xml");
         ConverterVO param = new ConverterVO();
         param.setVersion(8);
         param.setId("uzymq5sw3");
         param.setName("g25k_style");
         param.setMaputnikRenderer("mbgljs");
-        param.setScale(ConverterVO.Scale.g25k);
+        param.setScale(ConverterVO.Scale.a250k);
         param.setFont("Gosanja");
         param.setSourceName(param.getScale().name());
         param.setSprite("http://192.168.0.11/GSymbol/GSSSymbol");
@@ -393,6 +393,8 @@ public class ConverterGssXml {
                 shpSource.equalsIgnoreCase("LEA020") // 산울타리
                 ||
                 shpSource.equalsIgnoreCase("SUAS") // 특수사용공역
+                ||
+                shpSource.equalsIgnoreCase("BDRY") // 항공정보
         ){
             convert = -1;
         }
@@ -515,14 +517,16 @@ public class ConverterGssXml {
             result.add(linestyle);
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 3){
             // Left Only
+            Float width = linestyle.getWidth();
             Integer space = linestyle.getSpace();
-            linestyle.setOffset(+(Float.valueOf(space) / 2f) * convert);
+            linestyle.setOffset(+((Float.valueOf(space) + width) / 2f) * convert);
             linestyle.setSpace(0);
             result.add(linestyle);
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 4){
             // Right Only
+            Float width = linestyle.getWidth();
             Integer space = linestyle.getSpace();
-            linestyle.setOffset(-(Float.valueOf(space) / 2f) * convert);
+            linestyle.setOffset(-((Float.valueOf(space) + width) / 2f) * convert);
             linestyle.setSpace(0);
             result.add(linestyle);
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 5){
@@ -740,9 +744,11 @@ public class ConverterGssXml {
                         String[] values = value.split(",");
                         for (String v : values) {
                             v = v.trim();
-                            if (!shpSource.toUpperCase().startsWith("NAVL") && v.matches("^[0-9]+$")) {
+                            if (!shpSource.toUpperCase().startsWith("NAVL") && !shpSource.toUpperCase().startsWith("BDRY")
+                                    && v.matches("^[0-9]+$")) {
                                 filter.add(Integer.parseInt(v));
-                            }else if (!shpSource.toUpperCase().startsWith("NAVL") && v.matches("^[0-9.]+$")) {
+                            }else if (!shpSource.toUpperCase().startsWith("NAVL") && !shpSource.toUpperCase().startsWith("BDRY")
+                                    && v.matches("^[0-9.]+$")) {
                                 filter.add(Float.parseFloat(v));
                             } else {
                                 filter.add(v);
@@ -750,9 +756,11 @@ public class ConverterGssXml {
                         }
                     } else {
                         value = value.trim();
-                        if (!shpSource.toUpperCase().startsWith("NAVL") && value.matches("^[0-9]+$")) {
+                        if (!shpSource.toUpperCase().startsWith("NAVL") && !shpSource.toUpperCase().startsWith("BDRY")
+                                && value.matches("^[0-9]+$")) {
                             filter.add(Integer.parseInt(value));
-                        } else if (!shpSource.toUpperCase().startsWith("NAVL") && value.matches("^[0-9.]+$")) {
+                        } else if (!shpSource.toUpperCase().startsWith("NAVL") && !shpSource.toUpperCase().startsWith("BDRY")
+                                && value.matches("^[0-9.]+$")) {
                             filter.add(Float.parseFloat(value));
                         } else {
                             filter.add(value);
