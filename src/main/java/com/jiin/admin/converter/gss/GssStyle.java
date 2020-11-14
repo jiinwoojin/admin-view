@@ -16,7 +16,7 @@ public class GssStyle {
     private String Bold;
     private String Itailc;
     private String Underline;
-    private String Outline;
+    private Boolean Outline;
     private String OutlineColor;
     private String Box;
     private String BoxColor;
@@ -24,7 +24,7 @@ public class GssStyle {
     private String Decimal;
     private String Prefix;
     private String Postfix;
-    private String Align;
+    private Integer Align;
     private Float OffsetX;
     private Float OffsetY;
     private String Picture;
@@ -73,13 +73,6 @@ public class GssStyle {
         Underline = underline;
     }
 
-    public String getOutline() {
-        return Outline;
-    }
-
-    public void setOutline(String outline) {
-        Outline = outline;
-    }
 
     public String getOutlineColor() {
         return OutlineColor;
@@ -137,13 +130,6 @@ public class GssStyle {
         Postfix = postfix;
     }
 
-    public String getAlign() {
-        return Align;
-    }
-
-    public void setAlign(String align) {
-        Align = align;
-    }
 
     public List<GssPolygonLayer> getPolygonLayer() {
         return PolygonLayer;
@@ -215,6 +201,22 @@ public class GssStyle {
 
     public void setPicture(String picture) {
         Picture = picture;
+    }
+
+    public Integer getAlign() {
+        return Align;
+    }
+
+    public void setAlign(Integer align) {
+        Align = align;
+    }
+
+    public Boolean getOutline() {
+        return Outline;
+    }
+
+    public void setOutline(Boolean outline) {
+        Outline = outline;
     }
 }
 

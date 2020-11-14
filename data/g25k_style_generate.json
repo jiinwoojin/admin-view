@@ -3452,7 +3452,23 @@
       "maputnik:comment" : "수부::수압관::지상 수압관::일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 지상에 위치하는 수압관의 경계"
     }
   }, {
-    "id" : "LBH110_BH110L02",
+    "id" : "LBH110_BH110L02_01",
+    "type" : "line",
+    "source" : "g25k",
+    "source-layer" : "lbh110",
+    "filter" : [ "all", [ "==", "loc", 25 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(0, 99, 198, 1)",
+      "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수압관::고가수로 수압관::일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 고가수로에 위치하는 수압관의 경계"
+    }
+  }, {
+    "id" : "LBH110_BH110L02_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "lbh110",
@@ -3469,7 +3485,23 @@
       "maputnik:comment" : "수부::수압관::고가수로 수압관::일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 고가수로에 위치하는 수압관의 경계"
     }
   }, {
-    "id" : "LBH110_BH110L03",
+    "id" : "LBH110_BH110L03_01",
+    "type" : "line",
+    "source" : "g25k",
+    "source-layer" : "lbh110",
+    "filter" : [ "all", [ "==", "loc", 40 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(0, 99, 198, 1)",
+      "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수압관::지하 수압관::일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 지하에 위치하는 수압관의 경계"
+    }
+  }, {
+    "id" : "LBH110_BH110L03_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "lbh110",
@@ -3605,7 +3637,23 @@
       "maputnik:comment" : "수부::수도관::지상수도관::멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 지상에 위치하는 수도관의 경계"
     }
   }, {
-    "id" : "LBH010_BH010L02",
+    "id" : "LBH010_BH010L02_01",
+    "type" : "line",
+    "source" : "g25k",
+    "source-layer" : "lbh010",
+    "filter" : [ "all", [ "==", "loc", 25 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(115, 140, 230, 1)",
+      "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수도관::고가수로수도관::멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 고가수로에 위치하는 수도관의 경계"
+    }
+  }, {
+    "id" : "LBH010_BH010L02_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "lbh010",
@@ -3622,7 +3670,23 @@
       "maputnik:comment" : "수부::수도관::고가수로수도관::멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 고가수로에 위치하는 수도관의 경계"
     }
   }, {
-    "id" : "LBH010_BH010L03",
+    "id" : "LBH010_BH010L03_01",
+    "type" : "line",
+    "source" : "g25k",
+    "source-layer" : "lbh010",
+    "filter" : [ "all", [ "==", "loc", 40 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(115, 140, 230, 1)",
+      "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::수도관::지하수도관::멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 지하에 위치하는 수도관의 경계"
+    }
+  }, {
+    "id" : "LBH010_BH010L03_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "lbh010",
@@ -4062,7 +4126,23 @@
       "maputnik:comment" : "산업시설::홈통(용수로)::고가수로 홈통(용수로)::물을 받아 흐르게 하기 위해 고가수로에 설치하는 홈통의 경계"
     }
   }, {
-    "id" : "LAQ113_AQ113L01",
+    "id" : "LAQ113_AQ113L01_01",
+    "type" : "line",
+    "source" : "g25k",
+    "source-layer" : "laq113",
+    "filter" : [ "all", [ "==", "loc", 25 ], [ "in", "pro", 0, 116 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(115, 140, 230, 1)",
+      "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::파이프라인::고가수로 파이프라인::고체, 액체, 기체의 수송을 위한 관으로 고가수로의 파이프라인의 경계"
+    }
+  }, {
+    "id" : "LAQ113_AQ113L01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq113",
@@ -4079,7 +4159,23 @@
       "maputnik:comment" : "공익설비::파이프라인::고가수로 파이프라인::고체, 액체, 기체의 수송을 위한 관으로 고가수로의 파이프라인의 경계"
     }
   }, {
-    "id" : "LAQ113_AQ113L02",
+    "id" : "LAQ113_AQ113L02_01",
+    "type" : "line",
+    "source" : "g25k",
+    "source-layer" : "laq113",
+    "filter" : [ "all", [ "==", "loc", 25 ], [ "in", "pro", 13, 38, 39, 67 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(0, 0, 0, 1)",
+      "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::파이프라인::기타 고가수로파이프라인::물을 제외한 기타 고체, 액체, 기체의 수송을 위한 관으로 고가수로의 파이프라인 경계"
+    }
+  }, {
+    "id" : "LAQ113_AQ113L02_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq113",
@@ -7588,7 +7684,24 @@
       "maputnik:comment" : "교통::지하철::제거된 철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 현재 제거되어 사용하지 않는 철도의 경계"
     }
   }, {
-    "id" : "LAQ130_AQ130L01",
+    "id" : "LAQ130_AQ130L01_01",
+    "type" : "line",
+    "source" : "g25k",
+    "source-layer" : "laq130",
+    "filter" : [ "all", [ "in", "tuc", 2, 3, 4, 17 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(0, 0, 0, 1)",
+      "line-width" : 1,
+      "line-gap-width" : 6
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::터널::터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널의 경계"
+    }
+  }, {
+    "id" : "LAQ130_AQ130L01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq130",
@@ -7606,7 +7719,24 @@
       "maputnik:comment" : "교통::터널::터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널의 경계"
     }
   }, {
-    "id" : "LAQ130_AQ130L02",
+    "id" : "LAQ130_AQ130L02_01",
+    "type" : "line",
+    "source" : "g25k",
+    "source-layer" : "laq130",
+    "filter" : [ "all", [ "in", "tuc", 38, 41 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(0, 0, 255, 1)",
+      "line-width" : 1,
+      "line-gap-width" : 6
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::터널::수로 터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널 중, 수송수단이 운하인 터널의 경계"
+    }
+  }, {
+    "id" : "LAQ130_AQ130L02_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq130",
@@ -7624,7 +7754,7 @@
       "maputnik:comment" : "교통::터널::수로 터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널 중, 수송수단이 운하인 터널의 경계"
     }
   }, {
-    "id" : "LAQ040_AQ040L01",
+    "id" : "LAQ040_AQ040L01_01",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq040",
@@ -7642,7 +7772,24 @@
       "maputnik:comment" : "교통::교량::교량::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량의 경계"
     }
   }, {
-    "id" : "LAQ040_AQ040L02",
+    "id" : "LAQ040_AQ040L01_02",
+    "type" : "line",
+    "source" : "g25k",
+    "source-layer" : "laq040",
+    "filter" : [ "all", [ "in", "tuc", 3, 4 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(0, 0, 0, 1)",
+      "line-width" : 1,
+      "line-gap-width" : 4
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::교량::교량::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량의 경계"
+    }
+  }, {
+    "id" : "LAQ040_AQ040L02_01",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq040",
@@ -7659,7 +7806,40 @@
       "maputnik:comment" : "교통::교량::인도교::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량 중, 도보가 가능한 교량의 경계"
     }
   }, {
-    "id" : "LAQ040_AQ040L04",
+    "id" : "LAQ040_AQ040L02_02",
+    "type" : "line",
+    "source" : "g25k",
+    "source-layer" : "laq040",
+    "filter" : [ "all", [ "==", "tuc", 17 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(0, 0, 0, 1)",
+      "line-width" : 1,
+      "line-gap-width" : 0
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::교량::인도교::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량 중, 도보가 가능한 교량의 경계"
+    }
+  }, {
+    "id" : "LAQ040_AQ040L04_01",
+    "type" : "line",
+    "source" : "g25k",
+    "source-layer" : "laq040",
+    "filter" : [ "all", [ "==", "tuc", 41 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "line-color" : "rgba(0, 99, 198, 1)",
+      "line-width" : 1
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::교량::고가수로::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물의 경계"
+    }
+  }, {
+    "id" : "LAQ040_AQ040L04_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq040",
@@ -9404,6 +9584,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{road_num}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -9421,6 +9602,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{road_num}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -9438,6 +9620,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{road_num}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -9486,6 +9669,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{zv2}",
+      "text-anchor" : "left",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-offset" : [ 1.5, 0.0 ],
@@ -9503,6 +9687,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{zv2}",
+      "text-anchor" : "left",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-offset" : [ 1.5, 0.0 ],
@@ -9520,6 +9705,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-allow-overlap" : true,
@@ -9537,6 +9723,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -9554,6 +9741,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-allow-overlap" : true,
@@ -9571,6 +9759,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -9588,6 +9777,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -9605,6 +9795,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -9622,6 +9813,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-allow-overlap" : true,
@@ -9639,6 +9831,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -9656,6 +9849,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -9673,6 +9867,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -9690,6 +9885,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,

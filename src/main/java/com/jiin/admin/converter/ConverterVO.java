@@ -41,13 +41,13 @@ public class ConverterVO {
         g100k("100K"),
         a250k("250K"),
         a500k("500K"),
-        S1M("1M"),
-        S2M("2M"),
-        KR1("KR1"),
-        KR2("KR2"),
-        KR3("KR3"),
-        KR4("KR4"),
-        KR5("KR5"),
+        s1m("1M"),
+        s2m("2M"),
+        kr1("KR1"),
+        kr2("KR2"),
+        kr3("KR3"),
+        kr4("KR4"),
+        kr5("KR5"),
         ;
         private final String value;
         Scale(String value) {

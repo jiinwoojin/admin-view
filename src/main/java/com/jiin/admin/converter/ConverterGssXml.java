@@ -234,6 +234,9 @@ public class ConverterGssXml {
                         }
                         /** add feature > layer + label style **/
                         MapboxLayer mapboxLayer = new MapboxLayer();
+                        if(shpSource.equals("해양지명")){
+                            shpSource = "geoname";
+                        }
                         String layerId = (shpSource + "_" + labelStyleName).toUpperCase();
                         layerId = layerId + "_" + getLayerIdIndex(layerId);
                         mapboxLayer.setId(layerId);
@@ -251,6 +254,8 @@ public class ConverterGssXml {
                             labelColumnName = "textstring";
                         } else if (labelColumn.equalsIgnoreCase("도로번호")) {
                             labelColumnName = "road_num";
+                        } else if (labelColumn.equalsIgnoreCase("해양지")) {
+                            labelColumnName = "ocean_name";
                         } else {
                             labelColumnName = labelColumn.toLowerCase();
                         }
@@ -287,6 +292,21 @@ public class ConverterGssXml {
                             layout.setIconTextFit("none");
                             layout.setIconOffset(new Float[]{25f, -5f});
                         }
+                        if(labelStyle.getAlign() != null){
+                            //0 - 왼쪽 상단, 1 - 중앙 상단, 2 - 오른쪽 상단, 3 - 왼쪽 중앙, 4 - 정가운데, 5 - 오른쪽 중앙, 6 - 왼쪽 하단, 7 - 중앙 하단, 8 - 오른쪽 하단
+                            if(labelStyle.getAlign() == 0) layout.setTextAnchor("top-left");
+                            if(labelStyle.getAlign() == 1) layout.setTextAnchor("top");
+                            if(labelStyle.getAlign() == 2) layout.setTextAnchor("top-right");
+                            if(labelStyle.getAlign() == 3) layout.setTextAnchor("left");
+                            if(labelStyle.getAlign() == 4) layout.setTextAnchor("center");
+                            if(labelStyle.getAlign() == 5) layout.setTextAnchor("right");
+                            if(labelStyle.getAlign() == 6) layout.setTextAnchor("bottom-left");
+                            if(labelStyle.getAlign() == 7) layout.setTextAnchor("bottom");
+                            if(labelStyle.getAlign() == 8) layout.setTextAnchor("bottom-right");
+                        }
+                        if(labelStyle.getOutline() != null && labelStyle.getOutline() == true){
+                            layout.setTextAnchor("bottom-right");
+                        }
                         MapboxPaint paint = new MapboxPaint();
                         if (labelStyle.getColor() != null) paint.setTextColor(parseColor(labelStyle.getColor()));
                         mapboxLayer.setPaint(paint);
@@ -306,7 +326,10 @@ public class ConverterGssXml {
             result.add(linestyle);
         }else if(linestyle.getType().equals("DASH")){
             // nothing
-            result.add(linestyle);
+            // width 0 ignore
+            if(linestyle.getWidth() != 0){
+                result.add(linestyle);
+            }
         }else if(linestyle.getType().equals("PICTURE")){
             // nothing
             result.add(linestyle);
@@ -408,6 +431,7 @@ public class ConverterGssXml {
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 2){
             // Bridge
             // DRAW by APP
+            result.add(linestyle);
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 3){
             // Left Only
             Integer space = linestyle.getSpace();
@@ -423,9 +447,11 @@ public class ConverterGssXml {
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 5){
             // Tunnel
             // DRAW by APP
+            result.add(linestyle);
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 6){
             // PipeLine
             // DRAW by APP
+            result.add(linestyle);
         }
         return result;
     }
@@ -539,6 +565,10 @@ public class ConverterGssXml {
             } else if(styleLayer instanceof GssLineLayer){
                 GssLineLayer gssPaint = (GssLineLayer) styleLayer;
                 if(gssPaint.getType().equals("PICTURE")){
+                    if(gssPaint.getPicture() == null){
+                        return; // picture null ignore
+                    }
+                    layout.setIconAllowOverlap(true);
                     layout.setIconImage(parsePicture(gssPaint.getPicture()));
                     layout.setIconAllowOverlap(true);
                     layout.setSymbolPlacement("line");

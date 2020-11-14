@@ -18,6 +18,8 @@ public class MapboxLayout {
     private Boolean iconAllowOverlap;
     @JsonProperty(value = "text-field")
     private String textField;
+    @JsonProperty(value = "text-anchor")
+    private String textAnchor;
     @JsonProperty(value = "text-font")
     private String[] textFont;
     @JsonProperty(value = "text-size")
@@ -56,6 +58,10 @@ public class MapboxLayout {
     private Boolean iconKeepUpright;
     @JsonProperty(value = "icon-text-fit")
     private String iconTextFit;
+    @JsonProperty(value = "text-halo-width")
+    private Float textHaloWidth;
+    @JsonProperty(value = "text-halo-color")
+    private String textHaloColor;
 
     public String getTextField() {
         return textField;
@@ -239,5 +245,29 @@ public class MapboxLayout {
 
     public void setIconTextFit(String iconTextFit) {
         this.iconTextFit = iconTextFit;
+    }
+
+    public String getTextAnchor() {
+        return textAnchor;
+    }
+
+    public void setTextAnchor(String textAnchor) {
+        this.textAnchor = textAnchor;
+    }
+
+    public Float getTextHaloWidth() {
+        return textHaloWidth;
+    }
+
+    public void setTextHaloWidth(Float textHaloWidth) {
+        this.textHaloWidth = textHaloWidth;
+    }
+
+    public String getTextHaloColor() {
+        return textHaloColor;
+    }
+
+    public void setTextHaloColor(String textHaloColor) {
+        this.textHaloColor = textHaloColor;
     }
 }
