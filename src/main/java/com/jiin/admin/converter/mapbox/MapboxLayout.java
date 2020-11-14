@@ -58,10 +58,7 @@ public class MapboxLayout {
     private Boolean iconKeepUpright;
     @JsonProperty(value = "icon-text-fit")
     private String iconTextFit;
-    @JsonProperty(value = "text-halo-width")
-    private Float textHaloWidth;
-    @JsonProperty(value = "text-halo-color")
-    private String textHaloColor;
+
 
     public String getTextField() {
         return textField;
@@ -255,19 +252,4 @@ public class MapboxLayout {
         this.textAnchor = textAnchor;
     }
 
-    public Float getTextHaloWidth() {
-        return textHaloWidth;
-    }
-
-    public void setTextHaloWidth(Float textHaloWidth) {
-        this.textHaloWidth = textHaloWidth;
-    }
-
-    public String getTextHaloColor() {
-        return textHaloColor;
-    }
-
-    public void setTextHaloColor(String textHaloColor) {
-        this.textHaloColor = textHaloColor;
-    }
 }

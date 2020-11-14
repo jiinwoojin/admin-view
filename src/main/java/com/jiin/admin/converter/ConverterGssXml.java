@@ -34,13 +34,13 @@ public class ConverterGssXml {
         String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
         //
         File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
-        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
+        File layerfile = new File(dataPath + "/gss_style/GSS_NAVY_LAYER.xml");
         ConverterVO param = new ConverterVO();
         param.setVersion(8);
         param.setId("uzymq5sw3");
         param.setName("g25k_style");
         param.setMaputnikRenderer("mbgljs");
-        param.setScale(ConverterVO.Scale.g25k);
+        param.setScale(ConverterVO.Scale.kr1);
         param.setFont("Gosanja");
         param.setSourceName(param.getScale().name());
         param.setSprite("http://192.168.0.11/GSymbol/GSSSymbol");
@@ -64,9 +64,54 @@ public class ConverterGssXml {
         System.out.println("Target Root element :" + root.getNodeName());
         Object object = null;
         if(root.getNodeName().equals("MapLayer")){
-            object = JAXBContext.newInstance(GssRootLayer.class).createUnmarshaller().unmarshal(target);
+            object = JAXBContext.newInstance(GssMapLayer.class).createUnmarshaller().unmarshal(target);
+            List<String> orders = new LinkedList<>();
+            NodeList lst = root.getChildNodes();
+            for(int i = 0; i < lst.getLength(); ++i) {
+                Node node = lst.item(i);
+                if (node.getNodeType() == 1) {
+                    Element el = (Element)node;
+                    if(el.getNodeName().equals("Group")){
+                        NodeList subs = node.getChildNodes();
+                        for(int j = 0; j < subs.getLength(); ++j) {
+                            Node sub = subs.item(j);
+                            if (sub.getNodeType() == 1) {
+                                Element elsub = (Element)sub;
+                                String category = elsub.getAttribute("Category");
+                                String name = elsub.getAttribute("Name");
+                                orders.add(category + "-" + name);
+                            }
+                        }
+                    }else{
+                        String category = el.getAttribute("Category");
+                        String name = el.getAttribute("Name");
+                        orders.add(category + "-" + name);
+                    }
+                }
+            }
+            List<GssGroup> groups = ((GssMapLayer)object).getGroup();
+            List<GssLayer> layers = ((GssMapLayer)object).getLayer();
+            if(layers == null){
+                layers = new LinkedList<>();
+            }
+            if(groups != null){
+                for(GssGroup group : groups){
+                    layers.addAll(group.getLayer());
+                }
+                List<GssLayer> regenLayers = new LinkedList<>();
+                for(String key : orders){
+                    for(GssLayer layer : layers){
+                        String compareKey = layer.getCategory() + "-" + layer.getName();
+                        if(key.equals(compareKey)){
+                            regenLayers.add(layer);
+                            break;
+                        }
+                    }
+                }
+                ((GssMapLayer)object).setLayer(regenLayers);
+            }
         }else if(root.getNodeName().equals("MapStyle")){
-            object = JAXBContext.newInstance(GssRootStyle.class).createUnmarshaller().unmarshal(target);
+            object = JAXBContext.newInstance(GssMapStyle.class).createUnmarshaller().unmarshal(target);
         }else{
             System.out.println("Opps!!");
             return null;
@@ -75,7 +120,7 @@ public class ConverterGssXml {
     }
 
     private GssStyle findGssStyle(String styleName, GssContainer object) {
-        List<GssStyle> styles = ((GssRootStyle) object).getStyle();
+        List<GssStyle> styles = ((GssMapStyle) object).getStyle();
         for(GssStyle style : styles){
             if(style.getName().equals(styleName)){
                 return style;
@@ -118,7 +163,7 @@ public class ConverterGssXml {
         mapbox.addLayers(background);
         // set parse info
         GssContainer styles = parseGssXml(styleFile);
-        GssRootLayer result = (GssRootLayer) parseGssXml(layerFile);
+        GssMapLayer result = (GssMapLayer) parseGssXml(layerFile);
         List<GssLayer> layers = result.getLayer();
         for(GssLayer layer : layers) {
             makeLayer("Polygon", layer, sourceName, font, styles, param, mapbox);
@@ -304,11 +349,12 @@ public class ConverterGssXml {
                             if(labelStyle.getAlign() == 7) layout.setTextAnchor("bottom");
                             if(labelStyle.getAlign() == 8) layout.setTextAnchor("bottom-right");
                         }
-                        if(labelStyle.getOutline() != null && labelStyle.getOutline() == true){
-                            layout.setTextAnchor("bottom-right");
-                        }
                         MapboxPaint paint = new MapboxPaint();
                         if (labelStyle.getColor() != null) paint.setTextColor(parseColor(labelStyle.getColor()));
+                        if(labelStyle.getOutline() != null && labelStyle.getOutline()){
+                            paint.setTextHaloWidth(1);
+                            paint.setTextHaloColor(parseColor(labelStyle.getOutlineColor()));
+                        }
                         mapboxLayer.setPaint(paint);
                         mapboxLayer.setLayout(layout);
                         mapbox.addLayers(mapboxLayer);

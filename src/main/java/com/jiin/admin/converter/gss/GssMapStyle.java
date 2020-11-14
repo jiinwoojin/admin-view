@@ -6,7 +6,7 @@ import java.util.List;
 
 @XmlRootElement(name = "MapStyle")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class GssRootStyle extends GssContainer {
+public class GssMapStyle extends GssContainer {
     private List<GssStyle> Style;
 
     public List<GssStyle> getStyle() {

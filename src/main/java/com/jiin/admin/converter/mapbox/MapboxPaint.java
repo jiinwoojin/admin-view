@@ -45,7 +45,10 @@ public class MapboxPaint {
     private String circleColor;
     @JsonProperty(value = "circle-radius")
     private Float circleRadius;
-
+    @JsonProperty(value = "text-halo-width")
+    private Integer textHaloWidth;
+    @JsonProperty(value = "text-halo-color")
+    private String textHaloColor;
 
     public String getBackgroundColor() {
         return backgroundColor;
@@ -158,5 +161,21 @@ public class MapboxPaint {
 
     public void setLineOffset(Float lineOffset) {
         this.lineOffset = lineOffset;
+    }
+
+    public Integer getTextHaloWidth() {
+        return textHaloWidth;
+    }
+
+    public void setTextHaloWidth(Integer textHaloWidth) {
+        this.textHaloWidth = textHaloWidth;
+    }
+
+    public String getTextHaloColor() {
+        return textHaloColor;
+    }
+
+    public void setTextHaloColor(String textHaloColor) {
+        this.textHaloColor = textHaloColor;
     }
 }

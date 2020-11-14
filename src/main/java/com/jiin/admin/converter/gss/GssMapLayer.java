@@ -5,7 +5,8 @@ import java.util.List;
 
 @XmlRootElement(name = "MapLayer")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class GssRootLayer extends GssContainer {
+public class GssMapLayer extends GssContainer {
+    private List<GssGroup> Group;
     private List<GssLayer> Layer;
 
     public List<GssLayer> getLayer() {
@@ -14,5 +15,13 @@ public class GssRootLayer extends GssContainer {
 
     public void setLayer(List<GssLayer> layer) {
         Layer = layer;
+    }
+
+    public List<GssGroup> getGroup() {
+        return Group;
+    }
+
+    public void setGroup(List<GssGroup> group) {
+        Group = group;
     }
 }
