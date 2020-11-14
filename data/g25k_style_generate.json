@@ -9669,10 +9669,10 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{zv2}",
-      "text-anchor" : "left",
+      "text-anchor" : "right",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
-      "text-offset" : [ 1.5, 0.0 ],
+      "text-offset" : [ 2.5, 0.0 ],
       "text-allow-overlap" : true
     },
     "paint" : {
@@ -9687,10 +9687,10 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{zv2}",
-      "text-anchor" : "left",
+      "text-anchor" : "right",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
-      "text-offset" : [ 1.5, 0.0 ],
+      "text-offset" : [ 2.5, 0.0 ],
       "text-allow-overlap" : true
     },
     "paint" : {

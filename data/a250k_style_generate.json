@@ -56,7 +56,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "air_elev_tint",
-    "filter" : [ "all", [ "==", "gridcode", 2.0 ] ],
+    "filter" : [ "all", [ "==", "gridcode", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -71,7 +71,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "air_elev_tint",
-    "filter" : [ "all", [ "==", "gridcode", 3.0 ] ],
+    "filter" : [ "all", [ "==", "gridcode", 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -86,7 +86,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "air_elev_tint",
-    "filter" : [ "all", [ "==", "gridcode", 4.0 ] ],
+    "filter" : [ "all", [ "==", "gridcode", 4 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -101,7 +101,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "air_elev_tint",
-    "filter" : [ "all", [ "==", "gridcode", 5.0 ] ],
+    "filter" : [ "all", [ "==", "gridcode", 5 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -261,7 +261,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "abh080",
-    "filter" : [ "all", [ "in", "hyc", 0.0, 8.0 ] ],
+    "filter" : [ "all", [ "in", "hyc", 0, 8 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -276,7 +276,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "abh080",
-    "filter" : [ "all", [ "==", "hyc", 6.0 ] ],
+    "filter" : [ "all", [ "==", "hyc", 6 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -291,7 +291,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "abh080",
-    "filter" : [ "all", [ "==", "hyc", 3.0 ] ],
+    "filter" : [ "all", [ "==", "hyc", 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -306,7 +306,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "abh130",
-    "filter" : [ "all", [ "in", "exs", 0.0, 1.0, 28.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 1, 28 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -321,7 +321,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "abh130",
-    "filter" : [ "all", [ "==", "exs", 5.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 5 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -336,7 +336,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "abh140",
-    "filter" : [ "all", [ "in", "hyc", 0.0, 8.0 ] ],
+    "filter" : [ "all", [ "in", "hyc", 0, 8 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -351,7 +351,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "abh140",
-    "filter" : [ "all", [ "in", "hyc", 3.0, 6.0 ] ],
+    "filter" : [ "all", [ "in", "hyc", 3, 6 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -366,7 +366,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "abh090",
-    "filter" : [ "all", [ "in", "exs", 0.0, 45.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 45 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -381,7 +381,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "abh090",
-    "filter" : [ "all", [ "==", "exs", 48.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 48 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -396,7 +396,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "abh090",
-    "filter" : [ "all", [ "==", "exs", 48.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 48 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -496,7 +496,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "ada010",
-    "filter" : [ "all", [ "in", "mcc", 0.0, 55.0, 119.0 ] ],
+    "filter" : [ "all", [ "in", "mcc", 0, 55, 119 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -511,7 +511,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "ada010",
-    "filter" : [ "all", [ "==", "mcc", 8.0 ] ],
+    "filter" : [ "all", [ "==", "mcc", 8 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -526,7 +526,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "ada010",
-    "filter" : [ "all", [ "==", "mcc", 46.0 ] ],
+    "filter" : [ "all", [ "==", "mcc", 46 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -541,7 +541,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "ada010",
-    "filter" : [ "all", [ "==", "mcc", 88.0 ] ],
+    "filter" : [ "all", [ "==", "mcc", 88 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -600,7 +600,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 0.0 ] ],
+    "filter" : [ "all", [ "==", "ssc", 0 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -615,7 +615,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 22.0 ] ],
+    "filter" : [ "all", [ "==", "ssc", 22 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -630,7 +630,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 26.0 ] ],
+    "filter" : [ "all", [ "==", "ssc", 26 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -645,7 +645,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 27.0 ] ],
+    "filter" : [ "all", [ "==", "ssc", 27 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -660,7 +660,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 28.0 ] ],
+    "filter" : [ "all", [ "==", "ssc", 28 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -675,7 +675,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 29.0 ] ],
+    "filter" : [ "all", [ "==", "ssc", 29 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -690,7 +690,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "adb170",
-    "filter" : [ "all", [ "==", "ssc", 30.0 ] ],
+    "filter" : [ "all", [ "==", "ssc", 30 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -741,8 +741,8 @@
     "paint" : {
       "line-color" : "rgba(170, 90, 90, 1)",
       "line-width" : 6,
-      "line-dasharray" : [ 0.0, 1.7, 0.2, 1.7 ],
-      "line-offset" : 6
+      "line-dasharray" : [ 0.0, 1.667, 0.083, -0.083 ],
+      "line-offset" : -3.0
     },
     "metadata" : {
       "maputnik:comment" : "지형::암석층::암석층::가시적 지형의 노출부, 층이나 바위층인 암석층의 경계지역"
@@ -983,7 +983,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "in", "lmc", 0.0, 2.0 ], [ "<", "hgt", 46.0 ], [ "!=", "bfc", 7.0 ], [ "==", "bfc", 15.0 ], [ "==", "bfc", 27.0 ], [ "==", "bfc", 82.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "in", "lmc", 0, 2 ], [ "<", "hgt", 46 ], [ "!in", "bfc", 7, 15, 27, 82 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -998,7 +998,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "==", "lmc", 1.0 ], [ "<", "hgt", 46.0 ], [ "!=", "bfc", 7.0 ], [ "==", "bfc", 15.0 ], [ "==", "bfc", 27.0 ], [ "==", "bfc", 82.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "lmc", 1 ], [ "<", "hgt", 46 ], [ "!in", "bfc", 7, 15, 27, 82 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1013,7 +1013,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 9.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 9 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1028,7 +1028,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "==", "exs", 7.0 ], [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 7 ], [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1045,7 +1045,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "bfc", 15.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 15 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1060,7 +1060,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "bfc", 15.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 15 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "School(A)",
@@ -1074,7 +1074,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1091,7 +1091,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -1105,7 +1105,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "in", "hwt", 2.0, 3.0, 4.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "in", "hwt", 2, 3, 4 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1120,7 +1120,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "in", "hwt", 2.0, 3.0, 4.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "in", "hwt", 2, 3, 4 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Church(A)",
@@ -1134,7 +1134,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 14.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 14 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1149,7 +1149,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 14.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 14 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Temple(A)",
@@ -1163,7 +1163,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 20.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 20 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1178,7 +1178,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 20.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 20 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Mosque(A)",
@@ -1192,7 +1192,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 11.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 11 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1207,7 +1207,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 11.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 11 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Synagogue(A)",
@@ -1221,7 +1221,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 21.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 21 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1236,7 +1236,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 21.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 21 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower(A)",
@@ -1250,7 +1250,7 @@
     "type" : "fill",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 6.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 6 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -1265,7 +1265,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "aal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 6.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 6 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Pagoda(A)",
@@ -1296,7 +1296,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "aaa010",
-    "filter" : [ "all", [ "in", "exs", 0.0, 3.0, 28.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 3, 28 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1314,7 +1314,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "aaa010",
-    "filter" : [ "all", [ "in", "exs", 0.0, 3.0, 28.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 3, 28 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Mine_Operataion",
@@ -1328,7 +1328,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "aaa010",
-    "filter" : [ "all", [ "==", "exs", 6.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 6 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1346,7 +1346,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "aaa010",
-    "filter" : [ "all", [ "==", "exs", 6.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 6 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Mine_NonOperataion",
@@ -1611,7 +1611,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lba010",
-    "filter" : [ "all", [ "==", "acc", 1.0 ], [ "in", "slt", 0.0, 10.0, 11.0, 13.0, 14.0, 999.0 ] ],
+    "filter" : [ "all", [ "==", "acc", 1 ], [ "in", "slt", 0, 10, 11, 13, 14, 999 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1628,7 +1628,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lba010",
-    "filter" : [ "all", [ "==", "acc", 2.0 ], [ "in", "slt", 10.0, 11.0, 13.0, 14.0, 999.0 ] ],
+    "filter" : [ "all", [ "==", "acc", 2 ], [ "in", "slt", 10, 11, 13, 14, 999 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1646,7 +1646,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lba010",
-    "filter" : [ "all", [ "in", "acc", 1.0, 2.0 ], [ "in", "slt", 6.0, 8.0 ] ],
+    "filter" : [ "all", [ "in", "acc", 1, 2 ], [ "in", "slt", 6, 8 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1664,7 +1664,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lfa000",
-    "filter" : [ "all", [ "==", "ord", 6.0 ] ],
+    "filter" : [ "all", [ "==", "ord", 6 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1681,7 +1681,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lfa000",
-    "filter" : [ "all", [ "==", "ord", 6.0 ] ],
+    "filter" : [ "all", [ "==", "ord", 6 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1699,7 +1699,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lfa000",
-    "filter" : [ "all", [ "in", "use", 0.0, 23.0 ] ],
+    "filter" : [ "all", [ "in", "use", 0, 23 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1716,7 +1716,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lfa000",
-    "filter" : [ "all", [ "in", "use", 0.0, 23.0 ] ],
+    "filter" : [ "all", [ "in", "use", 0, 23 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1734,7 +1734,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lfa000",
-    "filter" : [ "all", [ "==", "ord", 1.0 ] ],
+    "filter" : [ "all", [ "==", "ord", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1742,7 +1742,7 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 10.3, 1.3, 2.7, 1.3 ]
+      "line-dasharray" : [ 10.333, 1.333, 2.667, 1.333 ]
     },
     "metadata" : {
       "maputnik:comment" : "경계::국가경계::1차경계::통제 지역 사이의 행정구역 중, 상대 중요도가 1순위인 행정지역의 경계"
@@ -1752,7 +1752,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lfa000",
-    "filter" : [ "all", [ "==", "use", 26.0 ] ],
+    "filter" : [ "all", [ "==", "use", 26 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1760,7 +1760,7 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 10.3, 1.3, 2.7, 1.3 ]
+      "line-dasharray" : [ 10.333, 1.333, 2.667, 1.333 ]
     },
     "metadata" : {
       "maputnik:comment" : "경계::국가경계::1차경계::통제 지역 사이의 행정구역 중, 상대 중요도가 1순위인 행정지역의 경계"
@@ -1827,7 +1827,7 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 4.0, 1.7, 4.0, 1.7 ]
+      "line-dasharray" : [ 4.0, 1.667, 4.0, 1.667 ]
     },
     "metadata" : {
       "maputnik:comment" : "경계::날짜변경선::날짜변경선::일반적으로 180개의 경선과 일치하고 각각의 역일이 시작되는 곳으로 지정되는 날짜변경선의 경계"
@@ -1886,7 +1886,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbb040",
-    "filter" : [ "all", [ "in", "vrr", 0.0, 1.0 ] ],
+    "filter" : [ "all", [ "in", "vrr", 0, 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1903,7 +1903,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbb140",
-    "filter" : [ "all", [ "in", "vrr", 0.0, 1.0 ] ],
+    "filter" : [ "all", [ "in", "vrr", 0, 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1920,7 +1920,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbb140",
-    "filter" : [ "all", [ "==", "vrr", 8.0 ] ],
+    "filter" : [ "all", [ "==", "vrr", 8 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1970,7 +1970,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh020",
-    "filter" : [ "all", [ "in", "hyc", 0.0, 8.0 ] ],
+    "filter" : [ "all", [ "in", "hyc", 0, 8 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1987,7 +1987,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh020",
-    "filter" : [ "all", [ "in", "hyc", 3.0, 6.0 ] ],
+    "filter" : [ "all", [ "in", "hyc", 3, 6 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -1995,7 +1995,7 @@
     "paint" : {
       "line-color" : "rgba(184, 214, 243, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 3.3, 1.0, 3.3, 1.0 ]
+      "line-dasharray" : [ 3.333, 1.0, 3.333, 1.0 ]
     },
     "metadata" : {
       "maputnik:comment" : "수부::운하::간헐적 운하::수송을 위해 자연수로를 개발하거나 인공적으로 만든 간헐적 운하의 경계"
@@ -2005,7 +2005,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh030",
-    "filter" : [ "all", [ "in", "hyc", 0.0, 8.0 ] ],
+    "filter" : [ "all", [ "in", "hyc", 0, 8 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2022,7 +2022,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh030",
-    "filter" : [ "all", [ "in", "hyc", 3.0, 6.0 ] ],
+    "filter" : [ "all", [ "in", "hyc", 3, 6 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2040,7 +2040,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh140",
-    "filter" : [ "all", [ "in", "hyc", 0.0, 8.0 ] ],
+    "filter" : [ "all", [ "in", "hyc", 0, 8 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2057,7 +2057,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh140",
-    "filter" : [ "all", [ "in", "hyc", 3.0, 6.0 ] ],
+    "filter" : [ "all", [ "in", "hyc", 3, 6 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2075,7 +2075,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh110",
-    "filter" : [ "all", [ "in", "loc", 0.0, 8.0 ] ],
+    "filter" : [ "all", [ "in", "loc", 0, 8 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2092,7 +2092,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh110",
-    "filter" : [ "all", [ "==", "loc", 4.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 4 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2108,7 +2108,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh110",
-    "filter" : [ "all", [ "==", "loc", 4.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 4 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2125,7 +2125,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh110",
-    "filter" : [ "all", [ "==", "loc", 25.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 25 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2141,7 +2141,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh110",
-    "filter" : [ "all", [ "==", "loc", 25.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 25 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2209,7 +2209,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbi020",
-    "filter" : [ "all", [ "in", "tuc", 0.0, 35.0, 999.0 ] ],
+    "filter" : [ "all", [ "in", "tuc", 0, 35, 999 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2226,7 +2226,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbi020",
-    "filter" : [ "all", [ "in", "tuc", 1.0, 3.0, 4.0 ] ],
+    "filter" : [ "all", [ "in", "tuc", 1, 3, 4 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2244,7 +2244,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh010",
-    "filter" : [ "all", [ "in", "loc", 0.0, 8.0 ] ],
+    "filter" : [ "all", [ "in", "loc", 0, 8 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2261,7 +2261,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh010",
-    "filter" : [ "all", [ "==", "loc", 4.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 4 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2277,7 +2277,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh010",
-    "filter" : [ "all", [ "==", "loc", 4.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 4 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2294,7 +2294,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh010",
-    "filter" : [ "all", [ "==", "loc", 25.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 25 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2310,7 +2310,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh010",
-    "filter" : [ "all", [ "==", "loc", 25.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 25 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2344,7 +2344,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lca010",
-    "filter" : [ "all", [ "==", "hqc", 1.0 ], [ "in", "mcc", 0.0, 30.0 ] ],
+    "filter" : [ "all", [ "==", "hqc", 1 ], [ "in", "mcc", 0, 30 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2361,7 +2361,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lca010",
-    "filter" : [ "all", [ "==", "hqc", 2.0 ], [ "in", "mcc", 0.0, 30.0 ] ],
+    "filter" : [ "all", [ "==", "hqc", 2 ], [ "in", "mcc", 0, 30 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2378,7 +2378,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lca010",
-    "filter" : [ "all", [ "==", "hqc", 3.0 ], [ "in", "mcc", 0.0, 30.0 ] ],
+    "filter" : [ "all", [ "==", "hqc", 3 ], [ "in", "mcc", 0, 30 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2396,7 +2396,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lca010",
-    "filter" : [ "all", [ "==", "hqc", 5.0 ], [ "in", "mcc", 0.0, 30.0 ] ],
+    "filter" : [ "all", [ "==", "hqc", 5 ], [ "in", "mcc", 0, 30 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2413,15 +2413,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lca010",
-    "filter" : [ "all", [ "==", "hqc", 5.0 ], [ "in", "mcc", 0.0, 30.0 ] ],
+    "filter" : [ "all", [ "==", "hqc", 5 ], [ "in", "mcc", 0, 30 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(194, 137, 137, 1)",
       "line-width" : 10,
-      "line-dasharray" : [ 0.0, 0.0, 0.1, 5.0 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 0.0, 0.05, 4.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "고도::등고선::저하등고선 계곡선::똑같은 수직기준좌표 값을 가진 점과 연결된 선인 저하등고선 계곡선의 경계"
@@ -2431,7 +2431,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lca010",
-    "filter" : [ "all", [ "==", "hqc", 6.0 ], [ "in", "mcc", 0.0, 30.0 ] ],
+    "filter" : [ "all", [ "==", "hqc", 6 ], [ "in", "mcc", 0, 30 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2448,15 +2448,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lca010",
-    "filter" : [ "all", [ "==", "hqc", 6.0 ], [ "in", "mcc", 0.0, 30.0 ] ],
+    "filter" : [ "all", [ "==", "hqc", 6 ], [ "in", "mcc", 0, 30 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(194, 137, 137, 1)",
       "line-width" : 10,
-      "line-dasharray" : [ 0.0, 0.0, 0.1, 5.0 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 0.0, 0.05, 4.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "고도::등고선::저하등고선 주곡선::똑같은 수직기준좌표 값을 가진 점과 연결된 선인 저하등고선 주곡선의 경계"
@@ -2504,8 +2504,8 @@
     "paint" : {
       "line-color" : "rgba(194, 137, 137, 1)",
       "line-width" : 4,
-      "line-dasharray" : [ 0.0, 0.3, 0.3, 1.3 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 0.25, 0.125, 0.875 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "지형::절벽/급사면::절벽/급사면::바위나 땅의 가파른 면이나 수직적 또는 돌출한 면인 절벽/급사면의 경계"
@@ -2538,8 +2538,8 @@
     "paint" : {
       "line-color" : "rgba(170, 90, 90, 1)",
       "line-width" : 4,
-      "line-dasharray" : [ 0.0, 2.5, 0.3, 3.8 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 2.5, 0.125, 1.125 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "지형::절토::절토::도로, 철도, 운하 등을 위해 통로를 제공하는 지표면특질의 동굴인 절토의 경계"
@@ -2571,8 +2571,8 @@
     "paint" : {
       "line-color" : "rgba(170, 90, 90, 1)",
       "line-width" : 6,
-      "line-dasharray" : [ 0.0, 3.3, 0.2, 2.5 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 3.333, 0.083, -0.917 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "지형::제방/성토::제방/성토::흙이나 다른 재료로 쌓아올린 긴 토루인 제방의 경계"
@@ -2604,9 +2604,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
-      "line-width" : 10,
-      "line-dasharray" : [ 0.0, 2.5, 0.1, 4.4 ],
-      "line-offset" : 0
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 5.0, 0.1, 3.7 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "지형::빙벽::빙벽::빙산의 벽인 빙벽의 경계"
@@ -2616,7 +2616,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "ldb060",
-    "filter" : [ "all", [ "in", "mcc", 0.0, 30.0 ] ],
+    "filter" : [ "all", [ "in", "mcc", 0, 30 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2633,7 +2633,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "ldb060",
-    "filter" : [ "all", [ "==", "mcc", 103.0 ] ],
+    "filter" : [ "all", [ "==", "mcc", 103 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2715,7 +2715,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh060",
-    "filter" : [ "all", [ "in", "loc", 0.0, 8.0, 997.0 ] ],
+    "filter" : [ "all", [ "in", "loc", 0, 8, 997 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2732,7 +2732,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lbh060",
-    "filter" : [ "all", [ "==", "loc", 25.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 25 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2765,7 +2765,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lat030",
-    "filter" : [ "all", [ "in", "tst", 0.0, 1.0, 998.0, 999.0 ] ],
+    "filter" : [ "all", [ "in", "tst", 0, 1, 998, 999 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2782,7 +2782,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lat030",
-    "filter" : [ "all", [ "in", "tst", 2.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "tst", 2, 3 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2799,7 +2799,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq113",
-    "filter" : [ "all", [ "==", "loc", 25.0 ], [ "in", "pro", 0.0, 116.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 25 ], [ "in", "pro", 0, 116 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2815,7 +2815,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq113",
-    "filter" : [ "all", [ "==", "loc", 25.0 ], [ "in", "pro", 0.0, 116.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 25 ], [ "in", "pro", 0, 116 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2832,7 +2832,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq113",
-    "filter" : [ "all", [ "==", "loc", 25.0 ], [ "in", "pro", 13.0, 38.0, 39.0, 67.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 25 ], [ "in", "pro", 13, 38, 39, 67 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -2848,7 +2848,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq113",
-    "filter" : [ "all", [ "==", "loc", 25.0 ], [ "in", "pro", 13.0, 38.0, 39.0, 67.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 25 ], [ "in", "pro", 13, 38, 39, 67 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2865,7 +2865,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq113",
-    "filter" : [ "all", [ "in", "loc", 0.0, 8.0 ], [ "in", "pro", 0.0, 116.0 ] ],
+    "filter" : [ "all", [ "in", "loc", 0, 8 ], [ "in", "pro", 0, 116 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2882,7 +2882,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq113",
-    "filter" : [ "all", [ "in", "loc", 0.0, 8.0 ], [ "in", "pro", 13.0, 38.0, 39.0, 67.0 ] ],
+    "filter" : [ "all", [ "in", "loc", 0, 8 ], [ "in", "pro", 13, 38, 39, 67 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2899,7 +2899,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq113",
-    "filter" : [ "all", [ "==", "loc", 4.0 ], [ "in", "pro", 0.0, 116.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 4 ], [ "in", "pro", 0, 116 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -2917,7 +2917,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq113",
-    "filter" : [ "all", [ "==", "loc", 4.0 ], [ "in", "pro", 13.0, 38.0, 39.0, 67.0 ] ],
+    "filter" : [ "all", [ "==", "loc", 4 ], [ "in", "pro", 13, 38, 39, 67 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3036,7 +3036,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap010",
-    "filter" : [ "all", [ "in", "wtc", 0.0, 1.0, 2.0 ] ],
+    "filter" : [ "all", [ "in", "wtc", 0, 1, 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3054,7 +3054,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap050",
-    "filter" : [ "all", [ "in", "wtc", 0.0, 2.0 ] ],
+    "filter" : [ "all", [ "in", "wtc", 0, 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3072,7 +3072,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "tuc", 2.0 ], [ "==", "med", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "tuc", 2 ], [ "==", "med", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3089,7 +3089,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "tuc", 2.0 ], [ "==", "med", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "tuc", 2 ], [ "==", "med", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3106,7 +3106,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "tuc", 2.0 ], [ "==", "med", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "tuc", 2 ], [ "==", "med", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3123,7 +3123,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "tuc", 2.0 ], [ "in", "med", 0.0, 2.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "tuc", 2 ], [ "in", "med", 0, 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3140,7 +3140,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "tuc", 2.0 ], [ "in", "med", 0.0, 2.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "tuc", 2 ], [ "in", "med", 0, 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3157,7 +3157,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 5.0 ], [ "!=", "loc", 40.0 ], [ "==", "tuc", 2.0 ], [ "==", "med", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 5 ], [ "!=", "loc", 40 ], [ "==", "tuc", 2 ], [ "==", "med", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3175,7 +3175,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 5.0 ], [ "!=", "loc", 40.0 ], [ "==", "tuc", 2.0 ], [ "==", "med", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 5 ], [ "!=", "loc", 40 ], [ "==", "tuc", 2 ], [ "==", "med", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3193,7 +3193,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 5.0 ], [ "!=", "loc", 40.0 ], [ "==", "tuc", 2.0 ], [ "==", "med", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 5 ], [ "!=", "loc", 40 ], [ "==", "tuc", 2 ], [ "==", "med", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3211,7 +3211,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 5.0 ], [ "!=", "loc", 40.0 ], [ "==", "tuc", 2.0 ], [ "in", "med", 0.0, 2.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 5 ], [ "!=", "loc", 40 ], [ "==", "tuc", 2 ], [ "in", "med", 0, 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3229,7 +3229,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 5.0 ], [ "!=", "loc", 40.0 ], [ "==", "tuc", 2.0 ], [ "in", "med", 0.0, 2.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 5 ], [ "!=", "loc", 40 ], [ "==", "tuc", 2 ], [ "in", "med", 0, 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3247,7 +3247,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 1.0 ], [ "==", "tuc", 4.0 ], [ ">=", "ltn", 2.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "rst", 1 ], [ "==", "tuc", 4 ], [ ">=", "ltn", 2 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3264,7 +3264,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 1.0 ], [ "==", "tuc", 4.0 ], [ ">=", "ltn", 2.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "rst", 1 ], [ "==", "tuc", 4 ], [ ">=", "ltn", 2 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3281,7 +3281,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 1.0 ], [ "==", "tuc", 4.0 ], [ "==", "ltn", 1.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "rst", 1 ], [ "==", "tuc", 4 ], [ "==", "ltn", 1 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3298,7 +3298,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 1.0 ], [ "==", "tuc", 4.0 ], [ "==", "ltn", 1.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "rst", 1 ], [ "==", "tuc", 4 ], [ "==", "ltn", 1 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3315,7 +3315,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 2.0 ], [ "==", "tuc", 4.0 ], [ ">=", "ltn", 2.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "rst", 2 ], [ "==", "tuc", 4 ], [ ">=", "ltn", 2 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3333,7 +3333,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 2.0 ], [ "==", "tuc", 4.0 ], [ ">=", "ltn", 2.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "rst", 2 ], [ "==", "tuc", 4 ], [ ">=", "ltn", 2 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3350,7 +3350,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 2.0 ], [ "==", "tuc", 4.0 ], [ ">=", "ltn", 2.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "rst", 2 ], [ "==", "tuc", 4 ], [ ">=", "ltn", 2 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3358,7 +3358,7 @@
     "paint" : {
       "line-color" : "rgba(162, 83, 72, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 4.0, 2.7, 4.0, 2.7 ]
+      "line-dasharray" : [ 4.0, 2.667, 4.0, 2.667 ]
     },
     "metadata" : {
       "maputnik:comment" : "교통::도로::2차선이상 비포장도로::차선이 2차선 이상인 비포장도로"
@@ -3368,7 +3368,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 2.0 ], [ "==", "tuc", 4.0 ], [ "==", "ltn", 1.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "rst", 2 ], [ "==", "tuc", 4 ], [ "==", "ltn", 1 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3386,7 +3386,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 2.0 ], [ "==", "tuc", 4.0 ], [ "==", "ltn", 1.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "rst", 2 ], [ "==", "tuc", 4 ], [ "==", "ltn", 1 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3403,7 +3403,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 2.0 ], [ "==", "tuc", 4.0 ], [ "==", "ltn", 1.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "==", "rst", 2 ], [ "==", "tuc", 4 ], [ "==", "ltn", 1 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3421,7 +3421,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "tuc", 4.0 ], [ "==", "wtc", 2.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "tuc", 4 ], [ "==", "wtc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3438,7 +3438,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 5.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 1.0 ], [ "==", "tuc", 4.0 ], [ ">=", "ltn", 2.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 5 ], [ "!=", "loc", 40 ], [ "==", "rst", 1 ], [ "==", "tuc", 4 ], [ ">=", "ltn", 2 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3456,7 +3456,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 5.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 1.0 ], [ "==", "tuc", 4.0 ], [ ">=", "ltn", 2.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 5 ], [ "!=", "loc", 40 ], [ "==", "rst", 1 ], [ "==", "tuc", 4 ], [ ">=", "ltn", 2 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3464,7 +3464,7 @@
     "paint" : {
       "line-color" : "rgba(162, 83, 72, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 4.7, 2.0, 4.7, 2.0 ]
+      "line-dasharray" : [ 4.667, 2.0, 4.667, 2.0 ]
     },
     "metadata" : {
       "maputnik:comment" : "교통::도로::건설중 2차선이상 포장도로::건설중이거나 손실되어 사용하지 못하고, 차선이 2차선 이상인 포장도로"
@@ -3474,7 +3474,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 5.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 1.0 ], [ "==", "tuc", 4.0 ], [ "==", "ltn", 1.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 5 ], [ "!=", "loc", 40 ], [ "==", "rst", 1 ], [ "==", "tuc", 4 ], [ "==", "ltn", 1 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3492,7 +3492,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "==", "exs", 5.0 ], [ "!=", "loc", 40.0 ], [ "==", "rst", 1.0 ], [ "==", "tuc", 4.0 ], [ "==", "ltn", 1.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 5 ], [ "!=", "loc", 40 ], [ "==", "rst", 1 ], [ "==", "tuc", 4 ], [ "==", "ltn", 1 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3510,7 +3510,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "rst", 1.0 ], [ "==", "tuc", 7.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "rst", 1 ], [ "==", "tuc", 7 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3527,7 +3527,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "rst", 1.0 ], [ "==", "tuc", 7.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "rst", 1 ], [ "==", "tuc", 7 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3544,7 +3544,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "rst", 2.0 ], [ "==", "tuc", 7.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "rst", 2 ], [ "==", "tuc", 7 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3562,7 +3562,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "rst", 2.0 ], [ "==", "tuc", 7.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "rst", 2 ], [ "==", "tuc", 7 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3579,7 +3579,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "rst", 2.0 ], [ "==", "tuc", 7.0 ], [ "==", "wtc", 1.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "rst", 2 ], [ "==", "tuc", 7 ], [ "==", "wtc", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3587,7 +3587,7 @@
     "paint" : {
       "line-color" : "rgba(128, 0, 0, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 4.0, 2.7, 4.0, 2.7 ]
+      "line-dasharray" : [ 4.0, 2.667, 4.0, 2.667 ]
     },
     "metadata" : {
       "maputnik:comment" : "교통::도로::비포장 관통도로::거리를 관통하는 비포장도로"
@@ -3597,7 +3597,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "tuc", 6.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "tuc", 6 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3614,7 +3614,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "tuc", 6.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "tuc", 6 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3631,7 +3631,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "tuc", 7.0 ], [ "==", "wtc", 2.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "tuc", 7 ], [ "==", "wtc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3648,7 +3648,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lap030",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "tuc", 7.0 ], [ "==", "wtc", 2.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "tuc", 7 ], [ "==", "wtc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3665,7 +3665,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3682,15 +3682,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 6,
-      "line-dasharray" : [ 0.0, 3.3, 0.2, 6.7 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 3.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 단선인 철도의 경계"
@@ -3700,7 +3700,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3717,15 +3717,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 6,
-      "line-dasharray" : [ 0.0, 3.3, 0.2, 6.7 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 3.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계"
@@ -3735,15 +3735,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 6,
-      "line-dasharray" : [ 0.0, 3.8, 0.2, 6.7 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 3.833, 0.083, 2.75 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계"
@@ -3753,7 +3753,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3770,15 +3770,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 10,
-      "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -3788,15 +3788,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -3806,15 +3806,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -3824,7 +3824,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3841,15 +3841,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 10,
-      "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
@@ -3859,15 +3859,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 10,
-      "line-dasharray" : [ 0.0, 2.3, 0.1, 4.0 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 2.3, 0.05, 1.65 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
@@ -3877,15 +3877,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
@@ -3895,15 +3895,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 5.2, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 8.667, 0.5, 17.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
@@ -3913,7 +3913,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3930,15 +3930,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 4,
-      "line-dasharray" : [ 0.0, 5.0, 0.3, 20.0 ],
-      "line-offset" : -4
+      "line-dasharray" : [ 0.0, 5.0, 0.125, 14.875 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계"
@@ -3948,15 +3948,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 4,
-      "line-dasharray" : [ 0.0, 15.0, 0.3, 20.0 ],
-      "line-offset" : 4
+      "line-dasharray" : [ 0.0, 15.0, 0.125, 4.875 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계"
@@ -3966,7 +3966,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -3983,15 +3983,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 0.0, 6.7, 0.3, 26.7 ],
-      "line-offset" : -3
+      "line-dasharray" : [ 0.0, 6.667, 0.167, 19.833 ],
+      "line-offset" : 1.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
@@ -4001,15 +4001,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 0.0, 8.0, 0.3, 26.7 ],
-      "line-offset" : -3
+      "line-dasharray" : [ 0.0, 8.0, 0.167, 18.5 ],
+      "line-offset" : 1.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
@@ -4019,15 +4019,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 0.0, 20.0, 0.3, 26.7 ],
-      "line-offset" : 3
+      "line-dasharray" : [ 0.0, 20.0, 0.167, 6.5 ],
+      "line-offset" : -1.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
@@ -4037,15 +4037,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 0.0, 21.3, 0.3, 26.7 ],
-      "line-offset" : 3
+      "line-dasharray" : [ 0.0, 21.333, 0.167, 5.167 ],
+      "line-offset" : -1.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
@@ -4055,7 +4055,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4072,15 +4072,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.0, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-dasharray" : [ 0.0, 4.0, 0.1, 11.9 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -4090,15 +4090,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 12.0, 0.2, 16.0 ],
-      "line-offset" : 5
+      "line-dasharray" : [ 0.0, 12.0, 0.1, 3.9 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -4108,15 +4108,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -4126,15 +4126,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -4144,7 +4144,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4161,15 +4161,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.0, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-dasharray" : [ 0.0, 4.0, 0.1, 11.9 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -4179,15 +4179,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-dasharray" : [ 0.0, 4.6, 0.1, 11.3 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -4197,15 +4197,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 12.0, 0.2, 16.0 ],
-      "line-offset" : 5
+      "line-dasharray" : [ 0.0, 12.0, 0.1, 3.9 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -4215,15 +4215,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 12.6, 0.2, 16.0 ],
-      "line-offset" : 5
+      "line-dasharray" : [ 0.0, 12.6, 0.1, 3.3 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -4233,15 +4233,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -4251,15 +4251,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "exs", 28.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "exs", 28 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 5.2, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 8.667, 0.5, 17.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -4269,7 +4269,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "rrc", 2.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "rrc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4286,15 +4286,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "rrc", 2.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "rrc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 6,
-      "line-dasharray" : [ 0.0, 3.3, 0.2, 5.0 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 1.583 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 전차::기차나 전차가 달릴 수 있는 운행중인 전차의 경계"
@@ -4304,7 +4304,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "rrc", 21.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "rrc", 21 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4321,15 +4321,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "!=", "loc", 40.0 ], [ "==", "rrc", 21.0 ] ],
+    "filter" : [ "all", [ "!=", "loc", 40 ], [ "==", "rrc", 21 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 6,
-      "line-dasharray" : [ 0.0, 3.3, 0.2, 6.7 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 3.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 도로내 철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중,  도로내에 있는  철도의 경계"
@@ -4339,7 +4339,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4357,15 +4357,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 6,
-      "line-dasharray" : [ 0.0, 3.3, 0.2, 6.7 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 3.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4375,7 +4375,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4393,15 +4393,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 6,
-      "line-dasharray" : [ 0.0, 2.8, 0.2, 6.7 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 2.833, 0.083, 3.75 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4411,15 +4411,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 6,
-      "line-dasharray" : [ 0.0, 3.3, 0.2, 6.7 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 3.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4429,7 +4429,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4447,15 +4447,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 10,
-      "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4465,15 +4465,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4483,15 +4483,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4501,7 +4501,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4519,15 +4519,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 10,
-      "line-dasharray" : [ 0.0, 1.7, 0.1, 4.0 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 1.7, 0.05, 2.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4537,15 +4537,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 10,
-      "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4555,15 +4555,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 2.8, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 4.667, 0.5, 21.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4573,15 +4573,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4591,7 +4591,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4609,15 +4609,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.0, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-dasharray" : [ 0.0, 4.0, 0.1, 11.9 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4627,15 +4627,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 12.0, 0.2, 16.0 ],
-      "line-offset" : 5
+      "line-dasharray" : [ 0.0, 12.0, 0.1, 3.9 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4645,7 +4645,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4663,15 +4663,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-dasharray" : [ 0.0, 3.4, 0.1, 12.5 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4681,15 +4681,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.0, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-dasharray" : [ 0.0, 4.0, 0.1, 11.9 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4699,15 +4699,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 11.4, 0.2, 16.0 ],
-      "line-offset" : 5
+      "line-dasharray" : [ 0.0, 11.4, 0.1, 4.5 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4717,15 +4717,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 12.0, 0.2, 16.0 ],
-      "line-offset" : 5
+      "line-dasharray" : [ 0.0, 12.0, 0.1, 3.9 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4735,7 +4735,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4753,15 +4753,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 10,
-      "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4771,15 +4771,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4789,15 +4789,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 0.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 0, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 단전기선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4807,7 +4807,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4825,15 +4825,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 10,
-      "line-dasharray" : [ 0.0, 1.7, 0.1, 4.0 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 1.7, 0.05, 2.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4843,15 +4843,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 10,
-      "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4861,15 +4861,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 2.8, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 4.667, 0.5, 21.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4879,15 +4879,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "exs", 5.0, 6.0, 7.0 ], [ "!=", "loc", 40.0 ], [ "in", "fco", 2.0, 11.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "exs", 5, 6, 7 ], [ "!=", "loc", 40 ], [ "in", "fco", 2, 11 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도의 경계"
@@ -4897,7 +4897,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan010",
-    "filter" : [ "all", [ "==", "exs", 8.0 ], [ "!=", "loc", 40.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 8 ], [ "!=", "loc", 40 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4915,7 +4915,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4932,15 +4932,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 6,
-      "line-dasharray" : [ 0.0, 3.3, 0.2, 6.7 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 3.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::표준궤간 철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤인 인입선의 경계"
@@ -4950,7 +4950,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -4967,15 +4967,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 10,
-      "line-dasharray" : [ 0.0, 2.0, 0.1, 4.0 ],
-      "line-offset" : 0
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::표준궤간 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤이고 동력원이 전력인 인입선의 경계"
@@ -4985,15 +4985,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::표준궤간 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤이고 동력원이 전력인 인입선의 경계"
@@ -5003,15 +5003,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "in", "rgc", 0.0, 1.0, 3.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "in", "rgc", 0, 1, 3 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::표준궤간 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤이고 동력원이 전력인 인입선의 경계"
@@ -5021,7 +5021,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -5038,15 +5038,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 4,
-      "line-dasharray" : [ 0.0, 5.0, 0.3, 20.0 ],
-      "line-offset" : -4
+      "line-dasharray" : [ 0.0, 5.0, 0.125, 14.875 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::협궤 철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤인 인입선의 경계"
@@ -5056,15 +5056,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 0.0, 4.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 0, 4 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 4,
-      "line-dasharray" : [ 0.0, 15.0, 0.3, 20.0 ],
-      "line-offset" : 4
+      "line-dasharray" : [ 0.0, 15.0, 0.125, 4.875 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::협궤 철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤인 인입선의 경계"
@@ -5074,7 +5074,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -5091,15 +5091,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.0, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-dasharray" : [ 0.0, 4.0, 0.1, 11.9 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::협궤 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계"
@@ -5109,15 +5109,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 5,
-      "line-dasharray" : [ 0.0, 12.0, 0.2, 16.0 ],
-      "line-offset" : 5
+      "line-dasharray" : [ 0.0, 12.0, 0.1, 3.9 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::협궤 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계"
@@ -5127,15 +5127,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 3.4, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::협궤 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계"
@@ -5145,15 +5145,15 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "lan050",
-    "filter" : [ "all", [ "in", "rra", 1.0, 3.0 ], [ "==", "rgc", 2.0 ] ],
+    "filter" : [ "all", [ "in", "rra", 1, 3 ], [ "==", "rgc", 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 5,
-      "line-dasharray" : [ 0.0, 4.6, 0.2, 16.0 ],
-      "line-offset" : -5
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::협궤 전기철도_측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계"
@@ -5163,7 +5163,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq130",
-    "filter" : [ "all", [ "in", "tuc", 0.0, 1.0, 3.0, 4.0 ] ],
+    "filter" : [ "all", [ "in", "tuc", 0, 1, 3, 4 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -5180,7 +5180,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq130",
-    "filter" : [ "all", [ "in", "tuc", 0.0, 1.0, 3.0, 4.0 ] ],
+    "filter" : [ "all", [ "in", "tuc", 0, 1, 3, 4 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -5198,7 +5198,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq130",
-    "filter" : [ "all", [ "==", "tuc", 38.0 ] ],
+    "filter" : [ "all", [ "==", "tuc", 38 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -5215,7 +5215,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq130",
-    "filter" : [ "all", [ "==", "tuc", 38.0 ] ],
+    "filter" : [ "all", [ "==", "tuc", 38 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -5233,7 +5233,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq040",
-    "filter" : [ "all", [ "!=", "tuc", 17.0 ] ],
+    "filter" : [ "all", [ "!=", "tuc", 17 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -5251,7 +5251,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq040",
-    "filter" : [ "all", [ "!=", "tuc", 17.0 ] ],
+    "filter" : [ "all", [ "!=", "tuc", 17 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -5268,7 +5268,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq040",
-    "filter" : [ "all", [ "==", "tuc", 17.0 ] ],
+    "filter" : [ "all", [ "==", "tuc", 17 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -5285,7 +5285,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "laq040",
-    "filter" : [ "all", [ "==", "tuc", 17.0 ] ],
+    "filter" : [ "all", [ "==", "tuc", 17 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -5363,7 +5363,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pbd130",
-    "filter" : [ "all", [ "in", "vrr", 0.0, 1.0, 8.0 ] ],
+    "filter" : [ "all", [ "in", "vrr", 0, 1, 8 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Rock_01",
@@ -5378,7 +5378,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pbd130",
-    "filter" : [ "all", [ "in", "vrr", 2.0, 4.0 ] ],
+    "filter" : [ "all", [ "in", "vrr", 2, 4 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Rock_SeaSurface",
@@ -5435,7 +5435,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pbh145",
-    "filter" : [ "all", [ "==", "hfc", 2.0 ] ],
+    "filter" : [ "all", [ "==", "hfc", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Extinction_01",
@@ -5450,7 +5450,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pbh145",
-    "filter" : [ "all", [ "in", "hfc", 0.0, 16.0 ] ],
+    "filter" : [ "all", [ "in", "hfc", 0, 16 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Extinction_02",
@@ -5494,7 +5494,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pbh170",
-    "filter" : [ "all", [ "in", "hyc", 0.0, 8.0 ] ],
+    "filter" : [ "all", [ "in", "hyc", 0, 8 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Spring_Permanent",
@@ -5509,7 +5509,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pbh170",
-    "filter" : [ "all", [ "in", "hyc", 3.0, 6.0 ] ],
+    "filter" : [ "all", [ "in", "hyc", 3, 6 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Spring_Occasional",
@@ -5524,7 +5524,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paa050",
-    "filter" : [ "all", [ "in", "hyc", 0.0, 8.0 ], [ "in", "pro", 0.0, 116.0 ] ],
+    "filter" : [ "all", [ "in", "hyc", 0, 8 ], [ "in", "pro", 0, 116 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Blue_Circle",
@@ -5539,7 +5539,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paa050",
-    "filter" : [ "all", [ "in", "hyc", 3.0, 6.0 ], [ "in", "pro", 0.0, 116.0 ] ],
+    "filter" : [ "all", [ "in", "hyc", 3, 6 ], [ "in", "pro", 0, 116 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Well02",
@@ -5554,7 +5554,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paa050",
-    "filter" : [ "all", [ "in", "pro", 38.0, 67.0 ] ],
+    "filter" : [ "all", [ "in", "pro", 38, 67 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Well(oil)",
@@ -5569,7 +5569,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pbj060",
-    "filter" : [ "all", [ "in", "mcc", 0.0, 84.0, 997.0 ] ],
+    "filter" : [ "all", [ "in", "mcc", 0, 84, 997 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Nunatak",
@@ -5584,7 +5584,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pbj060",
-    "filter" : [ "all", [ "==", "mcc", 103.0 ] ],
+    "filter" : [ "all", [ "==", "mcc", 103 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Shelfice",
@@ -5655,12 +5655,12 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "in", "lmc", 0.0, 2.0 ], [ "<", "hgt", 46.0 ], [ "!=", "bfc", 7.0 ], [ "==", "bfc", 15.0 ], [ "==", "bfc", 27.0 ], [ "==", "bfc", 82.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "in", "lmc", 0, 2 ], [ "<", "hgt", 46 ], [ "!in", "bfc", 7, 15, 27, 82 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Rectangle",
       "icon-allow-overlap" : true,
-      "icon-size" : 0.2,
+      "icon-size" : 0.25,
       "icon-rotation-alignment" : "map"
     },
     "metadata" : {
@@ -5671,12 +5671,12 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "==", "lmc", 1.0 ], [ "<", "hgt", 46.0 ], [ "!=", "bfc", 7.0 ], [ "==", "bfc", 15.0 ], [ "==", "bfc", 27.0 ], [ "==", "bfc", 82.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "==", "lmc", 1 ], [ "<", "hgt", 46 ], [ "!in", "bfc", 7, 15, 27, 82 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Rectangle",
       "icon-allow-overlap" : true,
-      "icon-size" : 0.2,
+      "icon-size" : 0.25,
       "icon-rotation-alignment" : "map"
     },
     "metadata" : {
@@ -5687,12 +5687,12 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "bfc", 27.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 27 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Rectangle",
       "icon-allow-overlap" : true,
-      "icon-size" : 0.2,
+      "icon-size" : 0.25,
       "icon-rotation-alignment" : "map"
     },
     "metadata" : {
@@ -5703,7 +5703,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "==", "exs", 7.0 ], [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 7 ], [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Dragonteeth",
@@ -5718,7 +5718,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "bfc", 15.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 15 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "School(P)",
@@ -5733,7 +5733,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "bfc", 82.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "bfc", 82 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -5748,7 +5748,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -5763,7 +5763,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "in", "hwt", 2.0, 3.0, 4.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "in", "hwt", 2, 3, 4 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Church(P)",
@@ -5778,7 +5778,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 16.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 16 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Temple(P)",
@@ -5793,7 +5793,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 14.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 14 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Rectangle",
@@ -5809,7 +5809,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 9.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 9 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Mosque(P)",
@@ -5824,7 +5824,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 20.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 20 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Synagogue(P)",
@@ -5839,7 +5839,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 11.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 11 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower(A)",
@@ -5854,7 +5854,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 21.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 21 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Pagoda(P)",
@@ -5869,7 +5869,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal015",
-    "filter" : [ "all", [ "in", "exs", 0.0, 5.0, 6.0, 28.0 ], [ "<", "hgt", 46.0 ], [ "==", "hwt", 6.0 ], [ "==", "bfc", 7.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 5, 6, 28 ], [ "<", "hgt", 46 ], [ "==", "hwt", 6 ], [ "==", "bfc", 7 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -5899,7 +5899,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pak020",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -5914,7 +5914,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pak150",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -5929,7 +5929,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pak150",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -5944,7 +5944,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pak160",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Rectangle",
@@ -5960,7 +5960,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pak160",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -5975,7 +5975,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal130",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -5990,7 +5990,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal130",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6047,7 +6047,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pam020",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -6062,7 +6062,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pam020",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6077,7 +6077,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pam030",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -6092,7 +6092,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pam030",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6107,7 +6107,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paa010",
-    "filter" : [ "all", [ "in", "exs", 0.0, 3.0, 28.0 ] ],
+    "filter" : [ "all", [ "in", "exs", 0, 3, 28 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Mine_Operataion",
@@ -6122,7 +6122,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paa010",
-    "filter" : [ "all", [ "==", "exs", 6.0 ] ],
+    "filter" : [ "all", [ "==", "exs", 6 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Mine_NonOperataion",
@@ -6137,7 +6137,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paf010",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -6152,7 +6152,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paf010",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6167,7 +6167,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paf030",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -6182,7 +6182,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paf030",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6197,7 +6197,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paf040",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6212,7 +6212,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paj050",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -6227,7 +6227,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paj050",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6271,7 +6271,7 @@
     "type" : "circle",
     "source" : "a250k",
     "source-layer" : "pam070",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -6287,7 +6287,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pam070",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6302,7 +6302,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pam080",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -6317,7 +6317,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pam080",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6332,7 +6332,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal240",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -6347,7 +6347,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pal240",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6377,7 +6377,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pat010",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -6392,7 +6392,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pat010",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6407,7 +6407,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pat080",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -6422,7 +6422,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pat080",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6467,7 +6467,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paq130",
-    "filter" : [ "all", [ "in", "tuc", 0.0, 1.0, 3.0, 4.0 ] ],
+    "filter" : [ "all", [ "in", "tuc", 0, 1, 3, 4 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tunnel_01",
@@ -6482,7 +6482,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paq130",
-    "filter" : [ "all", [ "==", "tuc", 38.0 ] ],
+    "filter" : [ "all", [ "==", "tuc", 38 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tunnel_02",
@@ -6497,7 +6497,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pgb005",
-    "filter" : [ "all", [ "==", "apt", 1.0 ] ],
+    "filter" : [ "all", [ "==", "apt", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Airport_Main",
@@ -6512,7 +6512,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pgb005",
-    "filter" : [ "all", [ "in", "apt", 0.0, 2.0, 4.0 ] ],
+    "filter" : [ "all", [ "in", "apt", 0, 2, 4 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Airport_Sub",
@@ -6527,7 +6527,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pgb005",
-    "filter" : [ "all", [ "==", "apt", 11.0 ] ],
+    "filter" : [ "all", [ "==", "apt", 11 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Heliport_02",
@@ -6542,7 +6542,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pgb005",
-    "filter" : [ "all", [ "==", "apt", 9.0 ] ],
+    "filter" : [ "all", [ "==", "apt", 9 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Heliport_03",
@@ -6557,7 +6557,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paq060",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -6572,7 +6572,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paq060",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6587,7 +6587,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paq110",
-    "filter" : [ "all", [ "<", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ "<", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Tower",
@@ -6602,7 +6602,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paq110",
-    "filter" : [ "all", [ ">=", "hgt", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6660,7 +6660,7 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "paq050",
-    "filter" : [ "all", [ ">=", "ohb", 46.0 ] ],
+    "filter" : [ "all", [ ">=", "ohb", 46 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Obstacle",
@@ -6694,7 +6694,7 @@
       "visibility" : "visible",
       "icon-image" : "Rectangle",
       "icon-allow-overlap" : true,
-      "icon-size" : 0.2,
+      "icon-size" : 0.25,
       "icon-rotation-alignment" : "map"
     },
     "metadata" : {
@@ -6782,6 +6782,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{road_num}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -6799,6 +6800,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{road_num}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -6816,6 +6818,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{road_num}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -6829,7 +6832,7 @@
     "type" : "circle",
     "source" : "a250k",
     "source-layer" : "pca030",
-    "filter" : [ "all", [ "==", "acc", 1.0 ], [ "==", "ela", 1.0 ] ],
+    "filter" : [ "all", [ "==", "acc", 1 ], [ "==", "ela", 1 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -6845,7 +6848,7 @@
     "type" : "circle",
     "source" : "a250k",
     "source-layer" : "pca030",
-    "filter" : [ "all", [ "==", "acc", 1.0 ], [ "in", "ela", 0.0, 2.0 ] ],
+    "filter" : [ "all", [ "==", "acc", 1 ], [ "in", "ela", 0, 2 ] ],
     "layout" : {
       "visibility" : "visible"
     },
@@ -6861,13 +6864,14 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pca030",
-    "filter" : [ "all", [ "==", "acc", 1.0 ], [ "==", "ela", 1.0 ] ],
+    "filter" : [ "all", [ "==", "acc", 1 ], [ "==", "ela", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{zv2}",
+      "text-anchor" : "right",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
-      "text-offset" : [ 1.5, 0.0 ],
+      "text-offset" : [ 2.5, 0.0 ],
       "text-allow-overlap" : true
     },
     "paint" : {
@@ -6878,22 +6882,23 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pca030",
-    "filter" : [ "all", [ "==", "acc", 1.0 ], [ "in", "ela", 0.0, 2.0 ] ],
+    "filter" : [ "all", [ "==", "acc", 1 ], [ "in", "ela", 0, 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Sign",
       "icon-allow-overlap" : true,
       "text-field" : "{zv2}",
+      "text-anchor" : "right",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
-      "text-offset" : [ 1.5, 0.0 ],
+      "text-offset" : [ 2.5, 0.0 ],
       "text-allow-overlap" : true,
       "text-justify" : "left",
       "text-rotation-alignment" : "map",
       "text-keep-upright" : false,
       "icon-rotation-alignment" : "map",
       "icon-anchor" : "left",
-      "icon-offset" : [ 25.0, -5.0 ],
+      "icon-offset" : [ 20.0, -1.0 ],
       "icon-keep-upright" : false,
       "icon-text-fit" : "none"
     },
@@ -6905,13 +6910,14 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pca030",
-    "filter" : [ "all", [ "in", "acc", 0.0, 2.0 ], [ "==", "ela", 1.0 ] ],
+    "filter" : [ "all", [ "in", "acc", 0, 2 ], [ "==", "ela", 1 ] ],
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{zv2}",
+      "text-anchor" : "right",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
-      "text-offset" : [ 0.5, 0.0 ],
+      "text-offset" : [ 2.5, 0.0 ],
       "text-allow-overlap" : true
     },
     "paint" : {
@@ -6922,22 +6928,23 @@
     "type" : "symbol",
     "source" : "a250k",
     "source-layer" : "pca030",
-    "filter" : [ "all", [ "in", "acc", 0.0, 2.0 ], [ "in", "ela", 0.0, 2.0 ] ],
+    "filter" : [ "all", [ "in", "acc", 0, 2 ], [ "in", "ela", 0, 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "icon-image" : "Sign",
       "icon-allow-overlap" : true,
       "text-field" : "{zv2}",
+      "text-anchor" : "right",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
-      "text-offset" : [ 0.5, 0.0 ],
+      "text-offset" : [ 2.5, 0.0 ],
       "text-allow-overlap" : true,
       "text-justify" : "left",
       "text-rotation-alignment" : "map",
       "text-keep-upright" : false,
       "icon-rotation-alignment" : "map",
       "icon-anchor" : "left",
-      "icon-offset" : [ 25.0, -5.0 ],
+      "icon-offset" : [ 20.0, -1.0 ],
       "icon-keep-upright" : false,
       "icon-text-fit" : "none"
     },
@@ -6968,6 +6975,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{name}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-allow-overlap" : true
@@ -7004,7 +7012,8 @@
     "paint" : {
       "line-color" : "rgba(94, 58, 230, 1)",
       "line-width" : 1,
-      "line-gap-width" : 5
+      "line-gap-width" : 0,
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "항공정보::특수사용공역::특수사용공역::항공기의 비행에 적합하도록 통제의 의한 안전조치가 이루어지는 공중에 설정되는 지역의 경계"
@@ -7030,7 +7039,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "bdry",
-    "filter" : [ "all", [ "==", "type", 2.0 ] ],
+    "filter" : [ "all", [ "==", "type", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -7038,7 +7047,8 @@
     "paint" : {
       "line-color" : "rgba(94, 58, 230, 1)",
       "line-width" : 1,
-      "line-gap-width" : 5
+      "line-gap-width" : 0,
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "항공정보::공역::항공방어식별구역::국가의 안전을 위해 모든 항공기의 즉각적인 식별, 위치 및 관제가 이뤄지는 구역으로 영토와 영공의 방어를 위해 정해 놓은 공중구역의 경계"
@@ -7048,7 +7058,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "bdry",
-    "filter" : [ "all", [ "==", "type", 2.0 ] ],
+    "filter" : [ "all", [ "==", "type", 2 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -7065,7 +7075,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "bdry",
-    "filter" : [ "all", [ "==", "type", 5.0 ] ],
+    "filter" : [ "all", [ "==", "type", 5 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -7073,7 +7083,8 @@
     "paint" : {
       "line-color" : "rgba(94, 58, 230, 1)",
       "line-width" : 1,
-      "line-gap-width" : 5
+      "line-gap-width" : 0,
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "항공정보::공역::완중구역::전송해야 할 정보를 잠시 저장하여 양 장치의 작동 시간 간격을 조정하기 위해 설정된 기억 장치 내의 영역의 경계"
@@ -7083,7 +7094,7 @@
     "type" : "line",
     "source" : "a250k",
     "source-layer" : "bdry",
-    "filter" : [ "all", [ "==", "type", 5.0 ] ],
+    "filter" : [ "all", [ "==", "type", 5 ] ],
     "layout" : {
       "visibility" : "visible",
       "line-join" : "round"
@@ -7118,9 +7129,10 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{col}",
+      "text-anchor" : "bottom-right",
       "text-font" : [ "Gosanja" ],
       "text-size" : 8,
-      "text-offset" : [ 1.5, 0.0 ],
+      "text-offset" : [ 2.0, 0.0 ],
       "text-allow-overlap" : true
     },
     "paint" : {
@@ -7215,6 +7227,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{name}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-offset" : [ 95.0, -1.0 ],
@@ -7232,6 +7245,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{name}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-offset" : [ 95.0, -1.0 ],
@@ -7249,6 +7263,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{name}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-offset" : [ 95.0, -1.0 ],
@@ -7266,6 +7281,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{name}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-offset" : [ 95.0, -1.0 ],
@@ -7283,6 +7299,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{name}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-offset" : [ 95.0, -1.0 ],
@@ -7300,6 +7317,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 5,
       "text-allow-overlap" : true,
@@ -7317,6 +7335,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 6,
       "text-allow-overlap" : true,
@@ -7334,6 +7353,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 7,
       "text-allow-overlap" : true,
@@ -7351,6 +7371,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 8,
       "text-allow-overlap" : true,
@@ -7368,6 +7389,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -7385,6 +7407,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-allow-overlap" : true,
@@ -7402,6 +7425,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 11,
       "text-allow-overlap" : true,
@@ -7419,6 +7443,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 12,
       "text-allow-overlap" : true,
@@ -7436,6 +7461,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 14,
       "text-allow-overlap" : true,
@@ -7453,6 +7479,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 16,
       "text-allow-overlap" : true,
@@ -7470,6 +7497,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 6,
       "text-allow-overlap" : true,
@@ -7487,6 +7515,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 7,
       "text-allow-overlap" : true,
@@ -7504,6 +7533,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 8,
       "text-allow-overlap" : true,
@@ -7521,6 +7551,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -7538,6 +7569,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-allow-overlap" : true,
@@ -7555,6 +7587,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 11,
       "text-allow-overlap" : true,
@@ -7572,6 +7605,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 12,
       "text-allow-overlap" : true,
@@ -7589,6 +7623,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 14,
       "text-allow-overlap" : true,
@@ -7606,6 +7641,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 6,
       "text-allow-overlap" : true,
@@ -7623,6 +7659,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 7,
       "text-allow-overlap" : true,
@@ -7640,6 +7677,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 8,
       "text-allow-overlap" : true,
@@ -7657,6 +7695,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -7674,6 +7713,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-allow-overlap" : true,
@@ -7691,6 +7731,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 12,
       "text-allow-overlap" : true,
@@ -7708,6 +7749,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 13,
       "text-allow-overlap" : true,
@@ -7725,6 +7767,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 14,
       "text-allow-overlap" : true,
@@ -7742,6 +7785,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 15,
       "text-allow-overlap" : true,
@@ -7759,6 +7803,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 16,
       "text-allow-overlap" : true,
@@ -7776,6 +7821,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 18,
       "text-allow-overlap" : true,
@@ -7793,6 +7839,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 20,
       "text-allow-overlap" : true,
@@ -7810,6 +7857,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 22,
       "text-allow-overlap" : true,
@@ -7827,6 +7875,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 24,
       "text-allow-overlap" : true,
@@ -7844,6 +7893,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 6,
       "text-allow-overlap" : true,
@@ -7861,6 +7911,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 7,
       "text-allow-overlap" : true,
@@ -7878,6 +7929,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 8,
       "text-allow-overlap" : true,
@@ -7895,6 +7947,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
@@ -7912,6 +7965,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-allow-overlap" : true,
@@ -7929,6 +7983,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 11,
       "text-allow-overlap" : true,
@@ -7946,6 +8001,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 12,
       "text-allow-overlap" : true,
@@ -7963,6 +8019,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 13,
       "text-allow-overlap" : true,
@@ -7980,6 +8037,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 14,
       "text-allow-overlap" : true,
@@ -7997,6 +8055,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 15,
       "text-allow-overlap" : true,
@@ -8014,6 +8073,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 16,
       "text-allow-overlap" : true,
@@ -8031,6 +8091,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 17,
       "text-allow-overlap" : true,
@@ -8048,6 +8109,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 18,
       "text-allow-overlap" : true,
@@ -8065,6 +8127,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 20,
       "text-allow-overlap" : true,
@@ -8082,6 +8145,7 @@
     "layout" : {
       "visibility" : "visible",
       "text-field" : "{textstring}",
+      "text-anchor" : "center",
       "text-font" : [ "Gosanja" ],
       "text-size" : 30,
       "text-allow-overlap" : true,

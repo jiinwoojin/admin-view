@@ -28,6 +28,9 @@ public class GssStyle {
     private Float OffsetX;
     private Float OffsetY;
     private String Picture;
+    private Float ImageOffsetX;
+    private Float ImageOffsetY;
+    private Integer ImageAlign;
 
     private List<GssPointLayer> PointLayer;
     private List<GssLineLayer> LineLayer;
@@ -217,6 +220,30 @@ public class GssStyle {
 
     public void setOutline(Boolean outline) {
         Outline = outline;
+    }
+
+    public Integer getImageAlign() {
+        return ImageAlign;
+    }
+
+    public void setImageAlign(Integer imageAlign) {
+        ImageAlign = imageAlign;
+    }
+
+    public Float getImageOffsetX() {
+        return ImageOffsetX;
+    }
+
+    public void setImageOffsetX(Float imageOffsetX) {
+        ImageOffsetX = imageOffsetX;
+    }
+
+    public Float getImageOffsetY() {
+        return ImageOffsetY;
+    }
+
+    public void setImageOffsetY(Float imageOffsetY) {
+        ImageOffsetY = imageOffsetY;
     }
 }
 

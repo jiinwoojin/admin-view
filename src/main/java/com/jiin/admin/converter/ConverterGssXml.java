@@ -34,13 +34,13 @@ public class ConverterGssXml {
         String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
         //
         File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
-        File layerfile = new File(dataPath + "/gss_style/GSS_NAVY_LAYER.xml");
+        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
         ConverterVO param = new ConverterVO();
         param.setVersion(8);
         param.setId("uzymq5sw3");
         param.setName("g25k_style");
         param.setMaputnikRenderer("mbgljs");
-        param.setScale(ConverterVO.Scale.kr5);
+        param.setScale(ConverterVO.Scale.g25k);
         param.setFont("Gosanja");
         param.setSourceName(param.getScale().name());
         param.setSprite("http://192.168.0.11/GSymbol/GSSSymbol");
@@ -314,14 +314,16 @@ public class ConverterGssXml {
                                         ||
                                         !Objects.equals(labelStyle.getOffsetY(),0f)
                                 )) {
-                            String x = String.format("%.1f",labelStyle.getOffsetX() / 3.3f);
-                            String y = String.format("%.1f",labelStyle.getOffsetY() / 3.3f);
+                            String x = String.format("%.1f",labelStyle.getOffsetX() / 2.5f);
+                            String y = String.format("%.1f",labelStyle.getOffsetY() / 2.5f);
                             labelStyle.setOffsetX(Float.parseFloat(x));
                             labelStyle.setOffsetY(Float.parseFloat(y));
                             //
                             if(shpSource.equalsIgnoreCase("NAVL")){ //항법무선시설 라벨
                                 labelStyle.setOffsetX(95f);
                                 labelStyle.setOffsetY(-1f);
+                            }else if(shpSource.equalsIgnoreCase("PCA030")) { //표고점 라벨
+                                labelStyle.setOffsetX(2.5f);
                             }
                             layout.setTextOffset(new Float[]{labelStyle.getOffsetX(),labelStyle.getOffsetY()});
                         }
@@ -332,22 +334,39 @@ public class ConverterGssXml {
                             layout.setIconImage(parsePicture(labelStyle.getPicture()));
                             layout.setIconAllowOverlap(true);
                             layout.setIconRotationAlignment("map");
-                            layout.setIconAnchor("left");
                             layout.setIconKeepUpright(false);
                             layout.setIconTextFit("none");
-                            layout.setIconOffset(new Float[]{25f, -5f});
+                            if (labelStyle.getImageOffsetX() != null && labelStyle.getImageOffsetY() != null
+                                    && (!Objects.equals(labelStyle.getImageOffsetX(),0f) || !Objects.equals(labelStyle.getImageOffsetY(),0f))) {
+                                if(shpSource.equalsIgnoreCase("PCA030")) { //표고점 라벨
+                                    labelStyle.setImageOffsetX(20f);
+                                }
+                                layout.setIconOffset(new Float[]{labelStyle.getImageOffsetX(),labelStyle.getImageOffsetY()});
+                            }
+                            if(labelStyle.getImageAlign() != null){
+                                //역변 >> 0 - 왼쪽 상단, 1 - 중앙 상단, 2 - 오른쪽 상단, 3 - 왼쪽 중앙, 4 - 정가운데, 5 - 오른쪽 중앙, 6 - 왼쪽 하단, 7 - 중앙 하단, 8 - 오른쪽 하단
+                                if(labelStyle.getImageAlign() == 0) layout.setIconAnchor("bottom-right");
+                                if(labelStyle.getImageAlign() == 1) layout.setIconAnchor("bottom");
+                                if(labelStyle.getImageAlign() == 2) layout.setIconAnchor("bottom-left");
+                                if(labelStyle.getImageAlign() == 3) layout.setIconAnchor("right");
+                                if(labelStyle.getImageAlign() == 4) layout.setIconAnchor("center");
+                                if(labelStyle.getImageAlign() == 5) layout.setIconAnchor("left");
+                                if(labelStyle.getImageAlign() == 6) layout.setIconAnchor("top-right");
+                                if(labelStyle.getImageAlign() == 7) layout.setIconAnchor("top");
+                                if(labelStyle.getImageAlign() == 8) layout.setIconAnchor("top-left");
+                            }
                         }
                         if(labelStyle.getAlign() != null){
-                            //0 - 왼쪽 상단, 1 - 중앙 상단, 2 - 오른쪽 상단, 3 - 왼쪽 중앙, 4 - 정가운데, 5 - 오른쪽 중앙, 6 - 왼쪽 하단, 7 - 중앙 하단, 8 - 오른쪽 하단
-                            if(labelStyle.getAlign() == 0) layout.setTextAnchor("top-left");
-                            if(labelStyle.getAlign() == 1) layout.setTextAnchor("top");
-                            if(labelStyle.getAlign() == 2) layout.setTextAnchor("top-right");
-                            if(labelStyle.getAlign() == 3) layout.setTextAnchor("left");
+                            //역변 >> 0 - 왼쪽 상단, 1 - 중앙 상단, 2 - 오른쪽 상단, 3 - 왼쪽 중앙, 4 - 정가운데, 5 - 오른쪽 중앙, 6 - 왼쪽 하단, 7 - 중앙 하단, 8 - 오른쪽 하단
+                            if(labelStyle.getAlign() == 0) layout.setTextAnchor("bottom-right");
+                            if(labelStyle.getAlign() == 1) layout.setTextAnchor("bottom");
+                            if(labelStyle.getAlign() == 2) layout.setTextAnchor("bottom-left");
+                            if(labelStyle.getAlign() == 3) layout.setTextAnchor("right");
                             if(labelStyle.getAlign() == 4) layout.setTextAnchor("center");
-                            if(labelStyle.getAlign() == 5) layout.setTextAnchor("right");
-                            if(labelStyle.getAlign() == 6) layout.setTextAnchor("bottom-left");
-                            if(labelStyle.getAlign() == 7) layout.setTextAnchor("bottom");
-                            if(labelStyle.getAlign() == 8) layout.setTextAnchor("bottom-right");
+                            if(labelStyle.getAlign() == 5) layout.setTextAnchor("left");
+                            if(labelStyle.getAlign() == 6) layout.setTextAnchor("top-right");
+                            if(labelStyle.getAlign() == 7) layout.setTextAnchor("top");
+                            if(labelStyle.getAlign() == 8) layout.setTextAnchor("top-left");
                         }
                         MapboxPaint paint = new MapboxPaint();
                         if (labelStyle.getColor() != null) paint.setTextColor(parseColor(labelStyle.getColor()));
