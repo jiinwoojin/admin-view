@@ -8217,7 +8217,7 @@
       "visibility" : "visible",
       "icon-image" : "Rectangle",
       "icon-allow-overlap" : true,
-      "icon-size" : 0.38,
+      "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
     },
     "metadata" : {
@@ -8307,7 +8307,7 @@
       "visibility" : "visible",
       "icon-image" : "Rectangle",
       "icon-allow-overlap" : true,
-      "icon-size" : 0.38,
+      "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
     },
     "metadata" : {
@@ -8782,7 +8782,7 @@
       "visibility" : "visible",
       "icon-image" : "Rectangle",
       "icon-allow-overlap" : true,
-      "icon-size" : 0.38,
+      "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
     },
     "metadata" : {
@@ -8873,7 +8873,7 @@
       "visibility" : "visible",
       "icon-image" : "Rectangle",
       "icon-allow-overlap" : true,
-      "icon-size" : 0.38,
+      "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
     },
     "metadata" : {
@@ -9052,7 +9052,7 @@
       "visibility" : "visible",
       "icon-image" : "Rectangle",
       "icon-allow-overlap" : true,
-      "icon-size" : 0.38,
+      "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
     },
     "metadata" : {
@@ -9067,7 +9067,7 @@
       "visibility" : "visible",
       "icon-image" : "Rectangle",
       "icon-allow-overlap" : true,
-      "icon-size" : 0.38,
+      "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
     },
     "metadata" : {
@@ -9082,7 +9082,7 @@
       "visibility" : "visible",
       "icon-image" : "Rectangle",
       "icon-allow-overlap" : true,
-      "icon-size" : 0.38,
+      "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
     },
     "metadata" : {
@@ -9097,7 +9097,7 @@
       "visibility" : "visible",
       "icon-image" : "Rectangle",
       "icon-allow-overlap" : true,
-      "icon-size" : 0.38,
+      "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
     },
     "metadata" : {
@@ -9316,7 +9316,7 @@
       "visibility" : "visible",
       "icon-image" : "Rectangle",
       "icon-allow-overlap" : true,
-      "icon-size" : 0.38,
+      "icon-size" : 0.3,
       "icon-rotation-alignment" : "map"
     },
     "metadata" : {

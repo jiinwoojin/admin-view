@@ -505,6 +505,9 @@ public class ConverterGssXml {
                             layout.setIconAllowOverlap(true);
                             layout.setIconRotationAlignment("map");
                             String size = String.format("%.2f",Float.parseFloat(gssPaint.getSize()) * 0.0625f);
+                            if(size.equals("0.38")){
+                                size = "0.3"; // PAH050 등 제외 / 9건
+                            }
                             layout.setIconSize(Float.parseFloat(size));
                         }
                     }
