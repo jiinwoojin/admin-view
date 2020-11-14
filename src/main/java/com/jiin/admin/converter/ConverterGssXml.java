@@ -169,6 +169,8 @@ public class ConverterGssXml {
             makeLayer("Polygon", layer, sourceName, font, styles, param, mapbox);
             makeLayer("Line", layer, sourceName, font, styles, param, mapbox);
             makeLayer("Point", layer, sourceName, font, styles, param, mapbox);
+        }
+        for(GssLayer layer : layers) {
             makeLayer("Label", layer, sourceName, font, styles, param, mapbox);
         }
         mapbox.cleanLayerId();
@@ -217,7 +219,7 @@ public class ConverterGssXml {
                                                 //point
                                                 makeStyleLayer("Point", layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                             }else{
-                                                List<GssLineLayer> lineStyles = lineStyleByType(linestyle);
+                                                List<GssLineLayer> lineStyles = lineStyleByType(linestyle, featureType, shpSource);
                                                 for (GssLineLayer _linestyle : lineStyles) {
                                                     makeStyleLayer("Line", layer, feature, style, _linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                                 }
@@ -239,7 +241,7 @@ public class ConverterGssXml {
                                         //point
                                         makeStyleLayer("Point", layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }else{
-                                        List<GssLineLayer> lineStyles = lineStyleByType(linestyle);
+                                        List<GssLineLayer> lineStyles = lineStyleByType(linestyle, featureType, shpSource);
                                         for (GssLineLayer _linestyle : lineStyles) {
                                             makeStyleLayer(featureType, layer, feature, style, _linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                         }
@@ -383,8 +385,18 @@ public class ConverterGssXml {
         }
     }
 
-    private List<GssLineLayer> lineStyleByType(GssLineLayer linestyle) {
+    private List<GssLineLayer> lineStyleByType(GssLineLayer linestyle, String featureType, String shpSource) {
         List<GssLineLayer> result = new ArrayList<>();
+        //
+        float convert = 1;
+        if(
+                shpSource.equalsIgnoreCase("LEA020") // 산울타리
+                ||
+                shpSource.equalsIgnoreCase("SUAS") // 특수사용공역
+        ){
+            convert = -1;
+        }
+        //
         //
         if(linestyle.getType().equals("SIMPLE")){
             // nothing
@@ -406,11 +418,11 @@ public class ConverterGssXml {
             Integer interval = linestyle.getInterval();
             int width = left + right;
             List<Float> dash = new ArrayList<>();
-            dash.add((dashWidth / 2f));
-            dash.add(interval - (dashWidth / 2f));
+            dash.add((dashWidth / (dashWidth == 1 ? 2f : 1f)));
+            dash.add(interval - (dashWidth / (dashWidth == 1 ? 2f : 1f)));
             linestyle.setDashItem(dash);
             linestyle.setWidth(width);
-            linestyle.setOffset((float) ((left - right) / 2));
+            linestyle.setOffset((float) ((left - right) / 2) * convert);
             result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 1){
             // Left (or Inside)
@@ -419,11 +431,11 @@ public class ConverterGssXml {
             Integer interval = linestyle.getInterval();
             int width = left;
             List<Float> dash = new ArrayList<>();
-            dash.add((dashWidth / 2f));
-            dash.add(interval - (dashWidth / 2f));
+            dash.add((dashWidth / (dashWidth == 1 ? 2f : 1f)));
+            dash.add(interval - (dashWidth / (dashWidth == 1 ? 2f : 1f)));
             linestyle.setDashItem(dash);
             linestyle.setWidth(width);
-            linestyle.setOffset((float) +(width / 2));
+            linestyle.setOffset((float) +(width / 2) * convert);
             result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 2){
             // Right (or Outside)
@@ -432,11 +444,11 @@ public class ConverterGssXml {
             Integer interval = linestyle.getInterval();
             int width = right;
             List<Float> dash = new ArrayList<>();
-            dash.add((dashWidth / 2f));
-            dash.add(interval - (dashWidth / 2f));
+            dash.add((dashWidth / (dashWidth == 1 ? 2f : 1f)));
+            dash.add(interval - (dashWidth / (dashWidth == 1 ? 2f : 1f)));
             linestyle.setDashItem(dash);
             linestyle.setWidth(width);
-            linestyle.setOffset((float) -(width / 2));
+            linestyle.setOffset((float) -(width / 2) * convert);
             result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 3){
             // Both Circle
@@ -449,7 +461,7 @@ public class ConverterGssXml {
             dash.add(interval - (dashWidth / 2f));
             linestyle.setDashItem(dash);
             linestyle.setWidth(dashWidth);
-            linestyle.setOffset((float) +left);
+            linestyle.setOffset((float) +left * convert);
             result.add(linestyle);
             // right
             GssLineLayer addLinestyle = new GssLineLayer();
@@ -460,7 +472,7 @@ public class ConverterGssXml {
             addDash.add(interval - (dashWidth / 2f));
             addLinestyle.setDashItem(dash);
             addLinestyle.setWidth(dashWidth);
-            addLinestyle.setOffset((float) -right);
+            addLinestyle.setOffset((float) -right * convert);
             result.add(addLinestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 4){
             // Left Circle
@@ -472,7 +484,7 @@ public class ConverterGssXml {
             dash.add(interval - (dashWidth / 2f));
             linestyle.setDashItem(dash);
             linestyle.setWidth(dashWidth);
-            linestyle.setOffset((float) +left);
+            linestyle.setOffset((float) +left * convert);
             result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 5){
             // Right Circle
@@ -484,7 +496,7 @@ public class ConverterGssXml {
             dash.add(interval - (dashWidth / 2f));
             linestyle.setDashItem(dash);
             linestyle.setWidth(dashWidth);
-            linestyle.setOffset((float) -right);
+            linestyle.setOffset((float) -right * convert);
             result.add(linestyle);
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 0){
             // Simple
@@ -500,13 +512,13 @@ public class ConverterGssXml {
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 3){
             // Left Only
             Integer space = linestyle.getSpace();
-            linestyle.setOffset((float) +space);
+            linestyle.setOffset(+(Float.valueOf(space) / 2f) * convert);
             linestyle.setSpace(0);
             result.add(linestyle);
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 4){
             // Right Only
             Integer space = linestyle.getSpace();
-            linestyle.setOffset((float) -space);
+            linestyle.setOffset(-(Float.valueOf(space) / 2f) * convert);
             linestyle.setSpace(0);
             result.add(linestyle);
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 5){

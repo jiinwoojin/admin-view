@@ -742,7 +742,7 @@
       "line-color" : "rgba(170, 90, 90, 1)",
       "line-width" : 6,
       "line-dasharray" : [ 0.0, 1.667, 0.083, -0.083 ],
-      "line-offset" : -3.0
+      "line-offset" : 3.0
     },
     "metadata" : {
       "maputnik:comment" : "지형::암석층::암석층::가시적 지형의 노출부, 층이나 바위층인 암석층의 경계지역"
@@ -7013,7 +7013,7 @@
       "line-color" : "rgba(94, 58, 230, 1)",
       "line-width" : 1,
       "line-gap-width" : 0,
-      "line-offset" : 5.0
+      "line-offset" : 2.5
     },
     "metadata" : {
       "maputnik:comment" : "항공정보::특수사용공역::특수사용공역::항공기의 비행에 적합하도록 통제의 의한 안전조치가 이루어지는 공중에 설정되는 지역의 경계"
@@ -7048,7 +7048,7 @@
       "line-color" : "rgba(94, 58, 230, 1)",
       "line-width" : 1,
       "line-gap-width" : 0,
-      "line-offset" : 5.0
+      "line-offset" : 2.5
     },
     "metadata" : {
       "maputnik:comment" : "항공정보::공역::항공방어식별구역::국가의 안전을 위해 모든 항공기의 즉각적인 식별, 위치 및 관제가 이뤄지는 구역으로 영토와 영공의 방어를 위해 정해 놓은 공중구역의 경계"
@@ -7084,7 +7084,7 @@
       "line-color" : "rgba(94, 58, 230, 1)",
       "line-width" : 1,
       "line-gap-width" : 0,
-      "line-offset" : 5.0
+      "line-offset" : 2.5
     },
     "metadata" : {
       "maputnik:comment" : "항공정보::공역::완중구역::전송해야 할 정보를 잠시 저장하여 양 장치의 작동 시간 간격을 조정하기 위해 설정된 기억 장치 내의 영역의 경계"
