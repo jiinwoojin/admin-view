@@ -19,7 +19,7 @@ public class GssLineLayer {
     private String StartCap;
     private String EndCap;
     private String DashOffset;
-    private String VerticalType;
+    private Integer VerticalType;
     private Integer StartPos;
     private Integer Interval;
     private Integer Offset;
@@ -78,13 +78,6 @@ public class GssLineLayer {
         return StartCap;
     }
 
-    public String getVerticalType() {
-        return VerticalType;
-    }
-
-    public void setVerticalType(String verticalType) {
-        VerticalType = verticalType;
-    }
 
     public Integer getStartPos() {
         return StartPos;
@@ -216,5 +209,13 @@ public class GssLineLayer {
 
     public void setSubType(Integer subType) {
         SubType = subType;
+    }
+
+    public Integer getVerticalType() {
+        return VerticalType;
+    }
+
+    public void setVerticalType(Integer verticalType) {
+        VerticalType = verticalType;
     }
 }

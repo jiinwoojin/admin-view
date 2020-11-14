@@ -300,27 +300,28 @@ public class ConverterGssXml {
 
         }else if(linestyle.getType().equals("PICTURE")){
 
-        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getSubType() == 0){
+        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 0){
             // Both
-        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getSubType() == 1){
+
+        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 1){
             // Left (or Inside)
-        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getSubType() == 2){
+        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 2){
             // Right (or Outside)
-        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getSubType() == 3){
+        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 3){
             // Both Circle
-        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getSubType() == 4){
+        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 4){
             // Left Circle
-        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getSubType() == 5){
+        }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 5){
             // Right Circle
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 0){
             // Simple
-            List<Integer> dash = new ArrayList<>();
-            dash.add(1);
-            dash.add(linestyle.getInterval());
-            linestyle.setDashItem(dash);
-            int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
-            linestyle.setWidth(newWidth);
-            linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
+//            List<Integer> dash = new ArrayList<>();
+//            dash.add(1);
+//            dash.add(linestyle.getInterval());
+//            linestyle.setDashItem(dash);
+//            int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
+//            linestyle.setWidth(newWidth);
+//            linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 1){
             // End Round
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 2){
