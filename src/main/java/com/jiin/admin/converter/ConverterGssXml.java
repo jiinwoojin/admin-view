@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.jiin.admin.converter.gss.*;
 import com.jiin.admin.converter.mapbox.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -171,8 +172,10 @@ public class ConverterGssXml {
                                                 //point
                                                 makeStyleLayer("Point", layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                             }else{
-                                                lineStyleByType(linestyle);
-                                                makeStyleLayer("Line", layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                                List<GssLineLayer> lineStyles = lineStyleByType(linestyle);
+                                                for (GssLineLayer _linestyle : lineStyles) {
+                                                    makeStyleLayer("Line", layer, feature, style, _linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                                }
                                             }
                                         }
                                     }
@@ -191,8 +194,10 @@ public class ConverterGssXml {
                                         //point
                                         makeStyleLayer("Point", layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
                                     }else{
-                                        lineStyleByType(linestyle);
-                                        makeStyleLayer(featureType, layer, feature, style, linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                        List<GssLineLayer> lineStyles = lineStyleByType(linestyle);
+                                        for (GssLineLayer _linestyle : lineStyles) {
+                                            makeStyleLayer(featureType, layer, feature, style, _linestyle, shpSource, styleName, sourceName, feature.getVVTStyle(), angleColumn, mapbox);
+                                        }
                                     }
                                 }
                             }
@@ -293,48 +298,136 @@ public class ConverterGssXml {
         }
     }
 
-    private void lineStyleByType(GssLineLayer linestyle) {
+    private List<GssLineLayer> lineStyleByType(GssLineLayer linestyle) {
+        List<GssLineLayer> result = new ArrayList<>();
+        //
         if(linestyle.getType().equals("SIMPLE")){
-
+            // nothing
+            result.add(linestyle);
         }else if(linestyle.getType().equals("DASH")){
-
+            // nothing
+            result.add(linestyle);
         }else if(linestyle.getType().equals("PICTURE")){
-
+            // nothing
+            result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 0){
             // Both
-
+            Integer dashWidth = linestyle.getWidth();
+            Integer left = linestyle.getLeftLength();
+            Integer right = linestyle.getRightLength();
+            Integer interval = linestyle.getInterval();
+            int width = left + right;
+            List<Float> dash = new ArrayList<>();
+            dash.add((dashWidth / 2f));
+            dash.add(interval - (dashWidth / 2f));
+            linestyle.setDashItem(dash);
+            linestyle.setWidth(width);
+            linestyle.setOffset((float) ((left - right) / 2));
+            result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 1){
             // Left (or Inside)
+            Integer dashWidth = linestyle.getWidth();
+            Integer left = linestyle.getLeftLength();
+            Integer interval = linestyle.getInterval();
+            int width = left;
+            List<Float> dash = new ArrayList<>();
+            dash.add((dashWidth / 2f));
+            dash.add(interval - (dashWidth / 2f));
+            linestyle.setDashItem(dash);
+            linestyle.setWidth(width);
+            linestyle.setOffset((float) +(width / 2));
+            result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 2){
             // Right (or Outside)
+            Integer dashWidth = linestyle.getWidth();
+            Integer right = linestyle.getRightLength();
+            Integer interval = linestyle.getInterval();
+            int width = right;
+            List<Float> dash = new ArrayList<>();
+            dash.add((dashWidth / 2f));
+            dash.add(interval - (dashWidth / 2f));
+            linestyle.setDashItem(dash);
+            linestyle.setWidth(width);
+            linestyle.setOffset((float) -(width / 2));
+            result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 3){
             // Both Circle
+            // left
+            Integer dashWidth = linestyle.getWidth();
+            Integer left = linestyle.getLeftLength();
+            Integer interval = linestyle.getInterval();
+            List<Float> dash = new ArrayList<>();
+            dash.add(dashWidth / 2f);
+            dash.add(interval - (dashWidth / 2f));
+            linestyle.setDashItem(dash);
+            linestyle.setWidth(dashWidth);
+            linestyle.setOffset((float) +left);
+            result.add(linestyle);
+            // right
+            GssLineLayer addLinestyle = new GssLineLayer();
+            BeanUtils.copyProperties(linestyle, addLinestyle);
+            Integer right = addLinestyle.getRightLength();
+            List<Float> addDash = new ArrayList<>();
+            addDash.add(dashWidth / 2f);
+            addDash.add(interval - (dashWidth / 2f));
+            addLinestyle.setDashItem(dash);
+            addLinestyle.setWidth(dashWidth);
+            addLinestyle.setOffset((float) -right);
+            result.add(addLinestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 4){
             // Left Circle
+            Integer dashWidth = linestyle.getWidth();
+            Integer left = linestyle.getLeftLength();
+            Integer interval = linestyle.getInterval();
+            List<Float> dash = new ArrayList<>();
+            dash.add(dashWidth / 2f);
+            dash.add(interval - (dashWidth / 2f));
+            linestyle.setDashItem(dash);
+            linestyle.setWidth(dashWidth);
+            linestyle.setOffset((float) +left);
+            result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 5){
             // Right Circle
+            Integer dashWidth = linestyle.getWidth();
+            Integer right = linestyle.getRightLength();
+            Integer interval = linestyle.getInterval();
+            List<Float> dash = new ArrayList<>();
+            dash.add(dashWidth / 2f);
+            dash.add(interval - (dashWidth / 2f));
+            linestyle.setDashItem(dash);
+            linestyle.setWidth(dashWidth);
+            linestyle.setOffset((float) -right);
+            result.add(linestyle);
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 0){
             // Simple
-//            List<Integer> dash = new ArrayList<>();
-//            dash.add(1);
-//            dash.add(linestyle.getInterval());
-//            linestyle.setDashItem(dash);
-//            int newWidth = linestyle.getLeftLength() + linestyle.getRightLength();
-//            linestyle.setWidth(newWidth);
-//            linestyle.setOffset(linestyle.getRightLength() - linestyle.getLeftLength());
+            // nothing
+            result.add(linestyle);
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 1){
             // End Round
+            // dont exist - ignore
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 2){
             // Bridge
+            // DRAW by APP
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 3){
             // Left Only
+            Integer space = linestyle.getSpace();
+            linestyle.setOffset((float) +space);
+            linestyle.setSpace(0);
+            result.add(linestyle);
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 4){
             // Right Only
+            Integer space = linestyle.getSpace();
+            linestyle.setOffset((float) -space);
+            linestyle.setSpace(0);
+            result.add(linestyle);
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 5){
             // Tunnel
+            // DRAW by APP
         }else if(linestyle.getType().equals("DOUBLELINE") && linestyle.getSubType() == 6){
             // PipeLine
+            // DRAW by APP
         }
+        return result;
     }
 
     private void makeStyleLayer(String featureType, GssLayer layer, GssFeature feature, GssStyle style, Object styleLayer, String shpSource, String styleName, String sourceName, List<GssVVTStyle> vvtStyle, String angleColumn,  MapboxRoot mapbox) throws JsonProcessingException {

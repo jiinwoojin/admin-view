@@ -22,7 +22,7 @@ public class GssLineLayer {
     private Integer VerticalType;
     private Integer StartPos;
     private Integer Interval;
-    private Integer Offset;
+    private Float Offset;
     private Integer LeftLength;
     private Integer RightLength;
     private String Picture;
@@ -30,7 +30,7 @@ public class GssLineLayer {
     private String Transparent;
     private Integer Space;
     @XmlElementWrapper(name="Dash")
-    private List<Integer> DashItem;
+    private List<Float> DashItem;
 
 
     public String getColor() {
@@ -133,9 +133,7 @@ public class GssLineLayer {
         Space = space;
     }
 
-    public List<Integer> getDashItem() {
-        return DashItem;
-    }
+
 
     /**
      * 넓이값에 따라 수치값 조정
@@ -145,20 +143,32 @@ public class GssLineLayer {
         Integer startPos = getStartPos();
         Float width = Float.valueOf(getWidth());
         List<Float> newvalues = new ArrayList<>();
+        List<Float> values = getDashItem();
         if(startPos != null){
             newvalues.add(0f);
-            Float valuef = Float.valueOf(startPos) / width;
-            newvalues.add(Float.valueOf(String.format("%.1f",valuef)));
+            newvalues.add(Float.valueOf(startPos));
+            int idx = 0;
+            for(Float value : values){
+                if(idx++ == 1){
+                    newvalues.add(Float.valueOf(value - startPos));
+                }else{
+                    newvalues.add(Float.valueOf(value));
+                }
+            }
+        }else{
+            for(Float value : values){
+                newvalues.add(Float.valueOf(value));
+            }
         }
-        List<Integer> values = getDashItem();
-        for(Integer value : values){
-            Float valuef = Float.valueOf(value) / width;
-            newvalues.add(Float.valueOf(String.format("%.1f",valuef)));
+        List<Float> returnvalues = new ArrayList<>();
+        for(Float value : newvalues){
+            Float valuef = value / (width);
+            returnvalues.add(Float.valueOf(String.format("%.3f",valuef)));
         }
-        return newvalues;
+        return returnvalues;
     }
 
-    public void setDashItem(List<Integer> dashItem) {
+    public void setDashItem(List<Float> dashItem) {
         DashItem = dashItem;
     }
 
@@ -177,14 +187,6 @@ public class GssLineLayer {
 
     public void setRightLength(Integer rightLength) {
         RightLength = rightLength;
-    }
-
-    public Integer getOffset() {
-        return Offset;
-    }
-
-    public void setOffset(Integer offset) {
-        Offset = offset;
     }
 
     public Boolean getTextureLine() {
@@ -217,5 +219,17 @@ public class GssLineLayer {
 
     public void setVerticalType(Integer verticalType) {
         VerticalType = verticalType;
+    }
+
+    public Float getOffset() {
+        return Offset;
+    }
+
+    public void setOffset(Float offset) {
+        Offset = offset;
+    }
+
+    public List<Float> getDashItem() {
+        return DashItem;
     }
 }

@@ -794,7 +794,9 @@
     },
     "paint" : {
       "line-color" : "rgba(170, 90, 90, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 0.167, 0.083, 4.75 ],
+      "line-offset" : -3.0
     },
     "metadata" : {
       "maputnik:comment" : "지형::제방/성토::제방/성토::흙이나 다른 재료로 쌓아올린 긴 토루인 제방/성토의 경계지역"
@@ -1127,7 +1129,9 @@
     },
     "paint" : {
       "line-color" : "rgba(170, 90, 90, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 1.667, 0.083, -0.083 ],
+      "line-offset" : -3.0
     },
     "metadata" : {
       "maputnik:comment" : "지형::암석층::암석층::가시적 지형의 노출부, 층이나 바위층인 암석층의 경계지역"
@@ -2892,7 +2896,7 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 10.3, 1.3, 2.7, 1.3 ]
+      "line-dasharray" : [ 10.333, 1.333, 2.667, 1.333 ]
     },
     "metadata" : {
       "maputnik:comment" : "경계::국가경계::1차경계::통제 지역 사이의 행정구역 중, 상대 중요도가 1순위인 행정지역의 경계"
@@ -2910,7 +2914,7 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 10.3, 1.3, 2.7, 1.3 ]
+      "line-dasharray" : [ 10.333, 1.333, 2.667, 1.333 ]
     },
     "metadata" : {
       "maputnik:comment" : "경계::국가경계::1차경계::통제 지역 사이의 행정구역 중, 상대 중요도가 1순위인 행정지역의 경계"
@@ -3085,7 +3089,7 @@
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 4.0, 1.7, 4.0, 1.7 ]
+      "line-dasharray" : [ 4.0, 1.667, 4.0, 1.667 ]
     },
     "metadata" : {
       "maputnik:comment" : "경계::날짜변경선::날짜변경선::일반적으로 180개의 경선과 일치하고 각각의 역일이 시작되는 곳으로 지정되는 날짜변경선의 경계"
@@ -3167,7 +3171,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 4.167, 0.083, 1.583 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "경계::국제해상경계::국제해상경계::국제해상의 경계"
@@ -3198,7 +3204,9 @@
     },
     "paint" : {
       "line-color" : "rgba(111, 182, 59, 1)",
-      "line-width" : 8
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 3.333, 1.333, 0.333 ],
+      "line-offset" : 1.0
     },
     "metadata" : {
       "maputnik:comment" : "식생::산울타리::산울타리::관목 재배를 위해 설치한 울타리, 행정구역, 바람막이인 산울타리의 경계"
@@ -3351,7 +3359,7 @@
     "paint" : {
       "line-color" : "rgba(184, 214, 243, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 3.3, 1.0, 3.3, 1.0 ]
+      "line-dasharray" : [ 3.333, 1.0, 3.333, 1.0 ]
     },
     "metadata" : {
       "maputnik:comment" : "수부::운하::간헐적 운하::수송을 위해 자연수로를 개발하거나 인공적으로 만든 간헐적 운하의 경계"
@@ -3444,23 +3452,7 @@
       "maputnik:comment" : "수부::수압관::지상 수압관::일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 지상에 위치하는 수압관의 경계"
     }
   }, {
-    "id" : "LBH110_BH110L02_01",
-    "type" : "line",
-    "source" : "g25k",
-    "source-layer" : "lbh110",
-    "filter" : [ "all", [ "==", "loc", 25 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 99, 198, 1)",
-      "line-width" : 1
-    },
-    "metadata" : {
-      "maputnik:comment" : "수부::수압관::고가수로 수압관::일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 고가수로에 위치하는 수압관의 경계"
-    }
-  }, {
-    "id" : "LBH110_BH110L02_02",
+    "id" : "LBH110_BH110L02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "lbh110",
@@ -3477,23 +3469,7 @@
       "maputnik:comment" : "수부::수압관::고가수로 수압관::일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 고가수로에 위치하는 수압관의 경계"
     }
   }, {
-    "id" : "LBH110_BH110L03_01",
-    "type" : "line",
-    "source" : "g25k",
-    "source-layer" : "lbh110",
-    "filter" : [ "all", [ "==", "loc", 40 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 99, 198, 1)",
-      "line-width" : 1
-    },
-    "metadata" : {
-      "maputnik:comment" : "수부::수압관::지하 수압관::일반적으로 중력이나 하상 압력에 의해 물을 송수하는 수력발전소나 물방앗간에 의해 사용되는 수압관 중, 지하에 위치하는 수압관의 경계"
-    }
-  }, {
-    "id" : "LBH110_BH110L03_02",
+    "id" : "LBH110_BH110L03",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "lbh110",
@@ -3629,23 +3605,7 @@
       "maputnik:comment" : "수부::수도관::지상수도관::멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 지상에 위치하는 수도관의 경계"
     }
   }, {
-    "id" : "LBH010_BH010L02_01",
-    "type" : "line",
-    "source" : "g25k",
-    "source-layer" : "lbh010",
-    "filter" : [ "all", [ "==", "loc", 25 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(115, 140, 230, 1)",
-      "line-width" : 1
-    },
-    "metadata" : {
-      "maputnik:comment" : "수부::수도관::고가수로수도관::멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 고가수로에 위치하는 수도관의 경계"
-    }
-  }, {
-    "id" : "LBH010_BH010L02_02",
+    "id" : "LBH010_BH010L02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "lbh010",
@@ -3662,23 +3622,7 @@
       "maputnik:comment" : "수부::수도관::고가수로수도관::멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 고가수로에 위치하는 수도관의 경계"
     }
   }, {
-    "id" : "LBH010_BH010L03_01",
-    "type" : "line",
-    "source" : "g25k",
-    "source-layer" : "lbh010",
-    "filter" : [ "all", [ "==", "loc", 40 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(115, 140, 230, 1)",
-      "line-width" : 1
-    },
-    "metadata" : {
-      "maputnik:comment" : "수부::수도관::지하수도관::멀리 떨어진 수원으로부터 물을 수송하기 위해 설계된 수도관 중, 지하에 위치하는 수도관의 경계"
-    }
-  }, {
-    "id" : "LBH010_BH010L03_02",
+    "id" : "LBH010_BH010L03",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "lbh010",
@@ -3775,7 +3719,9 @@
     },
     "paint" : {
       "line-color" : "rgba(194, 137, 137, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 0.0, 0.05, 4.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "고도::등고선::저하등고선 계곡선::똑같은 수직기준좌표 값을 가진 점과 연결된 선인 저하등고선 계곡선의 경계"
@@ -3808,7 +3754,9 @@
     },
     "paint" : {
       "line-color" : "rgba(194, 137, 137, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 0.0, 0.05, 4.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "고도::등고선::저하등고선 주곡선::똑같은 수직기준좌표 값을 가진 점과 연결된 선인 저하등고선 주곡선의 경계"
@@ -3855,7 +3803,9 @@
     },
     "paint" : {
       "line-color" : "rgba(194, 137, 137, 1)",
-      "line-width" : 1
+      "line-width" : 4,
+      "line-dasharray" : [ 0.0, 0.25, 0.125, 0.875 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "지형::절벽/급사면::절벽/급사면::바위나 땅의 가파른 면이나 수직적 또는 돌출한 면인 절벽/급사면의 경계"
@@ -3887,7 +3837,9 @@
     },
     "paint" : {
       "line-color" : "rgba(170, 90, 90, 1)",
-      "line-width" : 1
+      "line-width" : 4,
+      "line-dasharray" : [ 0.0, 2.5, 0.125, 1.125 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "지형::절토::절토::도로, 철도, 운하 등을 위해 통로를 제공하는 지표면특질의 동굴인 절토의 경계"
@@ -3918,7 +3870,9 @@
     },
     "paint" : {
       "line-color" : "rgba(170, 90, 90, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.083, -0.917 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "지형::제방/성토::제방/성토::흙이나 다른 재료로 쌓아올린 긴 토루인 제방의 경계"
@@ -3950,7 +3904,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 99, 198, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 5.0, 0.1, 3.7 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "지형::빙벽::빙벽::빙산의 벽인 빙벽의 경계"
@@ -4106,23 +4062,7 @@
       "maputnik:comment" : "산업시설::홈통(용수로)::고가수로 홈통(용수로)::물을 받아 흐르게 하기 위해 고가수로에 설치하는 홈통의 경계"
     }
   }, {
-    "id" : "LAQ113_AQ113L01_01",
-    "type" : "line",
-    "source" : "g25k",
-    "source-layer" : "laq113",
-    "filter" : [ "all", [ "==", "loc", 25 ], [ "in", "pro", 0, 116 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(115, 140, 230, 1)",
-      "line-width" : 1
-    },
-    "metadata" : {
-      "maputnik:comment" : "공익설비::파이프라인::고가수로 파이프라인::고체, 액체, 기체의 수송을 위한 관으로 고가수로의 파이프라인의 경계"
-    }
-  }, {
-    "id" : "LAQ113_AQ113L01_02",
+    "id" : "LAQ113_AQ113L01",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq113",
@@ -4139,23 +4079,7 @@
       "maputnik:comment" : "공익설비::파이프라인::고가수로 파이프라인::고체, 액체, 기체의 수송을 위한 관으로 고가수로의 파이프라인의 경계"
     }
   }, {
-    "id" : "LAQ113_AQ113L02_01",
-    "type" : "line",
-    "source" : "g25k",
-    "source-layer" : "laq113",
-    "filter" : [ "all", [ "==", "loc", 25 ], [ "in", "pro", 13, 38, 39, 67 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
-    },
-    "metadata" : {
-      "maputnik:comment" : "공익설비::파이프라인::기타 고가수로파이프라인::물을 제외한 기타 고체, 액체, 기체의 수송을 위한 관으로 고가수로의 파이프라인 경계"
-    }
-  }, {
-    "id" : "LAQ113_AQ113L02_02",
+    "id" : "LAQ113_AQ113L02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq113",
@@ -4615,7 +4539,7 @@
     "paint" : {
       "line-color" : "rgba(162, 83, 72, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 4.0, 2.7, 4.0, 2.7 ]
+      "line-dasharray" : [ 4.0, 2.667, 4.0, 2.667 ]
     },
     "metadata" : {
       "maputnik:comment" : "교통::도로::2차선이상 비포장도로::차선이 2차선 이상인 비포장도로의 경계"
@@ -4808,7 +4732,7 @@
     "paint" : {
       "line-color" : "rgba(128, 0, 0, 1)",
       "line-width" : 3,
-      "line-dasharray" : [ 4.0, 2.7, 4.0, 2.7 ]
+      "line-dasharray" : [ 4.0, 2.667, 4.0, 2.667 ]
     },
     "metadata" : {
       "maputnik:comment" : "교통::도로::비포장 관통도로::거리를 관통하는 비포장도로의 경계"
@@ -4925,7 +4849,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 3.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 단선인 철도의 경계"
@@ -4958,7 +4884,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 3.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계"
@@ -4974,7 +4902,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.833, 0.083, 2.75 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계"
@@ -5007,7 +4937,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -5023,7 +4955,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -5039,7 +4973,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -5072,7 +5008,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
@@ -5088,7 +5026,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.3, 0.05, 1.65 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
@@ -5104,7 +5044,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
@@ -5120,7 +5062,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 8.667, 0.5, 17.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
@@ -5153,7 +5097,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 4,
+      "line-dasharray" : [ 0.0, 5.0, 0.125, 14.875 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계"
@@ -5169,7 +5115,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 4,
+      "line-dasharray" : [ 0.0, 15.0, 0.125, 4.875 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계"
@@ -5202,7 +5150,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 6.667, 0.167, 19.833 ],
+      "line-offset" : 1.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
@@ -5218,7 +5168,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 8.0, 0.167, 18.5 ],
+      "line-offset" : 1.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
@@ -5234,7 +5186,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 20.0, 0.167, 6.5 ],
+      "line-offset" : -1.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
@@ -5250,7 +5204,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 21.333, 0.167, 5.167 ],
+      "line-offset" : -1.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
@@ -5283,7 +5239,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 4.0, 0.1, 11.9 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -5299,7 +5257,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 12.0, 0.1, 3.9 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -5315,7 +5275,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -5331,7 +5293,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -5364,7 +5328,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 4.0, 0.1, 11.9 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -5380,7 +5346,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 4.6, 0.1, 11.3 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -5396,7 +5364,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 12.0, 0.1, 3.9 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -5412,7 +5382,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 12.6, 0.1, 3.3 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -5428,7 +5400,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -5444,7 +5418,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 8.667, 0.5, 17.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -5477,7 +5453,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 1.583 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 전차::기차나 전차가 달릴 수 있는 운행중인 전차의 경계"
@@ -5510,7 +5488,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 3.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::운행중 도로내 철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중,  도로내에 있는  철도의 경계"
@@ -5544,7 +5524,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 3.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5578,7 +5560,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 2.833, 0.083, 3.75 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5594,7 +5578,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 3.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5628,7 +5614,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5644,7 +5632,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5660,7 +5650,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5694,7 +5686,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 1.7, 0.05, 2.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5710,7 +5704,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5726,7 +5722,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 4.667, 0.5, 21.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5742,7 +5740,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5776,7 +5776,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 4.0, 0.1, 11.9 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5792,7 +5794,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 12.0, 0.1, 3.9 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5826,7 +5830,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 3.4, 0.1, 12.5 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5842,7 +5848,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 4.0, 0.1, 11.9 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5858,7 +5866,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 11.4, 0.1, 4.5 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5874,7 +5884,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 12.0, 0.1, 3.9 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5908,7 +5920,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5924,7 +5938,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5940,7 +5956,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5974,7 +5992,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 1.7, 0.05, 2.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -5990,7 +6010,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -6006,7 +6028,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 4.667, 0.5, 21.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -6022,7 +6046,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::철도::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -6073,7 +6099,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.083, 3.25 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::표준궤간철도 측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤인 인입선의 경계"
@@ -6106,7 +6134,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.0, 0.05, 1.95 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::표준궤간 전기철도 측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤이고 동력원이 전력인 인입선의 경계"
@@ -6122,7 +6152,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::표준궤간 전기철도 측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤이고 동력원이 전력인 인입선의 경계"
@@ -6138,7 +6170,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::표준궤간 전기철도 측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 넓은 표준궤이고 동력원이 전력인 인입선의 경계"
@@ -6171,7 +6205,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 4,
+      "line-dasharray" : [ 0.0, 5.0, 0.125, 14.875 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::협궤철도 측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤인 인입선의 경계"
@@ -6187,7 +6223,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 4,
+      "line-dasharray" : [ 0.0, 15.0, 0.125, 4.875 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::협궤철도 측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤인 인입선의 경계"
@@ -6220,7 +6258,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 4.0, 0.1, 11.9 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::협궤전기철도 측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계"
@@ -6236,7 +6276,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 12.0, 0.1, 3.9 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::협궤전기철도 측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계"
@@ -6252,7 +6294,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::협궤전기철도 측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계"
@@ -6268,7 +6312,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::측선/인입선::협궤전기철도 측선/인입선::일시적인 저장과 하역을 위해 주요 철도에 접해있는 레일로, 궤간폭이 좁은 협궤이고 동력원이 전력인 인입선의 경계"
@@ -6319,7 +6365,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.5, 2.833 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 표준궤간 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 단선인 철도의 경계"
@@ -6352,7 +6400,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.5, 2.833 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계"
@@ -6368,7 +6418,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.833, 0.5, 2.333 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계"
@@ -6401,7 +6453,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.0, 0.5, 1.5 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 표준궤간 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -6417,7 +6471,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 표준궤간 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -6433,7 +6489,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 표준궤간 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -6466,7 +6524,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.0, 0.5, 1.5 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
@@ -6482,7 +6542,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.3, 0.5, 1.2 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
@@ -6498,7 +6560,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
@@ -6514,7 +6578,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 8.667, 0.5, 17.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계"
@@ -6547,7 +6613,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 4,
+      "line-dasharray" : [ 0.0, 5.0, 0.5, 14.5 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계"
@@ -6563,7 +6631,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 4,
+      "line-dasharray" : [ 0.0, 15.0, 0.5, 4.5 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계"
@@ -6596,7 +6666,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 6.667, 0.5, 19.5 ],
+      "line-offset" : 1.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
@@ -6612,7 +6684,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 8.0, 0.5, 18.167 ],
+      "line-offset" : 1.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
@@ -6628,7 +6702,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 20.0, 0.5, 6.167 ],
+      "line-offset" : -1.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
@@ -6644,7 +6720,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 21.333, 0.5, 4.833 ],
+      "line-offset" : -1.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계"
@@ -6677,7 +6755,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 4.0, 0.5, 11.5 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -6693,7 +6773,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 12.0, 0.5, 3.5 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -6709,7 +6791,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -6725,7 +6809,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -6758,7 +6844,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 4.0, 0.5, 11.5 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -6774,7 +6862,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 4.6, 0.5, 10.9 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -6790,7 +6880,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 12.0, 0.5, 3.5 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -6806,7 +6898,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 12.6, 0.5, 2.9 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -6822,7 +6916,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -6838,7 +6934,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 8.667, 0.5, 17.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계"
@@ -6871,7 +6969,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.5, 1.167 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 전차::기차나 전차가 달릴 수 있는 운행중인 전차의 경계"
@@ -6904,7 +7004,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.5, 2.833 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::운행중 도로내 철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중,  도로내에 있는  철도의 경계"
@@ -6938,7 +7040,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.5, 2.833 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 표준궤간 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -6972,7 +7076,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 2.833, 0.5, 3.333 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -6988,7 +7094,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 6,
+      "line-dasharray" : [ 0.0, 3.333, 0.5, 2.833 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행표준궤간 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7022,7 +7130,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.0, 0.5, 1.5 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 표준궤간 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7038,7 +7148,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 표준궤간 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7054,7 +7166,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 표준궤간 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7088,7 +7202,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 1.7, 0.5, 1.8 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7104,7 +7220,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.0, 0.5, 1.5 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7120,7 +7238,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 4.667, 0.5, 21.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7136,7 +7256,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 표준궤간 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 궤간폭이 넓은 표준궤 또는 광궤이고, 동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7170,7 +7292,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 4.0, 0.5, 11.5 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7186,7 +7310,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 12.0, 0.5, 3.5 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 협궤 단선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7220,7 +7346,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 3.4, 0.5, 12.1 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7236,7 +7364,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 4.0, 0.5, 11.5 ],
+      "line-offset" : 2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7252,7 +7382,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 11.4, 0.5, 4.1 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7268,7 +7400,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 5,
+      "line-dasharray" : [ 0.0, 12.0, 0.5, 3.5 ],
+      "line-offset" : -2.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 협궤 복선철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7302,7 +7436,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.0, 0.5, 1.5 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7318,7 +7454,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 5.667, 0.5, 20.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7334,7 +7472,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 협궤 단선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 단선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7368,7 +7508,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 1.7, 0.5, 1.8 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7384,7 +7526,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1
+      "line-width" : 10,
+      "line-dasharray" : [ 0.0, 2.0, 0.5, 1.5 ],
+      "line-offset" : 0.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7400,7 +7544,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 4.667, 0.5, 21.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7416,7 +7562,9 @@
     },
     "paint" : {
       "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 3
+      "line-width" : 3,
+      "line-dasharray" : [ 0.0, 7.667, 0.5, 18.5 ],
+      "line-offset" : 5.0
     },
     "metadata" : {
       "maputnik:comment" : "교통::지하철::비운행 협궤 복선전기철도::기차나 전차가 달릴 수 있도록 놓여진 레일중, 궤간폭이 표준궤나 광궤보다 좁은 협궤이고,  동력원이 전력이며, 레일이 복선인 철도의 경계이나 현재 운행하지 않는 철도"
@@ -7440,24 +7588,7 @@
       "maputnik:comment" : "교통::지하철::제거된 철도::기차나 전차가 달릴 수 있도록 놓여진 레일 중, 현재 제거되어 사용하지 않는 철도의 경계"
     }
   }, {
-    "id" : "LAQ130_AQ130L01_01",
-    "type" : "line",
-    "source" : "g25k",
-    "source-layer" : "laq130",
-    "filter" : [ "all", [ "in", "tuc", 2, 3, 4, 17 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-gap-width" : 6
-    },
-    "metadata" : {
-      "maputnik:comment" : "교통::터널::터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널의 경계"
-    }
-  }, {
-    "id" : "LAQ130_AQ130L01_02",
+    "id" : "LAQ130_AQ130L01",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq130",
@@ -7475,24 +7606,7 @@
       "maputnik:comment" : "교통::터널::터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널의 경계"
     }
   }, {
-    "id" : "LAQ130_AQ130L02_01",
-    "type" : "line",
-    "source" : "g25k",
-    "source-layer" : "laq130",
-    "filter" : [ "all", [ "in", "tuc", 38, 41 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 255, 1)",
-      "line-width" : 1,
-      "line-gap-width" : 6
-    },
-    "metadata" : {
-      "maputnik:comment" : "교통::터널::수로 터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널 중, 수송수단이 운하인 터널의 경계"
-    }
-  }, {
-    "id" : "LAQ130_AQ130L02_02",
+    "id" : "LAQ130_AQ130L02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq130",
@@ -7510,7 +7624,7 @@
       "maputnik:comment" : "교통::터널::수로 터널::도로나 철도을 포함하여 두 개의 끝점이 개방된 지하나 해저 통로인 터널 중, 수송수단이 운하인 터널의 경계"
     }
   }, {
-    "id" : "LAQ040_AQ040L01_01",
+    "id" : "LAQ040_AQ040L01",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq040",
@@ -7528,24 +7642,7 @@
       "maputnik:comment" : "교통::교량::교량::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량의 경계"
     }
   }, {
-    "id" : "LAQ040_AQ040L01_02",
-    "type" : "line",
-    "source" : "g25k",
-    "source-layer" : "laq040",
-    "filter" : [ "all", [ "in", "tuc", 3, 4 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-gap-width" : 4
-    },
-    "metadata" : {
-      "maputnik:comment" : "교통::교량::교량::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량의 경계"
-    }
-  }, {
-    "id" : "LAQ040_AQ040L02_01",
+    "id" : "LAQ040_AQ040L02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq040",
@@ -7562,40 +7659,7 @@
       "maputnik:comment" : "교통::교량::인도교::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량 중, 도보가 가능한 교량의 경계"
     }
   }, {
-    "id" : "LAQ040_AQ040L02_02",
-    "type" : "line",
-    "source" : "g25k",
-    "source-layer" : "laq040",
-    "filter" : [ "all", [ "==", "tuc", 17 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 0, 0, 1)",
-      "line-width" : 1,
-      "line-gap-width" : 0
-    },
-    "metadata" : {
-      "maputnik:comment" : "교통::교량::인도교::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물인 교량 중, 도보가 가능한 교량의 경계"
-    }
-  }, {
-    "id" : "LAQ040_AQ040L04_01",
-    "type" : "line",
-    "source" : "g25k",
-    "source-layer" : "laq040",
-    "filter" : [ "all", [ "==", "tuc", 41 ] ],
-    "layout" : {
-      "visibility" : "visible"
-    },
-    "paint" : {
-      "line-color" : "rgba(0, 99, 198, 1)",
-      "line-width" : 1
-    },
-    "metadata" : {
-      "maputnik:comment" : "교통::교량::고가수로::침하나 다른 장애물, 수면 위의 통행을 제공하는 인공 구조물의 경계"
-    }
-  }, {
-    "id" : "LAQ040_AQ040L04_02",
+    "id" : "LAQ040_AQ040L04",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "laq040",
