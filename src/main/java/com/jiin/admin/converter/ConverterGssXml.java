@@ -385,7 +385,7 @@ public class ConverterGssXml {
         }
     }
 
-    private List<GssLineLayer> lineStyleByType(GssLineLayer linestyle, String featureType, String shpSource) {
+    private List<GssLineLayer> lineStyleByType(GssLineLayer oriLineStyle, String featureType, String shpSource) {
         List<GssLineLayer> result = new ArrayList<>();
         //
         float convert = 1;
@@ -397,6 +397,8 @@ public class ConverterGssXml {
             convert = -1;
         }
         //
+        GssLineLayer linestyle = new GssLineLayer();
+        BeanUtils.copyProperties(oriLineStyle, linestyle);
         //
         if(linestyle.getType().equals("SIMPLE")){
             // nothing
@@ -412,50 +414,50 @@ public class ConverterGssXml {
             result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 0){
             // Both
-            Integer dashWidth = linestyle.getWidth();
-            Integer left = linestyle.getLeftLength();
-            Integer right = linestyle.getRightLength();
-            Integer interval = linestyle.getInterval();
-            int width = left + right;
+            Float dashWidth = linestyle.getWidth();
+            Float left = Float.valueOf(linestyle.getLeftLength());
+            Float right = Float.valueOf(linestyle.getRightLength());
+            Float interval = Float.valueOf(linestyle.getInterval());
+            float width = left + right;
             List<Float> dash = new ArrayList<>();
             dash.add((dashWidth / (dashWidth == 1 ? 2f : 1f)));
             dash.add(interval - (dashWidth / (dashWidth == 1 ? 2f : 1f)));
             linestyle.setDashItem(dash);
             linestyle.setWidth(width);
-            linestyle.setOffset((float) ((left - right) / 2) * convert);
+            linestyle.setOffset(((left - right) / 2) * convert);
             result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 1){
             // Left (or Inside)
-            Integer dashWidth = linestyle.getWidth();
-            Integer left = linestyle.getLeftLength();
-            Integer interval = linestyle.getInterval();
-            int width = left;
+            Float dashWidth = linestyle.getWidth();
+            Float left = Float.valueOf(linestyle.getLeftLength());
+            Float interval = Float.valueOf(linestyle.getInterval());
+            float width = left;
             List<Float> dash = new ArrayList<>();
             dash.add((dashWidth / (dashWidth == 1 ? 2f : 1f)));
             dash.add(interval - (dashWidth / (dashWidth == 1 ? 2f : 1f)));
             linestyle.setDashItem(dash);
             linestyle.setWidth(width);
-            linestyle.setOffset((float) +(width / 2) * convert);
+            linestyle.setOffset(+(width / 2) * convert);
             result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 2){
             // Right (or Outside)
-            Integer dashWidth = linestyle.getWidth();
-            Integer right = linestyle.getRightLength();
-            Integer interval = linestyle.getInterval();
-            int width = right;
+            Float dashWidth = linestyle.getWidth();
+            Float right = Float.valueOf(linestyle.getRightLength());
+            Float interval = Float.valueOf(linestyle.getInterval());
+            float width = right;
             List<Float> dash = new ArrayList<>();
             dash.add((dashWidth / (dashWidth == 1 ? 2f : 1f)));
             dash.add(interval - (dashWidth / (dashWidth == 1 ? 2f : 1f)));
             linestyle.setDashItem(dash);
             linestyle.setWidth(width);
-            linestyle.setOffset((float) -(width / 2) * convert);
+            linestyle.setOffset(-(width / 2) * convert);
             result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 3){
             // Both Circle
             // left
-            Integer dashWidth = linestyle.getWidth();
-            Integer left = linestyle.getLeftLength();
-            Integer interval = linestyle.getInterval();
+            Float dashWidth = linestyle.getWidth();
+            Float left = Float.valueOf(linestyle.getLeftLength());
+            Float interval = Float.valueOf(linestyle.getInterval());
             List<Float> dash = new ArrayList<>();
             dash.add(dashWidth / 2f);
             dash.add(interval - (dashWidth / 2f));
@@ -466,7 +468,7 @@ public class ConverterGssXml {
             // right
             GssLineLayer addLinestyle = new GssLineLayer();
             BeanUtils.copyProperties(linestyle, addLinestyle);
-            Integer right = addLinestyle.getRightLength();
+            Float right = Float.valueOf(linestyle.getRightLength());
             List<Float> addDash = new ArrayList<>();
             addDash.add(dashWidth / 2f);
             addDash.add(interval - (dashWidth / 2f));
@@ -476,9 +478,10 @@ public class ConverterGssXml {
             result.add(addLinestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 4){
             // Left Circle
-            Integer dashWidth = linestyle.getWidth();
-            Integer left = linestyle.getLeftLength();
-            Integer interval = linestyle.getInterval();
+            Float dashWidth = linestyle.getWidth();
+            Float left = Float.valueOf(linestyle.getLeftLength());
+            Float right = Float.valueOf(linestyle.getRightLength());
+            Float interval = Float.valueOf(linestyle.getInterval());
             List<Float> dash = new ArrayList<>();
             dash.add(dashWidth / 2f);
             dash.add(interval - (dashWidth / 2f));
@@ -488,9 +491,10 @@ public class ConverterGssXml {
             result.add(linestyle);
         }else if(linestyle.getType().equals("VERTICAL") && linestyle.getVerticalType() == 5){
             // Right Circle
-            Integer dashWidth = linestyle.getWidth();
-            Integer right = linestyle.getRightLength();
-            Integer interval = linestyle.getInterval();
+            Float dashWidth = linestyle.getWidth();
+            Float left = Float.valueOf(linestyle.getLeftLength());
+            Float right = Float.valueOf(linestyle.getRightLength());
+            Float interval = Float.valueOf(linestyle.getInterval());
             List<Float> dash = new ArrayList<>();
             dash.add(dashWidth / 2f);
             dash.add(interval - (dashWidth / 2f));

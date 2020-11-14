@@ -13,7 +13,7 @@ public class GssLineLayer {
     @XmlElement(name="Type")
     private Integer SubType;
     private String Color;
-    private Integer Width;
+    private Float Width;
     private String JoinType;
     private String DashCap;
     private String StartCap;
@@ -39,14 +39,6 @@ public class GssLineLayer {
 
     public void setColor(String color) {
         Color = color;
-    }
-
-    public Integer getWidth() {
-        return Width;
-    }
-
-    public void setWidth(Integer width) {
-        Width = width;
     }
 
     public String getJoinType() {
@@ -141,24 +133,23 @@ public class GssLineLayer {
      */
     public List<Float> parseDashItem() {
         Integer startPos = getStartPos();
-        Float width = Float.valueOf(getWidth());
+        Float width = getWidth();
         List<Float> newvalues = new ArrayList<>();
         List<Float> values = getDashItem();
         if(startPos != null){
+            Float _startPos = Float.valueOf(getStartPos());
             newvalues.add(0f);
-            newvalues.add(Float.valueOf(startPos));
+            newvalues.add(_startPos);
             int idx = 0;
             for(Float value : values){
                 if(idx++ == 1){
-                    newvalues.add(Float.valueOf(value - startPos));
+                    newvalues.add(value - _startPos);
                 }else{
-                    newvalues.add(Float.valueOf(value));
+                    newvalues.add(value);
                 }
             }
         }else{
-            for(Float value : values){
-                newvalues.add(Float.valueOf(value));
-            }
+            newvalues.addAll(values);
         }
         List<Float> returnvalues = new ArrayList<>();
         for(Float value : newvalues){
@@ -231,5 +222,13 @@ public class GssLineLayer {
 
     public List<Float> getDashItem() {
         return DashItem;
+    }
+
+    public Float getWidth() {
+        return Width;
+    }
+
+    public void setWidth(Float width) {
+        Width = width;
     }
 }

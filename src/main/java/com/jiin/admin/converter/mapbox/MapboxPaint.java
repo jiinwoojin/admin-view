@@ -32,7 +32,7 @@ public class MapboxPaint {
     @JsonProperty(value = "line-color")
     private String lineColor;
     @JsonProperty(value = "line-width")
-    private Integer lineWidth;
+    private Float lineWidth;
     @JsonProperty(value = "line-dasharray")
     private Float[] lineDasharray;
     @JsonProperty(value = "line-gap-width")
@@ -106,13 +106,6 @@ public class MapboxPaint {
         this.lineDasharray = lineDasharray;
     }
 
-    public Integer getLineWidth() {
-        return lineWidth;
-    }
-
-    public void setLineWidth(Integer lineWidth) {
-        this.lineWidth = lineWidth;
-    }
 
     public String getLinePattern() {
         return linePattern;
@@ -177,5 +170,13 @@ public class MapboxPaint {
 
     public void setTextHaloColor(String textHaloColor) {
         this.textHaloColor = textHaloColor;
+    }
+
+    public Float getLineWidth() {
+        return lineWidth;
+    }
+
+    public void setLineWidth(Float lineWidth) {
+        this.lineWidth = lineWidth;
     }
 }
