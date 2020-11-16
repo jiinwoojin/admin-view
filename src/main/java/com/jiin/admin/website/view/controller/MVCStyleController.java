@@ -59,4 +59,27 @@ public class MVCStyleController {
         PrintWriter out = response.getWriter();
         converter.convertLayerJson(stylefile,layerfile, out, param);
     }
+
+    @RequestMapping(value = "to-original-json", method = RequestMethod.POST)
+    public void tooriginalconvert(
+            @RequestParam("file") MultipartFile file,
+            ConverterVO param,
+            Model model, HttpServletResponse response) throws ParserConfigurationException, IOException, SAXException, JAXBException {
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        if(file == null || file.isEmpty()){
+            response.setStatus(HttpServletResponse.SC_OK);
+            PrintWriter out = response.getWriter();
+            out.write("스타일 파일이 업로드되지 않았습니다.");
+            out.flush();
+            out.close();
+            return;
+        }
+        File layerfile = File.createTempFile("gss-style",".xml");
+        file.transferTo(layerfile);
+        File stylefile = new File(dataPath + "/styles/GSS_STYLE.xml");
+        response.addHeader("Content-Disposition", "attachment; filename=converted-original-style.json");
+        PrintWriter out = response.getWriter();
+        converter.convertJsonAsOriginal(stylefile,layerfile, out);
+    }
 }

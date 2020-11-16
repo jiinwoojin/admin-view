@@ -24,7 +24,7 @@
             <hr/>
             <h3 class="section_tit">GSS STYLE 변환</h3>
             <iframe id="frmConverter" name="frmConverter" style="display: none;"></iframe>
-            <form action="to-convert" target="_blank" accept-charset="utf-8" method="post" enctype="multipart/form-data">
+            <form action="to-convert" id="converter-form" target="_blank" accept-charset="utf-8" method="post" enctype="multipart/form-data">
                 <div class="form-row">
                     <div class="col-4">
                         <label>Mapbox Version</label>
@@ -57,11 +57,11 @@
                     <div class="col-3">
                         <label>Scale(25K,50K,100K,...)</label>
                         <select class="form-control" name="scaleStr">
-                            <option value="25K">25K</option>
-                            <option value="50K">50K</option>
-                            <option value="100K">100K</option>
-                            <option value="250K">250K</option>
-                            <option value="500K">500K</option>
+                            <option value="25K">25K(육도)</option>
+                            <option value="50K">50K(육도)</option>
+                            <option value="100K">100K(육도)</option>
+                            <option value="250K">250K(공도)</option>
+                            <option value="500K">500K(공도)</option>
                             <option value="1M">1M</option>
                             <option value="2M">2M</option>
                             <option value="KR1">KR1(해도)</option>
@@ -96,9 +96,20 @@
                     <button type="submit" class="btn btn-primary btn-sm">
                         <i class="fas fa-save"></i> 변환
                     </button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="fn_original_to_json()">
+                        <i class="fas fa-save"></i> 원본변환
+                    </button>
                 </div>
             </form>
         </div>
     </div>
+    <script type="text/javascript" >
+        function fn_original_to_json(){
+            var form = document.getElementById("converter-form");
+            form.action = "to-original-json"
+            form.submit()
+            form.action = "to-convert"
+        }
+    </script>
 </th:block>
 </html>

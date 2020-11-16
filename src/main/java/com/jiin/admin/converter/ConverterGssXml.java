@@ -6,9 +6,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.jiin.admin.converter.gss.*;
 import com.jiin.admin.converter.mapbox.*;
+import org.apache.commons.io.FileUtils;
+import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBContext;
@@ -34,7 +40,8 @@ public class ConverterGssXml {
         String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
         //
         File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
-        File layerfile = new File(dataPath + "/gss_style/GSS_AIR_JOGA_LAYER.xml");
+        File layerfile = new File(dataPath + "/gss_style/GSS_NAVY_LAYER.xml");
+        /*
         ConverterVO param = new ConverterVO();
         param.setVersion(8);
         param.setId("uzymq5sw3");
@@ -47,11 +54,77 @@ public class ConverterGssXml {
         param.setGlyphs("http://192.168.0.11/fonts/{fontstack}/{range}.pbf");
         param.setTiles(new String[]{"http://192.168.0.11/maps/"+param.getScale().name()+"/{z}/{x}/{y}.pbf"});
         ConverterGssXml parse = new ConverterGssXml();
-        //
         File savefile = new File(dataPath + "/"+param.getScale().name()+"_style_generate.json");
         FileWriter writer = new FileWriter(savefile);
+        */
         //
-        parse.convertLayerJson(stylefile,layerfile,writer,param);
+        ConverterGssXml parse = new ConverterGssXml();
+        File savefile = new File(dataPath + "/original_style_generate.json");
+        FileWriter writer = new FileWriter(savefile);
+        //
+        //parse.convertLayerJson(stylefile,layerfile,writer,param);
+        parse.convertJsonAsOriginal(stylefile,layerfile,writer);
+    }
+
+    public void convertJsonAsOriginal(File styleFile, File layerFile, Writer output) throws IOException {
+        JSONObject styleJson = XML.toJSONObject(FileUtils.readFileToString(styleFile, "euc-kr"));
+        JSONObject layerJson = XML.toJSONObject(FileUtils.readFileToString(layerFile, "euc-kr"));
+        Map styleMap = styleJson.toMap();
+        Map layerMap = layerJson.toMap();
+        //
+        Map mapStyle = (Map) styleMap.get("MapStyle");
+        Map mapLayer = (Map) layerMap.get("MapLayer");
+        List<Map> layers = (List) mapLayer.get("Layer");
+        List<Map> groups = (List) mapLayer.get("Group");
+        List<Map> styles = (List) mapStyle.get("Style");
+        if(layers != null){
+            for(Map layer : layers){
+                parseGssMap(layer,styles);
+            }
+        }
+        if(groups != null){
+            for(Map group : groups) {
+                List<Map> subLayers = (List) group.get("Layer");
+                for(Map layer : subLayers){
+                    parseGssMap(layer,styles);
+                }
+            }
+        }
+        new ObjectMapper()
+                .enable(SerializationFeature.INDENT_OUTPUT)
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .writeValue(output,layerMap);
+    }
+
+    private void parseGssMap(Map layer, List<Map> styles) {
+        List<Map> features = new ArrayList<>();
+        if(layer.get("Feature") instanceof Map){
+            features.add((Map) layer.get("Feature"));
+        }else{
+            features.addAll((List) layer.get("Feature"));
+        }
+        for(Map feature : features){
+            String geometryStyle = (String) feature.get("GeometryStyle");
+            if(geometryStyle != null){
+                for(Map style : styles){
+                    String styleName = (String) style.get("name");
+                    if(geometryStyle.equals(styleName)){
+                        feature.put("GeometryStyleValue",style);
+                        break;
+                    }
+                }
+            }
+            String labelStyle = (String) feature.get("LabelStyle");
+            if(labelStyle != null){
+                for(Map style : styles){
+                    String styleName = (String) style.get("name");
+                    if(labelStyle.equals(styleName)){
+                        feature.put("LabelStyleValue",style);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
 
