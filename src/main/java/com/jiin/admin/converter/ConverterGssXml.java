@@ -366,9 +366,8 @@ public class ConverterGssXml {
                         mapboxLayer.setType("symbol");
                         MapboxLayout layout = new MapboxLayout();
                         layout.setTextAllowOverlap(true);
-                        if(shpSource.equalsIgnoreCase("geoname") || shpSource.equalsIgnoreCase("roadname")){
-                            layout.setTextRotationAlignment("map");
-                        }
+                        layout.setTextRotationAlignment("map");
+                        layout.setTextPitchAlignment("map");
                         String labelColumnName;
                         if (labelColumn.equalsIgnoreCase("표기한글")) {
                             labelColumnName = "textstring";
@@ -379,7 +378,16 @@ public class ConverterGssXml {
                         } else {
                             labelColumnName = labelColumn.toLowerCase();
                         }
-                        layout.setTextField("{" + labelColumnName + "}");
+                        String prefix = labelStyle.getPrefix();
+                        String postfix = labelStyle.getPostfix();
+                        String textField = "{" + labelColumnName + "}";
+                        if(prefix != null){
+                            textField = prefix + textField;
+                        }
+                        if(postfix != null){
+                            textField = textField + postfix;
+                        }
+                        layout.setTextField(textField);
                         if (labelStyle.getFont() != null) layout.setTextFont(new String[]{font});
                         if (labelStyle.getSize() != null) layout.setTextSize(labelStyle.getSize());
                         if (labelStyle.getOffsetX() != null
@@ -404,7 +412,6 @@ public class ConverterGssXml {
                         }
                         if(labelStyle.getPicture() != null){
                             layout.setTextJustify("left");
-                            layout.setTextRotationAlignment("map");
                             layout.setTextKeepUpright(false);
                             layout.setIconImage(parsePicture(labelStyle.getPicture()));
                             layout.setIconAllowOverlap(true);

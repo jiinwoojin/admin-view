@@ -32,6 +32,8 @@ public class MapboxLayout {
     private String textJustify;
     @JsonProperty(value = "text-rotation-alignment")
     private String textRotationAlignment;
+    @JsonProperty(value = "text-pitch-alignment")
+    private String textPitchAlignment;
     @JsonProperty(value = "text-keep-upright")
     private Boolean textKeepUpright;
     @JsonProperty(value = "line-join")
@@ -252,4 +254,11 @@ public class MapboxLayout {
         this.textAnchor = textAnchor;
     }
 
+    public String getTextPitchAlignment() {
+        return textPitchAlignment;
+    }
+
+    public void setTextPitchAlignment(String textPitchAlignment) {
+        this.textPitchAlignment = textPitchAlignment;
+    }
 }
