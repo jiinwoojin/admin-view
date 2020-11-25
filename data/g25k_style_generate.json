@@ -38,6 +38,20 @@
       "maputnik:comment" : "수부::바다::바다::일반적으로 조수의 파동을 가진 바다의 경계지역"
     }
   }, {
+    "id" : "ABA030_BA030A02",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aba030",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::섬::섬::일반적으로 대륙보다 작으며 물로 둘러 쌓인 육지지역"
+    }
+  }, {
     "id" : "AEC030_EC030A01",
     "type" : "fill",
     "source" : "g25k",
@@ -281,7 +295,35 @@
       "maputnik:comment" : "식생::홉::홉::홉을 체계적으로 재배하는 홉의 경계지역"
     }
   }, {
+    "id" : "AEC040_EC040A01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aec040",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::방화지대::방화지대::산불 진화선 구축을 신속, 용미만게 작업할 수 있는 인공적 또는 천연적인 도로, 하천, 능선, 농경지 등이 있는 경계지역"
+    }
+  }, {
     "id" : "ABH077_BH077A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "abh077",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::작은 언덕/빙구::작은 언덕/빙구::늪, 수정, 또는 습지보다 더 높은 표고 지역인 작은 언덕의 경계지역"
+    }
+  }, {
+    "id" : "ABH077_BH077A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "abh077",
@@ -297,7 +339,21 @@
       "maputnik:comment" : "식생::작은 언덕/빙구::작은 언덕/빙구::늪, 수정, 또는 습지보다 더 높은 표고 지역인 작은 언덕의 경계지역"
     }
   }, {
-    "id" : "ABH077_BH077A01_02",
+    "id" : "ABH077_BH077A01_03",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "abh077",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "식생::작은 언덕/빙구::작은 언덕/빙구::늪, 수정, 또는 습지보다 더 높은 표고 지역인 작은 언덕의 경계지역"
+    }
+  }, {
+    "id" : "ABH077_BH077A01_04",
     "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "abh077",
@@ -588,7 +644,22 @@
       "maputnik:comment" : "수부::범람지역::조정 범람지역::조수를 제외하고 주기적으로 물이 범람하는 조정 지역의 경계지역"
     }
   }, {
-    "id" : "ABB041_BB041A01",
+    "id" : "ABB041_BB041A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "abb041",
+    "filter" : [ "all", [ "in", "vrr", 0, 1 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::방파제::수면위 방파제::해안 지역, 항구, 정박지등을 파도로부터 보호하고 그 강도를 줄여주는 구조물로, 수면위에 위치한 경계지역"
+    }
+  }, {
+    "id" : "ABB041_BB041A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "abb041",
@@ -605,7 +676,22 @@
       "maputnik:comment" : "수부::방파제::수면위 방파제::해안 지역, 항구, 정박지등을 파도로부터 보호하고 그 강도를 줄여주는 구조물로, 수면위에 위치한 경계지역"
     }
   }, {
-    "id" : "ABB041_BB041A02",
+    "id" : "ABB041_BB041A02_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "abb041",
+    "filter" : [ "all", [ "==", "vrr", 8 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::방파제::수중 방파제::해안 지역, 항구, 정박지등을 파도로부터 보호하고 그 강도를 줄여주는 구조물로, 수면아래와 위에 위치한 경계지역"
+    }
+  }, {
+    "id" : "ABB041_BB041A02_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "abb041",
@@ -623,7 +709,22 @@
       "maputnik:comment" : "수부::방파제::수중 방파제::해안 지역, 항구, 정박지등을 파도로부터 보호하고 그 강도를 줄여주는 구조물로, 수면아래와 위에 위치한 경계지역"
     }
   }, {
-    "id" : "ABB140_BB140A01",
+    "id" : "ABB140_BB140A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "abb140",
+    "filter" : [ "all", [ "in", "vrr", 0, 1 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::돌제::수면위 돌제::조력으로부터 항구나 해변을 보호하는 구조물이 수면위에 존재하는 돌제의 경계지역"
+    }
+  }, {
+    "id" : "ABB140_BB140A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "abb140",
@@ -640,7 +741,22 @@
       "maputnik:comment" : "수부::돌제::수면위 돌제::조력으로부터 항구나 해변을 보호하는 구조물이 수면위에 존재하는 돌제의 경계지역"
     }
   }, {
-    "id" : "ABB140_BB140A02",
+    "id" : "ABB140_BB140A02_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "abb140",
+    "filter" : [ "all", [ "in", "vrr", 0, 1 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::돌제::돌제::조력으로부터 항구나 해변을 보호하는 구조물이 수면아래와 위에 존재하는 돌제의 경계지역"
+    }
+  }, {
+    "id" : "ABB140_BB140A02_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "abb140",
@@ -689,7 +805,21 @@
       "maputnik:comment" : "수부::말뚝지대::말뚝지대::방파제(부두)의 지지물로 육지에 설치된 말뚝지대의 경계지역"
     }
   }, {
-    "id" : "ABD120_BD120A01",
+    "id" : "ABD120_BD120A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "abd120",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::암초/암석지대::암초/암석지대::해상운하에 위험한 바다의 바위 또는 산호인 암초/암석지대의 경계지역"
+    }
+  }, {
+    "id" : "ABD120_BD120A01_02",
     "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "abd120",
@@ -737,7 +867,21 @@
       "maputnik:comment" : "수부::댐/보::댐/보::물을 채우거나 물의 흐름을 조절하는 수로를 횡단하는 영구적 장벽인 댐/보의 경계지역"
     }
   }, {
-    "id" : "ABI030_BI030A01",
+    "id" : "ABI030_BI030A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "abi030",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "수부::갑문::갑문::한 수위에서 다른 수위로 이동할때 오르거나 내리는 배를 위해 사용하는 울타리인 갑문의 경계지역"
+    }
+  }, {
+    "id" : "ABI030_BI030A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "abi030",
@@ -753,7 +897,21 @@
       "maputnik:comment" : "수부::갑문::갑문::한 수위에서 다른 수위로 이동할때 오르거나 내리는 배를 위해 사용하는 울타리인 갑문의 경계지역"
     }
   }, {
-    "id" : "ADA005_DA005A01",
+    "id" : "ADA005_DA005A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "ada005",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::아스팔트 호::아스팔트 호::천연 지각의 웅덩이에 괴어있는 아스팔트의 경계지역"
+    }
+  }, {
+    "id" : "ADA005_DA005A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "ada005",
@@ -770,6 +928,20 @@
     }
   }, {
     "id" : "ADB090_DB090A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "adb090",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::제방/성토::제방/성토::흙이나 다른 재료로 쌓아올린 긴 토루인 제방/성토의 경계지역"
+    }
+  }, {
+    "id" : "ADB090_DB090A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "adb090",
@@ -785,7 +957,21 @@
       "maputnik:comment" : "지형::제방/성토::제방/성토::흙이나 다른 재료로 쌓아올린 긴 토루인 제방/성토의 경계지역"
     }
   }, {
-    "id" : "ADB090_DB090A01_02",
+    "id" : "ADB090_DB090A01_03",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "adb090",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::제방/성토::제방/성토::흙이나 다른 재료로 쌓아올린 긴 토루인 제방/성토의 경계지역"
+    }
+  }, {
+    "id" : "ADB090_DB090A01_04",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "adb090",
@@ -1105,6 +1291,20 @@
     }
   }, {
     "id" : "ADB160_DB160A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "adb160",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::암석층::암석층::가시적 지형의 노출부, 층이나 바위층인 암석층의 경계지역"
+    }
+  }, {
+    "id" : "ADB160_DB160A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "adb160",
@@ -1120,7 +1320,21 @@
       "maputnik:comment" : "지형::암석층::암석층::가시적 지형의 노출부, 층이나 바위층인 암석층의 경계지역"
     }
   }, {
-    "id" : "ADB160_DB160A01_02",
+    "id" : "ADB160_DB160A01_03",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "adb160",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "지형::암석층::암석층::가시적 지형의 노출부, 층이나 바위층인 암석층의 경계지역"
+    }
+  }, {
+    "id" : "ADB160_DB160A01_04",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "adb160",
@@ -1181,7 +1395,21 @@
       "maputnik:comment" : "주거지역::요새::요새::군사적 방어 목적으로 건설된 요새의 경계지역"
     }
   }, {
-    "id" : "AAK030_AK030A01",
+    "id" : "AAK030_AK030A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aak030",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::놀이공원::놀이공원::오락 장치를 인공적으로 설치한 놀이공원의 경계지역"
+    }
+  }, {
+    "id" : "AAK030_AK030A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aak030",
@@ -1198,7 +1426,21 @@
       "maputnik:comment" : "주거지역::놀이공원::놀이공원::오락 장치를 인공적으로 설치한 놀이공원의 경계지역"
     }
   }, {
-    "id" : "AAK060_AK060A01",
+    "id" : "AAK060_AK060A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aak060",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::야영장::야영장::캠핑을 위한 야영장의 경계지역"
+    }
+  }, {
+    "id" : "AAK060_AK060A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aak060",
@@ -1215,7 +1457,21 @@
       "maputnik:comment" : "주거지역::야영장::야영장::캠핑을 위한 야영장의 경계지역"
     }
   }, {
-    "id" : "AAK070_AK070A01",
+    "id" : "AAK070_AK070A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aak070",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::자동차극장::자동차극장::자동차에 앉아서 영화를 보는 야외극장의 경계지역"
+    }
+  }, {
+    "id" : "AAK070_AK070A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aak070",
@@ -1232,7 +1488,21 @@
       "maputnik:comment" : "주거지역::자동차극장::자동차극장::자동차에 앉아서 영화를 보는 야외극장의 경계지역"
     }
   }, {
-    "id" : "AAK090_AK090A01",
+    "id" : "AAK090_AK090A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aak090",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::박람회장::박람회장::각 분야의 전시물을 열기위한 전시장의 경계지역"
+    }
+  }, {
+    "id" : "AAK090_AK090A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aak090",
@@ -1249,7 +1519,21 @@
       "maputnik:comment" : "주거지역::박람회장::박람회장::각 분야의 전시물을 열기위한 전시장의 경계지역"
     }
   }, {
-    "id" : "AAK100_AK100A01",
+    "id" : "AAK100_AK100A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aak100",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::골프장::골프장::골프 경기를 위해 설계된 골프장의 경계지역"
+    }
+  }, {
+    "id" : "AAK100_AK100A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aak100",
@@ -1266,7 +1550,21 @@
       "maputnik:comment" : "주거지역::골프장::골프장::골프 경기를 위해 설계된 골프장의 경계지역"
     }
   }, {
-    "id" : "AAK120_AK120A01",
+    "id" : "AAK120_AK120A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aak120",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::공원::공원::오락이나 조경의 목적으로 이용되는 공원의 경계지역"
+    }
+  }, {
+    "id" : "AAK120_AK120A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aak120",
@@ -1283,7 +1581,21 @@
       "maputnik:comment" : "주거지역::공원::공원::오락이나 조경의 목적으로 이용되는 공원의 경계지역"
     }
   }, {
-    "id" : "AAK180_AK180A01",
+    "id" : "AAK180_AK180A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aak180",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::동물원::동물원::살아있는 동물을 사육, 연구하여 일반에게 공개하는 경계지역"
+    }
+  }, {
+    "id" : "AAK180_AK180A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aak180",
@@ -1300,7 +1612,21 @@
       "maputnik:comment" : "주거지역::동물원::동물원::살아있는 동물을 사육, 연구하여 일반에게 공개하는 경계지역"
     }
   }, {
-    "id" : "AAL030_AL030A01",
+    "id" : "AAL030_AL030A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aal030",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::묘지지역::묘지지역::죽은 사람을 묻기 위한 묘지 경계지역"
+    }
+  }, {
+    "id" : "AAL030_AL030A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aal030",
@@ -1377,7 +1703,21 @@
       "maputnik:comment" : "주거지역::원주민 부락::원주민 부락::지역에 본디부터 살고 있는 사람들이 모여 사는 정착지의 경계지역"
     }
   }, {
-    "id" : "AAL170_AL170A01",
+    "id" : "AAL170_AL170A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aal170",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::광장::광장::시나 읍에서 공공 공간으로 개방하여 제공하는 광장의 경계지역"
+    }
+  }, {
+    "id" : "AAL170_AL170A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aal170",
@@ -1393,7 +1733,21 @@
       "maputnik:comment" : "주거지역::광장::광장::시나 읍에서 공공 공간으로 개방하여 제공하는 광장의 경계지역"
     }
   }, {
-    "id" : "AAL200_AL200A01",
+    "id" : "AAL200_AL200A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aal200",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::폐허::폐허::구조물의 질이 저하된 유적이 위치하는 폐허의 경계지역"
+    }
+  }, {
+    "id" : "AAL200_AL200A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aal200",
@@ -1410,7 +1764,21 @@
       "maputnik:comment" : "주거지역::폐허::폐허::구조물의 질이 저하된 유적이 위치하는 폐허의 경계지역"
     }
   }, {
-    "id" : "AAK040_AK040A01",
+    "id" : "AAK040_AK040A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aak040",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::운동장::운동장::스포츠 경기, 연습, 게임을 하는 개방된 지역인 운동장의 경계지역"
+    }
+  }, {
+    "id" : "AAK040_AK040A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aak040",
@@ -1427,7 +1795,21 @@
       "maputnik:comment" : "주거지역::운동장::운동장::스포츠 경기, 연습, 게임을 하는 개방된 지역인 운동장의 경계지역"
     }
   }, {
-    "id" : "AAK160_AK160A01",
+    "id" : "AAK160_AK160A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aak160",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::경기장/원형경기장::경기장/원형경기장::여러층의 좌석이 경기 또는 활동이 행해지는 지역 주위를 둘러싸고 관람을 할 수 있는 위치지점"
+    }
+  }, {
+    "id" : "AAK160_AK160A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aak160",
@@ -1473,7 +1855,21 @@
       "maputnik:comment" : "주거지역::수영장::수영장::야외 수영을 위해 이용되는 수영장의 경계지역"
     }
   }, {
-    "id" : "AAL005_AL005A01",
+    "id" : "AAL005_AL005A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aal005",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::동물보호구역::동물보호구역::야생 동물과 식물을 보호하기 위해 지정한 경계지역"
+    }
+  }, {
+    "id" : "AAL005_AL005A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aal005",
@@ -1490,7 +1886,21 @@
       "maputnik:comment" : "주거지역::동물보호구역::동물보호구역::야생 동물과 식물을 보호하기 위해 지정한 경계지역"
     }
   }, {
-    "id" : "AFA015_FA015A01",
+    "id" : "AFA015_FA015A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "afa015",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::사격장::사격장::화기를 발사 또는 폭발시키는 목적으로 개방지역으로 지정한 사격장의 경계지역"
+    }
+  }, {
+    "id" : "AFA015_FA015A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "afa015",
@@ -1537,7 +1947,22 @@
       "maputnik:comment" : "주거지역::건물::사당::종교적 목적으로 설계되는 건물 중, 사당 건물의 경계지역"
     }
   }, {
-    "id" : "AAL015_AL015A02",
+    "id" : "AAL015_AL015A02_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aal015",
+    "filter" : [ "all", [ "==", "exs", 7 ], [ "<", "hgt", 46 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::파괴된 건물::어떤 특별한 목적으로 설계되어 일반적으로 벽담으로 둘러쌓여 지붕이 있는 비교적 영구적인 구조의 건물로, 현재 존재하는 건물의 경계지역"
+    }
+  }, {
+    "id" : "AAL015_AL015A02_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aal015",
@@ -1613,6 +2038,21 @@
     }
   }, {
     "id" : "AAL015_AL015A05_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aal015",
+    "filter" : [ "all", [ ">=", "hgt", 46 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "주거지역::건물::건물 장애물::높이가 46m 이상인 건물의 경계지역"
+    }
+  }, {
+    "id" : "AAL015_AL015A05_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aal015",
@@ -1629,7 +2069,7 @@
       "maputnik:comment" : "주거지역::건물::건물 장애물::높이가 46m 이상인 건물의 경계지역"
     }
   }, {
-    "id" : "AAL015_AL015A05_02",
+    "id" : "AAL015_AL015A05_03",
     "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "aal015",
@@ -1845,7 +2285,21 @@
       "maputnik:comment" : "산업시설::대형곡물창고::대형곡물창고::곡물의 저장, 처리, 선적, 하역을 위해 설치된 대형곡물장고 의 경계지역"
     }
   }, {
-    "id" : "AAB000_AB000A01",
+    "id" : "AAB000_AB000A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aab000",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::쓰레기장::쓰레기장::폐물 또는 폐기된 재료를 수집하고 처리하는 쓰레기장의 경계지역"
+    }
+  }, {
+    "id" : "AAB000_AB000A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aab000",
@@ -1862,7 +2316,21 @@
       "maputnik:comment" : "산업시설::쓰레기장::쓰레기장::폐물 또는 폐기된 재료를 수집하고 처리하는 쓰레기장의 경계지역"
     }
   }, {
-    "id" : "AAB010_AB010A01",
+    "id" : "AAB010_AB010A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aab010",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::고철하치장::고철하치장::고철하치장의 경계지역"
+    }
+  }, {
+    "id" : "AAB010_AB010A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aab010",
@@ -2051,7 +2519,21 @@
       "maputnik:comment" : "산업시설::입자가속기 부지::입자가속기 부지::하전 입자에 높은 속력을 부여하는 장치의 경계지역"
     }
   }, {
-    "id" : "AAC000_AC000A01",
+    "id" : "AAC000_AC000A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aac000",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::처리장::처리장::변형 또는 정제된 특별한 재료를 사용하는 처리장 및 처분장의 경계지역"
+    }
+  }, {
+    "id" : "AAC000_AC000A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aac000",
@@ -2068,7 +2550,21 @@
       "maputnik:comment" : "산업시설::처리장::처리장::변형 또는 정제된 특별한 재료를 사용하는 처리장 및 처분장의 경계지역"
     }
   }, {
-    "id" : "AAM010_AM010A01",
+    "id" : "AAM010_AM010A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aam010",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::저장소::저장소::생산물이나 공급물을 저장하는 저장소의 경계지역"
+    }
+  }, {
+    "id" : "AAM010_AM010A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aam010",
@@ -2085,7 +2581,21 @@
       "maputnik:comment" : "산업시설::저장소::저장소::생산물이나 공급물을 저장하는 저장소의 경계지역"
     }
   }, {
-    "id" : "AAM060_AM060A01",
+    "id" : "AAM060_AM060A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aam060",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::지하저장소::지하저장소::재료나 생산물이 저장된 곳을 보호하기 위해 땅에 차폐되거나 둘러쌓인 구조물인 지하저장소의 경계지역"
+    }
+  }, {
+    "id" : "AAM060_AM060A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aam060",
@@ -2146,7 +2656,21 @@
       "maputnik:comment" : "산업시설::침전지::침전지::증발 또는 침전에 의한 액체로부터 응결된 고체물질이 있는 침전지 및 침전못의 경계지역"
     }
   }, {
-    "id" : "AAJ030_AJ030A01",
+    "id" : "AAJ030_AJ030A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aaj030",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "산업시설::사육장/축사::사육장/축사::가축을 일시적으로 사육시키는 사육장/축사의 경계지역"
+    }
+  }, {
+    "id" : "AAJ030_AJ030A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aaj030",
@@ -2223,7 +2747,21 @@
       "maputnik:comment" : "산업시설::양어장/양식장::양어장/양식장::어류의 양식을 위해 사용되는 바다의 울타리인 양어장/양식장의 경계지역"
     }
   }, {
-    "id" : "AAT050_AT050A01",
+    "id" : "AAT050_AT050A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aat050",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::통신소::통신소::통신 신호가 처리되고 통제되는 통신소의 경계지역"
+    }
+  }, {
+    "id" : "AAT050_AT050A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aat050",
@@ -2240,7 +2778,21 @@
       "maputnik:comment" : "공익설비::통신소::통신소::통신 신호가 처리되고 통제되는 통신소의 경계지역"
     }
   }, {
-    "id" : "AAD010_AD010A01",
+    "id" : "AAD010_AD010A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aad010",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::발전소 부지::발전소 부지::전력 발생을 위해 필요한 건물(시설)과 장치가 있는 발전소의 경계지역"
+    }
+  }, {
+    "id" : "AAD010_AD010A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aad010",
@@ -2257,7 +2809,21 @@
       "maputnik:comment" : "공익설비::발전소 부지::발전소 부지::전력 발생을 위해 필요한 건물(시설)과 장치가 있는 발전소의 경계지역"
     }
   }, {
-    "id" : "AAQ116_AQ116A01",
+    "id" : "AAQ116_AQ116A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aaq116",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::양수장::양수장::압축이나 흡입에 의해 고체, 액체, 기체를 이동시키는 양수장의 경계지역"
+    }
+  }, {
+    "id" : "AAQ116_AQ116A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aaq116",
@@ -2274,7 +2840,21 @@
       "maputnik:comment" : "공익설비::양수장::양수장::압축이나 흡입에 의해 고체, 액체, 기체를 이동시키는 양수장의 경계지역"
     }
   }, {
-    "id" : "AAD030_AD030A01",
+    "id" : "AAD030_AD030A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aad030",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "공익설비::변전소 부지::변전소 부지::전류가 변형되거나 배전되는 시설인 변전소부지의 경계지역"
+    }
+  }, {
+    "id" : "AAD030_AD030A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aad030",
@@ -2291,7 +2871,21 @@
       "maputnik:comment" : "공익설비::변전소 부지::변전소 부지::전류가 변형되거나 배전되는 시설인 변전소부지의 경계지역"
     }
   }, {
-    "id" : "AGB005_GB005A01",
+    "id" : "AGB005_GB005A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "agb005",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::비행장::비행장::항공기의 이착륙을 위해 사용되는 육지및 수계의 규정 지역인 공항/비행장의 경계지역"
+    }
+  }, {
+    "id" : "AGB005_GB005A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "agb005",
@@ -2308,7 +2902,21 @@
       "maputnik:comment" : "교통::비행장::비행장::항공기의 이착륙을 위해 사용되는 육지및 수계의 규정 지역인 공항/비행장의 경계지역"
     }
   }, {
-    "id" : "AGB030_GB030A01",
+    "id" : "AGB030_GB030A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "agb030",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::헬리콥터발착장::헬리콥터발착장::헬리콥터나 다른 수직 이착륙기에 의해 이륙과 착륙을 하는데 사용되는 헬기장의 경계지역"
+    }
+  }, {
+    "id" : "AGB030_GB030A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "agb030",
@@ -2325,7 +2933,21 @@
       "maputnik:comment" : "교통::헬리콥터발착장::헬리콥터발착장::헬리콥터나 다른 수직 이착륙기에 의해 이륙과 착륙을 하는데 사용되는 헬기장의 경계지역"
     }
   }, {
-    "id" : "AGB035_GB035A01",
+    "id" : "AGB035_GB035A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "agb035",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::헬기장::헬기장::헬리콥터의 이착륙을 위한 건물과 시설물을 모두 포함하는 헬리콥터발착장의 경계지역"
+    }
+  }, {
+    "id" : "AGB035_GB035A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "agb035",
@@ -2342,7 +2964,21 @@
       "maputnik:comment" : "교통::헬기장::헬기장::헬리콥터의 이착륙을 위한 건물과 시설물을 모두 포함하는 헬리콥터발착장의 경계지역"
     }
   }, {
-    "id" : "AGB065_GB065A01",
+    "id" : "AGB065_GB065A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "agb065",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::수상비행기지::수상비행기지::물 위에서 이착륙을 할 수 있는 항공기를 지지하는 설비인 수상비행기지의 경계지역"
+    }
+  }, {
+    "id" : "AGB065_GB065A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "agb065",
@@ -2388,7 +3024,21 @@
       "maputnik:comment" : "교통::수상비행기 정박지역::수상비행기 정박지역::배가 정박하거나 정박할 수 있는 수계지역인 수상비행기정박지의 경계지역"
     }
   }, {
-    "id" : "ABB090_BB090A01",
+    "id" : "ABB090_BB090A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "abb090",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::건선거::건선거::배의 밑바닥이 노출될 수 있도록 물을 제공하는 기능을 가진(배를 위해 제공된 지지물) 건선거의 경계지역"
+    }
+  }, {
+    "id" : "ABB090_BB090A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "abb090",
@@ -2435,7 +3085,21 @@
       "maputnik:comment" : "교통::부두::부두::배를 정박시키는 장소로 주로 사용되는 부두의 경계지역"
     }
   }, {
-    "id" : "AAN060_AN060A01",
+    "id" : "AAN060_AN060A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aan060",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::조차장::조차장::하역 또는 기차 및 전차의 조립을 위해 제공되는 조차장의 경계지역"
+    }
+  }, {
+    "id" : "AAN060_AN060A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aan060",
@@ -2507,7 +3171,21 @@
       "maputnik:comment" : "교통::유도로::유도로::활주로나 주기장, 종착지역 또는 서비스지역 등으로부터 제공하는 통로인 유도로의 경계지역"
     }
   }, {
-    "id" : "AAQ140_AQ140A01",
+    "id" : "AAQ140_AQ140A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aaq140",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::주차장::주차장::차량을 비롯한 수송수단을 저장 또는 주차하는 개방된 지역인 주차장의 경계지역"
+    }
+  }, {
+    "id" : "AAQ140_AQ140A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aaq140",
@@ -2525,6 +3203,20 @@
     }
   }, {
     "id" : "AAL060_AL060A01_01",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aal060",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::용치 지역::용치 지역::수송수단을 막기 위한 금속 방벽 또는 콘크리트 방벽인 용치의 경계지역"
+    }
+  }, {
+    "id" : "AAL060_AL060A01_02",
     "type" : "line",
     "source" : "g25k",
     "source-layer" : "aal060",
@@ -2540,7 +3232,21 @@
       "maputnik:comment" : "교통::용치 지역::용치 지역::수송수단을 막기 위한 금속 방벽 또는 콘크리트 방벽인 용치의 경계지역"
     }
   }, {
-    "id" : "AAL060_AL060A01_02",
+    "id" : "AAL060_AL060A01_03",
+    "type" : "fill",
+    "source" : "g25k",
+    "source-layer" : "aal060",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "교통::용치 지역::용치 지역::수송수단을 막기 위한 금속 방벽 또는 콘크리트 방벽인 용치의 경계지역"
+    }
+  }, {
+    "id" : "AAL060_AL060A01_04",
     "type" : "symbol",
     "source" : "g25k",
     "source-layer" : "aal060",
@@ -9619,7 +10325,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -9637,7 +10344,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -9655,7 +10363,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -9673,7 +10382,9 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-offset" : [ 2.5, 0.0 ],
-      "text-allow-overlap" : true
+      "text-allow-overlap" : true,
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -9691,7 +10402,9 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-offset" : [ 2.5, 0.0 ],
-      "text-allow-overlap" : true
+      "text-allow-overlap" : true,
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(166, 38, 38, 1)"
@@ -9709,7 +10422,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -9727,7 +10441,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -9745,7 +10460,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 99, 189, 1)"
@@ -9763,7 +10479,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -9781,7 +10498,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -9799,7 +10517,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -9817,7 +10536,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 99, 189, 1)"
@@ -9835,7 +10555,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 95, 189, 1)"
@@ -9853,7 +10574,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -9871,7 +10593,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"
@@ -9889,7 +10612,8 @@
       "text-font" : [ "Gosanja" ],
       "text-size" : 9,
       "text-allow-overlap" : true,
-      "text-rotation-alignment" : "map"
+      "text-rotation-alignment" : "map",
+      "text-pitch-alignment" : "map"
     },
     "paint" : {
       "text-color" : "rgba(0, 0, 0, 1)"

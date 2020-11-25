@@ -40,14 +40,14 @@ public class ConverterGssXml {
         String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
         //
         File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
-        File layerfile = new File(dataPath + "/gss_style/GSS_NAVY_LAYER.xml");
-        /*
+        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
+
         ConverterVO param = new ConverterVO();
         param.setVersion(8);
         param.setId("uzymq5sw3");
         param.setName("g25k_style");
         param.setMaputnikRenderer("mbgljs");
-        param.setScale(ConverterVO.Scale.a250k);
+        param.setScale(ConverterVO.Scale.g25k);
         param.setFont("Gosanja");
         param.setSourceName(param.getScale().name());
         param.setSprite("http://192.168.0.11/GSymbol/GSSSymbol");
@@ -56,14 +56,14 @@ public class ConverterGssXml {
         ConverterGssXml parse = new ConverterGssXml();
         File savefile = new File(dataPath + "/"+param.getScale().name()+"_style_generate.json");
         FileWriter writer = new FileWriter(savefile);
-        */
-        //
+        parse.convertLayerJson(stylefile,layerfile,writer,param);
+
+        /*
         ConverterGssXml parse = new ConverterGssXml();
         File savefile = new File(dataPath + "/original_style_generate.json");
         FileWriter writer = new FileWriter(savefile);
-        //
-        //parse.convertLayerJson(stylefile,layerfile,writer,param);
         parse.convertJsonAsOriginal(stylefile,layerfile,writer);
+        */
     }
 
     public void convertJsonAsOriginal(File styleFile, File layerFile, Writer output) throws IOException {
@@ -642,7 +642,7 @@ public class ConverterGssXml {
                 }
             }else{
                 if(gssPaint.getType().equals("SIMPLE") && gssPaint.getColor().equals("255, 255, 255, 255")){
-                    return; // color white ignore
+                    //return; // color white ignore
                 }
                 if(gssPaint.getColor() != null) paint.setFillColor(parseColor(gssPaint.getColor()));
             }
