@@ -40,14 +40,14 @@ public class ConverterGssXml {
         String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
         //
         File stylefile = new File(dataPath + "/gss_style/GSS_STYLE.xml");
-        File layerfile = new File(dataPath + "/gss_style/GSS_GROUND_LARGE_SCALE_LAYER.xml");
+        File layerfile = new File(dataPath + "/gss_style/GSS_NAVY_LAYER.xml");
 
         ConverterVO param = new ConverterVO();
         param.setVersion(8);
         param.setId("uzymq5sw3");
         param.setName("g25k_style");
         param.setMaputnikRenderer("mbgljs");
-        param.setScale(ConverterVO.Scale.g25k);
+        param.setScale(ConverterVO.Scale.kr1);
         param.setFont("Gosanja");
         param.setSourceName(param.getScale().name());
         param.setSprite("http://192.168.0.11/GSymbol/GSSSymbol");
@@ -152,13 +152,15 @@ public class ConverterGssXml {
                                 Element elsub = (Element)sub;
                                 String category = elsub.getAttribute("Category");
                                 String name = elsub.getAttribute("Name");
-                                orders.add(category + "-" + name);
+                                String shpSource = elsub.getAttribute("SHPSource");
+                                orders.add(category + "-" + name + "-" + shpSource);
                             }
                         }
                     }else{
                         String category = el.getAttribute("Category");
                         String name = el.getAttribute("Name");
-                        orders.add(category + "-" + name);
+                        String shpSource = el.getAttribute("SHPSource");
+                        orders.add(category + "-" + name + "-" + shpSource);
                     }
                 }
             }
@@ -167,6 +169,7 @@ public class ConverterGssXml {
             if(layers == null){
                 layers = new LinkedList<>();
             }
+            System.out.println(orders);
             if(groups != null){
                 for(GssGroup group : groups){
                     layers.addAll(group.getLayer());
@@ -174,7 +177,7 @@ public class ConverterGssXml {
                 List<GssLayer> regenLayers = new LinkedList<>();
                 for(String key : orders){
                     for(GssLayer layer : layers){
-                        String compareKey = layer.getCategory() + "-" + layer.getName();
+                        String compareKey = layer.getCategory() + "-" + layer.getName() + "-" + layer.getSHPSource();
                         if(key.equals(compareKey)){
                             regenLayers.add(layer);
                             break;
@@ -703,6 +706,9 @@ public class ConverterGssXml {
                         }
                     }
                 }else if(gssPaint.getType().equals("PICTURE")){
+                    if(gssPaint.getPicture() == null){
+                        return; // 정보없음 ignore
+                    }
                     layout.setIconImage(parsePicture(gssPaint.getPicture()));
                     layout.setIconAllowOverlap(true);
                     layout.setIconRotationAlignment("map");
