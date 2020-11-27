@@ -14969,7 +14969,7 @@
       "text-anchor" : "right",
       "text-font" : [ "Gosanja" ],
       "text-size" : 10,
-      "text-offset" : [ 42.8, -4.0 ],
+      "text-offset" : [ 42.0, -4.0 ],
       "text-allow-overlap" : true,
       "text-rotation-alignment" : "map",
       "text-pitch-alignment" : "map"

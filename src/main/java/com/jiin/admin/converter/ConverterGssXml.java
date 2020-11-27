@@ -47,7 +47,7 @@ public class ConverterGssXml {
         param.setId("uzymq5sw3");
         param.setName("g25k_style");
         param.setMaputnikRenderer("mbgljs");
-        param.setScale(ConverterVO.Scale.kr1);
+        param.setScale(ConverterVO.Scale.kr5);
         param.setFont("Gosanja");
         param.setSourceName(param.getScale().name());
         param.setSprite("http://192.168.0.11/GSymbol/GSSSymbol");
@@ -410,6 +410,9 @@ public class ConverterGssXml {
                                 labelStyle.setOffsetY(-1f);
                             }else if(shpSource.equalsIgnoreCase("PCA030")) { //표고점 라벨
                                 labelStyle.setOffsetX(2.5f);
+                            }else if(labelStyleName.equalsIgnoreCase("BC040T05")) { //항행보조시설 - 등대_특성_주기
+                                labelStyle.setOffsetX(42f);
+                                labelStyle.setOffsetY(-4f);
                             }
                             layout.setTextOffset(new Float[]{labelStyle.getOffsetX(),labelStyle.getOffsetY()});
                         }
@@ -644,8 +647,9 @@ public class ConverterGssXml {
                     layout.setIconRotationAlignment("map");
                 }
             }else{
-                if(gssPaint.getType().equals("SIMPLE") && gssPaint.getColor().equals("255, 255, 255, 255")){
-                    //return; // color white ignore
+                if(gssPaint.getType().equals("SIMPLE") &&
+                        (gssPaint.getTransparent() != null && gssPaint.getTransparent() == true)){
+                    return; // color transparent true ignore
                 }
                 if(gssPaint.getColor() != null) paint.setFillColor(parseColor(gssPaint.getColor()));
             }
