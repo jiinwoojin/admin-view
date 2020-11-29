@@ -647,8 +647,10 @@ public class ConverterGssXml {
                     layout.setIconRotationAlignment("map");
                 }
             }else{
-                if(gssPaint.getType().equals("SIMPLE") &&
-                        (gssPaint.getTransparent() != null && gssPaint.getTransparent() == true)){
+                if(gssPaint.getType().equals("SIMPLE")
+                        && (gssPaint.getTransparent() != null && gssPaint.getTransparent() == true)
+                        && (gssPaint.getColor() != null && gssPaint.getColor().equals("255, 255, 255, 255"))
+                ){
                     return; // color transparent true ignore
                 }
                 if(gssPaint.getColor() != null) paint.setFillColor(parseColor(gssPaint.getColor()));
