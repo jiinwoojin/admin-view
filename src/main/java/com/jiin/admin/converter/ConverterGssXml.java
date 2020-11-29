@@ -651,7 +651,7 @@ public class ConverterGssXml {
                         && (gssPaint.getTransparent() != null && gssPaint.getTransparent() == true)
                         && (gssPaint.getColor() != null && gssPaint.getColor().equals("255, 255, 255, 255"))
                 ){
-                    return; // color transparent true ignore
+                    return; // color white transparent true ignore
                 }
                 if(gssPaint.getColor() != null) paint.setFillColor(parseColor(gssPaint.getColor()));
             }
