@@ -195,7 +195,21 @@
       "maputnik:comment" : "기타부수물::빙원::얼음 빙원::광대한 면적을 차지하는 얼음 빙원의 경계지역"
     }
   }, {
-    "id" : "ABJ110_BJ110A01",
+    "id" : "ABJ110_BJ110A01_01",
+    "type" : "fill",
+    "source" : "kr5",
+    "source-layer" : "abj110",
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(24, 224, 84, 1)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "기타부수물::툰드라::툰드라::북극해 연안의 동토지대로서 삼림한계보다 북쪽의 극지에 해당되는 툰드라의 경계지역"
+    }
+  }, {
+    "id" : "ABJ110_BJ110A01_02",
     "type" : "line",
     "source" : "kr5",
     "source-layer" : "abj110",
@@ -2630,7 +2644,22 @@
       "maputnik:comment" : "항구관련시설::부두::부유하지 않는 부두::배를 정박시키는 장소로 주로 사용되는 고정된 부두의 경계지역"
     }
   }, {
-    "id" : "ABB190_BB190A01",
+    "id" : "ABB190_BB190A01_01",
+    "type" : "fill",
+    "source" : "kr5",
+    "source-layer" : "abb190",
+    "filter" : [ "all", [ "==", "loc", 15 ] ],
+    "layout" : {
+      "visibility" : "visible"
+    },
+    "paint" : {
+      "fill-color" : "rgba(255, 255, 255, 0.0)"
+    },
+    "metadata" : {
+      "maputnik:comment" : "항구관련시설::부두::부유하는 부두::배를 정박시키는 장소로 주로 사용되는 물위에 떠있는 부두의 경계지역"
+    }
+  }, {
+    "id" : "ABB190_BB190A01_02",
     "type" : "line",
     "source" : "kr5",
     "source-layer" : "abb190",

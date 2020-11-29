@@ -66,7 +66,60 @@ public class ConverterGssXml {
         */
     }
 
+    Map<String, Integer> LAYER_ID_INDEX = new HashMap();
+    public void convertLayerJson(File styleFile, File layerFile, Writer output, ConverterVO param) throws ParserConfigurationException, JAXBException, IOException, SAXException {
+        LAYER_ID_INDEX.clear();
+        if(param.getScaleStr() != null){
+            param.setScale(ConverterVO.Scale.find(param.getScaleStr()));
+        }
+        String sourceName = param.getSourceName();
+        String font = param.getFont();
+        MapboxRoot mapbox = new MapboxRoot();
+        mapbox.setVersion(param.getVersion());
+        mapbox.setId(param.getId());
+        Map meta = new HashMap();
+        if(param.getMaputnikRenderer() != null){
+            meta.put("maputnik:renderer",param.getMaputnikRenderer());
+        }
+        if(!meta.isEmpty()){
+            mapbox.setMetadata(meta);
+        }
+        mapbox.setName(param.getName());
+        mapbox.setSprite(param.getSprite());
+        mapbox.setGlyphs(param.getGlyphs());
+        MapboxSource source = new MapboxSource();
+        source.setType("vector");
+        source.setTiles(Arrays.asList(param.getTiles()));
+        source.setMinZoom(0);
+        source.setMaxZoom(20);
+        mapbox.putSources(sourceName,source);
+        // add background layer
+        MapboxLayer background = new MapboxLayer();
+        background.setId("background");
+        background.setType("background");
+        background.setLayout(new MapboxLayout());
+        background.setPaint(new MapboxPaint("rgba(255, 255, 255, 1)"));
+        mapbox.addLayers(background);
+        // set parse info
+        GssContainer styles = parseGssXml(styleFile);
+        GssMapLayer result = (GssMapLayer) parseGssXml(layerFile);
+        List<GssLayer> layers = result.getLayer();
+        for(GssLayer layer : layers) {
+            makeLayer("Polygon", layer, sourceName, font, styles, param, mapbox);
+            makeLayer("Line", layer, sourceName, font, styles, param, mapbox);
+            makeLayer("Point", layer, sourceName, font, styles, param, mapbox);
+        }
+        for(GssLayer layer : layers) {
+            makeLayer("Label", layer, sourceName, font, styles, param, mapbox);
+        }
+        mapbox.cleanLayerId();
+        new ObjectMapper()
+                .enable(SerializationFeature.INDENT_OUTPUT)
+                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+                .writeValue(output,mapbox);
+    }
     public void convertJsonAsOriginal(File styleFile, File layerFile, Writer output) throws IOException {
+        LAYER_ID_INDEX.clear();
         JSONObject styleJson = XML.toJSONObject(FileUtils.readFileToString(styleFile, "euc-kr"));
         JSONObject layerJson = XML.toJSONObject(FileUtils.readFileToString(layerFile, "euc-kr"));
         Map styleMap = styleJson.toMap();
@@ -95,38 +148,6 @@ public class ConverterGssXml {
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL)
                 .writeValue(output,layerMap);
     }
-
-    private void parseGssMap(Map layer, List<Map> styles) {
-        List<Map> features = new ArrayList<>();
-        if(layer.get("Feature") instanceof Map){
-            features.add((Map) layer.get("Feature"));
-        }else{
-            features.addAll((List) layer.get("Feature"));
-        }
-        for(Map feature : features){
-            String geometryStyle = (String) feature.get("GeometryStyle");
-            if(geometryStyle != null){
-                for(Map style : styles){
-                    String styleName = (String) style.get("name");
-                    if(geometryStyle.equals(styleName)){
-                        feature.put("GeometryStyleValue",style);
-                        break;
-                    }
-                }
-            }
-            String labelStyle = (String) feature.get("LabelStyle");
-            if(labelStyle != null){
-                for(Map style : styles){
-                    String styleName = (String) style.get("name");
-                    if(labelStyle.equals(styleName)){
-                        feature.put("LabelStyleValue",style);
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
 
     public GssContainer parseGssXml(File target) throws ParserConfigurationException, JAXBException, IOException, SAXException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -195,6 +216,37 @@ public class ConverterGssXml {
         return (GssContainer) object;
     }
 
+    private void parseGssMap(Map layer, List<Map> styles) {
+        List<Map> features = new ArrayList<>();
+        if(layer.get("Feature") instanceof Map){
+            features.add((Map) layer.get("Feature"));
+        }else{
+            features.addAll((List) layer.get("Feature"));
+        }
+        for(Map feature : features){
+            String geometryStyle = (String) feature.get("GeometryStyle");
+            if(geometryStyle != null){
+                for(Map style : styles){
+                    String styleName = (String) style.get("name");
+                    if(geometryStyle.equals(styleName)){
+                        feature.put("GeometryStyleValue",style);
+                        break;
+                    }
+                }
+            }
+            String labelStyle = (String) feature.get("LabelStyle");
+            if(labelStyle != null){
+                for(Map style : styles){
+                    String styleName = (String) style.get("name");
+                    if(labelStyle.equals(styleName)){
+                        feature.put("LabelStyleValue",style);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     private GssStyle findGssStyle(String styleName, GssContainer object) {
         List<GssStyle> styles = ((GssMapStyle) object).getStyle();
         for(GssStyle style : styles){
@@ -205,56 +257,7 @@ public class ConverterGssXml {
         return null;
     }
 
-    public void convertLayerJson(File styleFile, File layerFile, Writer output, ConverterVO param) throws ParserConfigurationException, JAXBException, IOException, SAXException {
-        if(param.getScaleStr() != null){
-            param.setScale(ConverterVO.Scale.find(param.getScaleStr()));
-        }
-        String sourceName = param.getSourceName();
-        String font = param.getFont();
-        MapboxRoot mapbox = new MapboxRoot();
-        mapbox.setVersion(param.getVersion());
-        mapbox.setId(param.getId());
-        Map meta = new HashMap();
-        if(param.getMaputnikRenderer() != null){
-            meta.put("maputnik:renderer",param.getMaputnikRenderer());
-        }
-        if(!meta.isEmpty()){
-            mapbox.setMetadata(meta);
-        }
-        mapbox.setName(param.getName());
-        mapbox.setSprite(param.getSprite());
-        mapbox.setGlyphs(param.getGlyphs());
-        MapboxSource source = new MapboxSource();
-        source.setType("vector");
-        source.setTiles(Arrays.asList(param.getTiles()));
-        source.setMinZoom(0);
-        source.setMaxZoom(20);
-        mapbox.putSources(sourceName,source);
-        // add background layer
-        MapboxLayer background = new MapboxLayer();
-        background.setId("background");
-        background.setType("background");
-        background.setLayout(new MapboxLayout());
-        background.setPaint(new MapboxPaint("rgba(255, 255, 255, 1)"));
-        mapbox.addLayers(background);
-        // set parse info
-        GssContainer styles = parseGssXml(styleFile);
-        GssMapLayer result = (GssMapLayer) parseGssXml(layerFile);
-        List<GssLayer> layers = result.getLayer();
-        for(GssLayer layer : layers) {
-            makeLayer("Polygon", layer, sourceName, font, styles, param, mapbox);
-            makeLayer("Line", layer, sourceName, font, styles, param, mapbox);
-            makeLayer("Point", layer, sourceName, font, styles, param, mapbox);
-        }
-        for(GssLayer layer : layers) {
-            makeLayer("Label", layer, sourceName, font, styles, param, mapbox);
-        }
-        mapbox.cleanLayerId();
-        new ObjectMapper()
-                .enable(SerializationFeature.INDENT_OUTPUT)
-                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-                .writeValue(output,mapbox);
-    }
+
     private void makeLayer(String type, GssLayer layer, String sourceName, String font, GssContainer styles, ConverterVO param, MapboxRoot mapbox) throws JsonProcessingException {
         String mapScale = layer.getMap();
         if(!mapScale.contains(param.getScale().getValue())){
@@ -651,7 +654,7 @@ public class ConverterGssXml {
                         && (gssPaint.getTransparent() != null && gssPaint.getTransparent() == true)
                         && (gssPaint.getColor() != null && gssPaint.getColor().equals("255, 255, 255, 255"))
                 ){
-                    return; // color white transparent true ignore
+                    return; // color white and transparent true ignore
                 }
                 if(gssPaint.getColor() != null) paint.setFillColor(parseColor(gssPaint.getColor()));
             }
@@ -771,7 +774,7 @@ public class ConverterGssXml {
         mapboxLayer.setLayout(layout);
         mapbox.addLayers(mapboxLayer);
     }
-    Map<String, Integer> LAYER_ID_INDEX = new HashMap();
+
     private String getLayerIdIndex(String layerId) {
         if(!LAYER_ID_INDEX.containsKey(layerId)){
             LAYER_ID_INDEX.put(layerId,0);
