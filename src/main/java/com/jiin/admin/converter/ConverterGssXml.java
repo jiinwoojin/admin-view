@@ -645,9 +645,9 @@ public class ConverterGssXml {
             GssPolygonLayer gssPaint = (GssPolygonLayer) styleLayer;
             if(gssPaint.getType().equals("PICTURE")){
                 paint.setFillPattern(parsePicture(gssPaint.getPicture()));
+                layout.setIconRotationAlignment("map");
                 if(angleColumn != null){
                     layout.setIconRotate(new String[]{"get", angleColumn});
-                    layout.setIconRotationAlignment("map");
                 }
             }else{
                 if(gssPaint.getType().equals("SIMPLE")
@@ -665,9 +665,9 @@ public class ConverterGssXml {
                 paint.setLinePattern(parsePicture(gssPaint.getPicture()));
                 paint.setLineWidth(gssPaint.getWidth());
                 paint.setLineTranslateAnchor("viewport");
+                layout.setIconRotationAlignment("map");
                 if(angleColumn != null){
                     layout.setIconRotate(new String[]{"get", angleColumn});
-                    layout.setIconRotationAlignment("map");
                 }
             }else{
                 if(gssPaint.getType().equals("SIMPLE") && gssPaint.getWidth() == 0){
@@ -737,9 +737,9 @@ public class ConverterGssXml {
                 if(gssPaint.getType().equals("PICTURE")){
                     layout.setIconImage(parsePicture(gssPaint.getPicture()));
                     layout.setIconAllowOverlap(true);
+                    layout.setIconRotationAlignment("map");
                     if(angleColumn != null){
                         layout.setIconRotate(new String[]{"get", angleColumn});
-                        layout.setIconRotationAlignment("map");
                     }
                 }
             } else if(styleLayer instanceof GssLineLayer){
@@ -748,9 +748,9 @@ public class ConverterGssXml {
                     if(gssPaint.getPicture() == null){
                         return; // picture null ignore
                     }
-                    layout.setIconAllowOverlap(true);
                     layout.setIconImage(parsePicture(gssPaint.getPicture()));
                     layout.setIconAllowOverlap(true);
+                    layout.setIconRotationAlignment("map");
                     layout.setSymbolPlacement("line");
                     layout.setIconAnchor("center");
                     layout.setSymbolSpacing(gssPaint.getInterval());
