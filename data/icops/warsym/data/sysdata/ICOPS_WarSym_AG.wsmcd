@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wsmcd xmlns="urn:icops.cngsol.co.kr" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"		
+		xsi:schemaLocation="urn:icops.cngsol.co.kr C:/ICOPS/warsym/schema/ICOPS_WSMCD.xsd">
+	<mcd cd='-' ncl='null' nll='미지정' />
+	<mcd cd='S' ncl='Towed array(short)' nll='견인 소나열 (단)' />
+	<mcd cd='L' ncl='Towed array(long)' nll='견인 소나열 (장)' />
+</wsmcd>

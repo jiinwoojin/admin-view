@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='TripWireA' img='wstmplimg_TripWireA.png'>
+  <tmpllabel name='LBC' rect='151,106,31,16' hidable='1' />
+</wstmplmap>

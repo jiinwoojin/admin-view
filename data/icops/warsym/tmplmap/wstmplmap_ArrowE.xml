@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='ArrowE' img='wstmplimg_ArrowE.png'>
+  <tmpllabel name='CEW' rect='8,78,29,22' />
+  <tmpllabel name='EAT' rect='50,110,29,22' />
+  <tmpllabel name='CEL' rect='74,33,29,22' />
+  <tmpllabel name='LBC' rect='136,96,29,22' hidable='1' />
+  <tmpllabel name='ICON' rect='167,103,36,22' />
+  <tmpllabel name='CSL' rect='225,159,29,22' />
+  <tmpllabel name='SAT' rect='249,71,29,22' />
+  <tmpllabel name='CSW' rect='288,117,29,22' />
+</wstmplmap>

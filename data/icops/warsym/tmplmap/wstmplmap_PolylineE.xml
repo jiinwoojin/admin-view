@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='PolylineE' img='wstmplimg_PolylineE.png'>
+  <tmpllabel name='LBM' rect='148,91,31,16' hidable='1' />
+  <tmpllabel name='ATS' rect='69,75,31,16' />
+  <tmpllabel name='ATL' rect='107,75,31,16' />
+</wstmplmap>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='PolygonB' img='wstmplimg_PolygonB.png'>
+  <tmpllabel name='ICO' rect='143,99,36,16' />
+  <tmpllabel name='ICP' rect='243,99,36,16' />
+</wstmplmap>

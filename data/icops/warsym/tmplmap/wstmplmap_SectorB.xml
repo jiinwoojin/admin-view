@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='SectorB' img='wstmplimg_SectorB.png'>
+  <tmpllabel name='LBL' rect='86,79,24,17' hidable='1' />
+  <tmpllabel name='LBC' rect='151,68,25,17' hidable='1' />
+  <tmpllabel name='LBR' rect='212,91,24,16' hidable='1' />
+</wstmplmap>

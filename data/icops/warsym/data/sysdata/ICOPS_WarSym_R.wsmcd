@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wsmcd xmlns="urn:icops.cngsol.co.kr" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"		
+		xsi:schemaLocation="urn:icops.cngsol.co.kr C:/ICOPS/warsym/schema/ICOPS_WSMCD.xsd">
+	<mcd cd='-' ncl='null' nll='미지정' />
+	<mcd cd='O' ncl='Wheeled,Limited cross country' nll='차륜식(제한된 야지횡단)' />
+	<mcd cd='P' ncl='Cross country' nll='야지횡단 차륜식(야지횡단)' />
+	<mcd cd='Q' ncl='Tracked' nll='자주 궤도식' />
+	<mcd cd='R' ncl='Wheeled and tracked combination' nll='차륜 궤도 혼합식' />
+	<mcd cd='S' ncl='Towed' nll='트레일러 견인식' />
+	<mcd cd='T' ncl='Rail' nll='철로 이동식' />
+	<mcd cd='U' ncl='Over the snow' nll='설상 이동식(원동기)' />
+	<mcd cd='V' ncl='Sled' nll='빙상 이동식' />
+	<mcd cd='W' ncl='Animals' nll='동물 견인식' />
+	<mcd cd='X' ncl='Barge' nll='바지 예인식' />
+	<mcd cd='Y' ncl='Amphibious' nll='수륙양용' />
+</wsmcd>

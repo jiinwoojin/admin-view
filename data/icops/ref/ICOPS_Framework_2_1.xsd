@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<xs:schema
+		targetNamespace="urn:cngsol.icops.Framework_2_1"
+		version="$Id:ICOPS_Framework.xsd.v 2.1 2015/09/29$"
+		elementFormDefault="qualified"
+		xmlns="urn:cngsol.icops.Framework_2_1"
+		xmlns:mstns="urn:cngsol.icops.Framework_2_1"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="app_cxt" type="type_app_cxt" />
+	<xs:element name="layer_list" type="type_layer_list" />
+	<xs:element name="layer_reg" type="type_layer_reg" />
+  <xs:element name="layer_manager_list" type="type_layer_manager_list" />
+
+	<!-- Application context -->
+	<xs:complexType name="type_app_cxt">
+		<xs:sequence>
+			<xs:element name="topic_agent_list" type="type_topic_agent_list" minOccurs="0" />
+			<xs:element name="customize_list" type="type_customize_list" minOccurs="0" />
+		</xs:sequence>
+		<xs:attribute name="com_base" type="xs:string" use="optional" />
+	</xs:complexType>
+	<xs:complexType name="type_topic_agent_list">
+		<xs:sequence>
+			<xs:element name="topic_agent" type="type_topic_agent" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="type_customize_list">
+		<xs:sequence>
+			<xs:element name="customize" type="type_customize" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="type_topic_agent">
+		<xs:sequence>
+			<xs:element name="prop" type="type_prop" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="lib" type="xs:string" use="required" />
+    <xs:attribute name="ext" type="xs:string" use="optional" default=".dll" />
+    <xs:attribute name="cls" type="xs:string" use="required" />
+	</xs:complexType>
+	<xs:complexType name="type_customize">
+		<xs:sequence>
+			<xs:element name="prop" type="type_prop" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="impl" type="xs:string" use="optional" />
+		<xs:attribute name="lib" type="xs:string" use="optional" />
+    <xs:attribute name="ext" type="xs:string" use="optional" default=".dll" />
+    <xs:attribute name="cls" type="xs:string" use="optional" />
+    <xs:attribute name="desc" type="xs:string" use="optional" />
+    <xs:attribute name="jimpl" type="xs:string" use="optional" />
+    <xs:attribute name="jcls" type="xs:string" use="optional" />
+  </xs:complexType>
+
+	<!-- Layer list -->
+	<xs:complexType name="type_layer_list">
+		<xs:sequence>
+			<!-- meta properties -->
+			<xs:element name="meta" type="type_meta" minOccurs="0" maxOccurs="unbounded" />
+			<!-- layers -->
+			<xs:element name="layer" type="type_layer" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="oid" type="xs:string" use="required" />
+	</xs:complexType>
+	<xs:complexType name="type_layer">
+		<xs:sequence>
+			<!-- properties -->
+			<xs:element name="prop" type="type_prop" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<!-- order : Order of layer -->
+		<!-- layerID : GUID formatted layer ID of layer registry item. -->
+		<!-- oid : GUID formatted object ID of this layer -->
+		<!-- name : name of this layer -->
+		<!-- sub_hpath : layer hierarchy path from the path of implementing layer registry item -->
+		<!-- show : indicates show or hide this layer, default is true -->
+		<!-- url : reference for the data for this layer -->
+		<!-- transparency : transparency of this layer : 0 (opaque) ~ 100 (transparent) -->
+		<xs:attribute name="order" type="xs:unsignedInt" use="required" />
+		<xs:attribute name="layerID" type="xs:string" use="required" />
+		<xs:attribute name="oid" type="xs:string" use="required" />
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="sub_hpath" type="xs:string" use="optional" />
+		<xs:attribute name="show" type="xs:boolean" use="optional" />
+		<xs:attribute name="url" type="xs:string" use="optional" />
+		<xs:attribute name="transparency" type="xs:int" use="optional" />
+	</xs:complexType>
+
+	<!-- Layer registry -->
+	<xs:complexType name="type_layer_reg">
+		<xs:sequence>
+			<xs:element name="item" type="type_item" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="type_item">
+		<xs:sequence>
+			<xs:element name="com" type="type_com" />
+			<xs:element name="da" type="type_com" minOccurs="0" />
+			<xs:element name="custom" type="type_com" minOccurs="0" />
+			<xs:element name="prop" type="type_prop" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="topic" type="xs:unsignedInt" use="optional" />
+		<xs:attribute name="hpath" type="xs:string" use="required" />
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="desc" type="xs:string" use="optional" />
+		<xs:attribute name="layerID" type="xs:string" use="required" />
+		<xs:attribute name="multiple" type="xs:boolean" use="optional" />
+	</xs:complexType>
+
+  <!--
+
+      Layer manager list
+  -->
+  <xs:complexType name="type_layer_manager_list">
+    <xs:sequence>
+      <xs:element name="layer_manager" type="type_layer_manager" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="type_layer_manager">
+    <xs:sequence>
+      <xs:element name="com" type="type_com" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="desc" type="xs:string" use="optional" />
+    <xs:attribute name="typeID" type="type_UUID" use="required" />
+  </xs:complexType>
+
+  <!-- Common -->
+	<xs:complexType name="type_com">
+		<xs:attribute name="lib" type="xs:string" use="required" />
+    <xs:attribute name="ext" type="xs:string" use="optional" default=".dll" />
+    <xs:attribute name="cls" type="xs:string" use="required" />
+	</xs:complexType>
+	<xs:complexType name="type_meta">
+		<xs:sequence>
+			<xs:element name="prop" type="type_prop" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="type_prop">
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="value" type="xs:string" use="optional" />
+    <xs:attribute name="jvalue" type="xs:string" use="optional" />
+    <xs:attribute name="desc" type="xs:string" use="optional" />
+  </xs:complexType>
+
+  <!--
+
+      UUID(고유식별자) 속성 자료형 정의
+  -->
+  <xs:simpleType name="type_UUID">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\{[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\}" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

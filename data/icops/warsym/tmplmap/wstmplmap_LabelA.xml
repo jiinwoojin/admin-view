@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='LabelA' img='wstmplimg_LabelA.png'>
+  <tmpllabel name='LBC' rect='149,96,31,23' hidable='1' />
+  <tmpllabel name='LBL' rect='96,96,31,23' hidable='1' />
+  <tmpllabel name='LBT' rect='149,58,31,23' hidable='1' />
+  <tmpllabel name='LBR' rect='202,96,31,23' hidable='1' />
+  <tmpllabel name='LBB' rect='149,134,31,23' hidable='1' />
+  <tmpllabel name='SFD' rect='149,28,31,23' />
+  <tmpllabel name='AFL' rect='202,28,31,23' />
+</wstmplmap>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='PolylineB' img='wstmplimg_PolylineB.png'>
+  <tmpllabel name='LBS' rect='36,91,31,16' hidable='1' />
+  <tmpllabel name='LBM' rect='148,91,31,16' hidable='1' />
+  <tmpllabel name='LBE' rect='261,91,31,16' hidable='1' />
+  <tmpllabel name='ATS' rect='69,75,31,16' />
+  <tmpllabel name='ATL' rect='107,75,31,16' />
+  <tmpllabel name='ATR' rect='190,75,31,16' />
+  <tmpllabel name='ATE' rect='228,75,31,16' />
+</wstmplmap>

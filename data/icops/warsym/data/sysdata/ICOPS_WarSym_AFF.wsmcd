@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<wsmcd xmlns="urn:icops.cngsol.co.kr" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"		
+		xsi:schemaLocation="urn:icops.cngsol.co.kr C:/ICOPS/warsym/schema/ICOPS_WSMCD.xsd">
+	<mcd cd='P' ncl='Pending' nll='식별보류' />
+	<mcd cd='U' ncl='Unknown' nll='미식별' />
+	<mcd cd='F' ncl='Friend' nll='아군' />
+	<mcd cd='N' ncl='Neutral' nll='중립' />
+	<mcd cd='H' ncl='Hostile' nll='적군' />
+	<mcd cd='A' ncl='Assumed friend' nll='아군간주' />
+	<mcd cd='S' ncl='Suspect' nll='적군간주' />
+	<mcd cd='G' ncl='Exercise pending' nll='(훈)식별보류' />
+	<mcd cd='W' ncl='Exercise unknown' nll='(훈)미식별' />
+	<mcd cd='D' ncl='Exercise friend' nll='(훈)아군' />
+	<mcd cd='L' ncl='Exercise neutral' nll='(훈)중립' />
+	<mcd cd='M' ncl='Exercise assumed friend' nll='(훈)아군간주' />
+	<mcd cd='J' ncl='Joker' nll='의심적' />
+	<mcd cd='K' ncl='Faker' nll='가상적' />
+</wsmcd>		

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='SectorA' img='wstmplimg_SectorA.png'>
+  <tmpllabel name='LL4' rect='93,54,24,17' hidable='1' />
+  <tmpllabel name='LL3' rect='101,93,24,17' hidable='1' />
+  <tmpllabel name='LL2' rect='109,132,24,17' hidable='1' />
+  <tmpllabel name='LL1' rect='124,164,25,16' hidable='1' />
+  <tmpllabel name='LC2' rect='140,117,25,16' hidable='1' />
+  <tmpllabel name='LC1' rect='148,148,24,17' hidable='1' />
+  <tmpllabel name='LC4' rect='195,46,24,17' hidable='1' />
+  <tmpllabel name='LC3' rect='179,77,25,17' hidable='1' />
+  <tmpllabel name='LR2' rect='187,124,25,17' hidable='1' />
+  <tmpllabel name='LR1' rect='179,156,25,17' hidable='1' />
+  <tmpllabel name='LR3' rect='226,101,25,17' hidable='1' />
+  <tmpllabel name='LR4' rect='258,77,24,17' hidable='1' />
+</wstmplmap>

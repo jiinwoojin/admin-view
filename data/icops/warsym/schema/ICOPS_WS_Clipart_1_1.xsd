@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<xs:schema
+		targetNamespace="urn:cngsol.icops.WS_Clipart_1_1"
+		version="$Id:ICOPS_WS_Clipart_1_1.xsd.v 1.1 2015/09/29$"
+		elementFormDefault="qualified"
+		xmlns="urn:cngsol.icops.WS_Clipart_1_1"
+		xmlns:mstns="urn:cngsol.icops.WS_Clipart_1_1"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <xs:element name="warsym_clipart" type="type_warsym_clipart" />
+	<xs:complexType name="type_warsym_clipart">
+		<xs:sequence>
+			<xs:element name="wsc_item" type="type_wsc_item" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="type_wsc_item">
+    <xs:sequence>
+      <xs:element name="wsc_item" type="type_wsc_item" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <!-- nll : name(local language) - 명칭(한글) -->
+    <!-- ncl : name(common language) - 명칭(영문) -->
+    <!-- sym : symbol assembly string - 부호 조립정보 문자열(부호코드 + 수식정보) -->
+    <!-- hl : hierarchy level - 표준부호 계증 정보 문자열 -->
+    <!-- sz : symbol size - 부호크기 -->
+    <!-- cm : color mode - 색상 설정 방법 -->
+    <!-- lc : line/icon color - 사용자 지정 선색상 또는 아이콘 색상 -->
+    <!-- fc : fill/frame color - 사용자 지정 채움색상 또는 외형채움 색상 -->
+    <!-- tc : text color - 수식정보 문자 색상 -->
+    <!-- tci : text color inversed - 수식정보 역상 문자 색상 -->
+    <!-- shi : show icon - 기능부호 표시 여부 -->
+    <!-- shf : show frame - 외형부호 표시 여부 -->
+    <!-- shc : show CIV - 민간부호 색상 채움 여부 -->
+    <!-- ff : fill frame - 외형부호 채움 여부 -->
+    <!-- ocp : operation condition position - 운용조건 표시 위치 -->
+    <xs:attribute name="nll" type="xs:string" use="required" />
+    <xs:attribute name="ncl" type="xs:string" use="required" />
+    <xs:attribute name="sym" type="xs:string" use="optional" />
+    <xs:attribute name="hl" type="xs:string" use="optional" />
+    <xs:attribute name="sz" type="xs:float" use="optional" default="7.0" />
+    <xs:attribute name="cm" type="enum_tacsymColorMode" use="optional" default="0" />
+    <xs:attribute name="lc" type="type_ARGB" use="optional" />
+    <xs:attribute name="fc" type="type_ARGB" use="optional" />
+    <xs:attribute name="tc" type="type_ARGB" use="optional" />
+    <xs:attribute name="tci" type="type_ARGB" use="optional" />
+    <xs:attribute name="shi" type="xs:boolean" use="optional" default="1" />
+    <xs:attribute name="shf" type="xs:boolean" use="optional" default="1" />
+    <xs:attribute name="shc" type="xs:boolean" use="optional" default="0" />
+    <xs:attribute name="ff" type="xs:boolean" use="optional" default="1" />
+    <xs:attribute name="ocp" type="enum_opPos" use="optional" default="0" />
+	</xs:complexType>
+  <!--
+
+      enum_tacsymColorMode - 전술부호 색상 설정 방식
+  -->
+  <xs:simpleType name="enum_tacsymColorMode">
+    <xs:restriction base="xs:integer">
+      <!-- 0 : auto affiliation - 피아구분색 자동 적용 -->
+      <!-- 1 : user affiliation - 피아구분색으로 사용자 지정 색상 적용 -->
+      <!-- 2 : user fixed icon - 사용자가 지정한 선색상과 채움색상 적용 -->
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+
+      ARGB(색상) 속성 자료형 정의
+  -->
+  <xs:simpleType name="type_ARGB">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="#[0-9A-F]{8}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="type_ARGBs">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="#[0-9A-F]{8}[,#[0-9A-F]{8}]*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+
+      enum_opPos : operation condition position - 운용조건 표시 위치 구분 코드
+  -->
+  <xs:simpleType name="enum_opPos">
+    <xs:restriction base="xs:integer">
+      <!-- 0 : opPosNone - 미표시 -->
+      <!-- 1 : opPosCenter - 중앙 -->
+      <!-- 2 : opPosBottom - 하단 -->
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

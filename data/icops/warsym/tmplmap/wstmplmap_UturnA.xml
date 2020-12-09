@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='UturnA' img='wstmplimg_UturnA.png'>
+  <tmpllabel name='EAT' rect='77,113,24,15' />
+  <tmpllabel name='LBL' rect='144,113,24,15' hidable='1' />
+  <tmpllabel name='LBC' rect='144,129,24,15' hidable='1' />
+  <tmpllabel name='LBR' rect='144,145,24,16' hidable='1' />
+  <tmpllabel name='SAT' rect='182,60,24,15' />
+  <tmpllabel name='LBA' rect='235,91,24,15' hidable='1' />
+</wstmplmap>

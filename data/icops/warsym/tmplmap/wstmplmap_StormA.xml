@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='StormA' img='wstmplimg_StormA.png'>
+  <tmpllabel name='DTL' rect='47,39,45,23' />
+  <tmpllabel name='ICON' rect='251,107,45,23' />
+  <tmpllabel name='COL' rect='259,168,45,23' />
+</wstmplmap>

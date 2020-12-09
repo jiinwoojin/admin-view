@@ -1,0 +1,679 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<wscom
+		xmlns="urn:cngsol.icops.WSCOM_1_1"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="urn:cngsol.icops.WSCOM_1_1 C:/ICOPS/warsym/schema/ICOPS_WSCOM_1_1.xsd"
+>
+	<com st="0" lib='-' cls='-' jcls='-' classid='-' typeName='-' previewCount='0' />
+	<com st='1' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplBasic' jcls='icops.warsym.symbol.CwsSymImplBasic' classid='aconif.warsym.symbol.Basic_Impl' typeName='기본부호' previewCount='1' />
+	<com st='2' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplPoint' jcls='icops.warsym.symbol.CwsSymImplPoint' classid='aconif.warsym.symbol.Point_Impl' typeName='점형' previewCount='1' />
+	<com st='3' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplAdvanceA' jcls='icops.warsym.symbol.CwsSymImplAdvanceA' classid='aconif.warsym.symbol.AdvanceA_Impl' typeName='전진축A' previewCount='0' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_AdvanceA.xml' >
+		<labelDef name='LBH' type='text' desc='PT.1에 붙는 레이블' />
+		<labelDef name='LBT' type='text' desc='PT.2에 붙는 레이블' />
+		<labelDef name='HTYPE' type='enum' desc='화살표 머리 모양' >
+			<enum default='0'>
+				<item value='0' desc='단순/simple' />
+				<item value='1' desc='화력/fire' />
+				<item value='2' desc='기만/dummy' />
+				<item value='3' desc='이중/double' />
+			</enum>
+		</labelDef>
+		<labelDef name='ICON' type='icon' useSymbolSize='1' desc='PT.1과 PT.2 중간에 표시할 아이콘' />
+		<labelDef name='TWIST' type='bool' desc='몸체 꼬임 여부'>
+			<bool default='false' falseMean='꼬이지 않음' trueMean='꼬임' />
+		</labelDef>
+	</com>
+	<com st='4' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplAmbushA' jcls='icops.warsym.symbol.CwsSymImplAmbushA' classid='aconif.warsym.symbol.AmbushA_Impl' typeName='매복A' previewCount='3' useLine='1' tmplmap='wstmplmap_AmbushA.xml' >
+		<labelDef name='LB' type='text' desc='선 중앙에 붙는 레이블' />
+		<labelDef name='AT' type='lineCap' desc='선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='SA' type='angle' desc='원호 사이각' >
+			<angle default='60' minValue='30' maxValue='180' />
+		</labelDef>
+		<labelDef name='HL' type='rate' desc='원호 내부 선 길이 비율' >
+			<rate default='0.3' minValue='0.1' maxValue='0.6' />
+		</labelDef>
+		<labelDef name='HC' type='count' desc='원호 내부 선 개수' >
+			<count default='6' minValue='0' maxValue='12' />
+		</labelDef>
+	</com>
+	<com st='5' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplArcA' jcls='icops.warsym.symbol.CwsSymImplArcA' classid='aconif.warsym.symbol.ArcA_Impl' typeName='원호A' previewCount='2' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_ArcA.xml' >
+		<labelDef name='LBL' type='text' desc='원호 선 중앙에 붙는 레이블' />
+		<labelDef name='SAT' type='lineCap' desc='선 시작점 모양' >
+			<lineCap default='0' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='EAT' type='lineCap' desc='선 끝점 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='SWA' type='angle' desc='원호 사이각' >
+			<angle default='330' minValue='180' maxValue='360'/>
+		</labelDef>
+	</com>
+	<com st='6' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplArcB' jcls='icops.warsym.symbol.CwsSymImplArcB' classid='aconif.warsym.symbol.ArcB_Impl' typeName='원호B' previewCount='2' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_ArcB.xml' >
+		<labelDef name='LBL' type='text' desc='원호 선 중앙에 붙는 레이블' />
+		<labelDef name='LBC' type='text' desc='원호 내부 중앙에 붙는 레이블' />
+		<labelDef name='SWA' type='angle' desc='원호 사이각' >
+			<angle default='180' minValue='120' maxValue='240'/>
+		</labelDef>
+	</com>
+	<com st='7' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplArcC' jcls='icops.warsym.symbol.CwsSymImplArcC' classid='aconif.warsym.symbol.ArcC_Impl' typeName='원호C' previewCount='3' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_ArcC.xml' >
+		<labelDef name='LBL' type='text' desc='원호 선 중앙에 붙는 레이블' />
+		<labelDef name='LBC' type='text' desc='원호 내부 중앙에 붙는 레이블' />
+		<labelDef name='SAT' type='lineCap' desc='시작점의 선 끝 모양 ' >
+			<lineCap default='18' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='EAT' type='lineCap' desc='종료점의 선 끝 모양' >
+			<lineCap default='0' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='SWA' type='angle' desc='원호 사이각' >
+			<angle default='180' minValue='120' maxValue='240'/>
+		</labelDef>
+	</com>
+	<com st='8' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplArcD' jcls='icops.warsym.symbol.CwsSymImplArcD' classid='aconif.warsym.symbol.ArcD_Impl' typeName='원호D' previewCount='3' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_ArcD.xml' >
+		<labelDef name='LBL' type='text' desc='원호 선 중앙에 붙는 레이블' />
+		<labelDef name='LBC' type='text' useSymbolSize='1' desc='원 중앙에 표시하는 레이블' />
+		<labelDef name='EAT' type='lineCap' desc='종료점의 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='SWA' type='angle' desc='원호 사이각' >
+			<angle default='90' minValue='80' maxValue='120'/>
+		</labelDef>
+	</com>
+	<com st='9' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplArrowA' jcls='icops.warsym.symbol.CwsSymImplArrowA' classid='aconif.warsym.symbol.ArrowA_Impl' typeName='화살표A' previewCount='2' useLine='1' useLinePtn='1' tmplmap='wstmplmap_ArrowA.xml' >
+		<labelDef name='LBT' type='text' desc='직선 중앙 상단에 붙는 레이블' />
+		<labelDef name='LBM' type='text' desc='직선 중앙 선상에 붙는 레이블' />
+		<labelDef name='LBB' type='text' desc='직선 중앙 하단에 붙는 레이블' />
+		<labelDef name='SAT' type='lineCap' desc='시작점의 선 끝 모양 ' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='EAT' type='lineCap' desc='종료점의 선 끝 모양' >
+			<lineCap default='0' useAll='true' maxCount='1' />
+		</labelDef>
+	</com>
+	<com st='10' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplArrowB' jcls='icops.warsym.symbol.CwsSymImplArrowB' classid='aconif.warsym.symbol.ArrowB_Impl' typeName='화살표B' previewCount='2' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_ArrowB.xml' >
+		<labelDef name='LBT' type='text' desc='꼬리 부분에 표기하는 레이블' />
+		<labelDef name='TW' type='rate' desc='꼬리 폭, 선 굵기 대비 비율' >
+			<rate default='8.0' minValue='2.0' maxValue='10.0' />
+		</labelDef>
+		<labelDef name='TL' type='rate' desc='꼬리 길이, 선 길 대비 비율' >
+			<rate default='0.3' minValue='0.1' maxValue='0.7' />
+		</labelDef>
+		<labelDef name='SAT' type='lineCap' desc='시작점의 선 끝 모양 ' >
+			<lineCap default='30' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='TT' type='bool' desc='꼬리 모양' >
+			<bool default='false' falseMean='직선' trueMean='꺽은선' />
+		</labelDef>
+	</com>
+	<com st='11' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplArrowC' jcls='icops.warsym.symbol.CwsSymImplArrowC' classid='aconif.warsym.symbol.ArrowC_Impl' typeName='화살표C' previewCount='2' useLine='1' useLinePtn='1' tmplmap='wstmplmap_ArrowC.xml' >
+		<labelDef name='LBT' type='text' desc='꼬리 부분에 표기하는 레이블' />
+		<labelDef name='SAT' type='lineCap' desc='PT.1 부분 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='ZMH' type='rate' desc='PT.1 부분의 최소 여백, 선 길이 대비 비율' >
+			<rate default='0.15' minValue='0.1' maxValue='0.4'/>
+		</labelDef>
+		<labelDef name='ZMT' type='rate' desc='PT.2 부분의 최소 여백, 선 길이 대비 비율' >
+			<rate default='0.15' minValue='0.1' maxValue='0.4'/>
+		</labelDef>
+		<labelDef name='ZW' type='rate' desc='Zigzag 모양의 폭, 선 굵기 대비 비율' >
+			<rate default='-8.0' minValue='-15.0' maxValue='15.0' />
+		</labelDef>
+		<labelDef name='ZD' type='rate' desc='Zigzag 모양의 꼭지점간 간격, 선 굵기 대비 비율' >
+			<rate default='4' minValue='3' maxValue='10' />
+		</labelDef>
+		<labelDef name='ZN' type='count' desc='Zigzag 모양 꼭지점 개수' >
+			<count default='11' minValue='2' maxValue='15' />
+		</labelDef>
+	</com>
+	<com st='12' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplArrowD' jcls='icops.warsym.symbol.CwsSymImplArrowD' classid='aconif.warsym.symbol.ArrowD_Impl' typeName='화살표D' previewCount='2' useLine='1' useLinePtn='1' tmplmap='wstmplmap_ArrowD.xml' >
+		<labelDef name='LST' type='text' desc='곡선 최고점 상단에 붙는 레이블' />
+		<labelDef name='LSM' type='text' desc='곡선 최고점 선상에 붙는 레이블' />
+		<labelDef name='LSB' type='text' desc='곡선 최고점 하단에 붙는 레이블' />
+		<labelDef name='LCT' type='text' desc='최고/최저점 중앙 상단에 붙는 레이블' />
+		<labelDef name='LCM' type='text' desc='최고/최저점 중앙 선상에 붙는 레이블' />
+		<labelDef name='LCB' type='text' desc='최고/최저점 중앙 하단에 붙는 레이블' />
+		<labelDef name='LET' type='text' desc='곡선 최저점 상단에 붙는 레이블' />
+		<labelDef name='LEM' type='text' desc='곡선 최저점 선상에 붙는 레이블' />
+		<labelDef name='LEB' type='text' desc='곡선 최저점 하단에 붙는 레이블' />
+		<labelDef name='CLS' type='rate' desc='PT.1에서 최고점 까지의 거리, 선 길이 대비 비율' >
+			<rate default='0.4' minValue='0.1' maxValue='0.9' />
+		</labelDef>
+		<labelDef name='CLE' type='rate' desc='PT.2에서 최저점 까지의 거리, 선 길이 대비 비율' >
+			<rate default='0.4' minValue='0.1' maxValue='0.9' />
+		</labelDef>
+		<labelDef name='CVS' type='rate' desc='중심축과 최고점간 거리, 선 길이 대비 비율' >
+			<rate default='-0.05' minValue='-0.2' maxValue='0.2' />
+		</labelDef>
+		<labelDef name='CVE' type='rate' desc='중심축과 최저점간 거리, 선 길이 대비 비율' >
+			<rate default='0.05' minValue='-0.2' maxValue='0.2' />
+		</labelDef>
+		<labelDef name='SAT' type='lineCap' desc='시작점 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='SAF' type='bool' desc='가장/가상 표시 여부' >
+			<bool default='false' falseMean='표시하지 않음' trueMean='표시함' />
+		</labelDef>
+	</com>
+	<com st='13' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplArrowE' jcls='icops.warsym.symbol.CwsSymImplArrowE' classid='aconif.warsym.symbol.ArrowE_Impl' typeName='화살표E' previewCount='2' useLine='1' useLinePtn='1' tmplmap='wstmplmap_ArrowE.xml' >
+		<labelDef name='LBC' type='text' desc='중앙 좌측에 붙는 레이블' />
+		<labelDef name='ICON' type='icon' useSymbolSize='1' desc='중앙 우측에 표시할 아이콘' />
+		<labelDef name='SAT' type='lineCap' desc='시작점 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='EAT' type='lineCap' desc='끝점 선 끝 모양' >
+			<lineCap default='0' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='CSW' type='rate' desc='PT.1 다음의 bezier 곡선 제어점 위치, PT.1~PT.2 길이 대비 비율' >
+			<rate default='0.2' minValue='0.1' maxValue='0.4' />
+		</labelDef>
+		<labelDef name='CSL' type='rate' desc='PT.1 다음의 bezier 곡선 제어점 위치, PT.1~PT.2 길이 대비 비율' >
+			<rate default='0.25' minValue='-0.5' maxValue='0.5' />
+		</labelDef>
+		<labelDef name='CEW' type='rate' desc='PT.2 이전의 bezier 곡선 제어점 위치, PT.1~PT.2 길이 대비 비율' >
+			<rate default='-0.2' minValue='0.1' maxValue='0.4' />
+		</labelDef>
+		<labelDef name='CEL' type='rate' desc='PT.2 이전의 bezier 곡선 제어점 위치, PT.1~PT.2 길이 대비 비율' >
+			<rate default='0.25' minValue='-0.5' maxValue='0.5' />
+		</labelDef>
+	</com>
+	<com st='14' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplArrowF' jcls='icops.warsym.symbol.CwsSymImplArrowF' classid='aconif.warsym.symbol.ArrowF_Impl' typeName='화살표F' previewCount='2' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_ArrowF.xml' >
+		<labelDef name='LBT' type='text' desc='상단에 표기하는 레이블' />
+		<labelDef name='LBM' type='text' useSymbolSize='1' desc='중앙에 표기하는 레이블' />
+		<labelDef name='LBL' type='text' desc='좌측에 표기하는 레이블' />
+		<labelDef name='LBR' type='text' desc='우측에 표기하는 레이블' />
+		<labelDef name='LBB' type='text' desc='하단에 표기하는 레이블' />
+		<labelDef name='HT' type='enum' desc='머리 모양' >
+			<enum default='0'>
+				<item value='0' desc='정방향 삼각형' />
+				<item value='1' desc='역방향 삼각형' />
+			</enum>
+		</labelDef>
+		<labelDef name='TT' type='enum' desc='꼬리 모양' >
+			<enum default='0'>
+				<item value='0' desc='직선' />
+				<item value='1' desc='꺽은선' />
+			</enum>
+		</labelDef>
+	</com>
+	<com st='15' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplBearingLineA' jcls='icops.warsym.symbol.CwsSymImplBearingLineA' classid='aconif.warsym.symbol.BearingLineA_Impl' typeName='방향선A' previewCount='2' useLine='1' useLinePtn='1' tmplmap='wstmplmap_BearingLineA.xml' >
+		<labelDef name='LBC' type='text' desc='직선 중앙 선상에 붙는 레이블' />
+	</com>
+	<com st='16' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplCircleA' jcls='icops.warsym.symbol.CwsSymImplCircleA' classid='aconif.warsym.symbol.CircleA_Impl' typeName='원A' previewCount='1' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_CircleA.xml' >
+		<labelDef name='VTO' type='text' desc='원 상단 선위에 붙는 레이블' />
+		<labelDef name='VTE' type='text' desc='원 상단 외부에 붙는 레이블' />
+		<labelDef name='VBO' type='text' desc='원 하단 선위에 붙는 레이블' />
+		<labelDef name='VBE' type='text' desc='원 하단 외부에 붙는 레이블' />
+		<labelDef name='VLO' type='text' desc='원 좌측 선위에 붙는 레이블' />
+		<labelDef name='VLE' type='text' desc='원 좌측 외부에 붙는 레이블' />
+		<labelDef name='VRO' type='text' desc='원 우측 선위에 붙는 레이블' />
+		<labelDef name='VRE' type='text' desc='원 우측 외부에 붙는 레이블' />
+		<labelDef name='VCC' type='text' desc='원 중앙에 붙는 레이블' />
+		<labelDef name='VLT' type='text' desc='원 좌상단에 붙는 레이블' />
+		<labelDef name='VLB' type='text' desc='원 좌하단에 붙는 레이블' />
+		<labelDef name='VRT' type='text' desc='원 우상단에 붙는 레이블' />
+		<labelDef name='VRB' type='text' desc='원 우하단에 붙는 레이블' />
+	</com>
+	<com st='17' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplCircleB' jcls='icops.warsym.symbol.CwsSymImplCircleB' classid='aconif.warsym.symbol.CircleB_Impl' typeName='원B' previewCount='-1' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_CircleB.xml' >
+		<labelDef name='NUM' type='count' desc='직선 중앙 선상에 붙는 레이블' >
+			<count default='3' minValue='2' maxValue='5' />
+		</labelDef>
+		<labelDef name='SLB' type='bool' desc='동심원 레이블 표시 여부' >
+			<bool default='true' falseMean='레이블 표시하지 않음' trueMean='레이블 표시' />
+		</labelDef>
+		<labelDef name='LBA' type='angle' desc='동심원 레이블 표시 위치' >
+			<angle default='45.0' minValue='0.0' maxValue='360.0' />
+		</labelDef>
+	</com>
+	<com st='18' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplCircleC' jcls='icops.warsym.symbol.CwsSymImplCircleC' classid='aconif.warsym.symbol.CircleC_Impl' typeName='원C' previewCount='1' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_CircleC.xml' >
+		<labelDef name='LB1' type='text' desc='첫번째 원에 표기하는 레이블' />
+		<labelDef name='LB2' type='text' desc='두번째 원에 표기하는 레이블' />
+		<labelDef name='LB3' type='text' desc='세번째 원에 표기하는 레이블' />
+		<labelDef name='LBA' type='angle' desc='동심원 레이블 표시 위치' >
+			<angle default='45.0' minValue='0.0' maxValue='360.0' />
+		</labelDef>
+	</com>
+	<com st='19' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplContainA' jcls='icops.warsym.symbol.CwsSymImplContainA' classid='aconif.warsym.symbol.ContainA_Impl' typeName='견제A' previewCount='2' useLine='1' tmplmap='wstmplmap_ContainA.xml' >
+		<labelDef name='LBL' type='text' desc='원호선 중앙에 붙는 레이블' />
+		<labelDef name='LBC' type='text' desc='원호 내부 중앙에 붙는 레이블' />
+		<labelDef name='LBA' type='text' desc='화살표 선 중앙에 붙는 레이블' />
+		<labelDef name='SWA' type='angle' desc='원호 사이각' >
+			<angle default='180' minValue='90' maxValue='270'/>
+		</labelDef>
+		<labelDef name='HL' type='rate' desc='원호 내부 선 길이, 반지름 대비 비율' >
+			<rate default='0.2' minValue='0.1' maxValue='0.5' />
+		</labelDef>
+		<labelDef name='HC' type='count' desc='원호 내부 선 개수' >
+			<count default='9' minValue='3' maxValue='17' />
+		</labelDef>
+		<labelDef name='ATC' type='lineCap' desc='원호 중앙 부분 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='ATT' type='lineCap' desc='원호 바깥 부분 선 끝 모양' >
+			<lineCap default='0' useAll='true' maxCount='1' />
+		</labelDef>
+	</com>
+	<com st='20' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplDummyA' jcls='icops.warsym.symbol.CwsSymImplDummyA' classid='aconif.warsym.symbol.DummyA_Impl' typeName='가장/가상A' previewCount='3' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_DummyA.xml' />
+	<com st='21' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplFireDirectionA' jcls='icops.warsym.symbol.CwsSymImplFireDirectionA' classid='aconif.warsym.symbol.FireDirectionA_Impl' typeName='사격방향A' previewCount='3' useLine='1' useLinePtn='1' tmplmap='wstmplmap_FireDirectionA.xml' >
+		<labelDef name='LBC' type='text' useSymbolSize='1' desc='중앙점에 붙는 레이블' />
+		<labelDef name='LBL' type='text' desc='주공방향 점에 붙는 레이블' />
+		<labelDef name='LLL' type='text' desc='주공방향 선에 붙는 레이블' />
+		<labelDef name='ATL' type='lineCap' desc='주공방향 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='LBR' type='text' desc='조공방향 점에 붙는 레이블' />
+		<labelDef name='LLR' type='text' desc='조공방향 선에 붙는 레이블' />
+		<labelDef name='ATR' type='lineCap' desc='조공방향 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+	</com>
+	<com st='22' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplFirePositionA' jcls='icops.warsym.symbol.CwsSymImplFirePositionA' classid='aconif.warsym.symbol.FirePositionA_Impl' typeName='사격위치A' previewCount='3' useLine='1' tmplmap='wstmplmap_FirePositionA.xml' >
+		<labelDef name='LBA' type='text' desc='화살표 선 중앙에 붙는 레이블' />
+		<labelDef name='LBC' type='text' desc='부호 중앙에 붙는 레이블' />
+		<labelDef name='AT' type='lineCap' desc='화살표 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='WW' type='rate' desc='날개 부분 꺾인 선 길이, PT.2와 PT.3 길이 대비 비율' >
+			<rate default='0.2' minValue='0.05' maxValue='0.5' />
+		</labelDef>
+		<labelDef name='WL' type='rate' desc='날개 부분 꺾인 선 길이, PT.2와 PT.3 길이 대비 비율' >
+			<rate default='0.2' minValue='0.05' maxValue='0.5' />
+		</labelDef>
+	</com>
+	<com st='23' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplFirePositionB' jcls='icops.warsym.symbol.CwsSymImplFirePositionB' classid='aconif.warsym.symbol.FirePositionB_Impl' typeName='사격위치B' previewCount='4' useLine='1' tmplmap='wstmplmap_FirePositionB.xml' >
+		<labelDef name='LBL' type='text' desc='좌측 화살표 선 중앙에 붙는 레이블' />
+		<labelDef name='LBC' type='text' desc='부호 중앙에 붙는 레이블' />
+		<labelDef name='LBR' type='text' desc='우측 화살표 선 중앙에 붙는 레이블' />
+		<labelDef name='ATL' type='lineCap' desc='좌측 화살표 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='ATR' type='lineCap' desc='우측 화살표 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='WW' type='rate' desc='날개 부분 꺾인 선 길이, PT.1과 PT.2 길이 대비 비율' >
+			<rate default='0.2' minValue='0.05' maxValue='0.5' />
+		</labelDef>
+		<labelDef name='WL' type='rate' desc='날개 부분 꺾인 선 길이, PT.1과 PT.2 길이 대비 비율' >
+			<rate default='0.2' minValue='0.05' maxValue='0.5' />
+		</labelDef>
+	</com>
+	<com st='24' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplLabelA' jcls='icops.warsym.symbol.CwsSymImplLabelA' classid='aconif.warsym.symbol.LabelA_Impl' typeName='레이블A' previewCount='1' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_LabelA.xml' >
+		<labelDef name='LBC' type='text' desc='중앙에 븥는 레이블' />
+		<labelDef name='LBL' type='text' desc='좌측에 븥는 레이블' />
+		<labelDef name='LBT' type='text' desc='상단에 븥는 레이블' />
+		<labelDef name='LBR' type='text' desc='우측에 븥는 레이블' />
+		<labelDef name='LBB' type='text' desc='하단에 븥는 레이블' />
+    <labelDef name='AFL' type='text' desc='수식정보 A 항목에서 선택할 수 있는 부호 필터링 목록' />
+  </com>
+	<com st='25' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplParallelA' jcls='icops.warsym.symbol.CwsSymImplParallelA' classid='aconif.warsym.symbol.ParallelA_Impl' typeName='평행A' previewCount='3' useLine='1' tmplmap='wstmplmap_ParallelA.xml' >
+		<labelDef name='LL' type='text' desc='좌측 세로선에 붙는 레이블' />
+		<labelDef name='LC' type='text' desc='중앙에 붙는 레이블' />
+		<labelDef name='LR' type='text' desc='우측 세로선에 붙는 레이블' />
+		<labelDef name='ATL' type='lineCap' desc='좌측 방향의 선 끝 모양' >
+			<lineCap default='1' useAll='true' countLabel='PN' />
+		</labelDef>
+		<labelDef name='ATR' type='lineCap' desc='우측 방향의 선 끝 모양' >
+			<lineCap default='0' useAll='true' countLabel='PN' />
+		</labelDef>
+		<labelDef name='REV' type='bool' desc='PT.1, PT.2, PT.3의 위치 관계' >
+			<bool default='false' falseMean='수평방향이 수직방향의 좌측' trueMean='수평 방향이 수직방향의 우측' />
+		</labelDef>
+		<labelDef name='PN' type='count' desc='평행선 개수' >
+			<count default='3' minValue='1' maxValue='5'/>
+		</labelDef>
+		<labelDef name='PM' type='rate' desc='평행선 표시 여백' >
+			<rate default='0.1' minValue='0.0' maxValue ='0.4' />
+		</labelDef>
+		<labelDef name='VL' type='bool' desc='좌측 방향 세로선 표시 여부' >
+			<bool default='false' falseMean='표시하지 않음' trueMean='표시함' />
+		</labelDef>
+		<labelDef name='VR' type='bool' desc='우측 방향 세로선 표시 여부' >
+			<bool default='true' falseMean='표시하지 않음' trueMean='표시함' />
+		</labelDef>
+		<labelDef name='VAL' type='angle' desc='좌측 방향 세로선 기울기' >
+			<angle default='0.0' minValue='0.0' maxValue='45.0' />
+		</labelDef>
+		<labelDef name='VAR' type='angle' desc='우측 방향 세로선 기울기' >
+			<angle default='0.0' minValue='0.0' maxValue='45.0' />
+		</labelDef>
+		<labelDef name='VTL' type='lineType' desc='좌측 방향 세로선 종류 및 속성' >
+			<lineType default='0' >
+				<item value='0' desc='직선/straight' />
+				<item value='1' desc='지그재그 모양/zigzag' />
+				<item value='2' desc='중간이 절단된 모양/separated' />
+			</lineType>
+		</labelDef>
+		<labelDef name='VTR' type='lineType' desc='우측 방향 세로선 종류 및 속성' >
+      <lineType default='1'>
+        <item value='0' desc='직선/straight' />
+        <item value='1' desc='지그재그 모양/zigzag' />
+        <item value='2' desc='중간이 절단된 모양/separated' />
+      </lineType>
+		</labelDef>
+		<labelDef name='TL' type='bool' desc='좌측 방향 추가선 표시 여부' >
+			<bool default='false' falseMean='표시하지 않음' trueMean='표시함' />
+		</labelDef>
+		<labelDef name='TLL' type='rate' desc='좌측 방향 추가선 길이' >
+			<rate default='0.1' minValue='0.05' maxValue='0.5' />
+		</labelDef>
+		<labelDef name='TLP' type='rate' desc='좌측 방향 추가선 위치' >
+			<rate default='0.1' minValue='0.05' maxValue='0.95' />
+		</labelDef>
+		<labelDef name='TR' type='bool' desc='우측 방향 추가선 표시 여부' >
+			<bool default='false' falseMean='표시하지 않음' trueMean='표시함' />
+		</labelDef>
+		<labelDef name='TRL' type='rate' desc='우측 방향 추가선 길이' >
+			<rate default='0.1' minValue='0.05' maxValue='0.5' />
+		</labelDef>
+		<labelDef name='TRP' type='rate' desc='우측 방향 추가선 위치' >
+			<rate default='0.1' minValue='0.05' maxValue='0.95' />
+		</labelDef>
+	</com>
+	<com st='26' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplParallelB' jcls='icops.warsym.symbol.CwsSymImplParallelB' classid='aconif.warsym.symbol.ParallelB_Impl' typeName='평행B' previewCount='3' useLine='1' tmplmap='wstmplmap_ParallelB.xml' >
+		<labelDef name='LBL' type='text' desc='PT.1-PT.2 방향 기준 좌측 레이블' />
+		<labelDef name='LBM' type='text' desc='중앙 레이블' />
+		<labelDef name='LBR' type='text' desc='PT.1-PT.2 방향 기준 우측 레이블' />
+		<labelDef name='LBS' type='text' desc='PT.1-PT.2 방향 기준 시작점 레이블' />
+		<labelDef name='LBE' type='text' desc='PT.1-PT.2 방향 기준 끝점 레이블' />
+		<labelDef name='ASL' type='lineCap' desc='시작점 좌측 선 끝 모양' >
+			<lineCap default='6' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='ASR' type='lineCap' desc='시작점 우측 선 끝 모양' >
+			<lineCap default='5' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='AEL' type='lineCap' desc='끝점 좌측 선 끝 모양' >
+			<lineCap default='5' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='AER' type='lineCap' desc='끝점 우측 선 끝 모양' >
+			<lineCap default='6' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='PTC' type='bool' desc='PT.1, PT.2가 통로 중앙인지 여부'>
+			<bool default='true' falseMean='편중' trueMean='중앙' />
+		</labelDef>
+		<labelDef name='LNT' type='lineType' desc='통로선 종류 및 속성'>
+      <lineType default='3'>
+        <item value='3' desc='N개로 분리된 선/Divided' />
+        <item value='4' desc='파형/Wave' />
+      </lineType>
+    </labelDef>
+    <labelDef name='CLS' type='bool' desc='중앙 추가선 표시 여부' >
+      <bool default='false' falseMean='중앙 추가선 표시하지 않음' trueMean='중앙 추가선 표시함' />
+    </labelDef>
+    <labelDef name='CLT' type='lineType' desc='중앙 추가선 종류 및 속성' >
+      <lineType default='1' >
+        <item value='0' desc='직선/straight' />
+        <item value='1' desc='지그재그 모양/zigzag' />
+        <item value='2' desc='중간이 절단된 모양/separated' />
+        <item value='4' desc='파형/Wave' />
+      </lineType>
+		</labelDef>
+    <labelDef name='LS3' type='bool' desc='PT.3로 지정한 방향의 선 형태' >
+      <bool default='false' falseMean='실선으로 표시' trueMean='점선으로 표시' />
+    </labelDef>
+    <labelDef name='ANX' type='angle' desc='교차표시 각도(0 이면 표시하지않음)' >
+      <angle default='0.0' minValue='15.0' maxValue='360.0' />
+    </labelDef>
+  </com>
+	<com st='27' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplParallelC' jcls='icops.warsym.symbol.CwsSymImplParallelC' classid='aconif.warsym.symbol.ParallelC_Impl' typeName='평행C' previewCount='4' useLine='1' tmplmap='wstmplmap_ParallelC.xml' >
+		<labelDef name='LBT' type='text' desc='상단에 붙는 레이블' />
+		<labelDef name='LBM' type='text' desc='중앙에 붙는 레이블' />
+		<labelDef name='LBB' type='text' desc='하단에 붙는 레이블' />
+		<labelDef name='LBL' type='text' desc='좌측에 붙는 레이블' />
+		<labelDef name='LBR' type='text' desc='우측에 붙는 레이블' />
+		<labelDef name='AT1' type='lineCap' desc='첫번째 점의 선 끝 모양' >
+			<lineCap default='6' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='AT2' type='lineCap' desc='두번째 점의 선 끝 모양' >
+			<lineCap default='5' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='AT3' type='lineCap' desc='세번째 점의 선 끝 모양' >
+			<lineCap default='5' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='AT4' type='lineCap' desc='네번째 점의 선 끝 모양' >
+			<lineCap default='6' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='REV' type='bool' desc='점 입력 순서' >
+			<bool default='false' falseMean='PT.1~PT.2 방향이 좌(하)에서 우(상)로' trueMean='PT.1~PT.2 방향이 우(상)에서 좌(하)로' />
+		</labelDef>
+	</com>
+	<com st='28' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplPolygonA' jcls='icops.warsym.symbol.CwsSymImplPolygonA' classid='aconif.warsym.symbol.PolygonA_Impl' typeName='다각형A' previewCount='0' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_PolygonA.xml' >
+		<labelDef name='VTT' type='text' desc='다각형 상단 위쪽에 붙는 레이블' />
+		<labelDef name='VTM' type='text' desc='다각형 상단 선상에 붙는 레이블' />
+		<labelDef name='VTB' type='text' desc='다각형 상단 아래쪽에 붙는 레이블' />
+		<labelDef name='VBT' type='text' desc='다각형 하단 위쪽에 붙는 레이블' />
+		<labelDef name='VBM' type='text' desc='다각형 하단 선상에 붙는 레이블' />
+		<labelDef name='VBB' type='text' desc='다각형 하단 아래쪽에 붙는 레이블' />
+		<labelDef name='VLC' type='text' desc='다각형 중앙 좌측에 붙는 레이블' />
+		<labelDef name='VCC' type='text' desc='다각형 중앙 붙는 레이블' />
+		<labelDef name='VRC' type='text' desc='다각형 중앙 우측에 붙는 레이블' />
+		<labelDef name='VLT' type='text' desc='다각형 좌상단에 붙는 레이블' />
+		<labelDef name='VRT' type='text' desc='다각형 우상단에 붙는 레이블' />
+		<labelDef name='VLB' type='text' desc='다각형 좌하단에 붙는 레이블' />
+		<labelDef name='VRB' type='text' desc='다각형 우하에 붙는 레이블' />
+		<labelDef name='ICO' type='icon' useSymbolSize='1' desc='다각형과 함께 표시할 아이콘' />
+    <labelDef name='ICP' type='enum' desc='아이콘 표시 위치' >
+      <enum default='0'>
+        <item value='0' desc='없음/none' />
+        <item value='1' desc='중앙/center' />
+        <item value='2' desc='상단/top' />
+        <item value='3' desc='하단/bottom' />
+        <item value='4' desc='좌측/left' />
+        <item value='5' desc='우측/right' />
+      </enum>
+    </labelDef>
+    <labelDef name='SFD' type='enum' desc='가장/가상 표시 위치' >
+      <enum default='0'>
+        <item value='0' desc='없음/none' />
+        <item value='1' desc='중앙/center' />
+        <item value='2' desc='상단/top' />
+      </enum>
+    </labelDef>
+    <labelDef name='AFL' type='text' desc='수식정보 A 항목에서 선택할 수 있는 부호 필터링 목록' />
+  </com>
+	<com st='29' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplPolylineA' jcls='icops.warsym.symbol.CwsSymImplPolylineA' classid='aconif.warsym.symbol.PolylineA_Impl' typeName='다각선A' previewCount='0' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_PolylineA.xml' >
+		<labelDef name='VSC' type='text' desc='시작점에 붙는 레이블' />
+		<labelDef name='VSL' type='text' desc='시작점 좌측에 붙는 레이블' />
+		<labelDef name='VSR' type='text' desc='시작점 우측에 붙는 레이블' />
+		<labelDef name='VSML' type='text' desc='시작점과 중간점 사이 좌측에 붙는 레이블' />
+		<labelDef name='VSMC' type='text' desc='시작점과 중간점 사이 선상에 붙는 레이블' />
+		<labelDef name='VSMR' type='text' desc='시작점과 중간점 사이 우측에 붙는 레이블' />
+		<labelDef name='VML' type='text' desc='중간점에 붙는 레이블' useLabelArrow='1' />
+		<labelDef name='VMC' type='text' desc='중간점 좌측에 붙는 레이블' />
+		<labelDef name='VMR' type='text' desc='중간점 우측에 붙는 레이블' />
+		<labelDef name='VEML' type='text' desc='중간점과 끝점 사이 좌측에 붙는 레이블' />
+		<labelDef name='VEMC' type='text' desc='중간점과 끝점 사이 선상에 붙는 레이블' />
+		<labelDef name='VEMR' type='text' desc='중간점과 끝점 사이 우측에 붙는 레이블' />
+		<labelDef name='VEL' type='text' desc='끝점에 붙는 레이블' />
+		<labelDef name='VEC' type='text' desc='끝점 좌측에 붙는 레이블' />
+		<labelDef name='VER' type='text' desc='끝점 우측에 붙는 레이블' />
+		<labelDef name='ICO' type='icon' desc='다각선을 이루는 각 점에 표시할 아이콘' />
+		<labelDef name='RPT' type='bool' desc='각 점에 아이콘 표시 여부' >
+			<bool default='false' falseMean='각 점에 아이콘 표시하지 않음' trueMean='각 점에 아이콘 표시'/>
+		</labelDef>
+		<labelDef name='ICS' type='bool' desc='시작점에 아이콘 표시 여부' >
+			<bool default='false' falseMean='시작점에 아이콘 표시하지 않음' trueMean='시작점에 아이콘 표시'/>
+		</labelDef>
+		<labelDef name='ICE' type='bool' desc='끝점에 아이콘 표시 여부' >
+			<bool default='false' falseMean='끝점에 아이콘 표시하지 않음' trueMean='끝점에 아이콘 표시'/>
+		</labelDef>
+    <labelDef name='ICM' type='bool' desc='다각선 중앙에 아이콘 표시 여부' >
+      <bool default='false' falseMean='다각선 중앙에 아이콘 표시하지 않음' trueMean='다각선 중앙에 아이콘 표시'/>
+    </labelDef>
+    <labelDef name='LNT' type='lineType' desc='선 종류 및 속성' >
+			<lineType default='1' >
+				<item value='0' desc='직선/straight' />
+				<item value='1' desc='지그재그 모양/zigzag' />
+				<item value='4' desc='파형/Wave' />
+			</lineType>
+		</labelDef>
+    <labelDef name='SAT' type='lineCap' desc='선 시작점 모양' >
+      <lineCap default='0' useAll='true' maxCount='1' />
+    </labelDef>
+    <labelDef name='EAT' type='lineCap' desc='선 끝점 모양' >
+      <lineCap default='1' useAll='true' maxCount='1' />
+    </labelDef>
+  </com>
+	<com st='30' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplRectA' jcls='icops.warsym.symbol.CwsSymImplRectA' classid='aconif.warsym.symbol.RectA_Impl' typeName='사각형A' previewCount='2' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_RectA.xml' >
+		<labelDef name='VT' type='text' desc='사각형 상단 위쪽에 붙는 레이블' />
+		<labelDef name='VTL' type='text' desc='사각형 상단 선상에 붙는 레이블' />
+		<labelDef name='VB' type='text' desc='사각형 하단 아래쪽에 붙는 레이블' />
+		<labelDef name='VBL' type='text' desc='사각형 하단 선상에 붙는 레이블' />
+		<labelDef name='VLC' type='text' desc='사각형 좌측 선상에 붙는 레이블' />
+		<labelDef name='VC' type='text' desc='사각형 중앙에 붙는 레이블' />
+		<labelDef name='VRC' type='text' desc='사각형 우측 선상에 붙는 레이블' />
+	</com>
+	<com st='31' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplRepeatedA' jcls='icops.warsym.symbol.CwsSymImplRepeatedA' classid='aconif.warsym.symbol.RepeatedA_Impl' typeName='반복A' previewCount='2' useLine='1' useLinePtn='1' tmplmap='wstmplmap_RepeatedA.xml' >
+		<labelDef name='ICON' type='icon' desc='반복하여 표시할 아이콘' />
+		<labelDef name='RPT' type='count' desc='반복 회수' >
+			<count default='3' minValue='2' maxValue='10' />
+		</labelDef>
+		<labelDef name='GAP' type='rate' desc='간격 비율' >
+			<rate default='0.0' minValue='0.0' maxValue='0.05' />
+		</labelDef>
+	</com>
+	<com st='32' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplRouteA' jcls='icops.warsym.symbol.CwsSymImplRouteA' classid='aconif.warsym.symbol.RouteA_Impl' typeName='경로A' previewCount='2' useLine='1' useLinePtn='1' tmplmap='wstmplmap_RouteA.xml' >
+		<labelDef name='LBD' type='text' desc='경로정보를 기술하는 레이블' />
+		<labelDef name='LBC' type='text' desc='경로명을 기술하는 레이블' />
+	</com>
+	<com st='33' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplSectorA' jcls='icops.warsym.symbol.CwsSymImplSectorA' classid='aconif.warsym.symbol.SectorA_Impl' typeName='섹터A' previewCount='1' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_SectorA.xml' >
+		<labelDef name='LC1' type='text' desc='첫번째 원호 중앙에 붙는 레이블' />
+		<labelDef name='LL1' type='text' desc='첫번째 원호 좌측에 붙는 레이블' />
+		<labelDef name='LR1' type='text' desc='첫번째 원호 우측에 붙는 레이블' />
+		<labelDef name='LC2' type='text' desc='두번째 원호 중앙에 붙는 레이블' />
+		<labelDef name='LL2' type='text' desc='두번째 원호 좌측에 붙는 레이블' />
+		<labelDef name='LR2' type='text' desc='두번째 원호 우측에 붙는 레이블' />
+		<labelDef name='LC3' type='text' desc='세번째 원호 중앙에 붙는 레이블' />
+		<labelDef name='LL3' type='text' desc='세번째 원호 좌측에 붙는 레이블' />
+		<labelDef name='LR3' type='text' desc='세번째 원호 우측에 붙는 레이블' />
+		<labelDef name='LC4' type='text' desc='네번째 원호 중앙에 붙는 레이블' />
+		<labelDef name='LL4' type='text' desc='네번째 원호 좌측에 붙는 레이블' />
+		<labelDef name='LR4' type='text' desc='네번째 원호 우측에 붙는 레이블' />
+	</com>
+	<com st='34' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplSecurityA' jcls='icops.warsym.symbol.CwsSymImplSecurityA' classid='aconif.warsym.symbol.SecurityA_Impl' typeName='보안A' previewCount='-1' useLine='1' useLinePtn='1' tmplmap='wstmplmap_SecurityA.xml' >
+		<labelDef name='LBC' type='text' desc='중앙에 붙는 레이블' />
+		<labelDef name='LBL' type='text' desc='좌측에 붙는 레이블' />
+		<labelDef name='LBR' type='text' desc='우측에 붙는 레이블' />
+		<labelDef name='ATL' type='lineCap' desc='좌측 화살표 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='ATR' type='lineCap' desc='우측 화살표 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='PTC' type='count' desc='편집에 사용할 점 개수' >
+			<count default='3' maxValue='3' minValue='4' />
+		</labelDef>
+	</com>
+	<com st='35' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplStormA' jcls='icops.warsym.symbol.CwsSymImplStormA' classid='aconif.warsym.symbol.StormA_Impl' typeName='태풍A' previewCount='7' useLine='1' useFill='1' tmplmap='wstmplmap_StormA.xml' >
+		<labelDef name='ICON' type='icon' desc='태풍 표시 아이콘' useSymbolSize='1' />
+		<labelDef name='DTL' type='text' desc='날짜/시간 표시' />
+		<labelDef name='COL' type='color' desc='중간 경계 색상' >
+			<color default='7' />
+		</labelDef>
+	</com>
+	<com st='36' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplStreamA' jcls='icops.warsym.symbol.CwsSymImplStreamA' classid='aconif.warsym.symbol.StreamA_Impl' typeName='흐름A' previewCount='-1' useLine='1' useLinePtn='1' tmplmap='wstmplmap_StreamA.xml' >
+		<labelDef name='INT' type='absLen' desc='화살표 표시 간격(밀리미터)' >
+			<absLen default='10.0' minValue='10.0' maxValue='30.0'/>
+		</labelDef>
+		<labelDef name='AT' type='lineCap' desc='화살표 모양' >
+			<lineCap default='1' useAll='true' maxCount='5'/>
+		</labelDef>
+	</com>
+	<com st='37' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplTripWireA' jcls='icops.warsym.symbol.CwsSymImplTripWireA' classid='aconif.warsym.symbol.TripWireA_Impl' typeName='덫A' previewCount='3' useLine='1' useLinePtn='1' tmplmap='wstmplmap_TripWireA.xml' >
+		<labelDef name='LBC' type='text' desc='중앙에 붙는 레이블' />
+	</com>
+	<com st='38' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplUturnA' jcls='icops.warsym.symbol.CwsSymImplUturnA' classid='aconif.warsym.symbol.UturnA_Impl' typeName='U턴A' previewCount='3' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_UturnA.xml' >
+		<labelDef name='LBL' type='text' desc='직선 왼쪽에 붙는 레이블' />
+		<labelDef name='LBC' type='text' desc='직선 위에 붙는 레이블' />
+		<labelDef name='LBR' type='text' desc='직선 오른쪽에 붙는 레이블' />
+		<labelDef name='LBA' type='text' desc='원호선 중앙에 붙는 레이블' />
+		<labelDef name='SAT' type='lineCap' desc='시작점 선 끝 모양' >
+			<lineCap default='0' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='EAT' type='lineCap' desc='목표점 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+	</com>
+	<com st='39' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplUturnB' jcls='icops.warsym.symbol.CwsSymImplUturnB' classid='aconif.warsym.symbol.UturnB_Impl' typeName='U턴B' previewCount='4' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_UturnB.xml' >
+		<labelDef name='LBUL' type='text' desc='직선 1-2의 위쪽에 붙는 레이블' />
+		<labelDef name='LBUC' type='text' desc='직선 1-2 위에 붙는 레이블' />
+		<labelDef name='LBUR' type='text' desc='직선 1-2의 아래쪽에 붙는 레이블' />
+		<labelDef name='LBLL' type='text' desc='직선 3-4의 아래쪽에 붙는 레이블' />
+		<labelDef name='LBLC' type='text' desc='직선 3-4 위에 붙는 레이블' />
+		<labelDef name='LBLR' type='text' desc='직선 3-4의 위쪽에 붙는 레이블' />
+
+		<labelDef name='LBM' type='text' desc='네 점 중앙에 붙는 레이블' />
+		<labelDef name='LBA' type='text' desc='원호선 중앙에 붙는 레이블' />
+		<labelDef name='SATU' type='lineCap' desc='상단 왼쪽 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='EATU' type='lineCap' desc='상단 오른쪽 선 끝 모양' >
+			<lineCap default='0' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='SATL' type='lineCap' desc='하단 오른쪽 선 끝 모양' >
+			<lineCap default='1' useAll='true' maxCount='1' />
+		</labelDef>
+		<labelDef name='EATL' type='lineCap' desc='하단 왼쪽 선 끝 모양' >
+			<lineCap default='0' useAll='true' maxCount='1' />
+		</labelDef>
+	</com>
+	<com st='40' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplWindPlotA' jcls='icops.warsym.symbol.CwsSymImplWindPlotA' classid='aconif.warsym.symbol.WindPlotA_Impl' typeName='풍향A' previewCount='1' useLine='1' tmplmap='wstmplmap_WindPlotA.xml' >
+		<labelDef name='HEAD' type='text' desc='구름상태 표시[A]' useSymbolSize='true' />
+	</com>
+  <com st='41' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplPolygonB' jcls='icops.warsym.symbol.CwsSymImplPolygonB' classid='aconif.warsym.symbol.PolygonB_Impl' typeName='다각형B' previewCount='0' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_PolygonB.xml' >
+    <labelDef name='ICO' type='icon' useSymbolSize='1' desc='다각형과 함께 표시할 아이콘' />
+    <labelDef name='ICP' type='enum' desc='아이콘 표시 위치' >
+      <enum default='0'>
+        <item value='0' desc='없음/none' />
+        <item value='1' desc='중앙/center' />
+        <item value='6' desc='1단계(Pt.1과 Pt.N 사이에 표시)/level1' />
+        <item value='7' desc='2단계(Pt.2와 Pt.N-1 사이에 표시)/level2' />
+      </enum>
+    </labelDef>
+  </com>
+  <com st='42' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplSectorB' jcls='icops.warsym.symbol.CwsSymImplSectorB' classid='aconif.warsym.symbol.SectorB_Impl' typeName='섹터B' previewCount='3' useLine='1' useLinePtn='1' useFill='1' useFillPtn='1' tmplmap='wstmplmap_SectorB.xml' >
+    <labelDef name='LBL' type='text' desc='원호 좌측에 붙는 레이블' />
+    <labelDef name='LBC' type='text' desc='원호 중앙에 붙는 레이블' />
+    <labelDef name='LBR' type='text' desc='원호 우측에 붙는 레이블' />
+  </com>
+  <com st='43' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplParallelD' jcls='icops.warsym.symbol.CwsSymImplParallelD' classid='aconif.warsym.symbol.ParallelD_Impl' typeName='평행D' previewCount='3' useLine='1' tmplmap='wstmplmap_ParallelD.xml' >
+    <labelDef name='LBL' type='text' desc='PT.1-PT.3 방향 기준 좌측 레이블' />
+    <labelDef name='LBM' type='text' desc='중앙 레이블' />
+    <labelDef name='LBR' type='text' desc='PT.1-PT.3 방향 기준 우측 레이블' />
+  </com>
+  <com st='44' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplPolylineB' jcls='icops.warsym.symbol.CwsSymImplPolylineB' classid='aconif.warsym.symbol.PolylineB_Impl' typeName='다각선B' previewCount='2' useLine='1' useLinePtn='1' useFill='0' useFillPtn='0' tmplmap='wstmplmap_PolylineB.xml' >
+    <labelDef name='LBS' type='text' desc='시작점에 붙는 레이블' />
+    <labelDef name='LBM' type='text' desc='중간에 붙는 레이블' />
+    <labelDef name='LBE' type='text' desc='끝점에 붙는 레이블' />
+    <labelDef name='ATS' type='lineCap' desc='시작점의 선 끝 모양'>
+      <lineCap default='0' useAll='true' maxCount='1' />
+    </labelDef>
+    <labelDef name='ATE' type='lineCap' desc='끝점의 선 끝 모양'>
+      <lineCap default='0' useAll='true' maxCount='1' />
+    </labelDef>
+    <labelDef name='ATL' type='lineCap' desc='중간레이블 좌측의 선 끝 모양'>
+      <lineCap default='1' useAll='true' maxCount='1' />
+    </labelDef>
+    <labelDef name='ATR' type='lineCap' desc='중간레이블 우측의 선 끝 모양'>
+      <lineCap default='1' useAll='true' maxCount='1' />
+    </labelDef>
+  </com>
+  <com st='45' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplPolylineC' jcls='icops.warsym.symbol.CwsSymImplPolylineC' classid='aconif.warsym.symbol.PolylineC_Impl' typeName='다각선C' previewCount='0' useLine='1' useLinePtn='1' useFill='0' useFillPtn='0' tmplmap='wstmplmap_PolylineC.xml' >
+    <labelDef name='LBS' type='text' desc='시작점에 붙는 레이블' />
+    <labelDef name='LBE' type='text' desc='끝점에 붙는 레이블' />
+  </com>
+  <com st='46' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplPolylineD' jcls='icops.warsym.symbol.CwsSymImplPolylineD' classid='aconif.warsym.symbol.PolylineD_Impl' typeName='다각선D' previewCount='0' useLine='1' useLinePtn='0' useFill='0' useFillPtn='0' tmplmap='wstmplmap_PolylineD.xml' >
+    <labelDef name='VML' type='text' desc='중간점에 붙는 레이블' useLabelArrow='1' />
+    <labelDef name='VMC' type='text' desc='중간점 좌측에 붙는 레이블' />
+    <labelDef name='VMR' type='text' desc='중간점 우측에 붙는 레이블' />
+  </com>
+  <com st='47' lib='ICOPS_WarSym_Symbols' ext='.dll' cls='CwsSymImplPolylineE' jcls='icops.warsym.symbol.CwsSymImplPolylineE' classid='aconif.warsym.symbol.PolylineE_Impl' typeName='다각선E' previewCount='2' useLine='1' useLinePtn='1' useFill='1' useFillPtn='0' tmplmap='wstmplmap_PolylineE.xml' >
+    <labelDef name='LBM' type='text' desc='중간에 붙는 레이블' />
+    <labelDef name='ATS' type='lineCap' desc='시작점의 선 끝 모양'>
+      <lineCap default='0' useAll='true' maxCount='1' />
+    </labelDef>
+    <labelDef name='ATE' type='lineCap' desc='끝점의 선 끝 모양'>
+      <lineCap default='0' useAll='true' maxCount='1' />
+    </labelDef>
+  </com>
+</wscom>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='ArrowF' img='wstmplimg_ArrowF.png'>
+  <tmpllabel name='TT' rect='44,117,31,23' />
+  <tmpllabel name='LBL' rect='97,98,31,24' hidable='1' />
+  <tmpllabel name='LBT' rect='142,57,31,23' hidable='1' />
+  <tmpllabel name='LBM' rect='142,98,31,24' hidable='1' />
+  <tmpllabel name='LBB' rect='142,139,31,24' hidable='1' />
+  <tmpllabel name='LBR' rect='187,98,31,24' hidable='1' />
+  <tmpllabel name='HT' rect='247,117,31,23' />
+</wstmplmap>

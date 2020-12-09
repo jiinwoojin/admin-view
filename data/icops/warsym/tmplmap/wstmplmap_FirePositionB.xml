@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='FirePositionB' img='wstmplimg_FirePositionB.png'>
+  <tmpllabel name='WW' rect='45,46,31,24' />
+  <tmpllabel name='WL' rect='109,9,31,23' />
+  <tmpllabel name='LBC' rect='120,99,31,23' hidable='1' />
+  <tmpllabel name='LBL' rect='150,46,31,24' hidable='1' />
+  <tmpllabel name='LBR' rect='150,151,31,23' hidable='1' />
+  <tmpllabel name='ATL' rect='210,16,31,24' />
+  <tmpllabel name='ATR' rect='218,174,31,23' />
+</wstmplmap>

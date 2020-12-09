@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='RectA' img='wstmplimg_RectA.png'>
+  <tmpllabel name='VLC' rect='69,96,32,16' hidable='1' />
+  <tmpllabel name='VT' rect='151,33,32,16' hidable='1' />
+  <tmpllabel name='VTL' rect='151,53,32,17' hidable='1' />
+  <tmpllabel name='VC' rect='136,85,62,39' hidable='1' />
+  <tmpllabel name='VBL' rect='151,141,32,17' hidable='1' />
+  <tmpllabel name='VB' rect='151,160,32,16' hidable='1' />
+  <tmpllabel name='VRC' rect='234,96,32,16' hidable='1' />
+</wstmplmap>

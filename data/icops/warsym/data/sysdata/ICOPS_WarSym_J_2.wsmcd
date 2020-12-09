@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wsmcd xmlns="urn:icops.cngsol.co.kr" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"		
+		xsi:schemaLocation="urn:icops.cngsol.co.kr C:/ICOPS/warsym/schema/ICOPS_WSMCD.xsd">
+	<mcd cd='-' ncl='null' nll='미지정' />
+	<mcd cd='1' ncl='Confirmed by other sources' nll='다른 출처를 통해 확인됨' />
+	<mcd cd='2' ncl='Probably true' nll='가능성 높음' />
+	<mcd cd='3' ncl='Possibly true' nll='가능성 있음' />
+	<mcd cd='4' ncl='Doubtfully true' nll='가능성 낮음' />
+	<mcd cd='5' ncl='Improbable' nll='가능성 희박' />
+	<mcd cd='6' ncl='Truth cannot be judged' nll='확인 불가' />
+</wsmcd>

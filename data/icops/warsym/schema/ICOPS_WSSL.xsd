@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="urn:icops.cngsol.co.kr" elementFormDefault="qualified" xmlns="urn:icops.cngsol.co.kr" xmlns:mstns="urn:icops.cngsol.co.kr" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="wssl" type="type_wssl" />
+	<xs:complexType name="type_wssl">
+		<xs:sequence>
+			<xs:element name="wsi" type="type_wsi" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="type_wsi">
+		<!-- cd : Symbol code -->
+		<!-- hl : Hierarchical level -->
+		<!-- ncl : name in common language name -->
+		<!-- nll : name in local language name -->
+		<!-- as : Apply state -->
+		<!-- ss : Symbol state -->
+		<!-- st : Symbol type -->
+		<!-- sc : Symbol Category -->
+		<xs:attribute name="cd" type="xs:string" use="required" />
+		<xs:attribute name="hl" type="xs:string" use="required" />
+		<xs:attribute name="ncl" type="xs:string" use="required" />
+		<xs:attribute name="nll" type="xs:string" use="required" />
+		<xs:attribute name="as" type="xs:string" use="required" />
+		<xs:attribute name="ss" type="xs:string" use="required" />
+		<xs:attribute name="st" type="xs:int" use="required" />
+		<xs:attribute name="sc" type="xs:int" use="required" />
+	</xs:complexType>
+</xs:schema>

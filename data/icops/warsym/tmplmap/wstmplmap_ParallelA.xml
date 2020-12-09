@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='ParallelA' img='wstmplimg_ParallelA.png'>
+  <tmpllabel name='TLP' rect='19,76,23,14' />
+  <tmpllabel name='TL' rect='36,45,23,15' />
+  <tmpllabel name='VTL' rect='44,164,23,15' />
+  <tmpllabel name='TLL' rect='61,45,23,15' />
+  <tmpllabel name='LL' rect='69,106,23,14' hidable='1' />
+  <tmpllabel name='VL' rect='69,164,23,15' />
+  <tmpllabel name='VAL' rect='100,119,23,14' />
+  <tmpllabel name='ATL' rect='102,45,23,15' />
+  <tmpllabel name='LC' rect='141,106,23,14' hidable='1' />
+  <tmpllabel name='ATR' rect='163,45,23,15' />
+  <tmpllabel name='VAR' rect='181,94,23,14' />
+  <tmpllabel name='LR' rect='212,106,23,14' hidable='1' />
+  <tmpllabel name='VR' rect='212,164,23,15' />
+  <tmpllabel name='TRL' rect='221,45,23,15' />
+  <tmpllabel name='VTR' rect='237,164,23,15' />
+  <tmpllabel name='TR' rect='245,45,23,15' />
+  <tmpllabel name='PM' rect='251,139,28,14' />
+  <tmpllabel name='TRP' rect='258,76,23,14' />
+  <tmpllabel name='REV' rect='290,47,28,14' />
+  <tmpllabel name='PN' rect='293,106,29,14' />
+</wstmplmap>

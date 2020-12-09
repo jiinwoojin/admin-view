@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='CircleB' img='wstmplimg_CircleB.png'>
+  <tmpllabel name='NUM' rect='206,75,35,26' />
+  <tmpllabel name='LBA' rect='223,151,35,27' />
+  <tmpllabel name='SLB' rect='265,151,35,27' />
+</wstmplmap>

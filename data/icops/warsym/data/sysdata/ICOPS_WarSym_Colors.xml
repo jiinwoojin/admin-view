@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wscolors xmlns="urn:icops.cngsol.co.kr" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="urn:icops.cngsol.co.kr C:/ICOPS/warsym/schema/ICOPS_Color.xsd">
+
+	<colorset apply="system">
+		<icon_color>
+			<color name="black" argb="FFFFFFFF" />
+			<color name="white" a="255" r="255" g="255" b="255" />
+		</icon_color>
+		<frame_color>
+			
+		</frame_color>
+	</colorset>
+</wscolors>

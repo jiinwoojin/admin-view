@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='ArrowD' img='wstmplimg_ArrowD.png'>
+  <tmpllabel name='CVS' rect='9,90,25,19' />
+  <tmpllabel name='CVE' rect='9,112,25,19' />
+  <tmpllabel name='CLE' rect='81,132,25,19' />
+  <tmpllabel name='LET' rect='117,89,25,19' hidable='1' />
+  <tmpllabel name='LEM' rect='117,110,25,19' hidable='1' />
+  <tmpllabel name='LEB' rect='117,131,25,19' hidable='1' />
+  <tmpllabel name='LCT' rect='153,79,25,19' hidable='1' />
+  <tmpllabel name='LCM' rect='153,99,25,19' hidable='1' />
+  <tmpllabel name='LCB' rect='153,120,25,19' hidable='1' />
+  <tmpllabel name='LST' rect='189,59,26,19' hidable='1' />
+  <tmpllabel name='LSM' rect='189,80,26,19' hidable='1' />
+  <tmpllabel name='LSB' rect='189,101,26,19' hidable='1' />
+  <tmpllabel name='CLS' rect='226,132,25,19' />
+  <tmpllabel name='SAT' rect='298,90,25,19' />
+  <tmpllabel name='SAF' rect='298,112,25,19' />
+</wstmplmap>

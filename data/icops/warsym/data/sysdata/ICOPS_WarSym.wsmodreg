@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>		
+<wsmodreg xmlns="urn:cngsol.icops.WSSI_Icon_1_1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"		
+		xsi:schemaLocation="urn:cngsol.icops.WSSI_Icon_1_1 C:/ICOPS/warsym/schema/ICOPS_WSSI_Icon_1_1.xsd">
+	<modreg mid='A' nll='기본 부호 지정' ncl='Symbol Indicator' uu='1'  ue='1' ui='1' usi='1' um='1' up='1' ul='1' ua='1' ubl='1' un='1' ubc='1' po='0' />
+	<modreg mid='B' nll='부대 단위' ncl='Echelon' uu='1' um='1' ua='1' ubl='1' po='11'>
+		<gmi cd='A' ncl='Team,Crew' nll='조' >
+			<sh st='4' lc='1' lw='Normal' fc='0' l='-0.15' t='-0.17' r='0.15' b='0.13' sa='0' wa='360' at='1' />
+			<sh st='1' lc='1' lw='Normal' pc='2' pt='0.15,-0.16,-0.15,0.14' />
+		</gmi>
+		<gmi cd='B' ncl='Squad' nll='분대'>
+			<sh st='4' lc='1' lw='Thin' fc='1' l='-0.15' t='-0.17' r='0.15' b='0.13' sa='0' wa='360' at='1' />
+		</gmi>
+		<gmi cd='C' ncl='Section' nll='반'>
+			<sh st='4' lc='1' lw='Thin' fc='1' l='-0.31' t='-0.17' r='-0.01' b='0.13' sa='0' wa='360' at='1' />
+			<sh st='4' lc='1' lw='Thin' fc='1' l='0.01' t='-0.17' r='0.31' b='0.13' sa='0' wa='360' at='1' />
+		</gmi>
+		<gmi cd='D' ncl='Platoon,Detachment' nll='소대'>
+			<sh st='4' lc='1' lw='Thin' fc='1' l='-0.47' t='-0.17' r='-0.17' b='0.13' sa='0' wa='360' at='1' />
+			<sh st='4' lc='1' lw='Thin' fc='1' l='-0.15' t='-0.17' r='0.15' b='0.13' sa='0' wa='360' at='1' />
+			<sh st='4' lc='1' lw='Thin' fc='1' l='0.17' t='-0.17' r='0.47' b='0.13' sa='0' wa='360' at='1' />
+		</gmi>
+		<gmi cd='E' ncl='Company,Battery,Troop' nll='중대,포대'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='2' pt='0,-0.17,0,0.13' />
+		</gmi>
+		<gmi cd='F' ncl='Battalion,Squadron' nll='대대'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='2' pt='-0.1,-0.17,-0.1,0.13' />
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='2' pt='0.1,-0.17,0.1,0.13' />
+		</gmi>
+		<gmi cd='G' ncl='Regiment,Group' nll='연대,단'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='2' pt='-0.2,-0.17,-0.2,0.13' />
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='2' pt='0,-0.17,0,0.13' />
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='2' pt='0.2,-0.17,0.2,0.13' />
+		</gmi>
+		<gmi cd='H' ncl='Brigade' nll='여단,전단'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='2' pt='-0.15,-0.17,0.15,0.13' />
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='2' pt='-0.15,0.13,0.15,-0.17' />
+		</gmi>
+		<gmi cd='I' ncl='Division' nll='사단,함대,비행단'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='3' pt='-0.3,-0.17,0,0.13,0.3,-0.17' />
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='3' pt='-0.3,0.13,0,-0.17,0.3,0.13' />
+		</gmi>
+		<gmi cd='J' ncl='Corps,MEF' nll='군단,작전사령부'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='4' pt='-0.45,0.13,-0.15,-0.17,0.15,0.13,0.45,-0.17' />
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='4' pt='-0.45,-0.17,-0.15,0.13,0.15,-0.17,0.45,0.13' />
+		</gmi>
+		<gmi cd='K' ncl='Army' nll='야전군'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='5' pt='-0.6,0.13,-0.3,-0.17,0,0.13,0.3,-0.17,0.6,0.13' />
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='5' pt='-0.6,-0.17,-0.3,0.13,0,-0.17,0.3,0.13,0.6,-0.17' />
+		</gmi>
+		<gmi cd='L' ncl='Army group.Front' nll='집단군'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='6' pt='-0.75,-0.17,-0.45,0.13,-0.15,-0.17,0.15,0.13,0.45,-0.17,0.75,0.13' />
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='6' pt='-0.75,0.13,-0.45,-0.17,-0.15,0.13,0.15,-0.17,0.45,0.13,0.75,-0.17' />
+		</gmi>
+		<gmi cd='M' ncl='Region' nll='지역군'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='7' pt='-0.9,-0.17,-0.6,0.13,-0.3,-0.17,0,0.13,0.3,-0.17,0.6,0.13,0.9,-0.17' />
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='7' pt='-0.9,0.13,-0.6,-0.17,-0.3,0.13,0,-0.17,0.3,0.13,0.6,-0.17,0.9,0.13' />
+		</gmi>
+		<gmi cd='P' ncl='' nll='대'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='3' pt='-0.2,0.13,0,-0.17,0.2,0.13' />
+		</gmi>
+		<gmi cd='Q' ncl='' nll='지역대'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='2' pt='0,-0.17,0,0.13' />
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='3' pt='-0.2,0.13,0,-0.17,0.2,0.13' />
+		</gmi>
+		<gmi cd='R' ncl='' nll='군수지원대대'>
+			<sh st='4' lc='1' lw='Normal' fc='0' l='-0.15' t='-0.17' r='0.15' b='0.13' sa='0' wa='360' at='1' />
+		</gmi>
+		<gmi cd='S' ncl='' nll='군수지원단'>
+      <sh st='4' lc='1' lw='Normal' fc='0' l='-0.31' t='-0.17' r='-0.01' b='0.13' sa='0' wa='360' at='1' />
+      <sh st='4' lc='1' lw='Normal' fc='0' l='0.01' t='-0.17' r='0.31' b='0.13' sa='0' wa='360' at='1' />
+    </gmi>
+		<gmi cd='T' ncl='' nll='군수지원사'>
+      <sh st='4' lc='1' lw='Normal' fc='0' l='-0.47' t='-0.17' r='-0.17' b='0.13' sa='0' wa='360' at='1' />
+      <sh st='4' lc='1' lw='Normal' fc='0' l='-0.15' t='-0.17' r='0.15' b='0.13' sa='0' wa='360' at='1' />
+      <sh st='4' lc='1' lw='Normal' fc='0' l='0.17' t='-0.17' r='0.47' b='0.13' sa='0' wa='360' at='1' />
+    </gmi>
+		<gmi cd='U' ncl='' nll='군수사령부'>
+      <sh st='4' lc='1' lw='Normal' fc='0' l='-0.63' t='-0.17' r='-0.33' b='0.13' sa='0' wa='360' at='1' />
+      <sh st='4' lc='1' lw='Normal' fc='0' l='-0.31' t='-0.17' r='-0.01' b='0.13' sa='0' wa='360' at='1' />
+      <sh st='4' lc='1' lw='Normal' fc='0' l='0.01' t='-0.17' r='0.31' b='0.13' sa='0' wa='360' at='1' />
+      <sh st='4' lc='1' lw='Normal' fc='0' l='0.33' t='-0.17' r='0.63' b='0.13' sa='0' wa='360' at='1' />
+    </gmi>
+		<gmi cd='V' ncl='' nll='출장소,파견소,어통소'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='3' pt='-0.2,-0.17,0,0.13,0.2,-0.17' />
+		</gmi>
+		<gmi cd='W' ncl='' nll='지소,파출소'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='5' pt='-0.4,-0.17,-0.2,0.13,0,-0.17,0.2,0.17,0.4,-0.13' />
+		</gmi>
+		<gmi cd='X' ncl='' nll='경찰서,지구해양경찰대'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='7' pt='-0.6,-0.17,-0.4,0.13,-0.2,-0.17,0,0.13,0.2,-0.17,0.4,0.13,0.6,-0.17' />
+		</gmi>
+		<gmi cd='Y' ncl='' nll='경찰국,해양경찰대'>
+			<sh st='1' lc='1' lw='Normal' fc='0' pc='9' pt='-0.8,-0.17,-0.6,0.13,-0.4,-0.17,-0.2,0.13,0,-0.17,0.2,0.13,0.4,-0.17,0.6,0.15,0.8,-0.15' />
+		</gmi>
+		<gmi cd='N' ncl='Command' nll='지휘'>
+			<sh st='1' lc='1' lw='Thick' fc='0' pc='2' pt='-0.4,0,-0.06,0' />
+			<sh st='1' lc='1' lw='Thick' fc='0' pc='2' pt='0.4,0,0.06,0' />
+			<sh st='1' lc='1' lw='Thick' fc='0' pc='2' pt='-0.23,-0.17,-0.23,0.17' />
+			<sh st='1' lc='1' lw='Thick' fc='0' pc='2' pt='0.23,-0.17,0.23,0.17' />
+		</gmi>
+	</modreg>
+	<modreg mid='C' nll='장비 수량' ncl='Quantity' le='9' ln='6' po='11' />
+	<modreg mid='D' nll='기동 부대 식별' ncl='Task Force Indicator' uu='1' um='1' po='11' >
+		<gmi cd='*' ncl='Task force' nll='기동 부대' >
+			<sh st='1' lc='1' lw='Thin' fc='0' pc='4' pt='-0.4,0.175, -0.4,-0.175, 0.4,-0.175, 0.4,0.175' />
+		</gmi>
+	</modreg>
+	<modreg mid='F' nll='부대 증감' ncl='Reinforced or Reduced' lu='3' lm='3' po='6' />
+	<modreg mid='G' nll='군/국가 구분' ncl='Staff Comments' lu='20' le='20' li='20' lsi='20' lm='20' po='7' />
+	<modreg mid='H' nll='추가사항' ncl='Additional Information' lu='20' le='20' li='20' lsi='20' lm='20' lp='20' la='20' ln='20' lbc='20' po='8' />
+	<modreg mid='J' nll='평가 등급' ncl='Evaluation Rating' lu='2' le='2' li='2' lsi='2' lm='2' po='10' />
+	<modreg mid='K' nll='전투효과(전투력)' ncl='Combat Effectiveness' lu='5' li='5' lm='3' po='10' />
+	<modreg mid='L' nll='신호정보 장비' ncl='Signature Equipment' le='1' lsi='1' po='10' />
+	<modreg mid='M' nll='상급 부대' ncl='Higher Formation' lu='21' lsi='21' po='9' />
+	<modreg mid='N' nll='적군 표시' ncl='Hostile (Enemy)' le='3' ll='3' la='3' lbl='3' ln='3' lbc='3' po='10' />
+	<modreg mid='P' nll='피아식별 모드 및 코드' ncl='IFF/SIF' lu='5' le='5' li='5' lm='5' po='10' />
+	<modreg mid='Q' nll='이동 방향' ncl='Direction of Movement Indicator' uu='1' ue='1' ui='1' um='1' un='1' ubc='1' po='0' />
+	<modreg mid='R' nll='이동 수단' ncl='Mobility Indicator' ue='1' po='12' >
+		<gmi cd='O' ncl='Wheeled,Limited cross country' nll='차륜식(제한된 야지횡단)' >
+			<sh st="3" lc="1" fc="0" lw="Thin" l="-0.700" t="-0.100" r="-0.500" b="0.100"/>
+			<sh st="3" lc="1" fc="0" lw="Thin" l="0.500" t="-0.100" r="0.700" b="0.100"/>
+			<sh st="1" lc="1" fc="0" lw="Thin" pc="2" pt="-0.6,-0.1,0.6,-0.1"/>
+		</gmi>
+		<gmi cd='P' ncl='Cross country' nll='야지횡단 차륜식(야지횡단)' >
+			<sh st="3" lc="1" fc="0" lw="Thin" l="-0.700" t="-0.100" r="-0.500" b="0.100"/>
+			<sh st="3" lc="1" fc="0" lw="Thin" l="0.500" t="-0.100" r="0.700" b="0.100"/>
+			<sh st="1" lc="1" fc="0" lw="Thin" pc="2" pt="-0.6,-0.1,0.6,-0.1"/>
+			<sh st="3" lc="1" fc="0" lw="Thin" l="-0.100" t="-0.100" r="0.100" b="0.100"/>
+		</gmi>
+		<gmi cd='Q' ncl='Tracked' nll='자주 궤도식' >
+			<sh st="1" lc="1" fc="0" lw="Thin" pc="2" pt="-0.6,-0.1,0.6,-0.1"/>
+			<sh st="4" lc="1" fc="0" lw="Thin" l="-0.700" t="-0.100" r="-0.500" b="0.100" sa="90.000" wa="180.000" at="1" aft="3"/>
+			<sh st="4" lc="1" fc="0" lw="Thin" l="0.500" t="-0.100" r="0.700" b="0.100" sa="270.000" wa="180.000" at="1" aft="3"/>
+			<sh st="1" lc="1" fc="0" lw="Thin" pc="2" pt="-0.6,0.1,0.6,0.1"/>
+		</gmi>
+		<gmi cd='R' ncl='Wheeled and tracked combination' nll='차륜 궤도 혼합식' >
+			<sh st="1" lc="1" fc="0" lw="Thin" pc="2" pt="-0.4,-0.1,0.6,-0.1"/>
+			<sh st="4" lc="1" fc="0" lw="Thin" l="-0.500" t="-0.100" r="-0.300" b="0.100" sa="90.000" wa="180.000" at="1" aft="3"/>
+			<sh st="4" lc="1" fc="0" lw="Thin" l="0.500" t="-0.100" r="0.700" b="0.100" sa="270.000" wa="180.000" at="1" aft="3"/>
+			<sh st="1" lc="1" fc="0" lw="Thin" pc="2" pt="-0.4,0.1,0.6,0.1"/>
+			<sh st="3" lc="1" fc="0" lw="Thin" l="-0.700" t="-0.100" r="-0.500" b="0.100"/>
+		</gmi>
+		<gmi cd='S' ncl='Towed' nll='트레일러 견인식' >
+			<sh st="3" lc="1" fc="0" lw="Thin" l="-0.700" t="-0.100" r="-0.500" b="0.100"/>
+			<sh st="3" lc="1" fc="0" lw="Thin" l="0.500" t="-0.100" r="0.700" b="0.100"/>
+			<sh st="1" lc="1" fc="0" lw="Thin" pc="2" pt="-0.5,0.,0.5,0."/>
+		</gmi>
+		<gmi cd='T' ncl='Rail' nll='철로 이동식' >
+			<sh st="3" lc="1" fc="0" lw="Thin" l="-0.700" t="-0.100" r="-0.500" b="0.100"/>
+			<sh st="3" lc="1" fc="0" lw="Thin" l="0.500" t="-0.100" r="0.700" b="0.100"/>
+			<sh st="1" lc="1" fc="0" lw="Thin" pc="2" pt="-0.6,-0.1,0.6,-0.1"/>
+			<sh st="3" lc="1" fc="0" lw="Thin" l="-0.500" t="-0.100" r="-0.300" b="0.100"/>
+			<sh st="3" lc="1" fc="0" lw="Thin" l="0.300" t="-0.100" r="0.500" b="0.100"/>
+		</gmi>
+		<gmi cd='U' ncl='Over the snow' nll='설상 이동식(원동기)' >
+			<sh st="1" lc="1" fc="0" lw="Thin" pc="3" pt="-0.7,-0.1,-0.5,0.1,0.7,0.1"/>
+		</gmi>
+		<gmi cd='V' ncl='Sled' nll='빙상 이동식' >
+			<sh st="4" lc="1" fc="0" lw="Thin" l="-0.700" t="-0.100" r="-0.500" b="0.100" sa="90.000" wa="180.000" at="1" aft="3"/>
+			<sh st="4" lc="1" fc="0" lw="Thin" l="0.500" t="-0.100" r="0.700" b="0.100" sa="270.000" wa="180.000" at="1" aft="3"/>
+			<sh st="1" lc="1" fc="0" lw="Thin" pc="2" pt="-0.6,0.1,0.6,0.1"/>
+		</gmi>
+		<gmi cd='W' ncl='Animals' nll='동물 견인식' >
+			<sh st="1" lc="1" fc="0" lw="Thin" pc="5" pt="-0.2,0.1,-0.1,-0.1,0.,0.1,0.1,-0.1,0.2,0.1"/>
+		</gmi>
+		<gmi cd='X' ncl='Barge' nll='바지 예인식' >
+			<sh st="1" lc="1" fc="0" lw="Thin" pc="2" pt="-0.6,-0.1,0.6,-0.1"/>
+			<sh st="4" lc="1" fc="0" lw="Thin" l="-0.800" t="-1.100" r="0.800" b="0.100" sa="34.695" wa="110.610" at="1" aft="3"/>
+		</gmi>
+		<gmi cd='Y' ncl='Amphibious' nll='수륙양용' >
+			<sh st="4" lc="1" fc="0" lw="Thin" l="-0.700" t="-0.100" r="-0.500" b="0.100" sa="180.000" wa="180.000" at="1" aft="3"/>
+			<sh st="4" lc="1" fc="0" lw="Thin" l="-0.300" t="-0.100" r="-0.100" b="0.100" sa="180.000" wa="180.000" at="1" aft="3"/>
+			<sh st="4" lc="1" fc="0" lw="Thin" l="0.100" t="-0.100" r="0.300" b="0.100" sa="180.000" wa="180.000" at="1" aft="3"/>
+			<sh st="4" lc="1" fc="0" lw="Thin" l="0.500" t="-0.100" r="0.700" b="0.100" sa="180.000" wa="180.000" at="1" aft="3"/>
+			<sh st="4" lc="1" fc="0" lw="Thin" l="-0.500" t="-0.100" r="-0.300" b="0.100" sa="0.000" wa="180.000" at="1" aft="3"/>
+			<sh st="4" lc="1" fc="0" lw="Thin" l="-0.100" t="-0.100" r="0.100" b="0.100" sa="0.000" wa="180.000" at="1" aft="3"/>
+			<sh st="4" lc="1" fc="0" lw="Thin" l="0.300" t="-0.100" r="0.500" b="0.100" sa="0.000" wa="180.000" at="1" aft="3"/>
+		</gmi>
+	</modreg>
+	<modreg mid='R2' nll='신호정보 장비 이동성' ncl='SIGINT Mobility Indicator' lsi='1' po='6' />
+	<modreg mid='S' nll='지휘소 / 실제위치 표시' ncl='Headquarters Staff / Offset Location Indicator' uu='1' ue='1' ui='1' um='1' up='1' un='1' ubc='1' po='3' >
+		<gmi cd='*' ncl='Direction' nll='이동 방향' >
+			<sh st='1' lc='1' lw='Thin' fc='0' pc='2' pt='0,0, 0,1' />
+		</gmi>
+	</modreg>
+	<modreg mid='T' nll='고유 명칭' ncl='Unique Designation' lu='21' le='21' li='21' lsi='21' lm='21' lp='15' ll='15' la='15' lbl='35' ln='15' lbc='15' po='4' />
+	<modreg mid='V' nll='장비명, 종류' ncl='Type' le='24' lsi='24' ln='20' po='3' />
+	<modreg mid='W' nll='활동시각' ncl='Date/Time Group (DTG)' lu='20' le='20' li='20' lsi='20' lm='20' lp='20' ll='20' la='20' ln='20' lbc='20' po='1' />
+	<modreg mid='X' nll='고도/심도' ncl='Altitude/Depth' lu='6' le='6' li='6' lm='6' po='2' />
+	<modreg mid='Y' nll='위치' ncl='Location' lu='19' le='19' li='19' lsi='19' lm='19' lp='19' ll='19' la='19' lbl='19' ln='19' lbc='19' po='2' />
+	<modreg mid='Z' nll='속도' ncl='Speed' lu='8' le='8' li='8' lm='8' po='5' />
+	<modreg mid='AA' nll='지휘통제소' ncl='Special C2 Headquarters' lu='9' lm='9' po='0' />
+	<modreg mid='AB' nll='가장/가상 식별부호' ncl='Feint/Dummy Indicator' uu='1' ue='1' ui='1' um='1' po='11' >
+		<gmi cd='*' ncl='Feint/Dummy Indicator' nll='가장/가상 식별부호' >
+			<sh st='1' lc='1' lw='Thin' fc='0' pc='3' pt='-0.55,0.25, 0,-0.25, 0.55,0.25' />
+		</gmi>
+		<gmi cd='U' ncl='Feint/Dummy Indicator' nll='가장/가상 식별부호' >
+			<sh st='1' lc='1' lw='Thin' fc='0' pc='3' pt='-0.72,0.25, 0,-0.25, 0.72,0.25' />
+		</gmi>
+	</modreg>
+	<modreg mid='AC' nll='시설' ncl='Installation' uu='1' ue='1' ui='1' um='1' po='11' >
+		<gmi cd='*' ncl='Installation' nll='시설' >
+			<sh st='2' lc='1' lw='Normal' fc='1' l='-0.2' t='-0.15' r='0.2' b='0.15' />
+		</gmi>
+	</modreg>
+	<modreg mid='AD' nll='기반형태' ncl='Platform Type' lsi='6' po='13' />
+	<modreg mid='AE' nll='장비 분해시간' ncl='Equipment Teardown Time' lsi='3' po='13' />
+	<modreg mid='AF' nll='공통명칭' ncl='Common Identifier' lsi='12' po='13' />
+	<modreg mid='AG' nll='보조장비식별부호' ncl='Auxiliary Equipment Indicator' ue='1' po='12' >
+		<gmi cd='S' ncl='Towed array(short)' nll='견인 소나열 (단)' >
+			<sh st="2" lc="1" fc="1" lw="Thin" l="-0.700" t="-0.050" r="-0.600" b="0.050"/>
+			<sh st="1" lc="1" fc="1" lw="Thin" pc="2" pt="-0.65,0.,0.65,0."/>
+			<sh st="2" lc="1" fc="1" lw="Thin" l="-0.050" t="-0.050" r="0.050" b="0.050"/>
+			<sh st="2" lc="1" fc="1" lw="Thin" l="0.600" t="-0.050" r="0.700" b="0.050"/>
+			<sh st="1" lc="1" fc="1" lw="Thin" pc="2" pt="0.,-0.1,0.,0.1"/>
+		</gmi>
+		<gmi cd='L' ncl='Towed array(long)' nll='견인 소나열 (장)' >
+			<sh st="2" lc="1" fc="1" lw="Thin" l="-0.700" t="-0.050" r="-0.600" b="0.050"/>
+			<sh st="1" lc="1" fc="1" lw="Thin" pc="2" pt="-0.65,0.,0.65,0."/>
+			<sh st="2" lc="1" fc="1" lw="Thin" l="-0.050" t="-0.050" r="0.050" b="0.050"/>
+			<sh st="2" lc="1" fc="1" lw="Thin" l="0.600" t="-0.050" r="0.700" b="0.050"/>
+			<sh st="1" lc="1" fc="1" lw="Thin" pc="2" pt="-0.325,-0.1,-0.325,0.1"/>
+			<sh st="2" lc="1" fc="1" lw="Thin" l="-0.375" t="-0.050" r="-0.275" b="0.050"/>
+			<sh st="2" lc="1" fc="1" lw="Thin" l="0.275" t="-0.050" r="0.375" b="0.050"/>
+			<sh st="1" lc="1" fc="1" lw="Thin" pc="2" pt="0.325,-0.1,0.325,0.1"/>
+		</gmi>
+	</modreg>
+</wsmodreg>

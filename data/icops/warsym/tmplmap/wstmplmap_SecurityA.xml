@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='SecurityA' img='wstmplimg_SecurityA.png'>
+  <tmpllabel name='ATL' rect='13,120,31,16' />
+  <tmpllabel name='LBL' rect='117,74,31,17' />
+  <tmpllabel name='LBC' rect='149,74,31,17' />
+  <tmpllabel name='LBR' rect='181,74,31,17' />
+  <tmpllabel name='ATR' rect='285,120,31,16' />
+</wstmplmap>

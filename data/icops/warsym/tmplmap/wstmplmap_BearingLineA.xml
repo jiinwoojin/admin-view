@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='BearingA' img='wstmplimg_BearingLineA.png'>
+  <tmpllabel name='LBC' rect='151,98,30,24' hidable='1' />
+</wstmplmap>

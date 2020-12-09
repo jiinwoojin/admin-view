@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='ArcD' img='wstmplimg_ArcD.png'>
+  <tmpllabel name='LBC' rect='83,64,31,23' hidable='1' />
+  <tmpllabel name='SWA' rect='131,131,38,28' />
+  <tmpllabel name='LBL' rect='170,84,38,29' hidable='1' />
+  <tmpllabel name='EAT' rect='233,131,38,28' />
+</wstmplmap>

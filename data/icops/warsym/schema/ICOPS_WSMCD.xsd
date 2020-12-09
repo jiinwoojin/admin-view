@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MCD : Modifier code -->
+<xs:schema targetNamespace="urn:icops.cngsol.co.kr" elementFormDefault="qualified" xmlns="urn:icops.cngsol.co.kr" xmlns:mstns="urn:icops.cngsol.co.kr" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="wsmcd" type="type_wsmcd" />
+	<xs:complexType name="type_wsmcd">
+		<xs:sequence>
+			<xs:element name="mcd" type="type_mcd" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="type_mcd">
+		<!-- ncl : code name in common language -->
+		<!-- nll : code name in local language -->
+		<!-- cd  : code value -->
+		<xs:attribute name="ncl" type="xs:string" use="required" />
+		<xs:attribute name="nll" type="xs:string" use="required" />
+		<xs:attribute name="cd" type="xs:string" use="required" />
+	</xs:complexType>
+</xs:schema>

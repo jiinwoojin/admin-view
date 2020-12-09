@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='PolylineA' img='wstmplimg_PolylineA.png'>
+  <tmpllabel name='VSC' rect='9,106,26,13' hidable='1' />
+  <tmpllabel name='VSL' rect='43,94,26,13' hidable='1' />
+  <tmpllabel name='VSR' rect='43,121,26,13' hidable='1' />
+  <tmpllabel name='VSML' rect='92,88,33,16' hidable='1' />
+  <tmpllabel name='VSMC' rect='92,107,33,16' hidable='1' />
+  <tmpllabel name='VSMR' rect='92,125,33,16' hidable='1' />
+  <tmpllabel name='VML' rect='148,88,34,16' hidable='1' />
+  <tmpllabel name='VMC' rect='148,107,34,16' hidable='1' />
+  <tmpllabel name='VMR' rect='148,125,34,16' hidable='1' />
+  <tmpllabel name='VEML' rect='205,88,34,16' hidable='1' />
+  <tmpllabel name='VEMC' rect='205,107,34,16' hidable='1' />
+  <tmpllabel name='VEMR' rect='205,125,34,16' hidable='1' />
+  <tmpllabel name='VEL' rect='262,96,27,13' hidable='1' />
+  <tmpllabel name='VER' rect='262,121,27,13' hidable='1' />
+  <tmpllabel name='VEC' rect='295,106,26,13' hidable='1' />
+  <tmpllabel name='LNT' rect='152,193,27,13' />
+  <tmpllabel name='ICO' rect='152,163,27,13' />
+  <tmpllabel name='ICS' rect='9,148,27,13' />
+  <tmpllabel name='ICE' rect='296,148,27,13' />
+  <tmpllabel name='ICM' rect='152,178,27,13' />
+  <tmpllabel name='RPT' rect='152,148,27,13' />
+  <tmpllabel name='SAT' rect='9,163,27,13' />
+  <tmpllabel name='EAT' rect='296,163,27,13' />
+</wstmplmap>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='ArrowC' img='wstmplimg_ArrowC.png'>
+  <tmpllabel name='ZW' rect='8,100,29,22' />
+  <tmpllabel name='LBT' rect='81,100,29,22' hidable='1' />
+  <tmpllabel name='ZMT' rect='81,150,29,22' />
+  <tmpllabel name='ZN' rect='173,153,29,22' />
+  <tmpllabel name='ZD' rect='201,40,29,23' />
+  <tmpllabel name='ZMH' rect='257,150,29,22' />
+  <tmpllabel name='SAT' rect='295,118,29,22' />
+</wstmplmap>

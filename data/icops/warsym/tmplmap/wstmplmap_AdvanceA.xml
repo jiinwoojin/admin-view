@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='AdvanceA' img='wstmplimg_AdvanceA.png'>
+  <tmpllabel name='LBT' rect='132,101,40,20' hidable='1' />
+  <tmpllabel name='LBH' rect='202,101,40,20' hidable='1' />
+  <tmpllabel name='HTYPE' rect='273,101,40,20' />
+  <tmpllabel name='ICON' rect='145,155,40,20' />
+  <tmpllabel name='TWIST' rect='191,155,40,20' />
+</wstmplmap>

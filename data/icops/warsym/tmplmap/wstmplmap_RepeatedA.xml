@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='RepeatedA' img='wstmplimg_RepeatedA.png'>
+  <tmpllabel name='ICON' rect='71,52,38,16' />
+  <tmpllabel name='GAP' rect='124,150,31,17' />
+  <tmpllabel name='RPT' rect='147,45,31,16' />
+</wstmplmap>

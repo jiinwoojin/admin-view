@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='ArrowB' img='wstmplimg_ArrowB.png'>
+  <tmpllabel name='TW' rect='8,100,28,20' />
+  <tmpllabel name='TT' rect='38,134,28,20' />
+  <tmpllabel name='LBT' rect='93,100,28,20' hidable='1' />
+  <tmpllabel name='TL' rect='99,138,28,20' />
+  <tmpllabel name='SAT' rect='280,115,29,20' />
+</wstmplmap>

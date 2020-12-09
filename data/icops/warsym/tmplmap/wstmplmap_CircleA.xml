@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='CircleA' img='wstmplimg_CircleA.png'>
+  <tmpllabel name='VLE' rect='23,100,40,16' hidable='1' />
+  <tmpllabel name='VLT' rect='70,40,41,16' hidable='1' />
+  <tmpllabel name='VLO' rect='65,100,41,16' hidable='1' />
+  <tmpllabel name='VLB' rect='70,164,41,16' hidable='1' />
+  <tmpllabel name='VTE' rect='144,11,41,15' hidable='1' />
+  <tmpllabel name='VTO' rect='144,29,41,16' hidable='1' />
+  <tmpllabel name='VCC' rect='119,80,91,60' hidable='1' />
+  <tmpllabel name='VBO' rect='144,181,41,16' hidable='1' />
+  <tmpllabel name='VBE' rect='144,199,41,16' hidable='1' />
+  <tmpllabel name='VRT' rect='218,40,41,16' hidable='1' />
+  <tmpllabel name='VRO' rect='233,100,41,16' hidable='1' />
+  <tmpllabel name='VRB' rect='218,164,41,16' hidable='1' />
+  <tmpllabel name='VRE' rect='266,100,40,16' hidable='1' />
+</wstmplmap>

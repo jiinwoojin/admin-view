@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='PolygonA' img='wstmplimg_PolygonA.png'>
+  <tmpllabel name='SFD' rect='15,22,36,16' />
+  <tmpllabel name='AFL' rect='58,22,36,16' />
+  <tmpllabel name='VLC' rect='40,100,27,17' hidable='1' />
+  <tmpllabel name='VLT' rect='58,53,36,16' hidable='1' />
+  <tmpllabel name='VLB' rect='58,143,36,17' hidable='1' />
+  <tmpllabel name='VTT' rect='145,35,36,16' hidable='1' />
+  <tmpllabel name='VTM' rect='145,55,36,16' hidable='1' />
+  <tmpllabel name='VTB' rect='145,75,36,16' hidable='1' />
+  <tmpllabel name='VCC' rect='145,100,36,17' hidable='1' />
+  <tmpllabel name='VBT' rect='145,128,36,17' hidable='1' />
+  <tmpllabel name='VBM' rect='145,148,36,17' hidable='1' />
+  <tmpllabel name='VBB' rect='145,168,36,16' hidable='1' />
+  <tmpllabel name='VRT' rect='232,75,36,17' hidable='1' />
+  <tmpllabel name='VRB' rect='240,151,36,17' hidable='1' />
+  <tmpllabel name='VRC' rect='263,100,27,17' hidable='1' />
+  <tmpllabel name='ICO' rect='15,189,36,16' />
+  <tmpllabel name='ICP' rect='58,189,36,16' />
+</wstmplmap>

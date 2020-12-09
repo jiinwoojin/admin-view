@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='WindPlotA' img='wstmplimg_WindPlotA.png'>
+  <tmpllabel name='HEAD' rect='143,152,32,15' />
+</wstmplmap>

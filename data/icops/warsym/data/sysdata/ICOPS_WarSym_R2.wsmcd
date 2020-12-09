@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wsmcd xmlns="urn:icops.cngsol.co.kr" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"		
+		xsi:schemaLocation="urn:icops.cngsol.co.kr C:/ICOPS/warsym/schema/ICOPS_WSMCD.xsd">
+	<mcd cd='-' ncl='null' nll='미지정' />
+	<mcd cd='M' ncl='Mobile' nll='이동 가능' />
+	<mcd cd='S' ncl='Static' nll='고정' />
+	<mcd cd='U' ncl='Uncertain' nll='불확실' />
+</wsmcd>

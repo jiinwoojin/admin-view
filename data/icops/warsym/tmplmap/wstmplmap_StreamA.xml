@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='StreamA' img='wstmplimg_StreamA.png'>
+  <tmpllabel name='INT' rect='137,149,47,24' />
+  <tmpllabel name='AT' rect='168,21,43,23' />
+</wstmplmap>

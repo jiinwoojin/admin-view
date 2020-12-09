@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='ParallelD' img='wstmplimg_ParallelD.png'>
+  <tmpllabel name='LBL' rect='152,61,31,25' hidable='1' />
+  <tmpllabel name='LBM' rect='152,110,31,25' hidable='1' />
+  <tmpllabel name='LBR' rect='152,158,31,25' hidable='1' />
+</wstmplmap>

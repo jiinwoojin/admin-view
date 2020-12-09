@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='UturnB' img='wstmplimg_UturnB.png'>
+  <tmpllabel name='SATU' rect='56,72,39,16' />
+  <tmpllabel name='EATL' rect='56,133,39,16' />
+  <tmpllabel name='LBUL' rect='146,51,39,14' hidable='1' />
+  <tmpllabel name='LBUC' rect='146,66,39,13' hidable='1' />
+  <tmpllabel name='LBUR' rect='146,80,39,13' hidable='1' />
+  <tmpllabel name='LBM' rect='146,102,39,16' hidable='1' />
+  <tmpllabel name='LBLR' rect='146,128,39,13' hidable='1' />
+  <tmpllabel name='LBLC' rect='146,142,39,13' hidable='1' />
+  <tmpllabel name='LBLL' rect='146,156,39,14' hidable='1' />
+  <tmpllabel name='EATU' rect='222,57,38,16' />
+  <tmpllabel name='SATL' rect='222,149,38,16' />
+  <tmpllabel name='LBA' rect='244,102,38,16' hidable='1' />
+</wstmplmap>

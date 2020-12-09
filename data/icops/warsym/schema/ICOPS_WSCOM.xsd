@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="urn:icops.cngsol.co.kr" elementFormDefault="qualified" xmlns="urn:icops.cngsol.co.kr" xmlns:mstns="urn:icops.cngsol.co.kr" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="wscom" type="type_wscom" />
+	<xs:complexType name="type_wscom">
+		<xs:sequence>
+			<xs:element name="com" type="type_com" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="type_com">
+		<xs:sequence>
+			<xs:element name="labelDef" type="type_labelDef" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<!-- st : Symbol type index -->
+		<!-- lib : Symbol component library DLL file name -->
+		<!-- cls : Symbol component class name -->
+		<!-- jcls : Symbol component java class name -->
+		<!-- typeName : 부호유형명 -->
+		<!-- tmplmap : 템플릿 맵 -->
+		<!-- previewCount : 미리보기 참조점 개수 -->
+		<!-- useLine : 선 사용 여부 -->
+		<!-- useLinePtn : 선 패턴 사용 여부 -->
+		<!-- useFill : 채움 사용 여부 -->
+		<!-- useFillPtn : 채움 패턴 사용 여부 -->
+		<!-- useFD : 가장/가상 부호 사용 여부 -->
+		<xs:attribute name="st" type="xs:int" use="required" />
+		<xs:attribute name="lib" type="xs:string" use="required" />
+    <xs:attribute name="ext" type="xs:string" use="optional" default=".dll" />
+    <xs:attribute name="cls" type="xs:string" use="required" />
+    <xs:attribute name="jcls" type="xs:string" use="required" />
+	<xs:attribute name="typeName" type="xs:string" use="required" />
+    <xs:attribute name="tmplmap" type="xs:string" use="optional" />
+		<xs:attribute name="previewCount" type="xs:int" use="required" />
+		<xs:attribute name="useLine" type="xs:boolean" use="optional" default="0" />
+		<xs:attribute name="useLinePtn" type="xs:boolean" use="optional" default="0" />
+		<xs:attribute name="useFill" type="xs:boolean" use="optional" default="0" />
+		<xs:attribute name="useFillPtn" type="xs:boolean" use="optional" default="0" />
+		<xs:attribute name="useFD" type="xs:boolean" use="optional" default="0" />
+	</xs:complexType>
+	<xs:complexType name="type_labelDef">
+		<xs:choice minOccurs="0" maxOccurs="1">
+			<xs:element name="bool" type="type_bool" />
+			<xs:element name="enum" type="type_enum" />
+			<xs:element name="lineCap" type="type_lineCap" />
+			<xs:element name="lineType" type="type_lineType" />
+			<xs:element name="rate" type="type_floatRange" />
+			<xs:element name="absLen" type="type_floatRange" />
+			<xs:element name="angle" type="type_floatRange" />
+			<xs:element name="count" type="type_intRange" />
+      <xs:element name="color" type="type_color" />
+    </xs:choice>
+		<!-- name  : 레이블명 -->
+		<!-- type : 레이블 유형-->
+		<!-- desc : 레이블 설명 -->
+		<!-- useLabelArrow : 레이블에 화살표 표시 사용 여부 -->
+		<!-- useSymbolSize : 레이블과 같이 표시하는 부호의 크기 사용 여부 -->
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="type" type="type_labelType" use="required" />
+		<xs:attribute name="desc" type="xs:string" use="required" />
+		<xs:attribute name="useLabelArrow" type="xs:boolean" use="optional" default="0" />
+		<xs:attribute name="useSymbolSize" type="xs:boolean" use="optional" default="0" />
+	</xs:complexType>
+	<xs:simpleType name="type_labelType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="text" />
+			<xs:enumeration value="bool" />
+			<xs:enumeration value="enum" />
+			<xs:enumeration value="lineCap" />
+			<xs:enumeration value="lineType" />
+			<xs:enumeration value="rate" />
+			<xs:enumeration value="absLen" />
+			<xs:enumeration value="icon" />
+			<xs:enumeration value="angle" />
+			<xs:enumeration value="count" />
+			<xs:enumeration value="color" />
+    </xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="type_bool">
+		<xs:attribute name="default" type="xs:boolean" use="required" />
+		<xs:attribute name="falseMean" type="xs:string" use="required" />
+		<xs:attribute name="trueMean" type="xs:string" use="required" />
+	</xs:complexType>
+	<xs:complexType name="type_enum">
+		<xs:sequence>
+			<xs:element name="item" type="type_enumItem" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+		<!-- default : 기본적으로 사용할 값 -->
+		<xs:attribute name="default" type="xs:int" use="required" />
+	</xs:complexType>
+	<xs:complexType name="type_lineCap">
+		<xs:sequence>
+			<!-- 사용 가능한 선 끝 모양을 개별적으로 지정. 개별적으로 지정하지 않고 모두 사용하려면 useAll 값을 true로 설정 -->
+			<xs:element name="item" type="type_enumItem" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<!-- default : 기본적으로 사용할 값 -->
+		<!-- useAll : 정의된 모든 선 끝 모양 사용 가능 여부 -->
+		<!-- maxCount : 선 끝 모양 최대 개수 -->
+		<!-- countLabel : 선 끝 모양 개수를 지정하는 레이블명 -->
+		<!-- 선 끝 모양 개수는 countLabel 값이 지정된 경우 이 값을 적용하고 아니면 maxCount 값을 적용 -->
+		<xs:attribute name="default" type="xs:string" use="required" />
+		<xs:attribute name="useAll" type="xs:boolean" use="required"/>
+		<xs:attribute name="maxCount" type="xs:int" use="optional" default="1" />
+		<xs:attribute name="countLabel" type="xs:string" />
+	</xs:complexType>
+	<xs:complexType name="type_lineType">
+		<xs:sequence>
+			<xs:element name="item" type="type_enumItem" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+		<!-- default : 기본적으로 사용할 값 -->
+		<!-- useAll : 정의된 모든 선 형태 사용 가능 여부 -->
+		<xs:attribute name="default" type="xs:int" use="required" />
+		<xs:attribute name="useAll" type="xs:boolean" default="1" />
+	</xs:complexType>
+	<xs:complexType name="type_floatRange">
+		<xs:attribute name="default" type="xs:float" use="required" />
+		<xs:attribute name="minValue" type="xs:float" use="required" />
+		<xs:attribute name="maxValue" type="xs:float" use="required" />
+	</xs:complexType>
+	<xs:complexType name="type_intRange">
+		<xs:attribute name="default" type="xs:int" use="required" />
+		<xs:attribute name="minValue" type="xs:int" use="required" />
+		<xs:attribute name="maxValue" type="xs:int" use="required" />
+	</xs:complexType>
+  <xs:complexType name="type_color">
+    <xs:attribute name="default" type="xs:string" use="optional" />
+  </xs:complexType>
+	<xs:complexType name="type_enumItem">
+		<xs:attribute name="value" type="xs:int" use="required" />
+		<xs:attribute name="desc" type="xs:string" use="required" />
+	</xs:complexType>
+
+  <xs:element name="wstmplmap" type="type_wstmplmap" />
+  <xs:complexType name="type_wstmplmap">
+    <xs:sequence>
+      <xs:element name="tmpllabel" type="type_tmpllabel" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="optional" />
+    <xs:attribute name="img" type="xs:string" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="type_tmpllabel">
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="rect" type="xs:string" use="required" />
+    <xs:attribute name="hidable" type="xs:boolean" use="optional" default="0" />
+  </xs:complexType>
+ 
+</xs:schema>

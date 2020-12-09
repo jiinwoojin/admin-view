@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wsmcd xmlns="urn:icops.cngsol.co.kr" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"		
+		xsi:schemaLocation="urn:icops.cngsol.co.kr C:/ICOPS/warsym/schema/ICOPS_WSMCD.xsd">
+	<mcd cd='-' ncl='null' nll='미지정' />
+	<mcd cd='A' ncl='Team,Crew' nll='조' />
+	<mcd cd='B' ncl='Squad' nll='분대' />
+	<mcd cd='C' ncl='Section' nll='반' />
+	<mcd cd='D' ncl='Platoon,Detachment' nll='소대' />
+	<mcd cd='E' ncl='Company,Battery,Troop' nll='중대,포대' />
+	<mcd cd='F' ncl='Battalion,Squadron' nll='대대' />
+	<mcd cd='G' ncl='Regiment,Group' nll='연대,단' />
+	<mcd cd='H' ncl='Brigade' nll='여단,전단' />
+	<mcd cd='I' ncl='Division' nll='사단,함대,비행단' />
+	<mcd cd='J' ncl='Corps,MEF' nll='군단,작전사령부' />
+	<mcd cd='K' ncl='Army' nll='야전군' />
+	<mcd cd='L' ncl='Army group.Front' nll='집단군' />
+	<mcd cd='M' ncl='Region' nll='지역군' />
+	<mcd cd='P' ncl='Party' nll='대' />
+	<mcd cd='Q' ncl='Family Based' nll='지역대' />
+	<mcd cd='R' ncl='Logistics Support Battalion' nll='군수지원대대' />
+	<mcd cd='S' ncl='Logistics Support Group' nll='군수지원단' />
+	<mcd cd='T' ncl='Logistics Support HQ' nll='군수지원사' />
+	<mcd cd='U' ncl='Logistics HQ' nll='군수사령부' />
+	<mcd cd='V' ncl='Branch' nll='출장소,파견소,어통소' />
+	<mcd cd='W' ncl='Substation' nll='지소,파출소' />
+	<mcd cd='X' ncl='Police Station' nll='경찰서,지구해양경찰대' />
+	<mcd cd='Y' ncl='Police Department' nll='경찰국,해양경찰대' />
+	<mcd cd='N' ncl='Command' nll='지휘' />
+</wsmcd>

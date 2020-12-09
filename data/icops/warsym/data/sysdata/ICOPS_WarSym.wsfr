@@ -1,0 +1,736 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<wsfr xmlns="urn:cngsol.icops.WSSI_Icon_1_1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="urn:cngsol.icops.WSSI_Icon_1_1 C:/ICOPS/warsym/schema/ICOPS_WSSI_Icon_1_1.xsd">
+
+	<fr ncl='Pending/Unknown' nll='보류/미확인' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='PZ' desc='Pending/Unknown'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1' dash='1'>
+			<psh st='4' l='-0.72' t='-0.36' r='0.0' b='0.36' sa='90' wa='180' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0.0' sa='180' wa='180' />
+			<psh st='4' l='0.0' t='-0.36' r='0.72' b='0.36' sa='270' wa='180' />
+			<psh st='4' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' />
+		</path>
+		<!-- <sh st='4' lc='1' lw='Normal' fc='0' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' at='1' dash='1' /> -->
+		<!-- <sh st='5' lc='1' l='-0.5' t='-0.5' r='0.5' b='0.5' ha='1' va='1' tx='?' /> -->
+	</fr>
+
+	<fr ncl='Pending/Space' nll='보류/우주' l='-0.72' t='-0.72' r='0.72' b='0.523' >
+		<frlink cd='PP' desc='Pending/Space'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1' dash='1'>
+			<psh st='4' l='-0.72' t='-0.357' r='0.164' b='0.523' sa='90' wa='168' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0' sa='180' wa='180' />
+			<psh st='4' l='-0.164' t='-0.357' r='0.72' b='0.523' sa='282' wa='168' />
+		</path>
+		<sh st='4' lc='1' lw='Normal' fc='1' l='-0.36' t='-0.72' r='0.36' b='0' sa='210.000' wa='120.000' at='1' aft='2' />
+	</fr>
+
+	<fr ncl='Pending/Air' nll='보류/공중' l='-0.72' t='-0.72' r='0.72' b='0.523' >
+		<frlink cd='PA' desc='Pending/Air'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1' dash='1'>
+			<psh st='4' l='-0.72' t='-0.357' r='0.164' b='0.523' sa='90' wa='168' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0' sa='180' wa='180' />
+			<psh st='4' l='-0.164' t='-0.357' r='0.72' b='0.523' sa='282' wa='168' />
+		</path>
+	</fr>
+
+	<fr ncl='Pending/Surface' nll='보류/표면' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='PG' desc='Pending/Unit'/>
+		<frlink cd='PE' desc='Pending/Equipment'/>
+		<frlink cd='PS' desc='Pending/Sea surface'/>
+		<frlink cd='PF' desc='Pending/SOF'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1' dash='1'>
+			<psh st='4' l='-0.72' t='-0.36' r='0.0' b='0.36' sa='90' wa='180' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0.0' sa='180' wa='180' />
+			<psh st='4' l='0.0' t='-0.36' r='0.72' b='0.36' sa='270' wa='180' />
+			<psh st='4' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' />
+		</path>
+    <!-- <sh st='4' lc='1' lw='Normal' fc='0' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' at='1' /> -->
+  </fr>
+
+	<fr ncl='Pending/Installation' nll='보류/시설' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='PI' desc='Pending/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.833' r='0.15' b='-0.683' />
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1' dash='1'>
+			<psh st='4' l='-0.72' t='-0.36' r='0.0' b='0.36' sa='90' wa='180' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0.0' sa='180' wa='180' />
+			<psh st='4' l='0.0' t='-0.36' r='0.72' b='0.36' sa='270' wa='180' />
+			<psh st='4' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' />
+		</path>
+    <!-- <sh st='4' lc='1' lw='Normal' fc='0' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' at='1' /> -->
+  </fr>
+
+	<fr ncl='Pending/Subsurface' nll='보류/수중' l='-0.72' t='-0.523' r='0.72' b='0.72' >
+		<frlink cd='PU' desc='Pending/Sea subsurface'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1' dash='1'>
+			<psh st='4' l='-0.164' t='-0.523' r='0.72' b='0.357' sa='270' wa='168' />
+			<psh st='4' l='-0.36' t='0' r='0.36' b='0.72' sa='0' wa='180' />
+			<psh st='4' l='-0.72' t='-0.523' r='0.164' b='0.357' sa='102' wa='168' />
+		</path>
+	</fr>
+
+	<fr ncl='Unknown/Unknown' nll='미확인/미확인' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='UZ' desc='Unknown/Unknown'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1'>
+			<psh st='4' l='-0.72' t='-0.36' r='0.0' b='0.36' sa='90' wa='180' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0.0' sa='180' wa='180' />
+			<psh st='4' l='0.0' t='-0.36' r='0.72' b='0.36' sa='270' wa='180' />
+			<psh st='4' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' />
+		</path>
+    <sh st='4' lc='1' lw='Normal' fc='0' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' at='1' />
+	<!-- <sh st='5' lc='1' l='-0.5' t='-0.5' r='0.5' b='0.5' ha='1' va='1' tx='?' /> -->
+	</fr>
+
+	<fr ncl='Unknown/Space' nll='미확인/우주' l='-0.72' t='-0.72' r='0.72' b='0.523' >
+		<frlink cd='UP' desc='Unknown/Space'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1'>
+			<psh st='4' l='-0.72' t='-0.357' r='0.164' b='0.523' sa='90' wa='168' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0' sa='180' wa='180' />
+			<psh st='4' l='-0.164' t='-0.357' r='0.72' b='0.523' sa='282' wa='168' />
+		</path>
+		<sh st='4' lc='1' lw='Normal' fc='1' l='-0.36' t='-0.72' r='0.36' b='0' sa='210.000' wa='120.000' at='1' aft='2'/>
+	</fr>
+
+	<fr ncl='Unknown/Air' nll='미확인/공중' l='-0.72' t='-0.72' r='0.72' b='0.523' >
+		<frlink cd='UA' desc='Unknown/Air'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1'>
+			<psh st='4' l='-0.72' t='-0.357' r='0.164' b='0.523' sa='90' wa='168' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0' sa='180' wa='180' />
+			<psh st='4' l='-0.164' t='-0.357' r='0.72' b='0.523' sa='282' wa='168' />
+		</path>
+	</fr>
+
+	<fr ncl='Unknown/Surface' nll='미확인/표면' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='UG' desc='Unknown/Unit'/>
+		<frlink cd='UE' desc='Unknown/Equipment'/>
+		<frlink cd='US' desc='Unknown/Sea surface'/>
+		<frlink cd='UF' desc='Unknown/SOF'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1'>
+			<psh st='4' l='-0.72' t='-0.36' r='0.0' b='0.36' sa='90' wa='180' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0.0' sa='180' wa='180' />
+			<psh st='4' l='0.0' t='-0.36' r='0.72' b='0.36' sa='270' wa='180' />
+			<psh st='4' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' />
+		</path>
+    <sh st='4' lc='1' lw='Normal' fc='0' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' at='1' />
+  </fr>
+
+	<fr ncl='Unknown/Installation' nll='미확인/시설' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='UI' desc='Unknown/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.833' r='0.15' b='-0.683' />
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1'>
+			<psh st='4' l='-0.72' t='-0.36' r='0.0' b='0.36' sa='90' wa='180' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0.0' sa='180' wa='180' />
+			<psh st='4' l='0.0' t='-0.36' r='0.72' b='0.36' sa='270' wa='180' />
+			<psh st='4' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' />
+		</path>
+    <sh st='4' lc='1' lw='Normal' fc='0' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' at='1' />
+  </fr>
+
+	<fr ncl='Unknown/Subsurface' nll='미확인/수중' l='-0.72' t='-0.523' r='0.72' b='0.72' >
+		<frlink cd='UU' desc='Unknown/Sea subsurface'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1'>
+			<psh st='4' l='-0.164' t='-0.523' r='0.72' b='0.357' sa='270' wa='168' />
+			<psh st='4' l='-0.36' t='0' r='0.36' b='0.72' sa='0' wa='180' />
+			<psh st='4' l='-0.72' t='-0.523' r='0.164' b='0.357' sa='102' wa='168' />
+		</path>
+	</fr>
+
+	<fr ncl='Friend/Unknown' nll='아군/미확인' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='FZ' desc='Friend/Unknown'/>
+		<sh st='3' lc='1' lw='Normal' fc='4' l='-0.6' t='-0.6' r='0.6' b='0.6' outline='1' />
+		<!-- <sh st='5' lc='1' l='-0.5' t='-0.5' r='0.5' b='0.5' ha='1' va='1' tx='?' /> -->
+	</fr>
+
+	<fr ncl='Friend/Space' nll='아군/우주' l='-0.55' t='-0.675' r='0.55' b='0.525' >
+		<frlink cd='FP' desc='Friend/Space'/>
+		<path lc='1' lw='Normal' fc='4' mg='1' outline='1'>
+			<psh st='1' pc='2' pt='-0.55,0.525,-0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='180' wa='180' />
+			<psh st='1' pc='2' pt='0.55,0,0.55,0.525'/>
+		</path>
+		<sh st='4' lc='1' lw='Normal' fc='1' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='235.000' wa='70.000' at='2' aft='2'/>
+	</fr>
+
+	<fr ncl='Friend/Air' nll='아군/공중' l='-0.55' t='-0.675' r='0.55' b='0.525' >
+		<frlink cd='FA' desc='Friend/Air'/>
+		<path lc='1' lw='Normal' fc='4' mg='1' outline='1'>
+			<psh st='1' pc='2' pt='-0.55,0.525,-0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='180' wa='180' />
+			<psh st='1' pc='2' pt='0.55,0,0.55,0.525'/>
+		</path>
+	</fr>
+
+	<fr ncl='Friend/Unit' nll='아군/부대' l='-0.75' t='-0.5' r='0.75' b='0.5' >
+		<frlink cd='FG' desc='Friend/Unit'/>
+		<frlink cd='FF' desc='Warfighting/Friend/SOF'/>
+		<sh st='2' lc='1' lw='Normal' fc='4' l='-0.75' t='-0.5' r='0.75' b='0.5' outline='1' />
+	</fr>
+
+	<fr ncl='Friend/Equipment' nll='아군/장비' l='-0.6' t='-0.6' r='0.6' b='0.6' >
+		<frlink cd='FE' desc='Friend/Equipment'/>
+		<frlink cd='FS' desc='Friend/Sea surface'/>
+		<sh st='3' lc='1' lw='Normal' fc='4' l='-0.6' t='-0.6' r='0.6' b='0.6' outline='1' />
+	</fr>
+
+	<fr ncl='Friend/Installation' nll='아군/시설' l='-0.75' t='-0.5' r='0.75' b='0.5' >
+		<frlink cd='FI' desc='Warfighting/Friend/Ground/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.65' r='0.15' b='-0.5'/>
+		<sh st='2' lc='1' lw='Normal' fc='4' l='-0.75' t='-0.5' r='0.75' b='0.5' outline='1' />
+	</fr>
+
+	<fr ncl='Friend/Subsurface' nll='아군/수중' l='-0.55' t='-0.525' r='0.55' b='0.675' >
+		<frlink cd='FU' desc='Friend/Sea subsurface'/>
+		<path lc='1' lw='Normal' fc='4' mg='1' outline='1'>
+			<psh st='1' pc='2' pt='0.55,-0.525,0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.674' r='0.55' b='0.675' sa='0' wa='180' />
+			<psh st='1' pc='2' pt='-0.55,0,-0.55,-0.525'/>
+		</path>
+	</fr>
+
+	<fr ncl='Neutral/Unknown' nll='중립/미확인' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='NZ' desc='Neutral/Unknown'/>
+		<sh st='2' lc='1' lw='Normal' fc='5' l='-0.55' t='-0.55' r='0.55' b='0.55' outline='1'/>
+		<!-- <sh st='5' lc='1' l='-0.5' t='-0.5' r='0.5' b='0.5' ha='1' va='1' tx='?' /> -->
+	</fr>
+
+	<fr ncl='Neutral/Space' nll='중립/우주' l='-0.55' t='-0.56' r='0.55' b='0.56' >
+		<frlink cd='NP' desc='Neutral/Space'/>
+		<sh st='1' lc='1' lw='Normal' fc='5' pc='4' pt='0.55,0.56,0.55,-0.55,-0.55,-0.55,-0.55,0.56' tpo='0,1,2,0,2,3' outline='1' />
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.55' t='-0.65' r='0.55' b='-0.55'/>
+	</fr>
+
+	<fr ncl='Neutral/Air' nll='중립/공중' l='-0.55' t='-0.56' r='0.55' b='0.56' >
+		<frlink cd='NA' desc='Neutral/Air'/>
+		<sh st='1' lc='1' lw='Normal' fc='5' pc='4' pt='0.55,0.56,0.55,-0.55,-0.55,-0.55,-0.55,0.56' tpo='0,1,2,0,2,3' outline='1' />
+	</fr>
+
+	<fr ncl='Neutral/Ground' nll='중립/지상' l='-0.55' t='-0.55' r='0.55' b='0.55' >
+		<frlink cd='NG' desc='Neutral/Unit'/>
+		<frlink cd='NE' desc='Neutral/Equipment'/>
+		<frlink cd='NS' desc='Neutral/Sea surface'/>
+		<frlink cd='NF' desc='Neutral/SOF'/>
+		<sh st='2' lc='1' lw='Normal' fc='5' l='-0.55' t='-0.55' r='0.55' b='0.55' outline='1' />
+	</fr>
+
+	<fr ncl='Neutral/Installation' nll='중립/시설' l='-0.55' t='-0.55' r='0.55' b='0.55' >
+		<frlink cd='NI' desc='Neutral/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.7' r='0.15' b='-0.55'/>
+		<sh st='2' lc='1' lw='Normal' fc='5' l='-0.55' t='-0.55' r='0.55' b='0.55' outline='1' />
+	</fr>
+
+	<fr ncl='Neutral/Subsurface' nll='중립/수중' l='-0.55' t='-0.56' r='0.55' b='0.56' >
+		<frlink cd='NU' desc='Neutral/Sea subsurface'/>
+		<sh st='1' lc='1' lw='Normal' fc='5' pc='4' pt='-0.55,-0.56,-0.55,0.56,0.55,0.56,0.55,-0.56' tpo='0,1,2,0,2,3' outline='1' />
+	</fr>
+
+	<fr ncl='Hostile/Unknown' nll='적군/미확인' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='HZ' desc='Hostile/Unknown'/>
+		<sh st='1' lc='1' lw='Normal' fc='3' pc='5' pt='-0.72,0,0,0.72,0.72,0,0,-0.72,-0.72,0' tpo='0,1,2,0,2,3' outline='1' />
+		<!-- <sh st='5' lc='1' l='-0.5' t='-0.5' r='0.5' b='0.5' ha='1' va='1' tx='?' /> -->
+	</fr>
+
+	<fr ncl='Hostile/Space' nll='적군/우주' l='-0.55' t='-0.74' r='0.55' b='0.56' >
+		<frlink cd='HP' desc='Hostile/Space'/>
+		<sh st='1' lc='1' lw='Normal' fc='3' pc='5' pt='0.55,0.56,0.55,-0.25,0,-0.74,-0.55,-0.25,-0.55,0.56' tpo='1,2,3,1,3,4,0,1,4' outline='1' />
+		<sh st='1' lc='1' lw='Normal' fc='1' pc='4' pt='0,-0.739,-0.268,-0.5,0.268,-0.5,0,-0.739' tpo='0,1,2'/>
+	</fr>
+
+	<fr ncl='Hostile/Air' nll='적군/공중' l='-0.55' t='-0.74' r='0.55' b='0.56' >
+		<frlink cd='HA' desc='Hostile/Air'/>
+		<sh st='1' lc='1' lw='Normal' fc='3' pc='5' pt='0.55,0.56,0.55,-0.25,0,-0.74,-0.55,-0.25,-0.55,0.56' tpo='1,2,3,1,3,4,0,1,4' outline='1' />
+	</fr>
+
+	<fr ncl='Hostile/Ground' nll='적군/지상' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='HG' desc='Hostile/Unit'/>
+		<frlink cd='HE' desc='Hostile/Equipment'/>
+		<frlink cd='HS' desc='Hostile/Sea surface'/>
+		<frlink cd='HF' desc='Hostile/SOF'/>
+		<sh st='1' lc='1' lw='Normal' fc='3' pc='5' pt='-0.72,0,0,0.72,0.72,0,0,-0.72,-0.72,0' tpo='0,1,2,0,2,3' outline='1' />
+	</fr>
+
+	<fr ncl='Hostile/Installation' nll='적군/시설' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='HI' desc='Hostile/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.74' r='0.15' b='-0.59'/>
+		<sh st='1' lc='1' lw='Normal' fc='3' pc='5' pt='-0.72,0,0,0.72,0.72,0,0,-0.72,-0.72,0' tpo='0,1,2,0,2,3' outline='1' />
+	</fr>
+
+	<fr ncl='Hostile/Subsurface' nll='적군/수중' l='-0.55' t='-0.56' r='0.55' b='0.74' >
+		<frlink cd='HU' desc='Warfighting/Hostile/Sea subsurface'/>
+		<sh st='1' lc='1' lw='Normal' fc='3' pc='5' pt='-0.55,-0.56,-0.55,0.25,0,0.74,0.55,0.25,0.55,-0.56' tpo='1,2,3,1,3,4,0,1,4' outline='1' />
+	</fr>
+
+	<fr ncl='Asumed friend/Unknown' nll='아군간주/미확인' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='AZ' desc='Assumed friend/Unknown'/>
+		<sh st='3' lc='1' lw='Normal' fc='4' l='-0.6' t='-0.6' r='0.6' b='0.6' outline='1' dash='1' />
+		<!-- <sh st='5' lc='1' l='-0.5' t='-0.5' r='0.5' b='0.5' ha='1' va='1' tx='?' /> -->
+	</fr>
+
+	<fr ncl='Asumed friend/Air' nll='아군간주/우주' l='-0.55' t='-0.675' r='0.55' b='0.525' >
+		<frlink cd='AP' desc='Assumed friend/Space'/>
+		<path lc='1' lw='Normal' fc='4' mg='1' outline='1' dash='1'>
+			<psh st='1' pc='2' pt='-0.55,0.525,-0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='180' wa='180' />
+			<psh st='1' pc='2' pt='0.55,0,0.55,0.525'/>
+		</path>
+		<sh st='4' lc='1' lw='Normal' fc='1' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='235.000' wa='70.000' at='2' aft='2'/>
+	</fr>
+
+	<fr ncl='Asumed friend/Air' nll='아군간주/공중' l='-0.55' t='-0.675' r='0.55' b='0.525' >
+		<frlink cd='AA' desc='Assumed friend/Air'/>
+		<path lc='1' lw='Normal' fc='4' mg='1' outline='1' dash='1'>
+			<psh st='1' pc='2' pt='-0.55,0.525,-0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='180' wa='180' />
+			<psh st='1' pc='2' pt='0.55,0,0.55,0.525'/>
+		</path>
+	</fr>
+
+	<fr ncl='Asumed friend/Unit' nll='아군간주/지상/부대' l='-0.75' t='-0.5' r='0.75' b='0.5' >
+		<frlink cd='AG' desc='Assumed friend/Ground/Unit'/>
+		<frlink cd='AF' desc='Assumed friend/SOF'/>
+		<sh st='2' lc='1' lw='Normal' fc='4' l='-0.75' t='-0.5' r='0.75' b='0.5' outline='1' dash='1' />
+	</fr>
+
+	<fr ncl='Asumed friend/Equipment' nll='아군간주/지상/장비' l='-0.6' t='-0.6' r='0.6' b='0.6' >
+		<frlink cd='AE' desc='Assumed friend/Equipment'/>
+		<frlink cd='AS' desc='Assumed friend/Sea surface'/>
+		<sh st='3' lc='1' lw='Normal' fc='4' l='-0.6' t='-0.6' r='0.6' b='0.6' outline='1' dash='1' />
+	</fr>
+
+	<fr ncl='Asumed friend/Installation' nll='아군간주/지상/시설' l='-0.75' t='-0.5' r='0.75' b='0.5' >
+		<frlink cd='AI' desc='Assumed friend/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.65' r='0.15' b='-0.5'/>
+		<sh st='2' lc='1' lw='Normal' fc='4' l='-0.75' t='-0.5' r='0.75' b='0.5' outline='1' dash='1' />
+	</fr>
+
+	<fr ncl='Asumed friend/Subsurface' nll='아군간주/수중' l='-0.55' t='-0.525' r='0.55' b='0.675' >
+		<frlink cd='AU' desc='Assumed friend/Sea subsurface'/>
+		<path lc='1' lw='Normal' fc='4' mg='1' outline='1' dash='1'>
+			<psh st='1' pc='2' pt='0.55,-0.525,0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.674' r='0.55' b='0.675' sa='0' wa='180' />
+			<psh st='1' pc='2' pt='-0.55,0,-0.55,-0.525'/>
+		</path>
+	</fr>
+
+	<fr ncl='Suspect/Unknown' nll='적군간주/미확인' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='SZ' desc='Suspect/Unknown'/>
+		<sh st='1' lc='1' lw='Normal' fc='3' pc='5' pt='-0.72,0,0,0.72,0.72,0,0,-0.72,-0.72,0' tpo='0,1,2,0,2,3' outline='1' dash='1' />
+		<!-- <sh st='5' lc='1' l='-0.5' t='-0.5' r='0.5' b='0.5' ha='1' va='1' tx='?' /> -->
+	</fr>
+
+	<fr ncl='Suspect/Air' nll='적군간주/우주' l='-0.55' t='-0.74' r='0.55' b='0.56' >
+		<frlink cd='SP' desc='Suspect/Space'/>
+		<sh st='1' lc='1' lw='Normal' fc='3' pc='5' pt='0.55,0.56,0.55,-0.25,0,-0.74,-0.55,-0.25,-0.55,0.56' tpo='1,2,3,1,3,4,0,1,4' outline='1' dash='1' />
+		<sh st='1' lc='1' lw='Normal' fc='1' pc='4' pt='0,-0.739,-0.268,-0.5,0.268,-0.5,0,-0.739' tpo='0,1,2'/>
+	</fr>
+
+	<fr ncl='Suspect/Air' nll='적군간주/공중' l='-0.55' t='-0.74' r='0.55' b='0.56' >
+		<frlink cd='SA' desc='Suspect/Air'/>
+		<sh st='1' lc='1' lw='Normal' fc='3' pc='5' pt='0.55,0.56,0.55,-0.25,0,-0.74,-0.55,-0.25,-0.55,0.56' tpo='1,2,3,1,3,4,0,1,4' outline='1' dash='1' />
+	</fr>
+
+	<fr ncl='Suspect/Ground' nll='적군간주/지상' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='SG' desc='Suspect/Unit'/>
+		<frlink cd='SE' desc='Suspect/Equipment'/>
+		<frlink cd='SS' desc='Suspect/Sea surface'/>
+		<frlink cd='SF' desc='Suspect/SOF'/>
+		<sh st='1' lc='1' lw='Normal' fc='3' pc='5' pt='-0.72,0,0,0.72,0.72,0,0,-0.72,-0.72,0' tpo='0,1,2,0,2,3' outline='1' dash='1' />
+	</fr>
+
+	<fr ncl='Suspect/Installation' nll='적군간주/지상시설' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='SI' desc='Suspect/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.74' r='0.15' b='-0.59'/>
+		<sh st='1' lc='1' lw='Normal' fc='3' pc='5' pt='-0.72,0,0,0.72,0.72,0,0,-0.72,-0.72,0' tpo='0,1,2,0,2,3' outline='1' dash='1' />
+	</fr>
+
+	<fr ncl='Suspect/Subsurface' nll='적군간주/수중' l='-0.55' t='-0.56' r='0.55' b='0.74' >
+		<frlink cd='SU' desc='Suspect/Sea subsurface'/>
+		<sh st='1' lc='1' lw='Normal' fc='3' pc='5' pt='-0.55,-0.56,-0.55,0.25,0,0.74,0.55,0.25,0.55,-0.56' tpo='1,2,3,1,3,4,0,1,4' outline='1' dash='1' />
+	</fr>
+
+	<fr ncl='Exercise pending/Unknown' nll='훈련 보류/미확인' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='GZ' desc='Exercise pending/Unknown'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1' dash='1'>
+			<psh st='4' l='-0.72' t='-0.36' r='0.0' b='0.36' sa='90' wa='180' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0.0' sa='180' wa='180' />
+			<psh st='4' l='0.0' t='-0.36' r='0.72' b='0.36' sa='270' wa='180' />
+			<psh st='4' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' />
+		</path>
+		<!-- <sh st='4' lc='1' lw='Normal' fc='0' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' at='1' /> -->
+		<!-- <sh st='5' lc='1' l='-0.5' t='-0.5' r='0.5' b='0.5' ha='1' va='1' tx='?' /> -->
+		<sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise pending/Space' nll='훈련 보류/우주' l='-0.72' t='-0.72' r='0.72' b='0.523' >
+		<frlink cd='GP' desc='Exercise pending/Space'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1' dash='1'>
+			<psh st='4' l='-0.72' t='-0.357' r='0.164' b='0.523' sa='90' wa='168' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0' sa='180' wa='180' />
+			<psh st='4' l='-0.164' t='-0.357' r='0.72' b='0.523' sa='282' wa='168' />
+		</path>
+		<sh st='4' lc='1' lw='Normal' fc='1' l='-0.36' t='-0.72' r='0.36' b='0' sa='210.000' wa='120.000' at='1' aft='2' />
+	    <sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise pending/Air' nll='훈련 보류/공중' l='-0.72' t='-0.72' r='0.72' b='0.523' >
+		<frlink cd='GA' desc='Exercise pending/Air'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1' dash='1'>
+			<psh st='4' l='-0.72' t='-0.357' r='0.164' b='0.523' sa='90' wa='168' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0' sa='180' wa='180' />
+			<psh st='4' l='-0.164' t='-0.357' r='0.72' b='0.523' sa='282' wa='168' />
+		</path>
+		<sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise pending/Ground' nll='훈련 보류/육상' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='GG' desc='Exercise pending/Unit'/>
+		<frlink cd='GE' desc='Exercise pending/Equipment'/>
+		<frlink cd='GS' desc='Exercise pending/Sea surface'/>
+		<frlink cd='GF' desc='Exercise pending/SOF'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1' dash='1'>
+			<psh st='4' l='-0.72' t='-0.36' r='0.0' b='0.36' sa='90' wa='180' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0.0' sa='180' wa='180' />
+			<psh st='4' l='0.0' t='-0.36' r='0.72' b='0.36' sa='270' wa='180' />
+			<psh st='4' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' />
+		</path>
+    <!-- <sh st='4' lc='1' lw='Normal' fc='0' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' at='1' /> -->
+    <sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise pending/Installation' nll='훈련 보류/시설' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='GI' desc='Exercise pending/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.833' r='0.15' b='-0.683' />
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1' dash='1'>
+			<psh st='4' l='-0.72' t='-0.36' r='0.0' b='0.36' sa='90' wa='180' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0.0' sa='180' wa='180' />
+			<psh st='4' l='0.0' t='-0.36' r='0.72' b='0.36' sa='270' wa='180' />
+			<psh st='4' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' />
+		</path>
+    <!-- <sh st='4' lc='1' lw='Normal' fc='0' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' at='1' /> -->
+    <sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise pending/Sea subsurface' nll='훈련 보류/수중' l='-0.72' t='-0.523' r='0.72' b='0.72' >
+		<frlink cd='GU' desc='Exercise pending/Sea subsurface'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1' dash='1'>
+			<psh st='4' l='-0.164' t='-0.523' r='0.72' b='0.357' sa='270' wa='168' />
+			<psh st='4' l='-0.36' t='0' r='0.36' b='0.72' sa='0' wa='180' />
+			<psh st='4' l='-0.72' t='-0.523' r='0.164' b='0.357' sa='102' wa='168' />
+		</path>
+		<sh st='5' lc='1' l='0.43' t='-0.78' r='0.923' b='-0.39' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise unknown/Unknown' nll='훈련 미확인/미확인' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='WZ' desc='Exercise unknown/Unknown'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1'>
+			<psh st='4' l='-0.72' t='-0.36' r='0.0' b='0.36' sa='90' wa='180' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0.0' sa='180' wa='180' />
+			<psh st='4' l='0.0' t='-0.36' r='0.72' b='0.36' sa='270' wa='180' />
+			<psh st='4' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' />
+		</path>
+		<sh st='4' lc='1' lw='Normal' fc='0' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' at='1' />
+		<!-- <sh st='5' lc='1' l='-0.5' t='-0.5' r='0.5' b='0.5' ha='1' va='1' tx='?' /> -->
+		<sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise unknown/Space' nll='훈련 미확인/우주' l='-0.72' t='-0.72' r='0.72' b='0.523' >
+		<frlink cd='WP' desc='Exercise unknown/Space'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1'>
+			<psh st='4' l='-0.72' t='-0.357' r='0.164' b='0.523' sa='90' wa='168' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0' sa='180' wa='180' />
+			<psh st='4' l='-0.164' t='-0.357' r='0.72' b='0.523' sa='282' wa='168' />
+		</path>
+		<sh st='4' lc='1' lw='Normal' fc='1' l='-0.36' t='-0.72' r='0.36' b='0' sa='210.000' wa='120.000' at='1' aft='2' />
+		<sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise unknown/Air' nll='훈련 미확인/공중' l='-0.72' t='-0.72' r='0.72' b='0.523' >
+		<frlink cd='WA' desc='Exercise unknown/Air'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1'>
+			<psh st='4' l='-0.72' t='-0.357' r='0.164' b='0.523' sa='90' wa='168' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0' sa='180' wa='180' />
+			<psh st='4' l='-0.164' t='-0.357' r='0.72' b='0.523' sa='282' wa='168' />
+		</path>
+		<sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise unknown/Ground' nll='훈련 미확인/육상' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='WG' desc='Exercise unknown/Ground/Unit'/>
+		<frlink cd='WE' desc='Exercise unknown/Ground/Equipment'/>
+		<frlink cd='WS' desc='Exercise unknown/Sea surface'/>
+		<frlink cd='WF' desc='Exercise unknown/SOF'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1'>
+			<psh st='4' l='-0.72' t='-0.36' r='0.0' b='0.36' sa='90' wa='180' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0.0' sa='180' wa='180' />
+			<psh st='4' l='0.0' t='-0.36' r='0.72' b='0.36' sa='270' wa='180' />
+			<psh st='4' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' />
+		</path>
+    <sh st='4' lc='1' lw='Normal' fc='0' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' at='1' />
+    <sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise unknown/Installation' nll='훈련 미확인/시설' l='-0.72' t='-0.72' r='0.72' b='0.72' >
+		<frlink cd='WI' desc='Warfighting/Exercise unknown/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.833' r='0.15' b='-0.683' />
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1'>
+			<psh st='4' l='-0.72' t='-0.36' r='0.0' b='0.36' sa='90' wa='180' />
+			<psh st='4' l='-0.36' t='-0.72' r='0.36' b='0.0' sa='180' wa='180' />
+			<psh st='4' l='0.0' t='-0.36' r='0.72' b='0.36' sa='270' wa='180' />
+			<psh st='4' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' />
+		</path>
+    <sh st='4' lc='1' lw='Normal' fc='0' l='-0.36' t='0.0' r='0.36' b='0.72' sa='0' wa='180' at='1' />
+    <sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise unknown/Sea subsurface' nll='훈련 미확인/수중' l='-0.72' t='-0.523' r='0.72' b='0.72' >
+		<frlink cd='WU' desc='Exercise unknown/Sea subsurface'/>
+		<path lc='1' lw='Normal' fc='6' mg='1' outline='1'>
+			<psh st='4' l='-0.164' t='-0.523' r='0.72' b='0.357' sa='270' wa='168' />
+			<psh st='4' l='-0.36' t='0' r='0.36' b='0.72' sa='0' wa='180' />
+			<psh st='4' l='-0.72' t='-0.523' r='0.164' b='0.357' sa='102' wa='168' />
+		</path>
+		<sh st='5' lc='1' l='0.43' t='-0.78' r='0.923' b='-0.39' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise friend/Space' nll='훈련 아군/우주' l='-0.55' t='-0.675' r='0.55' b='0.525' >
+		<frlink cd='DP' desc='Exercise friend/Space'/>
+		<path lc='1' lw='Normal' fc='4' mg='1' outline='1'>
+			<psh st='1' pc='2' pt='-0.55,0.525,-0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='180' wa='180' />
+			<psh st='1' pc='2' pt='0.55,0,0.55,0.525'/>
+		</path>
+		<sh st='4' lc='1' lw='Normal' fc='1' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='235.000' wa='70.000' at='2' aft='2'/>
+		<sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise friend/Air' nll='훈련 아군/공중' l='-0.55' t='-0.675' r='0.55' b='0.525' >
+		<frlink cd='DA' desc='Exercise friend/Air'/>
+		<path lc='1' lw='Normal' fc='4' mg='1' outline='1'>
+			<psh st='1' pc='2' pt='-0.55,0.525,-0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='180' wa='180' />
+			<psh st='1' pc='2' pt='0.55,0,0.55,0.525'/>
+		</path>
+		<sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise friend/Ground/Unit' nll='훈련 아군/지상/부대' l='-0.75' t='-0.5' r='0.75' b='0.5' >
+		<frlink cd='DG' desc='Exercise friend/Unit'/>
+		<frlink cd='DF' desc='Exercise friend/SOF'/>
+		<sh st='2' lc='1' lw='Normal' fc='4' l='-0.75' t='-0.5' r='0.75' b='0.5' outline='1' />
+		<sh st='5' lc='1' l='0.75' t='-0.89' r='1.243' b='-0.5' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise friend/Equipment' nll='훈련 아군/장비' l='-0.6' t='-0.6' r='0.6' b='0.6' >
+		<frlink cd='DE' desc='Exercise friend/Equipment'/>
+		<frlink cd='DS' desc='Exercise friend/Sea surface'/>
+		<sh st='3' lc='1' lw='Normal' fc='4' l='-0.6' t='-0.6' r='0.6' b='0.6' outline='1' />
+		<sh st='5' lc='1' l='0.48' t='-0.86' r='0.973' b='-0.47' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise friend/Installation' nll='훈련 아군/시설' l='-0.75' t='-0.5' r='0.75' b='0.5' >
+		<frlink cd='DI' desc='Warfighting/Exercise friend/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.65' r='0.15' b='-0.5'/>
+		<sh st='2' lc='1' lw='Normal' fc='4' l='-0.75' t='-0.5' r='0.75' b='0.5' outline='1' />
+		<sh st='5' lc='1' l='0.75' t='-0.89' r='1.243' b='-0.5' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise friend/Subsurface' nll='훈련 아군/수중' l='-0.55' t='-0.525' r='0.55' b='0.675' >
+		<frlink cd='DU' desc='Exercise friend/Sea subsurface'/>
+		<path lc='1' lw='Normal' fc='4' mg='1' outline='1'>
+			<psh st='1' pc='2' pt='0.55,-0.525,0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.674' r='0.55' b='0.675' sa='0' wa='180' />
+			<psh st='1' pc='2' pt='-0.55,0,-0.55,-0.525'/>
+		</path>
+		<sh st='5' lc='1' l='0.55' t='-0.85' r='1.043' b='-0.46' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise neutral/Space' nll='훈련 중립/우주' l='-0.55' t='-0.56' r='0.55' b='0.56' >
+		<frlink cd='LP' desc='Exercise neutral/Space'/>
+		<sh st='1' lc='1' lw='Normal' fc='5' pc='4' pt='0.55,0.56,0.55,-0.56,-0.55,-0.56,-0.55,0.56' tpo='0,1,2,0,2,3' outline='1' />
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.55' t='-0.65' r='0.55' b='-0.55'/>
+		<sh st='5' lc='1' l='0.55' t='-0.85' r='1.043' b='-0.46' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise neutral/Air' nll='훈련 중립/공중' l='-0.55' t='-0.56' r='0.55' b='0.56' >
+		<frlink cd='LA' desc='Exercise neutral/Air'/>
+		<sh st='1' lc='1' lw='Normal' fc='5' pc='4' pt='0.55,0.56,0.55,-0.56,-0.55,-0.56,-0.55,0.56' tpo='0,1,2,0,2,3' outline='1' />
+		<sh st='5' lc='1' l='0.55' t='-0.85' r='1.043' b='-0.46' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise neutral/Surface' nll='훈련 중립/표면' l='-0.55' t='-0.55' r='0.55' b='0.55' >
+		<frlink cd='LG' desc='Exercise neutral/Unit'/>
+		<frlink cd='LE' desc='Exercise neutral/Equipment'/>
+		<frlink cd='LS' desc='Exercise neutral/Sea surface'/>
+		<frlink cd='LF' desc='Exercise neutral/SOF'/>
+		<sh st='2' lc='1' lw='Normal' fc='5' l='-0.55' t='-0.55' r='0.55' b='0.55' outline='1' />
+		<sh st='5' lc='1' l='0.55' t='-0.84' r='1.043' b='-0.45' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise neutral/Installation' nll='훈련 중립/시설' l='-0.55' t='-0.55' r='0.55' b='0.55' >
+		<frlink cd='LI' desc='Warfighting/Exercise neutral/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.7' r='0.15' b='-0.55'/>
+		<sh st='2' lc='1' lw='Normal' fc='5' l='-0.55' t='-0.55' r='0.55' b='0.55' outline='1' />
+		<sh st='5' lc='1' l='0.55' t='-0.84' r='1.043' b='-0.45' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise neutral/Subsurface' nll='훈련 중립/수중' l='-0.55' t='-0.56' r='0.55' b='0.56' >
+		<frlink cd='LU' desc='Exercise neutral/Sea subsurface'/>
+		<sh st='1' lc='1' lw='Normal' fc='5' pc='4' pt='-0.55,-0.56,-0.55,0.56,0.55,0.56,0.55,-0.56' tpo='0,1,2,0,2,3' outline='1' />
+		<sh st='5' lc='1' l='0.55' t='-0.85' r='1.043' b='-0.46' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise assumed friend/Space' nll='훈련 아군간주/우주' l='-0.55' t='-0.675' r='0.55' b='0.525' >
+		<frlink cd='MP' desc='Exercise assumed friend/Space'/>
+		<path lc='1' lw='Normal' fc='4' mg='1' outline='1' dash='1'>
+			<psh st='1' pc='2' pt='-0.55,0.525,-0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='180' wa='180' />
+			<psh st='1' pc='2' pt='0.55,0,0.55,0.525'/>
+		</path>
+		<sh st='4' lc='1' lw='Normal' fc='1' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='235.000' wa='70.000' at='2' aft='2'/>
+		<sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise assumed friend/Air' nll='훈련 아군간주/공중' l='-0.55' t='-0.675' r='0.55' b='0.525' >
+		<frlink cd='MA' desc='Exercise assumed friend/Air'/>
+		<path lc='1' lw='Normal' fc='4' mg='1' outline='1' dash='1'>
+			<psh st='1' pc='2' pt='-0.55,0.525,-0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='180' wa='180' />
+			<psh st='1' pc='2' pt='0.55,0,0.55,0.525'/>
+		</path>
+		<sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise assumed friend/Unit' nll='훈련 아군간주/부대' l='-0.75' t='-0.5' r='0.75' b='0.5' >
+		<frlink cd='MG' desc='Exercise assumed friend/Unit'/>
+		<frlink cd='MF' desc='Exercise assumed friend/SOF'/>
+		<sh st='2' lc='1' lw='Normal' fc='4' l='-0.75' t='-0.5' r='0.75' b='0.5' outline='1' dash='1' />
+		<sh st='5' lc='1' l='0.75' t='-0.89' r='1.243' b='-0.5' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise assumed friend/Equipment' nll='훈련 아군간주/장비' l='-0.6' t='-0.6' r='0.6' b='0.6' >
+		<frlink cd='ME' desc='Warfighting/Exercise assumed friend/Equipment'/>
+		<frlink cd='MS' desc='Warfighting/Exercise assumed friend/Sea surface'/>
+		<sh st='3' lc='1' lw='Normal' fc='4' l='-0.6' t='-0.6' r='0.6' b='0.6' outline='1' dash='1' />
+		<sh st='5' lc='1' l='0.48' t='-0.86' r='0.973' b='-0.47' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise assumed friend/Installation' nll='훈련 아군간주/시설' l='-0.75' t='-0.5' r='0.75' b='0.5' >
+		<frlink cd='MI' desc='Warfighting/Exercise assumed friend/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.65' r='0.15' b='-0.5'/>
+		<sh st='2' lc='1' lw='Normal' fc='4' l='-0.75' t='-0.5' r='0.75' b='0.5' outline='1' dash='1' />
+		<sh st='5' lc='1' l='0.75' t='-0.89' r='1.243' b='-0.5' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Exercise assumed friend/Subsurface' nll='훈련 아군간주/수중' l='-0.55' t='-0.525' r='0.55' b='0.675' >
+		<frlink cd='MU' desc='Exercise assumed friend/Sea subsurface'/>
+		<path lc='1' lw='Normal' fc='4' mg='1' outline='1' dash='1'>
+			<psh st='1' pc='2' pt='0.55,-0.525,0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.674' r='0.55' b='0.675' sa='0' wa='180' />
+			<psh st='1' pc='2' pt='-0.55,0,-0.55,-0.525'/>
+		</path>
+		<sh st='5' lc='1' l='0.55' t='-0.85' r='1.043' b='-0.46' ha='0' va='2' tx='X' />
+	</fr>
+
+	<fr ncl='Joker/Space' nll='의심적/우주' l='-0.55' t='-0.675' r='0.55' b='0.525' >
+		<frlink cd='JP' desc='Joker/Space'/>
+		<path lc='1' lw='Normal' fc='3' mg='1' outline='1'>
+			<psh st='1' pc='2' pt='-0.55,0.525,-0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='180' wa='180' />
+			<psh st='1' pc='2' pt='0.55,0,0.55,0.525'/>
+		</path>
+		<sh st='4' lc='1' lw='Normal' fc='1' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='235.000' wa='70.000' at='2' aft='2'/>
+		<sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='J' />
+	</fr>
+
+	<fr ncl='Joker/Air' nll='의심적/공중' l='-0.55' t='-0.675' r='0.55' b='0.525' >
+		<frlink cd='JA' desc='Joker/Air'/>
+		<path lc='1' lw='Normal' fc='3' mg='1' outline='1'>
+			<psh st='1' pc='2' pt='-0.55,0.525,-0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='180' wa='180' />
+			<psh st='1' pc='2' pt='0.55,0,0.55,0.525'/>
+		</path>
+		<sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='J' />
+	</fr>
+
+	<fr ncl='Joker/Unit' nll='의심적/부대' l='-0.75' t='-0.5' r='0.75' b='0.5' >
+		<frlink cd='JG' desc='Joker/Unit'/>
+		<frlink cd='JF' desc='Joker/SOF'/>
+		<sh st='2' lc='1' lw='Normal' fc='3' l='-0.75' t='-0.5' r='0.75' b='0.5' outline='1' />
+		<sh st='5' lc='1' l='0.75' t='-0.89' r='1.243' b='-0.5' ha='0' va='2' tx='J' />
+	</fr>
+
+	<fr ncl='Joker/Equipment' nll='의심적/장비' l='-0.6' t='-0.6' r='0.6' b='0.6' >
+		<frlink cd='JE' desc='Joker/Equipment'/>
+		<frlink cd='JS' desc='Joker/Sea surface'/>
+		<sh st='3' lc='1' lw='Normal' fc='3' l='-0.6' t='-0.6' r='0.6' b='0.6' outline='1' />
+		<sh st='5' lc='1' l='0.48' t='-0.86' r='0.973' b='-0.47' ha='0' va='2' tx='J' />
+	</fr>
+
+	<fr ncl='Joker/Installation' nll='의심적/시설' l='-0.75' t='-0.5' r='0.75' b='0.5' >
+		<frlink cd='JI' desc='Joker/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.65' r='0.15' b='-0.5'/>
+		<sh st='2' lc='1' lw='Normal' fc='3' l='-0.75' t='-0.5' r='0.75' b='0.5' outline='1' />
+		<sh st='5' lc='1' l='0.75' t='-0.89' r='1.243' b='-0.5' ha='0' va='2' tx='J' />
+	</fr>
+
+	<fr ncl='Joker/Subsurface' nll='의심적/수중' l='-0.55' t='-0.525' r='0.55' b='0.675' >
+		<frlink cd='JU' desc='Joker/Sea subsurface'/>
+		<path lc='1' lw='Normal' fc='3' mg='1' outline='1'>
+			<psh st='1' pc='2' pt='0.55,-0.525,0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.674' r='0.55' b='0.675' sa='0' wa='180' />
+			<psh st='1' pc='2' pt='-0.55,0,-0.55,-0.525'/>
+		</path>
+		<sh st='5' lc='1' l='0.55' t='-0.85' r='1.043' b='-0.46' ha='0' va='2' tx='J' />
+	</fr>
+
+	<fr ncl='Faker/Space' nll='가상적/우주' l='-0.55' t='-0.675' r='0.55' b='0.525' >
+		<frlink cd='KP' desc='Faker/Space'/>
+		<path lc='1' lw='Normal' fc='3' mg='1' outline='1'>
+			<psh st='1' pc='2' pt='-0.55,0.525,-0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='180' wa='180' />
+			<psh st='1' pc='2' pt='0.55,0,0.55,0.525'/>
+		</path>
+		<sh st='4' lc='1' lw='Normal' fc='1' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='235.000' wa='70.000' at='2' aft='2'/>
+		<sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='K' />
+	</fr>
+
+	<fr ncl='Faker/Air' nll='가상적/공중' l='-0.55' t='-0.675' r='0.55' b='0.525' >
+		<frlink cd='KA' desc='Faker/Air'/>
+		<path lc='1' lw='Normal' fc='3' mg='1' outline='1'>
+			<psh st='1' pc='2' pt='-0.55,0.525,-0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.675' r='0.55' b='0.674' sa='180' wa='180' />
+			<psh st='1' pc='2' pt='0.55,0,0.55,0.525'/>
+		</path>
+		<sh st='5' lc='1' l='0.38' t='-0.76' r='0.873' b='-0.37' ha='0' va='2' tx='K' />
+	</fr>
+
+	<fr ncl='Faker/Unit' nll='가상적/부대' l='-0.75' t='-0.5' r='0.75' b='0.5' >
+		<frlink cd='KG' desc='Faker/Unit'/>
+		<frlink cd='KF' desc='Faker/SOF'/>
+		<sh st='2' lc='1' lw='Normal' fc='3' l='-0.75' t='-0.5' r='0.75' b='0.5' outline='1' />
+		<sh st='5' lc='1' l='0.75' t='-0.89' r='1.243' b='-0.5' ha='0' va='2' tx='K' />
+	</fr>
+
+	<fr ncl='Faker/Equipment' nll='가상적/장비' l='-0.6' t='-0.6' r='0.6' b='0.6' >
+		<frlink cd='KE' desc='Faker/Equipment'/>
+		<frlink cd='KS' desc='Faker/Sea surface'/>
+		<sh st='3' lc='1' lw='Normal' fc='3' l='-0.6' t='-0.6' r='0.6' b='0.6' outline='1' />
+		<sh st='5' lc='1' l='0.48' t='-0.86' r='0.973' b='-0.47' ha='0' va='2' tx='K' />
+	</fr>
+
+	<fr ncl='Faker/Installation' nll='가상적/시설' l='-0.75' t='-0.5' r='0.75' b='0.5' >
+		<frlink cd='KI' desc='Faker/Installation'/>
+		<sh st='2' lc='1' lw='Normal' fc='1' l='-0.15' t='-0.65' r='0.15' b='-0.5'/>
+		<sh st='2' lc='1' lw='Normal' fc='3' l='-0.75' t='-0.5' r='0.75' b='0.5' outline='1' />
+		<sh st='5' lc='1' l='0.75' t='-0.89' r='1.243' b='-0.5' ha='0' va='2' tx='K' />
+	</fr>
+
+	<fr ncl='Faker/Subsurface' nll='가상적/수중' l='-0.55' t='-0.525' r='0.55' b='0.675' >
+		<frlink cd='KU' desc='Faker/Sea subsurface'/>
+		<path lc='1' lw='Normal' fc='3' mg='1' outline='1'>
+			<psh st='1' pc='2' pt='0.55,-0.525,0.55,0'/>
+			<psh st='4' l='-0.55' t='-0.674' r='0.55' b='0.675' sa='0' wa='180' />
+			<psh st='1' pc='2' pt='-0.55,0,-0.55,-0.525'/>
+		</path>
+		<sh st='5' lc='1' l='0.55' t='-0.85' r='1.043' b='-0.46' ha='0' va='2' tx='K' />
+	</fr>
+
+</wsfr>

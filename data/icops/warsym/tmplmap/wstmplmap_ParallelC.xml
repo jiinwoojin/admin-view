@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='ParallelC' img='wstmplimg_ParallelC.png'>
+  <tmpllabel name='AT1' rect='35,46,31,23' />
+  <tmpllabel name='AT3' rect='35,152,31,22' />
+  <tmpllabel name='LBL' rect='57,99,31,23' hidable='1' />
+  <tmpllabel name='LBT' rect='148,61,31,23' hidable='1' />
+  <tmpllabel name='LBM' rect='148,99,31,23' hidable='1' />
+  <tmpllabel name='LBB' rect='148,137,31,22' hidable='1' />
+  <tmpllabel name='LBR' rect='239,99,31,23' hidable='1' />
+  <tmpllabel name='AT2' rect='269,46,31,23' />
+  <tmpllabel name='AT4' rect='269,152,31,22' />
+  <tmpllabel name='REV' rect='277,99,31,23' />
+</wstmplmap>

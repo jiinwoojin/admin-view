@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<wsmcd xmlns="urn:icops.cngsol.co.kr" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"		
+		xsi:schemaLocation="urn:icops.cngsol.co.kr C:/ICOPS/warsym/schema/ICOPS_WSMCD.xsd">
+	<mcd cd='P' ncl='Present' nll='현재' />
+	<mcd cd='A' ncl='Anticipated/Plannd' nll='예상/계획' />
+	<mcd cd='C' ncl='Present/Fully capable' nll='현재/정상' />
+	<mcd cd='D' ncl='Present/Damaged' nll='현재/손상된' />
+	<mcd cd='X' ncl='Present/Destroyed' nll='현재/파괴된' />
+	<mcd cd='F' ncl='Present/Full to capacity' nll='현재/최대가동' />
+</wsmcd>

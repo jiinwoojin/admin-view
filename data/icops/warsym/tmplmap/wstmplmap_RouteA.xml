@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='RouteA' img='wstmplimg_RouteA.png'>
+  <tmpllabel name='LBD' rect='150,65,31,19' hidable='1' />
+  <tmpllabel name='LBC' rect='150,100,31,19' hidable='1' />
+</wstmplmap>

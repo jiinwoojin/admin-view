@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wsmcd xmlns="urn:icops.cngsol.co.kr" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"		
+		xsi:schemaLocation="urn:icops.cngsol.co.kr C:/ICOPS/warsym/schema/ICOPS_WSMCD.xsd">
+	<mcd cd='-' ncl='null' nll='미지정' />
+	<mcd cd='A' ncl='Completely reliable' nll='완전 신뢰' />
+	<mcd cd='B' ncl='Usually reliable' nll='신뢰도 높음' />
+	<mcd cd='C' ncl='Fairly reliable' nll='보통' />
+	<mcd cd='D' ncl='Not usually reliable' nll='신뢰도 낮음' />
+	<mcd cd='E' ncl='Unreliable' nll='신뢰할 수 없음' />
+	<mcd cd='F' ncl='Reliability cannot be judged' nll='신뢰성 판단 불가' />
+</wsmcd>

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='ContainA' img='wstmplimg_ContainA.png'>
+  <tmpllabel name='HL' rect='21,50,31,24' />
+  <tmpllabel name='SWA' rect='44,170,31,24' />
+  <tmpllabel name='HC' rect='72,20,31,24' />
+  <tmpllabel name='LBL' rect='66,99,31,23' hidable='1' />
+  <tmpllabel name='LBC' rect='111,99,31,23' hidable='1' />
+  <tmpllabel name='ATC' rect='171,118,31,23' />
+  <tmpllabel name='LBA' rect='209,99,31,23' hidable='1' />
+  <tmpllabel name='ATT' rect='248,118,31,23' />
+</wstmplmap>

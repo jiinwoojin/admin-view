@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wstmplmap name='ParallelB' img='wstmplimg_ParallelB.png'>
+  <tmpllabel name='ASL' rect='61,58,31,25' />
+  <tmpllabel name='LBS' rect='61,96,31,24' hidable='1' />
+  <tmpllabel name='ASR' rect='61,133,31,25' />
+  <tmpllabel name='LNT' rect='114,163,31,24' />
+  <tmpllabel name='LBL' rect='151,58,31,25' hidable='1' />
+  <tmpllabel name='LBM' rect='151,96,31,24' hidable='1' />
+  <tmpllabel name='LBR' rect='151,133,31,25' hidable='1' />
+  <tmpllabel name='CLS' rect='152,163,31,24' />
+  <tmpllabel name='CLT' rect='190,163,31,24' />
+  <tmpllabel name='AEL' rect='250,58,31,25' />
+  <tmpllabel name='LBE' rect='250,96,31,24' hidable='1' />
+  <tmpllabel name='AER' rect='250,133,31,25' />
+  <tmpllabel name='PTC' rect='250,163,31,24' />
+  <tmpllabel name='ANX' rect='23,163,31,24' />
+  <tmpllabel name='LS3' rect='61,163,31,24' />
+</wstmplmap>

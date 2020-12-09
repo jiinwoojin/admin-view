@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="urn:icops.cngsol.co.kr" elementFormDefault="qualified" xmlns="urn:icops.cngsol.co.kr" xmlns:mstns="urn:icops.cngsol.co.kr" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="wsci" type="type_wsci" />
+	<xs:element name="wsfr" type="type_wsfr" />
+  <xs:element name="wspi" type="type_wspi" />
+  <xs:element name="wsmodreg" type="type_wsmodreg" />
+	<xs:element name="wssi_basic" type="type_wssi_basic" />
+	<xs:element name="wssi_point" type="type_wssi_point" />
+	<xs:element name="wssi_gentg" type="type_wssi_gentg" />
+	<!-- -->
+	<!-- wsci: Clip Icon -->
+	<xs:complexType name="type_wsci">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="sh" type="type_sh" maxOccurs="unbounded" />
+			<xs:element name="path" type="type_path" maxOccurs="unbounded" />
+		</xs:choice>
+		<xs:attribute name="nameCL" type="xs:string" use="optional" />
+		<xs:attribute name="nameLL" type="xs:string" use="optional" />
+		<xs:attribute name="desc" type="xs:string" use="optional" />
+	</xs:complexType>
+	<!-- -->
+	<!-- wsfr: 외형부호 -->
+	<xs:complexType name="type_wsfr">
+		<xs:sequence>
+			<xs:element name="fr" type="type_fr" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="type_fr">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="frlink" type="type_frlink" maxOccurs="unbounded" />
+			<xs:element name="sh" type="type_sh" maxOccurs="unbounded" />
+			<xs:element name="path" type="type_path" maxOccurs="unbounded" />
+		</xs:choice>
+		<!-- ncl : Frame name with common language -->
+		<!-- nll : Frame name with local language -->
+		<!-- l, t, r, b : boundary rectangle of frame icon -->
+		<xs:attribute name="ncl" type="xs:string" use="required" />
+		<xs:attribute name="nll" type="xs:string" use="required" />
+		<xs:attribute name="l" type="xs:float" use="required" />
+		<xs:attribute name="t" type="xs:float" use="required" />
+		<xs:attribute name="r" type="xs:float" use="required" />
+		<xs:attribute name="b" type="xs:float" use="required" />
+	</xs:complexType>
+	<xs:complexType name="type_frlink">
+		<xs:attribute name="cd" type="xs:string" use="required" />
+		<xs:attribute name="desc" type="xs:string" use="optional" />
+	</xs:complexType>
+  <!-- -->
+  <!-- wspi: Pattern Icon -->
+  <xs:complexType name="type_wspi">
+    <xs:sequence>
+      <xs:element name="sh" type="type_ptn_icon_shape" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <!-- date : 수정일시 -->
+    <!-- hw : Half width,  -->
+    <!-- len : Length,  -->
+    <xs:attribute name="date" type="xs:string" use="optional" />
+    <xs:attribute name="hw" type="xs:int" use="required" />
+    <xs:attribute name="len" type="xs:int" use="required" />
+    <xs:attribute name="pt" type="type_ptn_icon_coord" use="required" />
+  </xs:complexType>
+  <xs:simpleType name="type_ptn_icon_coord">
+    <xs:restriction base="xs:string">
+      <xs:pattern value=" *[0-9]+, *(-)?[0-9]+(, *[0-9]+, *(-)?[0-9]+)*" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="type_ptn_icon_shape">
+    <!-- lw : Line width, 선 굵기 -->
+    <!-- dl : Draw line, 선 도시 여부 -->
+    <!-- df : Draw fill, 채움 여부 -->
+    <!-- con : Connected, 반복시 이전 아이콘의 해당 도형과 연결 여부 -->
+    <!-- po : Point offset, 아이콘 점 배열에서 해당 도형에 대한 점 시작 인덱스 -->
+    <!-- pc : Point count, 도형에 사용하는 점 개수 -->
+    <xs:attribute name="lw" type="xs:int" use="optional" default="1" />
+    <xs:attribute name="dl" type="xs:boolean" use="optional" default="true" />
+    <xs:attribute name="df" type="xs:boolean" use="optional" default="false" />
+    <xs:attribute name="con" type="xs:boolean" use="optional" default="false" />
+    <xs:attribute name="po" type="xs:int" use="required" />
+    <xs:attribute name="pc" type="xs:int" use="required" />
+  </xs:complexType>
+  <!-- -->
+	<!-- wsmodreg: Modifier registry -->
+	<xs:complexType name="type_wsmodreg">
+		<xs:sequence>
+			<xs:element name="modreg" type="type_modreg" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="type_modreg">
+		<xs:sequence>
+			<xs:element name="gmi" type="type_gmi" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<!-- mid : Modifier ID -->
+		<!-- ncl : 공통어(영문), 수식정보명 -->
+		<!-- nll : 자국어(한글), 수식정보명 -->
+		<!-- uu  : Used by Unit, 부대 -->
+		<!-- ue  : Used by Equipment, 장비 -->
+		<!-- ui  : Used by Instllation, 시설 -->
+		<!-- usi : Used by SIGINT, 신호정보 -->
+		<!-- um  : Used by MOOTW, 전투이외군사작전 -->
+		<!-- up  : Used by Point, 점형 작전활동부호 -->
+		<!-- ul  : Used by Line, 선형 작전활동부호 -->
+		<!-- ua  : Used by Area, 영역형 작전활동부호 -->
+		<!-- ubl : Used by Boundary, 경계선형 작전활동부호 -->
+		<!-- un  : Used by Nuclear, 핵 -->
+		<!-- ubc : Used by Bio/Chemical, 생화학 -->
+		<!-- lu  : Length limit of Unit, 부대 -->
+		<!-- le  : Length limit of Equipment, 장비 -->
+		<!-- li  : Length limit of Instllation, 시설 -->
+		<!-- lsi : Length limit of SIGINT, 신호정보 -->
+		<!-- lm  : Length limit of MOOTW, 전투이외군사작전 -->
+		<!-- lp  : Length limit of Point, 점형 작전활동부호 -->
+		<!-- ll  : Length limit of Line, 선형 작전활동부호 -->
+		<!-- la  : Length limit of Area, 영역형 작전활동부호 -->
+		<!-- lbl : Length limit of Boundary, 경계선형 작전활동부호 -->
+		<!-- ln  : Length limit of Nuclear, 핵 -->
+		<!-- lbc : Length limit of Bio/Chemical, 생화학 -->
+		<!-- po  : Length limit of Position, 표시위치 인덱스 -->
+		<xs:attribute name="mid" type="xs:string" use="required" />
+		<xs:attribute name="ncl" type="xs:string" use="optional" />
+		<xs:attribute name="nll" type="xs:string" use="optional" />
+		<xs:attribute name="uu" type="xs:boolean" use="optional" />
+		<xs:attribute name="ue" type="xs:boolean" use="optional" />
+		<xs:attribute name="ui" type="xs:boolean" use="optional" />
+		<xs:attribute name="usi" type="xs:boolean" use="optional" />
+		<xs:attribute name="um" type="xs:boolean" use="optional" />
+		<xs:attribute name="up" type="xs:boolean" use="optional" />
+		<xs:attribute name="ul" type="xs:boolean" use="optional" />
+		<xs:attribute name="ua" type="xs:boolean" use="optional" />
+		<xs:attribute name="ubl" type="xs:boolean" use="optional" />
+		<xs:attribute name="un" type="xs:boolean" use="optional" />
+		<xs:attribute name="ubc" type="xs:boolean" use="optional" />
+		<xs:attribute name="lu" type="xs:int" use="optional" />
+		<xs:attribute name="le" type="xs:int" use="optional" />
+		<xs:attribute name="li" type="xs:int" use="optional" />
+		<xs:attribute name="lsi" type="xs:int" use="optional" />
+		<xs:attribute name="lm" type="xs:int" use="optional" />
+		<xs:attribute name="lp" type="xs:int" use="optional" />
+		<xs:attribute name="ll" type="xs:int" use="optional" />
+		<xs:attribute name="la" type="xs:int" use="optional" />
+		<xs:attribute name="lbl" type="xs:int" use="optional" />
+		<xs:attribute name="ln" type="xs:int" use="optional" />
+		<xs:attribute name="lbc" type="xs:int" use="optional" />
+		<xs:attribute name="po" type="xs:int" use="optional" />
+	</xs:complexType>
+	<xs:complexType name="type_gmi">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="sh" type="type_sh" maxOccurs="unbounded" />
+			<xs:element name="path" type="type_path" maxOccurs="unbounded" />
+		</xs:choice>
+		<!-- cd : icon code -->
+		<!-- ncl : 공통어(영문), 수식정보명 -->
+		<!-- nll : 자국어(한글), 수식정보명 -->
+		<xs:attribute name="cd" type="xs:string" use="required" />
+		<xs:attribute name="ncl" type="xs:string" use="optional" />
+		<xs:attribute name="nll" type="xs:string" use="optional" />
+	</xs:complexType>
+	<!-- -->
+	<!-- wssi_basic: 기본부호 -->
+	<xs:complexType name="type_wssi_basic">
+		<xs:sequence>
+			<xs:element name="aff" type="type_aff" maxOccurs="5" />
+		</xs:sequence>
+		<!-- cd : code, 부호코드 - 불필요하여 삭제함 -->
+		<!-- bd : Battle dimension for frame group -->
+    <!-- ss : Symbol Style, 외형부호 유형 -->
+    <!-- date : 생성일시 -->
+    <!-- rot : 회전가능 여부 -->
+    <!-- <xs:attribute name="cd" type="xs:string" use="required" />  불필요하여 삭제함 -->
+		<xs:attribute name="bd" type="xs:string" use="required" />
+    <xs:attribute name="ss" type="xs:string" use="required" />
+    <xs:attribute name="date" type="xs:string" use="optional" />
+    <xs:attribute name="rot" type="xs:boolean" use="optional" default="0" />
+  </xs:complexType>
+	<xs:complexType name="type_aff">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="sh" type="type_sh" maxOccurs="unbounded" />
+			<xs:element name="path" type="type_path" maxOccurs="unbounded" />
+		</xs:choice>
+		<!-- af : affiliation, 피아구분 -->
+		<xs:attribute name="af" type="xs:string" use="required" />
+	</xs:complexType>
+	<!-- -->
+	<!-- wssi_point: 점형 작전활동부호 -->
+	<xs:complexType name="type_wssi_point">
+		<xs:choice maxOccurs="unbounded">
+      <xs:element name="exmod" type="type_modinfo" minOccurs="0" maxOccurs="1" />
+			<xs:element name="sh" type="type_sh" maxOccurs="unbounded" />
+			<xs:element name="path" type="type_path" maxOccurs="unbounded" />
+		</xs:choice>
+		<!-- cd : code, 부호코드 - 불필요하여 삭제함 -->
+    <!-- date : 생성일시 -->
+    <!-- adp : anchor description position, 기준점 표시 위치 -->
+    <!-- ads : anchor description string, 기준점 표시 문자열 -->
+		<!-- <xs:attribute name="cd" type="xs:string" use="required" /> 불필요하여 삭제함 -->
+    <xs:attribute name="date" type="xs:string" use="optional" />
+    <xs:attribute name="adp" type="xs:string" use="optional" />
+    <xs:attribute name="ads" type="xs:string" use="optional" />
+	</xs:complexType>
+	<!-- -->
+	<!-- wssi_gentg: 점형 이외의 작전활동부호 -->
+	<xs:complexType name="type_wssi_gentg">
+		<xs:sequence>
+      <xs:element name="exmod" type="type_modinfo" minOccurs="0" maxOccurs="1" />
+      <xs:element name="modnameC" type="type_modinfo" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="modnameL" type="type_modinfo" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="tgsh" type="type_tgsh" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="label" type="type_label" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<!-- cd : code, 부호코드 - 불필요하여 삭제함 -->
+    <!-- date : 생성일시 -->
+    <!-- st : symbol type, 부호종류 컴포넌트 등록번호 -->
+		<!-- tc : text(label) color -->
+		<!-- pv : preview points(기준점) -->
+    <!-- adp : anchor description position, 기준점 표시 위치 -->
+    <!-- ads : anchor description string, 기준점 표시 문자열 -->
+    <!-- <xs:attribute name="cd" type="xs:string" use="required" />  불필요하여 삭제함 -->
+    <xs:attribute name="date" type="xs:string" use="optional" />
+    <xs:attribute name="st" type="xs:int" use="required" />
+		<xs:attribute name="tc" type="xs:int" use="optional" default="1" />
+		<xs:attribute name="pv" type="xs:string" use="required" />
+    <xs:attribute name="adp" type="xs:string" use="optional" />
+    <xs:attribute name="ads" type="xs:string" use="optional" />
+  </xs:complexType>
+	<!-- -->
+	<!--tgsh -->
+	<xs:complexType name="type_tgsh">
+		<!-- lc : line color. 0~8 숫자로 색상 인덱스 지정하거나 '#'로 시작하는 16진수 문자열로 임의의 색상 지정 -->
+		<!-- lw : line width in milimeters -->
+		<!-- ls : line dash style in milimeters -->
+		<!-- fc : fill color. 0~8 숫자로 색상 인덱스 지정하거나 '#'로 시작하는 16진수 문자열로 임의의 색상 지정 -->
+		<!-- fd : faint/dumy indicator position -->
+		<!-- lpf : line pattern file name in 'pattern' folder - 파일명이 아니라 동일 부호명의 패턴파일 번호 (00 ~ 07) 저장하도록 수정 -->
+		<!-- lpc : line pattern color. 0~8 숫자로 색상 인덱스 지정하거나 '#'로 시작하는 16진수 문자열로 임의의 색상 지정 -->
+		<!-- lpw : line pattern line width in milimeters -->
+		<!-- fpf : fill pattern file name in 'pattern' folder - 파일명이 아니라 동일 부호명의 패턴파일 번호 (00 ~ 07) 저장하도록 수정 -->
+		<!-- fpc : fill pattern color. 0~8 숫자로 색상 인덱스 지정하거나 '#'로 시작하는 16진수 문자열로 임의의 색상 지정 -->
+		<xs:attribute name="lc" type="xs:string" use="optional" default="1" />
+		<xs:attribute name="lw" type="xs:string" use="optional" default="0.0" />
+		<xs:attribute name="ls" type="xs:string" use="optional" />
+		<xs:attribute name="fc" type="xs:string" use="optional" default="0" />
+		<xs:attribute name="fd" type="type_fd" use="optional" />
+		<xs:attribute name="lpf" type="xs:string" use="optional" />
+		<xs:attribute name="lpc" type="xs:string" use="optional" default="0" />
+		<xs:attribute name="lpw" type="xs:string" use="optional" default="0.0" />
+		<xs:attribute name="fpf" type="xs:string" use="optional" />
+		<xs:attribute name="fpc" type="xs:string" use="optional" default="0" />
+	</xs:complexType>
+	<!-- -->
+	<!-- Label -->
+	<xs:complexType name="type_label">
+		<xs:sequence>
+			<xs:element name="arrow" type="type_label_arrow" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+		<!-- name : label name -->
+		<!-- text : label text including modifier positions. use '%' + modifier indicator to indicate modifier position and type -->
+		<!-- icon : designate if this label uses icon using specified file name in 'text' field -->
+		<!-- ts : text size in milimeters -->
+		<!-- ss : symbol(graphic modifier) size in milimeters -->
+		<!-- at : label attachment -->
+		<!-- ha : horizontal text alignment -->
+		<!-- va : vertical text alignment -->
+		<!-- lc : line color -->
+		<!-- fc : fill color -->
+		<!-- maf : modifier A filter -->
+		<xs:attribute name="name" type="xs:string" use="required" />
+		<xs:attribute name="text" type="xs:string" use="required" />
+		<xs:attribute name="icon" type="xs:boolean" use="optional" default="false" />
+		<xs:attribute name="ts" type="xs:float" use="optional" />
+		<xs:attribute name="ss" type="xs:float" use="optional" />
+		<xs:attribute name="at" type="type_attachment" use="optional" default="default" />
+		<xs:attribute name="ha" type="type_alignment" use="optional" />
+		<xs:attribute name="va" type="type_alignment" use="optional" />
+		<xs:attribute name="lc" type="xs:string" use="optional" />
+		<xs:attribute name="fc" type="xs:string" use="optional" />
+		<xs:attribute name="maf" type="xs:string" use="optional" />
+	</xs:complexType>
+	<xs:complexType name="type_label_arrow">
+		<!-- type : label arrow type -->
+		<!-- pos : label arrow position -->
+		<!-- text : label arrow text -->
+		<xs:attribute name="type" type="type_label_arrow_type" use="required" />
+		<xs:attribute name="pos" type="type_label_arrow_pos" use="required" />
+		<xs:attribute name="text" type="xs:string" use="optional" />
+	</xs:complexType>
+	<xs:simpleType name="type_fd">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="none" />
+			<xs:enumeration value="top" />
+			<xs:enumeration value="center" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="type_label_arrow_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="oneway" />
+			<xs:enumeration value="twoway" />
+			<xs:enumeration value="both" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="type_label_arrow_pos">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="lower" />
+			<xs:enumeration value="upper" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="type_attachment">
+		<!-- Label attachment type -->
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="default" />
+			<xs:enumeration value="TopLeft" />
+			<xs:enumeration value="TopCenter" />
+			<xs:enumeration value="TopRight" />
+			<xs:enumeration value="MiddleLeft" />
+			<xs:enumeration value="MiddleCenter" />
+			<xs:enumeration value="MiddleRight" />
+			<xs:enumeration value="BottomLeft" />
+			<xs:enumeration value="BottomCenter" />
+			<xs:enumeration value="BottomRight" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="type_alignment">
+		<!-- Label attachment type -->
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="default" />
+			<xs:enumeration value="Near" />
+			<xs:enumeration value="Center" />
+			<xs:enumeration value="Far" />
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- -->
+	<!-- Shape types -->
+	<xs:complexType name="type_sh">
+		<!-- st  : symbol type, 도형종류 -->
+		<!-- lc  : line color, 선색상 -->
+		<!-- lw  : line width, 선굵기 -->
+		<!-- fc  : fill color, 채움색상 -->
+		<!-- l   : left, 좌 -->
+		<!-- t   : top, 상 -->
+		<!-- r   : right, 우 -->
+		<!-- b   : bottom, 하 -->
+		<!-- sa  : starting angle -->
+		<!-- wa  : sweep angle -->
+		<!-- at  : arc type -->
+		<!-- aft : arc fill type -->
+		<!-- ha  : horizontal align -->
+		<!-- va  : vertical align -->
+		<!-- tx  : text -->
+		<!-- md  : modifier -->
+		<!-- pc  : point count -->
+		<!-- pt  : points -->
+		<!-- outline : outline -->
+		<!-- dash : dash -->
+		<xs:attribute name="st" type="xs:int" use="required" />
+		<xs:attribute name="lc" type="xs:string" use="optional" />
+		<xs:attribute name="lw" type="xs:string" use="optional" />
+		<xs:attribute name="fc" type="xs:string" use="optional" />
+		<xs:attribute name="l" type="xs:float" use="optional" />
+		<xs:attribute name="t" type="xs:float" use="optional" />
+		<xs:attribute name="r" type="xs:float" use="optional" />
+		<xs:attribute name="b" type="xs:float" use="optional" />
+		<xs:attribute name="sa" type="xs:float" use="optional" />
+		<xs:attribute name="wa" type="xs:float" use="optional" />
+		<xs:attribute name="at" type="xs:int" use="optional" />
+		<xs:attribute name="aft" type="xs:int" use="optional" />
+		<xs:attribute name="ha" type="xs:int" use="optional" />
+		<xs:attribute name="va" type="xs:int" use="optional" />
+		<xs:attribute name="tx" type="xs:string" use="optional" />
+		<xs:attribute name="md" type="xs:string" use="optional" />
+		<xs:attribute name="pc" type="xs:int" use="optional" />
+		<xs:attribute name="pt" type="xs:string" use="optional" />
+		<xs:attribute name="outline" type="xs:boolean" use="optional" />
+		<xs:attribute name="dash" type="xs:boolean" use="optional" />
+	</xs:complexType>
+	<xs:complexType name="type_path">
+		<xs:sequence>
+			<xs:element name="psh" type="type_psh" maxOccurs="unbounded" />
+		</xs:sequence>
+		<!-- lc  : line color, 선색상 -->
+		<!-- lw  : line width, 선굵기 -->
+		<!-- fc  : fill color, 채움색상 -->
+		<!-- mg  : merge, 병합 여부 -->
+		<!-- outline : outline -->
+		<!-- dash : dash -->
+		<xs:attribute name="lc" type="xs:string" use="optional" />
+		<xs:attribute name="lw" type="xs:string" use="optional" />
+		<xs:attribute name="fc" type="xs:string" use="optional" />
+		<xs:attribute name="mg" type="xs:boolean" use="optional" />
+		<xs:attribute name="outline" type="xs:boolean" use="optional" />
+		<xs:attribute name="dash" type="xs:boolean" use="optional" />
+	</xs:complexType>
+	<xs:complexType name="type_psh">
+		<!-- st  : symbol type, 도형종류 -->
+		<!-- lc  : line color, 선색상 -->
+		<!-- lw  : line width, 선굵기 -->
+		<!-- fc  : fill color, 채움색상 -->
+		<!-- l   : left, 좌 -->
+		<!-- t   : top, 상 -->
+		<!-- r   : right, 우 -->
+		<!-- b   : bottom, 하 -->
+		<!-- sa  : starting angle -->
+		<!-- wa  : sweep angle -->
+		<!-- at  : arc type -->
+		<!-- aft : arc fill type -->
+		<!-- ha  : horizontal align -->
+		<!-- va  : vertical align -->
+		<!-- tx  : text -->
+		<!-- md  : modifier -->
+		<!-- pc  : point count -->
+		<!-- pt  : points -->
+		<xs:attribute name="st" type="xs:int" use="required" />
+		<xs:attribute name="lc" type="xs:string" use="optional" />
+		<xs:attribute name="lw" type="xs:string" use="optional" />
+		<xs:attribute name="fc" type="xs:string" use="optional" />
+		<xs:attribute name="l" type="xs:float" use="optional" />
+		<xs:attribute name="t" type="xs:float" use="optional" />
+		<xs:attribute name="r" type="xs:float" use="optional" />
+		<xs:attribute name="b" type="xs:float" use="optional" />
+		<xs:attribute name="sa" type="xs:float" use="optional" />
+		<xs:attribute name="wa" type="xs:float" use="optional" />
+		<xs:attribute name="at" type="xs:int" use="optional" />
+		<xs:attribute name="aft" type="xs:int" use="optional" />
+		<xs:attribute name="ha" type="xs:int" use="optional" />
+		<xs:attribute name="va" type="xs:int" use="optional" />
+		<xs:attribute name="tx" type="xs:string" use="optional" />
+		<xs:attribute name="md" type="xs:string" use="optional" />
+		<xs:attribute name="pc" type="xs:int" use="optional" />
+		<xs:attribute name="pt" type="xs:string" use="optional" />
+	</xs:complexType>
+  <xs:complexType name="type_modinfo">
+    <!-- 수식정보 식별자를 태그로 사용하며 모두 문자열로 관리 -->
+    <xs:attribute name="A" type="xs:string" use="optional" />
+    <xs:attribute name="B" type="xs:string" use="optional" />
+    <xs:attribute name="C" type="xs:string" use="optional" />
+    <xs:attribute name="D" type="xs:string" use="optional" />
+    <xs:attribute name="E" type="xs:string" use="optional" />
+    <xs:attribute name="F" type="xs:string" use="optional" />
+    <xs:attribute name="G" type="xs:string" use="optional" />
+    <xs:attribute name="H" type="xs:string" use="optional" />
+    <xs:attribute name="H1" type="xs:string" use="optional" />
+    <xs:attribute name="H2" type="xs:string" use="optional" />
+    <xs:attribute name="J" type="xs:string" use="optional" />
+    <xs:attribute name="K" type="xs:string" use="optional" />
+    <xs:attribute name="L" type="xs:string" use="optional" />
+    <xs:attribute name="M" type="xs:string" use="optional" />
+    <xs:attribute name="N" type="xs:string" use="optional" />
+    <xs:attribute name="P" type="xs:string" use="optional" />
+    <xs:attribute name="Q" type="xs:string" use="optional" />
+    <xs:attribute name="R" type="xs:string" use="optional" />
+    <xs:attribute name="R2" type="xs:string" use="optional" />
+    <xs:attribute name="S" type="xs:string" use="optional" />
+    <xs:attribute name="T" type="xs:string" use="optional" />
+    <xs:attribute name="T1" type="xs:string" use="optional" />
+    <xs:attribute name="V" type="xs:string" use="optional" />
+    <xs:attribute name="W" type="xs:string" use="optional" />
+    <xs:attribute name="W1" type="xs:string" use="optional" />
+    <xs:attribute name="X" type="xs:string" use="optional" />
+    <xs:attribute name="X1" type="xs:string" use="optional" />
+    <xs:attribute name="X2" type="xs:string" use="optional" />
+    <xs:attribute name="X3" type="xs:string" use="optional" />
+    <xs:attribute name="Y" type="xs:string" use="optional" />
+    <xs:attribute name="Z" type="xs:string" use="optional" />
+    <xs:attribute name="AA" type="xs:string" use="optional" />
+    <xs:attribute name="AB" type="xs:string" use="optional" />
+    <xs:attribute name="AC" type="xs:string" use="optional" />
+    <xs:attribute name="AD" type="xs:string" use="optional" />
+    <xs:attribute name="AE" type="xs:string" use="optional" />
+    <xs:attribute name="AF" type="xs:string" use="optional" />
+    <xs:attribute name="AG" type="xs:string" use="optional" />
+    <xs:attribute name="AH" type="xs:string" use="optional" />
+    <xs:attribute name="AI" type="xs:string" use="optional" />
+    <xs:attribute name="AJ" type="xs:string" use="optional" />
+    <xs:attribute name="AK" type="xs:string" use="optional" />
+    <xs:attribute name="AL" type="xs:string" use="optional" />
+    <xs:attribute name="AM" type="xs:string" use="optional" />
+    <xs:attribute name="AM1" type="xs:string" use="optional" />
+    <xs:attribute name="AM2" type="xs:string" use="optional" />
+    <xs:attribute name="AM3" type="xs:string" use="optional" />
+    <xs:attribute name="AN" type="xs:string" use="optional" />
+    <xs:attribute name="AN1" type="xs:string" use="optional" />
+    <xs:attribute name="AN2" type="xs:string" use="optional" />
+    <xs:attribute name="AN3" type="xs:string" use="optional" />
+    <xs:attribute name="AN4" type="xs:string" use="optional" />
+    <xs:attribute name="AN5" type="xs:string" use="optional" />
+    <xs:attribute name="AN6" type="xs:string" use="optional" />
+    <xs:attribute name="AN7" type="xs:string" use="optional" />
+    <xs:attribute name="AO" type="xs:string" use="optional" />
+  </xs:complexType>
+</xs:schema>
