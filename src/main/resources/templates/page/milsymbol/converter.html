@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout/page-layout" lang="ko">
+<th:block layout:fragment="content-title-fragment">
+</th:block>
+
+<th:block layout:fragment="content-breadcrumb-fragment">
+    <nav aria-label="breadcrumb" class="col-md-12 px-2">
+        <h2 class="page_tit">군대부호 정의 파일 변환</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a th:href="@{/view/manage/map-list?pg=1&sz=8&lType=ALL&units=ALL}">지도 관리</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">군대부호 정의 Json 변환</li>
+        </ol>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="content-body-fragment">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="form-group">
+                <span>ICOPS > Json</span>
+            </div>
+            <hr/>
+            <h3 class="section_tit">군대부호 정의 파일 변환</h3>
+            <iframe id="frmConverter" name="frmConverter" style="display: none;"></iframe>
+            <form action="to-convert" id="converter-form" target="_blank" accept-charset="utf-8" method="post" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="col-9">
+                        <label>PROPERTIES & MODIFIER 속성 참조 경로</label>
+                        <input type="text" class="form-control" readonly="readonly" th:value="${REF_DIR}">
+                    </div>
+                    <div class="col-3">
+                        <label style="color: #ff0000; font-weight: bold;">ICOPS 군대부호 정의 파일</label>
+                        <input type="file" class="form-control-file" name="file" >
+                    </div>
+                </div>
+                <hr/>
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="fas fa-save"></i> 변환
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</th:block>
+</html>

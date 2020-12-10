@@ -1,11 +1,9 @@
 package com.jiin.admin.milsymbol;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.jiin.admin.converter.mapbox.*;
-import com.jiin.admin.milsymbol.model.ICOPSWssl;
 import com.jiin.admin.milsymbol.model.ICOPSWsi;
+import com.jiin.admin.milsymbol.model.ICOPSWssl;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -20,6 +18,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,14 +34,20 @@ public class ConverterMilsymbol {
         String dataPath = "/Users/neutti/Dev/Projects/admin-view/data";
         //
         File defFile = new File(dataPath + "/icops/ICOPS_WarSym.wssl");
-        File propFile = new File(dataPath + "/icops/ICOPS_WarSym.wssl");
-        MilsymbolVO param = new MilsymbolVO();
-        ConverterMilsymbol parse = new ConverterMilsymbol();
+        File refDir = new File(dataPath + "/data_dir/milsymbols");
         File savefile = new File(dataPath + "/icops/ICOPS_WarSym.json");
         FileWriter writer = new FileWriter(savefile);
-        parse.convertJson(defFile,propFile,writer,param);
+        ConverterMilsymbol parse = new ConverterMilsymbol();
+        parse.convertJson(defFile,refDir,writer);
     }
-    public void convertJson(File defFile, File propFile, Writer output, MilsymbolVO param) throws ParserConfigurationException, JAXBException, IOException, SAXException {
+    public void convertJson(File defFile, File refDir, Writer output) throws ParserConfigurationException, JAXBException, IOException, SAXException {
+        // set parse ref
+        File[] refFiles = refDir.listFiles();
+        Map<String,Map> refMap = new HashMap();
+        for(File ref : refFiles){
+            Map<String,Map> map = new ObjectMapper().readValue(ref, HashMap.class);
+            refMap.putAll(map);
+        }
         // set parse info
         ICOPSWssl wssl = parseICOPSXml(defFile);
         List<ICOPSWsi> wsiList = wssl.getWsi();
@@ -55,12 +60,18 @@ public class ConverterMilsymbol {
             milsymbol.setCodeName(wsi.getNcl());
             milsymbol.setDescription("0");
             milsymbol.setDirectionExplanation("0");
-            milsymbol.setProperties("");
-            milsymbol.setModifier("");
             milsymbol.setApplyState(wsi.getAs());
             milsymbol.setSymbolState(wsi.getSs());
             milsymbol.setSymbolType(wsi.getSt());
             milsymbol.setSymbolCategory(wsi.getSc());
+            Map ref = refMap.get(key);
+            if(ref != null){
+                milsymbol.setProperties(String.valueOf(ref.get("PROPERTIES")));
+                milsymbol.setModifier(String.valueOf(ref.get("MODIFIER")));
+            }else{
+                milsymbol.setProperties("");
+                milsymbol.setModifier("");
+            }
             data.put(key,milsymbol);
         }
         new ObjectMapper()

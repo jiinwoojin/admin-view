@@ -45,6 +45,12 @@
                             <span class="nav-label">스타일 변환</span>
                         </a>
                     </li>
+                    <li class="" th:classappend="${ #httpServletRequest.getRequestURI().contains('/view/milsymbol') ? 'active' : '' }">
+                        <a class="nav-link" th:href="@{/view/milsymbol/converter}">
+                            <i class="fas fa-fw fa-map-pin"></i>
+                            <span class="nav-label">군대부호(to Json) 변환</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 
