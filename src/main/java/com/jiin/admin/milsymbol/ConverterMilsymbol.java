@@ -58,8 +58,6 @@ public class ConverterMilsymbol {
             milsymbol.setMilCode(wsi.getCd());
             milsymbol.setCodeKorName(wsi.getNll());
             milsymbol.setCodeName(wsi.getNcl());
-            milsymbol.setDescription("0");
-            milsymbol.setDirectionExplanation("0");
             milsymbol.setApplyState(wsi.getAs());
             milsymbol.setSymbolState(wsi.getSs());
             milsymbol.setSymbolType(wsi.getSt());

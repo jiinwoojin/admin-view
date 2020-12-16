@@ -64,7 +64,7 @@ public class MVCMilsymbolController {
         File defFile = File.createTempFile("milsymbol",".xml");
         file.transferTo(defFile);
         File refDir = new File(dataPath + "/milsymbols");
-        response.addHeader("Content-Disposition", "attachment; filename=converted-milsymbol.json");
+        response.addHeader("Content-Disposition", "attachment; filename=milSymbolData.json");
         PrintWriter out = response.getWriter();
         converter.convertJson(defFile,refDir,out);
     }
