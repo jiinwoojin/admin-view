@@ -1,8 +1,8 @@
 {
     "1": { "MIL_CODE":"S---------*****", "CODE_KOR_NAME":"기본군대부호", "CODE_NAME":"Warfighting symbols", "DESCRIPTION":0, "DIRECTION_EXPLANATION":0, "PROPERTIES":"", "MODIFIER":""},
     "2": { "MIL_CODE":"G*--------****X", "CODE_KOR_NAME":"작전활동부호 ", "CODE_NAME":"Tactical graphics", "DESCRIPTION":0, "DIRECTION_EXPLANATION":0, "PROPERTIES":"", "MODIFIER":""},
-    "3": { "MIL_CODE":"W--------------", "CODE_KOR_NAME":"기상 및 해양", "CODE_NAME":"METOC", "DESCRIPTION":0, "DIRECTION_EXPLANATION":0, "PROPERTIES":"", "MODIFIER":""},
-    "4": { "MIL_CODE":"I--------------", "CODE_KOR_NAME":"신호정보", "CODE_NAME":"Signals intelligence", "DESCRIPTION":0, "DIRECTION_EXPLANATION":0, "PROPERTIES":"", "MODIFIER":""},
-    "5": { "MIL_CODE":"O*--------*****", "CODE_KOR_NAME":"안정화작전", "CODE_NAME":"Stability operations (SO)", "DESCRIPTION":0, "DIRECTION_EXPLANATION":0, "PROPERTIES":"", "MODIFIER":""},
-    "6": { "MIL_CODE":"E--------------", "CODE_KOR_NAME":"비상관리", "CODE_NAME":"Emergency management symbols", "DESCRIPTION":0, "DIRECTION_EXPLANATION":0, "PROPERTIES":"", "MODIFIER":""}
+    "3": { "MIL_CODE":"W--------------", "CODE_KOR_NAME":"기상 및 해양부호", "CODE_NAME":"METOC", "DESCRIPTION":0, "DIRECTION_EXPLANATION":0, "PROPERTIES":"", "MODIFIER":""},
+    "4": { "MIL_CODE":"I--------------", "CODE_KOR_NAME":"신호정보부호", "CODE_NAME":"Signals intelligence", "DESCRIPTION":0, "DIRECTION_EXPLANATION":0, "PROPERTIES":"", "MODIFIER":""},
+    "5": { "MIL_CODE":"O*--------*****", "CODE_KOR_NAME":"안정화작전부호", "CODE_NAME":"Stability operations (SO)", "DESCRIPTION":0, "DIRECTION_EXPLANATION":0, "PROPERTIES":"", "MODIFIER":""},
+    "6": { "MIL_CODE":"E--------------", "CODE_KOR_NAME":"비상관리부호", "CODE_NAME":"Emergency management symbols", "DESCRIPTION":0, "DIRECTION_EXPLANATION":0, "PROPERTIES":"", "MODIFIER":""}
   }
