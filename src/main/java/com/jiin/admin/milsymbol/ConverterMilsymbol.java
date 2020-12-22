@@ -18,10 +18,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ConverterMilsymbol {
@@ -46,7 +43,11 @@ public class ConverterMilsymbol {
         Map<String,Map> refMap = new HashMap();
         for(File ref : refFiles){
             Map<String,Map> map = new ObjectMapper().readValue(ref, HashMap.class);
-            refMap.putAll(map);
+            Set<String> keys = map.keySet();
+            for(String key : keys){
+                Map data = map.get(key);
+                refMap.put(String.valueOf(data.get("MIL_CODE")),data);
+            }
         }
         // set parse info
         ICOPSWssl wssl = parseICOPSXml(defFile);
@@ -54,6 +55,7 @@ public class ConverterMilsymbol {
         Map data = new LinkedHashMap();
         for(ICOPSWsi wsi : wsiList){
             String key = wsi.getHl();
+            String milCode = wsi.getCd();
             MilsymbolVO milsymbol = new MilsymbolVO();
             milsymbol.setMilCode(wsi.getCd());
             milsymbol.setCodeKorName(wsi.getNll());
@@ -64,7 +66,7 @@ public class ConverterMilsymbol {
             milsymbol.setSymbolState(wsi.getSs());
             milsymbol.setSymbolType(wsi.getSt());
             milsymbol.setSymbolCategory(wsi.getSc());
-            Map ref = refMap.get(key);
+            Map ref = refMap.get(milCode);
             if(ref != null){
                 milsymbol.setProperties(String.valueOf(ref.get("PROPERTIES")));
                 milsymbol.setModifier(String.valueOf(ref.get("MODIFIER")));
